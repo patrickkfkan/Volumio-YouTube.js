@@ -1,18 +1,14 @@
 {
-  "name": "youtubei.js",
-  "version": "2.0.0",
-  "description": "A full-featured wrapper around YouTube's private API. Allows you to retrieve info about any video, subscribe, unsubscribe, like, dislike, comment, search, download videos/music and much more!",
+  "name": "volumio-youtubei.js",
+  "version": "0.1.0-a",
+  "description": "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   "main": "./dist/index.js",
-  "browser": "./bundle/browser.js",
   "types": "./dist",
-  "author": "LuanRT <luan.lrt4@gmail.com> (https://github.com/LuanRT)",
+  "author": "Original author: LuanRT <luan.lrt4@gmail.com> (https://github.com/LuanRT). Modified by Patrick Kan (https://github.com/patrickkfkan).",
   "contributors": [
     "Wykerd (https://github.com/wykerd/)",
     "MasterOfBob777 (https://github.com/MasterOfBob777)",
     "patrickkfkan (https://github.com/patrickkfkan)"
-  ],
-  "funding": [
-    "https://github.com/sponsors/LuanRT"
   ],
   "directories": {
     "test": "./test",
@@ -24,25 +20,28 @@
     "test": "npx jest --verbose",
     "lint": "npx eslint ./src",
     "lint:fix": "npx eslint --fix ./src",
-    "build": "npm run build:parser-map && npm run build:proto && npm run bundle:browser && npm run bundle:browser:prod && npm run build:node",
+    "build": "npm run build:volumio",
     "build:proto": "npx protoc --ts_out ./src/proto --proto_path ./src/proto ./src/proto/youtube.proto",
     "build:node": "npx tsc",
     "build:parser-map": "node ./scripts/build-parser-json.js",
-    "bundle:browser": "npx tsc --module esnext && npx esbuild ./dist/browser.js --banner:js=\"/* eslint-disable */\" --bundle --target=chrome58 --keep-names --format=esm --sourcemap --define:global=globalThis --outfile=./bundle/browser.js --platform=browser",
-    "bundle:browser:prod": "npm run bundle:browser -- --outfile=./bundle/browser.min.js --minify",
+    "build:volumio": "npm run build:parser-map && npm run build:proto && npm run build:node",
     "prepare": "npm run build",
     "watch": "npx tsc --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LuanRT/YouTube.js.git"
+    "url": "git+https://github.com/patrickkfkan/Volumio-YouTube.js.git"
   },
   "license": "MIT",
   "dependencies": {
+    "@peculiar/webcrypto": "^1.4.0",
     "@protobuf-ts/runtime": "^2.7.0",
+    "btoa": "^1.2.1",
+    "event-target-polyfill": "0.0.3",
     "flat": "^5.0.2",
     "linkedom": "^0.14.12",
-    "undici": "^5.7.0"
+    "node-fetch": "^2.6.7",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@protobuf-ts/plugin": "^2.7.0",
@@ -61,9 +60,9 @@
     "typescript": "^4.7.4"
   },
   "bugs": {
-    "url": "https://github.com/LuanRT/YouTube.js/issues"
+    "url": "https://github.com/patrickkfkan/Volumio-YouTube.js/issues"
   },
-  "homepage": "https://github.com/LuanRT/YouTube.js#readme",
+  "homepage": "https://github.com/patrickkfkan/Volumio-YouTube.js#readme",
   "keywords": [
     "yt",
     "dl",
