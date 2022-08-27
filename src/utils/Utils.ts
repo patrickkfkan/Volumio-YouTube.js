@@ -3,6 +3,10 @@ import package_json from '../../package.json';
 import { FetchFunction } from './HTTPClient';
 import userAgents from './user-agents.json';
 
+const uuid = require('uuid');
+const btoa = require('btoa');
+const crypto = getRuntime() === 'node' ? new (require("@peculiar/webcrypto").Crypto)() : window.crypto;
+
 const VALID_CLIENTS = new Set([ 'YOUTUBE', 'YTMUSIC' ]);
 
 export class InnertubeError extends Error {
@@ -93,7 +97,8 @@ export function getRandomUserAgent(type: DeviceCategory): string {
 }
 
 export async function sha1Hash(str: string) {
-  const SubtleCrypto = getRuntime() === 'node' ? (Reflect.get(module, 'require')('crypto').webcrypto as unknown as Crypto).subtle : window.crypto.subtle;
+  //const SubtleCrypto = getRuntime() === 'node' ? (Reflect.get(module, 'require')('crypto').webcrypto as unknown as Crypto).subtle : window.crypto.subtle;
+  const SubtleCrypto = crypto.subtle;
   const byteToHex = [
     '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '0a', '0b', '0c', '0d', '0e', '0f',
     '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '1a', '1b', '1c', '1d', '1e', '1f',
@@ -207,7 +212,8 @@ export function hasKeys<T extends object, R extends (keyof T)[]>(params: T, ...k
 
 export function uuidv4() {
   if (getRuntime() === 'node') {
-    return Reflect.get(module, 'require')('crypto').webcrypto.randomUUID();
+    //return Reflect.get(module, 'require')('crypto').webcrypto.randomUUID();
+    return uuid.v4();
   }
 
   if (globalThis.crypto?.randomUUID()) {
@@ -251,7 +257,7 @@ export async function* streamToIterable(stream: ReadableStream<Uint8Array>) {
   }
 }
 
-export const debugFetch: FetchFunction = (input, init) => {
+export const debugFetch: FetchFunction = (input: any, init: any) => {
   const url =
     typeof input === 'string' ?
       new URL(input) :

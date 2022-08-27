@@ -93,7 +93,7 @@ class OAuth {
     this.#identity = await this.#getClientIdentity();
 
     const data = {
-      client_id: this.#identity.client_id,
+      client_id: this.#identity?.client_id,
       scope: Constants.OAUTH.SCOPE,
       device_id: uuidv4(),
       model_name: Constants.OAUTH.MODEL_NAME

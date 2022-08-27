@@ -9,6 +9,8 @@ import HTTPClient, { FetchFunction } from '../utils/HTTPClient';
 import { DeviceCategory, generateRandomString, getRandomUserAgent, InnertubeError, SessionError } from '../utils/Utils';
 import OAuth, { Credentials, OAuthAuthErrorEventHandler, OAuthAuthEventHandler, OAuthAuthPendingEventHandler } from './OAuth';
 
+const nfFetch = require('node-fetch').default;
+
 export enum ClientType {
   WEB = 'WEB',
   MUSIC = 'WEB_REMIX',
@@ -108,7 +110,7 @@ export default class Session extends EventEmitterLike {
     device_category: DeviceCategory = 'desktop',
     client_name: ClientType = ClientType.WEB,
     tz: string = Intl.DateTimeFormat().resolvedOptions().timeZone,
-    fetch: FetchFunction = globalThis.fetch
+    fetch: FetchFunction = nfFetch
   ) {
     const url = new URL('/sw.js_data', Constants.URLS.YT_BASE);
 

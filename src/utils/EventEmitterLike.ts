@@ -1,3 +1,5 @@
+require('event-target-polyfill');
+
 // Polyfill CustomEvents on node
 if (!Reflect.has(globalThis, 'CustomEvent')) {
 

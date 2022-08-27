@@ -4,6 +4,7 @@ import { getRandomUserAgent, getStringBetweenStrings, PlayerError } from '../uti
 import Constants from '../utils/Constants';
 import UniversalCache from '../utils/Cache';
 
+const nfFetch = require('node-fetch').default;
 
 // Import NToken from '../deciphers/NToken';
 // Import Signature from '../deciphers/Signature';
@@ -24,7 +25,7 @@ export default class Player {
     this.#player_id = player_id;
   }
 
-  static async create(cache: UniversalCache | undefined, fetch: FetchFunction = globalThis.fetch) {
+  static async create(cache: UniversalCache | undefined, fetch: FetchFunction = nfFetch) {
     const url = new URL('/iframe_api', Constants.URLS.YT_BASE);
     const res = await fetch(url);
 

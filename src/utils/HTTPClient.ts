@@ -2,7 +2,11 @@ import Session, { Context } from '../core/Session';
 import Constants from './Constants';
 import { generateSidAuth, getRandomUserAgent, getStringBetweenStrings, InnertubeError, isServer } from './Utils';
 
-export type FetchFunction = typeof fetch;
+const nodeFetch = require('node-fetch');
+const nfFetch = nodeFetch.default;
+const nfHeaders = nodeFetch.Headers;
+const nfRequest = nodeFetch.Request;
+export type FetchFunction = typeof nfFetch;
 
 export interface HTTPClientInit {
   baseURL?: string;
@@ -16,7 +20,7 @@ export default class HTTPClient {
   constructor(session: Session, cookie?: string, fetch?: FetchFunction) {
     this.#session = session;
     this.#cookie = cookie;
-    this.#fetch = fetch || globalThis.fetch;
+    this.#fetch = nfFetch;
   }
 
   get fetch_function() {
@@ -24,7 +28,7 @@ export default class HTTPClient {
   }
 
   async fetch(
-    input: URL | Request | string,
+    input: URL | typeof nfRequest | string,
     init?: RequestInit & HTTPClientInit
   ) {
     const innertube_url = Constants.URLS.API.PRODUCTION + this.#session.api_version;
@@ -40,12 +44,12 @@ export default class HTTPClient {
 
     const headers =
       init?.headers ||
-        (input instanceof Request ? input.headers : new Headers()) ||
-        new Headers();
+        (input instanceof nfRequest ? input.headers : new nfHeaders()) ||
+        new nfHeaders();
 
-    const body = init?.body || (input instanceof Request ? input.body : undefined);
-
-    const request_headers = new Headers(headers);
+    const body = init?.body || (input instanceof nfRequest ? input.body : undefined);
+    
+    const request_headers = new nfHeaders(headers);
 
     request_headers.set('Accept', '*/*');
     request_headers.set('Accept-Language', `en-${this.#session.context.client.gl || 'US'}`);
@@ -110,13 +114,13 @@ export default class HTTPClient {
       }
     }
 
-    const request = new Request(request_url, input instanceof Request ? input : init);
+    const request = new nfRequest(request_url, input instanceof nfRequest ? input : init);
 
     const response = await this.#fetch(request, {
       body: request_body,
       headers: request_headers,
       credentials: 'include',
-      redirect: input instanceof Request ? input.redirect : init?.redirect || 'follow'
+      redirect: input instanceof nfRequest ? input.redirect : init?.redirect || 'follow'
     });
 
     // Check if 2xx
