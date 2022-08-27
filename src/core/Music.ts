@@ -174,7 +174,8 @@ class Music {
       .as(WatchNextTabbedResults)
       .tabs.array().as(Tab);
 
-    const tab = tabs.get({ title: 'Up next' });
+    //const tab = tabs.get({ title: 'Up next' });
+    const tab = tabs.find((tab) => tab.content?.type === 'MusicQueue');
 
     if (!tab)
       throw new InnertubeError('Could not find target tab.');
