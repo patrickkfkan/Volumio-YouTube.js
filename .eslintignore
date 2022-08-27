@@ -1,0 +1,8 @@
+.git
+.github
+test/
+cache/
+src/proto/youtube.ts
+coverage/
+node_modules/
+dist/
