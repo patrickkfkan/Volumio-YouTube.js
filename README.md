@@ -17,6 +17,9 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.1.0-b.1:
+- Restore play buttons in `MusicImmersiveHeader` - needed by YouTube Music plugin to play an 'artist'.
+
 0.1.0-a:
 - Alpha release based on YouTube.js bleeding edge (commit [05b4593](https://github.com/LuanRT/YouTube.js/tree/05b4593e0a8f13cfd8fc56470eecbc429aa15da8)).
 
