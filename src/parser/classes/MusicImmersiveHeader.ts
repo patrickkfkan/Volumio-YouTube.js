@@ -3,6 +3,7 @@ import Parser from '../index';
 import MusicThumbnail from './MusicThumbnail';
 
 import { YTNode } from '../helpers';
+import Button from './Button';
 
 class MusicImmersiveHeader extends YTNode {
   static type = 'MusicImmersiveHeader';
@@ -10,6 +11,8 @@ class MusicImmersiveHeader extends YTNode {
   title: Text;
   description: Text;
   thumbnail: MusicThumbnail | null;
+  play_button: Button | null;
+  start_radio_button: Button | null;
 
   constructor(data: any) {
     super();
@@ -19,9 +22,9 @@ class MusicImmersiveHeader extends YTNode {
     /**
          Not useful for now.
          this.menu = Parser.parse(data.menu);
-         this.play_button = Parser.parse(data.playButton);
-         this.start_radio_button = Parser.parse(data.startRadioButton);
      */
+    this.play_button = Parser.parseItem(data.playButton, Button);
+    this.start_radio_button = Parser.parseItem(data.startRadioButton, Button);
   }
 }
 
