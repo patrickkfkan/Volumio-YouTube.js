@@ -3,9 +3,12 @@ import package_json from '../../package.json';
 import { FetchFunction } from './HTTPClient';
 import userAgents from './user-agents.json';
 
+// eslint-disable-next-line
 const uuid = require('uuid');
+// eslint-disable-next-line
 const btoa = require('btoa');
-const crypto = getRuntime() === 'node' ? new (require("@peculiar/webcrypto").Crypto)() : window.crypto;
+// eslint-disable-next-line
+const crypto = getRuntime() === 'node' ? new (require('@peculiar/webcrypto').Crypto)() : window.crypto;
 
 const VALID_CLIENTS = new Set([ 'YOUTUBE', 'YTMUSIC' ]);
 
@@ -97,7 +100,6 @@ export function getRandomUserAgent(type: DeviceCategory): string {
 }
 
 export async function sha1Hash(str: string) {
-  //const SubtleCrypto = getRuntime() === 'node' ? (Reflect.get(module, 'require')('crypto').webcrypto as unknown as Crypto).subtle : window.crypto.subtle;
   const SubtleCrypto = crypto.subtle;
   const byteToHex = [
     '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '0a', '0b', '0c', '0d', '0e', '0f',
@@ -212,7 +214,6 @@ export function hasKeys<T extends object, R extends (keyof T)[]>(params: T, ...k
 
 export function uuidv4() {
   if (getRuntime() === 'node') {
-    //return Reflect.get(module, 'require')('crypto').webcrypto.randomUUID();
     return uuid.v4();
   }
 

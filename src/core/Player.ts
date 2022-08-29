@@ -4,6 +4,7 @@ import { getRandomUserAgent, getStringBetweenStrings, PlayerError } from '../uti
 import Constants from '../utils/Constants';
 import UniversalCache from '../utils/Cache';
 
+// eslint-disable-next-line
 const nfFetch = require('node-fetch').default;
 
 // Import NToken from '../deciphers/NToken';

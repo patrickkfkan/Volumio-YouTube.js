@@ -9,6 +9,7 @@ import HTTPClient, { FetchFunction } from '../utils/HTTPClient';
 import { DeviceCategory, generateRandomString, getRandomUserAgent, InnertubeError, SessionError } from '../utils/Utils';
 import OAuth, { Credentials, OAuthAuthErrorEventHandler, OAuthAuthEventHandler, OAuthAuthPendingEventHandler } from './OAuth';
 
+// eslint-disable-next-line
 const nfFetch = require('node-fetch').default;
 
 export enum ClientType {

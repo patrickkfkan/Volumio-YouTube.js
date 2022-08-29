@@ -174,7 +174,6 @@ class Music {
       .as(WatchNextTabbedResults)
       .tabs.array().as(Tab);
 
-    //const tab = tabs.get({ title: 'Up next' });
     const tab = tabs.find((tab) => tab.content?.type === 'MusicQueue');
 
     if (!tab)

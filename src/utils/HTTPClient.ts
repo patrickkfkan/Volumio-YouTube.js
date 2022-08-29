@@ -2,6 +2,7 @@ import Session, { Context } from '../core/Session';
 import Constants from './Constants';
 import { generateSidAuth, getRandomUserAgent, getStringBetweenStrings, InnertubeError, isServer } from './Utils';
 
+// eslint-disable-next-line
 const nodeFetch = require('node-fetch');
 const nfFetch = nodeFetch.default;
 const nfHeaders = nodeFetch.Headers;
@@ -17,6 +18,7 @@ export default class HTTPClient {
   #cookie?: string;
   #fetch: FetchFunction;
 
+  // eslint-disable-next-line
   constructor(session: Session, cookie?: string, fetch?: FetchFunction) {
     this.#session = session;
     this.#cookie = cookie;
@@ -48,7 +50,7 @@ export default class HTTPClient {
         new nfHeaders();
 
     const body = init?.body || (input instanceof nfRequest ? input.body : undefined);
-    
+
     const request_headers = new nfHeaders(headers);
 
     request_headers.set('Accept', '*/*');

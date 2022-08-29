@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 require('event-target-polyfill');
 
 // Polyfill CustomEvents on node
