@@ -137,6 +137,8 @@ class MusicResponsiveListItem extends YTNode {
   #parseSong() {
     this.id = this.#playlist_item_data.video_id || this.endpoint?.watch?.video_id;
     this.title = this.#flex_columns[0].key('title').instanceof(Text).toString();
+    // Required for ytmusic plugin's list item display and custom retrieval of artists
+    this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
 
     const duration_text =
       this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => (/^\d+$/).test(run.text.replace(/:/g, '')))?.text ||
@@ -170,6 +172,8 @@ class MusicResponsiveListItem extends YTNode {
   #parseVideo() {
     this.id = this.#playlist_item_data.video_id;
     this.title = this.#flex_columns[0].key('title').instanceof(Text).toString();
+    // Required for ytmusic plugin's list item display and custom retrieval of artists
+    this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
     this.views = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => run.text.match(/(.*?) views/))?.text;
 
     const authors = this.#flex_columns[1].key('title').instanceof(Text).runs?.filter((run) => Reflect.get(run, 'endpoint')?.browse?.id.startsWith('UC')) as TextRun[];
