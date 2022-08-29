@@ -17,6 +17,11 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.1.0-b.2:
+- Add `subtitle` to `MusicResponsiveListItem` - needed by YouTube Music plugin to perform custom retrieval of artists.
+- Fix `Music#Artist` parse error if missing shelves (PR submitted and merged with YouTube.js repo: [#155](https://github.com/LuanRT/YouTube.js/pull/155)).
+- Some cleaning up here and there. Stripped down build process to only compile TS.
+
 0.1.0-b.1:
 - Restore play buttons in `MusicImmersiveHeader` - needed by YouTube Music plugin to play an 'artist'.
 
