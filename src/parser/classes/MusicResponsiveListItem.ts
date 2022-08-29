@@ -209,6 +209,8 @@ class MusicResponsiveListItem extends YTNode {
   #parseAlbum() {
     this.id = this.endpoint?.browse?.id;
     this.title = this.#flex_columns[0].key('title').instanceof(Text).toString();
+    // Required for ytmusic plugin's list item display
+    this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
 
     const author = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.browse?.id.startsWith('UC')) as TextRun;
     author && (this.author = {
@@ -223,6 +225,8 @@ class MusicResponsiveListItem extends YTNode {
   #parsePlaylist() {
     this.id = this.endpoint?.browse?.id;
     this.title = this.#flex_columns[0].key('title').instanceof(Text).toString();
+    // Required for ytmusic plugin's list item display
+    this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
 
     const item_count_run = this.#flex_columns[1].key('title')
       .instanceof(Text).runs?.find((run) => run.text.match(/\d+ (song|songs)/));
