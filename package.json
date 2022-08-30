@@ -23,7 +23,6 @@
     "build": "npm run build:parser-map && npm run build:node",
     "build:node": "npx tsc",
     "build:parser-map": "node ./scripts/build-parser-json.js",
-    "prepare": "npm run build",
     "watch": "npx tsc --watch"
   },
   "repository": {
