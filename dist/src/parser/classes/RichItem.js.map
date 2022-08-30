@@ -1,0 +1,1 @@
+{"version":3,"file":"RichItem.js","sourceRoot":"","sources":["../../../../src/parser/classes/RichItem.ts"],"names":[],"mappings":";;;;;AAAA,qDAA8B;AAC9B,wCAAoC;AAEpC,MAAM,QAAS,SAAQ,gBAAM;IAK3B,YAAY,IAAS;QACnB,KAAK,EAAE,CAAC;QACR,mBAAmB;QACnB,IAAI,CAAC,OAAO,GAAG,eAAM,CAAC,KAAK,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IAC5C,CAAC;;AARM,aAAI,GAAG,UAAU,CAAC;AAW3B,kBAAe,QAAQ,CAAC"}
