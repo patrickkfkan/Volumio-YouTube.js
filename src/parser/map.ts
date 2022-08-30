@@ -160,6 +160,7 @@ import { default as MusicSideAlignedItem } from './classes/MusicSideAlignedItem'
 import { default as MusicSortFilterButton } from './classes/MusicSortFilterButton';
 import { default as MusicThumbnail } from './classes/MusicThumbnail';
 import { default as MusicTwoRowItem } from './classes/MusicTwoRowItem';
+import { default as MusicVisualHeader } from './classes/MusicVisualHeader';
 import { default as NavigationEndpoint } from './classes/NavigationEndpoint';
 import { default as Notification } from './classes/Notification';
 import { default as PlayerAnnotationsExpanded } from './classes/PlayerAnnotationsExpanded';
@@ -413,6 +414,7 @@ const map: Record<string, YTNodeConstructor> = {
   MusicSortFilterButton,
   MusicThumbnail,
   MusicTwoRowItem,
+  MusicVisualHeader,
   NavigationEndpoint,
   Notification,
   PlayerAnnotationsExpanded,
