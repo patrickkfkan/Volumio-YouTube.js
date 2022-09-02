@@ -54,7 +54,9 @@ declare abstract class LibraryResultsBase {
     constructor(continuation: Continuation | null, page: ParsedResponse, actions: Actions);
     getContinuation(): Promise<LibraryResultsBase>;
     get page(): {
-        actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null;
+        actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null; /**
+         * Retrieves recent activity
+         */
         actions_memo: import("../helpers").Memo;
         contents: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
         contents_memo: import("../helpers").Memo;

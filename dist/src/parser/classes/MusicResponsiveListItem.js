@@ -96,7 +96,7 @@ _MusicResponsiveListItem_flex_columns = new WeakMap(), _MusicResponsiveListItem_
 }, _MusicResponsiveListItem_parseSong = function _MusicResponsiveListItem_parseSong() {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
     this.id = __classPrivateFieldGet(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id || ((_b = (_a = this.endpoint) === null || _a === void 0 ? void 0 : _a.watch) === null || _b === void 0 ? void 0 : _b.video_id);
-    this.title = __classPrivateFieldGet(this, _MusicResponsiveListItem_flex_columns, "f")[0].key('title').instanceof(Text_1.default).toString();
+    this.title = __classPrivateFieldGet(this, _MusicResponsiveListItem_flex_columns, "f")[0].key('title').instanceof(Text_1.default);
     // Required for ytmusic plugin's list item display and custom retrieval of artists
     this.subtitle = __classPrivateFieldGet(this, _MusicResponsiveListItem_flex_columns, "f")[1].key('title').instanceof(Text_1.default);
     const duration_text = ((_d = (_c = __classPrivateFieldGet(this, _MusicResponsiveListItem_flex_columns, "f")[1].key('title').instanceof(Text_1.default).runs) === null || _c === void 0 ? void 0 : _c.find((run) => (/^\d+$/).test(run.text.replace(/:/g, '')))) === null || _d === void 0 ? void 0 : _d.text) ||
@@ -128,7 +128,7 @@ _MusicResponsiveListItem_flex_columns = new WeakMap(), _MusicResponsiveListItem_
 }, _MusicResponsiveListItem_parseVideo = function _MusicResponsiveListItem_parseVideo() {
     var _a, _b, _c, _d, _e, _f, _g, _h;
     this.id = __classPrivateFieldGet(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id;
-    this.title = __classPrivateFieldGet(this, _MusicResponsiveListItem_flex_columns, "f")[0].key('title').instanceof(Text_1.default).toString();
+    this.title = __classPrivateFieldGet(this, _MusicResponsiveListItem_flex_columns, "f")[0].key('title').instanceof(Text_1.default);
     // Required for ytmusic plugin's list item display and custom retrieval of artists
     this.subtitle = __classPrivateFieldGet(this, _MusicResponsiveListItem_flex_columns, "f")[1].key('title').instanceof(Text_1.default);
     this.views = (_b = (_a = __classPrivateFieldGet(this, _MusicResponsiveListItem_flex_columns, "f")[1].key('title').instanceof(Text_1.default).runs) === null || _a === void 0 ? void 0 : _a.find((run) => run.text.match(/(.*?) views/))) === null || _b === void 0 ? void 0 : _b.text;

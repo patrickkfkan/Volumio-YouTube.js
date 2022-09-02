@@ -24,7 +24,7 @@ const index_1 = __importDefault(require("../index"));
 const CreatePlaylistDialog_1 = __importDefault(require("./CreatePlaylistDialog"));
 class NavigationEndpoint extends helpers_1.YTNode {
     constructor(data) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z;
         super();
         _NavigationEndpoint_instances.add(this);
         // This is only present in Android nav endpoints
@@ -132,7 +132,8 @@ class NavigationEndpoint extends helpers_1.YTNode {
         }
         if (data === null || data === void 0 ? void 0 : data.watchPlaylistEndpoint) {
             this.watch_playlist = {
-                playlist_id: (_x = data.watchPlaylistEndpoint) === null || _x === void 0 ? void 0 : _x.playlistId
+                playlist_id: (_x = data.watchPlaylistEndpoint) === null || _x === void 0 ? void 0 : _x.playlistId,
+                params: ((_y = data.watchPlaylistEndpoint) === null || _y === void 0 ? void 0 : _y.params) || null
             };
         }
         if (data === null || data === void 0 ? void 0 : data.playlistEditEndpoint) {
@@ -171,7 +172,7 @@ class NavigationEndpoint extends helpers_1.YTNode {
         }
         if (data === null || data === void 0 ? void 0 : data.liveChatItemContextMenuEndpoint) {
             this.live_chat_item_context_menu = {
-                params: (_y = data === null || data === void 0 ? void 0 : data.liveChatItemContextMenuEndpoint) === null || _y === void 0 ? void 0 : _y.params
+                params: (_z = data === null || data === void 0 ? void 0 : data.liveChatItemContextMenuEndpoint) === null || _z === void 0 ? void 0 : _z.params
             };
         }
         if (data === null || data === void 0 ? void 0 : data.sendLiveChatVoteEndpoint) {

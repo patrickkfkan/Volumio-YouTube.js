@@ -17,6 +17,11 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.1.0-b.4:
+- Add missing fields in `NavigationEndpoint` and `PlaylistPanelContinuation` (PR submitted to YouTube.js repo: [#159](https://github.com/LuanRT/YouTube.js/pull/159)).
+- In `MusicResponsiveListItem`, return song and video titles as `Text` object - needed by YouTube Music plugin to obtain watch endpoint for creating Autoplay context.
+
+
 0.1.0-b.3:
 - Add `subtitle` for more item types in `MusicResponsiveListItem` - needed by YouTube Music plugin to better handle display of items.
 - Add `MusicVisualHeader` which fixes `Music#Artist` parse errors for certain artists / channels (PR submitted and merged with YouTube.js repo: [#157](https://github.com/LuanRT/YouTube.js/pull/157)).

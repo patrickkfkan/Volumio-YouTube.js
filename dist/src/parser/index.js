@@ -91,10 +91,11 @@ exports.GridContinuation = GridContinuation;
 GridContinuation.type = 'gridContinuation';
 class PlaylistPanelContinuation extends helpers_1.YTNode {
     constructor(data) {
-        var _b;
+        var _b, _c, _d, _e, _f, _g;
         super();
         this.contents = Parser.parse(data.contents, true);
-        this.continuation = ((_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0].nextContinuationData.continuation) || null;
+        this.continuation = ((_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation) ||
+            ((_g = (_f = (_e = data.continuations) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.nextRadioContinuationData) === null || _g === void 0 ? void 0 : _g.continuation) || null;
     }
 }
 exports.PlaylistPanelContinuation = PlaylistPanelContinuation;

@@ -69,6 +69,7 @@ declare class NavigationEndpoint extends YTNode {
     } | undefined;
     watch_playlist: {
         playlist_id: any;
+        params: any;
     } | undefined;
     playlist_edit: {
         playlist_id: any;

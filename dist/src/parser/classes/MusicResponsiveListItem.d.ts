@@ -13,7 +13,7 @@ declare class MusicResponsiveListItem extends YTNode {
     menu: import("../helpers").SuperParsedResult<YTNode>;
     overlay: import("../helpers").SuperParsedResult<YTNode>;
     id?: string;
-    title?: string;
+    title?: string | Text;
     duration?: {
         text: string;
         seconds: number;
