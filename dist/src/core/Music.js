@@ -116,7 +116,7 @@ class Music {
     getAlbum(album_id) {
         return __awaiter(this, void 0, void 0, function* () {
             (0, Utils_1.throwIfMissing)({ album_id });
-            if (!album_id.startsWith('MPR'))
+            if (!album_id.startsWith('MPR') && !album_id.startsWith('FEmusic_library_privately_owned_release'))
                 throw new Utils_1.InnertubeError('Invalid album id', album_id);
             const response = yield __classPrivateFieldGet(this, _Music_actions, "f").browse(album_id, { client: 'YTMUSIC' });
             return new Album_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
