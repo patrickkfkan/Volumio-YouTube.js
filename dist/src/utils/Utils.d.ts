@@ -22,15 +22,6 @@ export declare class PlayerError extends Error {
 export declare class SessionError extends Error {
 }
 /**
- * Utility to help access deep properties of an object.
- * @param obj - the object.
- * @param key - key of the property being accessed.
- * @param target - anything that might be inside of the property.
- * @param depth - maximum number of nested objects to flatten.
- * @param safe - if set to true arrays will be preserved.
- */
-export declare function findNode(obj: any, key: string, target: string, depth: number, safe?: boolean): any | any[];
-/**
  * Compares given objects. May not work correctly for
  * objects with methods.
  */
@@ -65,15 +56,6 @@ export declare function generateRandomString(length: number): string;
  * @returns seconds
  */
 export declare function timeToSeconds(time: string): number;
-/**
- * Converts strings in camelCase to snake_case.
- * @param string - The string in camelCase.
- */
-export declare function camelToSnake(string: string): string;
-/**
- * Checks if a given client is valid.
- */
-export declare function isValidClient(client: string): boolean;
 /**
  * Throws an error if given parameters are undefined.
  */

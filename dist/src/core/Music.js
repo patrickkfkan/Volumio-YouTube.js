@@ -34,17 +34,17 @@ const Album_1 = __importDefault(require("../parser/ytmusic/Album"));
 const Playlist_1 = __importDefault(require("../parser/ytmusic/Playlist"));
 const index_1 = __importDefault(require("../parser/index"));
 const helpers_1 = require("../parser/helpers");
+const Tab_1 = __importDefault(require("../parser/classes/Tab"));
+const Tabbed_1 = __importDefault(require("../parser/classes/Tabbed"));
+const SingleColumnMusicWatchNextResults_1 = __importDefault(require("../parser/classes/SingleColumnMusicWatchNextResults"));
+const WatchNextTabbedResults_1 = __importDefault(require("../parser/classes/WatchNextTabbedResults"));
+const SectionList_1 = __importDefault(require("../parser/classes/SectionList"));
 const MusicQueue_1 = __importDefault(require("../parser/classes/MusicQueue"));
 const PlaylistPanel_1 = __importDefault(require("../parser/classes/PlaylistPanel"));
 const Message_1 = __importDefault(require("../parser/classes/Message"));
 const MusicDescriptionShelf_1 = __importDefault(require("../parser/classes/MusicDescriptionShelf"));
 const MusicCarouselShelf_1 = __importDefault(require("../parser/classes/MusicCarouselShelf"));
 const SearchSuggestionsSection_1 = __importDefault(require("../parser/classes/SearchSuggestionsSection"));
-const Tab_1 = __importDefault(require("../parser/classes/Tab"));
-const Tabbed_1 = __importDefault(require("../parser/classes/Tabbed"));
-const SingleColumnMusicWatchNextResults_1 = __importDefault(require("../parser/classes/SingleColumnMusicWatchNextResults"));
-const WatchNextTabbedResults_1 = __importDefault(require("../parser/classes/WatchNextTabbedResults"));
-const SectionList_1 = __importDefault(require("../parser/classes/SectionList"));
 const Utils_1 = require("../utils/Utils");
 class Music {
     constructor(session) {
@@ -56,7 +56,8 @@ class Music {
      */
     getInfo(video_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const initial_info = __classPrivateFieldGet(this, _Music_actions, "f").execute('/player', { client: 'YTMUSIC', videoId: video_id });
+            const cpn = (0, Utils_1.generateRandomString)(16);
+            const initial_info = yield __classPrivateFieldGet(this, _Music_actions, "f").getVideoInfo(video_id, cpn, 'YTMUSIC');
             const continuation = __classPrivateFieldGet(this, _Music_actions, "f").execute('/next', { client: 'YTMUSIC', videoId: video_id });
             const response = yield Promise.all([initial_info, continuation]);
             return new TrackInfo_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"));

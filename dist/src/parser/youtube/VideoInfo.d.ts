@@ -23,6 +23,10 @@ export interface FormatOptions {
      * File format, use 'any' to download any format
      */
     format?: string;
+    /**
+     * InnerTube client, can be ANDROID, WEB or YTMUSIC
+     */
+    client?: 'ANDROID' | 'WEB' | 'YTMUSIC';
 }
 export interface DownloadOptions extends FormatOptions {
     /**
@@ -39,6 +43,25 @@ declare class VideoInfo {
         like_count: number | undefined;
         is_liked: boolean | undefined;
         is_disliked: boolean | undefined;
+        /**
+         * Microformat is a bit redundant, so only
+         * a few things there are interesting to us.
+         */
+        embed: {
+            iframe_url: string;
+            flash_url: string;
+            flash_secure_url: string;
+            width: any;
+            height: any;
+        } | null;
+        channel: {
+            id: string;
+            name: string;
+            url: string;
+        } | null;
+        is_unlisted: boolean | undefined;
+        is_family_safe: boolean | undefined;
+        has_ypc_metadata: boolean | null;
         id?: string | undefined;
         channel_id?: string | undefined;
         title?: string | undefined;

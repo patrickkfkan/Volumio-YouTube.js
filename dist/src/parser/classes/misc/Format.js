@@ -36,8 +36,8 @@ class Format {
      * Decipher the streaming url of the format.
      * @returns Deciphered URL.
      */
-    decipher() {
-        return this.url;
+    decipher(player) {
+        return player.decipher(this.url, this.signature_cipher, this.cipher);
     }
 }
 exports.default = Format;

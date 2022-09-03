@@ -32,6 +32,7 @@ import { default as ChannelFeaturedContent } from './classes/ChannelFeaturedCont
 import { default as ChannelHeaderLinks } from './classes/ChannelHeaderLinks';
 import { default as ChannelMetadata } from './classes/ChannelMetadata';
 import { default as ChannelMobileHeader } from './classes/ChannelMobileHeader';
+import { default as ChannelOptions } from './classes/ChannelOptions';
 import { default as ChannelThumbnailWithLink } from './classes/ChannelThumbnailWithLink';
 import { default as ChannelVideoPlayer } from './classes/ChannelVideoPlayer';
 import { default as ChildVideo } from './classes/ChildVideo';
@@ -52,6 +53,7 @@ import { default as CompactMix } from './classes/CompactMix';
 import { default as CompactPlaylist } from './classes/CompactPlaylist';
 import { default as CompactVideo } from './classes/CompactVideo';
 import { default as ContinuationItem } from './classes/ContinuationItem';
+import { default as CopyLink } from './classes/CopyLink';
 import { default as CreatePlaylistDialog } from './classes/CreatePlaylistDialog';
 import { default as DidYouMean } from './classes/DidYouMean';
 import { default as DownloadButton } from './classes/DownloadButton';
@@ -163,6 +165,7 @@ import { default as MusicTwoRowItem } from './classes/MusicTwoRowItem';
 import { default as MusicVisualHeader } from './classes/MusicVisualHeader';
 import { default as NavigationEndpoint } from './classes/NavigationEndpoint';
 import { default as Notification } from './classes/Notification';
+import { default as PageIntroduction } from './classes/PageIntroduction';
 import { default as PlayerAnnotationsExpanded } from './classes/PlayerAnnotationsExpanded';
 import { default as PlayerCaptionsTracklist } from './classes/PlayerCaptionsTracklist';
 import { default as PlayerErrorMessage } from './classes/PlayerErrorMessage';
@@ -204,6 +207,10 @@ import { default as SearchSuggestionsSection } from './classes/SearchSuggestions
 import { default as SecondarySearchContainer } from './classes/SecondarySearchContainer';
 import { default as SectionList } from './classes/SectionList';
 import { default as SettingBoolean } from './classes/SettingBoolean';
+import { default as SettingsCheckbox } from './classes/SettingsCheckbox';
+import { default as SettingsOptions } from './classes/SettingsOptions';
+import { default as SettingsSidebar } from './classes/SettingsSidebar';
+import { default as SettingsSwitch } from './classes/SettingsSwitch';
 import { default as Shelf } from './classes/Shelf';
 import { default as ShowingResultsFor } from './classes/ShowingResultsFor';
 import { default as SimpleCardContent } from './classes/SimpleCardContent';
@@ -286,6 +293,7 @@ const map: Record<string, YTNodeConstructor> = {
   ChannelHeaderLinks,
   ChannelMetadata,
   ChannelMobileHeader,
+  ChannelOptions,
   ChannelThumbnailWithLink,
   ChannelVideoPlayer,
   ChildVideo,
@@ -306,6 +314,7 @@ const map: Record<string, YTNodeConstructor> = {
   CompactPlaylist,
   CompactVideo,
   ContinuationItem,
+  CopyLink,
   CreatePlaylistDialog,
   DidYouMean,
   DownloadButton,
@@ -417,6 +426,7 @@ const map: Record<string, YTNodeConstructor> = {
   MusicVisualHeader,
   NavigationEndpoint,
   Notification,
+  PageIntroduction,
   PlayerAnnotationsExpanded,
   PlayerCaptionsTracklist,
   PlayerErrorMessage,
@@ -458,6 +468,10 @@ const map: Record<string, YTNodeConstructor> = {
   SecondarySearchContainer,
   SectionList,
   SettingBoolean,
+  SettingsCheckbox,
+  SettingsOptions,
+  SettingsSidebar,
+  SettingsSwitch,
   Shelf,
   ShowingResultsFor,
   SimpleCardContent,

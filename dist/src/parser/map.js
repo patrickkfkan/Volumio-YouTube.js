@@ -33,6 +33,7 @@ const ChannelFeaturedContent_1 = __importDefault(require("./classes/ChannelFeatu
 const ChannelHeaderLinks_1 = __importDefault(require("./classes/ChannelHeaderLinks"));
 const ChannelMetadata_1 = __importDefault(require("./classes/ChannelMetadata"));
 const ChannelMobileHeader_1 = __importDefault(require("./classes/ChannelMobileHeader"));
+const ChannelOptions_1 = __importDefault(require("./classes/ChannelOptions"));
 const ChannelThumbnailWithLink_1 = __importDefault(require("./classes/ChannelThumbnailWithLink"));
 const ChannelVideoPlayer_1 = __importDefault(require("./classes/ChannelVideoPlayer"));
 const ChildVideo_1 = __importDefault(require("./classes/ChildVideo"));
@@ -53,6 +54,7 @@ const CompactMix_1 = __importDefault(require("./classes/CompactMix"));
 const CompactPlaylist_1 = __importDefault(require("./classes/CompactPlaylist"));
 const CompactVideo_1 = __importDefault(require("./classes/CompactVideo"));
 const ContinuationItem_1 = __importDefault(require("./classes/ContinuationItem"));
+const CopyLink_1 = __importDefault(require("./classes/CopyLink"));
 const CreatePlaylistDialog_1 = __importDefault(require("./classes/CreatePlaylistDialog"));
 const DidYouMean_1 = __importDefault(require("./classes/DidYouMean"));
 const DownloadButton_1 = __importDefault(require("./classes/DownloadButton"));
@@ -164,6 +166,7 @@ const MusicTwoRowItem_1 = __importDefault(require("./classes/MusicTwoRowItem"));
 const MusicVisualHeader_1 = __importDefault(require("./classes/MusicVisualHeader"));
 const NavigationEndpoint_1 = __importDefault(require("./classes/NavigationEndpoint"));
 const Notification_1 = __importDefault(require("./classes/Notification"));
+const PageIntroduction_1 = __importDefault(require("./classes/PageIntroduction"));
 const PlayerAnnotationsExpanded_1 = __importDefault(require("./classes/PlayerAnnotationsExpanded"));
 const PlayerCaptionsTracklist_1 = __importDefault(require("./classes/PlayerCaptionsTracklist"));
 const PlayerErrorMessage_1 = __importDefault(require("./classes/PlayerErrorMessage"));
@@ -205,6 +208,10 @@ const SearchSuggestionsSection_1 = __importDefault(require("./classes/SearchSugg
 const SecondarySearchContainer_1 = __importDefault(require("./classes/SecondarySearchContainer"));
 const SectionList_1 = __importDefault(require("./classes/SectionList"));
 const SettingBoolean_1 = __importDefault(require("./classes/SettingBoolean"));
+const SettingsCheckbox_1 = __importDefault(require("./classes/SettingsCheckbox"));
+const SettingsOptions_1 = __importDefault(require("./classes/SettingsOptions"));
+const SettingsSidebar_1 = __importDefault(require("./classes/SettingsSidebar"));
+const SettingsSwitch_1 = __importDefault(require("./classes/SettingsSwitch"));
 const Shelf_1 = __importDefault(require("./classes/Shelf"));
 const ShowingResultsFor_1 = __importDefault(require("./classes/ShowingResultsFor"));
 const SimpleCardContent_1 = __importDefault(require("./classes/SimpleCardContent"));
@@ -286,6 +293,7 @@ const map = {
     ChannelHeaderLinks: ChannelHeaderLinks_1.default,
     ChannelMetadata: ChannelMetadata_1.default,
     ChannelMobileHeader: ChannelMobileHeader_1.default,
+    ChannelOptions: ChannelOptions_1.default,
     ChannelThumbnailWithLink: ChannelThumbnailWithLink_1.default,
     ChannelVideoPlayer: ChannelVideoPlayer_1.default,
     ChildVideo: ChildVideo_1.default,
@@ -306,6 +314,7 @@ const map = {
     CompactPlaylist: CompactPlaylist_1.default,
     CompactVideo: CompactVideo_1.default,
     ContinuationItem: ContinuationItem_1.default,
+    CopyLink: CopyLink_1.default,
     CreatePlaylistDialog: CreatePlaylistDialog_1.default,
     DidYouMean: DidYouMean_1.default,
     DownloadButton: DownloadButton_1.default,
@@ -417,6 +426,7 @@ const map = {
     MusicVisualHeader: MusicVisualHeader_1.default,
     NavigationEndpoint: NavigationEndpoint_1.default,
     Notification: Notification_1.default,
+    PageIntroduction: PageIntroduction_1.default,
     PlayerAnnotationsExpanded: PlayerAnnotationsExpanded_1.default,
     PlayerCaptionsTracklist: PlayerCaptionsTracklist_1.default,
     PlayerErrorMessage: PlayerErrorMessage_1.default,
@@ -458,6 +468,10 @@ const map = {
     SecondarySearchContainer: SecondarySearchContainer_1.default,
     SectionList: SectionList_1.default,
     SettingBoolean: SettingBoolean_1.default,
+    SettingsCheckbox: SettingsCheckbox_1.default,
+    SettingsOptions: SettingsOptions_1.default,
+    SettingsSidebar: SettingsSidebar_1.default,
+    SettingsSwitch: SettingsSwitch_1.default,
     Shelf: Shelf_1.default,
     ShowingResultsFor: ShowingResultsFor_1.default,
     SimpleCardContent: SimpleCardContent_1.default,

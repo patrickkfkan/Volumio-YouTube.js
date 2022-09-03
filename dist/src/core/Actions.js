@@ -594,9 +594,15 @@ class Actions {
                     delete data.request;
                 if (Reflect.has(data, 'clientActions'))
                     delete data.clientActions;
+                if (Reflect.has(data, 'settingItemIdForClient'))
+                    delete data.settingItemIdForClient;
                 if (Reflect.has(data, 'action')) {
                     data.actions = [data.action];
                     delete data.action;
+                }
+                if (Reflect.has(data, 'boolValue')) {
+                    data.newValue = { boolValue: data.boolValue };
+                    delete data.boolValue;
                 }
                 if (Reflect.has(data, 'token')) {
                     data.continuation = data.token;

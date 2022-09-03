@@ -24,8 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.u8ToBase64 = exports.debugFetch = exports.streamToIterable = exports.isServer = exports.getRuntime = exports.uuidv4 = exports.hasKeys = exports.throwIfMissing = exports.isValidClient = exports.camelToSnake = exports.timeToSeconds = exports.generateRandomString = exports.generateSidAuth = exports.sha1Hash = exports.getRandomUserAgent = exports.escapeStringRegexp = exports.getStringBetweenStrings = exports.deepCompare = exports.findNode = exports.SessionError = exports.PlayerError = exports.OAuthError = exports.NoStreamingDataError = exports.UnavailableContentError = exports.MissingParamError = exports.DownloadError = exports.ParsingError = exports.InnertubeError = void 0;
-const flat_1 = __importDefault(require("flat"));
+exports.u8ToBase64 = exports.debugFetch = exports.streamToIterable = exports.isServer = exports.getRuntime = exports.uuidv4 = exports.hasKeys = exports.throwIfMissing = exports.timeToSeconds = exports.generateRandomString = exports.generateSidAuth = exports.sha1Hash = exports.getRandomUserAgent = exports.escapeStringRegexp = exports.getStringBetweenStrings = exports.deepCompare = exports.SessionError = exports.PlayerError = exports.OAuthError = exports.NoStreamingDataError = exports.UnavailableContentError = exports.MissingParamError = exports.DownloadError = exports.ParsingError = exports.InnertubeError = void 0;
 const package_json_1 = __importDefault(require("../../package.json"));
 const user_agents_json_1 = __importDefault(require("./user-agents.json"));
 // eslint-disable-next-line
@@ -34,7 +33,6 @@ const uuid = require('uuid');
 const btoa = require('btoa');
 // eslint-disable-next-line
 const crypto = getRuntime() === 'node' ? new (require('@peculiar/webcrypto').Crypto)() : window.crypto;
-const VALID_CLIENTS = new Set(['YOUTUBE', 'YTMUSIC']);
 class InnertubeError extends Error {
     constructor(message, info) {
         super(message);
@@ -70,24 +68,6 @@ exports.PlayerError = PlayerError;
 class SessionError extends Error {
 }
 exports.SessionError = SessionError;
-/**
- * Utility to help access deep properties of an object.
- * @param obj - the object.
- * @param key - key of the property being accessed.
- * @param target - anything that might be inside of the property.
- * @param depth - maximum number of nested objects to flatten.
- * @param safe - if set to true arrays will be preserved.
- */
-function findNode(obj, key, target, depth, safe = true) {
-    const flat_obj = (0, flat_1.default)(obj, { safe, maxDepth: depth || 2 });
-    const result = Object.keys(flat_obj).find((entry) => entry.includes(key) && JSON.stringify(flat_obj[entry] || '{}').includes(target));
-    if (!result)
-        throw new ParsingError(`Expected to find "${key}" with content "${target}" but got ${result}`, {
-            key, target, data_snippet: `${JSON.stringify(flat_obj, null, 4).slice(0, 300)}..`
-        });
-    return flat_obj[result];
-}
-exports.findNode = findNode;
 /**
  * Compares given objects. May not work correctly for
  * objects with methods.
@@ -207,21 +187,6 @@ function timeToSeconds(time) {
     }
 }
 exports.timeToSeconds = timeToSeconds;
-/**
- * Converts strings in camelCase to snake_case.
- * @param string - The string in camelCase.
- */
-function camelToSnake(string) {
-    return string[0].toLowerCase() + string.slice(1, string.length).replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
-}
-exports.camelToSnake = camelToSnake;
-/**
- * Checks if a given client is valid.
- */
-function isValidClient(client) {
-    return VALID_CLIENTS.has(client);
-}
-exports.isValidClient = isValidClient;
 /**
  * Throws an error if given parameters are undefined.
  */
