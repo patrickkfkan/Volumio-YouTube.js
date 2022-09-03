@@ -17,8 +17,12 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.1.0-b.5:
+- Merge from YouTube.js repo (up to commit [60ef3ea](https://github.com/LuanRT/YouTube.js/commit/60ef3eabd37d2f9b25df99219bcb8741aaa35bd7)).
+- Fix `Music#getAlbum()` failing for private albums (PR submitted to YouTube.js repo: [#162](https://github.com/LuanRT/YouTube.js/pull/162)).
+
 0.1.0-b.4:
-- Add missing fields in `NavigationEndpoint` and `PlaylistPanelContinuation` (PR submitted to YouTube.js repo: [#159](https://github.com/LuanRT/YouTube.js/pull/159)).
+- Add missing fields in `NavigationEndpoint` and `PlaylistPanelContinuation` (PR submitted and merged with YouTube.js repo: [#159](https://github.com/LuanRT/YouTube.js/pull/159)).
 - In `MusicResponsiveListItem`, return song and video titles as `Text` object - needed by YouTube Music plugin to obtain watch endpoint for creating Autoplay context.
 
 
