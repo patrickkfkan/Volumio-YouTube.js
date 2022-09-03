@@ -22,23 +22,23 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _Player_signature_timestamp, _Player_player_id;
+var _Player_nsig_sc, _Player_sig_sc, _Player_sig_sc_timestamp, _Player_player_id;
 Object.defineProperty(exports, "__esModule", { value: true });
 const Utils_1 = require("../utils/Utils");
 const Constants_1 = __importDefault(require("../utils/Constants"));
+// See https://github.com/LuanRT/Jinter
+const jintr_1 = __importDefault(require("jintr"));
 // eslint-disable-next-line
 const nfFetch = require('node-fetch').default;
-// Import NToken from '../deciphers/NToken';
-// Import Signature from '../deciphers/Signature';
 class Player {
-    constructor(signature_timestamp, player_id) {
-        // This.#ntoken = ntoken;
-        // This.#signature = signature;
-        // #ntoken;
-        // #signature;
-        _Player_signature_timestamp.set(this, void 0);
+    constructor(signature_timestamp, sig_sc, nsig_sc, player_id) {
+        _Player_nsig_sc.set(this, void 0);
+        _Player_sig_sc.set(this, void 0);
+        _Player_sig_sc_timestamp.set(this, void 0);
         _Player_player_id.set(this, void 0);
-        __classPrivateFieldSet(this, _Player_signature_timestamp, signature_timestamp, "f");
+        __classPrivateFieldSet(this, _Player_nsig_sc, nsig_sc, "f");
+        __classPrivateFieldSet(this, _Player_sig_sc, sig_sc, "f");
+        __classPrivateFieldSet(this, _Player_sig_sc_timestamp, signature_timestamp, "f");
         __classPrivateFieldSet(this, _Player_player_id, player_id, "f");
     }
     static create(cache, fetch = nfFetch) {
@@ -68,41 +68,39 @@ class Player {
             }
             const player_js = yield player_res.text();
             const sig_timestamp = this.extractSigTimestamp(player_js);
-            // Const sig_decipher_sc = this.extractSigDecipherSc(player_js);
-            // Const ntoken_sc = this.extractNTokenSc(player_js);
-            return yield Player.fromSource(cache, sig_timestamp, player_id);
+            const sig_sc = this.extractSigSourceCode(player_js);
+            const nsig_sc = this.extractNSigSourceCode(player_js);
+            return yield Player.fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id);
         });
     }
-    /*
-    Decipher(url?: string, signature_cipher?: string, cipher?: string) {
-      url = url || signature_cipher || cipher;
-  
-      if (!url)
-        throw new PlayerError('No valid URL to decipher');
-  
-      const args = new URLSearchParams(url);
-      const url_components = new URL(args.get('url') || url);
-  
-      url_components.searchParams.set('ratebypass', 'yes');
-  
-      if (signature_cipher || cipher) {
-        const signature = this.#signature.decipher(url);
-        const sp = args.get('sp');
-  
-        sp ?
-          url_components.searchParams.set(sp, signature) :
-          url_components.searchParams.set('signature', signature);
-      }
-  
-      const n = url_components.searchParams.get('n');
-  
-      if (n) {
-        const ntoken = this.#ntoken.transform(n);
-        url_components.searchParams.set('n', ntoken);
-      }
-  
-      return url_components.toString();
-    }*/
+    decipher(url, signature_cipher, cipher) {
+        url = url || signature_cipher || cipher;
+        if (!url)
+            throw new Utils_1.PlayerError('No valid URL to decipher');
+        const args = new URLSearchParams(url);
+        const url_components = new URL(args.get('url') || url);
+        url_components.searchParams.set('ratebypass', 'yes');
+        if (signature_cipher || cipher) {
+            const sig_decipher = new jintr_1.default(__classPrivateFieldGet(this, _Player_sig_sc, "f"));
+            sig_decipher.scope.set('sig', args.get('s'));
+            const signature = sig_decipher.interpret();
+            const sp = args.get('sp');
+            sp ?
+                url_components.searchParams.set(sp, signature) :
+                url_components.searchParams.set('signature', signature);
+        }
+        const n = url_components.searchParams.get('n');
+        if (n) {
+            const nsig_decipher = new jintr_1.default(__classPrivateFieldGet(this, _Player_nsig_sc, "f"));
+            nsig_decipher.scope.set('nsig', n);
+            const nsig = nsig_decipher.interpret();
+            if (nsig.startsWith('enhanced_except_')) {
+                console.warn('Warning:\nCould not transform nsig, download may be throttled.\nChanging the InnerTube client to "ANDROID" might help!');
+            }
+            url_components.searchParams.set('n', nsig);
+        }
+        return url_components.toString();
+    }
     static fromCache(cache, player_id) {
         return __awaiter(this, void 0, void 0, function* () {
             const buffer = yield cache.get(player_id);
@@ -113,17 +111,18 @@ class Player {
             if (version !== Player.LIBRARY_VERSION)
                 return null;
             const sig_timestamp = view.getUint32(4, true);
-            /*
-             * Const sig_decipher_len = view.getUint32(8, true);
-             * const sig_decipher_buf = buffer.slice(12, 12 + sig_decipher_len);
-             * const ntoken_transform_buf = buffer.slice(12 + sig_decipher_len);
-             */
-            return new Player(sig_timestamp, player_id);
+            const sig_len = view.getUint32(8, true);
+            const sig_buf = buffer.slice(12, 12 + sig_len);
+            const nsig_buf = buffer.slice(12 + sig_len);
+            const decoder = new TextDecoder();
+            const sig_sc = decoder.decode(sig_buf);
+            const nsig_sc = decoder.decode(nsig_buf);
+            return new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
         });
     }
-    static fromSource(cache, sig_timestamp, player_id) {
+    static fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const player = new Player(sig_timestamp, player_id);
+            const player = new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
             yield player.cache(cache);
             return player;
         });
@@ -132,42 +131,31 @@ class Player {
         return __awaiter(this, void 0, void 0, function* () {
             if (!cache)
                 return;
-            /**
-             * Const ntoken_buf = this.#ntoken.toArrayBuffer();
-             * const sig_decipher_buf = this.#signature.toArrayBuffer();
-             */
-            const buffer = new ArrayBuffer(12 /* + sig_decipher_buf.byteLength + ntoken_buf.byteLength */);
+            const encoder = new TextEncoder();
+            const sig_buf = encoder.encode(__classPrivateFieldGet(this, _Player_sig_sc, "f"));
+            const nsig_buf = encoder.encode(__classPrivateFieldGet(this, _Player_nsig_sc, "f"));
+            const buffer = new ArrayBuffer(12 + sig_buf.byteLength + nsig_buf.byteLength);
             const view = new DataView(buffer);
             view.setUint32(0, Player.LIBRARY_VERSION, true);
-            view.setUint32(4, __classPrivateFieldGet(this, _Player_signature_timestamp, "f"), true);
-            // View.setUint32(8, sig_decipher_buf.byteLength, true);
-            // New Uint8Array(buffer).set(new Uint8Array(sig_decipher_buf), 12);
-            // New Uint8Array(buffer).set(new Uint8Array(ntoken_buf), 12 + sig_decipher_buf.byteLength);
+            view.setUint32(4, __classPrivateFieldGet(this, _Player_sig_sc_timestamp, "f"), true);
+            view.setUint32(8, sig_buf.byteLength, true);
+            new Uint8Array(buffer).set(sig_buf, 12);
+            new Uint8Array(buffer).set(nsig_buf, 12 + sig_buf.byteLength);
             yield cache.set(__classPrivateFieldGet(this, _Player_player_id, "f"), new Uint8Array(buffer));
         });
     }
-    /**
-     * Extracts the signature timestamp from the player source code.
-     */
     static extractSigTimestamp(data) {
         return parseInt((0, Utils_1.getStringBetweenStrings)(data, 'signatureTimestamp:', ',') || '0');
     }
-    /**
-     * Extracts the signature decipher algorithm.
-     */
-    static extractSigDecipherSc(data) {
-        const sig_alg_sc = (0, Utils_1.getStringBetweenStrings)(data, 'this.audioTracks};var', '};');
-        const sig_data = (0, Utils_1.getStringBetweenStrings)(data, 'function(a){a=a.split("")', 'return a.join("")}');
-        if (!sig_alg_sc || !sig_data)
+    static extractSigSourceCode(data) {
+        const funcs = (0, Utils_1.getStringBetweenStrings)(data, 'this.audioTracks};var', '};');
+        const calls = (0, Utils_1.getStringBetweenStrings)(data, 'function(a){a=a.split("")', 'return a.join("")}');
+        if (!funcs || !calls)
             throw new Utils_1.PlayerError('Failed to extract signature decipher algorithm');
-        return sig_alg_sc + sig_data;
+        return `function descramble_sig(a) { a = a.split(""); ${funcs}}${calls} return a.join("") } descramble_sig(sig);`;
     }
-    /**
-     * Extracts the n-token decipher algorithm.
-     */
-    static extractNTokenSc(data) {
-        const sc = `var b=a.split("")${(0, Utils_1.getStringBetweenStrings)(data, 'b=a.split("")', '}return b.join("")}')}} return b.join("");`;
-        console.log(sc);
+    static extractNSigSourceCode(data) {
+        const sc = `function descramble_nsig(a) { let b=a.split("")${(0, Utils_1.getStringBetweenStrings)(data, 'b=a.split("")', '}return b.join("")}')}} return b.join(""); } descramble_nsig(nsig)`;
         if (!sc)
             throw new Utils_1.PlayerError('Failed to extract n-token decipher algorithm');
         return sc;
@@ -176,12 +164,18 @@ class Player {
         return new URL(`/s/player/${__classPrivateFieldGet(this, _Player_player_id, "f")}/player_ias.vflset/en_US/base.js`, Constants_1.default.URLS.YT_BASE).toString();
     }
     get sts() {
-        return __classPrivateFieldGet(this, _Player_signature_timestamp, "f");
+        return __classPrivateFieldGet(this, _Player_sig_sc_timestamp, "f");
+    }
+    get nsig_sc() {
+        return __classPrivateFieldGet(this, _Player_nsig_sc, "f");
+    }
+    get sig_sc() {
+        return __classPrivateFieldGet(this, _Player_sig_sc, "f");
     }
     static get LIBRARY_VERSION() {
-        return 1;
+        return 2;
     }
 }
 exports.default = Player;
-_Player_signature_timestamp = new WeakMap(), _Player_player_id = new WeakMap();
+_Player_nsig_sc = new WeakMap(), _Player_sig_sc = new WeakMap(), _Player_sig_sc_timestamp = new WeakMap(), _Player_player_id = new WeakMap();
 //# sourceMappingURL=Player.js.map

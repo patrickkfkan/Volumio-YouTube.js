@@ -1,4 +1,3 @@
-import Flatten from 'flat';
 import package_json from '../../package.json';
 import { FetchFunction } from './HTTPClient';
 import userAgents from './user-agents.json';
@@ -9,8 +8,6 @@ const uuid = require('uuid');
 const btoa = require('btoa');
 // eslint-disable-next-line
 const crypto = getRuntime() === 'node' ? new (require('@peculiar/webcrypto').Crypto)() : window.crypto;
-
-const VALID_CLIENTS = new Set([ 'YOUTUBE', 'YTMUSIC' ]);
 
 export class InnertubeError extends Error {
   date: Date;
@@ -37,24 +34,6 @@ export class NoStreamingDataError extends InnertubeError { }
 export class OAuthError extends InnertubeError { }
 export class PlayerError extends Error { }
 export class SessionError extends Error { }
-
-/**
- * Utility to help access deep properties of an object.
- * @param obj - the object.
- * @param key - key of the property being accessed.
- * @param target - anything that might be inside of the property.
- * @param depth - maximum number of nested objects to flatten.
- * @param safe - if set to true arrays will be preserved.
- */
-export function findNode(obj: any, key: string, target: string, depth: number, safe = true): any | any[] {
-  const flat_obj = Flatten(obj, { safe, maxDepth: depth || 2 }) as any;
-  const result = Object.keys(flat_obj).find((entry) => entry.includes(key) && JSON.stringify(flat_obj[entry] || '{}').includes(target));
-  if (!result)
-    throw new ParsingError(`Expected to find "${key}" with content "${target}" but got ${result}`, {
-      key, target, data_snippet: `${JSON.stringify(flat_obj, null, 4).slice(0, 300)}..`
-    });
-  return flat_obj[result];
-}
 
 /**
  * Compares given objects. May not work correctly for
@@ -177,21 +156,6 @@ export function timeToSeconds(time: string) {
     default:
       throw new Error('Invalid time string');
   }
-}
-
-/**
- * Converts strings in camelCase to snake_case.
- * @param string - The string in camelCase.
- */
-export function camelToSnake(string: string) {
-  return string[0].toLowerCase() + string.slice(1, string.length).replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
-}
-
-/**
- * Checks if a given client is valid.
- */
-export function isValidClient(client: string) {
-  return VALID_CLIENTS.has(client);
 }
 
 /**

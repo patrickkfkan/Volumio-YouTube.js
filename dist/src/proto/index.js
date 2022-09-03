@@ -190,8 +190,8 @@ class Proto {
     static encodeCommentActionParams(type, args = {}) {
         const data = {
             type,
-            commentId: args.comment_id || '',
-            videoId: args.video_id || '',
+            commentId: args.comment_id || ' ',
+            videoId: args.video_id || ' ',
             unkNum: 2
         };
         if (args.hasOwnProperty('text')) {
@@ -204,7 +204,7 @@ class Proto {
                         text: args.text
                     }
                 },
-                commentId: args.comment_id || '',
+                commentId: args.comment_id || ' ',
                 targetLanguage: args.target_language
             };
         }

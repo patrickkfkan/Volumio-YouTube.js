@@ -64,10 +64,7 @@ class Comments {
             if (!button)
                 throw new Utils_1.InnertubeError('Could not find target button.');
             const response = yield button.endpoint.callTest(__classPrivateFieldGet(this, _Comments_actions, "f"), {
-                params: {
-                    commentText: text
-                },
-                parse: false
+                commentText: text
             });
             return response;
         });
@@ -79,7 +76,7 @@ class Comments {
         return __awaiter(this, void 0, void 0, function* () {
             if (!__classPrivateFieldGet(this, _Comments_continuation, "f"))
                 throw new Utils_1.InnertubeError('Continuation not found');
-            const data = yield __classPrivateFieldGet(this, _Comments_continuation, "f").endpoint.callTest(__classPrivateFieldGet(this, _Comments_actions, "f"));
+            const data = yield __classPrivateFieldGet(this, _Comments_continuation, "f").endpoint.callTest(__classPrivateFieldGet(this, _Comments_actions, "f"), { parse: true });
             // Copy the previous page so we can keep the header.
             const page = Object.assign({}, __classPrivateFieldGet(this, _Comments_page, "f"));
             if (!page.on_response_received_endpoints || !data.on_response_received_endpoints)

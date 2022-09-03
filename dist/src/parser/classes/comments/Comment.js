@@ -104,9 +104,7 @@ class Comment extends helpers_1.YTNode {
             const dialog = button.endpoint.dialog;
             const dialog_button = dialog.item().as(CommentReplyDialog_1.default).reply_button.item().as(ToggleButton_1.default);
             const payload = {
-                params: {
-                    commentText: text
-                }
+                commentText: text
             };
             const response = yield dialog_button.endpoint.callTest(__classPrivateFieldGet(this, _Comment_actions, "f"), payload);
             return response;

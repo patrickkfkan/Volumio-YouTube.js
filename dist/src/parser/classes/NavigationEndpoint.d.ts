@@ -89,17 +89,14 @@ declare class NavigationEndpoint extends YTNode {
         params: any;
     } | undefined;
     constructor(data: any);
-    /**
-     * Call endpoint. (This is an experiment and may replace {@link call} in the future.).
-     */
     callTest(actions: Actions, args: {
-        parse: false;
-        params?: object;
-    }): Promise<ActionsResponse>;
-    callTest(actions: Actions, args?: {
-        parse?: true;
-        params?: object;
+        [key: string]: any;
+        parse: true;
     }): Promise<ParsedResponse>;
+    callTest(actions: Actions, args?: {
+        [key: string]: any;
+        parse?: false;
+    }): Promise<ActionsResponse>;
     call(actions: Actions, client: string | undefined, parse: true): Promise<ParsedResponse | undefined>;
     call(actions: Actions, client?: string, parse?: false): Promise<ActionsResponse | undefined>;
 }

@@ -50,14 +50,10 @@ class Innertube {
     /**
      * Retrieves video info.
      */
-    getInfo(video_id) {
+    getInfo(video_id, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ video_id });
             const cpn = (0, Utils_1.generateRandomString)(16);
-            const initial_info = yield this.actions.execute('/player', {
-                client: 'ANDROID',
-                videoId: video_id
-            });
+            const initial_info = yield this.actions.getVideoInfo(video_id, cpn, client);
             const continuation = this.actions.next({ video_id });
             const response = yield Promise.all([initial_info, continuation]);
             return new VideoInfo_1.default(response, this.actions, this.session.player, cpn);
@@ -66,14 +62,10 @@ class Innertube {
     /**
      * Retrieves basic video info.
      */
-    getBasicInfo(video_id) {
+    getBasicInfo(video_id, client) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ video_id });
             const cpn = (0, Utils_1.generateRandomString)(16);
-            const response = yield this.actions.execute('/player', {
-                client: 'ANDROID',
-                videoId: video_id
-            });
+            const response = yield this.actions.getVideoInfo(video_id, cpn, client);
             return new VideoInfo_1.default([response], this.actions, this.session.player, cpn);
         });
     }
@@ -224,16 +216,18 @@ class Innertube {
         });
     }
     /**
-     * Downloads a given video. If you only need the direct download link take a look at {@link getStreamingData}.
+     * Downloads a given video. If you only need the direct download link see {@link getStreamingData}.
      *
      * If you wish to retrieve the video info too, have a look at {@link getBasicInfo} or {@link getInfo}.
      */
     download(video_id, options) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ video_id });
-            const info = yield this.getBasicInfo(video_id);
+            const info = yield this.getBasicInfo(video_id, options === null || options === void 0 ? void 0 : options.client);
             return info.download(options);
         });
+    }
+    call(endpoint, args) {
+        return endpoint.callTest(this.actions, args);
     }
 }
 exports.default = Innertube;

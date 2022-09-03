@@ -37,48 +37,7 @@ declare class Comment extends YTNode {
     /**
      * Creates a reply to the comment.
      */
-    reply(text: string): Promise<{
-        actions: SuperParsedResult<YTNode> | null;
-        actions_memo: import("../../helpers").Memo;
-        contents: SuperParsedResult<YTNode>;
-        contents_memo: import("../../helpers").Memo;
-        on_response_received_actions: import("../../helpers").ObservedArray<import("../../index").ReloadContinuationItemsCommand | import("../../index").AppendContinuationItemsAction> | null;
-        on_response_received_actions_memo: import("../../helpers").Memo;
-        on_response_received_endpoints: import("../../helpers").ObservedArray<import("../../index").ReloadContinuationItemsCommand | import("../../index").AppendContinuationItemsAction> | null;
-        on_response_received_endpoints_memo: import("../../helpers").Memo;
-        on_response_received_commands: import("../../helpers").ObservedArray<import("../../index").ReloadContinuationItemsCommand | import("../../index").AppendContinuationItemsAction> | null;
-        on_response_received_commands_memo: import("../../helpers").Memo;
-        continuation: import("../../index").TimedContinuation | null | undefined;
-        continuation_contents: import("../../index").SectionListContinuation | import("../../index").LiveChatContinuation | import("../../index").MusicPlaylistShelfContinuation | import("../../index").MusicShelfContinuation | import("../../index").GridContinuation | import("../../index").PlaylistPanelContinuation | null | undefined;
-        metadata: SuperParsedResult<YTNode>;
-        header: SuperParsedResult<YTNode>;
-        microformat: YTNode | null;
-        sidebar: YTNode | null;
-        overlay: YTNode | null;
-        refinements: any;
-        estimated_results: number | null;
-        player_overlays: SuperParsedResult<YTNode>;
-        playability_status: {
-            status: string;
-            error_screen: SuperParsedResult<YTNode>;
-            embeddable: boolean;
-            reason: any;
-        } | undefined;
-        streaming_data: {
-            expires: Date;
-            formats: import("../misc/Format").default[];
-            adaptive_formats: import("../misc/Format").default[];
-            dash_manifest_url: any;
-            dls_manifest_url: any;
-        } | undefined;
-        current_video_endpoint: import("../NavigationEndpoint").default | null;
-        captions: import("../PlayerCaptionsTracklist").default | null;
-        video_details: import("../misc/VideoDetails").default | undefined;
-        annotations: SuperParsedResult<YTNode>;
-        storyboards: SuperParsedResult<YTNode>;
-        endscreen: import("../Endscreen").default | null;
-        cards: import("../CardCollection").default | null;
-    }>;
+    reply(text: string): Promise<import("../../../core/Actions").AxioslikeResponse>;
     /**
      * Translates the comment to the given language.
      * @param target_language - Ex; en, ja

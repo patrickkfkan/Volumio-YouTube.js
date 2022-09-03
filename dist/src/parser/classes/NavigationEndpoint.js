@@ -186,15 +186,12 @@ class NavigationEndpoint extends helpers_1.YTNode {
             };
         }
     }
-    callTest(actions, args = { parse: true, params: {} }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (!actions)
-                throw new Error('An active caller must be provided');
-            if (!this.metadata.api_url)
-                throw new Error('Expected an api_url, but none was found, this is a bug.');
-            const response = yield actions.execute(this.metadata.api_url, Object.assign(Object.assign(Object.assign({}, this.payload), args.params), { parse: args.parse }));
-            return response;
-        });
+    callTest(actions, args) {
+        if (!actions)
+            throw new Error('An active caller must be provided');
+        if (!this.metadata.api_url)
+            throw new Error('Expected an api_url, but none was found, this is a bug.');
+        return actions.execute(this.metadata.api_url, Object.assign(Object.assign({}, this.payload), args));
     }
     call(actions, client, parse) {
         return __awaiter(this, void 0, void 0, function* () {

@@ -7,6 +7,9 @@ import History from './parser/youtube/History';
 import Comments from './parser/youtube/Comments';
 import NotificationsMenu from './parser/youtube/NotificationsMenu';
 import VideoInfo, { DownloadOptions, FormatOptions } from './parser/youtube/VideoInfo';
+import NavigationEndpoint from './parser/classes/NavigationEndpoint';
+import { ParsedResponse } from './parser';
+import { ActionsResponse } from './core/Actions';
 import Feed from './core/Feed';
 import YTMusic from './core/Music';
 import Studio from './core/Studio';
@@ -34,6 +37,7 @@ export interface SearchFilters {
      */
     sort_by?: 'relevance' | 'rating' | 'upload_date' | 'view_count';
 }
+export declare type InnerTubeClient = 'ANDROID' | 'WEB' | 'YTMUSIC';
 declare class Innertube {
     session: Session;
     account: AccountManager;
@@ -47,11 +51,11 @@ declare class Innertube {
     /**
      * Retrieves video info.
      */
-    getInfo(video_id: string | undefined): Promise<VideoInfo>;
+    getInfo(video_id: string, client?: InnerTubeClient): Promise<VideoInfo>;
     /**
      * Retrieves basic video info.
      */
-    getBasicInfo(video_id: string | undefined): Promise<VideoInfo>;
+    getBasicInfo(video_id: string, client?: InnerTubeClient): Promise<VideoInfo>;
     /**
      * Searches a given query.
      * @param query - search query.
@@ -115,10 +119,18 @@ declare class Innertube {
      */
     getStreamingData(video_id: string, options?: FormatOptions): Promise<import("./parser/classes/misc/Format").default>;
     /**
-     * Downloads a given video. If you only need the direct download link take a look at {@link getStreamingData}.
+     * Downloads a given video. If you only need the direct download link see {@link getStreamingData}.
      *
      * If you wish to retrieve the video info too, have a look at {@link getBasicInfo} or {@link getInfo}.
      */
-    download(video_id: string | undefined, options?: DownloadOptions): Promise<any>;
+    download(video_id: string, options?: DownloadOptions): Promise<any>;
+    call(endpoint: NavigationEndpoint, args: {
+        [key: string]: any;
+        parse: true;
+    }): Promise<ParsedResponse>;
+    call(endpoint: NavigationEndpoint, args?: {
+        [key: string]: any;
+        parse?: false;
+    }): Promise<ActionsResponse>;
 }
 export default Innertube;

@@ -51,7 +51,7 @@ class CommentThread extends helpers_1.YTNode {
             if (!__classPrivateFieldGet(this, _CommentThread_replies, "f"))
                 throw new Utils_1.InnertubeError('This comment has no replies.', { comment_id: (_a = this.comment) === null || _a === void 0 ? void 0 : _a.comment_id });
             const continuation = (_b = __classPrivateFieldGet(this, _CommentThread_replies, "f").key('contents').parsed().array().get({ type: 'ContinuationItem' })) === null || _b === void 0 ? void 0 : _b.as(ContinuationItem_1.default);
-            const response = yield (continuation === null || continuation === void 0 ? void 0 : continuation.endpoint.callTest(__classPrivateFieldGet(this, _CommentThread_actions, "f")));
+            const response = yield (continuation === null || continuation === void 0 ? void 0 : continuation.endpoint.callTest(__classPrivateFieldGet(this, _CommentThread_actions, "f"), { parse: true }));
             this.replies = (_c = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints_memo) === null || _c === void 0 ? void 0 : _c.getType(Comment_1.default).map((comment) => {
                 comment.setActions(__classPrivateFieldGet(this, _CommentThread_actions, "f"));
                 return comment;
@@ -72,7 +72,7 @@ class CommentThread extends helpers_1.YTNode {
                 throw new Utils_1.InnertubeError('Continuation not found.');
             if (!__classPrivateFieldGet(this, _CommentThread_actions, "f"))
                 throw new Utils_1.InnertubeError('Actions not set for this CommentThread.');
-            const response = yield ((_a = __classPrivateFieldGet(this, _CommentThread_continuation, "f").button) === null || _a === void 0 ? void 0 : _a.item().key('endpoint').nodeOfType(NavigationEndpoint_1.default).callTest(__classPrivateFieldGet(this, _CommentThread_actions, "f")));
+            const response = yield ((_a = __classPrivateFieldGet(this, _CommentThread_continuation, "f").button) === null || _a === void 0 ? void 0 : _a.item().key('endpoint').nodeOfType(NavigationEndpoint_1.default).callTest(__classPrivateFieldGet(this, _CommentThread_actions, "f"), { parse: true }));
             this.replies = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints_memo.getType(Comment_1.default).map((comment) => {
                 comment.setActions(__classPrivateFieldGet(this, _CommentThread_actions, "f"));
                 return comment;

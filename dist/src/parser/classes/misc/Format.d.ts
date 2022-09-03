@@ -1,3 +1,4 @@
+import Player from '../../../core/Player';
 declare class Format {
     itag: string;
     mime_type: string;
@@ -33,6 +34,6 @@ declare class Format {
      * Decipher the streaming url of the format.
      * @returns Deciphered URL.
      */
-    decipher(): string;
+    decipher(player: Player): string;
 }
 export default Format;

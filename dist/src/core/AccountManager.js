@@ -22,17 +22,15 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _AccountManager_instances, _AccountManager_actions, _AccountManager_setSetting;
+var _AccountManager_actions;
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../proto/index"));
-const Constants_1 = __importDefault(require("../utils/Constants"));
-const Utils_1 = require("../utils/Utils");
 const Analytics_1 = __importDefault(require("../parser/youtube/Analytics"));
 const TimeWatched_1 = __importDefault(require("../parser/youtube/TimeWatched"));
 const AccountInfo_1 = __importDefault(require("../parser/youtube/AccountInfo"));
+const Settings_1 = __importDefault(require("../parser/youtube/Settings"));
 class AccountManager {
     constructor(actions) {
-        _AccountManager_instances.add(this);
         _AccountManager_actions.set(this, void 0);
         __classPrivateFieldSet(this, _AccountManager_actions, actions, "f");
         this.channel = {
@@ -49,52 +47,6 @@ class AccountManager {
              * Retrieves basic channel analytics.
              */
             getBasicAnalytics: () => this.getAnalytics()
-        };
-        this.settings = {
-            notifications: {
-                /**
-                 * Notify about activity from the channels you're subscribed to.
-                 * @param option - ON | OFF
-                 */
-                setSubscriptions: (option) => __classPrivateFieldGet(this, _AccountManager_instances, "m", _AccountManager_setSetting).call(this, Constants_1.default.ACCOUNT_SETTINGS.SUBSCRIPTIONS, 'SPaccount_notifications', option),
-                /**
-                 * Recommended content notifications.
-                 * @param option - ON | OFF
-                 */
-                setRecommendedVideos: (option) => __classPrivateFieldGet(this, _AccountManager_instances, "m", _AccountManager_setSetting).call(this, Constants_1.default.ACCOUNT_SETTINGS.RECOMMENDED_VIDEOS, 'SPaccount_notifications', option),
-                /**
-                 * Notify about activity on your channel.
-                 * @param option - ON | OFF
-                 */
-                setChannelActivity: (option) => __classPrivateFieldGet(this, _AccountManager_instances, "m", _AccountManager_setSetting).call(this, Constants_1.default.ACCOUNT_SETTINGS.CHANNEL_ACTIVITY, 'SPaccount_notifications', option),
-                /**
-                 * Notify about replies to your comments.
-                 * @param option - ON | OFF
-                 */
-                setCommentReplies: (option) => __classPrivateFieldGet(this, _AccountManager_instances, "m", _AccountManager_setSetting).call(this, Constants_1.default.ACCOUNT_SETTINGS.COMMENT_REPLIES, 'SPaccount_notifications', option),
-                /**
-                 * Notify when others mention your channel.
-                 * @param option - ON | OFF
-                 */
-                setMentions: (option) => __classPrivateFieldGet(this, _AccountManager_instances, "m", _AccountManager_setSetting).call(this, Constants_1.default.ACCOUNT_SETTINGS.USER_MENTION, 'SPaccount_notifications', option),
-                /**
-                 * Notify when others share your content on their channels.
-                 * @param option - ON | OFF
-                 */
-                setSharedContent: (option) => __classPrivateFieldGet(this, _AccountManager_instances, "m", _AccountManager_setSetting).call(this, Constants_1.default.ACCOUNT_SETTINGS.SHARED_CONTENT, 'SPaccount_notifications', option)
-            },
-            privacy: {
-                /**
-                 * If set to true, your subscriptions won't be visible to others.
-                 * @param option - ON | OFF
-                 */
-                setSubscriptionsPrivate: (option) => __classPrivateFieldGet(this, _AccountManager_instances, "m", _AccountManager_setSetting).call(this, Constants_1.default.ACCOUNT_SETTINGS.SUBSCRIPTIONS_PRIVACY, 'SPaccount_privacy', option),
-                /**
-                 * If set to true, saved playlists won't appear on your channel.
-                 * @param option - ON | OFF
-                 */
-                setSavedPlaylistsPrivate: (option) => __classPrivateFieldGet(this, _AccountManager_instances, "m", _AccountManager_setSetting).call(this, Constants_1.default.ACCOUNT_SETTINGS.PLAYLISTS_PRIVACY, 'SPaccount_privacy', option)
-            }
         };
     }
     /**
@@ -119,6 +71,17 @@ class AccountManager {
         });
     }
     /**
+     * Opens YouTube settings.
+     */
+    getSettings() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield __classPrivateFieldGet(this, _AccountManager_actions, "f").execute('/browse', {
+                browseId: 'SPaccount_overview'
+            });
+            return new Settings_1.default(__classPrivateFieldGet(this, _AccountManager_actions, "f"), response);
+        });
+    }
+    /**
      * Retrieves basic channel analytics.
      */
     getAnalytics() {
@@ -131,29 +94,6 @@ class AccountManager {
         });
     }
 }
-_AccountManager_actions = new WeakMap(), _AccountManager_instances = new WeakSet(), _AccountManager_setSetting = function _AccountManager_setSetting(setting_id, type, new_value) {
-    return __awaiter(this, void 0, void 0, function* () {
-        (0, Utils_1.throwIfMissing)({ setting_id, type, new_value });
-        const response = yield __classPrivateFieldGet(this, _AccountManager_actions, "f").browse(type);
-        const contents = (() => {
-            switch (type.trim()) {
-                case 'SPaccount_notifications':
-                    return (0, Utils_1.findNode)(response.data, 'contents', 'Your preferences', 13, false).options;
-                case 'SPaccount_privacy':
-                    return (0, Utils_1.findNode)(response.data, 'contents', 'settingsSwitchRenderer', 13, false).options;
-                default:
-                    // This is just for maximum compatibility, this is most definitely a bad way to handle this
-                    throw new TypeError('undefined is not a function');
-            }
-        })();
-        const option = contents.find((option) => option.settingsSwitchRenderer.enableServiceEndpoint.setSettingEndpoint.settingItemIdForClient == setting_id);
-        const setting_item_id = option.settingsSwitchRenderer.enableServiceEndpoint.setSettingEndpoint.settingItemId;
-        const set_setting = yield __classPrivateFieldGet(this, _AccountManager_actions, "f").account('account/set_setting', {
-            new_value: type == 'SPaccount_privacy' ? !new_value : new_value,
-            setting_item_id
-        });
-        return set_setting;
-    });
-};
+_AccountManager_actions = new WeakMap();
 exports.default = AccountManager;
 //# sourceMappingURL=AccountManager.js.map

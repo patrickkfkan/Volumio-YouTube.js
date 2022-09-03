@@ -44,6 +44,8 @@ const PlayerOverlay_1 = __importDefault(require("../classes/PlayerOverlay"));
 const ToggleButton_1 = __importDefault(require("../classes/ToggleButton"));
 const CommentsEntryPointHeader_1 = __importDefault(require("../classes/comments/CommentsEntryPointHeader"));
 const ContinuationItem_1 = __importDefault(require("../classes/ContinuationItem"));
+const PlayerMicroformat_1 = __importDefault(require("../classes/PlayerMicroformat"));
+const MicroformatData_1 = __importDefault(require("../classes/MicroformatData"));
 const LiveChat_1 = __importDefault(require("../classes/LiveChat"));
 const LiveChat_2 = __importDefault(require("./LiveChat"));
 const linkedom_1 = require("linkedom");
@@ -54,7 +56,7 @@ class VideoInfo {
      * @param cpn - Client Playback Nonce
      */
     constructor(data, actions, player, cpn) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13;
         _VideoInfo_instances.add(this);
         _VideoInfo_page.set(this, void 0);
         _VideoInfo_actions.set(this, void 0);
@@ -69,7 +71,19 @@ class VideoInfo {
         __classPrivateFieldSet(this, _VideoInfo_page, [info, next], "f");
         if (((_b = info.playability_status) === null || _b === void 0 ? void 0 : _b.status) === 'ERROR')
             throw new Utils_1.InnertubeError('This video is unavailable', info.playability_status);
-        this.basic_info = Object.assign(Object.assign({}, info.video_details), { like_count: undefined, is_liked: undefined, is_disliked: undefined });
+        if (info.microformat && !((_c = info.microformat) === null || _c === void 0 ? void 0 : _c.is(PlayerMicroformat_1.default, MicroformatData_1.default)))
+            throw new Utils_1.InnertubeError('Invalid microformat', info.microformat);
+        this.basic_info = Object.assign(Object.assign(Object.assign({}, info.video_details), {
+            /**
+             * Microformat is a bit redundant, so only
+             * a few things there are interesting to us.
+             */
+            embed: ((_d = info.microformat) === null || _d === void 0 ? void 0 : _d.is(PlayerMicroformat_1.default)) ? (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.embed : null,
+            channel: ((_f = info.microformat) === null || _f === void 0 ? void 0 : _f.is(PlayerMicroformat_1.default)) ? (_g = info.microformat) === null || _g === void 0 ? void 0 : _g.channel : null,
+            is_unlisted: (_h = info.microformat) === null || _h === void 0 ? void 0 : _h.is_unlisted,
+            is_family_safe: (_j = info.microformat) === null || _j === void 0 ? void 0 : _j.is_family_safe,
+            has_ypc_metadata: ((_k = info.microformat) === null || _k === void 0 ? void 0 : _k.is(PlayerMicroformat_1.default)) ? (_l = info.microformat) === null || _l === void 0 ? void 0 : _l.has_ypc_metadata : null
+        }), { like_count: undefined, is_liked: undefined, is_disliked: undefined });
         this.streaming_data = info.streaming_data;
         this.playability_status = info.playability_status;
         this.annotations = info.annotations;
@@ -81,20 +95,20 @@ class VideoInfo {
         const results = two_col === null || two_col === void 0 ? void 0 : two_col.results;
         const secondary_results = two_col === null || two_col === void 0 ? void 0 : two_col.secondary_results;
         if (results && secondary_results) {
-            this.primary_info = (_c = results.get({ type: 'VideoPrimaryInfo' })) === null || _c === void 0 ? void 0 : _c.as(VideoPrimaryInfo_1.default);
-            this.secondary_info = (_d = results.get({ type: 'VideoSecondaryInfo' })) === null || _d === void 0 ? void 0 : _d.as(VideoSecondaryInfo_1.default);
-            this.merchandise = (_e = results.get({ type: 'MerchandiseShelf' })) === null || _e === void 0 ? void 0 : _e.as(MerchandiseShelf_1.default);
-            this.related_chip_cloud = (_g = (_f = secondary_results.get({ type: 'RelatedChipCloud' })) === null || _f === void 0 ? void 0 : _f.as(RelatedChipCloud_1.default)) === null || _g === void 0 ? void 0 : _g.content.item().as(ChipCloud_1.default);
-            this.watch_next_feed = (_j = (_h = secondary_results.get({ type: 'ItemSection' })) === null || _h === void 0 ? void 0 : _h.as(ItemSection_1.default)) === null || _j === void 0 ? void 0 : _j.contents;
+            this.primary_info = (_m = results.get({ type: 'VideoPrimaryInfo' })) === null || _m === void 0 ? void 0 : _m.as(VideoPrimaryInfo_1.default);
+            this.secondary_info = (_o = results.get({ type: 'VideoSecondaryInfo' })) === null || _o === void 0 ? void 0 : _o.as(VideoSecondaryInfo_1.default);
+            this.merchandise = (_p = results.get({ type: 'MerchandiseShelf' })) === null || _p === void 0 ? void 0 : _p.as(MerchandiseShelf_1.default);
+            this.related_chip_cloud = (_r = (_q = secondary_results.get({ type: 'RelatedChipCloud' })) === null || _q === void 0 ? void 0 : _q.as(RelatedChipCloud_1.default)) === null || _r === void 0 ? void 0 : _r.content.item().as(ChipCloud_1.default);
+            this.watch_next_feed = (_t = (_s = secondary_results.get({ type: 'ItemSection' })) === null || _s === void 0 ? void 0 : _s.as(ItemSection_1.default)) === null || _t === void 0 ? void 0 : _t.contents;
             if (this.watch_next_feed && Array.isArray(this.watch_next_feed))
-                __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_k = this.watch_next_feed.pop()) === null || _k === void 0 ? void 0 : _k.as(ContinuationItem_1.default), "f");
+                __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_u = this.watch_next_feed.pop()) === null || _u === void 0 ? void 0 : _u.as(ContinuationItem_1.default), "f");
             this.player_overlays = next === null || next === void 0 ? void 0 : next.player_overlays.item().as(PlayerOverlay_1.default);
-            this.basic_info.like_count = (_q = (_p = (_o = (_m = (_l = this.primary_info) === null || _l === void 0 ? void 0 : _l.menu) === null || _m === void 0 ? void 0 : _m.top_level_buttons) === null || _o === void 0 ? void 0 : _o.get({ icon_type: 'LIKE' })) === null || _p === void 0 ? void 0 : _p.as(ToggleButton_1.default)) === null || _q === void 0 ? void 0 : _q.like_count;
-            this.basic_info.is_liked = (_v = (_u = (_t = (_s = (_r = this.primary_info) === null || _r === void 0 ? void 0 : _r.menu) === null || _s === void 0 ? void 0 : _s.top_level_buttons) === null || _t === void 0 ? void 0 : _t.get({ icon_type: 'LIKE' })) === null || _u === void 0 ? void 0 : _u.as(ToggleButton_1.default)) === null || _v === void 0 ? void 0 : _v.is_toggled;
-            this.basic_info.is_disliked = (_0 = (_z = (_y = (_x = (_w = this.primary_info) === null || _w === void 0 ? void 0 : _w.menu) === null || _x === void 0 ? void 0 : _x.top_level_buttons) === null || _y === void 0 ? void 0 : _y.get({ icon_type: 'DISLIKE' })) === null || _z === void 0 ? void 0 : _z.as(ToggleButton_1.default)) === null || _0 === void 0 ? void 0 : _0.is_toggled;
-            const comments_entry_point = (_1 = results.get({ target_id: 'comments-entry-point' })) === null || _1 === void 0 ? void 0 : _1.as(ItemSection_1.default);
-            this.comments_entry_point_header = (_3 = (_2 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _2 === void 0 ? void 0 : _2.get({ type: 'CommentsEntryPointHeader' })) === null || _3 === void 0 ? void 0 : _3.as(CommentsEntryPointHeader_1.default);
-            this.livechat = (_4 = next === null || next === void 0 ? void 0 : next.contents_memo.getType(LiveChat_1.default)) === null || _4 === void 0 ? void 0 : _4[0];
+            this.basic_info.like_count = (_z = (_y = (_x = (_w = (_v = this.primary_info) === null || _v === void 0 ? void 0 : _v.menu) === null || _w === void 0 ? void 0 : _w.top_level_buttons) === null || _x === void 0 ? void 0 : _x.get({ icon_type: 'LIKE' })) === null || _y === void 0 ? void 0 : _y.as(ToggleButton_1.default)) === null || _z === void 0 ? void 0 : _z.like_count;
+            this.basic_info.is_liked = (_4 = (_3 = (_2 = (_1 = (_0 = this.primary_info) === null || _0 === void 0 ? void 0 : _0.menu) === null || _1 === void 0 ? void 0 : _1.top_level_buttons) === null || _2 === void 0 ? void 0 : _2.get({ icon_type: 'LIKE' })) === null || _3 === void 0 ? void 0 : _3.as(ToggleButton_1.default)) === null || _4 === void 0 ? void 0 : _4.is_toggled;
+            this.basic_info.is_disliked = (_9 = (_8 = (_7 = (_6 = (_5 = this.primary_info) === null || _5 === void 0 ? void 0 : _5.menu) === null || _6 === void 0 ? void 0 : _6.top_level_buttons) === null || _7 === void 0 ? void 0 : _7.get({ icon_type: 'DISLIKE' })) === null || _8 === void 0 ? void 0 : _8.as(ToggleButton_1.default)) === null || _9 === void 0 ? void 0 : _9.is_toggled;
+            const comments_entry_point = (_10 = results.get({ target_id: 'comments-entry-point' })) === null || _10 === void 0 ? void 0 : _10.as(ItemSection_1.default);
+            this.comments_entry_point_header = (_12 = (_11 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _11 === void 0 ? void 0 : _11.get({ type: 'CommentsEntryPointHeader' })) === null || _12 === void 0 ? void 0 : _12.as(CommentsEntryPointHeader_1.default);
+            this.livechat = (_13 = next === null || next === void 0 ? void 0 : next.contents_memo.getType(LiveChat_1.default)) === null || _13 === void 0 ? void 0 : _13[0];
         }
     }
     /**
@@ -312,7 +326,7 @@ class VideoInfo {
                 throw new Utils_1.InnertubeError('Streaming data not available.', { video: this, error_type: 'NO_STREAMING_DATA' });
             const opts = Object.assign({ quality: '360p', type: 'video+audio', format: 'mp4', range: undefined }, options);
             const format = this.chooseFormat(opts);
-            const format_url = format.decipher();
+            const format_url = format.decipher(__classPrivateFieldGet(this, _VideoInfo_player, "f"));
             // If we're not downloading the video in chunks, we just use fetch once.
             if (opts.type === 'video+audio' && !options.range) {
                 const response = yield __classPrivateFieldGet(this, _VideoInfo_actions, "f").session.http.fetch_function(`${format_url}&cpn=${__classPrivateFieldGet(this, _VideoInfo_cpn, "f")}`, {
@@ -448,7 +462,7 @@ _VideoInfo_page = new WeakMap(), _VideoInfo_actions = new WeakMap(), _VideoInfo_
     const codecs = (0, Utils_1.getStringBetweenStrings)(format.mime_type, 'codecs="', '"');
     if (!format.index_range || !format.init_range)
         throw new Utils_1.InnertubeError('Index and init ranges not available', { format });
-    const url = new URL(format.decipher());
+    const url = new URL(format.decipher(__classPrivateFieldGet(this, _VideoInfo_player, "f")));
     url.searchParams.set('cpn', __classPrivateFieldGet(this, _VideoInfo_cpn, "f"));
     set.appendChild(__classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'Representation', {
         id: format.itag,
@@ -474,7 +488,7 @@ _VideoInfo_page = new WeakMap(), _VideoInfo_actions = new WeakMap(), _VideoInfo_
     const codecs = (0, Utils_1.getStringBetweenStrings)(format.mime_type, 'codecs="', '"');
     if (!format.index_range || !format.init_range)
         throw new Utils_1.InnertubeError('Index and init ranges not available', { format });
-    const url = new URL(format.decipher());
+    const url = new URL(format.decipher(__classPrivateFieldGet(this, _VideoInfo_player, "f")));
     url.searchParams.set('cpn', __classPrivateFieldGet(this, _VideoInfo_cpn, "f"));
     set.appendChild(__classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'Representation', {
         id: format.itag,

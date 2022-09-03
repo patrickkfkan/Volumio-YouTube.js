@@ -55,42 +55,6 @@ export declare const INNERTUBE_HEADERS_BASE: Readonly<{
     'accept-encoding': "gzip, deflate";
     'content-type': "application/json";
 }>;
-export declare const ACCOUNT_SETTINGS: Readonly<{
-    SUBSCRIPTIONS: "NOTIFICATION_SUBSCRIPTION_NOTIFICATIONS";
-    RECOMMENDED_VIDEOS: "NOTIFICATION_RECOMMENDATION_WEB_CONTROL";
-    CHANNEL_ACTIVITY: "NOTIFICATION_COMMENT_WEB_CONTROL";
-    COMMENT_REPLIES: "NOTIFICATION_COMMENT_REPLY_OTHER_WEB_CONTROL";
-    USER_MENTION: "NOTIFICATION_USER_MENTION_WEB_CONTROL";
-    SHARED_CONTENT: "NOTIFICATION_RETUBING_WEB_CONTROL";
-    PLAYLISTS_PRIVACY: "PRIVACY_DISCOVERABLE_SAVED_PLAYLISTS";
-    SUBSCRIPTIONS_PRIVACY: "PRIVACY_DISCOVERABLE_SUBSCRIPTIONS";
-}>;
-export declare const BASE64_DIALECT: Readonly<{
-    NORMAL: string[];
-    REVERSE: string[];
-}>;
-export declare const SIG_REGEX: Readonly<{
-    ACTIONS: RegExp;
-    FUNCTIONS: RegExp;
-}>;
-export declare const NTOKEN_REGEX: Readonly<{
-    CALLS: RegExp;
-    PLACEHOLDERS: RegExp;
-    FUNCTIONS: RegExp;
-}>;
-export declare const FUNCS: Readonly<{
-    PUSH: "d.push(e)";
-    REVERSE_1: "d.reverse()";
-    REVERSE_2: "function(d){for(var";
-    SPLICE: "d.length;d.splice(e,1)";
-    SWAP0_1: "d[0])[0])";
-    SWAP0_2: "f=d[0];d[0]";
-    ROTATE_1: "reverse().forEach";
-    ROTATE_2: "unshift(d.pop())";
-    BASE64_DIA: "function(){for(var";
-    TRANSLATE_1: "function(d,e){for(var f";
-    TRANSLATE_2: "function(d,e,f){var";
-}>;
 declare const _default: {
     URLS: Readonly<{
         YT_BASE: "https://www.youtube.com";
@@ -148,42 +112,6 @@ declare const _default: {
         accept: "*/*";
         'accept-encoding': "gzip, deflate";
         'content-type': "application/json";
-    }>;
-    ACCOUNT_SETTINGS: Readonly<{
-        SUBSCRIPTIONS: "NOTIFICATION_SUBSCRIPTION_NOTIFICATIONS";
-        RECOMMENDED_VIDEOS: "NOTIFICATION_RECOMMENDATION_WEB_CONTROL";
-        CHANNEL_ACTIVITY: "NOTIFICATION_COMMENT_WEB_CONTROL";
-        COMMENT_REPLIES: "NOTIFICATION_COMMENT_REPLY_OTHER_WEB_CONTROL";
-        USER_MENTION: "NOTIFICATION_USER_MENTION_WEB_CONTROL";
-        SHARED_CONTENT: "NOTIFICATION_RETUBING_WEB_CONTROL";
-        PLAYLISTS_PRIVACY: "PRIVACY_DISCOVERABLE_SAVED_PLAYLISTS";
-        SUBSCRIPTIONS_PRIVACY: "PRIVACY_DISCOVERABLE_SUBSCRIPTIONS";
-    }>;
-    BASE64_DIALECT: Readonly<{
-        NORMAL: string[];
-        REVERSE: string[];
-    }>;
-    SIG_REGEX: Readonly<{
-        ACTIONS: RegExp;
-        FUNCTIONS: RegExp;
-    }>;
-    NTOKEN_REGEX: Readonly<{
-        CALLS: RegExp;
-        PLACEHOLDERS: RegExp;
-        FUNCTIONS: RegExp;
-    }>;
-    FUNCS: Readonly<{
-        PUSH: "d.push(e)";
-        REVERSE_1: "d.reverse()";
-        REVERSE_2: "function(d){for(var";
-        SPLICE: "d.length;d.splice(e,1)";
-        SWAP0_1: "d[0])[0])";
-        SWAP0_2: "f=d[0];d[0]";
-        ROTATE_1: "reverse().forEach";
-        ROTATE_2: "unshift(d.pop())";
-        BASE64_DIA: "function(){for(var";
-        TRANSLATE_1: "function(d,e){for(var f";
-        TRANSLATE_2: "function(d,e,f){var";
     }>;
 };
 export default _default;
