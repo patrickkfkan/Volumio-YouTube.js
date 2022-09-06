@@ -579,6 +579,23 @@ class Actions {
             return __classPrivateFieldGet(this, _Actions_instances, "m", _Actions_wrap).call(this, response);
         });
     }
+    /**
+     * Makes calls to the playback tracking API.
+     */
+    stats(url, client, params) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const s_url = new URL(url);
+            s_url.searchParams.set('ver', '2');
+            s_url.searchParams.set('c', client.client_name.toLowerCase());
+            s_url.searchParams.set('cbrver', client.client_version);
+            s_url.searchParams.set('cver', client.client_version);
+            for (const key of Object.keys(params)) {
+                s_url.searchParams.set(key, params[key]);
+            }
+            const response = yield __classPrivateFieldGet(this, _Actions_session, "f").http.fetch(s_url);
+            return response;
+        });
+    }
     execute(action, args) {
         return __awaiter(this, void 0, void 0, function* () {
             let data;
@@ -641,6 +658,7 @@ _Actions_session = new WeakMap(), _Actions_instances = new WeakSet(), _Actions_w
         'FElibrary',
         'FEhistory',
         'FEsubscriptions',
+        'FEmusic_listening_review',
         'SPaccount_notifications',
         'SPaccount_privacy',
         'SPtime_watched'

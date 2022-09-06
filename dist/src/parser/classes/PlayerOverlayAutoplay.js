@@ -7,6 +7,7 @@ const index_1 = __importDefault(require("../index"));
 const Text_1 = __importDefault(require("./misc/Text"));
 const Author_1 = __importDefault(require("./misc/Author"));
 const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
+const Button_1 = __importDefault(require("./Button"));
 const helpers_1 = require("../helpers");
 class PlayerOverlayAutoplay extends helpers_1.YTNode {
     constructor(data) {
@@ -21,9 +22,9 @@ class PlayerOverlayAutoplay extends helpers_1.YTNode {
         this.background = Thumbnail_1.default.fromResponse(data.background);
         this.thumbnail_overlays = index_1.default.parse(data.thumbnailOverlays);
         this.author = new Author_1.default(data.byline);
-        this.cancel_button = index_1.default.parse(data.cancelButton);
-        this.next_button = index_1.default.parse(data.nextButton);
-        this.close_button = index_1.default.parse(data.closeButton);
+        this.cancel_button = index_1.default.parseItem(data.cancelButton, Button_1.default);
+        this.next_button = index_1.default.parseItem(data.nextButton, Button_1.default);
+        this.close_button = index_1.default.parseItem(data.closeButton, Button_1.default);
     }
 }
 PlayerOverlayAutoplay.type = 'PlayerOverlayAutoplay';

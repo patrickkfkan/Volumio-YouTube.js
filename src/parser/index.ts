@@ -4,7 +4,11 @@ import GetParserByName from './map';
 import Endscreen from './classes/Endscreen';
 import CardCollection from './classes/CardCollection';
 import NavigationEndpoint from './classes/NavigationEndpoint';
+
+import PlayerStoryboardSpec from './classes/PlayerStoryboardSpec';
 import PlayerCaptionsTracklist from './classes/PlayerCaptionsTracklist';
+import PlayerLiveStoryboardSpec from './classes/PlayerLiveStoryboardSpec';
+import PlayerAnnotationsExpanded from './classes/PlayerAnnotationsExpanded';
 
 import { InnertubeError, ParsingError } from '../utils/Utils';
 import { YTNode, YTNodeConstructor, SuperParsedResult, ObservedArray, observe, Memo } from './helpers';
@@ -248,6 +252,10 @@ export default class Parser {
       refinements: data.refinements || null,
       estimated_results: data.estimatedResults ? parseInt(data.estimatedResults) : null,
       player_overlays: Parser.parse(data.playerOverlays),
+      playback_tracking: data.playbackTracking ? {
+        videostats_watchtime_url: data.playbackTracking.videostatsWatchtimeUrl.baseUrl,
+        videostats_playback_url: data.playbackTracking.videostatsPlaybackUrl.baseUrl
+      } : null,
       playability_status: data.playabilityStatus ? {
         status: data.playabilityStatus.status as string,
         error_screen: Parser.parse(data.playabilityStatus.errorScreen),
@@ -264,9 +272,8 @@ export default class Parser {
       current_video_endpoint: data.currentVideoEndpoint ? new NavigationEndpoint(data.currentVideoEndpoint) : null,
       captions: Parser.parseItem<PlayerCaptionsTracklist>(data.captions, PlayerCaptionsTracklist),
       video_details: data.videoDetails ? new VideoDetails(data.videoDetails) : undefined,
-      // TODO: might want to type check these two and use parseItem
-      annotations: Parser.parse(data.annotations),
-      storyboards: Parser.parse(data.storyboards),
+      annotations: Parser.parseArray<PlayerAnnotationsExpanded>(data.annotations, PlayerAnnotationsExpanded),
+      storyboards: Parser.parseItem<PlayerStoryboardSpec | PlayerLiveStoryboardSpec>(data.storyboards, [ PlayerStoryboardSpec, PlayerLiveStoryboardSpec ]),
       endscreen: Parser.parseItem<Endscreen>(data.endscreen, Endscreen),
       cards: Parser.parseItem<CardCollection>(data.cards, CardCollection)
     };
@@ -461,6 +468,7 @@ export default class Parser {
     'BackgroundPromo',
     'PromotedSparklesWeb',
     'RunAttestationCommand',
+    'CompactPromotedVideo',
     'StatementBanner'
   ]);
 

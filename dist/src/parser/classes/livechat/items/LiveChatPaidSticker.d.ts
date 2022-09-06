@@ -11,6 +11,10 @@ declare class LiveChatPaidSticker extends YTNode {
         thumbnails: Thumbnail[];
         badges: any;
     };
+    money_chip_background_color: number;
+    money_chip_text_color: number;
+    background_color: number;
+    author_name_text_color: number;
     sticker: Thumbnail[];
     purchase_amount: string;
     context_menu: NavigationEndpoint;

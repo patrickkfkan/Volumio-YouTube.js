@@ -90,8 +90,8 @@ declare class VideoInfo {
         embeddable: boolean;
         reason: any;
     } | undefined;
-    annotations: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-    storyboards: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+    annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
+    storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
     endscreen: import("../classes/Endscreen").default | null;
     captions: import("../classes/PlayerCaptionsTracklist").default | null;
     cards: import("../classes/CardCollection").default | null;
@@ -112,6 +112,10 @@ declare class VideoInfo {
      * Applies given filter to the watch next feed.
      */
     selectFilter(name: string): Promise<this>;
+    /**
+     * Adds the video to the watch history.
+     */
+    addToWatchHistory(): Promise<any>;
     /**
      * Retrieves watch next feed continuation.
      */
@@ -134,6 +138,7 @@ declare class VideoInfo {
     getLiveChat(): LiveChatWrap;
     get filters(): string[];
     get actions(): Actions;
+    get cpn(): string;
     get page(): [{
         actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null;
         actions_memo: import("../helpers").Memo;
@@ -155,6 +160,10 @@ declare class VideoInfo {
         refinements: any;
         estimated_results: number | null;
         player_overlays: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+        playback_tracking: {
+            videostats_watchtime_url: any;
+            videostats_playback_url: any;
+        } | null;
         playability_status: {
             status: string;
             error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
@@ -171,8 +180,8 @@ declare class VideoInfo {
         current_video_endpoint: import("../classes/NavigationEndpoint").default | null;
         captions: import("../classes/PlayerCaptionsTracklist").default | null;
         video_details: import("../classes/misc/VideoDetails").default | undefined;
-        annotations: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        storyboards: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+        annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
+        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
         endscreen: import("../classes/Endscreen").default | null;
         cards: import("../classes/CardCollection").default | null;
     }, ({
@@ -196,6 +205,10 @@ declare class VideoInfo {
         refinements: any;
         estimated_results: number | null;
         player_overlays: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+        playback_tracking: {
+            videostats_watchtime_url: any;
+            videostats_playback_url: any;
+        } | null;
         playability_status: {
             status: string;
             error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
@@ -212,8 +225,8 @@ declare class VideoInfo {
         current_video_endpoint: import("../classes/NavigationEndpoint").default | null;
         captions: import("../classes/PlayerCaptionsTracklist").default | null;
         video_details: import("../classes/misc/VideoDetails").default | undefined;
-        annotations: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        storyboards: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+        annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
+        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
         endscreen: import("../classes/Endscreen").default | null;
         cards: import("../classes/CardCollection").default | null;
     } | undefined)?];

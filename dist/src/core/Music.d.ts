@@ -7,6 +7,7 @@ import Library from '../parser/ytmusic/Library';
 import Artist from '../parser/ytmusic/Artist';
 import Album from '../parser/ytmusic/Album';
 import Playlist from '../parser/ytmusic/Playlist';
+import Recap from '../parser/ytmusic/Recap';
 import { YTNode } from '../parser/helpers';
 import PlaylistPanel from '../parser/classes/PlaylistPanel';
 import MusicDescriptionShelf from '../parser/classes/MusicDescriptionShelf';
@@ -63,6 +64,7 @@ declare class Music {
      * Retrieves related content.
      */
     getRelated(video_id: string): Promise<import("../parser/helpers").ObservedArray<MusicCarouselShelf | MusicDescriptionShelf>>;
+    getRecap(): Promise<Recap>;
     /**
      * Retrieves search suggestions for the given query.
      */

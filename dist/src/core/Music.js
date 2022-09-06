@@ -32,6 +32,7 @@ const Library_1 = __importDefault(require("../parser/ytmusic/Library"));
 const Artist_1 = __importDefault(require("../parser/ytmusic/Artist"));
 const Album_1 = __importDefault(require("../parser/ytmusic/Album"));
 const Playlist_1 = __importDefault(require("../parser/ytmusic/Playlist"));
+const Recap_1 = __importDefault(require("../parser/ytmusic/Recap"));
 const index_1 = __importDefault(require("../parser/index"));
 const helpers_1 = require("../parser/helpers");
 const Tab_1 = __importDefault(require("../parser/classes/Tab"));
@@ -60,7 +61,7 @@ class Music {
             const initial_info = yield __classPrivateFieldGet(this, _Music_actions, "f").getVideoInfo(video_id, cpn, 'YTMUSIC');
             const continuation = __classPrivateFieldGet(this, _Music_actions, "f").execute('/next', { client: 'YTMUSIC', videoId: video_id });
             const response = yield Promise.all([initial_info, continuation]);
-            return new TrackInfo_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
+            return new TrackInfo_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"), cpn);
         });
     }
     /**
@@ -209,6 +210,15 @@ class Music {
                 throw new Utils_1.InnertubeError('Could not retrieve tab contents, the given id may be invalid or is not a song.');
             const shelves = page.contents.item().as(SectionList_1.default).contents.array().as(MusicCarouselShelf_1.default, MusicDescriptionShelf_1.default);
             return shelves;
+        });
+    }
+    getRecap() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute('/browse', {
+                browseId: 'FEmusic_listening_review',
+                client: 'YTMUSIC_ANDROID'
+            });
+            return new Recap_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
         });
     }
     /**

@@ -1,7 +1,7 @@
 import { YTNode } from '../helpers';
 declare class Endscreen extends YTNode {
     static type: string;
-    elements: import("../helpers").SuperParsedResult<YTNode>;
+    elements: import("../helpers").ObservedArray<YTNode>;
     start_ms: string;
     constructor(data: any);
 }

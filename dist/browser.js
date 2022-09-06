@@ -18,10 +18,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Innertube = void 0;
+exports.Innertube = exports.Parser = exports.YTNodes = void 0;
 const Innertube_1 = __importDefault(require("./src/Innertube"));
-var Innertube_js_1 = require("./src/Innertube.js");
-Object.defineProperty(exports, "Innertube", { enumerable: true, get: function () { return __importDefault(Innertube_js_1).default; } });
 __exportStar(require("./src/utils"), exports);
+var map_1 = require("./src/parser/map");
+Object.defineProperty(exports, "YTNodes", { enumerable: true, get: function () { return map_1.YTNodes; } });
+var parser_1 = require("./src/parser");
+Object.defineProperty(exports, "Parser", { enumerable: true, get: function () { return __importDefault(parser_1).default; } });
+var Innertube_2 = require("./src/Innertube");
+Object.defineProperty(exports, "Innertube", { enumerable: true, get: function () { return __importDefault(Innertube_2).default; } });
 exports.default = Innertube_1.default;
 //# sourceMappingURL=browser.js.map

@@ -225,6 +225,15 @@ declare class Actions {
         data: any;
     }>;
     /**
+     * Makes calls to the playback tracking API.
+     */
+    stats(url: string, client: {
+        client_name: string;
+        client_version: string;
+    }, params: {
+        [key: string]: any;
+    }): Promise<any>;
+    /**
      * Executes an API call.
      * @param action - endpoint
      * @param args - call arguments

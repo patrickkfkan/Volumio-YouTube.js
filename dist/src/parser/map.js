@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.YTNodes = void 0;
 const AccountChannel_1 = __importDefault(require("./classes/AccountChannel"));
 const AccountItemSection_1 = __importDefault(require("./classes/AccountItemSection"));
 const AccountItemSectionHeader_1 = __importDefault(require("./classes/AccountItemSectionHeader"));
@@ -75,6 +76,7 @@ const GridChannel_1 = __importDefault(require("./classes/GridChannel"));
 const GridHeader_1 = __importDefault(require("./classes/GridHeader"));
 const GridPlaylist_1 = __importDefault(require("./classes/GridPlaylist"));
 const GridVideo_1 = __importDefault(require("./classes/GridVideo"));
+const HighlightsCarousel_1 = __importDefault(require("./classes/HighlightsCarousel"));
 const HistorySuggestion_1 = __importDefault(require("./classes/HistorySuggestion"));
 const HorizontalCardList_1 = __importDefault(require("./classes/HorizontalCardList"));
 const HorizontalList_1 = __importDefault(require("./classes/HorizontalList"));
@@ -147,10 +149,12 @@ const MusicCarouselShelfBasicHeader_1 = __importDefault(require("./classes/Music
 const MusicDescriptionShelf_1 = __importDefault(require("./classes/MusicDescriptionShelf"));
 const MusicDetailHeader_1 = __importDefault(require("./classes/MusicDetailHeader"));
 const MusicEditablePlaylistDetailHeader_1 = __importDefault(require("./classes/MusicEditablePlaylistDetailHeader"));
+const MusicElementHeader_1 = __importDefault(require("./classes/MusicElementHeader"));
 const MusicHeader_1 = __importDefault(require("./classes/MusicHeader"));
 const MusicImmersiveHeader_1 = __importDefault(require("./classes/MusicImmersiveHeader"));
 const MusicInlineBadge_1 = __importDefault(require("./classes/MusicInlineBadge"));
 const MusicItemThumbnailOverlay_1 = __importDefault(require("./classes/MusicItemThumbnailOverlay"));
+const MusicLargeCardItemCarousel_1 = __importDefault(require("./classes/MusicLargeCardItemCarousel"));
 const MusicNavigationButton_1 = __importDefault(require("./classes/MusicNavigationButton"));
 const MusicPlayButton_1 = __importDefault(require("./classes/MusicPlayButton"));
 const MusicPlaylistShelf_1 = __importDefault(require("./classes/MusicPlaylistShelf"));
@@ -335,6 +339,7 @@ const map = {
     GridHeader: GridHeader_1.default,
     GridPlaylist: GridPlaylist_1.default,
     GridVideo: GridVideo_1.default,
+    HighlightsCarousel: HighlightsCarousel_1.default,
     HistorySuggestion: HistorySuggestion_1.default,
     HorizontalCardList: HorizontalCardList_1.default,
     HorizontalList: HorizontalList_1.default,
@@ -407,10 +412,12 @@ const map = {
     MusicDescriptionShelf: MusicDescriptionShelf_1.default,
     MusicDetailHeader: MusicDetailHeader_1.default,
     MusicEditablePlaylistDetailHeader: MusicEditablePlaylistDetailHeader_1.default,
+    MusicElementHeader: MusicElementHeader_1.default,
     MusicHeader: MusicHeader_1.default,
     MusicImmersiveHeader: MusicImmersiveHeader_1.default,
     MusicInlineBadge: MusicInlineBadge_1.default,
     MusicItemThumbnailOverlay: MusicItemThumbnailOverlay_1.default,
+    MusicLargeCardItemCarousel: MusicLargeCardItemCarousel_1.default,
     MusicNavigationButton: MusicNavigationButton_1.default,
     MusicPlayButton: MusicPlayButton_1.default,
     MusicPlaylistShelf: MusicPlaylistShelf_1.default,
@@ -523,6 +530,7 @@ const map = {
     WatchNextEndScreen: WatchNextEndScreen_1.default,
     WatchNextTabbedResults: WatchNextTabbedResults_1.default
 };
+exports.YTNodes = map;
 /**
  * @param name - Name of the node to be parsed
  */

@@ -50,6 +50,9 @@ class NavigationEndpoint extends helpers_1.YTNode {
         if ((_f = (_e = data === null || data === void 0 ? void 0 : data.commandMetadata) === null || _e === void 0 ? void 0 : _e.webCommandMetadata) === null || _f === void 0 ? void 0 : _f.apiUrl) {
             this.metadata.api_url = data.commandMetadata.webCommandMetadata.apiUrl.replace('/youtubei/v1/', '');
         }
+        else if (name) {
+            this.metadata.api_url = this.getEndpoint(name);
+        }
         if ((_h = (_g = data === null || data === void 0 ? void 0 : data.commandMetadata) === null || _g === void 0 ? void 0 : _g.webCommandMetadata) === null || _h === void 0 ? void 0 : _h.sendPost) {
             this.metadata.send_post = data.commandMetadata.webCommandMetadata.sendPost;
         }
@@ -184,6 +187,15 @@ class NavigationEndpoint extends helpers_1.YTNode {
             this.live_chat_item_context_menu = {
                 params: data.liveChatItemContextMenuEndpoint.params
             };
+        }
+    }
+    /**
+     * Sometimes InnerTube does not return an API url, in that case the library should set it based on the name of the payload object.
+     */
+    getEndpoint(name) {
+        switch (name) {
+            case 'browseEndpoint':
+                return '/browse';
         }
     }
     callTest(actions, args) {

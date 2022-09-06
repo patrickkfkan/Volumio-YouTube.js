@@ -1,6 +1,7 @@
 import Text from './misc/Text';
 import Author from './misc/Author';
 import Thumbnail from './misc/Thumbnail';
+import Button from './Button';
 import { YTNode } from '../helpers';
 declare class PlayerOverlayAutoplay extends YTNode {
     static type: string;
@@ -14,9 +15,9 @@ declare class PlayerOverlayAutoplay extends YTNode {
     background: Thumbnail[];
     thumbnail_overlays: import("../helpers").SuperParsedResult<YTNode>;
     author: Author;
-    cancel_button: import("../helpers").SuperParsedResult<YTNode>;
-    next_button: import("../helpers").SuperParsedResult<YTNode>;
-    close_button: import("../helpers").SuperParsedResult<YTNode>;
+    cancel_button: Button | null;
+    next_button: Button | null;
+    close_button: Button | null;
     constructor(data: any);
 }
 export default PlayerOverlayAutoplay;

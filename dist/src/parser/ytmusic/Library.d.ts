@@ -54,9 +54,7 @@ declare abstract class LibraryResultsBase {
     constructor(continuation: Continuation | null, page: ParsedResponse, actions: Actions);
     getContinuation(): Promise<LibraryResultsBase>;
     get page(): {
-        actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null; /**
-         * Retrieves recent activity
-         */
+        actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null;
         actions_memo: import("../helpers").Memo;
         contents: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
         contents_memo: import("../helpers").Memo;
@@ -76,6 +74,10 @@ declare abstract class LibraryResultsBase {
         refinements: any;
         estimated_results: number | null;
         player_overlays: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+        playback_tracking: {
+            videostats_watchtime_url: any;
+            videostats_playback_url: any;
+        } | null;
         playability_status: {
             status: string;
             error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
@@ -92,8 +94,8 @@ declare abstract class LibraryResultsBase {
         current_video_endpoint: NavigationEndpoint | null;
         captions: import("../classes/PlayerCaptionsTracklist").default | null;
         video_details: import("../classes/misc/VideoDetails").default | undefined;
-        annotations: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        storyboards: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+        annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
+        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
         endscreen: import("../classes/Endscreen").default | null;
         cards: import("../classes/CardCollection").default | null;
     };

@@ -3,7 +3,10 @@ import VideoDetails from './classes/misc/VideoDetails';
 import Endscreen from './classes/Endscreen';
 import CardCollection from './classes/CardCollection';
 import NavigationEndpoint from './classes/NavigationEndpoint';
+import PlayerStoryboardSpec from './classes/PlayerStoryboardSpec';
 import PlayerCaptionsTracklist from './classes/PlayerCaptionsTracklist';
+import PlayerLiveStoryboardSpec from './classes/PlayerLiveStoryboardSpec';
+import PlayerAnnotationsExpanded from './classes/PlayerAnnotationsExpanded';
 import { YTNode, YTNodeConstructor, SuperParsedResult, ObservedArray, Memo } from './helpers';
 export declare class AppendContinuationItemsAction extends YTNode {
     static readonly type = "appendContinuationItemsAction";
@@ -92,6 +95,10 @@ export default class Parser {
         refinements: any;
         estimated_results: number | null;
         player_overlays: SuperParsedResult<YTNode>;
+        playback_tracking: {
+            videostats_watchtime_url: any;
+            videostats_playback_url: any;
+        } | null;
         playability_status: {
             status: string;
             error_screen: SuperParsedResult<YTNode>;
@@ -108,8 +115,8 @@ export default class Parser {
         current_video_endpoint: NavigationEndpoint | null;
         captions: PlayerCaptionsTracklist | null;
         video_details: VideoDetails | undefined;
-        annotations: SuperParsedResult<YTNode>;
-        storyboards: SuperParsedResult<YTNode>;
+        annotations: ObservedArray<PlayerAnnotationsExpanded>;
+        storyboards: PlayerStoryboardSpec | PlayerLiveStoryboardSpec | null;
         endscreen: Endscreen | null;
         cards: CardCollection | null;
     };
