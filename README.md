@@ -1,4 +1,4 @@
-Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's YouTube Music plugin.
+Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music plugin](https://github.com/patrickkfkan/volumio-ytmusic).
 
 ## Objectives
 
