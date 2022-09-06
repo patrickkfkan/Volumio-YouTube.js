@@ -105,7 +105,7 @@ class Music {
     getArtist(artist_id) {
         return __awaiter(this, void 0, void 0, function* () {
             (0, Utils_1.throwIfMissing)({ artist_id });
-            if (!artist_id.startsWith('UC'))
+            if (!artist_id.startsWith('UC') && !artist_id.startsWith('FEmusic_library_privately_owned_artist'))
                 throw new Utils_1.InnertubeError('Invalid artist id', artist_id);
             const response = yield __classPrivateFieldGet(this, _Music_actions, "f").browse(artist_id, { client: 'YTMUSIC' });
             return new Artist_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
