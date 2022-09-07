@@ -10,6 +10,9 @@ class Element extends helpers_1.YTNode {
     constructor(data) {
         var _a, _b, _c;
         super();
+        if (Reflect.has(data, 'elementRenderer')) {
+            return index_1.default.parseItem(data, Element);
+        }
         const type = data.newElement.type.componentType;
         this.model = index_1.default.parse(type === null || type === void 0 ? void 0 : type.model);
         if ((_a = data.newElement) === null || _a === void 0 ? void 0 : _a.childElements) {

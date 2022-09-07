@@ -1,6 +1,6 @@
 {
   "name": "volumio-youtubei.js",
-  "version": "0.1.0-b.5",
+  "version": "0.1.0-b.6",
   "description": "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   "main": "./dist/index.js",
   "types": "./dist",
@@ -12,9 +12,8 @@
   ],
   "directories": {
     "test": "./test",
-    "typings": "./dist",
     "examples": "./examples",
-    "src": "./dist/src"
+    "dist": "./dist"
   },
   "scripts": {
     "test": "npx jest --verbose",
@@ -22,7 +21,7 @@
     "lint:fix": "npx eslint --fix ./src",
     "build": "npm run build:parser-map && npm run build:node",
     "build:node": "npx tsc",
-    "build:parser-map": "node ./scripts/build-parser-json.js",
+    "build:parser-map": "node ./scripts/build-parser-map.js",
     "watch": "npx tsc --watch"
   },
   "repository": {
@@ -36,18 +35,15 @@
     "jintr": "^0.1.9",
     "btoa": "^1.2.1",
     "event-target-polyfill": "0.0.3",
-    "flat": "^5.0.2",
     "linkedom": "^0.14.12",
     "node-fetch": "^2.6.7",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@types/flat": "^5.0.2",
-    "@types/jest": "^28.1.7",
-    "@types/node": "^17.0.45",
-    "@types/user-agents": "^1.0.2",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^17.0.45",
     "eslint": "^8.19.0",
     "eslint-plugin-tsdoc": "^0.2.16",
     "glob": "^8.0.3",

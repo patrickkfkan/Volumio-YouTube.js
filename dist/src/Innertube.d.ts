@@ -37,7 +37,7 @@ export interface SearchFilters {
      */
     sort_by?: 'relevance' | 'rating' | 'upload_date' | 'view_count';
 }
-export declare type InnerTubeClient = 'ANDROID' | 'WEB' | 'YTMUSIC';
+export declare type InnerTubeClient = 'ANDROID' | 'YTMUSIC_ANDROID' | 'WEB' | 'YTMUSIC';
 declare class Innertube {
     session: Session;
     account: AccountManager;

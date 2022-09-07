@@ -2,7 +2,7 @@ import { ParsedResponse } from '..';
 import { AxioslikeResponse } from '../../core/Actions';
 declare class Analytics {
     #private;
-    sections: import("../helpers").YTNode[] | undefined;
+    sections: (import("../helpers").YTNode | undefined)[] | undefined;
     constructor(response: AxioslikeResponse);
     get page(): ParsedResponse;
 }

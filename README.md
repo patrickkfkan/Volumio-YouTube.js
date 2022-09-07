@@ -1,4 +1,4 @@
-Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's YouTube Music plugin.
+Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music plugin](https://github.com/patrickkfkan/volumio-ytmusic).
 
 ## Objectives
 
@@ -17,9 +17,14 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.1.0-b.6:
+- Merge from YouTube.js repo (up to commit [5b3109a](https://github.com/LuanRT/YouTube.js/commit/5b3109afefc0a27ea07a6d95c33acd1cc0fd11f6)).
+- Fix `Music#getArtist()` failing for private artists (PR submitted and merged with YouTube.js repo: [#170](https://github.com/LuanRT/YouTube.js/pull/170)).
+- Add `playlist_id` arg to `Music#getInfo()` and related functions (for generation of playback tracking URLs that encapsulate list info).
+
 0.1.0-b.5:
 - Merge from YouTube.js repo (up to commit [60ef3ea](https://github.com/LuanRT/YouTube.js/commit/60ef3eabd37d2f9b25df99219bcb8741aaa35bd7)).
-- Fix `Music#getAlbum()` failing for private albums (PR submitted to YouTube.js repo: [#162](https://github.com/LuanRT/YouTube.js/pull/162)).
+- Fix `Music#getAlbum()` failing for private albums (PR submitted and merged with YouTube.js repo: [#162](https://github.com/LuanRT/YouTube.js/pull/162)).
 
 0.1.0-b.4:
 - Add missing fields in `NavigationEndpoint` and `PlaylistPanelContinuation` (PR submitted and merged with YouTube.js repo: [#159](https://github.com/LuanRT/YouTube.js/pull/159)).

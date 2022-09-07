@@ -132,6 +132,12 @@ _HTTPClient_session = new WeakMap(), _HTTPClient_cookie = new WeakMap(), _HTTPCl
             ctx.client.clientName = Constants_1.default.CLIENTS.ANDROID.NAME;
             ctx.client.androidSdkVersion = Constants_1.default.CLIENTS.ANDROID.SDK_VERSION;
             break;
+        case 'YTMUSIC_ANDROID':
+            ctx.client.clientVersion = Constants_1.default.CLIENTS.YTMUSIC_ANDROID.VERSION;
+            ctx.client.clientFormFactor = 'SMALL_FORM_FACTOR';
+            ctx.client.clientName = Constants_1.default.CLIENTS.YTMUSIC_ANDROID.NAME;
+            ctx.client.androidSdkVersion = Constants_1.default.CLIENTS.ANDROID.SDK_VERSION;
+            break;
         default:
             break;
     }

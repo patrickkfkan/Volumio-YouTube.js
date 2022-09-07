@@ -33,6 +33,7 @@ export declare const OAUTH: Readonly<{
 export declare const CLIENTS: Readonly<{
     WEB: {
         NAME: string;
+        VERSION: string;
     };
     YTMUSIC: {
         NAME: string;
@@ -42,6 +43,10 @@ export declare const CLIENTS: Readonly<{
         NAME: string;
         VERSION: string;
         SDK_VERSION: string;
+    };
+    YTMUSIC_ANDROID: {
+        NAME: string;
+        VERSION: string;
     };
 }>;
 export declare const STREAM_HEADERS: Readonly<{
@@ -91,6 +96,7 @@ declare const _default: {
     CLIENTS: Readonly<{
         WEB: {
             NAME: string;
+            VERSION: string;
         };
         YTMUSIC: {
             NAME: string;
@@ -100,6 +106,10 @@ declare const _default: {
             NAME: string;
             VERSION: string;
             SDK_VERSION: string;
+        };
+        YTMUSIC_ANDROID: {
+            NAME: string;
+            VERSION: string;
         };
     }>;
     STREAM_HEADERS: Readonly<{

@@ -85,6 +85,10 @@ declare class Feed {
         refinements: any;
         estimated_results: number | null;
         player_overlays: import("../parser/helpers").SuperParsedResult<import("../parser/helpers").YTNode>;
+        playback_tracking: {
+            videostats_watchtime_url: any;
+            videostats_playback_url: any;
+        } | null;
         playability_status: {
             status: string;
             error_screen: import("../parser/helpers").SuperParsedResult<import("../parser/helpers").YTNode>;
@@ -101,8 +105,8 @@ declare class Feed {
         current_video_endpoint: import("../parser/classes/NavigationEndpoint").default | null;
         captions: import("../parser/classes/PlayerCaptionsTracklist").default | null;
         video_details: import("../parser/classes/misc/VideoDetails").default | undefined;
-        annotations: import("../parser/helpers").SuperParsedResult<import("../parser/helpers").YTNode>;
-        storyboards: import("../parser/helpers").SuperParsedResult<import("../parser/helpers").YTNode>;
+        annotations: ObservedArray<import("../parser/classes/PlayerAnnotationsExpanded").default>;
+        storyboards: import("../parser/classes/PlayerStoryboardSpec").default | import("../parser/classes/PlayerLiveStoryboardSpec").default | null;
         endscreen: import("../parser/classes/Endscreen").default | null;
         cards: import("../parser/classes/CardCollection").default | null;
     };

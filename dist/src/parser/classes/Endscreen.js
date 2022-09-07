@@ -8,7 +8,7 @@ const helpers_1 = require("../helpers");
 class Endscreen extends helpers_1.YTNode {
     constructor(data) {
         super();
-        this.elements = index_1.default.parse(data.elements);
+        this.elements = index_1.default.parseArray(data.elements);
         this.start_ms = data.startMs;
     }
 }

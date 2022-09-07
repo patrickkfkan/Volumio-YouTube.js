@@ -32,6 +32,7 @@ const Library_1 = __importDefault(require("../parser/ytmusic/Library"));
 const Artist_1 = __importDefault(require("../parser/ytmusic/Artist"));
 const Album_1 = __importDefault(require("../parser/ytmusic/Album"));
 const Playlist_1 = __importDefault(require("../parser/ytmusic/Playlist"));
+const Recap_1 = __importDefault(require("../parser/ytmusic/Recap"));
 const index_1 = __importDefault(require("../parser/index"));
 const helpers_1 = require("../parser/helpers");
 const Tab_1 = __importDefault(require("../parser/classes/Tab"));
@@ -54,13 +55,20 @@ class Music {
     /**
      * Retrieves track info.
      */
-    getInfo(video_id) {
+    // playlist_id: ID of the *watch* playlist, which if provided will be used to generate the playback tracking URL.
+    // When `addToWatchHistory()` is called:
+    // - If playlist_id not provided, then the song / video will be added to 'Recent Activity'.
+    // - If provided, then the list itself (which can correspond to a playlist or album) will be added to 'Recent Activity'.
+    // * Full history (Recent Activity -> Show All) will always include the song / video, even if playlist_id is provided.
+    // Not submitted to YouTube.js repo at this stage, because a watch playlist ID can appear in different places and can
+    // be confusing the the end user who doesn't know where to retrieve it.
+    getInfo(video_id, playlist_id) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpn = (0, Utils_1.generateRandomString)(16);
-            const initial_info = yield __classPrivateFieldGet(this, _Music_actions, "f").getVideoInfo(video_id, cpn, 'YTMUSIC');
+            const initial_info = yield __classPrivateFieldGet(this, _Music_actions, "f").getVideoInfo(video_id, cpn, 'YTMUSIC', playlist_id);
             const continuation = __classPrivateFieldGet(this, _Music_actions, "f").execute('/next', { client: 'YTMUSIC', videoId: video_id });
             const response = yield Promise.all([initial_info, continuation]);
-            return new TrackInfo_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
+            return new TrackInfo_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"), cpn);
         });
     }
     /**
@@ -104,7 +112,7 @@ class Music {
     getArtist(artist_id) {
         return __awaiter(this, void 0, void 0, function* () {
             (0, Utils_1.throwIfMissing)({ artist_id });
-            if (!artist_id.startsWith('UC'))
+            if (!artist_id.startsWith('UC') && !artist_id.startsWith('FEmusic_library_privately_owned_artist'))
                 throw new Utils_1.InnertubeError('Invalid artist id', artist_id);
             const response = yield __classPrivateFieldGet(this, _Music_actions, "f").browse(artist_id, { client: 'YTMUSIC' });
             return new Artist_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
@@ -209,6 +217,15 @@ class Music {
                 throw new Utils_1.InnertubeError('Could not retrieve tab contents, the given id may be invalid or is not a song.');
             const shelves = page.contents.item().as(SectionList_1.default).contents.array().as(MusicCarouselShelf_1.default, MusicDescriptionShelf_1.default);
             return shelves;
+        });
+    }
+    getRecap() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute('/browse', {
+                browseId: 'FEmusic_listening_review',
+                client: 'YTMUSIC_ANDROID'
+            });
+            return new Recap_1.default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
         });
     }
     /**

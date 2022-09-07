@@ -27,6 +27,10 @@ class LiveChatPaidMessage extends helpers_1.YTNode {
         this.author.is_moderator = (badges === null || badges === void 0 ? void 0 : badges.some((badge) => badge.icon_type == 'MODERATOR')) || null;
         this.author.is_verified = (badges === null || badges === void 0 ? void 0 : badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED')) || null;
         this.author.is_verified_artist = (badges === null || badges === void 0 ? void 0 : badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED_ARTIST')) || null;
+        this.header_background_color = data.headerBackgroundColor;
+        this.header_text_color = data.headerTextColor;
+        this.body_background_color = data.bodyBackgroundColor;
+        this.body_text_color = data.bodyTextColor;
         this.purchase_amount = new Text_1.default(data.purchaseAmountText).toString();
         this.menu_endpoint = new NavigationEndpoint_1.default(data.contextMenuEndpoint);
         this.timestamp = Math.floor(parseInt(data.timestampUsec) / 1000);

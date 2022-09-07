@@ -50,10 +50,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importStar(require("../index"));
 const MusicCarouselShelf_1 = __importDefault(require("../classes/MusicCarouselShelf"));
 const MusicPlaylistShelf_1 = __importDefault(require("../classes/MusicPlaylistShelf"));
+const MusicEditablePlaylistDetailHeader_1 = __importDefault(require("../classes/MusicEditablePlaylistDetailHeader"));
+const MusicDetailHeader_1 = __importDefault(require("../classes/MusicDetailHeader"));
+const MusicShelf_1 = __importDefault(require("../classes/MusicShelf"));
 const SectionList_1 = __importDefault(require("../classes/SectionList"));
 const Utils_1 = require("../../utils/Utils");
-const MusicEditablePlaylistDetailHeader_1 = __importDefault(require("../classes/MusicEditablePlaylistDetailHeader"));
-const MusicShelf_1 = __importDefault(require("../classes/MusicShelf"));
 class Playlist {
     constructor(response, actions) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
@@ -65,7 +66,6 @@ class Playlist {
         _Playlist_last_fetched_suggestions.set(this, void 0);
         __classPrivateFieldSet(this, _Playlist_actions, actions, "f");
         __classPrivateFieldSet(this, _Playlist_page, index_1.default.parseResponse(response.data), "f");
-        __classPrivateFieldSet(this, _Playlist_actions, actions, "f");
         __classPrivateFieldSet(this, _Playlist_suggestions_continuation, ((_b = (_a = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo.getType(MusicShelf_1.default)) === null || _a === void 0 ? void 0 : _a.find((shelf) => shelf.title.toString() === 'Suggestions')) === null || _b === void 0 ? void 0 : _b.continuation) || null, "f");
         __classPrivateFieldSet(this, _Playlist_last_fetched_suggestions, null, "f");
         if (__classPrivateFieldGet(this, _Playlist_page, "f").continuation_contents) {
@@ -75,10 +75,10 @@ class Playlist {
         }
         else {
             if (((_d = __classPrivateFieldGet(this, _Playlist_page, "f").header) === null || _d === void 0 ? void 0 : _d.item().type) === 'MusicEditablePlaylistDetailHeader') {
-                this.header = (_e = __classPrivateFieldGet(this, _Playlist_page, "f").header) === null || _e === void 0 ? void 0 : _e.item().as(MusicEditablePlaylistDetailHeader_1.default).header.item();
+                this.header = (_e = __classPrivateFieldGet(this, _Playlist_page, "f").header) === null || _e === void 0 ? void 0 : _e.item().as(MusicEditablePlaylistDetailHeader_1.default).header.item().as(MusicDetailHeader_1.default);
             }
             else {
-                this.header = ((_f = __classPrivateFieldGet(this, _Playlist_page, "f").header) === null || _f === void 0 ? void 0 : _f.item()) || null;
+                this.header = ((_f = __classPrivateFieldGet(this, _Playlist_page, "f").header) === null || _f === void 0 ? void 0 : _f.item().as(MusicDetailHeader_1.default)) || null;
             }
             this.items = (_g = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo.getType(MusicPlaylistShelf_1.default)) === null || _g === void 0 ? void 0 : _g[0].contents;
             __classPrivateFieldSet(this, _Playlist_continuation, ((_h = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo.getType(MusicPlaylistShelf_1.default)) === null || _h === void 0 ? void 0 : _h[0].continuation) || null, "f");
@@ -91,15 +91,14 @@ class Playlist {
         return !!__classPrivateFieldGet(this, _Playlist_continuation, "f");
     }
     /**
-     * Retrieves playlist item continuation.
+     * Retrieves playlist items continuation.
      */
     getContinuation() {
         return __awaiter(this, void 0, void 0, function* () {
-            if (__classPrivateFieldGet(this, _Playlist_continuation, "f")) {
-                const response = yield __classPrivateFieldGet(this, _Playlist_actions, "f").browse(__classPrivateFieldGet(this, _Playlist_continuation, "f"), { is_ctoken: true, client: 'YTMUSIC' });
-                return new Playlist(response, __classPrivateFieldGet(this, _Playlist_actions, "f"));
-            }
-            throw new Utils_1.InnertubeError('Continuation not found.');
+            if (!__classPrivateFieldGet(this, _Playlist_continuation, "f"))
+                throw new Utils_1.InnertubeError('Continuation not found.');
+            const response = yield __classPrivateFieldGet(this, _Playlist_actions, "f").browse(__classPrivateFieldGet(this, _Playlist_continuation, "f"), { is_ctoken: true, client: 'YTMUSIC' });
+            return new Playlist(response, __classPrivateFieldGet(this, _Playlist_actions, "f"));
         });
     }
     /**

@@ -18,6 +18,10 @@ class LiveChatPaidSticker extends helpers_1.YTNode {
             thumbnails: Thumbnail_1.default.fromResponse(data.authorPhoto),
             badges: index_1.default.parse(data.authorBadges)
         };
+        this.money_chip_background_color = data.moneyChipBackgroundColor;
+        this.money_chip_text_color = data.moneyChipTextColor;
+        this.background_color = data.backgroundColor;
+        this.author_name_text_color = data.authorNameTextColor;
         this.sticker = Thumbnail_1.default.fromResponse(data.sticker);
         this.purchase_amount = new Text_1.default(data.purchaseAmountText).toString();
         this.context_menu = new NavigationEndpoint_1.default(data.contextMenuEndpoint);

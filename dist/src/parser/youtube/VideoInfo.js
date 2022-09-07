@@ -29,7 +29,7 @@ var __asyncValues = (this && this.__asyncValues) || function (o) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-var _VideoInfo_instances, _VideoInfo_page, _VideoInfo_actions, _VideoInfo_player, _VideoInfo_cpn, _VideoInfo_watch_next_continuation, _VideoInfo_el, _VideoInfo_generateAdaptationSet, _VideoInfo_generateRepresentationVideo, _VideoInfo_generateRepresentationAudio;
+var _VideoInfo_instances, _VideoInfo_page, _VideoInfo_actions, _VideoInfo_player, _VideoInfo_cpn, _VideoInfo_watch_next_continuation, _VideoInfo_playback_tracking, _VideoInfo_el, _VideoInfo_generateAdaptationSet, _VideoInfo_generateRepresentationVideo, _VideoInfo_generateRepresentationAudio;
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../index"));
 const Constants_1 = __importDefault(require("../../utils/Constants"));
@@ -63,6 +63,7 @@ class VideoInfo {
         _VideoInfo_player.set(this, void 0);
         _VideoInfo_cpn.set(this, void 0);
         _VideoInfo_watch_next_continuation.set(this, void 0);
+        _VideoInfo_playback_tracking.set(this, void 0);
         __classPrivateFieldSet(this, _VideoInfo_actions, actions, "f");
         __classPrivateFieldSet(this, _VideoInfo_player, player, "f");
         __classPrivateFieldSet(this, _VideoInfo_cpn, cpn, "f");
@@ -91,6 +92,7 @@ class VideoInfo {
         this.endscreen = info.endscreen;
         this.captions = info.captions;
         this.cards = info.cards;
+        __classPrivateFieldSet(this, _VideoInfo_playback_tracking, info.playback_tracking, "f");
         const two_col = next === null || next === void 0 ? void 0 : next.contents.item().as(TwoColumnWatchNextResults_1.default);
         const results = two_col === null || two_col === void 0 ? void 0 : two_col.results;
         const secondary_results = two_col === null || two_col === void 0 ? void 0 : two_col.secondary_results;
@@ -126,6 +128,26 @@ class VideoInfo {
             const data = (_d = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _d === void 0 ? void 0 : _d.get({ target_id: 'watch-next-feed' });
             this.watch_next_feed = data === null || data === void 0 ? void 0 : data.contents;
             return this;
+        });
+    }
+    /**
+     * Adds the video to the watch history.
+     */
+    addToWatchHistory() {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!__classPrivateFieldGet(this, _VideoInfo_playback_tracking, "f"))
+                throw new Utils_1.InnertubeError('Playback tracking not available');
+            const url_params = {
+                cpn: __classPrivateFieldGet(this, _VideoInfo_cpn, "f"),
+                fmt: 251,
+                rtn: 0,
+                rt: 0
+            };
+            const response = yield __classPrivateFieldGet(this, _VideoInfo_actions, "f").stats(__classPrivateFieldGet(this, _VideoInfo_playback_tracking, "f").videostats_playback_url, {
+                client_name: Constants_1.default.CLIENTS.WEB.NAME,
+                client_version: Constants_1.default.CLIENTS.WEB.VERSION
+            }, url_params);
+            return response;
         });
     }
     /**
@@ -200,6 +222,9 @@ class VideoInfo {
     }
     get actions() {
         return __classPrivateFieldGet(this, _VideoInfo_actions, "f");
+    }
+    get cpn() {
+        return __classPrivateFieldGet(this, _VideoInfo_cpn, "f");
     }
     get page() {
         return __classPrivateFieldGet(this, _VideoInfo_page, "f");
@@ -412,7 +437,7 @@ class VideoInfo {
         });
     }
 }
-_VideoInfo_page = new WeakMap(), _VideoInfo_actions = new WeakMap(), _VideoInfo_player = new WeakMap(), _VideoInfo_cpn = new WeakMap(), _VideoInfo_watch_next_continuation = new WeakMap(), _VideoInfo_instances = new WeakSet(), _VideoInfo_el = function _VideoInfo_el(document, tag, attrs, children = []) {
+_VideoInfo_page = new WeakMap(), _VideoInfo_actions = new WeakMap(), _VideoInfo_player = new WeakMap(), _VideoInfo_cpn = new WeakMap(), _VideoInfo_watch_next_continuation = new WeakMap(), _VideoInfo_playback_tracking = new WeakMap(), _VideoInfo_instances = new WeakSet(), _VideoInfo_el = function _VideoInfo_el(document, tag, attrs, children = []) {
     const el = document.createElement(tag);
     for (const [key, value] of Object.entries(attrs)) {
         el.setAttribute(key, value);

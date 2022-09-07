@@ -35,7 +35,8 @@ exports.OAUTH = Object.freeze({
 });
 exports.CLIENTS = Object.freeze({
     WEB: {
-        NAME: 'WEB'
+        NAME: 'WEB',
+        VERSION: '2.20220902.01.00'
     },
     YTMUSIC: {
         NAME: 'WEB_REMIX',
@@ -45,6 +46,10 @@ exports.CLIENTS = Object.freeze({
         NAME: 'ANDROID',
         VERSION: '17.17.32',
         SDK_VERSION: '29'
+    },
+    YTMUSIC_ANDROID: {
+        NAME: 'ANDROID_MUSIC',
+        VERSION: '5.17.51'
     }
 });
 exports.STREAM_HEADERS = Object.freeze({

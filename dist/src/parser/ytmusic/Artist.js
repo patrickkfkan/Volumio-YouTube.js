@@ -29,13 +29,14 @@ const Utils_1 = require("../../utils/Utils");
 const MusicPlaylistShelf_1 = __importDefault(require("../classes/MusicPlaylistShelf"));
 const MusicImmersiveHeader_1 = __importDefault(require("../classes/MusicImmersiveHeader"));
 const MusicVisualHeader_1 = __importDefault(require("../classes/MusicVisualHeader"));
+const MusicHeader_1 = __importDefault(require("../classes/MusicHeader"));
 class Artist {
     constructor(response, actions) {
         _Artist_page.set(this, void 0);
         _Artist_actions.set(this, void 0);
         __classPrivateFieldSet(this, _Artist_page, index_1.default.parseResponse(response.data), "f");
         __classPrivateFieldSet(this, _Artist_actions, actions, "f");
-        this.header = this.page.header.item().as(MusicImmersiveHeader_1.default, MusicVisualHeader_1.default);
+        this.header = this.page.header.item().as(MusicImmersiveHeader_1.default, MusicVisualHeader_1.default, MusicHeader_1.default);
         const music_shelf = __classPrivateFieldGet(this, _Artist_page, "f").contents_memo.get('MusicShelf') || [];
         const music_carousel_shelf = __classPrivateFieldGet(this, _Artist_page, "f").contents_memo.get('MusicCarouselShelf') || [];
         this.sections = [...music_shelf, ...music_carousel_shelf];

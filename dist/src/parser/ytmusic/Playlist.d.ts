@@ -1,14 +1,15 @@
 import { ParsedResponse } from '../index';
 import Actions, { AxioslikeResponse } from '../../core/Actions';
+import MusicDetailHeader from '../classes/MusicDetailHeader';
 declare class Playlist {
     #private;
-    header: import("../helpers").YTNode | undefined;
+    header: MusicDetailHeader | undefined;
     items: import("../helpers").ObservedArray<import("../helpers").YTNode> | null;
     constructor(response: AxioslikeResponse, actions: Actions);
     get page(): ParsedResponse;
     get has_continuation(): boolean;
     /**
-     * Retrieves playlist item continuation.
+     * Retrieves playlist items continuation.
      */
     getContinuation(): Promise<Playlist>;
     /**

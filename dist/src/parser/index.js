@@ -22,7 +22,10 @@ const map_1 = __importDefault(require("./map"));
 const Endscreen_1 = __importDefault(require("./classes/Endscreen"));
 const CardCollection_1 = __importDefault(require("./classes/CardCollection"));
 const NavigationEndpoint_1 = __importDefault(require("./classes/NavigationEndpoint"));
+const PlayerStoryboardSpec_1 = __importDefault(require("./classes/PlayerStoryboardSpec"));
 const PlayerCaptionsTracklist_1 = __importDefault(require("./classes/PlayerCaptionsTracklist"));
+const PlayerLiveStoryboardSpec_1 = __importDefault(require("./classes/PlayerLiveStoryboardSpec"));
+const PlayerAnnotationsExpanded_1 = __importDefault(require("./classes/PlayerAnnotationsExpanded"));
 const Utils_1 = require("../utils/Utils");
 const helpers_1 = require("./helpers");
 const package_json_1 = __importDefault(require("../../package.json"));
@@ -188,6 +191,10 @@ class Parser {
             refinements: data.refinements || null,
             estimated_results: data.estimatedResults ? parseInt(data.estimatedResults) : null,
             player_overlays: Parser.parse(data.playerOverlays),
+            playback_tracking: data.playbackTracking ? {
+                videostats_watchtime_url: data.playbackTracking.videostatsWatchtimeUrl.baseUrl,
+                videostats_playback_url: data.playbackTracking.videostatsPlaybackUrl.baseUrl
+            } : null,
             playability_status: data.playabilityStatus ? {
                 status: data.playabilityStatus.status,
                 error_screen: Parser.parse(data.playabilityStatus.errorScreen),
@@ -204,9 +211,8 @@ class Parser {
             current_video_endpoint: data.currentVideoEndpoint ? new NavigationEndpoint_1.default(data.currentVideoEndpoint) : null,
             captions: Parser.parseItem(data.captions, PlayerCaptionsTracklist_1.default),
             video_details: data.videoDetails ? new VideoDetails_1.default(data.videoDetails) : undefined,
-            // TODO: might want to type check these two and use parseItem
-            annotations: Parser.parse(data.annotations),
-            storyboards: Parser.parse(data.storyboards),
+            annotations: Parser.parseArray(data.annotations, PlayerAnnotationsExpanded_1.default),
+            storyboards: Parser.parseItem(data.storyboards, [PlayerStoryboardSpec_1.default, PlayerLiveStoryboardSpec_1.default]),
             endscreen: Parser.parseItem(data.endscreen, Endscreen_1.default),
             cards: Parser.parseItem(data.cards, CardCollection_1.default)
         };
@@ -388,6 +394,7 @@ Parser.ignore_list = new Set([
     'BackgroundPromo',
     'PromotedSparklesWeb',
     'RunAttestationCommand',
+    'CompactPromotedVideo',
     'StatementBanner'
 ]);
 //# sourceMappingURL=index.js.map

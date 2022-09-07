@@ -9,7 +9,7 @@ const helpers_1 = require("../helpers");
 class CardCollection extends helpers_1.YTNode {
     constructor(data) {
         super();
-        this.cards = index_1.default.parse(data.cards);
+        this.cards = index_1.default.parseArray(data.cards);
         this.header = new Text_1.default(data.headerText);
         this.allow_teaser_dismiss = data.allowTeaserDismiss;
     }

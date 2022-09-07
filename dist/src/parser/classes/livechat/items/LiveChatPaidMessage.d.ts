@@ -15,6 +15,10 @@ declare class LiveChatPaidMessage extends YTNode {
         is_verified: boolean | null;
         is_verified_artist: boolean | null;
     };
+    header_background_color: number;
+    header_text_color: number;
+    body_background_color: number;
+    body_text_color: number;
     purchase_amount: string;
     menu_endpoint: NavigationEndpoint;
     timestamp: number;

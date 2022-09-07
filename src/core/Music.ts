@@ -9,6 +9,7 @@ import Library from '../parser/ytmusic/Library';
 import Artist from '../parser/ytmusic/Artist';
 import Album from '../parser/ytmusic/Album';
 import Playlist from '../parser/ytmusic/Playlist';
+import Recap from '../parser/ytmusic/Recap';
 
 import Parser from '../parser/index';
 import { observe, YTNode } from '../parser/helpers';
@@ -38,14 +39,21 @@ class Music {
   /**
    * Retrieves track info.
    */
-  async getInfo(video_id: string) {
+  // playlist_id: ID of the *watch* playlist, which if provided will be used to generate the playback tracking URL.
+  // When `addToWatchHistory()` is called:
+  // - If playlist_id not provided, then the song / video will be added to 'Recent Activity'.
+  // - If provided, then the list itself (which can correspond to a playlist or album) will be added to 'Recent Activity'.
+  // * Full history (Recent Activity -> Show All) will always include the song / video, even if playlist_id is provided.
+  // Not submitted to YouTube.js repo at this stage, because a watch playlist ID can appear in different places and can
+  // be confusing the the end user who doesn't know where to retrieve it.
+  async getInfo(video_id: string, playlist_id?: string) {
     const cpn = generateRandomString(16);
 
-    const initial_info = await this.#actions.getVideoInfo(video_id, cpn, 'YTMUSIC');
+    const initial_info = await this.#actions.getVideoInfo(video_id, cpn, 'YTMUSIC', playlist_id);
     const continuation = this.#actions.execute('/next', { client: 'YTMUSIC', videoId: video_id });
 
     const response = await Promise.all([ initial_info, continuation ]);
-    return new TrackInfo(response, this.#actions);
+    return new TrackInfo(response, this.#actions, cpn);
   }
 
   /**
@@ -89,7 +97,7 @@ class Music {
   async getArtist(artist_id: string) {
     throwIfMissing({ artist_id });
 
-    if (!artist_id.startsWith('UC'))
+    if (!artist_id.startsWith('UC') && !artist_id.startsWith('FEmusic_library_privately_owned_artist'))
       throw new InnertubeError('Invalid artist id', artist_id);
 
     const response = await this.#actions.browse(artist_id, { client: 'YTMUSIC' });
@@ -118,6 +126,7 @@ class Music {
     if (!playlist_id.startsWith('VL')) {
       playlist_id = `VL${playlist_id}`;
     }
+
     const response = await this.#actions.browse(playlist_id, { client: 'YTMUSIC' });
     return new Playlist(response, this.#actions);
   }
@@ -220,6 +229,15 @@ class Music {
     const shelves = page.contents.item().as(SectionList).contents.array().as(MusicCarouselShelf, MusicDescriptionShelf);
 
     return shelves;
+  }
+
+  async getRecap() {
+    const response = await this.#actions.execute('/browse', {
+      browseId: 'FEmusic_listening_review',
+      client: 'YTMUSIC_ANDROID'
+    });
+
+    return new Recap(response, this.#actions);
   }
 
   /**

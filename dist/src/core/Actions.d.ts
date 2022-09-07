@@ -209,7 +209,7 @@ declare class Actions {
     /**
      * Used to retrieve video info.
      */
-    getVideoInfo(id: string, cpn?: string, client?: string): Promise<{
+    getVideoInfo(id: string, cpn?: string, client?: string, playlist_id?: string): Promise<{
         success: boolean;
         status_code: number;
         data: any;
@@ -224,6 +224,15 @@ declare class Actions {
         status_code: number;
         data: any;
     }>;
+    /**
+     * Makes calls to the playback tracking API.
+     */
+    stats(url: string, client: {
+        client_name: string;
+        client_version: string;
+    }, params: {
+        [key: string]: any;
+    }): Promise<any>;
     /**
      * Executes an API call.
      * @param action - endpoint

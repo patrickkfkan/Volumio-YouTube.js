@@ -618,7 +618,7 @@ class Actions {
   /**
    * Used to retrieve video info.
    */
-  async getVideoInfo(id: string, cpn?: string, client?: string) {
+  async getVideoInfo(id: string, cpn?: string, client?: string, playlist_id?: string) {
     const data: Record<string, any> = {
       playbackContext: {
         contentPlaybackContext: {
@@ -645,6 +645,10 @@ class Actions {
 
     if (cpn) {
       data.cpn = cpn;
+    }
+
+    if (playlist_id) {
+      data.playlistId = playlist_id;
     }
 
     const response = await this.#session.http.fetch('/player', {
@@ -679,6 +683,26 @@ class Actions {
     });
 
     return this.#wrap(response);
+  }
+
+  /**
+   * Makes calls to the playback tracking API.
+   */
+  async stats(url: string, client: { client_name: string; client_version: string }, params: { [key: string]: any }) {
+    const s_url = new URL(url);
+
+    s_url.searchParams.set('ver', '2');
+    s_url.searchParams.set('c', client.client_name.toLowerCase());
+    s_url.searchParams.set('cbrver', client.client_version);
+    s_url.searchParams.set('cver', client.client_version);
+
+    for (const key of Object.keys(params)) {
+      s_url.searchParams.set(key, params[key]);
+    }
+
+    const response = await this.#session.http.fetch(s_url);
+
+    return response;
   }
 
   /**
@@ -751,6 +775,7 @@ class Actions {
       'FElibrary',
       'FEhistory',
       'FEsubscriptions',
+      'FEmusic_listening_review',
       'SPaccount_notifications',
       'SPaccount_privacy',
       'SPtime_watched'

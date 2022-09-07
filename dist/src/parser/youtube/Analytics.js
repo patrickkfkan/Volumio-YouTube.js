@@ -22,7 +22,7 @@ class Analytics {
         var _a, _b;
         _Analytics_page.set(this, void 0);
         __classPrivateFieldSet(this, _Analytics_page, __1.default.parseResponse(response.data), "f");
-        this.sections = (_b = (_a = __classPrivateFieldGet(this, _Analytics_page, "f").contents_memo) === null || _a === void 0 ? void 0 : _a.get('Element')) === null || _b === void 0 ? void 0 : _b.map((el) => el.as(Element_1.default).model.item());
+        this.sections = (_b = (_a = __classPrivateFieldGet(this, _Analytics_page, "f").contents_memo) === null || _a === void 0 ? void 0 : _a.get('Element')) === null || _b === void 0 ? void 0 : _b.map((el) => { var _a; return (_a = el.as(Element_1.default).model) === null || _a === void 0 ? void 0 : _a.item(); });
     }
     get page() {
         return __classPrivateFieldGet(this, _Analytics_page, "f");

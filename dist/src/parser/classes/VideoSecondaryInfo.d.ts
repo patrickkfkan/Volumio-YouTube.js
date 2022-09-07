@@ -1,11 +1,13 @@
 import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Button from './Button';
+import SubscribeButton from './SubscribeButton';
 import MetadataRowContainer from './MetadataRowContainer';
+import { YTNode } from '../helpers';
 declare class VideoSecondaryInfo extends YTNode {
     static type: string;
     owner: import("../helpers").SuperParsedResult<YTNode>;
     description: Text;
-    subscribe_button: import("../helpers").SuperParsedResult<YTNode>;
+    subscribe_button: Button | SubscribeButton | null;
     metadata: MetadataRowContainer | null;
     show_more_text: string;
     show_less_text: string;
