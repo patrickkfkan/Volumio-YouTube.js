@@ -87,7 +87,13 @@ class TrackInfo {
       rt: 0
     };
 
-    const response = await this.#actions.stats(this.#playback_tracking.videostats_playback_url, {
+    // `https://s.youtube.com` is commonly blocked by pi hole and furthermore, it appears that Google replaces
+    // it with `https://music.youtube.com` (perhaps as a way to bypass the block?).
+    // Not submitted to YouTube.js repo because it's not a real big issue, plus it has been brought to the attention of
+    // the developers - leave this to their discretion.
+    const url = this.#playback_tracking.videostats_playback_url.replace('https://s.youtube.com', 'https://music.youtube.com');
+
+    const response = await this.#actions.stats(url, {
       client_name: Constants.CLIENTS.YTMUSIC.NAME,
       client_version: Constants.CLIENTS.YTMUSIC.VERSION
     }, url_params);
