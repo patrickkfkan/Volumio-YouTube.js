@@ -84,7 +84,12 @@ class TrackInfo {
                 rtn: 0,
                 rt: 0
             };
-            const response = yield __classPrivateFieldGet(this, _TrackInfo_actions, "f").stats(__classPrivateFieldGet(this, _TrackInfo_playback_tracking, "f").videostats_playback_url, {
+            // `https://s.youtube.com` is commonly blocked by pi hole and furthermore, it appears that Google replaces
+            // it with `https://music.youtube.com` (perhaps as a way to bypass the block?).
+            // Not submitted to YouTube.js repo because it's not a real big issue, plus it has been brought to the attention of
+            // the developers - leave this to their discretion.
+            const url = __classPrivateFieldGet(this, _TrackInfo_playback_tracking, "f").videostats_playback_url.replace('https://s.youtube.com', 'https://music.youtube.com');
+            const response = yield __classPrivateFieldGet(this, _TrackInfo_actions, "f").stats(url, {
                 client_name: Constants_1.default.CLIENTS.YTMUSIC.NAME,
                 client_version: Constants_1.default.CLIENTS.YTMUSIC.VERSION
             }, url_params);

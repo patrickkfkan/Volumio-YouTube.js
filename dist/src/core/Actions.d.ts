@@ -209,7 +209,7 @@ declare class Actions {
     /**
      * Used to retrieve video info.
      */
-    getVideoInfo(id: string, cpn?: string, client?: string): Promise<{
+    getVideoInfo(id: string, cpn?: string, client?: string, playlist_id?: string): Promise<{
         success: boolean;
         status_code: number;
         data: any;

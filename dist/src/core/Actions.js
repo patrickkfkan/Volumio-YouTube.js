@@ -521,7 +521,7 @@ class Actions {
     /**
      * Used to retrieve video info.
      */
-    getVideoInfo(id, cpn, client) {
+    getVideoInfo(id, cpn, client, playlist_id) {
         return __awaiter(this, void 0, void 0, function* () {
             const data = {
                 playbackContext: {
@@ -547,6 +547,9 @@ class Actions {
             }
             if (cpn) {
                 data.cpn = cpn;
+            }
+            if (playlist_id) {
+                data.playlistId = playlist_id;
             }
             const response = yield __classPrivateFieldGet(this, _Actions_session, "f").http.fetch('/player', {
                 method: 'POST',

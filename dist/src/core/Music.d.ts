@@ -18,7 +18,7 @@ declare class Music {
     /**
      * Retrieves track info.
      */
-    getInfo(video_id: string): Promise<TrackInfo>;
+    getInfo(video_id: string, playlist_id?: string): Promise<TrackInfo>;
     /**
      * Searches on YouTube Music.
      */
