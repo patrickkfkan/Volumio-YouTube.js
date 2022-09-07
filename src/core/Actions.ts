@@ -618,7 +618,7 @@ class Actions {
   /**
    * Used to retrieve video info.
    */
-  async getVideoInfo(id: string, cpn?: string, client?: string) {
+  async getVideoInfo(id: string, cpn?: string, client?: string, playlist_id?: string) {
     const data: Record<string, any> = {
       playbackContext: {
         contentPlaybackContext: {
@@ -645,6 +645,10 @@ class Actions {
 
     if (cpn) {
       data.cpn = cpn;
+    }
+
+    if (playlist_id) {
+      data.playlistId = playlist_id;
     }
 
     const response = await this.#session.http.fetch('/player', {
