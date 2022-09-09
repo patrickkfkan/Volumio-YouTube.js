@@ -185,6 +185,7 @@ const PlaylistInfoCardContent_1 = __importDefault(require("./classes/PlaylistInf
 const PlaylistMetadata_1 = __importDefault(require("./classes/PlaylistMetadata"));
 const PlaylistPanel_1 = __importDefault(require("./classes/PlaylistPanel"));
 const PlaylistPanelVideo_1 = __importDefault(require("./classes/PlaylistPanelVideo"));
+const PlaylistPanelVideoWrapper_1 = __importDefault(require("./classes/PlaylistPanelVideoWrapper"));
 const PlaylistSidebar_1 = __importDefault(require("./classes/PlaylistSidebar"));
 const PlaylistSidebarPrimaryInfo_1 = __importDefault(require("./classes/PlaylistSidebarPrimaryInfo"));
 const PlaylistSidebarSecondaryInfo_1 = __importDefault(require("./classes/PlaylistSidebarSecondaryInfo"));
@@ -448,6 +449,7 @@ const map = {
     PlaylistMetadata: PlaylistMetadata_1.default,
     PlaylistPanel: PlaylistPanel_1.default,
     PlaylistPanelVideo: PlaylistPanelVideo_1.default,
+    PlaylistPanelVideoWrapper: PlaylistPanelVideoWrapper_1.default,
     PlaylistSidebar: PlaylistSidebar_1.default,
     PlaylistSidebarPrimaryInfo: PlaylistSidebarPrimaryInfo_1.default,
     PlaylistSidebarSecondaryInfo: PlaylistSidebarSecondaryInfo_1.default,

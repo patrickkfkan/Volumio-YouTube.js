@@ -5,16 +5,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../index"));
 const Text_1 = __importDefault(require("./misc/Text"));
-const PlaylistPanelVideo_1 = __importDefault(require("./PlaylistPanelVideo"));
 const helpers_1 = require("../helpers");
-const AutomixPreviewVideo_1 = __importDefault(require("./AutomixPreviewVideo"));
 class PlaylistPanel extends helpers_1.YTNode {
     constructor(data) {
         var _a, _b, _c, _d, _e, _f;
         super();
         this.title = data.title;
         this.title_text = new Text_1.default(data.titleText);
-        this.contents = index_1.default.parseArray(data.contents, [PlaylistPanelVideo_1.default, AutomixPreviewVideo_1.default]);
+        this.contents = index_1.default.parseArray(data.contents);
         this.playlist_id = data.playlistId;
         this.is_infinite = data.isInfinite;
         this.continuation = ((_c = (_b = (_a = data.continuations) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.nextRadioContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || ((_f = (_e = (_d = data.continuations) === null || _d === void 0 ? void 0 : _d[0]) === null || _e === void 0 ? void 0 : _e.nextContinuationData) === null || _f === void 0 ? void 0 : _f.continuation);
