@@ -17,6 +17,9 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.1.0-b.7:
+- Add `PlaylistPanelVideoWrapper` parser class (PR submitted to YouTube.js repo: [#176](https://github.com/LuanRT/YouTube.js/pull/176)). This is needed when parsing 'Up Next' contents with a YouTube Premium account.
+
 0.1.0-b.6:
 - Merge from YouTube.js repo (up to commit [5b3109a](https://github.com/LuanRT/YouTube.js/commit/5b3109afefc0a27ea07a6d95c33acd1cc0fd11f6)).
 - Fix `Music#getArtist()` failing for private artists (PR submitted and merged with YouTube.js repo: [#170](https://github.com/LuanRT/YouTube.js/pull/170)).
