@@ -1,6 +1,6 @@
 {
   "name": "volumio-youtubei.js",
-  "version": "0.1.0-b.7",
+  "version": "0.1.1-b.1",
   "description": "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   "main": "./dist/index.js",
   "types": "./dist",
@@ -32,7 +32,7 @@
   "dependencies": {
     "@peculiar/webcrypto": "^1.4.0",
     "@protobuf-ts/runtime": "^2.7.0",
-    "jintr": "^0.1.9",
+    "jintr": "^0.2.0",
     "btoa": "^1.2.1",
     "event-target-polyfill": "0.0.3",
     "linkedom": "^0.14.12",
@@ -63,17 +63,18 @@
     "youtubedl",
     "youtube-dl",
     "youtube-downloader",
-    "innertube",
+    "youtube-music",
     "innertubeapi",
+    "innertube",
     "unofficial",
     "downloader",
     "livechat",
+    "studio",
+    "upload",
     "ytmusic",
-    "dislike",
     "search",
     "comment",
     "music",
-    "like",
     "api"
   ]
 }

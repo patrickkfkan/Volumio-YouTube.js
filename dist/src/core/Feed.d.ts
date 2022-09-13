@@ -92,6 +92,7 @@ declare class Feed {
         playability_status: {
             status: string;
             error_screen: import("../parser/helpers").SuperParsedResult<import("../parser/helpers").YTNode>;
+            audio_only_playablility: import("../parser/classes/AudioOnlyPlayability").default | null;
             embeddable: boolean;
             reason: any;
         } | undefined;

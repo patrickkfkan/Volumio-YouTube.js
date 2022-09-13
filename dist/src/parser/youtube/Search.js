@@ -12,27 +12,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Feed_1 = __importDefault(require("../../core/Feed"));
+const helpers_1 = require("../helpers");
 const Utils_1 = require("../../utils/Utils");
-const HorizontalCardList_1 = __importDefault(require("../classes/HorizontalCardList"));
+const Feed_1 = __importDefault(require("../../core/Feed"));
+const SectionList_1 = __importDefault(require("../classes/SectionList"));
 const ItemSection_1 = __importDefault(require("../classes/ItemSection"));
+const HorizontalCardList_1 = __importDefault(require("../classes/HorizontalCardList"));
 const RichListHeader_1 = __importDefault(require("../classes/RichListHeader"));
 const SearchRefinementCard_1 = __importDefault(require("../classes/SearchRefinementCard"));
 const TwoColumnSearchResults_1 = __importDefault(require("../classes/TwoColumnSearchResults"));
 const UniversalWatchCard_1 = __importDefault(require("../classes/UniversalWatchCard"));
 const WatchCardHeroVideo_1 = __importDefault(require("../classes/WatchCardHeroVideo"));
 const WatchCardSectionSequence_1 = __importDefault(require("../classes/WatchCardSectionSequence"));
-const helpers_1 = require("../helpers");
 class Search extends Feed_1.default {
     constructor(actions, data, already_parsed = false) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e, _f;
         super(actions, data, already_parsed);
-        const contents = this.page.contents.item().as(TwoColumnSearchResults_1.default).primary_contents.item().key('contents').parsed().array() ||
-            ((_a = this.page.on_response_received_commands) === null || _a === void 0 ? void 0 : _a[0].contents);
-        const secondary_contents_maybe = this.page.contents.item().key('secondary_contents');
-        const secondary_contents = secondary_contents_maybe.isParsed() ? secondary_contents_maybe.parsed().item().key('contents').parsed().array() : undefined;
-        this.results = (_b = contents.firstOfType(ItemSection_1.default)) === null || _b === void 0 ? void 0 : _b.contents;
-        const card_list = (_d = (_c = this.results) === null || _c === void 0 ? void 0 : _c.get({ type: 'HorizontalCardList' }, true)) === null || _d === void 0 ? void 0 : _d.as(HorizontalCardList_1.default);
+        const contents = ((_a = this.page.contents) === null || _a === void 0 ? void 0 : _a.item().as(TwoColumnSearchResults_1.default).primary_contents.item().as(SectionList_1.default).contents.array()) ||
+            ((_b = this.page.on_response_received_commands) === null || _b === void 0 ? void 0 : _b[0].contents);
+        const secondary_contents_maybe = (_c = this.page.contents) === null || _c === void 0 ? void 0 : _c.item().key('secondary_contents');
+        const secondary_contents = (secondary_contents_maybe === null || secondary_contents_maybe === void 0 ? void 0 : secondary_contents_maybe.isParsed()) ? secondary_contents_maybe.parsed().item().key('contents').parsed().array() : undefined;
+        this.results = (_d = contents.firstOfType(ItemSection_1.default)) === null || _d === void 0 ? void 0 : _d.contents;
+        const card_list = (_f = (_e = this.results) === null || _e === void 0 ? void 0 : _e.get({ type: 'HorizontalCardList' }, true)) === null || _f === void 0 ? void 0 : _f.as(HorizontalCardList_1.default);
         const universal_watch_card = secondary_contents === null || secondary_contents === void 0 ? void 0 : secondary_contents.firstOfType(UniversalWatchCard_1.default);
         this.refinements = this.page.refinements || [];
         this.estimated_results = this.page.estimated_results;
@@ -63,7 +64,7 @@ class Search extends Feed_1.default {
             else {
                 throw new Utils_1.InnertubeError('Invalid refinement card!');
             }
-            const page = yield target_card.endpoint.call(this.actions);
+            const page = yield target_card.endpoint.call(this.actions, undefined, true);
             return new Search(this.actions, page, true);
         });
     }

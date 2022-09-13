@@ -33,7 +33,11 @@ const WatchNextTabbedResults_1 = __importDefault(require("../classes/WatchNextTa
 const SingleColumnMusicWatchNextResults_1 = __importDefault(require("../classes/SingleColumnMusicWatchNextResults"));
 const MicroformatData_1 = __importDefault(require("../classes/MicroformatData"));
 const PlayerOverlay_1 = __importDefault(require("../classes/PlayerOverlay"));
-// TODO: add a way to get specific tabs
+const PlaylistPanel_1 = __importDefault(require("../classes/PlaylistPanel"));
+const SectionList_1 = __importDefault(require("../classes/SectionList"));
+const MusicDescriptionShelf_1 = __importDefault(require("../classes/MusicDescriptionShelf"));
+const AutomixPreviewVideo_1 = __importDefault(require("../classes/AutomixPreviewVideo"));
+const Message_1 = __importDefault(require("../classes/Message"));
 class TrackInfo {
     constructor(data, actions, cpn) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
@@ -72,6 +76,68 @@ class TrackInfo {
         }
     }
     /**
+     * Retrieves contents of the given tab.
+     */
+    getTab(title) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!this.tabs)
+                throw new Utils_1.InnertubeError('Could not find any tab');
+            const target_tab = this.tabs.get({ title });
+            if (!target_tab)
+                throw new Utils_1.InnertubeError(`Tab "${title}" not found`, { available_tabs: this.available_tabs });
+            if (target_tab.content)
+                return target_tab.content;
+            const page = yield target_tab.endpoint.callTest(__classPrivateFieldGet(this, _TrackInfo_actions, "f"), { client: 'YTMUSIC', parse: true });
+            if (page.contents.item().key('type').string() === 'Message')
+                return page.contents.item().as(Message_1.default);
+            return page.contents.item().as(SectionList_1.default).contents.array();
+        });
+    }
+    /**
+     * Retrieves up next.
+     */
+    getUpNext(automix = true) {
+        var _a, _b;
+        return __awaiter(this, void 0, void 0, function* () {
+            const music_queue = yield this.getTab('Up next');
+            if (!music_queue || !music_queue.content)
+                throw new Utils_1.InnertubeError('Music queue was empty, the video id is probably invalid.', music_queue);
+            const playlist_panel = music_queue.content.as(PlaylistPanel_1.default);
+            if (!playlist_panel.playlist_id && automix) {
+                const automix_preview_video = playlist_panel.contents.firstOfType(AutomixPreviewVideo_1.default);
+                if (!automix_preview_video)
+                    throw new Utils_1.InnertubeError('Automix item not found');
+                const page = yield ((_a = automix_preview_video.playlist_video) === null || _a === void 0 ? void 0 : _a.endpoint.callTest(__classPrivateFieldGet(this, _TrackInfo_actions, "f"), {
+                    videoId: this.basic_info.id,
+                    client: 'YTMUSIC',
+                    parse: true
+                }));
+                if (!page)
+                    throw new Utils_1.InnertubeError('Could not fetch automix');
+                return (_b = page.contents_memo.getType(PlaylistPanel_1.default)) === null || _b === void 0 ? void 0 : _b[0];
+            }
+            return playlist_panel;
+        });
+    }
+    /**
+     * Retrieves related content.
+     */
+    getRelated() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tab = yield this.getTab('Related');
+            return tab;
+        });
+    }
+    /**
+     * Retrieves lyrics.
+     */
+    getLyrics() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const tab = yield this.getTab('Lyrics');
+            return tab.firstOfType(MusicDescriptionShelf_1.default);
+        });
+    }
+    /**
      * Adds the song to the watch history.
      */
     addToWatchHistory() {
@@ -84,17 +150,16 @@ class TrackInfo {
                 rtn: 0,
                 rt: 0
             };
-            // `https://s.youtube.com` is commonly blocked by pi hole and furthermore, it appears that Google replaces
-            // it with `https://music.youtube.com` (perhaps as a way to bypass the block?).
-            // Not submitted to YouTube.js repo because it's not a real big issue, plus it has been brought to the attention of
-            // the developers - leave this to their discretion.
-            const url = __classPrivateFieldGet(this, _TrackInfo_playback_tracking, "f").videostats_playback_url.replace('https://s.youtube.com', 'https://music.youtube.com');
+            const url = __classPrivateFieldGet(this, _TrackInfo_playback_tracking, "f").videostats_playback_url.replace('https://s.', 'https://music.');
             const response = yield __classPrivateFieldGet(this, _TrackInfo_actions, "f").stats(url, {
                 client_name: Constants_1.default.CLIENTS.YTMUSIC.NAME,
                 client_version: Constants_1.default.CLIENTS.YTMUSIC.VERSION
             }, url_params);
             return response;
         });
+    }
+    get available_tabs() {
+        return this.tabs ? this.tabs.map((tab) => tab.title) : [];
     }
     get page() {
         return __classPrivateFieldGet(this, _TrackInfo_page, "f");

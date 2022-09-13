@@ -22,7 +22,7 @@ class DropdownItem extends helpers_1.YTNode {
             this.endpoint = new NavigationEndpoint_1.default(data.onSelectCommand);
         }
         if ((_b = data.icon) === null || _b === void 0 ? void 0 : _b.iconType) {
-            this.iconType = (_c = data.icon) === null || _c === void 0 ? void 0 : _c.iconType;
+            this.icon_type = (_c = data.icon) === null || _c === void 0 ? void 0 : _c.iconType;
         }
         if (data.descriptionText) {
             this.description = new Text_1.default(data.descriptionText).toString();

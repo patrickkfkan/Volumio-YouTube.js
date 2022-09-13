@@ -81,6 +81,7 @@ declare abstract class LibraryResultsBase {
         playability_status: {
             status: string;
             error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+            audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
             embeddable: boolean;
             reason: any;
         } | undefined;

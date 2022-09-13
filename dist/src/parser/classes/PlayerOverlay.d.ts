@@ -10,6 +10,8 @@ declare class PlayerOverlay extends YTNode {
     share_button: Button | null;
     add_to_menu: Menu | null;
     fullscreen_engagement: import("../helpers").SuperParsedResult<YTNode>;
+    actions: import("../helpers").ObservedArray<YTNode>;
+    browser_media_session: YTNode | null;
     constructor(data: any);
 }
 export default PlayerOverlay;

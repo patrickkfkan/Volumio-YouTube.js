@@ -43,6 +43,7 @@ const ItemSection_1 = __importDefault(require("../classes/ItemSection"));
 const PlayerOverlay_1 = __importDefault(require("../classes/PlayerOverlay"));
 const ToggleButton_1 = __importDefault(require("../classes/ToggleButton"));
 const CommentsEntryPointHeader_1 = __importDefault(require("../classes/comments/CommentsEntryPointHeader"));
+const SegmentedLikeDislikeButton_1 = __importDefault(require("../classes/SegmentedLikeDislikeButton"));
 const ContinuationItem_1 = __importDefault(require("../classes/ContinuationItem"));
 const PlayerMicroformat_1 = __importDefault(require("../classes/PlayerMicroformat"));
 const MicroformatData_1 = __importDefault(require("../classes/MicroformatData"));
@@ -56,7 +57,7 @@ class VideoInfo {
      * @param cpn - Client Playback Nonce
      */
     constructor(data, actions, player, cpn) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13;
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
         _VideoInfo_instances.add(this);
         _VideoInfo_page.set(this, void 0);
         _VideoInfo_actions.set(this, void 0);
@@ -105,12 +106,13 @@ class VideoInfo {
             if (this.watch_next_feed && Array.isArray(this.watch_next_feed))
                 __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_u = this.watch_next_feed.pop()) === null || _u === void 0 ? void 0 : _u.as(ContinuationItem_1.default), "f");
             this.player_overlays = next === null || next === void 0 ? void 0 : next.player_overlays.item().as(PlayerOverlay_1.default);
-            this.basic_info.like_count = (_z = (_y = (_x = (_w = (_v = this.primary_info) === null || _v === void 0 ? void 0 : _v.menu) === null || _w === void 0 ? void 0 : _w.top_level_buttons) === null || _x === void 0 ? void 0 : _x.get({ icon_type: 'LIKE' })) === null || _y === void 0 ? void 0 : _y.as(ToggleButton_1.default)) === null || _z === void 0 ? void 0 : _z.like_count;
-            this.basic_info.is_liked = (_4 = (_3 = (_2 = (_1 = (_0 = this.primary_info) === null || _0 === void 0 ? void 0 : _0.menu) === null || _1 === void 0 ? void 0 : _1.top_level_buttons) === null || _2 === void 0 ? void 0 : _2.get({ icon_type: 'LIKE' })) === null || _3 === void 0 ? void 0 : _3.as(ToggleButton_1.default)) === null || _4 === void 0 ? void 0 : _4.is_toggled;
-            this.basic_info.is_disliked = (_9 = (_8 = (_7 = (_6 = (_5 = this.primary_info) === null || _5 === void 0 ? void 0 : _5.menu) === null || _6 === void 0 ? void 0 : _6.top_level_buttons) === null || _7 === void 0 ? void 0 : _7.get({ icon_type: 'DISLIKE' })) === null || _8 === void 0 ? void 0 : _8.as(ToggleButton_1.default)) === null || _9 === void 0 ? void 0 : _9.is_toggled;
-            const comments_entry_point = (_10 = results.get({ target_id: 'comments-entry-point' })) === null || _10 === void 0 ? void 0 : _10.as(ItemSection_1.default);
-            this.comments_entry_point_header = (_12 = (_11 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _11 === void 0 ? void 0 : _11.get({ type: 'CommentsEntryPointHeader' })) === null || _12 === void 0 ? void 0 : _12.as(CommentsEntryPointHeader_1.default);
-            this.livechat = (_13 = next === null || next === void 0 ? void 0 : next.contents_memo.getType(LiveChat_1.default)) === null || _13 === void 0 ? void 0 : _13[0];
+            const segmented_like_dislike_button = (_w = (_v = this.primary_info) === null || _v === void 0 ? void 0 : _v.menu) === null || _w === void 0 ? void 0 : _w.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_1.default);
+            this.basic_info.like_count = (_y = (_x = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _x === void 0 ? void 0 : _x.as(ToggleButton_1.default)) === null || _y === void 0 ? void 0 : _y.like_count;
+            this.basic_info.is_liked = (_0 = (_z = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _z === void 0 ? void 0 : _z.as(ToggleButton_1.default)) === null || _0 === void 0 ? void 0 : _0.is_toggled;
+            this.basic_info.is_disliked = (_2 = (_1 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _1 === void 0 ? void 0 : _1.as(ToggleButton_1.default)) === null || _2 === void 0 ? void 0 : _2.is_toggled;
+            const comments_entry_point = (_3 = results.get({ target_id: 'comments-entry-point' })) === null || _3 === void 0 ? void 0 : _3.as(ItemSection_1.default);
+            this.comments_entry_point_header = (_5 = (_4 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _4 === void 0 ? void 0 : _4.get({ type: 'CommentsEntryPointHeader' })) === null || _5 === void 0 ? void 0 : _5.as(CommentsEntryPointHeader_1.default);
+            this.livechat = (_6 = next === null || next === void 0 ? void 0 : next.contents_memo.getType(LiveChat_1.default)) === null || _6 === void 0 ? void 0 : _6[0];
         }
     }
     /**
@@ -143,7 +145,8 @@ class VideoInfo {
                 rtn: 0,
                 rt: 0
             };
-            const response = yield __classPrivateFieldGet(this, _VideoInfo_actions, "f").stats(__classPrivateFieldGet(this, _VideoInfo_playback_tracking, "f").videostats_playback_url, {
+            const url = __classPrivateFieldGet(this, _VideoInfo_playback_tracking, "f").videostats_playback_url.replace('https://s.', 'https://www.');
+            const response = yield __classPrivateFieldGet(this, _VideoInfo_actions, "f").stats(url, {
                 client_name: Constants_1.default.CLIENTS.WEB.NAME,
                 client_version: Constants_1.default.CLIENTS.WEB.VERSION
             }, url_params);

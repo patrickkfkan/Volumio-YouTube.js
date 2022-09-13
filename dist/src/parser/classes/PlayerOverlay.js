@@ -17,6 +17,8 @@ class PlayerOverlay extends helpers_1.YTNode {
         this.share_button = index_1.default.parseItem(data.shareButton, Button_1.default);
         this.add_to_menu = index_1.default.parseItem(data.addToMenu, Menu_1.default);
         this.fullscreen_engagement = index_1.default.parse(data.fullscreenEngagement);
+        this.actions = index_1.default.parseArray(data.actions);
+        this.browser_media_session = index_1.default.parseItem(data.browserMediaSession);
     }
 }
 PlayerOverlay.type = 'PlayerOverlay';

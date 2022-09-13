@@ -30,6 +30,7 @@ const Utils_1 = require("../utils/Utils");
 const helpers_1 = require("./helpers");
 const package_json_1 = __importDefault(require("../../package.json"));
 const MusicMultiSelectMenuItem_1 = __importDefault(require("./classes/menus/MusicMultiSelectMenuItem"));
+const AudioOnlyPlayability_1 = __importDefault(require("./classes/AudioOnlyPlayability"));
 class AppendContinuationItemsAction extends helpers_1.YTNode {
     constructor(data) {
         super();
@@ -198,6 +199,7 @@ class Parser {
             playability_status: data.playabilityStatus ? {
                 status: data.playabilityStatus.status,
                 error_screen: Parser.parse(data.playabilityStatus.errorScreen),
+                audio_only_playablility: Parser.parseItem(data.playabilityStatus.audioOnlyPlayability, AudioOnlyPlayability_1.default),
                 embeddable: !!data.playabilityStatus.playableInEmbed || false,
                 reason: ((_d = data.playabilityStatus) === null || _d === void 0 ? void 0 : _d.reason) || ''
             } : undefined,
@@ -298,9 +300,6 @@ class Parser {
         }
         throw new Utils_1.ParsingError('Expected array but got a single item');
     }
-    /**
-     * Parses the `contents` property of the response as well as its nodes.
-     */
     static parse(data, requireArray, validTypes) {
         if (!data)
             return null;

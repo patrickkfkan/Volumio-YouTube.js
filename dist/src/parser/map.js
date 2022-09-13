@@ -18,11 +18,13 @@ const AnalyticsVodCarouselCard_1 = __importDefault(require("./classes/analytics/
 const CtaGoToCreatorStudio_1 = __importDefault(require("./classes/analytics/CtaGoToCreatorStudio"));
 const DataModelSection_1 = __importDefault(require("./classes/analytics/DataModelSection"));
 const StatRow_1 = __importDefault(require("./classes/analytics/StatRow"));
+const AudioOnlyPlayability_1 = __importDefault(require("./classes/AudioOnlyPlayability"));
 const AutomixPreviewVideo_1 = __importDefault(require("./classes/AutomixPreviewVideo"));
 const BackstageImage_1 = __importDefault(require("./classes/BackstageImage"));
 const BackstagePost_1 = __importDefault(require("./classes/BackstagePost"));
 const BackstagePostThread_1 = __importDefault(require("./classes/BackstagePostThread"));
 const BrowseFeedActions_1 = __importDefault(require("./classes/BrowseFeedActions"));
+const BrowserMediaSession_1 = __importDefault(require("./classes/BrowserMediaSession"));
 const Button_1 = __importDefault(require("./classes/Button"));
 const C4TabbedHeader_1 = __importDefault(require("./classes/C4TabbedHeader"));
 const CallToActionButton_1 = __importDefault(require("./classes/CallToActionButton"));
@@ -40,6 +42,7 @@ const ChannelVideoPlayer_1 = __importDefault(require("./classes/ChannelVideoPlay
 const ChildVideo_1 = __importDefault(require("./classes/ChildVideo"));
 const ChipCloud_1 = __importDefault(require("./classes/ChipCloud"));
 const ChipCloudChip_1 = __importDefault(require("./classes/ChipCloudChip"));
+const CollaboratorInfoCardContent_1 = __importDefault(require("./classes/CollaboratorInfoCardContent"));
 const CollageHeroImage_1 = __importDefault(require("./classes/CollageHeroImage"));
 const AuthorCommentBadge_1 = __importDefault(require("./classes/comments/AuthorCommentBadge"));
 const Comment_1 = __importDefault(require("./classes/comments/Comment"));
@@ -90,6 +93,7 @@ const LiveChat_1 = __importDefault(require("./classes/LiveChat"));
 const AddBannerToLiveChatCommand_1 = __importDefault(require("./classes/livechat/AddBannerToLiveChatCommand"));
 const AddChatItemAction_1 = __importDefault(require("./classes/livechat/AddChatItemAction"));
 const AddLiveChatTickerItemAction_1 = __importDefault(require("./classes/livechat/AddLiveChatTickerItemAction"));
+const LiveChatAutoModMessage_1 = __importDefault(require("./classes/livechat/items/LiveChatAutoModMessage"));
 const LiveChatBanner_1 = __importDefault(require("./classes/livechat/items/LiveChatBanner"));
 const LiveChatBannerHeader_1 = __importDefault(require("./classes/livechat/items/LiveChatBannerHeader"));
 const LiveChatBannerPoll_1 = __importDefault(require("./classes/livechat/items/LiveChatBannerPoll"));
@@ -118,6 +122,7 @@ const UpdateTitleAction_1 = __importDefault(require("./classes/livechat/UpdateTi
 const UpdateToggleButtonTextAction_1 = __importDefault(require("./classes/livechat/UpdateToggleButtonTextAction"));
 const UpdateViewershipAction_1 = __importDefault(require("./classes/livechat/UpdateViewershipAction"));
 const LiveChatAuthorBadge_1 = __importDefault(require("./classes/LiveChatAuthorBadge"));
+const LiveChatDialog_1 = __importDefault(require("./classes/LiveChatDialog"));
 const LiveChatHeader_1 = __importDefault(require("./classes/LiveChatHeader"));
 const LiveChatItemList_1 = __importDefault(require("./classes/LiveChatItemList"));
 const LiveChatMessageInput_1 = __importDefault(require("./classes/LiveChatMessageInput"));
@@ -148,6 +153,7 @@ const MusicCarouselShelf_1 = __importDefault(require("./classes/MusicCarouselShe
 const MusicCarouselShelfBasicHeader_1 = __importDefault(require("./classes/MusicCarouselShelfBasicHeader"));
 const MusicDescriptionShelf_1 = __importDefault(require("./classes/MusicDescriptionShelf"));
 const MusicDetailHeader_1 = __importDefault(require("./classes/MusicDetailHeader"));
+const MusicDownloadStateBadge_1 = __importDefault(require("./classes/MusicDownloadStateBadge"));
 const MusicEditablePlaylistDetailHeader_1 = __importDefault(require("./classes/MusicEditablePlaylistDetailHeader"));
 const MusicElementHeader_1 = __importDefault(require("./classes/MusicElementHeader"));
 const MusicHeader_1 = __importDefault(require("./classes/MusicHeader"));
@@ -212,6 +218,7 @@ const SearchSuggestion_1 = __importDefault(require("./classes/SearchSuggestion")
 const SearchSuggestionsSection_1 = __importDefault(require("./classes/SearchSuggestionsSection"));
 const SecondarySearchContainer_1 = __importDefault(require("./classes/SecondarySearchContainer"));
 const SectionList_1 = __importDefault(require("./classes/SectionList"));
+const SegmentedLikeDislikeButton_1 = __importDefault(require("./classes/SegmentedLikeDislikeButton"));
 const SettingBoolean_1 = __importDefault(require("./classes/SettingBoolean"));
 const SettingsCheckbox_1 = __importDefault(require("./classes/SettingsCheckbox"));
 const SettingsOptions_1 = __importDefault(require("./classes/SettingsOptions"));
@@ -247,6 +254,7 @@ const ThumbnailOverlayResumePlayback_1 = __importDefault(require("./classes/Thum
 const ThumbnailOverlaySidePanel_1 = __importDefault(require("./classes/ThumbnailOverlaySidePanel"));
 const ThumbnailOverlayTimeStatus_1 = __importDefault(require("./classes/ThumbnailOverlayTimeStatus"));
 const ThumbnailOverlayToggleButton_1 = __importDefault(require("./classes/ThumbnailOverlayToggleButton"));
+const TitleAndButtonListHeader_1 = __importDefault(require("./classes/TitleAndButtonListHeader"));
 const ToggleButton_1 = __importDefault(require("./classes/ToggleButton"));
 const ToggleMenuServiceItem_1 = __importDefault(require("./classes/ToggleMenuServiceItem"));
 const Tooltip_1 = __importDefault(require("./classes/Tooltip"));
@@ -282,11 +290,13 @@ const map = {
     CtaGoToCreatorStudio: CtaGoToCreatorStudio_1.default,
     DataModelSection: DataModelSection_1.default,
     StatRow: StatRow_1.default,
+    AudioOnlyPlayability: AudioOnlyPlayability_1.default,
     AutomixPreviewVideo: AutomixPreviewVideo_1.default,
     BackstageImage: BackstageImage_1.default,
     BackstagePost: BackstagePost_1.default,
     BackstagePostThread: BackstagePostThread_1.default,
     BrowseFeedActions: BrowseFeedActions_1.default,
+    BrowserMediaSession: BrowserMediaSession_1.default,
     Button: Button_1.default,
     C4TabbedHeader: C4TabbedHeader_1.default,
     CallToActionButton: CallToActionButton_1.default,
@@ -304,6 +314,7 @@ const map = {
     ChildVideo: ChildVideo_1.default,
     ChipCloud: ChipCloud_1.default,
     ChipCloudChip: ChipCloudChip_1.default,
+    CollaboratorInfoCardContent: CollaboratorInfoCardContent_1.default,
     CollageHeroImage: CollageHeroImage_1.default,
     AuthorCommentBadge: AuthorCommentBadge_1.default,
     Comment: Comment_1.default,
@@ -354,6 +365,7 @@ const map = {
     AddBannerToLiveChatCommand: AddBannerToLiveChatCommand_1.default,
     AddChatItemAction: AddChatItemAction_1.default,
     AddLiveChatTickerItemAction: AddLiveChatTickerItemAction_1.default,
+    LiveChatAutoModMessage: LiveChatAutoModMessage_1.default,
     LiveChatBanner: LiveChatBanner_1.default,
     LiveChatBannerHeader: LiveChatBannerHeader_1.default,
     LiveChatBannerPoll: LiveChatBannerPoll_1.default,
@@ -382,6 +394,7 @@ const map = {
     UpdateToggleButtonTextAction: UpdateToggleButtonTextAction_1.default,
     UpdateViewershipAction: UpdateViewershipAction_1.default,
     LiveChatAuthorBadge: LiveChatAuthorBadge_1.default,
+    LiveChatDialog: LiveChatDialog_1.default,
     LiveChatHeader: LiveChatHeader_1.default,
     LiveChatItemList: LiveChatItemList_1.default,
     LiveChatMessageInput: LiveChatMessageInput_1.default,
@@ -412,6 +425,7 @@ const map = {
     MusicCarouselShelfBasicHeader: MusicCarouselShelfBasicHeader_1.default,
     MusicDescriptionShelf: MusicDescriptionShelf_1.default,
     MusicDetailHeader: MusicDetailHeader_1.default,
+    MusicDownloadStateBadge: MusicDownloadStateBadge_1.default,
     MusicEditablePlaylistDetailHeader: MusicEditablePlaylistDetailHeader_1.default,
     MusicElementHeader: MusicElementHeader_1.default,
     MusicHeader: MusicHeader_1.default,
@@ -476,6 +490,7 @@ const map = {
     SearchSuggestionsSection: SearchSuggestionsSection_1.default,
     SecondarySearchContainer: SecondarySearchContainer_1.default,
     SectionList: SectionList_1.default,
+    SegmentedLikeDislikeButton: SegmentedLikeDislikeButton_1.default,
     SettingBoolean: SettingBoolean_1.default,
     SettingsCheckbox: SettingsCheckbox_1.default,
     SettingsOptions: SettingsOptions_1.default,
@@ -511,6 +526,7 @@ const map = {
     ThumbnailOverlaySidePanel: ThumbnailOverlaySidePanel_1.default,
     ThumbnailOverlayTimeStatus: ThumbnailOverlayTimeStatus_1.default,
     ThumbnailOverlayToggleButton: ThumbnailOverlayToggleButton_1.default,
+    TitleAndButtonListHeader: TitleAndButtonListHeader_1.default,
     ToggleButton: ToggleButton_1.default,
     ToggleMenuServiceItem: ToggleMenuServiceItem_1.default,
     Tooltip: Tooltip_1.default,

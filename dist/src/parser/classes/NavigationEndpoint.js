@@ -196,6 +196,10 @@ class NavigationEndpoint extends helpers_1.YTNode {
         switch (name) {
             case 'browseEndpoint':
                 return '/browse';
+            case 'watchEndpoint':
+                return '/player';
+            case 'watchPlaylistEndpoint':
+                return '/next';
         }
     }
     callTest(actions, args) {

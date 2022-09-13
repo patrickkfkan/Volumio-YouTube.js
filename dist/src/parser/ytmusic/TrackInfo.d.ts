@@ -1,6 +1,13 @@
 import Actions, { AxioslikeResponse } from '../../core/Actions';
 import Tab from '../classes/Tab';
 import PlayerOverlay from '../classes/PlayerOverlay';
+import PlaylistPanel from '../classes/PlaylistPanel';
+import SectionList from '../classes/SectionList';
+import MusicQueue from '../classes/MusicQueue';
+import MusicCarouselShelf from '../classes/MusicCarouselShelf';
+import MusicDescriptionShelf from '../classes/MusicDescriptionShelf';
+import Message from '../classes/Message';
+import { ObservedArray } from '../helpers';
 declare class TrackInfo {
     #private;
     basic_info: {
@@ -34,29 +41,47 @@ declare class TrackInfo {
     playability_status: {
         status: string;
         error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+        audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
         embeddable: boolean;
         reason: any;
     } | undefined;
     storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
     endscreen: import("../classes/Endscreen").default | null;
-    tabs: import("../helpers").ObservedArray<Tab> | undefined;
+    tabs: ObservedArray<Tab> | undefined;
     current_video_endpoint: import("../classes/NavigationEndpoint").default | null | undefined;
     player_overlays: PlayerOverlay | undefined;
     constructor(data: [AxioslikeResponse, AxioslikeResponse?], actions: Actions, cpn: string);
     /**
+     * Retrieves contents of the given tab.
+     */
+    getTab(title: string): Promise<ObservedArray<import("../helpers").YTNode> | Message | MusicQueue | import("../classes/RichGrid").default | SectionList>;
+    /**
+     * Retrieves up next.
+     */
+    getUpNext(automix?: boolean): Promise<PlaylistPanel>;
+    /**
+     * Retrieves related content.
+     */
+    getRelated(): Promise<ObservedArray<MusicCarouselShelf | MusicDescriptionShelf>>;
+    /**
+     * Retrieves lyrics.
+     */
+    getLyrics(): Promise<MusicDescriptionShelf | undefined>;
+    /**
      * Adds the song to the watch history.
      */
     addToWatchHistory(): Promise<any>;
+    get available_tabs(): string[];
     get page(): [{
         actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null;
         actions_memo: import("../helpers").Memo;
         contents: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
         contents_memo: import("../helpers").Memo;
-        on_response_received_actions: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
+        on_response_received_actions: ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
         on_response_received_actions_memo: import("../helpers").Memo;
-        on_response_received_endpoints: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
+        on_response_received_endpoints: ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
         on_response_received_endpoints_memo: import("../helpers").Memo;
-        on_response_received_commands: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
+        on_response_received_commands: ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
         on_response_received_commands_memo: import("../helpers").Memo;
         continuation: import("..").TimedContinuation | null | undefined;
         continuation_contents: import("..").SectionListContinuation | import("..").LiveChatContinuation | import("..").MusicPlaylistShelfContinuation | import("..").MusicShelfContinuation | import("..").GridContinuation | import("..").PlaylistPanelContinuation | null | undefined;
@@ -75,6 +100,7 @@ declare class TrackInfo {
         playability_status: {
             status: string;
             error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+            audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
             embeddable: boolean;
             reason: any;
         } | undefined;
@@ -88,7 +114,7 @@ declare class TrackInfo {
         current_video_endpoint: import("../classes/NavigationEndpoint").default | null;
         captions: import("../classes/PlayerCaptionsTracklist").default | null;
         video_details: import("../classes/misc/VideoDetails").default | undefined;
-        annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
+        annotations: ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
         storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
         endscreen: import("../classes/Endscreen").default | null;
         cards: import("../classes/CardCollection").default | null;
@@ -97,11 +123,11 @@ declare class TrackInfo {
         actions_memo: import("../helpers").Memo;
         contents: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
         contents_memo: import("../helpers").Memo;
-        on_response_received_actions: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
+        on_response_received_actions: ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
         on_response_received_actions_memo: import("../helpers").Memo;
-        on_response_received_endpoints: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
+        on_response_received_endpoints: ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
         on_response_received_endpoints_memo: import("../helpers").Memo;
-        on_response_received_commands: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
+        on_response_received_commands: ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
         on_response_received_commands_memo: import("../helpers").Memo;
         continuation: import("..").TimedContinuation | null | undefined;
         continuation_contents: import("..").SectionListContinuation | import("..").LiveChatContinuation | import("..").MusicPlaylistShelfContinuation | import("..").MusicShelfContinuation | import("..").GridContinuation | import("..").PlaylistPanelContinuation | null | undefined;
@@ -120,6 +146,7 @@ declare class TrackInfo {
         playability_status: {
             status: string;
             error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+            audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
             embeddable: boolean;
             reason: any;
         } | undefined;
@@ -133,7 +160,7 @@ declare class TrackInfo {
         current_video_endpoint: import("../classes/NavigationEndpoint").default | null;
         captions: import("../classes/PlayerCaptionsTracklist").default | null;
         video_details: import("../classes/misc/VideoDetails").default | undefined;
-        annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
+        annotations: ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
         storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
         endscreen: import("../classes/Endscreen").default | null;
         cards: import("../classes/CardCollection").default | null;
