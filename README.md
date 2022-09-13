@@ -17,8 +17,11 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.1.1-b.1:
+- Merge from YouTube.js repo (up to commit [2aaa209](https://github.com/LuanRT/YouTube.js/commit/2aaa209906f1770a9067803dca82b0aad121226b)). This includes commit [3a7da21](https://github.com/LuanRT/YouTube.js/commit/3a7da21fd18c52a839b966184f87710182567f1b) which improves sig decipher code extraction that has been causing errors at the ytmusic plugin init stage.
+
 0.1.0-b.7:
-- Add `PlaylistPanelVideoWrapper` parser class (PR submitted to YouTube.js repo: [#176](https://github.com/LuanRT/YouTube.js/pull/176)). This is needed when parsing 'Up Next' contents with a YouTube Premium account.
+- Add `PlaylistPanelVideoWrapper` parser class (PR submitted and merged with YouTube.js repo: [#176](https://github.com/LuanRT/YouTube.js/pull/176)). This is needed when parsing 'Up Next' contents with a YouTube Premium account.
 
 0.1.0-b.6:
 - Merge from YouTube.js repo (up to commit [5b3109a](https://github.com/LuanRT/YouTube.js/commit/5b3109afefc0a27ea07a6d95c33acd1cc0fd11f6)).
