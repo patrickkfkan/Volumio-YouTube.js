@@ -8,7 +8,8 @@ import OAuth, { Credentials, OAuthAuthErrorEventHandler, OAuthAuthEventHandler, 
 export declare enum ClientType {
     WEB = "WEB",
     MUSIC = "WEB_REMIX",
-    ANDROID = "ANDROID"
+    ANDROID = "ANDROID",
+    ANDROID_MUSIC = "ANDROID_MUSIC"
 }
 export interface Context {
     client: {

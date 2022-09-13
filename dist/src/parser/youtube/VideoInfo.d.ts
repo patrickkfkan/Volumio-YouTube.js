@@ -87,6 +87,7 @@ declare class VideoInfo {
     playability_status: {
         status: string;
         error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+        audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
         embeddable: boolean;
         reason: any;
     } | undefined;
@@ -167,6 +168,7 @@ declare class VideoInfo {
         playability_status: {
             status: string;
             error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+            audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
             embeddable: boolean;
             reason: any;
         } | undefined;
@@ -181,7 +183,9 @@ declare class VideoInfo {
         captions: import("../classes/PlayerCaptionsTracklist").default | null;
         video_details: import("../classes/misc/VideoDetails").default | undefined;
         annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
-        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
+        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null; /**
+         * Get songs used in the video.
+         */
         endscreen: import("../classes/Endscreen").default | null;
         cards: import("../classes/CardCollection").default | null;
     }, ({
@@ -212,6 +216,7 @@ declare class VideoInfo {
         playability_status: {
             status: string;
             error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
+            audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
             embeddable: boolean;
             reason: any;
         } | undefined;
@@ -226,7 +231,9 @@ declare class VideoInfo {
         captions: import("../classes/PlayerCaptionsTracklist").default | null;
         video_details: import("../classes/misc/VideoDetails").default | undefined;
         annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
-        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
+        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null; /**
+         * Get songs used in the video.
+         */
         endscreen: import("../classes/Endscreen").default | null;
         cards: import("../classes/CardCollection").default | null;
     } | undefined)?];

@@ -92,7 +92,7 @@ declare class NavigationEndpoint extends YTNode {
     /**
      * Sometimes InnerTube does not return an API url, in that case the library should set it based on the name of the payload object.
      */
-    getEndpoint(name: string): "/browse" | undefined;
+    getEndpoint(name: string): "/browse" | "/player" | "/next" | undefined;
     callTest(actions: Actions, args: {
         [key: string]: any;
         parse: true;

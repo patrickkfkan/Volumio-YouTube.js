@@ -1,6 +1,8 @@
 import Text from './misc/Text';
 import Thumbnail from './misc/Thumbnail';
 import NavigationEndpoint from './NavigationEndpoint';
+import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay';
+import Menu from './menus/Menu';
 import { YTNode } from '../helpers';
 declare class MusicTwoRowItem extends YTNode {
     static type: string;
@@ -25,8 +27,8 @@ declare class MusicTwoRowItem extends YTNode {
         endpoint: NavigationEndpoint | undefined;
     };
     thumbnail: Thumbnail[];
-    thumbnail_overlay: import("../helpers").SuperParsedResult<YTNode>;
-    menu: import("../helpers").SuperParsedResult<YTNode>;
+    thumbnail_overlay: MusicItemThumbnailOverlay | null;
+    menu: Menu | null;
     constructor(data: any);
 }
 export default MusicTwoRowItem;

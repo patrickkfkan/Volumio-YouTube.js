@@ -8,6 +8,7 @@ import PlayerCaptionsTracklist from './classes/PlayerCaptionsTracklist';
 import PlayerLiveStoryboardSpec from './classes/PlayerLiveStoryboardSpec';
 import PlayerAnnotationsExpanded from './classes/PlayerAnnotationsExpanded';
 import { YTNode, YTNodeConstructor, SuperParsedResult, ObservedArray, Memo } from './helpers';
+import AudioOnlyPlayability from './classes/AudioOnlyPlayability';
 export declare class AppendContinuationItemsAction extends YTNode {
     static readonly type = "appendContinuationItemsAction";
     contents: ObservedArray<YTNode> | null;
@@ -102,6 +103,7 @@ export default class Parser {
         playability_status: {
             status: string;
             error_screen: SuperParsedResult<YTNode>;
+            audio_only_playablility: AudioOnlyPlayability | null;
             embeddable: boolean;
             reason: any;
         } | undefined;

@@ -7,6 +7,7 @@ const Text_1 = __importDefault(require("../../misc/Text"));
 const Thumbnail_1 = __importDefault(require("../../misc/Thumbnail"));
 const NavigationEndpoint_1 = __importDefault(require("../../NavigationEndpoint"));
 const MetadataBadge_1 = __importDefault(require("../../MetadataBadge"));
+const LiveChatAuthorBadge_1 = __importDefault(require("../../LiveChatAuthorBadge"));
 const index_1 = __importDefault(require("../../../index"));
 const helpers_1 = require("../../../helpers");
 class LiveChatTickerPaidMessageItem extends helpers_1.YTNode {
@@ -15,12 +16,12 @@ class LiveChatTickerPaidMessageItem extends helpers_1.YTNode {
         this.author = {
             id: data.authorExternalChannelId,
             thumbnails: Thumbnail_1.default.fromResponse(data.authorPhoto),
-            badges: index_1.default.parseArray(data.authorBadges, MetadataBadge_1.default),
+            badges: index_1.default.parseArray(data.authorBadges, [MetadataBadge_1.default, LiveChatAuthorBadge_1.default]),
             is_moderator: null,
             is_verified: null,
             is_verified_artist: null
         };
-        const badges = index_1.default.parseArray(data.authorBadges, MetadataBadge_1.default);
+        const badges = index_1.default.parseArray(data.authorBadges, [MetadataBadge_1.default, LiveChatAuthorBadge_1.default]);
         this.author.badges = badges;
         this.author.is_moderator = (badges === null || badges === void 0 ? void 0 : badges.some((badge) => badge.icon_type == 'MODERATOR')) || null;
         this.author.is_verified = (badges === null || badges === void 0 ? void 0 : badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED')) || null;

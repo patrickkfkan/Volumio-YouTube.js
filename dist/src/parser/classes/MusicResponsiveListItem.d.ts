@@ -1,6 +1,8 @@
 import Text from './misc/Text';
 import Thumbnail from './misc/Thumbnail';
 import NavigationEndpoint from './NavigationEndpoint';
+import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay';
+import Menu from './menus/Menu';
 import { YTNode } from '../helpers';
 declare class MusicResponsiveListItem extends YTNode {
     #private;
@@ -10,8 +12,8 @@ declare class MusicResponsiveListItem extends YTNode {
     index: Text | undefined;
     thumbnails: Thumbnail[];
     badges: import("../helpers").ObservedArray<YTNode>;
-    menu: import("../helpers").SuperParsedResult<YTNode>;
-    overlay: import("../helpers").SuperParsedResult<YTNode>;
+    menu: Menu | null;
+    overlay: MusicItemThumbnailOverlay | null;
     id?: string;
     title?: string | Text;
     duration?: {

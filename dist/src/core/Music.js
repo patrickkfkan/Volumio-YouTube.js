@@ -55,13 +55,15 @@ class Music {
     /**
      * Retrieves track info.
      */
-    // playlist_id: ID of the *watch* playlist, which if provided will be used to generate the playback tracking URL.
-    // When `addToWatchHistory()` is called:
-    // - If playlist_id not provided, then the song / video will be added to 'Recent Activity'.
-    // - If provided, then the list itself (which can correspond to a playlist or album) will be added to 'Recent Activity'.
-    // * Full history (Recent Activity -> Show All) will always include the song / video, even if playlist_id is provided.
-    // Not submitted to YouTube.js repo at this stage, because a watch playlist ID can appear in different places and can
-    // be confusing the the end user who doesn't know where to retrieve it.
+    /**
+     * 'playlist_id': ID of the *watch* playlist, which if provided will be used to generate the playback tracking URL.
+     * When `addToWatchHistory()` is called:
+     * - If playlist_id not provided, then the song / video will be added to 'Recent Activity'.
+     * - If provided, then the list itself (which can correspond to a playlist or album) will be added to 'Recent Activity'.
+     * Full history (Recent Activity - Show All) will always include the song / video, even if playlist_id is provided.
+     * Similar changes have been made (not by me) to the YouTube.js repo, but keeping the following as it is to maintain
+     * compatibility with the ytmusic plugin.
+     */
     getInfo(video_id, playlist_id) {
         return __awaiter(this, void 0, void 0, function* () {
             const cpn = (0, Utils_1.generateRandomString)(16);
@@ -192,7 +194,7 @@ class Music {
             const music_queue = (_a = tab.content) === null || _a === void 0 ? void 0 : _a.as(MusicQueue_1.default);
             if (!music_queue || !music_queue.content)
                 throw new Utils_1.InnertubeError('Music queue was empty, the given id is probably invalid.', music_queue);
-            const playlist_panel = music_queue.content.item().as(PlaylistPanel_1.default);
+            const playlist_panel = music_queue.content.as(PlaylistPanel_1.default);
             return playlist_panel;
         });
     }

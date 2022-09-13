@@ -19,9 +19,13 @@ var _MusicResponsiveListItem_instances, _MusicResponsiveListItem_flex_columns, _
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = __importDefault(require("../index"));
 const Text_1 = __importDefault(require("./misc/Text"));
-const Utils_1 = require("../../utils/Utils");
 const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
 const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
+const MusicItemThumbnailOverlay_1 = __importDefault(require("./MusicItemThumbnailOverlay"));
+const MusicResponsiveListItemFlexColumn_1 = __importDefault(require("./MusicResponsiveListItemFlexColumn"));
+const MusicResponsiveListItemFixedColumn_1 = __importDefault(require("./MusicResponsiveListItemFixedColumn"));
+const Menu_1 = __importDefault(require("./menus/Menu"));
+const Utils_1 = require("../../utils/Utils");
 const helpers_1 = require("../helpers");
 class MusicResponsiveListItem extends helpers_1.YTNode {
     constructor(data) {
@@ -31,8 +35,8 @@ class MusicResponsiveListItem extends helpers_1.YTNode {
         _MusicResponsiveListItem_flex_columns.set(this, void 0);
         _MusicResponsiveListItem_fixed_columns.set(this, void 0);
         _MusicResponsiveListItem_playlist_item_data.set(this, void 0);
-        __classPrivateFieldSet(this, _MusicResponsiveListItem_flex_columns, index_1.default.parseArray(data.flexColumns), "f");
-        __classPrivateFieldSet(this, _MusicResponsiveListItem_fixed_columns, index_1.default.parseArray(data.fixedColumns), "f");
+        __classPrivateFieldSet(this, _MusicResponsiveListItem_flex_columns, index_1.default.parseArray(data.flexColumns, MusicResponsiveListItemFlexColumn_1.default), "f");
+        __classPrivateFieldSet(this, _MusicResponsiveListItem_fixed_columns, index_1.default.parseArray(data.fixedColumns, MusicResponsiveListItemFixedColumn_1.default), "f");
         __classPrivateFieldSet(this, _MusicResponsiveListItem_playlist_item_data, {
             video_id: ((_a = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _a === void 0 ? void 0 : _a.videoId) || null,
             playlist_set_video_id: ((_b = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _b === void 0 ? void 0 : _b.playlistSetVideoId) || null
@@ -70,8 +74,8 @@ class MusicResponsiveListItem extends helpers_1.YTNode {
         }
         this.thumbnails = data.thumbnail ? Thumbnail_1.default.fromResponse((_e = data.thumbnail.musicThumbnailRenderer) === null || _e === void 0 ? void 0 : _e.thumbnail) : [];
         this.badges = index_1.default.parseArray(data.badges);
-        this.menu = index_1.default.parse(data.menu);
-        this.overlay = index_1.default.parse(data.overlay);
+        this.menu = index_1.default.parseItem(data.menu, Menu_1.default);
+        this.overlay = index_1.default.parseItem(data.overlay, MusicItemThumbnailOverlay_1.default);
     }
 }
 _MusicResponsiveListItem_flex_columns = new WeakMap(), _MusicResponsiveListItem_fixed_columns = new WeakMap(), _MusicResponsiveListItem_playlist_item_data = new WeakMap(), _MusicResponsiveListItem_instances = new WeakSet(), _MusicResponsiveListItem_parseOther = function _MusicResponsiveListItem_parseOther() {

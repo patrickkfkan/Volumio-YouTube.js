@@ -5,7 +5,7 @@ declare class DropdownItem extends YTNode {
     label: string;
     selected: boolean;
     value?: number | string;
-    iconType?: string;
+    icon_type?: string;
     description?: string;
     endpoint?: NavigationEndpoint;
     constructor(data: any);

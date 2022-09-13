@@ -16,11 +16,13 @@ import { default as AnalyticsVodCarouselCard } from './classes/analytics/Analyti
 import { default as CtaGoToCreatorStudio } from './classes/analytics/CtaGoToCreatorStudio';
 import { default as DataModelSection } from './classes/analytics/DataModelSection';
 import { default as StatRow } from './classes/analytics/StatRow';
+import { default as AudioOnlyPlayability } from './classes/AudioOnlyPlayability';
 import { default as AutomixPreviewVideo } from './classes/AutomixPreviewVideo';
 import { default as BackstageImage } from './classes/BackstageImage';
 import { default as BackstagePost } from './classes/BackstagePost';
 import { default as BackstagePostThread } from './classes/BackstagePostThread';
 import { default as BrowseFeedActions } from './classes/BrowseFeedActions';
+import { default as BrowserMediaSession } from './classes/BrowserMediaSession';
 import { default as Button } from './classes/Button';
 import { default as C4TabbedHeader } from './classes/C4TabbedHeader';
 import { default as CallToActionButton } from './classes/CallToActionButton';
@@ -38,6 +40,7 @@ import { default as ChannelVideoPlayer } from './classes/ChannelVideoPlayer';
 import { default as ChildVideo } from './classes/ChildVideo';
 import { default as ChipCloud } from './classes/ChipCloud';
 import { default as ChipCloudChip } from './classes/ChipCloudChip';
+import { default as CollaboratorInfoCardContent } from './classes/CollaboratorInfoCardContent';
 import { default as CollageHeroImage } from './classes/CollageHeroImage';
 import { default as AuthorCommentBadge } from './classes/comments/AuthorCommentBadge';
 import { default as Comment } from './classes/comments/Comment';
@@ -88,6 +91,7 @@ import { default as LiveChat } from './classes/LiveChat';
 import { default as AddBannerToLiveChatCommand } from './classes/livechat/AddBannerToLiveChatCommand';
 import { default as AddChatItemAction } from './classes/livechat/AddChatItemAction';
 import { default as AddLiveChatTickerItemAction } from './classes/livechat/AddLiveChatTickerItemAction';
+import { default as LiveChatAutoModMessage } from './classes/livechat/items/LiveChatAutoModMessage';
 import { default as LiveChatBanner } from './classes/livechat/items/LiveChatBanner';
 import { default as LiveChatBannerHeader } from './classes/livechat/items/LiveChatBannerHeader';
 import { default as LiveChatBannerPoll } from './classes/livechat/items/LiveChatBannerPoll';
@@ -116,6 +120,7 @@ import { default as UpdateTitleAction } from './classes/livechat/UpdateTitleActi
 import { default as UpdateToggleButtonTextAction } from './classes/livechat/UpdateToggleButtonTextAction';
 import { default as UpdateViewershipAction } from './classes/livechat/UpdateViewershipAction';
 import { default as LiveChatAuthorBadge } from './classes/LiveChatAuthorBadge';
+import { default as LiveChatDialog } from './classes/LiveChatDialog';
 import { default as LiveChatHeader } from './classes/LiveChatHeader';
 import { default as LiveChatItemList } from './classes/LiveChatItemList';
 import { default as LiveChatMessageInput } from './classes/LiveChatMessageInput';
@@ -146,6 +151,7 @@ import { default as MusicCarouselShelf } from './classes/MusicCarouselShelf';
 import { default as MusicCarouselShelfBasicHeader } from './classes/MusicCarouselShelfBasicHeader';
 import { default as MusicDescriptionShelf } from './classes/MusicDescriptionShelf';
 import { default as MusicDetailHeader } from './classes/MusicDetailHeader';
+import { default as MusicDownloadStateBadge } from './classes/MusicDownloadStateBadge';
 import { default as MusicEditablePlaylistDetailHeader } from './classes/MusicEditablePlaylistDetailHeader';
 import { default as MusicElementHeader } from './classes/MusicElementHeader';
 import { default as MusicHeader } from './classes/MusicHeader';
@@ -210,6 +216,7 @@ import { default as SearchSuggestion } from './classes/SearchSuggestion';
 import { default as SearchSuggestionsSection } from './classes/SearchSuggestionsSection';
 import { default as SecondarySearchContainer } from './classes/SecondarySearchContainer';
 import { default as SectionList } from './classes/SectionList';
+import { default as SegmentedLikeDislikeButton } from './classes/SegmentedLikeDislikeButton';
 import { default as SettingBoolean } from './classes/SettingBoolean';
 import { default as SettingsCheckbox } from './classes/SettingsCheckbox';
 import { default as SettingsOptions } from './classes/SettingsOptions';
@@ -245,6 +252,7 @@ import { default as ThumbnailOverlayResumePlayback } from './classes/ThumbnailOv
 import { default as ThumbnailOverlaySidePanel } from './classes/ThumbnailOverlaySidePanel';
 import { default as ThumbnailOverlayTimeStatus } from './classes/ThumbnailOverlayTimeStatus';
 import { default as ThumbnailOverlayToggleButton } from './classes/ThumbnailOverlayToggleButton';
+import { default as TitleAndButtonListHeader } from './classes/TitleAndButtonListHeader';
 import { default as ToggleButton } from './classes/ToggleButton';
 import { default as ToggleMenuServiceItem } from './classes/ToggleMenuServiceItem';
 import { default as Tooltip } from './classes/Tooltip';
@@ -281,11 +289,13 @@ const map: Record<string, YTNodeConstructor> = {
   CtaGoToCreatorStudio,
   DataModelSection,
   StatRow,
+  AudioOnlyPlayability,
   AutomixPreviewVideo,
   BackstageImage,
   BackstagePost,
   BackstagePostThread,
   BrowseFeedActions,
+  BrowserMediaSession,
   Button,
   C4TabbedHeader,
   CallToActionButton,
@@ -303,6 +313,7 @@ const map: Record<string, YTNodeConstructor> = {
   ChildVideo,
   ChipCloud,
   ChipCloudChip,
+  CollaboratorInfoCardContent,
   CollageHeroImage,
   AuthorCommentBadge,
   Comment,
@@ -353,6 +364,7 @@ const map: Record<string, YTNodeConstructor> = {
   AddBannerToLiveChatCommand,
   AddChatItemAction,
   AddLiveChatTickerItemAction,
+  LiveChatAutoModMessage,
   LiveChatBanner,
   LiveChatBannerHeader,
   LiveChatBannerPoll,
@@ -381,6 +393,7 @@ const map: Record<string, YTNodeConstructor> = {
   UpdateToggleButtonTextAction,
   UpdateViewershipAction,
   LiveChatAuthorBadge,
+  LiveChatDialog,
   LiveChatHeader,
   LiveChatItemList,
   LiveChatMessageInput,
@@ -411,6 +424,7 @@ const map: Record<string, YTNodeConstructor> = {
   MusicCarouselShelfBasicHeader,
   MusicDescriptionShelf,
   MusicDetailHeader,
+  MusicDownloadStateBadge,
   MusicEditablePlaylistDetailHeader,
   MusicElementHeader,
   MusicHeader,
@@ -475,6 +489,7 @@ const map: Record<string, YTNodeConstructor> = {
   SearchSuggestionsSection,
   SecondarySearchContainer,
   SectionList,
+  SegmentedLikeDislikeButton,
   SettingBoolean,
   SettingsCheckbox,
   SettingsOptions,
@@ -510,6 +525,7 @@ const map: Record<string, YTNodeConstructor> = {
   ThumbnailOverlaySidePanel,
   ThumbnailOverlayTimeStatus,
   ThumbnailOverlayToggleButton,
+  TitleAndButtonListHeader,
   ToggleButton,
   ToggleMenuServiceItem,
   Tooltip,

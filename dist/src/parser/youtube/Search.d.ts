@@ -1,10 +1,10 @@
 import Actions from '../../core/Actions';
+import { ObservedArray, YTNode } from '../helpers';
 import Feed from '../../core/Feed';
 import RichListHeader from '../classes/RichListHeader';
 import SearchRefinementCard from '../classes/SearchRefinementCard';
 import WatchCardHeroVideo from '../classes/WatchCardHeroVideo';
 import WatchCardSectionSequence from '../classes/WatchCardSectionSequence';
-import { ObservedArray, YTNode } from '../helpers';
 declare class Search extends Feed {
     results: ObservedArray<YTNode> | null | undefined;
     refinements: any;

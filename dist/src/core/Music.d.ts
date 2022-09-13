@@ -18,6 +18,15 @@ declare class Music {
     /**
      * Retrieves track info.
      */
+    /**
+     * 'playlist_id': ID of the *watch* playlist, which if provided will be used to generate the playback tracking URL.
+     * When `addToWatchHistory()` is called:
+     * - If playlist_id not provided, then the song / video will be added to 'Recent Activity'.
+     * - If provided, then the list itself (which can correspond to a playlist or album) will be added to 'Recent Activity'.
+     * Full history (Recent Activity - Show All) will always include the song / video, even if playlist_id is provided.
+     * Similar changes have been made (not by me) to the YouTube.js repo, but keeping the following as it is to maintain
+     * compatibility with the ytmusic plugin.
+     */
     getInfo(video_id: string, playlist_id?: string): Promise<TrackInfo>;
     /**
      * Searches on YouTube Music.

@@ -8,6 +8,8 @@ const index_1 = __importDefault(require("../index"));
 const Text_1 = __importDefault(require("./misc/Text"));
 const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
 const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
+const MusicItemThumbnailOverlay_1 = __importDefault(require("./MusicItemThumbnailOverlay"));
+const Menu_1 = __importDefault(require("./menus/Menu"));
 const helpers_1 = require("../helpers");
 class MusicTwoRowItem extends helpers_1.YTNode {
     constructor(data) {
@@ -95,8 +97,8 @@ class MusicTwoRowItem extends helpers_1.YTNode {
             }
         }
         this.thumbnail = Thumbnail_1.default.fromResponse(data.thumbnailRenderer.musicThumbnailRenderer.thumbnail);
-        this.thumbnail_overlay = index_1.default.parse(data.thumbnailOverlay);
-        this.menu = index_1.default.parse(data.menu);
+        this.thumbnail_overlay = index_1.default.parseItem(data.thumbnailOverlay, MusicItemThumbnailOverlay_1.default);
+        this.menu = index_1.default.parseItem(data.menu, Menu_1.default);
     }
 }
 MusicTwoRowItem.type = 'MusicTwoRowItem';

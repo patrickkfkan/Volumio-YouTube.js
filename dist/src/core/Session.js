@@ -40,6 +40,7 @@ var ClientType;
     ClientType["WEB"] = "WEB";
     ClientType["MUSIC"] = "WEB_REMIX";
     ClientType["ANDROID"] = "ANDROID";
+    ClientType["ANDROID_MUSIC"] = "ANDROID_MUSIC";
 })(ClientType = exports.ClientType || (exports.ClientType = {}));
 class Session extends EventEmitterLike_1.default {
     constructor(context, api_key, api_version, player, cookie, fetch, cache) {
