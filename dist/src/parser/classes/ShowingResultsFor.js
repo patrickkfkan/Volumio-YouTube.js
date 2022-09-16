@@ -12,6 +12,10 @@ class ShowingResultsFor extends helpers_1.YTNode {
         this.corrected_query = new Text_1.default(data.correctedQuery);
         this.endpoint = new NavigationEndpoint_1.default(data.correctedQueryEndpoint);
         this.original_query_endpoint = new NavigationEndpoint_1.default(data.originalQueryEndpoint);
+        // Required by ytmusic plugin
+        this.original_query = new Text_1.default(data.originalQuery);
+        this.showing_results_for = new Text_1.default(data.showingResultsFor);
+        this.search_instead_for = new Text_1.default(data.searchInsteadFor);
     }
 }
 ShowingResultsFor.type = 'ShowingResultsFor';

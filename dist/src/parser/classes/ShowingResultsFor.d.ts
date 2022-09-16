@@ -6,6 +6,9 @@ declare class ShowingResultsFor extends YTNode {
     corrected_query: Text;
     endpoint: NavigationEndpoint;
     original_query_endpoint: NavigationEndpoint;
+    original_query: Text;
+    showing_results_for: Text;
+    search_instead_for: Text;
     constructor(data: any);
 }
 export default ShowingResultsFor;
