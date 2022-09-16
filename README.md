@@ -17,6 +17,9 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.1.1-b.2:
+- Add text fields to `ShowingResultsFor` parser class. Needed by ytmusic plugin to display the 'Showing results for...' text in search results.
+
 0.1.1-b.1:
 - Merge from YouTube.js repo (up to commit [2aaa209](https://github.com/LuanRT/YouTube.js/commit/2aaa209906f1770a9067803dca82b0aad121226b)). This includes commit [3a7da21](https://github.com/LuanRT/YouTube.js/commit/3a7da21fd18c52a839b966184f87710182567f1b) which improves sig decipher code extraction that has been causing errors at the ytmusic plugin init stage.
 
