@@ -1,8 +1,8 @@
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 declare class Panel {
     static type: string;
-    thumbnail: {
+    thumbnail?: {
         image: {
             url: string;
             width: number;

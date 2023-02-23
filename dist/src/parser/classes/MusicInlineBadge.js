@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../helpers");
-class MusicInlineBadge extends helpers_1.YTNode {
+import { YTNode } from '../helpers.js';
+class MusicInlineBadge extends YTNode {
     constructor(data) {
         super();
         this.icon_type = data.icon.iconType;
@@ -9,5 +7,5 @@ class MusicInlineBadge extends helpers_1.YTNode {
     }
 }
 MusicInlineBadge.type = 'MusicInlineBadge';
-exports.default = MusicInlineBadge;
+export default MusicInlineBadge;
 //# sourceMappingURL=MusicInlineBadge.js.map

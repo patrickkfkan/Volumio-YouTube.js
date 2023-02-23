@@ -7,7 +7,7 @@ Handles direct interactions.
 * InteractionManager 
   * [.like(video_id)](#like) 
   * [.dislike(video_id)](#dislike) 
-  * [.removeLike(video_id)](#removelike) 
+  * [.removeRating(video_id)](#removerating) 
   * [.subscribe(video_id)](#subscribe) 
   * [.unsubscribe(video_id)](#unsubscribe) 
   * [.comment(video_id, text)](#comment) 
@@ -19,7 +19,7 @@ Handles direct interactions.
 
 Likes given video.
 
-**Returns:** `Promise.<ActionsResponse>`
+**Returns:** `Promise.<ApiResponse>`
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -30,18 +30,18 @@ Likes given video.
 
 Dislikes given video.
 
-**Returns:** `Promise.<ActionsResponse>`
+**Returns:** `Promise.<ApiResponse>`
 
 | Param | Type | Description |
 | --- | --- | --- |
 | video_id | `string` | Video id |
 
-<a name="removelike"></a>
+<a name="removerating"></a>
 ### removeLike(video_id)
 
 Remover like/dislike.
 
-**Returns:** `Promise.<ActionsResponse>`
+**Returns:** `Promise.<ApiResponse>`
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -52,7 +52,7 @@ Remover like/dislike.
 
 Subscribes to given channel.
 
-**Returns:** `Promise.<ActionsResponse>`
+**Returns:** `Promise.<ApiResponse>`
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -63,7 +63,7 @@ Subscribes to given channel.
 
 Unsubscribes from given channel.
 
-**Returns:** `Promise.<ActionsResponse>`
+**Returns:** `Promise.<ApiResponse>`
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -74,7 +74,7 @@ Unsubscribes from given channel.
 
 Posts a comment on given video.
 
-**Returns:** `Promise.<ActionsResponse>`
+**Returns:** `Promise.<ApiResponse>`
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -86,7 +86,7 @@ Posts a comment on given video.
 
 Translates given text using YouTube's comment translation feature.
 
-**Returns:** `Promise.<ActionsResponse>`
+**Returns:** `Promise.<ApiResponse>`
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -100,7 +100,7 @@ Translates given text using YouTube's comment translation feature.
 Changes notification preferences for a given channel.
 Only works with channels you are subscribed to.
 
-**Returns:** `Promise.<ActionsResponse>`
+**Returns:** `Promise.<ApiResponse>`
 
 | Param | Type | Description |
 | --- | --- | --- |

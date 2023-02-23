@@ -1,18 +1,16 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../../index"));
-const helpers_1 = require("../../helpers");
-class CommentReplies extends helpers_1.YTNode {
+import Parser from '../../index.js';
+import Thumbnail from '../misc/Thumbnail.js';
+import { YTNode } from '../../helpers.js';
+class CommentReplies extends YTNode {
     constructor(data) {
         super();
-        this.contents = index_1.default.parse(data.contents);
-        this.view_replies = index_1.default.parse(data.viewReplies);
-        this.hide_replies = index_1.default.parse(data.hideReplies);
+        this.contents = Parser.parseArray(data.contents);
+        this.view_replies = Parser.parseItem(data.viewReplies);
+        this.hide_replies = Parser.parseItem(data.hideReplies);
+        this.view_replies_creator_thumbnail = Thumbnail.fromResponse(data.viewRepliesCreatorThumbnail);
+        this.has_channel_owner_replied = !!data.viewRepliesCreatorThumbnail;
     }
 }
 CommentReplies.type = 'CommentReplies';
-exports.default = CommentReplies;
+export default CommentReplies;
 //# sourceMappingURL=CommentReplies.js.map

@@ -1,4 +1,4 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class ThumbnailOverlayEndorsement extends YTNode {
     static type: string;
     text: string;

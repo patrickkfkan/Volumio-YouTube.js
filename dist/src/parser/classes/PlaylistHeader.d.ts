@@ -1,6 +1,6 @@
-import Text from './misc/Text';
-import PlaylistAuthor from './misc/PlaylistAuthor';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import PlaylistAuthor from './misc/PlaylistAuthor.js';
+import { YTNode } from '../helpers.js';
 declare class PlaylistHeader extends YTNode {
     static type: string;
     id: string;
@@ -15,9 +15,9 @@ declare class PlaylistHeader extends YTNode {
     can_delete: boolean;
     is_editable: boolean;
     privacy: string;
-    save_button: import("../helpers").SuperParsedResult<YTNode>;
-    shuffle_play_button: import("../helpers").SuperParsedResult<YTNode>;
-    menu: import("../helpers").SuperParsedResult<YTNode>;
+    save_button: import("../helpers.js").SuperParsedResult<YTNode>;
+    shuffle_play_button: import("../helpers.js").SuperParsedResult<YTNode>;
+    menu: import("../helpers.js").SuperParsedResult<YTNode>;
     constructor(data: any);
 }
 export default PlaylistHeader;

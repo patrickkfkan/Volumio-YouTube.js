@@ -1,13 +1,18 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 declare class SortFilterSubMenu extends YTNode {
     static type: string;
-    sub_menu_items: {
+    title?: string;
+    icon_type?: string;
+    label?: string;
+    tooltip?: string;
+    sub_menu_items?: {
         title: string;
         selected: boolean;
         continuation: string;
-        subtitle: string;
+        endpoint: NavigationEndpoint;
+        subtitle: string | null;
     }[];
-    label: string;
     constructor(data: any);
 }
 export default SortFilterSubMenu;

@@ -6,7 +6,8 @@ export const URLS = Object.freeze({
   YT_UPLOAD: 'https://upload.youtube.com/',
   API: Object.freeze({
     BASE: 'https://youtubei.googleapis.com',
-    PRODUCTION: 'https://youtubei.googleapis.com/youtubei/',
+    PRODUCTION_1: 'https://www.youtube.com/youtubei/',
+    PRODUCTION_2: 'https://youtubei.googleapis.com/youtubei/',
     STAGING: 'https://green-youtubei.sandbox.googleapis.com/youtubei/',
     RELEASE: 'https://release-youtubei.sandbox.googleapis.com/youtubei/',
     TEST: 'https://test-youtubei.sandbox.googleapis.com/youtubei/',
@@ -34,7 +35,13 @@ export const OAUTH = Object.freeze({
 export const CLIENTS = Object.freeze({
   WEB: {
     NAME: 'WEB',
-    VERSION: '2.20220902.01.00'
+    VERSION: '2.20230104.01.00',
+    API_KEY: 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8',
+    API_VERSION: 'v1'
+  },
+  WEB_KIDS: {
+    NAME: 'WEB_KIDS',
+    VERSION: '2.20230111.00.00'
   },
   YTMUSIC: {
     NAME: 'WEB_REMIX',
@@ -42,12 +49,20 @@ export const CLIENTS = Object.freeze({
   },
   ANDROID: {
     NAME: 'ANDROID',
-    VERSION: '17.17.32',
+    VERSION: '17.34.35',
     SDK_VERSION: '29'
+  },
+  YTSTUDIO_ANDROID: {
+    NAME: 'ANDROID_CREATOR',
+    VERSION: '22.43.101'
   },
   YTMUSIC_ANDROID: {
     NAME: 'ANDROID_MUSIC',
-    VERSION: '5.17.51'
+    VERSION: '5.34.51'
+  },
+  TV_EMBEDDED: {
+    NAME: 'TVHTML5_SIMPLY_EMBEDDED_PLAYER',
+    VERSION: '2.0'
   }
 });
 export const STREAM_HEADERS = Object.freeze({

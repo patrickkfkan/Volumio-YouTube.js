@@ -1,5 +1,5 @@
-import { ObservedArray, YTNode } from '../helpers';
-import DropdownItem from './DropdownItem';
+import { ObservedArray, YTNode } from '../helpers.js';
+import DropdownItem from './DropdownItem.js';
 declare class Dropdown extends YTNode {
     static type: string;
     label: string;

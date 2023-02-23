@@ -1,8 +1,8 @@
-import Text from './misc/Text';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import PlaylistAuthor from './misc/PlaylistAuthor';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import PlaylistAuthor from './misc/PlaylistAuthor.js';
+import { YTNode } from '../helpers.js';
 declare class Playlist extends YTNode {
     static type: string;
     id: string;
@@ -11,12 +11,12 @@ declare class Playlist extends YTNode {
     thumbnails: Thumbnail[];
     video_count: Text;
     video_count_short: Text;
-    first_videos: import("../helpers").SuperParsedResult<YTNode>;
+    first_videos: import("../helpers.js").ObservedArray<YTNode>;
     share_url: string | null;
-    menu: import("../helpers").SuperParsedResult<YTNode>;
-    badges: import("../helpers").SuperParsedResult<YTNode>;
+    menu: YTNode | null;
+    badges: import("../helpers.js").ObservedArray<YTNode>;
     endpoint: NavigationEndpoint;
-    thumbnail_overlays: import("../helpers").SuperParsedResult<YTNode>;
+    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
     constructor(data: any);
 }
 export default Playlist;

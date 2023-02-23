@@ -1,5 +1,5 @@
-import { YTNode } from '../helpers';
-import NavigationEndpoint from './NavigationEndpoint';
+import { YTNode } from '../helpers.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 declare class IconLink extends YTNode {
     static type: string;
     icon_type: string;

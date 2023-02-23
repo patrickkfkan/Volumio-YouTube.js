@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const helpers_1 = require("../helpers");
-class PlaylistSidebar extends helpers_1.YTNode {
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+class PlaylistSidebar extends YTNode {
     constructor(data) {
         super();
-        this.items = index_1.default.parse(data.items);
+        this.items = Parser.parse(data.items);
     }
     // XXX: alias for consistency
     get contents() {
@@ -16,5 +11,5 @@ class PlaylistSidebar extends helpers_1.YTNode {
     }
 }
 PlaylistSidebar.type = 'PlaylistSidebar';
-exports.default = PlaylistSidebar;
+export default PlaylistSidebar;
 //# sourceMappingURL=PlaylistSidebar.js.map

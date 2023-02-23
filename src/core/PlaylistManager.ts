@@ -1,11 +1,11 @@
-import Playlist from '../parser/youtube/Playlist';
-import Actions from './Actions';
-import Feed from './Feed';
+import type Feed from './Feed.js';
+import type Actions from './Actions.js';
+import Playlist from '../parser/youtube/Playlist.js';
 
-import { InnertubeError, throwIfMissing } from '../utils/Utils';
+import { InnertubeError, throwIfMissing } from '../utils/Utils.js';
 
 class PlaylistManager {
-  #actions;
+  #actions: Actions;
 
   constructor(actions: Actions) {
     this.#actions = actions;
@@ -13,11 +13,20 @@ class PlaylistManager {
 
   /**
    * Creates a playlist.
+   * @param title - The title of the playlist.
+   * @param video_ids - An array of video IDs to add to the playlist.
    */
-  async create(title: string, video_ids: string[]) {
+  async create(title: string, video_ids: string[]): Promise<{ success: boolean; status_code: number; playlist_id?: string; data: any }> {
     throwIfMissing({ title, video_ids });
 
-    const response = await this.#actions.execute('/playlist/create', { title, ids: video_ids, parse: false });
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
+
+    const response = await this.#actions.execute('/playlist/create', {
+      title,
+      ids: video_ids,
+      parse: false
+    });
 
     return {
       success: response.success,
@@ -29,9 +38,13 @@ class PlaylistManager {
 
   /**
    * Deletes a given playlist.
+   * @param playlist_id - The playlist ID.
    */
-  async delete(playlist_id: string) {
+  async delete(playlist_id: string): Promise<{ playlist_id: string; success: boolean; status_code: number; data: any }> {
     throwIfMissing({ playlist_id });
+
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
 
     const response = await this.#actions.execute('playlist/delete', { playlistId: playlist_id });
 
@@ -45,9 +58,14 @@ class PlaylistManager {
 
   /**
    * Adds videos to a given playlist.
+   * @param playlist_id - The playlist ID.
+   * @param video_ids - An array of video IDs to add to the playlist.
    */
-  async addVideos(playlist_id: string, video_ids: string[]) {
+  async addVideos(playlist_id: string, video_ids: string[]): Promise<{ playlist_id: string; action_result: any }> {
     throwIfMissing({ playlist_id, video_ids });
+
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
 
     const response = await this.#actions.execute('/browse/edit_playlist', {
       playlistId: playlist_id,
@@ -66,11 +84,20 @@ class PlaylistManager {
 
   /**
    * Removes videos from a given playlist.
+   * @param playlist_id - The playlist ID.
+   * @param video_ids - An array of video IDs to remove from the playlist.
    */
-  async removeVideos(playlist_id: string, video_ids: string[]) {
+  async removeVideos(playlist_id: string, video_ids: string[]): Promise<{ playlist_id: string; action_result: any }> {
     throwIfMissing({ playlist_id, video_ids });
 
-    const info = await this.#actions.execute('/browse', { browseId: `VL${playlist_id}`, parse: true });
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
+
+    const info = await this.#actions.execute('/browse', {
+      browseId: `VL${playlist_id}`,
+      parse: true
+    });
+
     const playlist = new Playlist(this.#actions, info, true);
 
     if (!playlist.info.is_editable)
@@ -115,11 +142,21 @@ class PlaylistManager {
 
   /**
    * Moves a video to a new position within a given playlist.
+   * @param playlist_id - The playlist ID.
+   * @param moved_video_id - The video ID to move.
+   * @param predecessor_video_id - The video ID to move the moved video before.
    */
-  async moveVideo(playlist_id: string, moved_video_id: string, predecessor_video_id: string) {
+  async moveVideo(playlist_id: string, moved_video_id: string, predecessor_video_id: string): Promise<{ playlist_id: string; action_result: any; }> {
     throwIfMissing({ playlist_id, moved_video_id, predecessor_video_id });
 
-    const info = await this.#actions.execute('/browse', { browseId: `VL${playlist_id}`, parse: true });
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
+
+    const info = await this.#actions.execute('/browse', {
+      browseId: `VL${playlist_id}`,
+      parse: true
+    });
+
     const playlist = new Playlist(this.#actions, info, true);
 
     if (!playlist.info.is_editable)
@@ -157,7 +194,10 @@ class PlaylistManager {
       movedSetVideoIdPredecessor: set_video_id_1
     });
 
-    const response = await this.#actions.execute('/browse/edit_playlist', { ...payload, parse: false });
+    const response = await this.#actions.execute('/browse/edit_playlist', {
+      ...payload,
+      parse: false
+    });
 
     return {
       playlist_id,

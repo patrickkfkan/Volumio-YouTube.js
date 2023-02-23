@@ -1,16 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const helpers_1 = require("../helpers");
-class ThumbnailOverlayTimeStatus extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+class ThumbnailOverlayTimeStatus extends YTNode {
     constructor(data) {
         super();
-        this.text = new Text_1.default(data.text).toString();
+        this.text = new Text(data.text).toString();
+        this.style = data.style;
     }
 }
 ThumbnailOverlayTimeStatus.type = 'ThumbnailOverlayTimeStatus';
-exports.default = ThumbnailOverlayTimeStatus;
+export default ThumbnailOverlayTimeStatus;
 //# sourceMappingURL=ThumbnailOverlayTimeStatus.js.map

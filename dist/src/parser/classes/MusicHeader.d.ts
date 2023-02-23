@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers';
-import Text from './misc/Text';
+import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
 declare class MusicHeader extends YTNode {
     static type: string;
-    header?: import("../helpers").SuperParsedResult<YTNode> | undefined;
+    header?: import("../helpers.js").SuperParsedResult<YTNode> | undefined;
     title?: Text;
     constructor(data: any);
 }

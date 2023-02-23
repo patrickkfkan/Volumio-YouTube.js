@@ -1,6 +1,6 @@
-import AccountChannel from './AccountChannel';
-import AccountItemSection from './AccountItemSection';
-import { YTNode } from '../helpers';
+import AccountChannel from './AccountChannel.js';
+import AccountItemSection from './AccountItemSection.js';
+import { YTNode } from '../helpers.js';
 declare class AccountSectionList extends YTNode {
     static type: string;
     contents: AccountItemSection | null;

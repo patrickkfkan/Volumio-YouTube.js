@@ -1,5 +1,5 @@
-import Parser from '../../index';
-import { YTNode } from '../../helpers';
+import Parser from '../../index.js';
+import { YTNode } from '../../helpers.js';
 
 class ReplayChatItemAction extends YTNode {
   static type = 'ReplayChatItemAction';
@@ -9,10 +9,10 @@ class ReplayChatItemAction extends YTNode {
 
   constructor(data: any) {
     super();
-    this.actions = Parser.parse(data.actions?.map((action: any) => {
+    this.actions = Parser.parseArray(data.actions?.map((action: any) => {
       delete action.clickTrackingParams;
       return action;
-    })) || [];
+    }));
     this.video_offset_time_msec = data.videoOffsetTimeMsec;
   }
 }

@@ -1,4 +1,4 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class ThumbnailOverlayResumePlayback extends YTNode {
     static type: string;
     percent_duration_watched: string;

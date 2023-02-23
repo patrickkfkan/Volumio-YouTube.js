@@ -1,19 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-const Text_1 = __importDefault(require("./misc/Text"));
-class ItemSectionTab extends helpers_1.YTNode {
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
+class ItemSectionTab extends YTNode {
     constructor(data) {
         super();
-        this.title = new Text_1.default(data.title);
+        this.title = new Text(data.title);
         this.selected = data.selected || false;
-        this.endpoint = new NavigationEndpoint_1.default(data.endpoint);
+        this.endpoint = new NavigationEndpoint(data.endpoint);
     }
 }
 ItemSectionTab.type = 'Tab';
-exports.default = ItemSectionTab;
+export default ItemSectionTab;
 //# sourceMappingURL=ItemSectionTab.js.map

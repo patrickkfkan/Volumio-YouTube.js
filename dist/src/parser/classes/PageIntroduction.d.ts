@@ -1,4 +1,4 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class PageIntroduction extends YTNode {
     static type: string;
     header_text: string;

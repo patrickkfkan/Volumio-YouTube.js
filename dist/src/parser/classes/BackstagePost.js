@@ -1,31 +1,42 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Author_1 = __importDefault(require("./misc/Author"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class BackstagePost extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Author from './misc/Author.js';
+import Text from './misc/Text.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class BackstagePost extends YTNode {
     constructor(data) {
         super();
         this.id = data.postId;
-        this.author = new Author_1.default(Object.assign(Object.assign({}, data.authorText), { navigationEndpoint: data.authorEndpoint }), null, data.authorThumbnail);
-        this.content = new Text_1.default(data.contentText);
-        this.published = new Text_1.default(data.publishedTimeText);
-        this.poll_status = data.pollStatus;
-        this.vote_status = data.voteStatus;
-        this.likes = new Text_1.default(data.voteCount);
-        this.menu = index_1.default.parse(data.actionMenu) || null;
-        this.actions = index_1.default.parse(data.actionButtons);
-        this.vote_button = index_1.default.parse(data.voteButton);
+        this.author = new Author(Object.assign(Object.assign({}, data.authorText), { navigationEndpoint: data.authorEndpoint }), null, data.authorThumbnail);
+        this.content = new Text(data.contentText);
+        this.published = new Text(data.publishedTimeText);
+        if (data.pollStatus) {
+            this.poll_status = data.pollStatus;
+        }
+        if (data.voteStatus) {
+            this.vote_status = data.voteStatus;
+        }
+        if (data.voteCount) {
+            this.vote_count = new Text(data.voteCount);
+        }
+        if (data.actionMenu) {
+            this.menu = Parser.parseItem(data.actionMenu);
+        }
+        if (data.actionButtons) {
+            this.action_buttons = Parser.parseItem(data.actionButtons);
+        }
+        if (data.voteButton) {
+            this.vote_button = Parser.parseItem(data.voteButton);
+        }
+        if (data.navigationEndpoint) {
+            this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        }
+        if (data.backstageAttachment) {
+            this.attachment = Parser.parseItem(data.backstageAttachment);
+        }
         this.surface = data.surface;
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
-        this.attachment = index_1.default.parse(data.backstageAttachment) || null;
     }
 }
 BackstagePost.type = 'BackstagePost';
-exports.default = BackstagePost;
+export default BackstagePost;
 //# sourceMappingURL=BackstagePost.js.map

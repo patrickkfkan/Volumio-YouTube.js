@@ -1,27 +1,3 @@
-"use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -42,37 +18,69 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var _LiveChat_instances, _LiveChat_actions, _LiveChat_video_info, _LiveChat_continuation, _LiveChat_mcontinuation, _LiveChat_lc_polling_interval_ms, _LiveChat_md_polling_interval_ms, _LiveChat_pollLivechat, _LiveChat_emitSmoothedActions, _LiveChat_pollMetadata, _LiveChat_wait;
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importStar(require("../index"));
-const EventEmitterLike_1 = __importDefault(require("../../utils/EventEmitterLike"));
-const AddChatItemAction_1 = __importDefault(require("../classes/livechat/AddChatItemAction"));
-const UpdateTitleAction_1 = __importDefault(require("../classes/livechat/UpdateTitleAction"));
-const UpdateDescriptionAction_1 = __importDefault(require("../classes/livechat/UpdateDescriptionAction"));
-const UpdateViewershipAction_1 = __importDefault(require("../classes/livechat/UpdateViewershipAction"));
-const UpdateDateTextAction_1 = __importDefault(require("../classes/livechat/UpdateDateTextAction"));
-const UpdateToggleButtonTextAction_1 = __importDefault(require("../classes/livechat/UpdateToggleButtonTextAction"));
-const Utils_1 = require("../../utils/Utils");
-class LiveChat extends EventEmitterLike_1.default {
+var _LiveChat_instances, _LiveChat_actions, _LiveChat_video_id, _LiveChat_channel_id, _LiveChat_continuation, _LiveChat_mcontinuation, _LiveChat_retry_count, _LiveChat_pollLivechat, _LiveChat_emitSmoothedActions, _LiveChat_pollMetadata, _LiveChat_wait;
+import EventEmitter from '../../utils/EventEmitterLike.js';
+import Parser, { LiveChatContinuation } from '../index.js';
+import SmoothedQueue from './SmoothedQueue.js';
+import AddChatItemAction from '../classes/livechat/AddChatItemAction.js';
+import UpdateDateTextAction from '../classes/livechat/UpdateDateTextAction.js';
+import UpdateDescriptionAction from '../classes/livechat/UpdateDescriptionAction.js';
+import UpdateTitleAction from '../classes/livechat/UpdateTitleAction.js';
+import UpdateToggleButtonTextAction from '../classes/livechat/UpdateToggleButtonTextAction.js';
+import UpdateViewershipAction from '../classes/livechat/UpdateViewershipAction.js';
+import Proto from '../../proto/index.js';
+import { InnertubeError, Platform } from '../../utils/Utils.js';
+import ItemMenu from './ItemMenu.js';
+class LiveChat extends EventEmitter {
     constructor(video_info) {
         var _a, _b;
         super();
         _LiveChat_instances.add(this);
         _LiveChat_actions.set(this, void 0);
-        _LiveChat_video_info.set(this, void 0);
+        _LiveChat_video_id.set(this, void 0);
+        _LiveChat_channel_id.set(this, void 0);
         _LiveChat_continuation.set(this, void 0);
         _LiveChat_mcontinuation.set(this, void 0);
-        _LiveChat_lc_polling_interval_ms.set(this, 1000);
-        _LiveChat_md_polling_interval_ms.set(this, 5000);
+        _LiveChat_retry_count.set(this, 0);
         this.running = false;
         this.is_replay = false;
-        __classPrivateFieldSet(this, _LiveChat_video_info, video_info, "f");
+        __classPrivateFieldSet(this, _LiveChat_video_id, video_info.basic_info.id, "f");
+        __classPrivateFieldSet(this, _LiveChat_channel_id, video_info.basic_info.channel_id, "f");
         __classPrivateFieldSet(this, _LiveChat_actions, video_info.actions, "f");
-        __classPrivateFieldSet(this, _LiveChat_continuation, ((_a = video_info.livechat) === null || _a === void 0 ? void 0 : _a.continuation) || undefined, "f");
+        __classPrivateFieldSet(this, _LiveChat_continuation, (_a = video_info.livechat) === null || _a === void 0 ? void 0 : _a.continuation, "f");
         this.is_replay = ((_b = video_info.livechat) === null || _b === void 0 ? void 0 : _b.is_replay) || false;
+        this.smoothed_queue = new SmoothedQueue();
+        this.smoothed_queue.callback = (actions) => __awaiter(this, void 0, void 0, function* () {
+            if (!actions.length) {
+                // Wait 2 seconds before requesting an incremental continuation if the action group is empty.
+                yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2000);
+            }
+            else if (actions.length < 10) {
+                // If there are less than 10 actions, wait until all of them are emitted.
+                yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
+            }
+            else if (this.is_replay) {
+                /**
+                 * NOTE: Live chat replays require data from the video player for actions to be emitted timely
+                 * and as we don't have that, this ends up being quite innacurate.
+                 */
+                __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
+                yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2000);
+            }
+            else {
+                // There are more than 10 actions, emit them asynchonously so we can request the next incremental continuation.
+                __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
+            }
+            if (this.running) {
+                __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
+            }
+        });
+    }
+    on(type, listener) {
+        super.on(type, listener);
+    }
+    once(type, listener) {
+        super.once(type, listener);
     }
     start() {
         if (!this.running) {
@@ -82,91 +90,158 @@ class LiveChat extends EventEmitterLike_1.default {
         }
     }
     stop() {
+        this.smoothed_queue.clear();
         this.running = false;
     }
     /**
      * Sends a message.
+     * @param text - Text to send.
      */
     sendMessage(text) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").livechat('live_chat/send_message', Object.assign({ text }, {
-                video_id: __classPrivateFieldGet(this, _LiveChat_video_info, "f").basic_info.id,
-                channel_id: __classPrivateFieldGet(this, _LiveChat_video_info, "f").basic_info.channel_id
-            }));
-            const data = index_1.default.parseResponse(response.data);
-            if (!data.actions)
-                throw new Utils_1.InnertubeError('Response did not have an "actions" property. The call may have failed.');
-            return data.actions.array().as(AddChatItemAction_1.default);
+            const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").execute('/live_chat/send_message', {
+                params: Proto.encodeMessageParams(__classPrivateFieldGet(this, _LiveChat_channel_id, "f"), __classPrivateFieldGet(this, _LiveChat_video_id, "f")),
+                richMessage: { textSegments: [{ text }] },
+                clientMessageId: Platform.shim.uuidv4(),
+                client: 'ANDROID',
+                parse: true
+            });
+            if (!response.actions)
+                throw new InnertubeError('Unexpected response from send_message', response);
+            return response.actions.array().as(AddChatItemAction);
+        });
+    }
+    /**
+     * Applies given filter to the live chat.
+     * @param filter - Filter to apply.
+     */
+    applyFilter(filter) {
+        var _a, _b, _c, _d, _e, _f, _g;
+        if (!this.initial_info)
+            throw new InnertubeError('Cannot apply filter before initial info is retrieved.');
+        const menu_items = (_c = (_b = (_a = this.initial_info) === null || _a === void 0 ? void 0 : _a.header) === null || _b === void 0 ? void 0 : _b.view_selector) === null || _c === void 0 ? void 0 : _c.sub_menu_items;
+        if (filter === 'TOP_CHAT') {
+            if ((_d = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(0)) === null || _d === void 0 ? void 0 : _d.selected)
+                return;
+            __classPrivateFieldSet(this, _LiveChat_continuation, (_e = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(0)) === null || _e === void 0 ? void 0 : _e.continuation, "f");
+        }
+        else {
+            if ((_f = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(1)) === null || _f === void 0 ? void 0 : _f.selected)
+                return;
+            __classPrivateFieldSet(this, _LiveChat_continuation, (_g = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(1)) === null || _g === void 0 ? void 0 : _g.continuation, "f");
+        }
+    }
+    /**
+     * Retrieves given chat item's menu.
+     */
+    getItemMenu(item) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!item.menu_endpoint)
+                throw new InnertubeError('This item does not have a menu.', item);
+            const response = yield item.menu_endpoint.call(__classPrivateFieldGet(this, _LiveChat_actions, "f"), { parse: true });
+            if (!response)
+                throw new InnertubeError('Could not retrieve item menu.', item);
+            return new ItemMenu(response, __classPrivateFieldGet(this, _LiveChat_actions, "f"));
+        });
+    }
+    /**
+     * Equivalent to "clicking" a button.
+     */
+    selectButton(button) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield button.endpoint.call(__classPrivateFieldGet(this, _LiveChat_actions, "f"), { parse: true });
+            return response;
         });
     }
 }
-_LiveChat_actions = new WeakMap(), _LiveChat_video_info = new WeakMap(), _LiveChat_continuation = new WeakMap(), _LiveChat_mcontinuation = new WeakMap(), _LiveChat_lc_polling_interval_ms = new WeakMap(), _LiveChat_md_polling_interval_ms = new WeakMap(), _LiveChat_instances = new WeakSet(), _LiveChat_pollLivechat = function _LiveChat_pollLivechat() {
-    const lc_poller = setTimeout(() => {
-        (() => __awaiter(this, void 0, void 0, function* () {
-            const endpoint = this.is_replay ? 'live_chat/get_live_chat_replay' : 'live_chat/get_live_chat';
-            const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").livechat(endpoint, { ctoken: __classPrivateFieldGet(this, _LiveChat_continuation, "f") });
-            const data = index_1.default.parseResponse(response.data);
-            const contents = data.continuation_contents;
-            if (!(contents instanceof index_1.LiveChatContinuation))
-                throw new Utils_1.InnertubeError('Continuation is not a LiveChatContinuation');
+_LiveChat_actions = new WeakMap(), _LiveChat_video_id = new WeakMap(), _LiveChat_channel_id = new WeakMap(), _LiveChat_continuation = new WeakMap(), _LiveChat_mcontinuation = new WeakMap(), _LiveChat_retry_count = new WeakMap(), _LiveChat_instances = new WeakSet(), _LiveChat_pollLivechat = function _LiveChat_pollLivechat() {
+    (() => __awaiter(this, void 0, void 0, function* () {
+        var _a, _b;
+        try {
+            const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").execute(this.is_replay ? 'live_chat/get_live_chat_replay' : 'live_chat/get_live_chat', { continuation: __classPrivateFieldGet(this, _LiveChat_continuation, "f"), parse: true });
+            const contents = response.continuation_contents;
+            if (!contents) {
+                this.emit('error', new InnertubeError('Unexpected live chat incremental continuation response', response));
+                this.emit('end');
+                this.stop();
+            }
+            if (!(contents instanceof LiveChatContinuation)) {
+                this.stop();
+                this.emit('end');
+                return;
+            }
             __classPrivateFieldSet(this, _LiveChat_continuation, contents.continuation.token, "f");
-            __classPrivateFieldSet(this, _LiveChat_lc_polling_interval_ms, contents.continuation.timeout_ms, "f");
             // Header only exists in the first request
             if (contents.header) {
                 this.initial_info = contents;
                 this.emit('start', contents);
+                if (this.running)
+                    __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
             }
             else {
-                yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, contents.actions);
+                this.smoothed_queue.enqueueActionGroup(contents.actions);
             }
-            clearTimeout(lc_poller);
-            this.running && __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
-        }))().catch((err) => Promise.reject(err));
-    }, __classPrivateFieldGet(this, _LiveChat_lc_polling_interval_ms, "f"));
-}, _LiveChat_emitSmoothedActions = function _LiveChat_emitSmoothedActions(actions) {
+            __classPrivateFieldSet(this, _LiveChat_retry_count, 0, "f");
+        }
+        catch (err) {
+            this.emit('error', err);
+            if ((__classPrivateFieldSet(this, _LiveChat_retry_count, (_b = __classPrivateFieldGet(this, _LiveChat_retry_count, "f"), _a = _b++, _b), "f"), _a) < 10) {
+                yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2000);
+                __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
+            }
+            else {
+                this.emit('error', new InnertubeError('Reached retry limit for incremental continuation requests', err));
+                this.emit('end');
+                this.stop();
+            }
+        }
+    }))();
+}, _LiveChat_emitSmoothedActions = function _LiveChat_emitSmoothedActions(action_queue) {
     return __awaiter(this, void 0, void 0, function* () {
         const base = 1E4;
-        let delay = actions.length < base / 80 ? 1 : 0;
-        const emit_delay_ms = delay == 1 ? (delay = base / actions.length,
+        let delay = action_queue.length < base / 80 ? 1 : Math.ceil(action_queue.length / (base / 80));
+        const emit_delay_ms = delay == 1 ? (delay = base / action_queue.length,
             delay *= Math.random() + 0.5,
             delay = Math.min(1E3, delay),
             delay = Math.max(80, delay)) : delay = 80;
-        for (const action of actions) {
+        for (const action of action_queue) {
             yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, emit_delay_ms);
             this.emit('chat-update', action);
         }
     });
 }, _LiveChat_pollMetadata = function _LiveChat_pollMetadata() {
-    const md_poller = setTimeout(() => {
-        (() => __awaiter(this, void 0, void 0, function* () {
-            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
-            const payload = {
-                video_id: __classPrivateFieldGet(this, _LiveChat_video_info, "f").basic_info.id,
-                ctoken: undefined
-            };
+    (() => __awaiter(this, void 0, void 0, function* () {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+        try {
+            const payload = { videoId: __classPrivateFieldGet(this, _LiveChat_video_id, "f") };
             if (__classPrivateFieldGet(this, _LiveChat_mcontinuation, "f")) {
-                payload.ctoken = __classPrivateFieldGet(this, _LiveChat_mcontinuation, "f");
+                payload.continuation = __classPrivateFieldGet(this, _LiveChat_mcontinuation, "f");
             }
-            const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").livechat('updated_metadata', payload);
-            const data = index_1.default.parseResponse(response.data);
+            const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").execute('/updated_metadata', payload);
+            const data = Parser.parseResponse(response.data);
             __classPrivateFieldSet(this, _LiveChat_mcontinuation, (_a = data.continuation) === null || _a === void 0 ? void 0 : _a.token, "f");
-            __classPrivateFieldSet(this, _LiveChat_md_polling_interval_ms, ((_b = data.continuation) === null || _b === void 0 ? void 0 : _b.timeout_ms) || __classPrivateFieldGet(this, _LiveChat_md_polling_interval_ms, "f"), "f");
             this.metadata = {
-                title: ((_c = data.actions) === null || _c === void 0 ? void 0 : _c.array().firstOfType(UpdateTitleAction_1.default)) || ((_d = this.metadata) === null || _d === void 0 ? void 0 : _d.title),
-                description: ((_e = data.actions) === null || _e === void 0 ? void 0 : _e.array().firstOfType(UpdateDescriptionAction_1.default)) || ((_f = this.metadata) === null || _f === void 0 ? void 0 : _f.description),
-                views: ((_g = data.actions) === null || _g === void 0 ? void 0 : _g.array().firstOfType(UpdateViewershipAction_1.default)) || ((_h = this.metadata) === null || _h === void 0 ? void 0 : _h.views),
-                likes: ((_j = data.actions) === null || _j === void 0 ? void 0 : _j.array().firstOfType(UpdateToggleButtonTextAction_1.default)) || ((_k = this.metadata) === null || _k === void 0 ? void 0 : _k.likes),
-                date: ((_l = data.actions) === null || _l === void 0 ? void 0 : _l.array().firstOfType(UpdateDateTextAction_1.default)) || ((_m = this.metadata) === null || _m === void 0 ? void 0 : _m.date)
+                title: ((_b = data.actions) === null || _b === void 0 ? void 0 : _b.array().firstOfType(UpdateTitleAction)) || ((_c = this.metadata) === null || _c === void 0 ? void 0 : _c.title),
+                description: ((_d = data.actions) === null || _d === void 0 ? void 0 : _d.array().firstOfType(UpdateDescriptionAction)) || ((_e = this.metadata) === null || _e === void 0 ? void 0 : _e.description),
+                views: ((_f = data.actions) === null || _f === void 0 ? void 0 : _f.array().firstOfType(UpdateViewershipAction)) || ((_g = this.metadata) === null || _g === void 0 ? void 0 : _g.views),
+                likes: ((_h = data.actions) === null || _h === void 0 ? void 0 : _h.array().firstOfType(UpdateToggleButtonTextAction)) || ((_j = this.metadata) === null || _j === void 0 ? void 0 : _j.likes),
+                date: ((_k = data.actions) === null || _k === void 0 ? void 0 : _k.array().firstOfType(UpdateDateTextAction)) || ((_l = this.metadata) === null || _l === void 0 ? void 0 : _l.date)
             };
             this.emit('metadata-update', this.metadata);
-            clearTimeout(md_poller);
-            this.running && __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollMetadata).call(this);
-        }))().catch((err) => Promise.reject(err));
-    }, __classPrivateFieldGet(this, _LiveChat_md_polling_interval_ms, "f"));
+            yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 5000);
+            if (this.running)
+                __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollMetadata).call(this);
+        }
+        catch (err) {
+            yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2000);
+            if (this.running)
+                __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollMetadata).call(this);
+        }
+    }))();
 }, _LiveChat_wait = function _LiveChat_wait(ms) {
     return __awaiter(this, void 0, void 0, function* () {
         return new Promise((resolve) => setTimeout(() => resolve(), ms));
     });
 };
-exports.default = LiveChat;
+export default LiveChat;
 //# sourceMappingURL=LiveChat.js.map

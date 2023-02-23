@@ -1,4 +1,4 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
 declare class CtaGoToCreatorStudio extends YTNode {
     static type: string;
     title: string;

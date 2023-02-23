@@ -1,13 +1,13 @@
-import Session, { Context } from '../core/Session';
-import Constants from './Constants';
-import { generateSidAuth, getRandomUserAgent, getStringBetweenStrings, InnertubeError, isServer } from './Utils';
-
-// eslint-disable-next-line
-const nodeFetch = require('node-fetch');
-const nfFetch = nodeFetch.default;
-const nfHeaders = nodeFetch.Headers;
-const nfRequest = nodeFetch.Request;
-export type FetchFunction = typeof nfFetch;
+import Session, { Context } from '../core/Session.js';
+import { FetchFunction } from '../types/PlatformShim.js';
+import Constants from './Constants.js';
+import {
+  Platform,
+  generateSidAuth,
+  getRandomUserAgent,
+  getStringBetweenStrings,
+  InnertubeError
+} from './Utils.js';
 
 export interface HTTPClientInit {
   baseURL?: string;
@@ -18,22 +18,21 @@ export default class HTTPClient {
   #cookie?: string;
   #fetch: FetchFunction;
 
-  // eslint-disable-next-line
   constructor(session: Session, cookie?: string, fetch?: FetchFunction) {
     this.#session = session;
     this.#cookie = cookie;
-    this.#fetch = nfFetch;
+    this.#fetch = fetch || Platform.shim.fetch;
   }
 
-  get fetch_function() {
+  get fetch_function(): FetchFunction {
     return this.#fetch;
   }
 
   async fetch(
-    input: URL | typeof nfRequest | string,
+    input: URL | Request | string,
     init?: RequestInit & HTTPClientInit
-  ) {
-    const innertube_url = Constants.URLS.API.PRODUCTION + this.#session.api_version;
+  ): Promise<Response> {
+    const innertube_url = Constants.URLS.API.PRODUCTION_1 + this.#session.api_version;
     const baseURL = init?.baseURL || innertube_url;
 
     const request_url =
@@ -46,20 +45,20 @@ export default class HTTPClient {
 
     const headers =
       init?.headers ||
-        (input instanceof nfRequest ? input.headers : new nfHeaders()) ||
-        new nfHeaders();
+      (input instanceof Platform.shim.Request ? input.headers : new Platform.shim.Headers()) ||
+      new Platform.shim.Headers();
 
-    const body = init?.body || (input instanceof nfRequest ? input.body : undefined);
+    const body = init?.body || (input instanceof Platform.shim.Request ? input.body : undefined);
 
-    const request_headers = new nfHeaders(headers);
+    const request_headers = new Platform.shim.Headers(headers);
 
     request_headers.set('Accept', '*/*');
-    request_headers.set('Accept-Language', `en-${this.#session.context.client.gl || 'US'}`);
+    request_headers.set('Accept-Language', '*');
     request_headers.set('x-goog-visitor-id', this.#session.context.client.visitorData || '');
     request_headers.set('x-origin', request_url.origin);
     request_headers.set('x-youtube-client-version', this.#session.context.client.clientVersion || '');
 
-    if (isServer()) {
+    if (Platform.shim.server) {
       request_headers.set('User-Agent', getRandomUserAgent('desktop'));
       request_headers.set('origin', request_url.origin);
     }
@@ -71,6 +70,7 @@ export default class HTTPClient {
     const content_type = request_headers.get('Content-Type');
 
     let request_body = body;
+    let is_web_kids = false;
 
     const is_innertube_req =
       baseURL === innertube_url ||
@@ -91,11 +91,12 @@ export default class HTTPClient {
 
       delete n_body.client;
 
+      is_web_kids = n_body.context.client.clientName === 'WEB_KIDS';
       request_body = JSON.stringify(n_body);
     }
 
-    // Authenticate
-    if (this.#session.logged_in && is_innertube_req) {
+    // Authenticate (NOTE: YouTube Kids does not support regular bearer tokens)
+    if (this.#session.logged_in && is_innertube_req && !is_web_kids) {
       const oauth = this.#session.oauth;
 
       if (oauth.validateCredentials()) {
@@ -109,20 +110,23 @@ export default class HTTPClient {
 
       if (this.#cookie) {
         const papisid = getStringBetweenStrings(this.#cookie, 'PAPISID=', ';');
+
         if (papisid) {
           request_headers.set('authorization', await generateSidAuth(papisid));
+          request_headers.set('x-goog-authuser', this.#session.account_index.toString());
         }
+
         request_headers.set('cookie', this.#cookie);
       }
     }
 
-    const request = new nfRequest(request_url, input instanceof nfRequest ? input : init);
+    const request = new Platform.shim.Request(request_url, input instanceof Platform.shim.Request ? input : init);
 
     const response = await this.#fetch(request, {
       body: request_body,
       headers: request_headers,
       credentials: 'include',
-      redirect: input instanceof nfRequest ? input.redirect : init?.redirect || 'follow'
+      redirect: input instanceof Platform.shim.Request ? input.redirect : init?.redirect || 'follow'
     });
 
     // Check if 2xx
@@ -131,7 +135,7 @@ export default class HTTPClient {
     } throw new InnertubeError(`Request to ${response.url} failed with status ${response.status}`, await response.text());
   }
 
-  #adjustContext(ctx: Context, client: string) {
+  #adjustContext(ctx: Context, client: string): void {
     switch (client) {
       case 'YTMUSIC':
         ctx.client.clientVersion = Constants.CLIENTS.YTMUSIC.VERSION;
@@ -148,6 +152,51 @@ export default class HTTPClient {
         ctx.client.clientFormFactor = 'SMALL_FORM_FACTOR';
         ctx.client.clientName = Constants.CLIENTS.YTMUSIC_ANDROID.NAME;
         ctx.client.androidSdkVersion = Constants.CLIENTS.ANDROID.SDK_VERSION;
+        break;
+      case 'YTSTUDIO_ANDROID':
+        ctx.client.clientVersion = Constants.CLIENTS.YTSTUDIO_ANDROID.VERSION;
+        ctx.client.clientFormFactor = 'SMALL_FORM_FACTOR';
+        ctx.client.clientName = Constants.CLIENTS.YTSTUDIO_ANDROID.NAME;
+        ctx.client.androidSdkVersion = Constants.CLIENTS.ANDROID.SDK_VERSION;
+        break;
+      case 'TV_EMBEDDED':
+        ctx.client.clientVersion = Constants.CLIENTS.TV_EMBEDDED.VERSION;
+        ctx.client.clientScreen = 'EMBED';
+        ctx.thirdParty = { embedUrl: Constants.URLS.YT_BASE };
+        break;
+      case 'YTKIDS':
+        ctx.client.clientVersion = Constants.CLIENTS.WEB_KIDS.VERSION;
+        ctx.client.clientName = Constants.CLIENTS.WEB_KIDS.NAME;
+        ctx.client.kidsAppInfo = { // TODO: Make this customizable
+          categorySettings: {
+            enabledCategories: [
+              'approved_for_you',
+              'black_joy',
+              'camp',
+              'collections',
+              'earth',
+              'explore',
+              'favorites',
+              'gaming',
+              'halloween',
+              'hero',
+              'learning',
+              'move',
+              'music',
+              'reading',
+              'shared_by_parents',
+              'shows',
+              'soccer',
+              'sports',
+              'spotlight',
+              'winter'
+            ]
+          },
+          contentSettings: {
+            corpusPreference: 'KIDS_CORPUS_PREFERENCE_YOUNGER',
+            kidsNoSearchMode: 'YT_KIDS_NO_SEARCH_MODE_OFF'
+          }
+        };
         break;
       default:
         break;

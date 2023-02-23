@@ -1,6 +1,6 @@
-import Text from './misc/Text';
-import Thumbnail from './misc/Thumbnail';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import { YTNode } from '../helpers.js';
 declare class PlayerMicroformat extends YTNode {
     static type: string;
     title: Text;
@@ -27,6 +27,7 @@ declare class PlayerMicroformat extends YTNode {
     publish_date: string;
     upload_date: string;
     available_countries: string[];
+    start_timestamp: Date | null;
     constructor(data: any);
 }
 export default PlayerMicroformat;

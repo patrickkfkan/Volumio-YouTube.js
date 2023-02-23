@@ -1,18 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const helpers_1 = require("../helpers");
-class SubFeedSelector extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+class SubFeedSelector extends YTNode {
     constructor(data) {
         super();
-        this.title = new Text_1.default(data.title);
-        this.options = index_1.default.parse(data.options);
+        this.title = new Text(data.title);
+        this.options = Parser.parse(data.options);
     }
 }
 SubFeedSelector.type = 'SubFeedSelector';
-exports.default = SubFeedSelector;
+export default SubFeedSelector;
 //# sourceMappingURL=SubFeedSelector.js.map

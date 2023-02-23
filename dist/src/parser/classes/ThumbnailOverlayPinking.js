@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../helpers");
-class ThumbnailOverlayPinking extends helpers_1.YTNode {
+import { YTNode } from '../helpers.js';
+class ThumbnailOverlayPinking extends YTNode {
     constructor(data) {
         super();
         this.hack = data.hack;
     }
 }
 ThumbnailOverlayPinking.type = 'ThumbnailOverlayPinking';
-exports.default = ThumbnailOverlayPinking;
+export default ThumbnailOverlayPinking;
 //# sourceMappingURL=ThumbnailOverlayPinking.js.map

@@ -1,11 +1,14 @@
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import Notification from '../classes/Notification';
-import SimpleMenuHeader from '../classes/menus/SimpleMenuHeader';
+import SimpleMenuHeader from '../classes/menus/SimpleMenuHeader.js';
+import Notification from '../classes/Notification.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { IGetNotificationsMenuResponse } from '../types/ParsedResponse.js';
 declare class NotificationsMenu {
     #private;
-    header: SimpleMenuHeader | null;
+    header: SimpleMenuHeader;
     contents: Notification[];
-    constructor(actions: Actions, response: AxioslikeResponse);
+    constructor(actions: Actions, response: ApiResponse);
     getContinuation(): Promise<NotificationsMenu>;
+    get page(): IGetNotificationsMenuResponse;
 }
 export default NotificationsMenu;

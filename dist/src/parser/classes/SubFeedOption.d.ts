@@ -1,6 +1,6 @@
-import Text from './misc/Text';
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 declare class SubFeedOption extends YTNode {
     static type: string;
     name: Text;

@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,46 +18,37 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var __asyncValues = (this && this.__asyncValues) || function (o) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var m = o[Symbol.asyncIterator], i;
-    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
-    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
-    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-var _VideoInfo_instances, _VideoInfo_page, _VideoInfo_actions, _VideoInfo_player, _VideoInfo_cpn, _VideoInfo_watch_next_continuation, _VideoInfo_playback_tracking, _VideoInfo_el, _VideoInfo_generateAdaptationSet, _VideoInfo_generateRepresentationVideo, _VideoInfo_generateRepresentationAudio;
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Constants_1 = __importDefault(require("../../utils/Constants"));
-const TwoColumnWatchNextResults_1 = __importDefault(require("../classes/TwoColumnWatchNextResults"));
-const VideoPrimaryInfo_1 = __importDefault(require("../classes/VideoPrimaryInfo"));
-const VideoSecondaryInfo_1 = __importDefault(require("../classes/VideoSecondaryInfo"));
-const MerchandiseShelf_1 = __importDefault(require("../classes/MerchandiseShelf"));
-const RelatedChipCloud_1 = __importDefault(require("../classes/RelatedChipCloud"));
-const ChipCloud_1 = __importDefault(require("../classes/ChipCloud"));
-const ItemSection_1 = __importDefault(require("../classes/ItemSection"));
-const PlayerOverlay_1 = __importDefault(require("../classes/PlayerOverlay"));
-const ToggleButton_1 = __importDefault(require("../classes/ToggleButton"));
-const CommentsEntryPointHeader_1 = __importDefault(require("../classes/comments/CommentsEntryPointHeader"));
-const SegmentedLikeDislikeButton_1 = __importDefault(require("../classes/SegmentedLikeDislikeButton"));
-const ContinuationItem_1 = __importDefault(require("../classes/ContinuationItem"));
-const PlayerMicroformat_1 = __importDefault(require("../classes/PlayerMicroformat"));
-const MicroformatData_1 = __importDefault(require("../classes/MicroformatData"));
-const LiveChat_1 = __importDefault(require("../classes/LiveChat"));
-const LiveChat_2 = __importDefault(require("./LiveChat"));
-const linkedom_1 = require("linkedom");
-const Utils_1 = require("../../utils/Utils");
+var _VideoInfo_page, _VideoInfo_actions, _VideoInfo_player, _VideoInfo_cpn, _VideoInfo_watch_next_continuation, _VideoInfo_playback_tracking;
+import Constants from '../../utils/Constants.js';
+import Parser from '../index.js';
+import ChipCloud from '../classes/ChipCloud.js';
+import ChipCloudChip from '../classes/ChipCloudChip.js';
+import CommentsEntryPointHeader from '../classes/comments/CommentsEntryPointHeader.js';
+import ContinuationItem from '../classes/ContinuationItem.js';
+import ItemSection from '../classes/ItemSection.js';
+import LiveChat from '../classes/LiveChat.js';
+import MerchandiseShelf from '../classes/MerchandiseShelf.js';
+import MicroformatData from '../classes/MicroformatData.js';
+import PlayerMicroformat from '../classes/PlayerMicroformat.js';
+import PlayerOverlay from '../classes/PlayerOverlay.js';
+import RelatedChipCloud from '../classes/RelatedChipCloud.js';
+import SegmentedLikeDislikeButton from '../classes/SegmentedLikeDislikeButton.js';
+import ToggleButton from '../classes/ToggleButton.js';
+import TwoColumnWatchNextResults from '../classes/TwoColumnWatchNextResults.js';
+import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
+import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
+import LiveChatWrap from './LiveChat.js';
+import FormatUtils from '../../utils/FormatUtils.js';
+import { InnertubeError } from '../../utils/Utils.js';
 class VideoInfo {
     /**
      * @param data - API response.
-     * @param cpn - Client Playback Nonce
+     * @param actions - Actions instance.
+     * @param player - Player instance.
+     * @param cpn - Client Playback Nonce.
      */
     constructor(data, actions, player, cpn) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
-        _VideoInfo_instances.add(this);
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4;
         _VideoInfo_page.set(this, void 0);
         _VideoInfo_actions.set(this, void 0);
         _VideoInfo_player.set(this, void 0);
@@ -68,23 +58,20 @@ class VideoInfo {
         __classPrivateFieldSet(this, _VideoInfo_actions, actions, "f");
         __classPrivateFieldSet(this, _VideoInfo_player, player, "f");
         __classPrivateFieldSet(this, _VideoInfo_cpn, cpn, "f");
-        const info = index_1.default.parseResponse(data[0].data);
-        const next = ((_a = data === null || data === void 0 ? void 0 : data[1]) === null || _a === void 0 ? void 0 : _a.data) ? index_1.default.parseResponse(data[1].data) : undefined;
+        const info = Parser.parseResponse(data[0].data);
+        const next = ((_a = data === null || data === void 0 ? void 0 : data[1]) === null || _a === void 0 ? void 0 : _a.data) ? Parser.parseResponse(data[1].data) : undefined;
         __classPrivateFieldSet(this, _VideoInfo_page, [info, next], "f");
         if (((_b = info.playability_status) === null || _b === void 0 ? void 0 : _b.status) === 'ERROR')
-            throw new Utils_1.InnertubeError('This video is unavailable', info.playability_status);
-        if (info.microformat && !((_c = info.microformat) === null || _c === void 0 ? void 0 : _c.is(PlayerMicroformat_1.default, MicroformatData_1.default)))
-            throw new Utils_1.InnertubeError('Invalid microformat', info.microformat);
+            throw new InnertubeError('This video is unavailable', info.playability_status);
+        if (info.microformat && !((_c = info.microformat) === null || _c === void 0 ? void 0 : _c.is(PlayerMicroformat, MicroformatData)))
+            throw new InnertubeError('Invalid microformat', info.microformat);
         this.basic_info = Object.assign(Object.assign(Object.assign({}, info.video_details), {
-            /**
-             * Microformat is a bit redundant, so only
-             * a few things there are interesting to us.
-             */
-            embed: ((_d = info.microformat) === null || _d === void 0 ? void 0 : _d.is(PlayerMicroformat_1.default)) ? (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.embed : null,
-            channel: ((_f = info.microformat) === null || _f === void 0 ? void 0 : _f.is(PlayerMicroformat_1.default)) ? (_g = info.microformat) === null || _g === void 0 ? void 0 : _g.channel : null,
+            embed: ((_d = info.microformat) === null || _d === void 0 ? void 0 : _d.is(PlayerMicroformat)) ? (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.embed : null,
+            channel: ((_f = info.microformat) === null || _f === void 0 ? void 0 : _f.is(PlayerMicroformat)) ? (_g = info.microformat) === null || _g === void 0 ? void 0 : _g.channel : null,
             is_unlisted: (_h = info.microformat) === null || _h === void 0 ? void 0 : _h.is_unlisted,
             is_family_safe: (_j = info.microformat) === null || _j === void 0 ? void 0 : _j.is_family_safe,
-            has_ypc_metadata: ((_k = info.microformat) === null || _k === void 0 ? void 0 : _k.is(PlayerMicroformat_1.default)) ? (_l = info.microformat) === null || _l === void 0 ? void 0 : _l.has_ypc_metadata : null
+            has_ypc_metadata: ((_k = info.microformat) === null || _k === void 0 ? void 0 : _k.is(PlayerMicroformat)) ? (_l = info.microformat) === null || _l === void 0 ? void 0 : _l.has_ypc_metadata : null,
+            start_timestamp: ((_m = info.microformat) === null || _m === void 0 ? void 0 : _m.is(PlayerMicroformat)) ? info.microformat.start_timestamp : null
         }), { like_count: undefined, is_liked: undefined, is_disliked: undefined });
         this.streaming_data = info.streaming_data;
         this.playability_status = info.playability_status;
@@ -94,51 +81,64 @@ class VideoInfo {
         this.captions = info.captions;
         this.cards = info.cards;
         __classPrivateFieldSet(this, _VideoInfo_playback_tracking, info.playback_tracking, "f");
-        const two_col = next === null || next === void 0 ? void 0 : next.contents.item().as(TwoColumnWatchNextResults_1.default);
+        const two_col = (_o = next === null || next === void 0 ? void 0 : next.contents) === null || _o === void 0 ? void 0 : _o.item().as(TwoColumnWatchNextResults);
         const results = two_col === null || two_col === void 0 ? void 0 : two_col.results;
         const secondary_results = two_col === null || two_col === void 0 ? void 0 : two_col.secondary_results;
         if (results && secondary_results) {
-            this.primary_info = (_m = results.get({ type: 'VideoPrimaryInfo' })) === null || _m === void 0 ? void 0 : _m.as(VideoPrimaryInfo_1.default);
-            this.secondary_info = (_o = results.get({ type: 'VideoSecondaryInfo' })) === null || _o === void 0 ? void 0 : _o.as(VideoSecondaryInfo_1.default);
-            this.merchandise = (_p = results.get({ type: 'MerchandiseShelf' })) === null || _p === void 0 ? void 0 : _p.as(MerchandiseShelf_1.default);
-            this.related_chip_cloud = (_r = (_q = secondary_results.get({ type: 'RelatedChipCloud' })) === null || _q === void 0 ? void 0 : _q.as(RelatedChipCloud_1.default)) === null || _r === void 0 ? void 0 : _r.content.item().as(ChipCloud_1.default);
-            this.watch_next_feed = (_t = (_s = secondary_results.get({ type: 'ItemSection' })) === null || _s === void 0 ? void 0 : _s.as(ItemSection_1.default)) === null || _t === void 0 ? void 0 : _t.contents;
-            if (this.watch_next_feed && Array.isArray(this.watch_next_feed))
-                __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_u = this.watch_next_feed.pop()) === null || _u === void 0 ? void 0 : _u.as(ContinuationItem_1.default), "f");
-            this.player_overlays = next === null || next === void 0 ? void 0 : next.player_overlays.item().as(PlayerOverlay_1.default);
-            const segmented_like_dislike_button = (_w = (_v = this.primary_info) === null || _v === void 0 ? void 0 : _v.menu) === null || _w === void 0 ? void 0 : _w.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_1.default);
-            this.basic_info.like_count = (_y = (_x = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _x === void 0 ? void 0 : _x.as(ToggleButton_1.default)) === null || _y === void 0 ? void 0 : _y.like_count;
-            this.basic_info.is_liked = (_0 = (_z = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _z === void 0 ? void 0 : _z.as(ToggleButton_1.default)) === null || _0 === void 0 ? void 0 : _0.is_toggled;
-            this.basic_info.is_disliked = (_2 = (_1 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _1 === void 0 ? void 0 : _1.as(ToggleButton_1.default)) === null || _2 === void 0 ? void 0 : _2.is_toggled;
-            const comments_entry_point = (_3 = results.get({ target_id: 'comments-entry-point' })) === null || _3 === void 0 ? void 0 : _3.as(ItemSection_1.default);
-            this.comments_entry_point_header = (_5 = (_4 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _4 === void 0 ? void 0 : _4.get({ type: 'CommentsEntryPointHeader' })) === null || _5 === void 0 ? void 0 : _5.as(CommentsEntryPointHeader_1.default);
-            this.livechat = (_6 = next === null || next === void 0 ? void 0 : next.contents_memo.getType(LiveChat_1.default)) === null || _6 === void 0 ? void 0 : _6[0];
+            this.primary_info = results.firstOfType(VideoPrimaryInfo);
+            this.secondary_info = results.firstOfType(VideoSecondaryInfo);
+            this.merchandise = results.firstOfType(MerchandiseShelf);
+            this.related_chip_cloud = (_p = secondary_results.firstOfType(RelatedChipCloud)) === null || _p === void 0 ? void 0 : _p.content.item().as(ChipCloud);
+            this.watch_next_feed = ((_q = secondary_results.firstOfType(ItemSection)) === null || _q === void 0 ? void 0 : _q.contents) || secondary_results;
+            if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_r = this.watch_next_feed.at(-1)) === null || _r === void 0 ? void 0 : _r.is(ContinuationItem)))
+                __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_s = this.watch_next_feed.pop()) === null || _s === void 0 ? void 0 : _s.as(ContinuationItem), "f");
+            this.player_overlays = (_t = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _t === void 0 ? void 0 : _t.item().as(PlayerOverlay);
+            const segmented_like_dislike_button = (_v = (_u = this.primary_info) === null || _u === void 0 ? void 0 : _u.menu) === null || _v === void 0 ? void 0 : _v.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
+            this.basic_info.like_count = (_x = (_w = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _w === void 0 ? void 0 : _w.as(ToggleButton)) === null || _x === void 0 ? void 0 : _x.like_count;
+            this.basic_info.is_liked = (_z = (_y = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _y === void 0 ? void 0 : _y.as(ToggleButton)) === null || _z === void 0 ? void 0 : _z.is_toggled;
+            this.basic_info.is_disliked = (_1 = (_0 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _0 === void 0 ? void 0 : _0.as(ToggleButton)) === null || _1 === void 0 ? void 0 : _1.is_toggled;
+            const comments_entry_point = (_2 = results.get({ target_id: 'comments-entry-point' })) === null || _2 === void 0 ? void 0 : _2.as(ItemSection);
+            this.comments_entry_point_header = (_3 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _3 === void 0 ? void 0 : _3.firstOfType(CommentsEntryPointHeader);
+            this.livechat = (_4 = next === null || next === void 0 ? void 0 : next.contents_memo) === null || _4 === void 0 ? void 0 : _4.getType(LiveChat).first();
         }
     }
     /**
-     * Applies given filter to the watch next feed.
+     * Applies given filter to the watch next feed. Use {@link filters} to get available filters.
+     * @param target_filter - Filter to apply.
      */
-    selectFilter(name) {
+    selectFilter(target_filter) {
         var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
-            if (!this.filters.includes(name))
-                throw new Utils_1.InnertubeError('Invalid filter', { available_filters: this.filters });
-            const filter = (_b = (_a = this.related_chip_cloud) === null || _a === void 0 ? void 0 : _a.chips) === null || _b === void 0 ? void 0 : _b.get({ text: name });
-            if (filter === null || filter === void 0 ? void 0 : filter.is_selected)
+            if (!this.related_chip_cloud)
+                throw new InnertubeError('Chip cloud not found, cannot apply filter');
+            let cloud_chip;
+            if (typeof target_filter === 'string') {
+                const filter = (_b = (_a = this.related_chip_cloud) === null || _a === void 0 ? void 0 : _a.chips) === null || _b === void 0 ? void 0 : _b.get({ text: target_filter });
+                if (!filter)
+                    throw new InnertubeError('Invalid filter', { available_filters: this.filters });
+                cloud_chip = filter;
+            }
+            else if (target_filter === null || target_filter === void 0 ? void 0 : target_filter.is(ChipCloudChip)) {
+                cloud_chip = target_filter;
+            }
+            else {
+                throw new InnertubeError('Invalid cloud chip', target_filter);
+            }
+            if (cloud_chip.is_selected)
                 return this;
-            const response = yield ((_c = filter === null || filter === void 0 ? void 0 : filter.endpoint) === null || _c === void 0 ? void 0 : _c.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"), undefined, true));
+            const response = yield ((_c = cloud_chip.endpoint) === null || _c === void 0 ? void 0 : _c.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"), { parse: true }));
             const data = (_d = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _d === void 0 ? void 0 : _d.get({ target_id: 'watch-next-feed' });
             this.watch_next_feed = data === null || data === void 0 ? void 0 : data.contents;
             return this;
         });
     }
     /**
-     * Adds the video to the watch history.
+     * Adds video to the watch history.
      */
     addToWatchHistory() {
         return __awaiter(this, void 0, void 0, function* () {
             if (!__classPrivateFieldGet(this, _VideoInfo_playback_tracking, "f"))
-                throw new Utils_1.InnertubeError('Playback tracking not available');
+                throw new InnertubeError('Playback tracking not available');
             const url_params = {
                 cpn: __classPrivateFieldGet(this, _VideoInfo_cpn, "f"),
                 fmt: 251,
@@ -147,8 +147,8 @@ class VideoInfo {
             };
             const url = __classPrivateFieldGet(this, _VideoInfo_playback_tracking, "f").videostats_playback_url.replace('https://s.', 'https://www.');
             const response = yield __classPrivateFieldGet(this, _VideoInfo_actions, "f").stats(url, {
-                client_name: Constants_1.default.CLIENTS.WEB.NAME,
-                client_version: Constants_1.default.CLIENTS.WEB.VERSION
+                client_name: Constants.CLIENTS.WEB.NAME,
+                client_version: Constants.CLIENTS.WEB.VERSION
             }, url_params);
             return response;
         });
@@ -157,14 +157,21 @@ class VideoInfo {
      * Retrieves watch next feed continuation.
      */
     getWatchNextContinuation() {
-        var _a, _b, _c, _d;
+        var _a, _b, _c, _d, _e;
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield ((_a = __classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f")) === null || _a === void 0 ? void 0 : _a.endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"), undefined, true));
+            if (!__classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f"))
+                throw new InnertubeError('Watch next feed continuation not found');
+            const response = yield ((_a = __classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f")) === null || _a === void 0 ? void 0 : _a.endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"), { parse: true }));
             const data = (_b = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _b === void 0 ? void 0 : _b.get({ type: 'appendContinuationItemsAction' });
             if (!data)
-                throw new Utils_1.InnertubeError('Continuation not found');
+                throw new InnertubeError('AppendContinuationItemsAction not found');
             this.watch_next_feed = data === null || data === void 0 ? void 0 : data.contents;
-            __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_d = (_c = this.watch_next_feed) === null || _c === void 0 ? void 0 : _c.pop()) === null || _d === void 0 ? void 0 : _d.as(ContinuationItem_1.default), "f");
+            if ((_d = (_c = this.watch_next_feed) === null || _c === void 0 ? void 0 : _c.at(-1)) === null || _d === void 0 ? void 0 : _d.is(ContinuationItem)) {
+                __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_e = this.watch_next_feed.pop()) === null || _e === void 0 ? void 0 : _e.as(ContinuationItem), "f");
+            }
+            else {
+                __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, undefined, "f");
+            }
             return this;
         });
     }
@@ -172,13 +179,14 @@ class VideoInfo {
      * Likes the video.
      */
     like() {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function* () {
-            const button = (_d = (_c = (_b = (_a = this.primary_info) === null || _a === void 0 ? void 0 : _a.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons) === null || _c === void 0 ? void 0 : _c.get({ button_id: 'TOGGLE_BUTTON_ID_TYPE_LIKE' })) === null || _d === void 0 ? void 0 : _d.as(ToggleButton_1.default);
+            const segmented_like_dislike_button = (_b = (_a = this.primary_info) === null || _a === void 0 ? void 0 : _a.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
+            const button = (_c = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _c === void 0 ? void 0 : _c.as(ToggleButton);
             if (!button)
-                throw new Utils_1.InnertubeError('Like button not found', { video_id: this.basic_info.id });
+                throw new InnertubeError('Like button not found', { video_id: this.basic_info.id });
             if (button.is_toggled)
-                throw new Utils_1.InnertubeError('This video is already liked', { video_id: this.basic_info.id });
+                throw new InnertubeError('This video is already liked', { video_id: this.basic_info.id });
             const response = yield button.endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"));
             return response;
         });
@@ -187,13 +195,14 @@ class VideoInfo {
      * Dislikes the video.
      */
     dislike() {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         return __awaiter(this, void 0, void 0, function* () {
-            const button = (_d = (_c = (_b = (_a = this.primary_info) === null || _a === void 0 ? void 0 : _a.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons) === null || _c === void 0 ? void 0 : _c.get({ button_id: 'TOGGLE_BUTTON_ID_TYPE_DISLIKE' })) === null || _d === void 0 ? void 0 : _d.as(ToggleButton_1.default);
+            const segmented_like_dislike_button = (_b = (_a = this.primary_info) === null || _a === void 0 ? void 0 : _a.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
+            const button = (_c = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _c === void 0 ? void 0 : _c.as(ToggleButton);
             if (!button)
-                throw new Utils_1.InnertubeError('Dislike button not found', { video_id: this.basic_info.id });
+                throw new InnertubeError('Dislike button not found', { video_id: this.basic_info.id });
             if (button.is_toggled)
-                throw new Utils_1.InnertubeError('This video is already disliked', { video_id: this.basic_info.id });
+                throw new InnertubeError('This video is already disliked', { video_id: this.basic_info.id });
             const response = yield button.endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"));
             return response;
         });
@@ -201,12 +210,21 @@ class VideoInfo {
     /**
      * Removes like/dislike.
      */
-    removeLike() {
+    removeRating() {
         var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
-            const button = (_d = (_c = (_b = (_a = this.primary_info) === null || _a === void 0 ? void 0 : _a.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons) === null || _c === void 0 ? void 0 : _c.get({ is_toggled: true })) === null || _d === void 0 ? void 0 : _d.as(ToggleButton_1.default);
+            let button;
+            const segmented_like_dislike_button = (_b = (_a = this.primary_info) === null || _a === void 0 ? void 0 : _a.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
+            const like_button = (_c = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _c === void 0 ? void 0 : _c.as(ToggleButton);
+            const dislike_button = (_d = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _d === void 0 ? void 0 : _d.as(ToggleButton);
+            if (like_button === null || like_button === void 0 ? void 0 : like_button.is_toggled) {
+                button = like_button;
+            }
+            else if (dislike_button === null || dislike_button === void 0 ? void 0 : dislike_button.is_toggled) {
+                button = dislike_button;
+            }
             if (!button)
-                throw new Utils_1.InnertubeError('This video is not liked/disliked', { video_id: this.basic_info.id });
+                throw new InnertubeError('This video is not liked/disliked', { video_id: this.basic_info.id });
             const response = yield button.toggled_endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"));
             return response;
         });
@@ -216,21 +234,58 @@ class VideoInfo {
      */
     getLiveChat() {
         if (!this.livechat)
-            throw new Utils_1.InnertubeError('Live Chat is not available', { video_id: this.basic_info.id });
-        return new LiveChat_2.default(this);
+            throw new InnertubeError('Live Chat is not available', { video_id: this.basic_info.id });
+        return new LiveChatWrap(this);
     }
+    /**
+     * Selects the format that best matches the given options.
+     * @param options - Options
+     */
+    chooseFormat(options) {
+        return FormatUtils.chooseFormat(options, this.streaming_data);
+    }
+    /**
+     * Generates a DASH manifest from the streaming data.
+     * @param url_transformer - Function to transform the URLs.
+     * @param format_filter - Function to filter the formats.
+     * @returns DASH manifest
+     */
+    toDash(url_transformer, format_filter) {
+        return FormatUtils.toDash(this.streaming_data, url_transformer, format_filter, __classPrivateFieldGet(this, _VideoInfo_cpn, "f"), __classPrivateFieldGet(this, _VideoInfo_player, "f"));
+    }
+    /**
+     * Downloads the video.
+     * @param options - Download options.
+     */
+    download(options = {}) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return FormatUtils.download(options, __classPrivateFieldGet(this, _VideoInfo_actions, "f"), this.playability_status, this.streaming_data, __classPrivateFieldGet(this, _VideoInfo_actions, "f").session.player, this.cpn);
+        });
+    }
+    /**
+     * Watch next feed filters.
+     */
     get filters() {
         var _a, _b;
-        return ((_b = (_a = this.related_chip_cloud) === null || _a === void 0 ? void 0 : _a.chips) === null || _b === void 0 ? void 0 : _b.map((chip) => chip.text.toString())) || [];
+        return ((_b = (_a = this.related_chip_cloud) === null || _a === void 0 ? void 0 : _a.chips) === null || _b === void 0 ? void 0 : _b.map((chip) => { var _a; return (_a = chip.text) === null || _a === void 0 ? void 0 : _a.toString(); })) || [];
     }
+    /**
+     * Actions instance.
+     */
     get actions() {
         return __classPrivateFieldGet(this, _VideoInfo_actions, "f");
     }
+    /**
+     * Content Playback Nonce.
+     */
     get cpn() {
         return __classPrivateFieldGet(this, _VideoInfo_cpn, "f");
     }
-    get page() {
-        return __classPrivateFieldGet(this, _VideoInfo_page, "f");
+    /**
+     * Checks if continuation is available for the watch next feed.
+     */
+    get wn_has_continuation() {
+        return !!__classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f");
     }
     /**
      * Get songs used in the video.
@@ -247,7 +302,7 @@ class VideoInfo {
             for (let i = 0; i < metadata.rows.length; i++) {
                 const row = metadata.rows[i];
                 if (row.is(MetadataRowHeader)) {
-                    if (row.content.toString().toLowerCase().startsWith('music')) {
+                    if (row.content?.toString().toLowerCase().startsWith('music')) {
                         is_music_section = true;
                         i++; // Skip the learn more link
                     }
@@ -256,7 +311,7 @@ class VideoInfo {
                 if (!is_music_section)
                     continue;
                 if (row.is(MetadataRow))
-                    current_song[row.title.toString().toLowerCase().replace(/ /g, '_')] = row.contents;
+                    current_song[row.title?.toString().toLowerCase().replace(/ /g, '_')] = row.contents;
                 // TODO: this makes no sense, we continue above when
                 if (row.has_divider_line) {
                     songs.push(current_song);
@@ -270,274 +325,13 @@ class VideoInfo {
             */
         return [];
     }
-    chooseFormat(options) {
-        if (!this.streaming_data)
-            throw new Utils_1.InnertubeError('Streaming data not available', { video_id: this.basic_info.id });
-        const formats = [
-            ...(this.streaming_data.formats || []),
-            ...(this.streaming_data.adaptive_formats || [])
-        ];
-        const requires_audio = options.type ? options.type.includes('audio') : true;
-        const requires_video = options.type ? options.type.includes('video') : true;
-        const quality = options.quality || '360p';
-        let best_width = -1;
-        const is_best = ['best', 'bestefficiency'].includes(quality);
-        const use_most_efficient = quality !== 'best';
-        let candidates = formats.filter((format) => {
-            if (requires_audio && !format.has_audio)
-                return false;
-            if (requires_video && !format.has_video)
-                return false;
-            if (options.format !== 'any' && !format.mime_type.includes(options.format || 'mp4'))
-                return false;
-            if (!is_best && format.quality_label !== quality)
-                return false;
-            if (best_width < format.width)
-                best_width = format.width;
-            return true;
-        });
-        if (!candidates.length) {
-            throw new Utils_1.InnertubeError('No matching formats found', {
-                options
-            });
-        }
-        if (is_best && requires_video)
-            candidates = candidates.filter((format) => format.width === best_width);
-        if (requires_audio && !requires_video) {
-            const audio_only = candidates.filter((format) => !format.has_video);
-            if (audio_only.length > 0) {
-                candidates = audio_only;
-            }
-        }
-        if (use_most_efficient) {
-            // Sort by bitrate (lower is better)
-            candidates.sort((a, b) => a.bitrate - b.bitrate);
-        }
-        else {
-            // Sort by bitrate (higher is better)
-            candidates.sort((a, b) => b.bitrate - a.bitrate);
-        }
-        return candidates[0];
-    }
-    toDash(url_transformer = (url) => url) {
-        if (!this.streaming_data)
-            throw new Utils_1.InnertubeError('Streaming data not available', { video_id: this.basic_info.id });
-        const { adaptive_formats } = this.streaming_data;
-        const length = adaptive_formats[0].approx_duration_ms / 1000;
-        const document = new linkedom_1.DOMParser().parseFromString('', 'text/xml');
-        const period = document.createElement('Period');
-        document.appendChild(__classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'MPD', {
-            xmlns: 'urn:mpeg:dash:schema:mpd:2011',
-            minBufferTime: 'PT1.500S',
-            profiles: 'urn:mpeg:dash:profile:isoff-main:2011',
-            type: 'static',
-            mediaPresentationDuration: `PT${length}S`,
-            'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-            'xsi:schemaLocation': 'urn:mpeg:dash:schema:mpd:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd'
-        }, [
-            period
-        ]));
-        __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_generateAdaptationSet).call(this, document, period, adaptive_formats, url_transformer);
-        return `${document}`;
-    }
     /**
-     * @param options - download options.
+     * Original parsed InnerTube response.
      */
-    download(options = {}) {
-        var _a, _b;
-        return __awaiter(this, void 0, void 0, function* () {
-            if (((_a = this.playability_status) === null || _a === void 0 ? void 0 : _a.status) === 'UNPLAYABLE')
-                throw new Utils_1.InnertubeError('Video is unplayable', { video: this, error_type: 'UNPLAYABLE' });
-            if (((_b = this.playability_status) === null || _b === void 0 ? void 0 : _b.status) === 'LOGIN_REQUIRED')
-                throw new Utils_1.InnertubeError('Video is login required', { video: this, error_type: 'LOGIN_REQUIRED' });
-            if (!this.streaming_data)
-                throw new Utils_1.InnertubeError('Streaming data not available.', { video: this, error_type: 'NO_STREAMING_DATA' });
-            const opts = Object.assign({ quality: '360p', type: 'video+audio', format: 'mp4', range: undefined }, options);
-            const format = this.chooseFormat(opts);
-            const format_url = format.decipher(__classPrivateFieldGet(this, _VideoInfo_player, "f"));
-            // If we're not downloading the video in chunks, we just use fetch once.
-            if (opts.type === 'video+audio' && !options.range) {
-                const response = yield __classPrivateFieldGet(this, _VideoInfo_actions, "f").session.http.fetch_function(`${format_url}&cpn=${__classPrivateFieldGet(this, _VideoInfo_cpn, "f")}`, {
-                    method: 'GET',
-                    headers: Constants_1.default.STREAM_HEADERS,
-                    redirect: 'follow'
-                });
-                // Throw if the response is not 2xx
-                if (!response.ok)
-                    throw new Utils_1.InnertubeError('The server responded with a non 2xx status code', { video: this, error_type: 'FETCH_FAILED', response });
-                const body = response.body;
-                if (!body)
-                    throw new Utils_1.InnertubeError('Could not get ReadableStream from fetch Response.', { video: this, error_type: 'FETCH_FAILED', response });
-                return body;
-            }
-            // We need to download in chunks.
-            const chunk_size = 1048576 * 10; // 10MB
-            let chunk_start = (options.range ? options.range.start : 0);
-            let chunk_end = (options.range ? options.range.end : chunk_size);
-            let must_end = false;
-            let cancel;
-            const readable_stream = new ReadableStream({
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                start() { },
-                pull: (controller) => __awaiter(this, void 0, void 0, function* () {
-                    if (must_end) {
-                        controller.close();
-                        return;
-                    }
-                    if ((chunk_end >= format.content_length) || options.range) {
-                        must_end = true;
-                    }
-                    return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
-                        var e_1, _c;
-                        try {
-                            cancel = new AbortController();
-                            const response = yield __classPrivateFieldGet(this, _VideoInfo_actions, "f").session.http.fetch_function(`${format_url}&cpn=${__classPrivateFieldGet(this, _VideoInfo_cpn, "f")}&range=${chunk_start}-${chunk_end || ''}`, {
-                                method: 'GET',
-                                headers: Object.assign({}, Constants_1.default.STREAM_HEADERS
-                                // XXX: use YouTube's range parameter instead of a Range header.
-                                // Range: `bytes=${chunk_start}-${chunk_end}`
-                                ),
-                                signal: cancel.signal
-                            });
-                            const body = response.body;
-                            if (!body)
-                                throw new Utils_1.InnertubeError('Could not get ReadableStream from fetch Response.', { video: this, error_type: 'FETCH_FAILED', response });
-                            try {
-                                for (var _d = __asyncValues((0, Utils_1.streamToIterable)(body)), _e; _e = yield _d.next(), !_e.done;) {
-                                    const chunk = _e.value;
-                                    controller.enqueue(chunk);
-                                }
-                            }
-                            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-                            finally {
-                                try {
-                                    if (_e && !_e.done && (_c = _d.return)) yield _c.call(_d);
-                                }
-                                finally { if (e_1) throw e_1.error; }
-                            }
-                            chunk_start = chunk_end + 1;
-                            chunk_end += chunk_size;
-                            resolve();
-                            return;
-                        }
-                        catch (e) {
-                            reject(e);
-                        }
-                    }));
-                }),
-                cancel(reason) {
-                    return __awaiter(this, void 0, void 0, function* () {
-                        cancel.abort(reason);
-                    });
-                }
-            }, {
-                highWaterMark: 1,
-                size(chunk) {
-                    return chunk.byteLength;
-                }
-            });
-            return readable_stream;
-        });
+    get page() {
+        return __classPrivateFieldGet(this, _VideoInfo_page, "f");
     }
 }
-_VideoInfo_page = new WeakMap(), _VideoInfo_actions = new WeakMap(), _VideoInfo_player = new WeakMap(), _VideoInfo_cpn = new WeakMap(), _VideoInfo_watch_next_continuation = new WeakMap(), _VideoInfo_playback_tracking = new WeakMap(), _VideoInfo_instances = new WeakSet(), _VideoInfo_el = function _VideoInfo_el(document, tag, attrs, children = []) {
-    const el = document.createElement(tag);
-    for (const [key, value] of Object.entries(attrs)) {
-        el.setAttribute(key, value);
-    }
-    for (const child of children) {
-        if (typeof child === 'undefined')
-            continue;
-        el.appendChild(child);
-    }
-    return el;
-}, _VideoInfo_generateAdaptationSet = function _VideoInfo_generateAdaptationSet(document, period, formats, url_transformer) {
-    const mimeTypes = [];
-    const mimeObjects = [[]];
-    formats.forEach((videoFormat) => {
-        if (!videoFormat.index_range || !videoFormat.init_range) {
-            return;
-        }
-        const mimeType = videoFormat.mime_type;
-        const mimeTypeIndex = mimeTypes.indexOf(mimeType);
-        if (mimeTypeIndex > -1) {
-            mimeObjects[mimeTypeIndex].push(videoFormat);
-        }
-        else {
-            mimeTypes.push(mimeType);
-            mimeObjects.push([]);
-            mimeObjects[mimeTypes.length - 1].push(videoFormat);
-        }
-    });
-    for (let i = 0; i < mimeTypes.length; i++) {
-        const set = __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'AdaptationSet', {
-            id: `${i}`,
-            mimeType: mimeTypes[i].split(';')[0],
-            startWithSAP: '1',
-            subsegmentAlignment: 'true'
-        });
-        period.appendChild(set);
-        mimeObjects[i].forEach((format) => {
-            if (format.has_video) {
-                __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_generateRepresentationVideo).call(this, document, set, format, url_transformer);
-            }
-            else {
-                __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_generateRepresentationAudio).call(this, document, set, format, url_transformer);
-            }
-        });
-    }
-}, _VideoInfo_generateRepresentationVideo = function _VideoInfo_generateRepresentationVideo(document, set, format, url_transformer) {
-    const codecs = (0, Utils_1.getStringBetweenStrings)(format.mime_type, 'codecs="', '"');
-    if (!format.index_range || !format.init_range)
-        throw new Utils_1.InnertubeError('Index and init ranges not available', { format });
-    const url = new URL(format.decipher(__classPrivateFieldGet(this, _VideoInfo_player, "f")));
-    url.searchParams.set('cpn', __classPrivateFieldGet(this, _VideoInfo_cpn, "f"));
-    set.appendChild(__classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'Representation', {
-        id: format.itag,
-        codecs,
-        bandwidth: format.bitrate,
-        width: format.width,
-        height: format.height,
-        maxPlayoutRate: '1',
-        frameRate: format.fps
-    }, [
-        __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'BaseURL', {}, [
-            document.createTextNode(url_transformer(url).toString())
-        ]),
-        __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'SegmentBase', {
-            indexRange: `${format.index_range.start}-${format.index_range.end}`
-        }, [
-            __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'Initialization', {
-                range: `${format.init_range.start}-${format.init_range.end}`
-            })
-        ])
-    ]));
-}, _VideoInfo_generateRepresentationAudio = function _VideoInfo_generateRepresentationAudio(document, set, format, url_transformer) {
-    const codecs = (0, Utils_1.getStringBetweenStrings)(format.mime_type, 'codecs="', '"');
-    if (!format.index_range || !format.init_range)
-        throw new Utils_1.InnertubeError('Index and init ranges not available', { format });
-    const url = new URL(format.decipher(__classPrivateFieldGet(this, _VideoInfo_player, "f")));
-    url.searchParams.set('cpn', __classPrivateFieldGet(this, _VideoInfo_cpn, "f"));
-    set.appendChild(__classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'Representation', {
-        id: format.itag,
-        codecs,
-        bandwidth: format.bitrate
-    }, [
-        __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'AudioChannelConfiguration', {
-            schemeIdUri: 'urn:mpeg:dash:23003:3:audio_channel_configuration:2011',
-            value: format.audio_channels || '2'
-        }),
-        __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'BaseURL', {}, [
-            document.createTextNode(url_transformer(url).toString())
-        ]),
-        __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'SegmentBase', {
-            indexRange: `${format.index_range.start}-${format.index_range.end}`
-        }, [
-            __classPrivateFieldGet(this, _VideoInfo_instances, "m", _VideoInfo_el).call(this, document, 'Initialization', {
-                range: `${format.init_range.start}-${format.init_range.end}`
-            })
-        ])
-    ]));
-};
-exports.default = VideoInfo;
+_VideoInfo_page = new WeakMap(), _VideoInfo_actions = new WeakMap(), _VideoInfo_player = new WeakMap(), _VideoInfo_cpn = new WeakMap(), _VideoInfo_watch_next_continuation = new WeakMap(), _VideoInfo_playback_tracking = new WeakMap();
+export default VideoInfo;
 //# sourceMappingURL=VideoInfo.js.map

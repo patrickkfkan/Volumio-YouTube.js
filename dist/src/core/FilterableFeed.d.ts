@@ -1,18 +1,23 @@
-import ChipCloudChip from '../parser/classes/ChipCloudChip';
-import { ObservedArray } from '../parser/helpers';
-import Actions from './Actions';
-import Feed from './Feed';
-declare class FilterableFeed extends Feed {
+import ChipCloudChip from '../parser/classes/ChipCloudChip.js';
+import Feed from './Feed.js';
+import type { ObservedArray } from '../parser/helpers.js';
+import type { IParsedResponse } from '../parser/types/ParsedResponse.js';
+import type Actions from './Actions.js';
+import type { ApiResponse } from './Actions.js';
+declare class FilterableFeed<T extends IParsedResponse> extends Feed<T> {
     #private;
-    constructor(actions: Actions, data: any, already_parsed?: boolean);
+    constructor(actions: Actions, data: ApiResponse | T, already_parsed?: boolean);
     /**
-     * Get filters for the feed
+     * Returns the filter chips.
      */
     get filter_chips(): ObservedArray<ChipCloudChip>;
+    /**
+     * Returns available filters.
+     */
     get filters(): string[];
     /**
      * Applies given filter and returns a new {@link Feed} object.
      */
-    getFilteredFeed(filter: string | ChipCloudChip): Promise<Feed>;
+    getFilteredFeed(filter: string | ChipCloudChip): Promise<Feed<T>>;
 }
 export default FilterableFeed;

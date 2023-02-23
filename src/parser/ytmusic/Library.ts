@@ -1,320 +1,193 @@
-import Parser, { GridContinuation, MusicShelfContinuation, ParsedResponse, PlaylistPanelContinuation, SectionListContinuation } from '..';
-import Actions from '../../core/Actions';
-import { InnertubeError } from '../../utils/Utils';
-import DropdownItem from '../classes/DropdownItem';
-import NavigationEndpoint from '../classes/NavigationEndpoint';
-import PlaylistPanel from '../classes/PlaylistPanel';
-import SectionList from '../classes/SectionList';
+import Parser, { GridContinuation, MusicShelfContinuation, SectionListContinuation } from '../index.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
 
-type ContentType = 'history' | 'playlists' | 'albums' | 'songs' | 'artists' | 'subscriptions';
-type Continuation = {
-  type: 'browse' | 'next';
-  token: string,
-  payload?: {}
-};
-type ItemFilter = ((item: any) => boolean) | null;
-type SortBy = 'recently_added' | 'a_z' | 'z_a';
+import Grid from '../classes/Grid.js';
+import MusicShelf from '../classes/MusicShelf.js';
+import MusicSideAlignedItem from '../classes/MusicSideAlignedItem.js';
+import NavigationEndpoint from '../classes/NavigationEndpoint.js';
+import SectionList from '../classes/SectionList.js';
 
-const BROWSE_IDS: { [key: string]: string } = {
-  'history': 'FEmusic_history',
-  'playlists': 'FEmusic_liked_playlists',
-  'albums': 'FEmusic_liked_albums',
-  'songs': 'FEmusic_liked_videos',
-  'artists': 'FEmusic_library_corpus_track_artists',
-  'subscriptions': 'FEmusic_library_corpus_artists'
-};
+import ChipCloud from '../classes/ChipCloud.js';
+import ChipCloudChip from '../classes/ChipCloudChip.js';
+import MusicMultiSelectMenuItem from '../classes/menus/MusicMultiSelectMenuItem.js';
+import MusicSortFilterButton from '../classes/MusicSortFilterButton.js';
+import MusicMenuItemDivider from '../classes/menus/MusicMenuItemDivider.js';
 
-const SORT_BY_TEXTS: { [key: string]: string } = {
-  'recently_added': 'Recently added',
-  'a_z': 'A to Z',
-  'z_a': 'Z to A'
-};
-
-const SORT_BY_TEXTS_R: { [key: string]: string } = {};
-for (const [ key, value ] of Object.entries(SORT_BY_TEXTS)) {
-  SORT_BY_TEXTS_R[value] = key;
-}
+import { InnertubeError } from '../../utils/Utils.js';
+import type { ObservedArray } from '../helpers.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 
 class Library {
-  #actions;
+  #page: IBrowseResponse;
+  #actions: Actions;
+  #continuation?: string | null;
 
-  constructor(actions: Actions) {
+  header?: MusicSideAlignedItem;
+  contents?: ObservedArray<Grid | MusicShelf>;
+
+  constructor(response: ApiResponse, actions: Actions) {
+    this.#page = Parser.parseResponse<IBrowseResponse>(response.data);
     this.#actions = actions;
-  }
 
-  #getBrowseId(type: ContentType) {
-    return BROWSE_IDS[type];
-  }
+    const section_list = this.#page.contents_memo?.getType(SectionList).first();
 
-  async #fetchPage(browse_id: string, fetchArgs = {}) {
-    const response = await this.#actions.browse(browse_id, { ...fetchArgs, client: 'YTMUSIC' });
-    return Parser.parseResponse(response.data);
-  }
+    this.header = section_list?.header?.item().as(MusicSideAlignedItem);
+    this.contents = section_list?.contents?.as(Grid, MusicShelf);
 
-  /**
-   * Fetches the list of library items from the endpoint given by `browse_id`
-   * @param browse_id - id of browse endpoint from which contents are fetched
-   * @param filter - The filter to apply to fetched items (`null` for no filtering)
-   * @param fetchArgs - Args to be included in the fetch payload
-   */
-  async #fetchAndParseTabContents(browse_id: string, filter: ItemFilter = null, fetchArgs = {}) {
-
-    const getItemsFromDataNode = (node: any) => {
-      switch (node?.type) {
-        case 'Grid':
-          return node.contents?.array();
-        case 'MusicShelf':
-          return node.contents;
-        default:
-          return [];
-      }
-    };
-
-    const page = await this.#fetchPage(browse_id, fetchArgs);
-    const sections = page.contents_memo.get('SectionList')?.[0].as(SectionList).contents.array() as Array<any> || [];
-    const contents_section = sections.find((section) => section.header?.type === 'ItemSectionTabbedHeader');
-    const data_node = contents_section?.contents?.[0];
-    const continuation = data_node?.continuation ? {
-      type: 'browse',
-      token: data_node?.continuation
-    } as Continuation : null;
-    return new LibraryItemList(getItemsFromDataNode(data_node) || [], filter, continuation, page, this.#actions);
+    this.#continuation = this.contents?.find((list: Grid | MusicShelf) => list.continuation)?.continuation;
   }
 
   /**
-   * Retrieves the library's playlists
+   * Applies given sort option to the library items.
    */
-  async getPlaylists(args?: { sort_by?: SortBy }) {
-    const data = await this.#fetchAndParseTabContents(this.#getBrowseId('playlists'), (item) => item.item_type === 'playlist');
-    const sort_by = args?.sort_by || null;
-    return sort_by ? this.#applySortBy(data, sort_by) : data;
-  }
+  async applySort(sort_by: string | MusicMultiSelectMenuItem): Promise<Library> {
+    let target_item: MusicMultiSelectMenuItem | undefined;
 
-  /**
-   * Retrieves the library's albums
-   */
-  async getAlbums(args?: { sort_by?: SortBy }) {
-    const data = await this.#fetchAndParseTabContents(this.#getBrowseId('albums'), (item) => item.item_type === 'album');
-    const sort_by = args?.sort_by || null;
-    return sort_by ? this.#applySortBy(data, sort_by) : data;
-  }
+    if (typeof sort_by === 'string') {
+      const button = this.#page.contents_memo?.getType(MusicSortFilterButton).first();
 
-  /**
-   * Retrieves the library's artists
-   */
-  async getArtists(args?: { sort_by?: SortBy }) {
-    const data = await this.#fetchAndParseTabContents(this.#getBrowseId('artists'), (item) => item.item_type === 'library_artist');
-    const sort_by = args?.sort_by || null;
-    return sort_by ? this.#applySortBy(data, sort_by) : data;
-  }
+      const options = button?.menu?.options
+        .filter(
+          (item: MusicMultiSelectMenuItem | MusicMenuItemDivider) => item instanceof MusicMultiSelectMenuItem
+        ) as MusicMultiSelectMenuItem[];
 
-  /**
-   * Retrieves the library's songs
-   */
-  async getSongs(args?: { sort_by?: SortBy | 'random' }) {
-    const data = await this.#fetchAndParseTabContents(this.#getBrowseId('songs'), (item) => (item.item_type === 'song' || item.item_type === 'video'));
+      target_item = options?.find((item) => item.title === sort_by);
 
-    const sort_by = args?.sort_by || null;
-    const shuffle = (sort_by === 'random');
-
-    const shuffle_endpoint = shuffle ?
-      data.all_items.find((item) =>
-        item.item_type === 'endpoint' && item.title.toString() === 'Shuffle all'
-      )?.endpoint as NavigationEndpoint : null;
-
-    if (shuffle) {
-      if (!shuffle_endpoint) {
-        if (data.items.length <= 1) {
-          return data;
-        }
-        throw new InnertubeError('Unable to obtain endpoint for sort_by value \'random\'');
-      }
-      return this.#fetchAndParseShuffledSongs(shuffle_endpoint);
+      if (!target_item)
+        throw new InnertubeError(`Sort option "${sort_by}" not found`, { available_filters: options.map((item) => item.title) });
+    } else if (sort_by instanceof MusicMultiSelectMenuItem) {
+      target_item = sort_by;
     }
 
-    return sort_by ? this.#applySortBy(data, sort_by) : data;
+    if (!target_item)
+      throw new InnertubeError('Invalid sort option');
+
+    if (target_item.selected)
+      return this;
+
+    const cmd = target_item.endpoint?.payload?.commands?.find((cmd: any) => cmd.browseSectionListReloadEndpoint)?.browseSectionListReloadEndpoint;
+
+    if (!cmd)
+      throw new InnertubeError('Failed to find sort option command');
+
+    const response = await this.#actions.execute('/browse', {
+      client: 'YTMUSIC',
+      continuation: cmd.continuation.reloadContinuationData.continuation,
+      parse: true
+    });
+
+    const previously_selected_item = this.#page.contents_memo?.getType(MusicMultiSelectMenuItem)?.find((item) => item.selected);
+    if (previously_selected_item)
+      previously_selected_item.selected = false;
+
+    target_item.selected = true;
+
+    this.contents = response.continuation_contents?.as(SectionListContinuation).contents?.as(Grid, MusicShelf);
+
+    return this;
   }
 
   /**
-   * Fetches and returns a list of shuffled songs
-   * @param endpoint - The endpoint of the playlist containing the shuffled songs
+   * Applies given filter to the library.
    */
-  async #fetchAndParseShuffledSongs(endpoint: NavigationEndpoint) {
-    const payload = {
-      playlist_id: endpoint.payload.playlistId,
-      params: endpoint.payload.params
-    };
-    const response = await this.#actions.next({ ...payload, client: 'YTMUSIC' });
-    const page = Parser.parseResponse(response.data);
-    const playlist_panel = page.contents_memo.get('PlaylistPanel')?.[0].as(PlaylistPanel);
-    const items = playlist_panel?.contents || [];
-    const continuation = playlist_panel?.continuation ? {
-      type: 'next',
-      token: playlist_panel?.continuation,
-      payload
-    } as Continuation : null;
-    const filter = (item: any) => item.type === 'PlaylistPanelVideo';
-    return new LibraryItemList(items, filter, continuation, page, this.#actions, { sort_by: 'random' });
+  async applyFilter(filter: string | ChipCloudChip): Promise<Library> {
+    let target_chip: ChipCloudChip | undefined;
+
+    const chip_cloud = this.#page.contents_memo?.getType(ChipCloud).first();
+
+    if (typeof filter === 'string') {
+      target_chip = chip_cloud?.chips.get({ text: filter });
+
+      if (!target_chip)
+        throw new InnertubeError(`Filter "${filter}" not found`, { available_filters: this.filters });
+    } else if (filter instanceof ChipCloudChip) {
+      target_chip = filter;
+    }
+
+    if (!target_chip)
+      throw new InnertubeError('Invalid filter', filter);
+
+    const target_cmd = new NavigationEndpoint(target_chip.endpoint?.payload?.commands?.[0]);
+    const response = await target_cmd.call(this.#actions, { client: 'YTMUSIC' });
+
+    return new Library(response, this.#actions);
   }
 
   /**
-   * Retrieves the library's subscriptions
+   * Retrieves continuation of the library items.
    */
-  async getSubscriptions(args?: { sort_by?: SortBy }) {
-    const data = await this.#fetchAndParseTabContents(this.#getBrowseId('subscriptions'));
-    const sort_by = args?.sort_by || null;
-    return sort_by ? this.#applySortBy(data, sort_by) : data;
+  async getContinuation(): Promise<LibraryContinuation> {
+    if (!this.#continuation)
+      throw new InnertubeError('No continuation available');
+
+    const page = await this.#actions.execute('/browse', {
+      client: 'YTMUSIC',
+      continuation: this.#continuation
+    });
+
+    return new LibraryContinuation(page, this.#actions);
   }
 
-  /**
-   * Applies `sort_by` to `data` and returns the result. Original `data` is not modified.
-   */
-  async #applySortBy(data: LibraryItemList, sort_by: SortBy) {
-    const page = data.page;
-    const dropdownItem = page?.contents_memo.get('DropdownItem')?.find(
-      (item) => item.as(DropdownItem).label === SORT_BY_TEXTS[sort_by])?.as(DropdownItem);
-
-    if (!dropdownItem?.endpoint?.browse) {
-      if (data.items.length <= 1) {
-        return data;
-      }
-      throw new InnertubeError(`Unable to obtain browse endpoint for sort_by value '${sort_by}'`);
-    }
-
-    if (dropdownItem?.selected) {
-      return data;
-    }
-
-    const fetchArgs = { params: dropdownItem.endpoint.browse.params };
-    return this.#fetchAndParseTabContents(dropdownItem.endpoint.browse.id, data.filter, fetchArgs);
+  get has_continuation(): boolean {
+    return !!this.#continuation;
   }
 
-  /**
-   * Retrieves recent activity
-   */
-  async getRecentActivity(args: {all: boolean}) {
-    const all = !!args?.all;
-    if (all) {
-      const page = await this.#fetchPage(this.#getBrowseId('history'));
-      const section_list = page.contents_memo.get('SectionList')?.[0].as(SectionList);
-      const sections = section_list?.contents?.array() || [];
-      const continuation = section_list?.continuation ? {
-        type: 'browse',
-        token: section_list?.continuation
-      } as Continuation : null;
-      return new LibrarySectionList(sections, continuation, page, this.#actions);
-    }
-
-    const page = await this.#fetchPage(this.#getBrowseId('songs'));
-    const sections = page.contents_memo.get('SectionList')?.[0].as(SectionList).contents.array() as Array<any> || [];
-    const contents_section = sections.find(
-      (section) => section.header?.type === 'MusicCarouselShelfBasicHeader' && section.header?.title.toString() === 'Recent activity');
-    const items = contents_section?.contents || [];
-    return new LibraryItemList(items, null, null, page, this.#actions, { sort_by: null });
-  }
-}
-
-abstract class LibraryResultsBase {
-  #continuation;
-  #page;
-  #actions;
-  has_continuation: boolean;
-
-  constructor(continuation: Continuation | null, page: ParsedResponse, actions: Actions) {
-    this.#continuation = continuation;
-    this.#page = page;
-    this.#actions = actions;
-    this.has_continuation = !!continuation;
+  get sort_options(): string[] {
+    const button = this.#page.contents_memo?.getType(MusicSortFilterButton).first();
+    const options = button?.menu?.options.filter((item: MusicMultiSelectMenuItem | MusicMenuItemDivider) => item instanceof MusicMultiSelectMenuItem) as MusicMultiSelectMenuItem[];
+    return options.map((item) => item.title);
   }
 
-  async getContinuation() {
-    if (!this.#continuation) {
-      throw new InnertubeError('Continuation not found.');
-    }
-
-    let responsePromise;
-    const payload = this.#continuation.payload || {};
-    switch (this.#continuation.type) {
-      case 'next':
-        responsePromise = this.#actions.next({ ...payload, ctoken: this.#continuation.token, client: 'YTMUSIC' });
-        break;
-      default:
-        responsePromise = this.#actions.browse(this.#continuation.token, { ...payload, is_ctoken: true, client: 'YTMUSIC' });
-    }
-    const response = await responsePromise;
-    const page = Parser.parseResponse(response.data);
-
-    if (!page.continuation_contents) {
-      throw new InnertubeError('No continuation data found.');
-    }
-
-    return this.parseContinuationContents(page, this.#continuation);
+  get filters(): string[] {
+    return this.#page.contents_memo?.getType(ChipCloud)?.first().chips.map((chip: ChipCloudChip) => chip.text) || [];
   }
 
-  get page() {
+  get page(): IBrowseResponse {
     return this.#page;
   }
-
-  abstract parseContinuationContents(page: ParsedResponse, from_continuation: Continuation): Promise<LibraryResultsBase>;
 }
 
-class LibraryItemList extends LibraryResultsBase {
-  #filter;
+class LibraryContinuation {
+  #page;
   #actions;
-  #all_items; // Unfiltered items
-  items; // Items after applying filter (if any)
-  sort_by: SortBy | 'random' | null;
+  #continuation;
 
-  constructor(items: Array<any>, filter: ItemFilter, continuation: Continuation | null, page: ParsedResponse, actions: Actions, overrides?: { sort_by: SortBy | 'random' | null }) {
-    super(continuation, page, actions);
-    this.#filter = filter;
+  contents: GridContinuation | MusicShelfContinuation;
+
+  constructor(response: ApiResponse, actions: Actions) {
+    this.#page = Parser.parseResponse<IBrowseResponse>(response.data);
     this.#actions = actions;
-    this.#all_items = items;
-    this.items = filter ? items.filter(filter) : items;
-    this.sort_by = (overrides?.sort_by !== undefined) ? overrides.sort_by : this.#getSortBy();
+
+    if (!this.#page.continuation_contents)
+      throw new InnertubeError('No continuation contents found');
+
+    this.contents = this.#page.continuation_contents.as(MusicShelfContinuation, GridContinuation);
+
+    this.#continuation = this.#page.continuation_contents?.key('continuation').isNull()
+      ? null : this.#page.continuation_contents?.key('continuation').string();
   }
 
-  async parseContinuationContents(page: ParsedResponse, from_continuation: Continuation) {
-    const data = page.continuation_contents?.as(MusicShelfContinuation, GridContinuation, PlaylistPanelContinuation);
-    const continuation = data?.continuation ? { ...from_continuation, token: data?.continuation } : null;
-    return new LibraryItemList(data?.contents || [], this.#filter, continuation, page, this.#actions, { sort_by: this.sort_by });
+  async getContinuation(): Promise<LibraryContinuation> {
+    if (!this.#continuation)
+      throw new InnertubeError('No continuation available');
+
+    const response = await this.#actions.execute('/browse', {
+      client: 'YTMUSIC',
+      continuation: this.#continuation
+    });
+
+    return new LibraryContinuation(response, this.#actions);
   }
 
-  #getSortBy() {
-    const selected = this.page?.contents_memo.get('DropdownItem')?.filter((item) => item.as(DropdownItem).selected) as DropdownItem[] || [];
-    for (const s of selected) {
-      const v = SORT_BY_TEXTS_R[s.label];
-      if (v) {
-        return v as SortBy;
-      }
-    }
-    return null;
+  get has_continuation(): boolean {
+    return !!this.#continuation;
   }
 
-  get all_items() {
-    return this.#all_items;
-  }
-
-  get filter() {
-    return this.#filter;
+  get page(): IBrowseResponse {
+    return this.#page;
   }
 }
 
-class LibrarySectionList extends LibraryResultsBase {
-  #actions;
-  sections;
-
-  constructor(sections: Array<any>, continuation: Continuation | null, page: ParsedResponse, actions: Actions) {
-    super(continuation, page, actions);
-    this.#actions = actions;
-    this.sections = sections;
-  }
-
-  async parseContinuationContents(page: ParsedResponse, from_continuation: Continuation) {
-    const data = page.continuation_contents?.as(SectionListContinuation);
-    const continuation = data?.continuation ? { ...from_continuation, token: data?.continuation } : null;
-    return new LibrarySectionList(data?.contents || [], continuation, page, this.#actions);
-  }
-}
-
+export { LibraryContinuation };
 export default Library;

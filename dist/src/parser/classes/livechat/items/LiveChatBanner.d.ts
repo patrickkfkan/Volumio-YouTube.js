@@ -1,8 +1,9 @@
-import { YTNode } from '../../../helpers';
+import { YTNode } from '../../../helpers.js';
+import type LiveChatBannerHeader from './LiveChatBannerHeader.js';
 declare class LiveChatBanner extends YTNode {
     static type: string;
-    header: import("../../../helpers").SuperParsedResult<YTNode>;
-    contents: import("../../../helpers").SuperParsedResult<YTNode>;
+    header: LiveChatBannerHeader | null;
+    contents: YTNode | null;
     action_id: string;
     viewer_is_creator: boolean;
     target_id: string;

@@ -1,5 +1,5 @@
-import Parser from '../index';
-import { YTNode } from '../helpers';
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
 
 class WatchCardSectionSequence extends YTNode {
   static type = 'WatchCardSectionSequence';
@@ -8,7 +8,7 @@ class WatchCardSectionSequence extends YTNode {
 
   constructor(data: any) {
     super();
-    this.lists = Parser.parse(data.lists);
+    this.lists = Parser.parseArray(data.lists);
   }
 }
 

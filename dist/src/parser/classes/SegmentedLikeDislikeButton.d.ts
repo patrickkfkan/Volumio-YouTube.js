@@ -1,5 +1,5 @@
-import ToggleButton from './ToggleButton';
-import { YTNode } from '../helpers';
+import ToggleButton from './ToggleButton.js';
+import { YTNode } from '../helpers.js';
 declare class SegmentedLikeDislikeButton extends YTNode {
     static type: string;
     like_button: ToggleButton | null;

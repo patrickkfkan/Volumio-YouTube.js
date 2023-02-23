@@ -1,5 +1,5 @@
-import { YTNode } from '../helpers';
-import MusicMultiSelectMenu from './menus/MusicMultiSelectMenu';
+import { YTNode } from '../helpers.js';
+import MusicMultiSelectMenu from './menus/MusicMultiSelectMenu.js';
 declare class MusicSortFilterButton extends YTNode {
     static type: string;
     title: string;

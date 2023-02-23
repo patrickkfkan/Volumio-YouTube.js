@@ -1,14 +1,14 @@
-import Parser from '../index';
-import { YTNode } from '../helpers';
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
 
 class RichSection extends YTNode {
   static type = 'RichSection';
 
-  contents;
+  content;
 
   constructor(data: any) {
     super();
-    this.contents = Parser.parse(data.content);
+    this.content = Parser.parseItem(data.content);
   }
 }
 

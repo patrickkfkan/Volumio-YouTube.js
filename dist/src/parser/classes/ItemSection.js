@@ -1,22 +1,19 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const ItemSectionHeader_1 = __importDefault(require("./ItemSectionHeader"));
-const helpers_1 = require("../helpers");
-const ItemSectionTabbedHeader_1 = __importDefault(require("./ItemSectionTabbedHeader"));
-class ItemSection extends helpers_1.YTNode {
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+class ItemSection extends YTNode {
     constructor(data) {
+        var _a, _b, _c;
         super();
-        this.header = index_1.default.parseItem(data.header, [ItemSectionHeader_1.default, ItemSectionTabbedHeader_1.default]);
-        this.contents = index_1.default.parse(data.contents, true);
+        this.header = Parser.parseItem(data.header);
+        this.contents = Parser.parse(data.contents, true);
         if (data.targetId || data.sectionIdentifier) {
             this.target_id = (data === null || data === void 0 ? void 0 : data.target_id) || (data === null || data === void 0 ? void 0 : data.sectionIdentifier);
+        }
+        if (data.continuations) {
+            this.continuation = (_c = (_b = (_a = data.continuations) === null || _a === void 0 ? void 0 : _a.at(0)) === null || _b === void 0 ? void 0 : _b.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
         }
     }
 }
 ItemSection.type = 'ItemSection';
-exports.default = ItemSection;
+export default ItemSection;
 //# sourceMappingURL=ItemSection.js.map

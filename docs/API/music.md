@@ -1,6 +1,6 @@
-# Music
+# YouTube Music
 
-YouTube Music class.
+YouTube Music is a music streaming service developed by YouTube, a subsidiary of Google. It provides a tailored interface for the service oriented towards music streaming, with a greater emphasis on browsing and discovery compared to its main service. This class allows you to interact with its API.
 
 ## API
 
@@ -48,6 +48,21 @@ Retrieves track info.
 
 - `<info>#available_tabs`
   - Returns available tabs.
+
+- `<info>#toDash(url_transformer?, format_filter?)`
+  - Generates a DASH manifest from the streaming data.
+
+- `<info>#chooseFormat(options)`
+  - Selects the format that best matches the given options. This method is used internally by `#download`.
+
+- `<info>#download(options?)`
+  - Downloads the track.
+
+- `<info>#addToWatchHistory()`
+  - Adds the song to the watch history.
+
+- `<info>#page`
+  - Returns the original InnerTube response(s), parsed and sanitized.
 
 </p>
 </details> 
@@ -99,7 +114,7 @@ Searches on YouTube Music.
   - Returns songs shelf.
 
 - `<search>#page`
-  - Returns original InnerTube response (sanitized).
+  - Returns the original InnerTube response(s), parsed and sanitized.
 
 </p>
 </details> 
@@ -124,6 +139,9 @@ Retrieves home feed.
 - `<homefeed>#page`
   - Returns original InnerTube response (sanitized).
 
+- `<homefeed>#page`
+  - Returns the original InnerTube response(s), parsed and sanitized.
+
 </p>
 </details> 
 
@@ -139,7 +157,7 @@ Retrieves “Explore” feed.
 <p>
 
 - `<explore>#page`
-  - Returns original InnerTube response (sanitized).
+  - Returns the original InnerTube response(s), parsed and sanitized.
 
 </p>
 </details> 
@@ -149,9 +167,35 @@ Retrieves “Explore” feed.
 
 Retrieves library.
 
-**Returns:** `Promise.<Library>`
+**Returns:** `Library`
 
-<!-- TODO: document Library's methods and getters. -->
+<details>
+<summary>Methods & Getters</summary>
+<p>
+
+- `<library>#applyFilter(filter)`
+  - Applies given filter to the library.
+
+- `<library>#applySort(sort_by)`
+  - Applies given sort option to the library items.
+
+- `<library>#getContinuation()`
+  - Retrieves continuation of the library items.
+
+- `<library>#has_continuation`
+  - Checks if continuation is available.
+
+- `<library>#filters`
+  - Returns available filters.
+
+- `<library>#sort_options`
+  - Returns available sort options.
+
+- `<library>#page`
+  - Returns the original InnerTube response(s), parsed and sanitized.
+
+</p>
+</details> 
 
 <a name="getartist"></a>
 ### getArtist(artist_id)
@@ -169,7 +213,7 @@ Retrieves artist's info & content.
 <p>
 
 - `<artist>#page`
-  - Returns original InnerTube response (sanitized).
+  - Returns the original InnerTube response(s), parsed and sanitized.
 
 </p>
 </details> 
@@ -190,7 +234,7 @@ Retrieves given album.
 <p>
 
 - `<album>#page`
-  - Returns original InnerTube response (sanitized).
+  - Returns the original InnerTube response(s), parsed and sanitized.
 
 </p>
 </details> 
@@ -223,7 +267,7 @@ Retrieves given playlist.
   - Checks if continuation is available.
 
 - `<playlist>#page`
-  - Returns original InnerTube response (sanitized).
+  - Returns the original InnerTube response(s), parsed and sanitized.
 
 </p>
 </details> 
@@ -277,7 +321,7 @@ Retrieves your YouTube Music recap.
   - Retrieves recap playlist.
 
 - `<recap>#page`
-  - Returns original InnerTube response (sanitized).
+  - Returns the original InnerTube response(s), parsed and sanitized.
 
 </p>
 </details> 

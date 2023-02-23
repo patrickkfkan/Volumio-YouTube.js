@@ -1,16 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const helpers_1 = require("../helpers");
-class WatchCardSectionSequence extends helpers_1.YTNode {
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+class WatchCardSectionSequence extends YTNode {
     constructor(data) {
         super();
-        this.lists = index_1.default.parse(data.lists);
+        this.lists = Parser.parseArray(data.lists);
     }
 }
 WatchCardSectionSequence.type = 'WatchCardSectionSequence';
-exports.default = WatchCardSectionSequence;
+export default WatchCardSectionSequence;
 //# sourceMappingURL=WatchCardSectionSequence.js.map

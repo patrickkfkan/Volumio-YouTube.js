@@ -5,7 +5,8 @@ export declare const URLS: Readonly<{
     YT_UPLOAD: "https://upload.youtube.com/";
     API: Readonly<{
         BASE: "https://youtubei.googleapis.com";
-        PRODUCTION: "https://youtubei.googleapis.com/youtubei/";
+        PRODUCTION_1: "https://www.youtube.com/youtubei/";
+        PRODUCTION_2: "https://youtubei.googleapis.com/youtubei/";
         STAGING: "https://green-youtubei.sandbox.googleapis.com/youtubei/";
         RELEASE: "https://release-youtubei.sandbox.googleapis.com/youtubei/";
         TEST: "https://test-youtubei.sandbox.googleapis.com/youtubei/";
@@ -34,6 +35,12 @@ export declare const CLIENTS: Readonly<{
     WEB: {
         NAME: string;
         VERSION: string;
+        API_KEY: string;
+        API_VERSION: string;
+    };
+    WEB_KIDS: {
+        NAME: string;
+        VERSION: string;
     };
     YTMUSIC: {
         NAME: string;
@@ -44,7 +51,15 @@ export declare const CLIENTS: Readonly<{
         VERSION: string;
         SDK_VERSION: string;
     };
+    YTSTUDIO_ANDROID: {
+        NAME: string;
+        VERSION: string;
+    };
     YTMUSIC_ANDROID: {
+        NAME: string;
+        VERSION: string;
+    };
+    TV_EMBEDDED: {
         NAME: string;
         VERSION: string;
     };
@@ -68,7 +83,8 @@ declare const _default: {
         YT_UPLOAD: "https://upload.youtube.com/";
         API: Readonly<{
             BASE: "https://youtubei.googleapis.com";
-            PRODUCTION: "https://youtubei.googleapis.com/youtubei/";
+            PRODUCTION_1: "https://www.youtube.com/youtubei/";
+            PRODUCTION_2: "https://youtubei.googleapis.com/youtubei/";
             STAGING: "https://green-youtubei.sandbox.googleapis.com/youtubei/";
             RELEASE: "https://release-youtubei.sandbox.googleapis.com/youtubei/";
             TEST: "https://test-youtubei.sandbox.googleapis.com/youtubei/";
@@ -97,6 +113,12 @@ declare const _default: {
         WEB: {
             NAME: string;
             VERSION: string;
+            API_KEY: string;
+            API_VERSION: string;
+        };
+        WEB_KIDS: {
+            NAME: string;
+            VERSION: string;
         };
         YTMUSIC: {
             NAME: string;
@@ -107,7 +129,15 @@ declare const _default: {
             VERSION: string;
             SDK_VERSION: string;
         };
+        YTSTUDIO_ANDROID: {
+            NAME: string;
+            VERSION: string;
+        };
         YTMUSIC_ANDROID: {
+            NAME: string;
+            VERSION: string;
+        };
+        TV_EMBEDDED: {
             NAME: string;
             VERSION: string;
         };

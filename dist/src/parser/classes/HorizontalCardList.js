@@ -1,19 +1,15 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const helpers_1 = require("../helpers");
-class HorizontalCardList extends helpers_1.YTNode {
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+import Button from './Button.js';
+class HorizontalCardList extends YTNode {
     constructor(data) {
         super();
-        this.cards = index_1.default.parse(data.cards);
-        this.header = index_1.default.parse(data.header);
-        this.previous_button = index_1.default.parse(data.previousButton);
-        this.next_button = index_1.default.parse(data.nextButton);
+        this.cards = Parser.parseArray(data.cards);
+        this.header = Parser.parseItem(data.header);
+        this.previous_button = Parser.parseItem(data.previousButton, Button);
+        this.next_button = Parser.parseItem(data.nextButton, Button);
     }
 }
 HorizontalCardList.type = 'HorizontalCardList';
-exports.default = HorizontalCardList;
+export default HorizontalCardList;
 //# sourceMappingURL=HorizontalCardList.js.map

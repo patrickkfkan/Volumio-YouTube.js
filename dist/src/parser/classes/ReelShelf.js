@@ -1,18 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const helpers_1 = require("../helpers");
-class ReelShelf extends helpers_1.YTNode {
+import Parser from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+class ReelShelf extends YTNode {
     constructor(data) {
         super();
-        this.title = new Text_1.default(data.title);
-        this.items = index_1.default.parse(data.items);
-        this.endpoint = data.endpoint ? new NavigationEndpoint_1.default(data.endpoint) : null;
+        this.title = new Text(data.title);
+        this.items = Parser.parse(data.items);
+        this.endpoint = data.endpoint ? new NavigationEndpoint(data.endpoint) : null;
     }
     // XXX: alias for consistency
     get contents() {
@@ -20,5 +15,5 @@ class ReelShelf extends helpers_1.YTNode {
     }
 }
 ReelShelf.type = 'ReelShelf';
-exports.default = ReelShelf;
+export default ReelShelf;
 //# sourceMappingURL=ReelShelf.js.map

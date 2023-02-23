@@ -1,8 +1,7 @@
-export default class UniversalCache {
+import { ICache } from '../types/Cache.js';
+export default class UniversalCache implements ICache {
     #private;
-    constructor(persistent?: boolean, persistent_directory?: string);
-    static get temp_directory(): string;
-    static get default_persistent_directory(): any;
+    constructor(persistent: boolean, persistent_directory?: string);
     get cache_dir(): string;
     get(key: string): Promise<ArrayBuffer | undefined>;
     set(key: string, value: ArrayBuffer): Promise<void>;

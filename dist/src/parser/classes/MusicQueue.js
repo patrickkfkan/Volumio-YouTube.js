@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const PlaylistPanel_1 = __importDefault(require("./PlaylistPanel"));
-const helpers_1 = require("../helpers");
-class MusicQueue extends helpers_1.YTNode {
+import Parser from '../index.js';
+import PlaylistPanel from './PlaylistPanel.js';
+import { YTNode } from '../helpers.js';
+class MusicQueue extends YTNode {
     constructor(data) {
         super();
-        this.content = index_1.default.parseItem(data.content, PlaylistPanel_1.default);
+        this.content = Parser.parseItem(data.content, PlaylistPanel);
     }
 }
 MusicQueue.type = 'MusicQueue';
-exports.default = MusicQueue;
+export default MusicQueue;
 //# sourceMappingURL=MusicQueue.js.map

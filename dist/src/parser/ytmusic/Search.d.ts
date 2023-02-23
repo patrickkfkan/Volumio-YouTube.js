@@ -1,42 +1,61 @@
-import { ParsedResponse } from '../index';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import DidYouMean from '../classes/DidYouMean';
-import ShowingResultsFor from '../classes/ShowingResultsFor';
-import MusicShelf from '../classes/MusicShelf';
-import MusicResponsiveListItem from '../classes/MusicResponsiveListItem';
-import ChipCloud from '../classes/ChipCloud';
-import Message from '../classes/Message';
+import type Actions from '../../core/Actions.js';
+import { MusicShelfContinuation } from '../index.js';
+import ChipCloud from '../classes/ChipCloud.js';
+import ChipCloudChip from '../classes/ChipCloudChip.js';
+import DidYouMean from '../classes/DidYouMean.js';
+import ItemSection from '../classes/ItemSection.js';
+import Message from '../classes/Message.js';
+import MusicHeader from '../classes/MusicHeader.js';
+import MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
+import MusicShelf from '../classes/MusicShelf.js';
+import ShowingResultsFor from '../classes/ShowingResultsFor.js';
+import type { ObservedArray } from '../helpers.js';
+import type { ISearchResponse } from '../types/ParsedResponse.js';
+import type { ApiResponse } from '../../core/Actions.js';
 declare class Search {
     #private;
-    header: ChipCloud | null | undefined;
-    did_you_mean: DidYouMean | null;
-    showing_results_for: ShowingResultsFor | null;
-    message: Message | null;
-    results: import("../helpers").ObservedArray<MusicResponsiveListItem> | undefined;
-    sections: import("../helpers").ObservedArray<MusicShelf> | undefined;
-    constructor(response: AxioslikeResponse | ParsedResponse, actions: Actions, args?: {
-        is_continuation?: boolean;
-        is_filtered?: boolean;
-    });
+    header?: ChipCloud;
+    contents?: ObservedArray<MusicShelf | ItemSection>;
+    constructor(response: ApiResponse, actions: Actions, is_filtered?: boolean);
     /**
-     * Equivalent to clicking on the shelf to load more items.
+     * Loads more items for the given shelf.
      */
     getMore(shelf: MusicShelf | undefined): Promise<Search>;
     /**
-     * Retrieves continuation, only works for individual sections or filtered results.
+     * Retrieves search continuation. Only available for filtered searches and shelf continuations.
      */
-    getContinuation(): Promise<this>;
+    getContinuation(): Promise<SearchContinuation>;
     /**
      * Applies given filter to the search.
      */
-    selectFilter(name: string): Promise<Search>;
+    applyFilter(target_filter: string | ChipCloudChip): Promise<Search>;
+    get filters(): string[];
     get has_continuation(): boolean;
-    get filters(): string[] | null;
+    get did_you_mean(): DidYouMean | undefined;
+    get showing_results_for(): ShowingResultsFor | undefined;
+    get message(): Message | undefined;
     get songs(): MusicShelf | undefined;
     get videos(): MusicShelf | undefined;
     get albums(): MusicShelf | undefined;
     get artists(): MusicShelf | undefined;
     get playlists(): MusicShelf | undefined;
-    get page(): ParsedResponse;
+    /**
+     * @deprecated Use {@link Search.contents} instead.
+     */
+    get results(): ObservedArray<MusicResponsiveListItem> | undefined;
+    /**
+     * @deprecated Use {@link Search.contents} instead.
+     */
+    get sections(): ObservedArray<MusicShelf> | undefined;
+    get page(): ISearchResponse;
 }
 export default Search;
+export declare class SearchContinuation {
+    #private;
+    header?: MusicHeader;
+    contents?: MusicShelfContinuation;
+    constructor(actions: Actions, response: ApiResponse);
+    getContinuation(): Promise<SearchContinuation>;
+    get has_continuation(): boolean;
+    get page(): ISearchResponse;
+}

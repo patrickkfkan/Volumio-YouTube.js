@@ -1,7 +1,7 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class Endscreen extends YTNode {
     static type: string;
-    elements: import("../helpers").ObservedArray<YTNode>;
+    elements: import("../helpers.js").ObservedArray<YTNode>;
     start_ms: string;
     constructor(data: any);
 }

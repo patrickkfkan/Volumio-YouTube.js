@@ -1,10 +1,10 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class Card extends YTNode {
     static type: string;
-    teaser: import("../helpers").SuperParsedResult<YTNode>;
-    content: import("../helpers").SuperParsedResult<YTNode>;
-    card_id: string;
-    feature: string;
+    teaser: YTNode | null;
+    content: YTNode | null;
+    card_id: string | null;
+    feature: string | null;
     cue_ranges: {
         start_card_active_ms: string;
         end_card_active_ms: string;

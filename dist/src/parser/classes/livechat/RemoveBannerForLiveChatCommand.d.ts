@@ -1,4 +1,4 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
 declare class RemoveBannerForLiveChatCommand extends YTNode {
     static type: string;
     target_action_id: string;

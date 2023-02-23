@@ -1,31 +1,26 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const Author_1 = __importDefault(require("./misc/Author"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class EndScreenVideo extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import Author from './misc/Author.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class EndScreenVideo extends YTNode {
     constructor(data) {
         super();
         this.id = data.videoId;
-        this.title = new Text_1.default(data.title);
-        this.thumbnails = Thumbnail_1.default.fromResponse(data.thumbnail);
-        this.thumbnail_overlays = index_1.default.parse(data.thumbnailOverlays);
-        this.author = new Author_1.default(data.shortBylineText, data.ownerBadges);
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
-        this.short_view_count = new Text_1.default(data.shortViewCountText);
-        this.badges = index_1.default.parse(data.badges);
+        this.title = new Text(data.title);
+        this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+        this.thumbnail_overlays = Parser.parse(data.thumbnailOverlays);
+        this.author = new Author(data.shortBylineText, data.ownerBadges);
+        this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        this.short_view_count = new Text(data.shortViewCountText);
+        this.badges = Parser.parse(data.badges);
         this.duration = {
-            text: new Text_1.default(data.lengthText).toString(),
+            text: new Text(data.lengthText).toString(),
             seconds: data.lengthInSeconds
         };
     }
 }
 EndScreenVideo.type = 'EndScreenVideo';
-exports.default = EndScreenVideo;
+export default EndScreenVideo;
 //# sourceMappingURL=EndScreenVideo.js.map

@@ -1,5 +1,5 @@
-import Button from './Button';
-import { YTNode } from '../helpers';
+import Button from './Button.js';
+import { YTNode } from '../helpers.js';
 declare class CopyLink extends YTNode {
     static type: string;
     copy_button: Button | null;

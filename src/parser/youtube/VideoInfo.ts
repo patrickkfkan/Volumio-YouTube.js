@@ -1,104 +1,83 @@
-import Parser, { ParsedResponse } from '../index';
-import Constants from '../../utils/Constants';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import Player from '../../core/Player';
+import Constants from '../../utils/Constants.js';
+import Parser from '../index.js';
 
-import TwoColumnWatchNextResults from '../classes/TwoColumnWatchNextResults';
-import VideoPrimaryInfo from '../classes/VideoPrimaryInfo';
-import VideoSecondaryInfo from '../classes/VideoSecondaryInfo';
-import Format from '../classes/misc/Format';
+import ChipCloud from '../classes/ChipCloud.js';
+import ChipCloudChip from '../classes/ChipCloudChip.js';
+import CommentsEntryPointHeader from '../classes/comments/CommentsEntryPointHeader.js';
+import ContinuationItem from '../classes/ContinuationItem.js';
+import ItemSection from '../classes/ItemSection.js';
+import LiveChat from '../classes/LiveChat.js';
+import MerchandiseShelf from '../classes/MerchandiseShelf.js';
+import MicroformatData from '../classes/MicroformatData.js';
+import PlayerMicroformat from '../classes/PlayerMicroformat.js';
+import PlayerOverlay from '../classes/PlayerOverlay.js';
+import RelatedChipCloud from '../classes/RelatedChipCloud.js';
+import SegmentedLikeDislikeButton from '../classes/SegmentedLikeDislikeButton.js';
+import ToggleButton from '../classes/ToggleButton.js';
+import TwoColumnWatchNextResults from '../classes/TwoColumnWatchNextResults.js';
+import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
+import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
+import LiveChatWrap from './LiveChat.js';
 
-import MerchandiseShelf from '../classes/MerchandiseShelf';
-import RelatedChipCloud from '../classes/RelatedChipCloud';
+import type CardCollection from '../classes/CardCollection.js';
+import type Endscreen from '../classes/Endscreen.js';
+import type Format from '../classes/misc/Format.js';
+import type PlayerAnnotationsExpanded from '../classes/PlayerAnnotationsExpanded.js';
+import type PlayerCaptionsTracklist from '../classes/PlayerCaptionsTracklist.js';
+import type PlayerLiveStoryboardSpec from '../classes/PlayerLiveStoryboardSpec.js';
+import type PlayerStoryboardSpec from '../classes/PlayerStoryboardSpec.js';
 
-import ChipCloud from '../classes/ChipCloud';
-import ItemSection from '../classes/ItemSection';
-import PlayerOverlay from '../classes/PlayerOverlay';
-import ToggleButton from '../classes/ToggleButton';
-import CommentsEntryPointHeader from '../classes/comments/CommentsEntryPointHeader';
-import SegmentedLikeDislikeButton from '../classes/SegmentedLikeDislikeButton';
-import ContinuationItem from '../classes/ContinuationItem';
-import PlayerMicroformat from '../classes/PlayerMicroformat';
-import MicroformatData from '../classes/MicroformatData';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type Player from '../../core/Player.js';
+import type { ObservedArray, YTNode } from '../helpers.js';
+import type { INextResponse, IPlayerResponse } from '../types/ParsedResponse.js';
 
-import LiveChat from '../classes/LiveChat';
-import LiveChatWrap from './LiveChat';
+import FormatUtils, { DownloadOptions, FormatFilter, FormatOptions, URLTransformer } from '../../utils/FormatUtils.js';
 
-import { DOMParser } from 'linkedom';
-import type { XMLDocument } from 'linkedom/types/xml/document';
-import type { Element } from 'linkedom/types/interface/element';
-import { getStringBetweenStrings, InnertubeError, streamToIterable } from '../../utils/Utils';
-import type { Node } from 'linkedom/types/interface/node';
-
-export type URLTransformer = (url: URL) => URL;
-
-export interface FormatOptions {
-  /**
-   * Video quality; 360p, 720p, 1080p, etc... also accepts 'best' and 'bestefficiency'.
-   */
-  quality?: string;
-  /**
-   * Download type, can be: video, audio or video+audio
-   */
-  type?: 'video' | 'audio' | 'video+audio';
-  /**
-   * File format, use 'any' to download any format
-   */
-  format?: string;
-  /**
-   * InnerTube client, can be ANDROID, WEB or YTMUSIC
-   */
-  client?: 'ANDROID' | 'WEB' | 'YTMUSIC'
-}
-
-export interface DownloadOptions extends FormatOptions {
-  /**
-   * Download range, indicates which bytes should be downloaded.
-   */
-  range?: {
-    start: number;
-    end: number;
-  }
-}
+import { InnertubeError } from '../../utils/Utils.js';
 
 class VideoInfo {
-  #page: [ParsedResponse, ParsedResponse?];
-  #actions;
-  #player;
-  #cpn;
-  #watch_next_continuation;
+  #page: [IPlayerResponse, INextResponse?];
+
+  #actions: Actions;
+  #player?: Player;
+  #cpn?: string;
+  #watch_next_continuation?: ContinuationItem;
 
   basic_info;
   streaming_data;
   playability_status;
-  annotations;
-  storyboards;
-  endscreen;
-  captions;
-  cards;
+  annotations?: ObservedArray<PlayerAnnotationsExpanded>;
+  storyboards?: PlayerStoryboardSpec | PlayerLiveStoryboardSpec;
+  endscreen?: Endscreen;
+  captions?: PlayerCaptionsTracklist;
+  cards?: CardCollection;
 
   #playback_tracking;
 
-  primary_info;
-  secondary_info;
-  merchandise;
-  related_chip_cloud;
-  watch_next_feed;
-  player_overlays;
-  comments_entry_point_header;
-  livechat;
+  primary_info?: VideoPrimaryInfo | null;
+  secondary_info?: VideoSecondaryInfo | null;
+  merchandise?: MerchandiseShelf | null;
+  related_chip_cloud?: ChipCloud | null;
+  watch_next_feed?: ObservedArray<YTNode> | null;
+  player_overlays?: PlayerOverlay | null;
+  comments_entry_point_header?: CommentsEntryPointHeader | null;
+  livechat?: LiveChat | null;
 
   /**
    * @param data - API response.
-   * @param cpn - Client Playback Nonce
+   * @param actions - Actions instance.
+   * @param player - Player instance.
+   * @param cpn - Client Playback Nonce.
    */
-  constructor(data: [AxioslikeResponse, AxioslikeResponse?], actions: Actions, player: Player, cpn: string) {
+  constructor(data: [ApiResponse, ApiResponse?], actions: Actions, player?: Player, cpn?: string) {
     this.#actions = actions;
     this.#player = player;
     this.#cpn = cpn;
 
-    const info = Parser.parseResponse(data[0].data);
-    const next = data?.[1]?.data ? Parser.parseResponse(data[1].data) : undefined;
+    const info = Parser.parseResponse<IPlayerResponse>(data[0].data);
+    const next = data?.[1]?.data ? Parser.parseResponse<INextResponse>(data[1].data) : undefined;
 
     this.#page = [ info, next ];
 
@@ -110,16 +89,17 @@ class VideoInfo {
 
     this.basic_info = { // This type is inferred so no need for an explicit type
       ...info.video_details,
+      /**
+       * Microformat is a bit redundant, so only
+       * a few things there are interesting to us.
+       */
       ...{
-        /**
-         * Microformat is a bit redundant, so only
-         * a few things there are interesting to us.
-         */
         embed: info.microformat?.is(PlayerMicroformat) ? info.microformat?.embed : null,
         channel: info.microformat?.is(PlayerMicroformat) ? info.microformat?.channel : null,
         is_unlisted: info.microformat?.is_unlisted,
         is_family_safe: info.microformat?.is_family_safe,
-        has_ypc_metadata: info.microformat?.is(PlayerMicroformat) ? info.microformat?.has_ypc_metadata : null
+        has_ypc_metadata: info.microformat?.is(PlayerMicroformat) ? info.microformat?.has_ypc_metadata : null,
+        start_timestamp: info.microformat?.is(PlayerMicroformat) ? info.microformat.start_timestamp : null
       },
       like_count: undefined as number | undefined,
       is_liked: undefined as boolean | undefined,
@@ -136,23 +116,23 @@ class VideoInfo {
 
     this.#playback_tracking = info.playback_tracking;
 
-    const two_col = next?.contents.item().as(TwoColumnWatchNextResults);
+    const two_col = next?.contents?.item().as(TwoColumnWatchNextResults);
 
     const results = two_col?.results;
     const secondary_results = two_col?.secondary_results;
 
     if (results && secondary_results) {
-      this.primary_info = results.get({ type: 'VideoPrimaryInfo' })?.as(VideoPrimaryInfo);
-      this.secondary_info = results.get({ type: 'VideoSecondaryInfo' })?.as(VideoSecondaryInfo);
-      this.merchandise = results.get({ type: 'MerchandiseShelf' })?.as(MerchandiseShelf);
-      this.related_chip_cloud = secondary_results.get({ type: 'RelatedChipCloud' })?.as(RelatedChipCloud)?.content.item().as(ChipCloud);
+      this.primary_info = results.firstOfType(VideoPrimaryInfo);
+      this.secondary_info = results.firstOfType(VideoSecondaryInfo);
+      this.merchandise = results.firstOfType(MerchandiseShelf);
+      this.related_chip_cloud = secondary_results.firstOfType(RelatedChipCloud)?.content.item().as(ChipCloud);
 
-      this.watch_next_feed = secondary_results.get({ type: 'ItemSection' })?.as(ItemSection)?.contents;
+      this.watch_next_feed = secondary_results.firstOfType(ItemSection)?.contents || secondary_results;
 
-      if (this.watch_next_feed && Array.isArray(this.watch_next_feed))
+      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && this.watch_next_feed.at(-1)?.is(ContinuationItem))
         this.#watch_next_continuation = this.watch_next_feed.pop()?.as(ContinuationItem);
 
-      this.player_overlays = next?.player_overlays.item().as(PlayerOverlay);
+      this.player_overlays = next?.player_overlays?.item().as(PlayerOverlay);
 
       const segmented_like_dislike_button = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
 
@@ -162,22 +142,37 @@ class VideoInfo {
 
       const comments_entry_point = results.get({ target_id: 'comments-entry-point' })?.as(ItemSection);
 
-      this.comments_entry_point_header = comments_entry_point?.contents?.get({ type: 'CommentsEntryPointHeader' })?.as(CommentsEntryPointHeader);
-      this.livechat = next?.contents_memo.getType(LiveChat)?.[0];
+      this.comments_entry_point_header = comments_entry_point?.contents?.firstOfType(CommentsEntryPointHeader);
+      this.livechat = next?.contents_memo?.getType(LiveChat).first();
     }
   }
 
   /**
-   * Applies given filter to the watch next feed.
+   * Applies given filter to the watch next feed. Use {@link filters} to get available filters.
+   * @param target_filter - Filter to apply.
    */
-  async selectFilter(name: string) {
-    if (!this.filters.includes(name))
-      throw new InnertubeError('Invalid filter', { available_filters: this.filters });
+  async selectFilter(target_filter: string | ChipCloudChip | undefined): Promise<VideoInfo> {
+    if (!this.related_chip_cloud)
+      throw new InnertubeError('Chip cloud not found, cannot apply filter');
 
-    const filter = this.related_chip_cloud?.chips?.get({ text: name });
-    if (filter?.is_selected) return this;
+    let cloud_chip: ChipCloudChip;
 
-    const response = await filter?.endpoint?.call(this.#actions, undefined, true);
+    if (typeof target_filter === 'string') {
+      const filter = this.related_chip_cloud?.chips?.get({ text: target_filter });
+
+      if (!filter)
+        throw new InnertubeError('Invalid filter', { available_filters: this.filters });
+
+      cloud_chip = filter;
+    } else if (target_filter?.is(ChipCloudChip)) {
+      cloud_chip = target_filter;
+    } else {
+      throw new InnertubeError('Invalid cloud chip', target_filter);
+    }
+
+    if (cloud_chip.is_selected) return this;
+
+    const response = await cloud_chip.endpoint?.call(this.#actions, { parse: true });
     const data = response?.on_response_received_endpoints?.get({ target_id: 'watch-next-feed' });
 
     this.watch_next_feed = data?.contents;
@@ -186,9 +181,9 @@ class VideoInfo {
   }
 
   /**
-   * Adds the video to the watch history.
+   * Adds video to the watch history.
    */
-  async addToWatchHistory() {
+  async addToWatchHistory(): Promise<Response> {
     if (!this.#playback_tracking)
       throw new InnertubeError('Playback tracking not available');
 
@@ -209,18 +204,26 @@ class VideoInfo {
     return response;
   }
 
+
   /**
    * Retrieves watch next feed continuation.
    */
-  async getWatchNextContinuation() {
-    const response = await this.#watch_next_continuation?.endpoint.call(this.#actions, undefined, true);
+  async getWatchNextContinuation(): Promise<VideoInfo> {
+    if (!this.#watch_next_continuation)
+      throw new InnertubeError('Watch next feed continuation not found');
+
+    const response = await this.#watch_next_continuation?.endpoint.call(this.#actions, { parse: true });
     const data = response?.on_response_received_endpoints?.get({ type: 'appendContinuationItemsAction' });
 
     if (!data)
-      throw new InnertubeError('Continuation not found');
+      throw new InnertubeError('AppendContinuationItemsAction not found');
 
     this.watch_next_feed = data?.contents;
-    this.#watch_next_continuation = this.watch_next_feed?.pop()?.as(ContinuationItem);
+    if (this.watch_next_feed?.at(-1)?.is(ContinuationItem)) {
+      this.#watch_next_continuation = this.watch_next_feed.pop()?.as(ContinuationItem);
+    } else {
+      this.#watch_next_continuation = undefined;
+    }
 
     return this;
   }
@@ -228,8 +231,9 @@ class VideoInfo {
   /**
    * Likes the video.
    */
-  async like() {
-    const button = this.primary_info?.menu?.top_level_buttons?.get({ button_id: 'TOGGLE_BUTTON_ID_TYPE_LIKE' })?.as(ToggleButton);
+  async like(): Promise<ApiResponse> {
+    const segmented_like_dislike_button = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
+    const button = segmented_like_dislike_button?.like_button?.as(ToggleButton);
 
     if (!button)
       throw new InnertubeError('Like button not found', { video_id: this.basic_info.id });
@@ -245,8 +249,9 @@ class VideoInfo {
   /**
    * Dislikes the video.
    */
-  async dislike() {
-    const button = this.primary_info?.menu?.top_level_buttons?.get({ button_id: 'TOGGLE_BUTTON_ID_TYPE_DISLIKE' })?.as(ToggleButton);
+  async dislike(): Promise<ApiResponse> {
+    const segmented_like_dislike_button = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
+    const button = segmented_like_dislike_button?.dislike_button?.as(ToggleButton);
 
     if (!button)
       throw new InnertubeError('Dislike button not found', { video_id: this.basic_info.id });
@@ -262,8 +267,18 @@ class VideoInfo {
   /**
    * Removes like/dislike.
    */
-  async removeLike() {
-    const button = this.primary_info?.menu?.top_level_buttons?.get({ is_toggled: true })?.as(ToggleButton);
+  async removeRating(): Promise<ApiResponse> {
+    let button;
+
+    const segmented_like_dislike_button = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
+    const like_button = segmented_like_dislike_button?.like_button?.as(ToggleButton);
+    const dislike_button = segmented_like_dislike_button?.dislike_button?.as(ToggleButton);
+
+    if (like_button?.is_toggled) {
+      button = like_button;
+    } else if (dislike_button?.is_toggled) {
+      button = dislike_button;
+    }
 
     if (!button)
       throw new InnertubeError('This video is not liked/disliked', { video_id: this.basic_info.id });
@@ -276,26 +291,64 @@ class VideoInfo {
   /**
    * Retrieves Live Chat if available.
    */
-  getLiveChat() {
+  getLiveChat(): LiveChatWrap {
     if (!this.livechat)
       throw new InnertubeError('Live Chat is not available', { video_id: this.basic_info.id });
     return new LiveChatWrap(this);
   }
 
-  get filters() {
-    return this.related_chip_cloud?.chips?.map((chip) => chip.text.toString()) || [];
+  /**
+   * Selects the format that best matches the given options.
+   * @param options - Options
+   */
+  chooseFormat(options: FormatOptions): Format {
+    return FormatUtils.chooseFormat(options, this.streaming_data);
   }
 
-  get actions() {
+  /**
+   * Generates a DASH manifest from the streaming data.
+   * @param url_transformer - Function to transform the URLs.
+   * @param format_filter - Function to filter the formats.
+   * @returns DASH manifest
+   */
+  toDash(url_transformer?: URLTransformer, format_filter?: FormatFilter): string {
+    return FormatUtils.toDash(this.streaming_data, url_transformer, format_filter, this.#cpn, this.#player);
+  }
+
+  /**
+   * Downloads the video.
+   * @param options - Download options.
+   */
+  async download(options: DownloadOptions = {}): Promise<ReadableStream<Uint8Array>> {
+    return FormatUtils.download(options, this.#actions, this.playability_status, this.streaming_data, this.#actions.session.player, this.cpn);
+  }
+
+  /**
+   * Watch next feed filters.
+   */
+  get filters(): string[] {
+    return this.related_chip_cloud?.chips?.map((chip) => chip.text?.toString()) || [];
+  }
+
+  /**
+   * Actions instance.
+   */
+  get actions(): Actions {
     return this.#actions;
   }
 
-  get cpn() {
+  /**
+   * Content Playback Nonce.
+   */
+  get cpn(): string | undefined {
     return this.#cpn;
   }
 
-  get page() {
-    return this.#page;
+  /**
+   * Checks if continuation is available for the watch next feed.
+   */
+  get wn_has_continuation(): boolean {
+    return !!this.#watch_next_continuation;
   }
 
   /**
@@ -313,7 +366,7 @@ class VideoInfo {
         for (let i = 0; i < metadata.rows.length; i++) {
             const row = metadata.rows[i];
             if (row.is(MetadataRowHeader)) {
-                if (row.content.toString().toLowerCase().startsWith('music')) {
+                if (row.content?.toString().toLowerCase().startsWith('music')) {
                     is_music_section = true;
                     i++; // Skip the learn more link
                 }
@@ -322,7 +375,7 @@ class VideoInfo {
             if (!is_music_section)
                 continue;
             if (row.is(MetadataRow))
-                current_song[row.title.toString().toLowerCase().replace(/ /g, '_')] = row.contents;
+                current_song[row.title?.toString().toLowerCase().replace(/ /g, '_')] = row.contents;
             // TODO: this makes no sense, we continue above when
             if (row.has_divider_line) {
                 songs.push(current_song);
@@ -337,312 +390,11 @@ class VideoInfo {
     return [];
   }
 
-  chooseFormat(options: FormatOptions) {
-    if (!this.streaming_data)
-      throw new InnertubeError('Streaming data not available', { video_id: this.basic_info.id });
-
-    const formats = [
-      ...(this.streaming_data.formats || []),
-      ...(this.streaming_data.adaptive_formats || [])
-    ];
-
-    const requires_audio = options.type ? options.type.includes('audio') : true;
-    const requires_video = options.type ? options.type.includes('video') : true;
-    const quality = options.quality || '360p';
-
-    let best_width = -1;
-
-    const is_best = [ 'best', 'bestefficiency' ].includes(quality);
-    const use_most_efficient = quality !== 'best';
-
-    let candidates = formats.filter((format) => {
-      if (requires_audio && !format.has_audio)
-        return false;
-      if (requires_video && !format.has_video)
-        return false;
-      if (options.format !== 'any' && !format.mime_type.includes(options.format || 'mp4'))
-        return false;
-      if (!is_best && format.quality_label !== quality)
-        return false;
-      if (best_width < format.width)
-        best_width = format.width;
-      return true;
-    });
-
-    if (!candidates.length) {
-      throw new InnertubeError('No matching formats found', {
-        options
-      });
-    }
-
-    if (is_best && requires_video)
-      candidates = candidates.filter((format) => format.width === best_width);
-
-    if (requires_audio && !requires_video) {
-      const audio_only = candidates.filter((format) => !format.has_video);
-      if (audio_only.length > 0) {
-        candidates = audio_only;
-      }
-    }
-
-    if (use_most_efficient) {
-      // Sort by bitrate (lower is better)
-      candidates.sort((a, b) => a.bitrate - b.bitrate);
-    } else {
-      // Sort by bitrate (higher is better)
-      candidates.sort((a, b) => b.bitrate - a.bitrate);
-    }
-
-    return candidates[0];
-  }
-
-  #el(document: XMLDocument, tag: string, attrs: Record<string, string | undefined>, children: Node[] = []) {
-    const el = document.createElement(tag);
-    for (const [ key, value ] of Object.entries(attrs)) {
-      el.setAttribute(key, value);
-    }
-    for (const child of children) {
-      if (typeof child === 'undefined') continue;
-      el.appendChild(child);
-    }
-    return el;
-  }
-
-  toDash(url_transformer: URLTransformer = (url) => url) {
-    if (!this.streaming_data)
-      throw new InnertubeError('Streaming data not available', { video_id: this.basic_info.id });
-
-    const { adaptive_formats } = this.streaming_data;
-
-    const length = adaptive_formats[0].approx_duration_ms / 1000;
-
-    const document = new DOMParser().parseFromString('', 'text/xml');
-    const period = document.createElement('Period');
-
-    document.appendChild(this.#el(document, 'MPD', {
-      xmlns: 'urn:mpeg:dash:schema:mpd:2011',
-      minBufferTime: 'PT1.500S',
-      profiles: 'urn:mpeg:dash:profile:isoff-main:2011',
-      type: 'static',
-      mediaPresentationDuration: `PT${length}S`,
-      'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
-      'xsi:schemaLocation': 'urn:mpeg:dash:schema:mpd:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd'
-    }, [
-      period
-    ]));
-
-    this.#generateAdaptationSet(document, period, adaptive_formats, url_transformer);
-
-    return `${document}`;
-  }
-
-  #generateAdaptationSet(document: XMLDocument, period: Element, formats: Format[], url_transformer: URLTransformer) {
-    const mimeTypes: string[] = [];
-    const mimeObjects: Format[][] = [ [] ];
-
-    formats.forEach((videoFormat) => {
-      if (!videoFormat.index_range || !videoFormat.init_range) {
-        return;
-      }
-      const mimeType = videoFormat.mime_type;
-      const mimeTypeIndex = mimeTypes.indexOf(mimeType);
-      if (mimeTypeIndex > -1) {
-        mimeObjects[mimeTypeIndex].push(videoFormat);
-      } else {
-        mimeTypes.push(mimeType);
-        mimeObjects.push([]);
-        mimeObjects[mimeTypes.length - 1].push(videoFormat);
-      }
-    });
-
-    for (let i = 0; i < mimeTypes.length; i++) {
-      const set = this.#el(document, 'AdaptationSet', {
-        id: `${i}`,
-        mimeType: mimeTypes[i].split(';')[0],
-        startWithSAP: '1',
-        subsegmentAlignment: 'true'
-      });
-      period.appendChild(set);
-      mimeObjects[i].forEach((format) => {
-        if (format.has_video) {
-          this.#generateRepresentationVideo(document, set, format, url_transformer);
-        } else {
-          this.#generateRepresentationAudio(document, set, format, url_transformer);
-        }
-      });
-    }
-  }
-
-  #generateRepresentationVideo(document: XMLDocument, set: Element, format: Format, url_transformer: URLTransformer) {
-    const codecs = getStringBetweenStrings(format.mime_type, 'codecs="', '"');
-
-    if (!format.index_range || !format.init_range)
-      throw new InnertubeError('Index and init ranges not available', { format });
-
-    const url = new URL(format.decipher(this.#player));
-    url.searchParams.set('cpn', this.#cpn);
-
-    set.appendChild(this.#el(document, 'Representation', {
-      id: format.itag,
-      codecs,
-      bandwidth: format.bitrate,
-      width: format.width,
-      height: format.height,
-      maxPlayoutRate: '1',
-      frameRate: format.fps
-    }, [
-      this.#el(document, 'BaseURL', {}, [
-        document.createTextNode(url_transformer(url).toString())
-      ]),
-      this.#el(document, 'SegmentBase', {
-        indexRange: `${format.index_range.start}-${format.index_range.end}`
-      }, [
-        this.#el(document, 'Initialization', {
-          range: `${format.init_range.start}-${format.init_range.end}`
-        })
-      ])
-    ]));
-  }
-
-  #generateRepresentationAudio(document: XMLDocument, set: Element, format: Format, url_transformer: URLTransformer) {
-    const codecs = getStringBetweenStrings(format.mime_type, 'codecs="', '"');
-    if (!format.index_range || !format.init_range)
-      throw new InnertubeError('Index and init ranges not available', { format });
-
-    const url = new URL(format.decipher(this.#player));
-    url.searchParams.set('cpn', this.#cpn);
-
-    set.appendChild(this.#el(document, 'Representation', {
-      id: format.itag,
-      codecs,
-      bandwidth: format.bitrate
-    }, [
-      this.#el(document, 'AudioChannelConfiguration', {
-        schemeIdUri: 'urn:mpeg:dash:23003:3:audio_channel_configuration:2011',
-        value: format.audio_channels || '2'
-      }),
-      this.#el(document, 'BaseURL', {}, [
-        document.createTextNode(url_transformer(url).toString())
-      ]),
-      this.#el(document, 'SegmentBase', {
-        indexRange: `${format.index_range.start}-${format.index_range.end}`
-      }, [
-        this.#el(document, 'Initialization', {
-          range: `${format.init_range.start}-${format.init_range.end}`
-        })
-      ])
-    ]));
-  }
-
   /**
-   * @param options - download options.
+   * Original parsed InnerTube response.
    */
-  async download(options: DownloadOptions = {}) {
-    if (this.playability_status?.status === 'UNPLAYABLE')
-      throw new InnertubeError('Video is unplayable', { video: this, error_type: 'UNPLAYABLE' });
-    if (this.playability_status?.status === 'LOGIN_REQUIRED')
-      throw new InnertubeError('Video is login required', { video: this, error_type: 'LOGIN_REQUIRED' });
-    if (!this.streaming_data)
-      throw new InnertubeError('Streaming data not available.', { video: this, error_type: 'NO_STREAMING_DATA' });
-
-    const opts: DownloadOptions = {
-      quality: '360p',
-      type: 'video+audio',
-      format: 'mp4',
-      range: undefined,
-      ...options
-    };
-
-    const format = this.chooseFormat(opts);
-    const format_url = format.decipher(this.#player);
-
-    // If we're not downloading the video in chunks, we just use fetch once.
-    if (opts.type === 'video+audio' && !options.range) {
-      const response = await this.#actions.session.http.fetch_function(`${format_url}&cpn=${this.#cpn}`, {
-        method: 'GET',
-        headers: Constants.STREAM_HEADERS,
-        redirect: 'follow'
-      });
-
-      // Throw if the response is not 2xx
-      if (!response.ok)
-        throw new InnertubeError('The server responded with a non 2xx status code', { video: this, error_type: 'FETCH_FAILED', response });
-
-      const body = response.body;
-
-      if (!body)
-        throw new InnertubeError('Could not get ReadableStream from fetch Response.', { video: this, error_type: 'FETCH_FAILED', response });
-
-      return body;
-    }
-
-    // We need to download in chunks.
-
-    const chunk_size = 1048576 * 10; // 10MB
-
-    let chunk_start = (options.range ? options.range.start : 0);
-    let chunk_end = (options.range ? options.range.end : chunk_size);
-    let must_end = false;
-
-    let cancel: AbortController;
-
-    const readable_stream = new ReadableStream<Uint8Array>({
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      start() {},
-      pull: async (controller) => {
-        if (must_end) {
-          controller.close();
-          return;
-        }
-
-        if ((chunk_end >= format.content_length) || options.range) {
-          must_end = true;
-        }
-
-        return new Promise(async (resolve, reject) => {
-          try {
-            cancel = new AbortController();
-
-            const response = await this.#actions.session.http.fetch_function(`${format_url}&cpn=${this.#cpn}&range=${chunk_start}-${chunk_end || ''}`, {
-              method: 'GET',
-              headers: {
-                ...Constants.STREAM_HEADERS
-                // XXX: use YouTube's range parameter instead of a Range header.
-                // Range: `bytes=${chunk_start}-${chunk_end}`
-              },
-              signal: cancel.signal
-            });
-
-            const body = response.body;
-
-            if (!body)
-              throw new InnertubeError('Could not get ReadableStream from fetch Response.', { video: this, error_type: 'FETCH_FAILED', response });
-
-            for await (const chunk of streamToIterable(body)) {
-              controller.enqueue(chunk);
-            }
-
-            chunk_start = chunk_end + 1;
-            chunk_end += chunk_size;
-
-            resolve();
-            return;
-          } catch (e: any) {
-            reject(e);
-          }
-        });
-      },
-      async cancel(reason) {
-        cancel.abort(reason);
-      }
-    }, {
-      highWaterMark: 1, // TODO: better value?
-      size(chunk) {
-        return chunk.byteLength;
-      }
-    });
-
-    return readable_stream;
+  get page(): [IPlayerResponse, INextResponse?] {
+    return this.#page;
   }
 }
 

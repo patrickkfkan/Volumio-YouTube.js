@@ -1,4 +1,4 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
 declare class DataModelSection extends YTNode {
     static type: string;
     title: string;

@@ -1,15 +1,15 @@
-import Text from './misc/Text';
-import Dropdown from './Dropdown';
-import SettingsSwitch from './SettingsSwitch';
-import SettingsCheckbox from './SettingsCheckbox';
-import ChannelOptions from './ChannelOptions';
-import CopyLink from './CopyLink';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Dropdown from './Dropdown.js';
+import SettingsSwitch from './SettingsSwitch.js';
+import SettingsCheckbox from './SettingsCheckbox.js';
+import ChannelOptions from './ChannelOptions.js';
+import CopyLink from './CopyLink.js';
+import { YTNode } from '../helpers.js';
 declare class SettingsOptions extends YTNode {
     static type: string;
     title: Text;
     text?: string;
-    options?: import("../helpers").ObservedArray<Dropdown | ChannelOptions | CopyLink | SettingsCheckbox | SettingsSwitch> | undefined;
+    options?: import("../helpers.js").ObservedArray<Dropdown | ChannelOptions | CopyLink | SettingsCheckbox | SettingsSwitch> | undefined;
     constructor(data: any);
 }
 export default SettingsOptions;

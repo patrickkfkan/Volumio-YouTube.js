@@ -1,4 +1,4 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class PlayerStoryboardSpec extends YTNode {
     static type: string;
     boards: {

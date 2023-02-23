@@ -1,12 +1,13 @@
-import Player from '../../../core/Player';
+import Player from '../../../core/Player.js';
+import { InnertubeError } from '../../../utils/Utils.js';
 
 class Format {
-  itag: string;
+  itag: number;
   mime_type: string;
-  bitrate;
-  average_bitrate;
-  width;
-  height;
+  bitrate: number;
+  average_bitrate: number;
+  width: number;
+  height: number;
 
   init_range: {
     start: number;
@@ -22,17 +23,25 @@ class Format {
   content_length: number;
   quality: string;
   quality_label: string | undefined;
-  fps: string | undefined;
+  fps: number | undefined;
   url: string;
   cipher: string | undefined;
   signature_cipher: string | undefined;
   audio_quality: string | undefined;
+  audio_track?: {
+    audio_is_default: boolean;
+    display_name: string;
+    id: string;
+  };
   approx_duration_ms: number;
   audio_sample_rate: number;
-  audio_channels: string;
-  loudness_db: string;
+  audio_channels: number;
+  loudness_db: number;
   has_audio: boolean;
   has_video: boolean;
+  language?: string | null;
+  is_dubbed?: boolean;
+  is_original?: boolean;
 
   constructor(data: any) {
     this.itag = data.itag;
@@ -67,13 +76,31 @@ class Format {
     this.loudness_db = data.loudnessDb;
     this.has_audio = !!data.audioBitrate || !!data.audioQuality;
     this.has_video = !!data.qualityLabel;
+
+    if (this.has_audio) {
+      const args = new URLSearchParams(this.cipher || this.signature_cipher);
+      const url_components = new URLSearchParams(args.get('url') || this.url);
+
+      this.language = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('lang='))?.split('=').at(1) || null;
+      this.is_dubbed = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=').at(1) === 'dubbed';
+      this.is_original = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=').at(1) === 'original' || !this.is_dubbed;
+
+      if (data.audioTrack) {
+        this.audio_track = {
+          audio_is_default: data.audioTrack.audioIsDefault,
+          display_name: data.audioTrack.displayName,
+          id: data.audioTrack.id
+        };
+      }
+    }
   }
 
   /**
    * Decipher the streaming url of the format.
    * @returns Deciphered URL.
    */
-  decipher(player: Player): string {
+  decipher(player: Player | undefined): string {
+    if (!player) throw new InnertubeError('Cannot decipher format, this session appears to have no valid player.');
     return player.decipher(this.url, this.signature_cipher, this.cipher);
   }
 }

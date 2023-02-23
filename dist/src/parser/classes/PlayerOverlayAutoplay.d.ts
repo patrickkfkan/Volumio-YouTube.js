@@ -1,8 +1,8 @@
-import Text from './misc/Text';
-import Author from './misc/Author';
-import Thumbnail from './misc/Thumbnail';
-import Button from './Button';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Author from './misc/Author.js';
+import Thumbnail from './misc/Thumbnail.js';
+import Button from './Button.js';
+import { YTNode } from '../helpers.js';
 declare class PlayerOverlayAutoplay extends YTNode {
     static type: string;
     title: Text;
@@ -13,7 +13,7 @@ declare class PlayerOverlayAutoplay extends YTNode {
     count_down_secs_for_fullscreen: any;
     published: Text;
     background: Thumbnail[];
-    thumbnail_overlays: import("../helpers").SuperParsedResult<YTNode>;
+    thumbnail_overlays: import("../helpers.js").SuperParsedResult<YTNode>;
     author: Author;
     cancel_button: Button | null;
     next_button: Button | null;

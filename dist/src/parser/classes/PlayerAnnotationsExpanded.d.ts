@@ -1,6 +1,6 @@
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode, SuperParsedResult } from '../helpers';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode, SuperParsedResult } from '../helpers.js';
 declare class PlayerAnnotationsExpanded extends YTNode {
     static type: string;
     featured_channel: {

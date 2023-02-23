@@ -1,9 +1,9 @@
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 declare class ContinuationItem extends YTNode {
     static type: string;
     trigger: string;
-    button?: import("../helpers").SuperParsedResult<YTNode> | undefined;
+    button?: YTNode | null | undefined;
     endpoint: NavigationEndpoint;
     constructor(data: any);
 }

@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const helpers_1 = require("../helpers");
-class SimpleCardTeaser extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+class SimpleCardTeaser extends YTNode {
     constructor(data) {
         super();
-        this.message = new Text_1.default(data.message);
+        this.message = new Text(data.message);
         this.prominent = data.prominent;
     }
 }
 SimpleCardTeaser.type = 'SimpleCardTeaser';
-exports.default = SimpleCardTeaser;
+export default SimpleCardTeaser;
 //# sourceMappingURL=SimpleCardTeaser.js.map

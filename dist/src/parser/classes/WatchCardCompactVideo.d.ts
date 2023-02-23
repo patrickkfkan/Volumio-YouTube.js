@@ -1,5 +1,5 @@
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 declare class WatchCardCompactVideo extends YTNode {
     static type: string;
     title: Text;

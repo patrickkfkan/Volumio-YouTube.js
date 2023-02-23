@@ -1,5 +1,5 @@
-import Parser from '../../index';
-import { YTNode } from '../../helpers';
+import Parser from '../../index.js';
+import { YTNode } from '../../helpers.js';
 
 class UpdateLiveChatPollAction extends YTNode {
   static type = 'UpdateLiveChatPollAction';
@@ -8,7 +8,7 @@ class UpdateLiveChatPollAction extends YTNode {
 
   constructor(data: any) {
     super();
-    this.poll_to_update = Parser.parse(data.pollToUpdate);
+    this.poll_to_update = Parser.parseItem(data.pollToUpdate);
   }
 }
 

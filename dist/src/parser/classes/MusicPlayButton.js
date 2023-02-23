@@ -1,15 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class MusicPlayButton extends helpers_1.YTNode {
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class MusicPlayButton extends YTNode {
     constructor(data) {
         var _a;
         super();
-        this.endpoint = new NavigationEndpoint_1.default(data.playNavigationEndpoint);
+        this.endpoint = new NavigationEndpoint(data.playNavigationEndpoint);
         this.play_icon_type = data.playIcon.iconType;
         this.pause_icon_type = data.pauseIcon.iconType;
         if (data.accessibilityPlayData) {
@@ -22,5 +17,5 @@ class MusicPlayButton extends helpers_1.YTNode {
     }
 }
 MusicPlayButton.type = 'MusicPlayButton';
-exports.default = MusicPlayButton;
+export default MusicPlayButton;
 //# sourceMappingURL=MusicPlayButton.js.map

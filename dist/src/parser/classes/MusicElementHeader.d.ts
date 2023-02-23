@@ -1,5 +1,5 @@
-import Element from './Element';
-import { YTNode } from '../helpers';
+import Element from './Element.js';
+import { YTNode } from '../helpers.js';
 declare class MusicElementHeader extends YTNode {
     static type: string;
     element: Element | null;

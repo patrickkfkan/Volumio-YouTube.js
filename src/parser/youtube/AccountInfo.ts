@@ -1,26 +1,35 @@
-import Parser, { ParsedResponse } from '..';
-import { AxioslikeResponse } from '../../core/Actions';
+import Parser from '../index.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { IParsedResponse } from '../types/ParsedResponse.js';
 
-import AccountSectionList from '../classes/AccountSectionList';
-import AccountItemSection from '../classes/AccountItemSection';
-import AccountChannel from '../classes/AccountChannel';
+import AccountSectionList from '../classes/AccountSectionList.js';
+import AccountItemSection from '../classes/AccountItemSection.js';
+import AccountChannel from '../classes/AccountChannel.js';
+
+import { InnertubeError } from '../../utils/Utils.js';
 
 class AccountInfo {
-  #page;
+  #page: IParsedResponse;
 
   contents: AccountItemSection | null;
   footers: AccountChannel | null;
 
-  constructor(response: AxioslikeResponse) {
+  constructor(response: ApiResponse) {
     this.#page = Parser.parseResponse(response.data);
 
-    const account_section_list = this.#page.contents.array().as(AccountSectionList)[0];
+    if (!this.#page.contents)
+      throw new InnertubeError('Page contents not found');
+
+    const account_section_list = this.#page.contents.array().as(AccountSectionList).first();
+
+    if (!account_section_list)
+      throw new InnertubeError('Account section list not found');
 
     this.contents = account_section_list.contents;
     this.footers = account_section_list.footers;
   }
 
-  get page(): ParsedResponse {
+  get page(): IParsedResponse {
     return this.#page;
   }
 }

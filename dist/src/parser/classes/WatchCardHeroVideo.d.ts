@@ -1,10 +1,10 @@
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 declare class WatchCardHeroVideo extends YTNode {
     static type: string;
     endpoint: NavigationEndpoint;
-    call_to_action_button: import("../helpers").SuperParsedResult<YTNode>;
-    hero_image: import("../helpers").SuperParsedResult<YTNode>;
+    call_to_action_button: YTNode | null;
+    hero_image: YTNode | null;
     label: string;
     constructor(data: any);
 }

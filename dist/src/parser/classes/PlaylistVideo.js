@@ -1,33 +1,41 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const index_1 = __importDefault(require("../index"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const PlaylistAuthor_1 = __importDefault(require("./misc/PlaylistAuthor"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class PlaylistVideo extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import Parser from '../index.js';
+import Thumbnail from './misc/Thumbnail.js';
+import PlaylistAuthor from './misc/PlaylistAuthor.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import ThumbnailOverlayTimeStatus from './ThumbnailOverlayTimeStatus.js';
+import { YTNode } from '../helpers.js';
+class PlaylistVideo extends YTNode {
     constructor(data) {
         super();
         this.id = data.videoId;
-        this.index = new Text_1.default(data.index);
-        this.title = new Text_1.default(data.title);
-        this.author = new PlaylistAuthor_1.default(data.shortBylineText);
-        this.thumbnails = Thumbnail_1.default.fromResponse(data.thumbnail);
-        this.thumbnail_overlays = index_1.default.parse(data.thumbnailOverlays);
+        this.index = new Text(data.index);
+        this.title = new Text(data.title);
+        this.author = new PlaylistAuthor(data.shortBylineText);
+        this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+        this.thumbnail_overlays = Parser.parseArray(data.thumbnailOverlays);
         this.set_video_id = data === null || data === void 0 ? void 0 : data.setVideoId;
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
+        this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
         this.is_playable = data.isPlayable;
-        this.menu = index_1.default.parse(data.menu);
+        this.menu = Parser.parseItem(data.menu);
+        const upcoming = data.upcomingEventData && Number(`${data.upcomingEventData.startTime}000`);
+        if (upcoming) {
+            this.upcoming = new Date(upcoming);
+        }
         this.duration = {
-            text: new Text_1.default(data.lengthText).text,
+            text: new Text(data.lengthText).text,
             seconds: parseInt(data.lengthSeconds)
         };
     }
+    get is_live() {
+        var _a;
+        return ((_a = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus)) === null || _a === void 0 ? void 0 : _a.style) === 'LIVE';
+    }
+    get is_upcoming() {
+        var _a;
+        return ((_a = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus)) === null || _a === void 0 ? void 0 : _a.style) === 'UPCOMING';
+    }
 }
 PlaylistVideo.type = 'PlaylistVideo';
-exports.default = PlaylistVideo;
+export default PlaylistVideo;
 //# sourceMappingURL=PlaylistVideo.js.map

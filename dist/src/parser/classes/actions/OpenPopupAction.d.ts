@@ -1,7 +1,7 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
 declare class OpenPopupAction extends YTNode {
     static type: string;
-    popup: import("../../helpers").SuperParsedResult<YTNode>;
+    popup: import("../../helpers.js").SuperParsedResult<YTNode>;
     popup_type: any;
     constructor(data: any);
 }

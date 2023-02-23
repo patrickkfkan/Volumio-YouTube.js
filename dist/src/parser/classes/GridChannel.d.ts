@@ -1,7 +1,7 @@
-import Author from './misc/Author';
-import NavigationEndpoint from './NavigationEndpoint';
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Author from './misc/Author.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 declare class GridChannel extends YTNode {
     static type: string;
     id: string;
@@ -9,7 +9,7 @@ declare class GridChannel extends YTNode {
     subscribers: Text;
     video_count: Text;
     endpoint: NavigationEndpoint;
-    subscribe_button: import("../helpers").SuperParsedResult<YTNode>;
+    subscribe_button: import("../helpers.js").SuperParsedResult<YTNode>;
     constructor(data: any);
 }
 export default GridChannel;

@@ -1,10 +1,15 @@
-import Actions from '../../core/Actions';
-import Feed from '../../core/Feed';
-import Thumbnail from '../classes/misc/Thumbnail';
-declare class Playlist extends Feed {
+import Feed from '../../core/Feed.js';
+import Message from '../classes/Message.js';
+import Thumbnail from '../classes/misc/Thumbnail.js';
+import NavigationEndpoint from '../classes/NavigationEndpoint.js';
+import { ObservedArray } from '../helpers.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
+declare class Playlist extends Feed<IBrowseResponse> {
     #private;
     info: {
-        author: import("../classes/misc/Author").default | undefined;
+        author: import("../classes/misc/Author.js").default;
         thumbnails: Thumbnail[];
         total_items: string;
         views: string;
@@ -13,13 +18,15 @@ declare class Playlist extends Feed {
         can_delete: boolean;
         is_editable: boolean;
         privacy: string;
-        title: string;
-        description: string;
-        type: string;
+        title?: string | undefined;
+        description?: string | undefined;
+        type?: string | undefined;
     };
-    menu: any;
-    endpoint: import("../classes/NavigationEndpoint").default | undefined;
-    constructor(actions: Actions, data: any, already_parsed?: boolean);
-    get items(): import("../helpers").ObservedArray<import("../classes/CompactVideo").default | import("../classes/GridVideo").default | import("../classes/PlaylistPanelVideo").default | import("../classes/PlaylistVideo").default | import("../classes/Video").default | import("../classes/WatchCardCompactVideo").default>;
+    menu: import("../helpers.js").YTNode | null;
+    endpoint?: NavigationEndpoint;
+    messages: ObservedArray<Message>;
+    constructor(actions: Actions, data: ApiResponse | IBrowseResponse, already_parsed?: boolean);
+    get items(): ObservedArray<import("../classes/CompactVideo.js").default | import("../classes/GridVideo.js").default | import("../classes/PlaylistPanelVideo.js").default | import("../classes/PlaylistVideo.js").default | import("../classes/ReelItem.js").default | import("../classes/Video.js").default | import("../classes/WatchCardCompactVideo.js").default>;
+    getContinuation(): Promise<Playlist>;
 }
 export default Playlist;

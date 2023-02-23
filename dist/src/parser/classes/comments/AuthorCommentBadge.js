@@ -1,4 +1,3 @@
-"use strict";
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
     if (kind === "m") throw new TypeError("Private method is not writable");
     if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
@@ -11,9 +10,8 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _AuthorCommentBadge_data;
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../../helpers");
-class AuthorCommentBadge extends helpers_1.YTNode {
+import { YTNode } from '../../helpers.js';
+class AuthorCommentBadge extends YTNode {
     constructor(data) {
         var _a;
         super();
@@ -32,5 +30,5 @@ class AuthorCommentBadge extends helpers_1.YTNode {
 }
 _AuthorCommentBadge_data = new WeakMap();
 AuthorCommentBadge.type = 'AuthorCommentBadge';
-exports.default = AuthorCommentBadge;
+export default AuthorCommentBadge;
 //# sourceMappingURL=AuthorCommentBadge.js.map

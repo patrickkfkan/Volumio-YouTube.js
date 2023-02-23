@@ -1,19 +1,14 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const __1 = __importDefault(require(".."));
-const AccountChannel_1 = __importDefault(require("./AccountChannel"));
-const AccountItemSection_1 = __importDefault(require("./AccountItemSection"));
-const helpers_1 = require("../helpers");
-class AccountSectionList extends helpers_1.YTNode {
+import Parser from '../index.js';
+import AccountChannel from './AccountChannel.js';
+import AccountItemSection from './AccountItemSection.js';
+import { YTNode } from '../helpers.js';
+class AccountSectionList extends YTNode {
     constructor(data) {
         super();
-        this.contents = __1.default.parseItem(data.contents[0], AccountItemSection_1.default);
-        this.footers = __1.default.parseItem(data.footers[0], AccountChannel_1.default);
+        this.contents = Parser.parseItem(data.contents[0], AccountItemSection);
+        this.footers = Parser.parseItem(data.footers[0], AccountChannel);
     }
 }
 AccountSectionList.type = 'AccountSectionList';
-exports.default = AccountSectionList;
+export default AccountSectionList;
 //# sourceMappingURL=AccountSectionList.js.map

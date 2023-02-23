@@ -1,4 +1,4 @@
-import { deepCompare, ParsingError } from '../utils/Utils';
+import { deepCompare, ParsingError } from '../utils/Utils.js';
 
 const isObserved = Symbol('ObservedArray.isObserved');
 
@@ -360,6 +360,10 @@ export type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
      */
     getAll: (rule: object, del_items?: boolean) => T[];
     /**
+     * Returns the first object to match the condition.
+     */
+    matchCondition: (condition: (node: T) => boolean) => T | undefined;
+    /**
      * Removes the item at the given index.
      */
     remove: (index: number) => T[];
@@ -372,6 +376,10 @@ export type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
      */
     firstOfType<R extends YTNode, K extends YTNodeConstructor<R>[]>(...types: K): InstanceType<K[number]> | undefined;
     /**
+     * Get the first item
+     */
+    first: () => T;
+    /**
      * This is similar to filter but throws if there's a type mismatch.
      */
     as<R extends YTNode, K extends YTNodeConstructor<R>[]>(...types: K): ObservedArray<InstanceType<K[number]>>;
@@ -381,7 +389,7 @@ export type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
  * Creates a trap to intercept property access
  * and add utilities to an object.
  */
-export function observe<T extends YTNode>(obj: Array<T>) {
+export function observe<T extends YTNode>(obj: Array<T>): ObservedArray<T> {
   return new Proxy(obj, {
     get(target, prop) {
       if (prop == 'get') {
@@ -412,6 +420,14 @@ export function observe<T extends YTNode>(obj: Array<T>) {
         );
       }
 
+      if (prop == 'matchCondition') {
+        return (condition: (node: T) => boolean) => (
+          target.find((obj) => {
+            return condition(obj);
+          })
+        );
+      }
+
       if (prop == 'filterType') {
         return (...types: YTNodeConstructor<YTNode>[]) => {
           return observe(target.filter((node: YTNode) => {
@@ -423,6 +439,7 @@ export function observe<T extends YTNode>(obj: Array<T>) {
         };
       }
 
+
       if (prop == 'firstOfType') {
         return (...types: YTNodeConstructor<YTNode>[]) => {
           return target.find((node: YTNode) => {
@@ -431,6 +448,10 @@ export function observe<T extends YTNode>(obj: Array<T>) {
             return false;
           });
         };
+      }
+
+      if (prop == 'first') {
+        return () => target[0];
       }
 
       if (prop == 'as') {

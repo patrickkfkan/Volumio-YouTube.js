@@ -1,5 +1,5 @@
-import Text from './Text';
-import NavigationEndpoint from '../NavigationEndpoint';
+import Text from './Text.js';
+import NavigationEndpoint from '../NavigationEndpoint.js';
 declare class NavigatableText extends Text {
     static type: string;
     endpoint: NavigationEndpoint | null;

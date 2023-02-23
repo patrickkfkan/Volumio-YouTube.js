@@ -1,33 +1,35 @@
-import Parser, { MusicPlaylistShelfContinuation, MusicShelfContinuation, ParsedResponse, SectionListContinuation } from '../index';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
+import Parser, { MusicPlaylistShelfContinuation, SectionListContinuation } from '../index.js';
 
-import MusicCarouselShelf from '../classes/MusicCarouselShelf';
-import MusicPlaylistShelf from '../classes/MusicPlaylistShelf';
-import MusicEditablePlaylistDetailHeader from '../classes/MusicEditablePlaylistDetailHeader';
-import MusicDetailHeader from '../classes/MusicDetailHeader';
-import MusicShelf from '../classes/MusicShelf';
+import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
+import MusicDetailHeader from '../classes/MusicDetailHeader.js';
+import MusicEditablePlaylistDetailHeader from '../classes/MusicEditablePlaylistDetailHeader.js';
+import MusicPlaylistShelf from '../classes/MusicPlaylistShelf.js';
+import MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
+import MusicShelf from '../classes/MusicShelf.js';
+import SectionList from '../classes/SectionList.js';
 
-import SectionList from '../classes/SectionList';
-
-import { InnertubeError } from '../../utils/Utils';
+import { InnertubeError } from '../../utils/Utils.js';
+import type { ObservedArray, YTNode } from '../helpers.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 
 class Playlist {
-  #page;
-  #actions;
-  #continuation;
-  #suggestions_continuation;
+  #page: IBrowseResponse;
+  #actions: Actions;
+  #continuation: string | null;
   #last_fetched_suggestions: any;
+  #suggestions_continuation: any;
 
-  header;
-  items;
+  header?: MusicDetailHeader;
+  items?: ObservedArray<YTNode> | null;
 
-  constructor(response: AxioslikeResponse, actions: Actions) {
+  constructor(response: ApiResponse, actions: Actions) {
     this.#actions = actions;
-    this.#page = Parser.parseResponse(response.data);
+    this.#page = Parser.parseResponse<IBrowseResponse>(response.data);
 
-    this.#suggestions_continuation = this.#page.contents_memo.getType(MusicShelf)?.find(
-      (shelf) => shelf.title.toString() === 'Suggestions')?.continuation || null;
     this.#last_fetched_suggestions = null;
+    this.#suggestions_continuation = null;
 
     if (this.#page.continuation_contents) {
       const data = this.#page.continuation_contents?.as(MusicPlaylistShelfContinuation);
@@ -37,58 +39,58 @@ class Playlist {
       if (this.#page.header?.item().type === 'MusicEditablePlaylistDetailHeader') {
         this.header = this.#page.header?.item().as(MusicEditablePlaylistDetailHeader).header.item().as(MusicDetailHeader);
       } else {
-        this.header = this.#page.header?.item().as(MusicDetailHeader) || null;
+        this.header = this.#page.header?.item().as(MusicDetailHeader);
       }
-      this.items = this.#page.contents_memo.getType(MusicPlaylistShelf)?.[0].contents;
-      this.#continuation = this.#page.contents_memo.getType(MusicPlaylistShelf)?.[0].continuation || null;
+      this.items = this.#page.contents_memo?.getType(MusicPlaylistShelf).first().contents || null;
+      this.#continuation = this.#page.contents_memo?.getType(MusicPlaylistShelf).first().continuation || null;
     }
-  }
-
-  get page(): ParsedResponse {
-    return this.#page;
-  }
-
-  get has_continuation() {
-    return !!this.#continuation;
   }
 
   /**
    * Retrieves playlist items continuation.
    */
-  async getContinuation() {
+  async getContinuation(): Promise<Playlist> {
     if (!this.#continuation)
       throw new InnertubeError('Continuation not found.');
 
-    const response = await this.#actions.browse(this.#continuation, { is_ctoken: true, client: 'YTMUSIC' });
+    const response = await this.#actions.execute('/browse', {
+      client: 'YTMUSIC',
+      continuation: this.#continuation
+    });
+
     return new Playlist(response, this.#actions);
   }
 
   /**
    * Retrieves related playlists
    */
-  async getRelated() {
-    let section_continuation = this.#page.contents_memo.get('SectionList')?.[0].as(SectionList).continuation;
+  async getRelated(): Promise<MusicCarouselShelf> {
+    let section_continuation = this.#page.contents_memo?.getType(SectionList)?.[0].continuation;
 
     while (section_continuation) {
-      const response = await this.#actions.browse(section_continuation, { is_ctoken: true, client: 'YTMUSIC' });
-      const data = Parser.parseResponse(response.data);
+      const data = await this.#actions.execute('/browse', {
+        client: 'YTMUSIC',
+        continuation: section_continuation,
+        parse: true
+      });
+
       const section_list = data.continuation_contents?.as(SectionListContinuation);
-      const sections = section_list?.contents?.as(MusicCarouselShelf);
-      const related = sections?.filter((section) => section.header?.title.toString() === 'Related playlists')[0];
-      if (related) {
-        return related.contents || [];
-      }
+      const sections = section_list?.contents?.as(MusicCarouselShelf, MusicShelf);
+
+      const related = sections?.matchCondition((section) => section.is(MusicCarouselShelf))?.as(MusicCarouselShelf);
+
+      if (related)
+        return related;
 
       section_continuation = section_list?.continuation;
-
     }
 
-    return [];
+    throw new InnertubeError('Target section not found.');
   }
 
   async getSuggestions(refresh = true) {
     const require_fetch = refresh || !this.#last_fetched_suggestions;
-    const fetch_promise = require_fetch ? this.#fetchSuggestions(this.#suggestions_continuation) : Promise.resolve(null);
+    const fetch_promise = require_fetch ? this.#fetchSuggestions() : Promise.resolve(null);
     const fetch_result = await fetch_promise;
 
     if (fetch_result) {
@@ -99,14 +101,24 @@ class Playlist {
     return fetch_result?.items || this.#last_fetched_suggestions;
   }
 
-  async #fetchSuggestions(continuation: string | null) {
+  async #fetchSuggestions(): Promise<{ items: never[] | ObservedArray<MusicResponsiveListItem>, continuation: string | null }> {
+    const continuation = this.#suggestions_continuation || this.#page.contents_memo?.get('SectionList')?.[0].as(SectionList).continuation;
+
     if (continuation) {
-      const response = await this.#actions.browse(continuation, { is_ctoken: true, client: 'YTMUSIC' });
-      const page = Parser.parseResponse(response.data);
-      const data = page.continuation_contents?.as(MusicShelfContinuation);
+      const page = await this.#actions.execute('/browse', {
+        client: 'YTMUSIC',
+        continuation: continuation,
+        parse: true
+      });
+
+      const section_list = page.continuation_contents?.as(SectionListContinuation);
+      const sections = section_list?.contents?.as(MusicCarouselShelf, MusicShelf);
+
+      const suggestions = sections?.matchCondition((section) => section.is(MusicShelf))?.as(MusicShelf);
+
       return {
-        items: data?.contents || [],
-        continuation: data?.continuation || null
+        items: suggestions?.contents || [],
+        continuation: suggestions?.continuation || null
       };
     }
 
@@ -114,6 +126,14 @@ class Playlist {
       items: [],
       continuation: null
     };
+  }
+
+  get page(): IBrowseResponse {
+    return this.#page;
+  }
+
+  get has_continuation(): boolean {
+    return !!this.#continuation;
   }
 }
 

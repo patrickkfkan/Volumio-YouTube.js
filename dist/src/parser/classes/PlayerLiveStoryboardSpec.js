@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../helpers");
-class PlayerLiveStoryboardSpec extends helpers_1.YTNode {
+import { YTNode } from '../helpers.js';
+class PlayerLiveStoryboardSpec extends YTNode {
     constructor() {
         super();
         // TODO: A little bit different from PlayerLiveStoryboardSpec
@@ -9,5 +7,5 @@ class PlayerLiveStoryboardSpec extends helpers_1.YTNode {
     }
 }
 PlayerLiveStoryboardSpec.type = 'PlayerLiveStoryboardSpec';
-exports.default = PlayerLiveStoryboardSpec;
+export default PlayerLiveStoryboardSpec;
 //# sourceMappingURL=PlayerLiveStoryboardSpec.js.map

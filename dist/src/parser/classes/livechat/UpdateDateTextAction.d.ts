@@ -1,4 +1,4 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
 declare class UpdateDateTextAction extends YTNode {
     static type: string;
     date_text: string;

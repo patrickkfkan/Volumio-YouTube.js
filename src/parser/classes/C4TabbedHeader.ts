@@ -1,20 +1,28 @@
-import Parser from '../index';
-import Author from './misc/Author';
-import Thumbnail from './misc/Thumbnail';
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Parser from '../index.js';
+import Author from './misc/Author.js';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+
+import type Button from './Button.js';
+import type ChannelHeaderLinks from './ChannelHeaderLinks.js';
+import type SubscribeButton from './SubscribeButton.js';
+
+import { YTNode } from '../helpers.js';
 
 class C4TabbedHeader extends YTNode {
   static type = 'C4TabbedHeader';
 
-  author;
-  banner;
-  tv_banner;
-  mobile_banner;
-  subscribers;
-  sponsor_button;
-  subscribe_button;
-  header_links;
+  author: Author;
+  banner?: Thumbnail[];
+  tv_banner?: Thumbnail[];
+  mobile_banner?: Thumbnail[];
+  subscribers?: Text;
+  videos_count?: Text;
+  sponsor_button?: Button | null;
+  subscribe_button?: SubscribeButton | null;
+  header_links?: ChannelHeaderLinks | null;
+  channel_handle?: Text;
+  channel_id?: string;
 
   constructor(data: any) {
     super();
@@ -23,13 +31,45 @@ class C4TabbedHeader extends YTNode {
       navigationEndpoint: data.navigationEndpoint
     }, data.badges, data.avatar);
 
-    this.banner = data.banner ? Thumbnail.fromResponse(data.banner) : [];
-    this.tv_banner = data.tvBanner ? Thumbnail.fromResponse(data.tvBanner) : [];
-    this.mobile_banner = data.mobileBanner ? Thumbnail.fromResponse(data.mobileBanner) : [];
-    this.subscribers = new Text(data.subscriberCountText);
-    this.sponsor_button = data.sponsorButton ? Parser.parseItem(data.sponsorButton) : undefined;
-    this.subscribe_button = data.subscribeButton ? Parser.parseItem(data.subscribeButton) : undefined;
-    this.header_links = data.headerLinks ? Parser.parse(data.headerLinks) : undefined;
+    if (data.banner) {
+      this.banner = Thumbnail.fromResponse(data.banner);
+    }
+
+    if (data.tv_banner) {
+      this.tv_banner = Thumbnail.fromResponse(data.tvBanner);
+    }
+
+    if (data.mobile_banner) {
+      this.mobile_banner = Thumbnail.fromResponse(data.mobileBanner);
+    }
+
+    if (data.subscriberCountText) {
+      this.subscribers = new Text(data.subscriberCountText);
+    }
+
+    if (data.videosCountText) {
+      this.videos_count = new Text(data.videosCountText);
+    }
+
+    if (data.sponsorButton) {
+      this.sponsor_button = Parser.parseItem<Button>(data.sponsorButton);
+    }
+
+    if (data.subscribeButton) {
+      this.subscribe_button = Parser.parseItem<SubscribeButton>(data.subscribeButton);
+    }
+
+    if (data.headerLinks) {
+      this.header_links = Parser.parseItem<ChannelHeaderLinks>(data.headerLinks);
+    }
+
+    if (data.channelHandleText) {
+      this.channel_handle = new Text(data.channelHandleText);
+    }
+
+    if (data.channelId) {
+      this.channel_id = data.channelId;
+    }
   }
 }
 

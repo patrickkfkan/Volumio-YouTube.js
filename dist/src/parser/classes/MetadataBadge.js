@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../helpers");
-class MetadataBadge extends helpers_1.YTNode {
+import { YTNode } from '../helpers.js';
+class MetadataBadge extends YTNode {
     constructor(data) {
         super();
         if (data === null || data === void 0 ? void 0 : data.icon) {
@@ -10,9 +8,14 @@ class MetadataBadge extends helpers_1.YTNode {
         if (data === null || data === void 0 ? void 0 : data.style) {
             this.style = data.style;
         }
-        this.tooltip = (data === null || data === void 0 ? void 0 : data.tooltip) || (data === null || data === void 0 ? void 0 : data.iconTooltip) || null;
+        if (data === null || data === void 0 ? void 0 : data.label) {
+            this.label = data.label;
+        }
+        if ((data === null || data === void 0 ? void 0 : data.tooltip) || (data === null || data === void 0 ? void 0 : data.iconTooltip)) {
+            this.tooltip = data.tooltip || data.iconTooltip;
+        }
     }
 }
 MetadataBadge.type = 'MetadataBadge';
-exports.default = MetadataBadge;
+export default MetadataBadge;
 //# sourceMappingURL=MetadataBadge.js.map

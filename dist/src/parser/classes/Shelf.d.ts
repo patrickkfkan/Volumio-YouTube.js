@@ -1,13 +1,13 @@
-import Text from './misc/Text';
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 declare class Shelf extends YTNode {
     static type: string;
     title: Text;
-    endpoint: NavigationEndpoint | undefined;
-    content: import("../helpers").SuperParsedResult<YTNode>;
-    icon_type: any;
-    menu: import("../helpers").SuperParsedResult<YTNode> | undefined;
+    endpoint?: NavigationEndpoint;
+    content: YTNode | null;
+    icon_type?: string;
+    menu?: YTNode | null;
     constructor(data: any);
 }
 export default Shelf;

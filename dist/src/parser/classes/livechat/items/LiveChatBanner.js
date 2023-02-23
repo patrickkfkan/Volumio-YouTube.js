@@ -1,15 +1,10 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../../../index"));
-const helpers_1 = require("../../../helpers");
-class LiveChatBanner extends helpers_1.YTNode {
+import { YTNode } from '../../../helpers.js';
+import Parser from '../../../index.js';
+class LiveChatBanner extends YTNode {
     constructor(data) {
         super();
-        this.header = index_1.default.parse(data.header);
-        this.contents = index_1.default.parse(data.contents);
+        this.header = Parser.parseItem(data.header);
+        this.contents = Parser.parseItem(data.contents);
         this.action_id = data.actionId;
         this.viewer_is_creator = data.viewerIsCreator;
         this.target_id = data.targetId;
@@ -18,5 +13,5 @@ class LiveChatBanner extends helpers_1.YTNode {
     }
 }
 LiveChatBanner.type = 'LiveChatBanner';
-exports.default = LiveChatBanner;
+export default LiveChatBanner;
 //# sourceMappingURL=LiveChatBanner.js.map

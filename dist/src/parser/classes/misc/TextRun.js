@@ -1,14 +1,34 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const NavigationEndpoint_1 = __importDefault(require("../NavigationEndpoint"));
+import NavigationEndpoint from '../NavigationEndpoint.js';
+import { escape } from './Text.js';
 class TextRun {
     constructor(data) {
         this.text = data.text;
-        this.endpoint = data.navigationEndpoint ? new NavigationEndpoint_1.default(data.navigationEndpoint) : undefined;
+        this.bold = Boolean(data.bold);
+        this.italics = Boolean(data.italics);
+        this.strikethrough = Boolean(data.strikethrough);
+        this.endpoint = data.navigationEndpoint ? new NavigationEndpoint(data.navigationEndpoint) : undefined;
+    }
+    toString() {
+        return this.text;
+    }
+    toHTML() {
+        const tags = [];
+        if (this.bold)
+            tags.push('b');
+        if (this.italics)
+            tags.push('i');
+        if (this.strikethrough)
+            tags.push('s');
+        const escaped_text = escape(this.text);
+        const styled_text = tags.map((tag) => `<${tag}>`).join('') + escaped_text + tags.map((tag) => `</${tag}>`).join('');
+        const wrapped_text = `<span style="white-space: pre-wrap;">${styled_text}</span>`;
+        if (this.endpoint) {
+            const url = this.endpoint.toURL();
+            if (url)
+                return `<a href="${url}">${wrapped_text}</a>`;
+        }
+        return wrapped_text;
     }
 }
-exports.default = TextRun;
+export default TextRun;
 //# sourceMappingURL=TextRun.js.map

@@ -1,63 +1,58 @@
 
-import Session, { SessionOptions } from './core/Session';
+import Session, { SessionOptions } from './core/Session.js';
 
-import Search from './parser/youtube/Search';
-import Channel from './parser/youtube/Channel';
-import Playlist from './parser/youtube/Playlist';
-import Library from './parser/youtube/Library';
-import History from './parser/youtube/History';
-import Comments from './parser/youtube/Comments';
-import NotificationsMenu from './parser/youtube/NotificationsMenu';
-import VideoInfo, { DownloadOptions, FormatOptions } from './parser/youtube/VideoInfo';
-import NavigationEndpoint from './parser/classes/NavigationEndpoint';
+import NavigationEndpoint from './parser/classes/NavigationEndpoint.js';
+import Channel from './parser/youtube/Channel.js';
+import Comments from './parser/youtube/Comments.js';
+import History from './parser/youtube/History.js';
+import Library from './parser/youtube/Library.js';
+import NotificationsMenu from './parser/youtube/NotificationsMenu.js';
+import Playlist from './parser/youtube/Playlist.js';
+import Search from './parser/youtube/Search.js';
+import VideoInfo from './parser/youtube/VideoInfo.js';
+import HashtagFeed from './parser/youtube/HashtagFeed.js';
 
-import { ParsedResponse } from './parser';
-import { ActionsResponse } from './core/Actions';
+import AccountManager from './core/AccountManager.js';
+import Feed from './core/Feed.js';
+import InteractionManager from './core/InteractionManager.js';
+import YTKids from './core/Kids.js';
+import YTMusic from './core/Music.js';
+import PlaylistManager from './core/PlaylistManager.js';
+import YTStudio from './core/Studio.js';
+import TabbedFeed from './core/TabbedFeed.js';
+import HomeFeed from './parser/youtube/HomeFeed.js';
+import Proto from './proto/index.js';
+import Constants from './utils/Constants.js';
 
-import Feed from './core/Feed';
-import YTMusic from './core/Music';
-import Studio from './core/Studio';
-import AccountManager from './core/AccountManager';
-import PlaylistManager from './core/PlaylistManager';
-import InteractionManager from './core/InteractionManager';
-import FilterableFeed from './core/FilterableFeed';
-import TabbedFeed from './core/TabbedFeed';
-import Constants from './utils/Constants';
-import Proto from './proto/index';
+import type Actions from './core/Actions.js';
+import type Format from './parser/classes/misc/Format.js';
 
-import { throwIfMissing, generateRandomString } from './utils/Utils';
+import type { ApiResponse } from './core/Actions.js';
+import type { IBrowseResponse, IParsedResponse } from './parser/types/index.js';
+import type { DownloadOptions, FormatOptions } from './utils/FormatUtils.js';
+import { generateRandomString, throwIfMissing } from './utils/Utils.js';
 
-export type InnertubeConfig = SessionOptions
+export type InnertubeConfig = SessionOptions;
 
 export interface SearchFilters {
-  /**
-   * Filter videos by upload date, can be: any | last_hour | today | this_week | this_month | this_year
-   */
-  upload_date?: 'any' | 'last_hour' | 'today' | 'this_week' | 'this_month' | 'this_year';
-  /**
-   * Filter results by type, can be: any | video | channel | playlist | movie
-   */
-  type?: 'any' | 'video' | 'channel' | 'playlist' | 'movie';
-  /**
-   * Filter videos by duration, can be: any | short | medium | long
-   */
-  duration?: 'any' | 'short' | 'medium' | 'long';
-  /**
-   * Filter video results by order, can be: relevance | rating | upload_date | view_count
-   */
+  upload_date?: 'all' | 'hour' | 'today' | 'week' | 'month' | 'year';
+  type?: 'all' | 'video' | 'channel' | 'playlist' | 'movie';
+  duration?: 'all' | 'short' | 'medium' | 'long';
   sort_by?: 'relevance' | 'rating' | 'upload_date' | 'view_count';
+  features?: ('hd' | 'subtitles' | 'creative_commons' | '3d' | 'live' | 'purchased' | '4k' | '360' | 'location' | 'hdr' | 'vr180')[];
 }
 
-export type InnerTubeClient = 'ANDROID' | 'YTMUSIC_ANDROID' | 'WEB' | 'YTMUSIC';
+export type InnerTubeClient = 'WEB' | 'ANDROID' | 'YTMUSIC_ANDROID' | 'YTMUSIC' | 'YTSTUDIO_ANDROID' | 'TV_EMBEDDED' | 'YTKIDS'
 
 class Innertube {
-  session;
-  account;
-  playlist;
-  interact;
-  music;
-  studio;
-  actions;
+  session: Session;
+  account: AccountManager;
+  playlist: PlaylistManager;
+  interact: InteractionManager;
+  music: YTMusic;
+  studio: YTStudio;
+  kids: YTKids;
+  actions: Actions;
 
   constructor(session: Session) {
     this.session = session;
@@ -65,22 +60,27 @@ class Innertube {
     this.playlist = new PlaylistManager(this.session.actions);
     this.interact = new InteractionManager(this.session.actions);
     this.music = new YTMusic(this.session);
-    this.studio = new Studio(this.session);
+    this.studio = new YTStudio(this.session);
+    this.kids = new YTKids(this.session);
     this.actions = this.session.actions;
   }
 
-  static async create(config: InnertubeConfig = {}) {
+  static async create(config: InnertubeConfig = {}): Promise<Innertube> {
     return new Innertube(await Session.create(config));
   }
 
   /**
    * Retrieves video info.
+   * @param video_id - The video id.
+   * @param client - The client to use.
    */
-  async getInfo(video_id: string, client?: InnerTubeClient) {
+  async getInfo(video_id: string, client?: InnerTubeClient): Promise<VideoInfo> {
+    throwIfMissing({ video_id });
+
     const cpn = generateRandomString(16);
 
-    const initial_info = await this.actions.getVideoInfo(video_id, cpn, client);
-    const continuation = this.actions.next({ video_id });
+    const initial_info = this.actions.getVideoInfo(video_id, cpn, client);
+    const continuation = this.actions.execute('/next', { videoId: video_id });
 
     const response = await Promise.all([ initial_info, continuation ]);
     return new VideoInfo(response, this.actions, this.session.player, cpn);
@@ -88,8 +88,12 @@ class Innertube {
 
   /**
    * Retrieves basic video info.
+   * @param video_id - The video id.
+   * @param client - The client to use.
    */
-  async getBasicInfo(video_id: string, client?: InnerTubeClient) {
+  async getBasicInfo(video_id: string, client?: InnerTubeClient): Promise<VideoInfo> {
+    throwIfMissing({ video_id });
+
     const cpn = generateRandomString(16);
     const response = await this.actions.getVideoInfo(video_id, cpn, client);
 
@@ -98,18 +102,27 @@ class Innertube {
 
   /**
    * Searches a given query.
-   * @param query - search query.
-   * @param filters - search filters.
+   * @param query - The search query.
+   * @param filters - Search filters.
    */
-  async search(query: string, filters: SearchFilters = {}) {
+  async search(query: string, filters: SearchFilters = {}): Promise<Search> {
     throwIfMissing({ query });
-    const response = await this.actions.search({ query, filters });
-    return new Search(this.actions, response.data);
+
+    const args = {
+      query,
+      ...{
+        params: filters ? Proto.encodeSearchFilters(filters) : undefined
+      }
+    };
+
+    const response = await this.actions.execute('/search', args);
+
+    return new Search(this.actions, response);
   }
 
   /**
    * Retrieves search suggestions for a given query.
-   * @param query - the search query.
+   * @param query - The search query.
    */
   async getSearchSuggestions(query: string): Promise<string[]> {
     throwIfMissing({ query });
@@ -134,94 +147,116 @@ class Innertube {
 
   /**
    * Retrieves comments for a video.
-   * @param video_id - the video id.
-   * @param sort_by - can be: `TOP_COMMENTS` or `NEWEST_FIRST`.
+   * @param video_id - The video id.
+   * @param sort_by - Sorting options.
    */
-  async getComments(video_id: string, sort_by?: 'TOP_COMMENTS' | 'NEWEST_FIRST') {
+  async getComments(video_id: string, sort_by?: 'TOP_COMMENTS' | 'NEWEST_FIRST'): Promise<Comments> {
     throwIfMissing({ video_id });
 
     const payload = Proto.encodeCommentsSectionParams(video_id, {
       sort_by: sort_by || 'TOP_COMMENTS'
     });
 
-    const response = await this.actions.next({ ctoken: payload });
+    const response = await this.actions.execute('/next', { continuation: payload });
+
     return new Comments(this.actions, response.data);
   }
 
   /**
    * Retrieves YouTube's home feed (aka recommendations).
    */
-  async getHomeFeed() {
-    const response = await this.actions.browse('FEwhat_to_watch');
-    return new FilterableFeed(this.actions, response.data);
+  async getHomeFeed(): Promise<HomeFeed> {
+    const response = await this.actions.execute('/browse', { browseId: 'FEwhat_to_watch' });
+    return new HomeFeed(this.actions, response);
   }
 
   /**
    * Returns the account's library.
    */
-  async getLibrary() {
-    const response = await this.actions.browse('FElibrary');
-    return new Library(response.data, this.actions);
+  async getLibrary(): Promise<Library> {
+    const response = await this.actions.execute('/browse', { browseId: 'FElibrary' });
+    return new Library(this.actions, response);
   }
 
   /**
    * Retrieves watch history.
    * Which can also be achieved with {@link getLibrary}.
    */
-  async getHistory() {
-    const response = await this.actions.browse('FEhistory');
-    return new History(this.actions, response.data);
+  async getHistory(): Promise<History> {
+    const response = await this.actions.execute('/browse', { browseId: 'FEhistory' });
+    return new History(this.actions, response);
   }
 
   /**
    * Retrieves trending content.
    */
-  async getTrending() {
-    const response = await this.actions.browse('FEtrending');
-    return new TabbedFeed(this.actions, response.data);
+  async getTrending(): Promise<TabbedFeed<IBrowseResponse>> {
+    const response = await this.actions.execute('/browse', { browseId: 'FEtrending', parse: true });
+    return new TabbedFeed(this.actions, response);
   }
 
   /**
    * Retrieves subscriptions feed.
    */
-  async getSubscriptionsFeed() {
-    const response = await this.actions.browse('FEsubscriptions');
-    return new Feed(this.actions, response.data);
+  async getSubscriptionsFeed(): Promise<Feed<IBrowseResponse>> {
+    const response = await this.actions.execute('/browse', { browseId: 'FEsubscriptions', parse: true });
+    return new Feed(this.actions, response);
   }
 
   /**
    * Retrieves contents for a given channel.
-   * @param id - channel id
+   * @param id - Channel id
    */
-  async getChannel(id: string) {
+  async getChannel(id: string): Promise<Channel> {
     throwIfMissing({ id });
-    const response = await this.actions.browse(id);
-    return new Channel(this.actions, response.data);
+    const response = await this.actions.execute('/browse', { browseId: id });
+    return new Channel(this.actions, response);
   }
 
   /**
    * Retrieves notifications.
    */
-  async getNotifications() {
-    const response = await this.actions.notifications('get_notification_menu');
+  async getNotifications(): Promise<NotificationsMenu> {
+    const response = await this.actions.execute('/notification/get_notification_menu', { notificationsMenuRequestType: 'NOTIFICATIONS_MENU_REQUEST_TYPE_INBOX' });
     return new NotificationsMenu(this.actions, response);
   }
 
   /**
    * Retrieves unseen notifications count.
    */
-  async getUnseenNotificationsCount() {
-    const response = await this.actions.notifications('get_unseen_count');
-    return response.data.unseenCount;
+  async getUnseenNotificationsCount(): Promise<number> {
+    const response = await this.actions.execute('/notification/get_unseen_count');
+    // TODO: properly parse this
+    return response.data?.unseenCount || response.data?.actions?.[0].updateNotificationsUnseenCountAction?.unseenCount || 0;
   }
 
   /**
    * Retrieves playlist contents.
+   * @param id - Playlist id
    */
-  async getPlaylist(id: string) {
+  async getPlaylist(id: string): Promise<Playlist> {
     throwIfMissing({ id });
-    const response = await this.actions.browse(`VL${id.replace(/VL/g, '')}`);
-    return new Playlist(this.actions, response.data);
+
+    if (!id.startsWith('VL')) {
+      id = `VL${id}`;
+    }
+
+    const response = await this.actions.execute('/browse', { browseId: id });
+
+    return new Playlist(this.actions, response);
+  }
+
+  /**
+   * Retrieves a given hashtag's page.
+   * @param hashtag - The hashtag to fetch.
+   */
+  async getHashtag(hashtag: string): Promise<HashtagFeed> {
+    throwIfMissing({ hashtag });
+
+    const params = Proto.encodeHashtag(hashtag);
+    const response = await this.actions.execute('/browse', { browseId: 'FEhashtag', params });
+
+    return new HashtagFeed(this.actions, response);
   }
 
   /**
@@ -229,26 +264,43 @@ class Innertube {
    * Returns deciphered streaming data.
    *
    * If you wish to retrieve the video info too, have a look at {@link getBasicInfo} or {@link getInfo}.
+   * @param video_id - The video id.
+   * @param options - Format options.
    */
-  async getStreamingData(video_id: string, options: FormatOptions = {}) {
+  async getStreamingData(video_id: string, options: FormatOptions = {}): Promise<Format> {
     const info = await this.getBasicInfo(video_id);
     return info.chooseFormat(options);
   }
 
   /**
    * Downloads a given video. If you only need the direct download link see {@link getStreamingData}.
-   *
    * If you wish to retrieve the video info too, have a look at {@link getBasicInfo} or {@link getInfo}.
+   * @param video_id - The video id.
+   * @param options - Download options.
    */
-  async download(video_id: string, options?: DownloadOptions) {
+  async download(video_id: string, options?: DownloadOptions): Promise<ReadableStream<Uint8Array>> {
     const info = await this.getBasicInfo(video_id, options?.client);
     return info.download(options);
   }
 
-  call(endpoint: NavigationEndpoint, args: { [ key: string ]: any; parse: true }): Promise<ParsedResponse>;
-  call(endpoint: NavigationEndpoint, args?: { [ key: string ]: any; parse?: false }): Promise<ActionsResponse>;
-  call(endpoint: NavigationEndpoint, args?: object): Promise<ActionsResponse | ParsedResponse> {
-    return endpoint.callTest(this.actions, args);
+  /**
+   * Resolves the given URL.
+   * @param url - The URL.
+   */
+  async resolveURL(url: string): Promise<NavigationEndpoint> {
+    const response = await this.actions.execute('/navigation/resolve_url', { url, parse: true });
+    return response.endpoint;
+  }
+
+  /**
+   * Utility method to call an endpoint without having to use {@link Actions}.
+   * @param endpoint -The endpoint to call.
+   * @param args - Call arguments.
+   */
+  call<T extends IParsedResponse>(endpoint: NavigationEndpoint, args: { [key: string]: any; parse: true }): Promise<T>;
+  call(endpoint: NavigationEndpoint, args?: { [key: string]: any; parse?: false }): Promise<ApiResponse>;
+  call(endpoint: NavigationEndpoint, args?: object): Promise<IParsedResponse | ApiResponse> {
+    return endpoint.call(this.actions, args);
   }
 }
 

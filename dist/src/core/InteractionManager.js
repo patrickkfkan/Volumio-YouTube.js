@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -20,8 +19,8 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _InteractionManager_actions;
-Object.defineProperty(exports, "__esModule", { value: true });
-const Utils_1 = require("../utils/Utils");
+import Proto from '../proto/index.js';
+import { throwIfMissing } from '../utils/Utils.js';
 class InteractionManager {
     constructor(actions) {
         _InteractionManager_actions.set(this, void 0);
@@ -29,61 +28,107 @@ class InteractionManager {
     }
     /**
      * Likes a given video.
+     * @param video_id - The video ID
      */
     like(video_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ video_id });
-            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").engage('like/like', { video_id });
+            throwIfMissing({ video_id });
+            if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+                throw new Error('You must be signed in to perform this operation.');
+            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute('/like/like', {
+                client: 'ANDROID',
+                target: {
+                    videoId: video_id
+                }
+            });
             return action;
         });
     }
     /**
      * Dislikes a given video.
+     * @param video_id - The video ID
      */
     dislike(video_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ video_id });
-            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").engage('like/dislike', { video_id });
+            throwIfMissing({ video_id });
+            if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+                throw new Error('You must be signed in to perform this operation.');
+            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute('/like/dislike', {
+                client: 'ANDROID',
+                target: {
+                    videoId: video_id
+                }
+            });
             return action;
         });
     }
     /**
      * Removes a like/dislike.
+     * @param video_id - The video ID
      */
-    removeLike(video_id) {
+    removeRating(video_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ video_id });
-            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").engage('like/removelike', { video_id });
+            throwIfMissing({ video_id });
+            if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+                throw new Error('You must be signed in to perform this operation.');
+            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute('/like/removelike', {
+                client: 'ANDROID',
+                target: {
+                    videoId: video_id
+                }
+            });
             return action;
         });
     }
     /**
      * Subscribes to a given channel.
+     * @param channel_id - The channel ID
      */
     subscribe(channel_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ channel_id });
-            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").engage('subscription/subscribe', { channel_id });
+            throwIfMissing({ channel_id });
+            if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+                throw new Error('You must be signed in to perform this operation.');
+            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute('/subscription/subscribe', {
+                client: 'ANDROID',
+                channelIds: [channel_id],
+                params: 'EgIIAhgA'
+            });
             return action;
         });
     }
     /**
      * Unsubscribes from a given channel.
+     * @param channel_id - The channel ID
      */
     unsubscribe(channel_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ channel_id });
-            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").engage('subscription/unsubscribe', { channel_id });
+            throwIfMissing({ channel_id });
+            if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+                throw new Error('You must be signed in to perform this operation.');
+            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute('/subscription/unsubscribe', {
+                client: 'ANDROID',
+                channelIds: [channel_id],
+                params: 'CgIIAhgA'
+            });
             return action;
         });
     }
     /**
      * Posts a comment on a given video.
+     * @param video_id - The video ID
+     * @param text - The comment text
      */
     comment(video_id, text) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ video_id, text });
-            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").engage('comment/create_comment', { video_id, text });
+            throwIfMissing({ video_id, text });
+            if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+                throw new Error('You must be signed in to perform this operation.');
+            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute('/comment/create_comment', {
+                client: 'ANDROID',
+                commentText: text,
+                createCommentParams: Proto.encodeCommentParams(video_id)
+            });
             return action;
         });
     }
@@ -95,13 +140,11 @@ class InteractionManager {
      */
     translate(text, target_language, args = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ text, target_language });
-            const response = yield yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").engage('comment/perform_comment_action', {
-                video_id: args.video_id,
-                comment_id: args.comment_id,
-                target_language: target_language,
-                comment_action: 'translate',
-                text
+            throwIfMissing({ text, target_language });
+            const target_action = Proto.encodeCommentActionParams(22, Object.assign({ text, target_language }, args));
+            const response = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute('/comment/perform_comment_action', {
+                client: 'ANDROID',
+                actions: [target_action]
             });
             const mutation = response.data.frameworkUpdates.entityBatchUpdate.mutations[0].payload.commentEntityPayload;
             return {
@@ -115,15 +158,29 @@ class InteractionManager {
     /**
      * Changes notification preferences for a given channel.
      * Only works with channels you are subscribed to.
+     * @param channel_id - The channel ID.
+     * @param type - The notification type.
      */
     setNotificationPreferences(channel_id, type) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ channel_id, type });
-            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").notifications('modify_channel_preference', { channel_id, pref: type || 'NONE' });
+            throwIfMissing({ channel_id, type });
+            if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+                throw new Error('You must be signed in to perform this operation.');
+            const pref_types = {
+                PERSONALIZED: 1,
+                ALL: 2,
+                NONE: 3
+            };
+            if (!Object.keys(pref_types).includes(type.toUpperCase()))
+                throw new Error(`Invalid notification preference type: ${type}`);
+            const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute('/notification/modify_channel_preference', {
+                client: 'WEB',
+                params: Proto.encodeNotificationPref(channel_id, pref_types[type.toUpperCase()])
+            });
             return action;
         });
     }
 }
 _InteractionManager_actions = new WeakMap();
-exports.default = InteractionManager;
+export default InteractionManager;
 //# sourceMappingURL=InteractionManager.js.map

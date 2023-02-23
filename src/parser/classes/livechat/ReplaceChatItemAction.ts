@@ -1,5 +1,5 @@
-import Parser from '../../index';
-import { YTNode } from '../../helpers';
+import Parser from '../../index.js';
+import { YTNode } from '../../helpers.js';
 
 class ReplaceChatItemAction extends YTNode {
   static type = 'ReplaceChatItemAction';
@@ -10,7 +10,7 @@ class ReplaceChatItemAction extends YTNode {
   constructor(data: any) {
     super();
     this.target_item_id = data.targetItemId;
-    this.replacement_item = Parser.parse(data.replacementItem);
+    this.replacement_item = Parser.parseItem(data.replacementItem);
   }
 }
 

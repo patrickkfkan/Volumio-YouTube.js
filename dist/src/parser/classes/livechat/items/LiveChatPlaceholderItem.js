@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../../../helpers");
-class LiveChatPlaceholderItem extends helpers_1.YTNode {
+import { YTNode } from '../../../helpers.js';
+class LiveChatPlaceholderItem extends YTNode {
     constructor(data) {
         super();
         this.id = data.id;
@@ -9,5 +7,5 @@ class LiveChatPlaceholderItem extends helpers_1.YTNode {
     }
 }
 LiveChatPlaceholderItem.type = 'LiveChatPlaceholderItem';
-exports.default = LiveChatPlaceholderItem;
+export default LiveChatPlaceholderItem;
 //# sourceMappingURL=LiveChatPlaceholderItem.js.map

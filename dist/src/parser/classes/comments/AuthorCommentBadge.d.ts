@@ -1,4 +1,4 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
 declare class AuthorCommentBadge extends YTNode {
     #private;
     static type: string;

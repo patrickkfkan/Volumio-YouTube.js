@@ -1,9 +1,9 @@
-import Text from './misc/Text';
-import TextRun from './misc/TextRun';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import Parser from '../index';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import TextRun from './misc/TextRun.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
 
 class MusicDetailHeader extends YTNode {
   static type = 'MusicDetailHeader';
@@ -36,12 +36,12 @@ class MusicDetailHeader extends YTNode {
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail.croppedSquareThumbnailRenderer.thumbnail);
     this.badges = Parser.parse(data.subtitleBadges);
 
-    const author = this.subtitle.runs?.find((run) => (run as TextRun)?.endpoint?.browse?.id.startsWith('UC'));
+    const author = this.subtitle.runs?.find((run) => (run as TextRun)?.endpoint?.payload?.browseId.startsWith('UC'));
 
     if (author) {
       this.author = {
         name: (author as TextRun).text,
-        channel_id: (author as TextRun).endpoint?.browse?.id,
+        channel_id: (author as TextRun).endpoint?.payload?.browseId,
         endpoint: (author as TextRun).endpoint
       };
     }

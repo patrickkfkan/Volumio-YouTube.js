@@ -1,10 +1,11 @@
-import Thumbnail from '../misc/Thumbnail';
-import Text from '../misc/Text';
-import { YTNode } from '../../helpers';
+import Thumbnail from '../misc/Thumbnail.js';
+import Text from '../misc/Text.js';
+import type Button from '../Button.js';
+import { YTNode } from '../../helpers.js';
 declare class CommentSimplebox extends YTNode {
     static type: string;
-    submit_button: import("../../helpers").SuperParsedResult<YTNode>;
-    cancel_button: import("../../helpers").SuperParsedResult<YTNode>;
+    submit_button: Button | null;
+    cancel_button: Button | null;
     author_thumbnails: Thumbnail[];
     placeholder: Text;
     avatar_size: any;

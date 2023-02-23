@@ -1,5 +1,5 @@
-import Parser from '../../index';
-import { YTNode } from '../../helpers';
+import Parser from '../../index.js';
+import { YTNode } from '../../helpers.js';
 
 class ShowLiveChatTooltipCommand extends YTNode {
   static type = 'ShowLiveChatTooltipCommand';
@@ -8,7 +8,7 @@ class ShowLiveChatTooltipCommand extends YTNode {
 
   constructor(data: any) {
     super();
-    this.tooltip = Parser.parse(data.tooltip);
+    this.tooltip = Parser.parseItem(data.tooltip);
   }
 }
 

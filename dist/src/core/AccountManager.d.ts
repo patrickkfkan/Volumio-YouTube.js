@@ -1,31 +1,14 @@
-import Actions from './Actions';
-import Analytics from '../parser/youtube/Analytics';
-import TimeWatched from '../parser/youtube/TimeWatched';
-import AccountInfo from '../parser/youtube/AccountInfo';
-import Settings from '../parser/youtube/Settings';
+import type Actions from './Actions.js';
+import type { ApiResponse } from './Actions.js';
+import Analytics from '../parser/youtube/Analytics.js';
+import TimeWatched from '../parser/youtube/TimeWatched.js';
+import AccountInfo from '../parser/youtube/AccountInfo.js';
+import Settings from '../parser/youtube/Settings.js';
 declare class AccountManager {
     #private;
     channel: {
-        /**
-         * Edits channel name.
-         */
-        editName: (new_name: string) => Promise<{
-            success: boolean;
-            status_code: number;
-            data: any;
-        }>;
-        /**
-         * Edits channel description.
-         *
-         */
-        editDescription: (new_description: string) => Promise<{
-            success: boolean;
-            status_code: number;
-            data: any;
-        }>;
-        /**
-         * Retrieves basic channel analytics.
-         */
+        editName: (new_name: string) => Promise<ApiResponse>;
+        editDescription: (new_description: string) => Promise<ApiResponse>;
         getBasicAnalytics: () => Promise<Analytics>;
     };
     constructor(actions: Actions);

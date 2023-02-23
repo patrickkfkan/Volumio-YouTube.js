@@ -1,49 +1,52 @@
-import Parser, { ParsedResponse } from '../index';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
+import Parser from '../index.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
 
-import Playlist from './Playlist';
-import MusicHeader from '../classes/MusicHeader';
-import MusicCarouselShelf from '../classes/MusicCarouselShelf';
-import MusicElementHeader from '../classes/MusicElementHeader';
-import HighlightsCarousel from '../classes/HighlightsCarousel';
-import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults';
+import HighlightsCarousel from '../classes/HighlightsCarousel.js';
+import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
+import MusicElementHeader from '../classes/MusicElementHeader.js';
+import MusicHeader from '../classes/MusicHeader.js';
+import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults.js';
+import Playlist from './Playlist.js';
 
-import Tab from '../classes/Tab';
-import ItemSection from '../classes/ItemSection';
-import SectionList from '../classes/SectionList';
-import Message from '../classes/Message';
+import ItemSection from '../classes/ItemSection.js';
+import Message from '../classes/Message.js';
+import SectionList from '../classes/SectionList.js';
+import Tab from '../classes/Tab.js';
 
-import { InnertubeError } from '../../utils/Utils';
+import { InnertubeError } from '../../utils/Utils.js';
+import type { ObservedArray } from '../helpers.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 
 class Recap {
-  #page;
-  #actions;
+  #page: IBrowseResponse;
+  #actions: Actions;
 
-  header;
-  sections;
+  header?: HighlightsCarousel | MusicHeader;
+  sections?: ObservedArray<ItemSection | MusicCarouselShelf | Message>;
 
-  constructor(response: AxioslikeResponse, actions: Actions) {
-    this.#page = Parser.parseResponse(response.data);
+  constructor(response: ApiResponse, actions: Actions) {
+    this.#page = Parser.parseResponse<IBrowseResponse>(response.data);
     this.#actions = actions;
 
-    const header = this.#page.header.item();
+    const header = this.#page.header?.item();
 
-    this.header = header.is(MusicElementHeader) ?
-      this.#page.header.item().as(MusicElementHeader).element?.model?.item().as(HighlightsCarousel) :
-      this.#page.header.item().as(MusicHeader);
+    this.header = header?.is(MusicElementHeader) ?
+      this.#page.header?.item().as(MusicElementHeader).element?.model?.item().as(HighlightsCarousel) :
+      this.#page.header?.item().as(MusicHeader);
 
-    const tab = this.#page.contents.item().as(SingleColumnBrowseResults).tabs.firstOfType(Tab);
+    const tab = this.#page.contents?.item().as(SingleColumnBrowseResults).tabs.firstOfType(Tab);
 
     if (!tab)
       throw new InnertubeError('Target tab not found');
 
-    this.sections = tab.content?.as(SectionList).contents.array().as(ItemSection, MusicCarouselShelf, Message);
+    this.sections = tab.content?.as(SectionList).contents.as(ItemSection, MusicCarouselShelf, Message);
   }
 
   /**
    * Retrieves recap playlist.
    */
-  async getPlaylist() {
+  async getPlaylist(): Promise<Playlist> {
     if (!this.header)
       throw new InnertubeError('Header not found');
 
@@ -51,12 +54,12 @@ class Recap {
       throw new InnertubeError('Recap playlist not available, check back later.');
 
     const endpoint = this.header.panels[0].text_on_tap_endpoint;
-    const response = await endpoint.callTest(this.#actions, { client: 'YTMUSIC' });
+    const response = await endpoint.call(this.#actions, { client: 'YTMUSIC' });
 
     return new Playlist(response, this.#actions);
   }
 
-  get page(): ParsedResponse {
+  get page(): IBrowseResponse {
     return this.#page;
   }
 }

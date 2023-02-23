@@ -1,5 +1,5 @@
-import MusicPlayButton from './MusicPlayButton';
-import { YTNode } from '../helpers';
+import MusicPlayButton from './MusicPlayButton.js';
+import { YTNode } from '../helpers.js';
 declare class MusicItemThumbnailOverlay extends YTNode {
     static type: string;
     content: MusicPlayButton | null;

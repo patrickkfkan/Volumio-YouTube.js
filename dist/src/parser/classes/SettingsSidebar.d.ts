@@ -1,6 +1,6 @@
-import Text from './misc/Text';
-import CompactLink from './CompactLink';
-import { ObservedArray, YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import CompactLink from './CompactLink.js';
+import { ObservedArray, YTNode } from '../helpers.js';
 declare class SettingsSidebar extends YTNode {
     static type: string;
     title: Text;

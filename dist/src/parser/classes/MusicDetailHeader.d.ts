@@ -1,7 +1,7 @@
-import Text from './misc/Text';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 declare class MusicDetailHeader extends YTNode {
     static type: string;
     title: Text;
@@ -12,13 +12,13 @@ declare class MusicDetailHeader extends YTNode {
     song_count: string;
     total_duration: string;
     thumbnails: Thumbnail[];
-    badges: import("../helpers").SuperParsedResult<YTNode>;
+    badges: import("../helpers.js").SuperParsedResult<YTNode>;
     author?: {
         name: string;
         channel_id: string | undefined;
         endpoint: NavigationEndpoint | undefined;
     };
-    menu: import("../helpers").SuperParsedResult<YTNode>;
+    menu: import("../helpers.js").SuperParsedResult<YTNode>;
     constructor(data: any);
 }
 export default MusicDetailHeader;

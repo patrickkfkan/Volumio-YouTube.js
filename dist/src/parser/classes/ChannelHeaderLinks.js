@@ -1,20 +1,15 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const helpers_1 = require("../helpers");
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import { YTNode } from '../helpers.js';
 class HeaderLink {
     constructor(data) {
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
-        this.icon = Thumbnail_1.default.fromResponse(data.icon);
-        this.title = new Text_1.default(data.title);
+        this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        this.icon = Thumbnail.fromResponse(data.icon);
+        this.title = new Text(data.title);
     }
 }
-class ChannelHeaderLinks extends helpers_1.YTNode {
+class ChannelHeaderLinks extends YTNode {
     constructor(data) {
         var _a, _b;
         super();
@@ -23,5 +18,5 @@ class ChannelHeaderLinks extends helpers_1.YTNode {
     }
 }
 ChannelHeaderLinks.type = 'ChannelHeaderLinks';
-exports.default = ChannelHeaderLinks;
+export default ChannelHeaderLinks;
 //# sourceMappingURL=ChannelHeaderLinks.js.map

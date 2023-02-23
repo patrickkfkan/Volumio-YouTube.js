@@ -1,23 +1,18 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class VideoInfoCardContent extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class VideoInfoCardContent extends YTNode {
     constructor(data) {
         super();
-        this.title = new Text_1.default(data.videoTitle);
-        this.channel_name = new Text_1.default(data.channelName);
-        this.view_count = new Text_1.default(data.viewCountText);
-        this.video_thumbnails = Thumbnail_1.default.fromResponse(data.videoThumbnail);
-        this.duration = new Text_1.default(data.lengthString);
-        this.endpoint = new NavigationEndpoint_1.default(data.action);
+        this.title = new Text(data.videoTitle);
+        this.channel_name = new Text(data.channelName);
+        this.view_count = new Text(data.viewCountText);
+        this.video_thumbnails = Thumbnail.fromResponse(data.videoThumbnail);
+        this.duration = new Text(data.lengthString);
+        this.endpoint = new NavigationEndpoint(data.action);
     }
 }
 VideoInfoCardContent.type = 'VideoInfoCardContent';
-exports.default = VideoInfoCardContent;
+export default VideoInfoCardContent;
 //# sourceMappingURL=VideoInfoCardContent.js.map

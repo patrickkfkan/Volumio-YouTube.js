@@ -1,16 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const helpers_1 = require("../helpers");
-class BrowseFeedActions extends helpers_1.YTNode {
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+class BrowseFeedActions extends YTNode {
     constructor(data) {
         super();
-        this.contents = index_1.default.parseArray(data.contents);
+        this.contents = Parser.parseArray(data.contents);
     }
 }
 BrowseFeedActions.type = 'BrowseFeedActions';
-exports.default = BrowseFeedActions;
+export default BrowseFeedActions;
 //# sourceMappingURL=BrowseFeedActions.js.map

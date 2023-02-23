@@ -1,45 +1,56 @@
-import Actions from '../../core/Actions';
-import Feed from '../../core/Feed';
+import Feed from '../../core/Feed.js';
+import Message from '../classes/Message.js';
+import Thumbnail from '../classes/misc/Thumbnail.js';
+import NavigationEndpoint from '../classes/NavigationEndpoint.js';
+import PlaylistCustomThumbnail from '../classes/PlaylistCustomThumbnail.js';
+import PlaylistHeader from '../classes/PlaylistHeader.js';
+import PlaylistMetadata from '../classes/PlaylistMetadata.js';
+import PlaylistSidebarPrimaryInfo from '../classes/PlaylistSidebarPrimaryInfo.js';
+import PlaylistSidebarSecondaryInfo from '../classes/PlaylistSidebarSecondaryInfo.js';
+import PlaylistVideoThumbnail from '../classes/PlaylistVideoThumbnail.js';
+import VideoOwner from '../classes/VideoOwner.js';
 
-import Thumbnail from '../classes/misc/Thumbnail';
-import VideoOwner from '../classes/VideoOwner';
+import { InnertubeError } from '../../utils/Utils.js';
+import { ObservedArray } from '../helpers.js';
 
-import PlaylistSidebar from '../classes/PlaylistSidebar';
-import PlaylistMetadata from '../classes/PlaylistMetadata';
-import PlaylistSidebarPrimaryInfo from '../classes/PlaylistSidebarPrimaryInfo';
-import PlaylistSidebarSecondaryInfo from '../classes/PlaylistSidebarSecondaryInfo';
-import PlaylistVideoThumbnail from '../classes/PlaylistVideoThumbnail';
-import PlaylistHeader from '../classes/PlaylistHeader';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 
-class Playlist extends Feed {
+class Playlist extends Feed<IBrowseResponse> {
   info;
   menu;
-  endpoint;
+  endpoint?: NavigationEndpoint;
+  messages: ObservedArray<Message>;
 
-  constructor(actions: Actions, data: any, already_parsed = false) {
+  constructor(actions: Actions, data: ApiResponse | IBrowseResponse, already_parsed = false) {
     super(actions, data, already_parsed);
 
-    const header = this.page.header.item().as(PlaylistHeader);
-    const primary_info = this.page.sidebar?.as(PlaylistSidebar).contents.array().firstOfType(PlaylistSidebarPrimaryInfo);
-    const secondary_info = this.page.sidebar?.as(PlaylistSidebar).contents.array().firstOfType(PlaylistSidebarSecondaryInfo);
+    const header = this.memo.getType(PlaylistHeader).first();
+    const primary_info = this.memo.getType(PlaylistSidebarPrimaryInfo).first();
+    const secondary_info = this.memo.getType(PlaylistSidebarSecondaryInfo).first();
+
+    if (!primary_info && !secondary_info)
+      throw new InnertubeError('This playlist does not exist');
 
     this.info = {
-      ...this.page.metadata.item().as(PlaylistMetadata),
+      ...this.page.metadata?.item().as(PlaylistMetadata),
       ...{
-        author: secondary_info?.owner.item().as(VideoOwner).author,
-        thumbnails: primary_info?.thumbnail_renderer.item().as(PlaylistVideoThumbnail).thumbnail as Thumbnail[],
+        author: secondary_info?.owner.item().as(VideoOwner).author ?? header?.author,
+        thumbnails: primary_info?.thumbnail_renderer.item().as(PlaylistVideoThumbnail, PlaylistCustomThumbnail).thumbnail as Thumbnail[],
         total_items: this.#getStat(0, primary_info),
         views: this.#getStat(1, primary_info),
         last_updated: this.#getStat(2, primary_info),
-        can_share: header.can_share,
-        can_delete: header.can_delete,
-        is_editable: header.is_editable,
-        privacy: header.privacy
+        can_share: header?.can_share,
+        can_delete: header?.can_delete,
+        is_editable: header?.is_editable,
+        privacy: header?.privacy
       }
     };
 
     this.menu = primary_info?.menu;
     this.endpoint = primary_info?.endpoint;
+    this.messages = this.memo.getType(Message);
   }
 
   #getStat(index: number, primary_info?: PlaylistSidebarPrimaryInfo): string {
@@ -49,6 +60,13 @@ class Playlist extends Feed {
 
   get items() {
     return this.videos;
+  }
+
+  async getContinuation(): Promise<Playlist> {
+    const page = await this.getContinuationData();
+    if (!page)
+      throw new InnertubeError('Could not get continuation data');
+    return new Playlist(this.actions, page, true);
   }
 }
 

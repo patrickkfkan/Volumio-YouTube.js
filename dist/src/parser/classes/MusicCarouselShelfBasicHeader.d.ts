@@ -1,8 +1,8 @@
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
-import MusicThumbnail from './MusicThumbnail';
-import Button from './Button';
-import IconLink from './IconLink';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+import MusicThumbnail from './MusicThumbnail.js';
+import Button from './Button.js';
+import IconLink from './IconLink.js';
 declare class MusicCarouselShelfBasicHeader extends YTNode {
     static type: string;
     strapline?: Text;

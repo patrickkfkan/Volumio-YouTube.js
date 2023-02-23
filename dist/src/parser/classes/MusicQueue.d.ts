@@ -1,5 +1,5 @@
-import PlaylistPanel from './PlaylistPanel';
-import { YTNode } from '../helpers';
+import PlaylistPanel from './PlaylistPanel.js';
+import { YTNode } from '../helpers.js';
 declare class MusicQueue extends YTNode {
     static type: string;
     content: PlaylistPanel | null;

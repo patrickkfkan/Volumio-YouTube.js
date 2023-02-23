@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 class ActionButton {
     constructor(data) {
         this.icon_name = data.iconName;
-        this.endpoint = new NavigationEndpoint_1.default(data.onTap);
+        this.endpoint = new NavigationEndpoint(data.onTap);
         this.a11y_text = data.a11yText;
         this.style = data.style;
     }
@@ -25,7 +20,7 @@ class Panel {
     }
 }
 Panel.type = 'Panel';
-class MusicLargeCardItemCarousel extends helpers_1.YTNode {
+class MusicLargeCardItemCarousel extends YTNode {
     constructor(data) {
         super();
         // TODO: check this
@@ -34,5 +29,5 @@ class MusicLargeCardItemCarousel extends helpers_1.YTNode {
     }
 }
 MusicLargeCardItemCarousel.type = 'MusicLargeCardItemCarousel';
-exports.default = MusicLargeCardItemCarousel;
+export default MusicLargeCardItemCarousel;
 //# sourceMappingURL=MusicLargeCardItemCarousel.js.map

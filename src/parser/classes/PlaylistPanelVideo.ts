@@ -1,11 +1,11 @@
-import Parser from '../index';
-import Text from './misc/Text';
-import TextRun from './misc/TextRun';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import { timeToSeconds } from '../../utils/Utils';
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import TextRun from './misc/TextRun.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { timeToSeconds } from '../../utils/Utils.js';
 
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 
 class PlaylistPanelVideo extends YTNode {
   static type = 'PlaylistPanelVideo';
@@ -54,14 +54,14 @@ class PlaylistPanelVideo extends YTNode {
       seconds: timeToSeconds(new Text(data.lengthText).toString())
     };
 
-    const album = new Text(data.longBylineText).runs?.find((run: any) => run.endpoint?.browse?.id.startsWith('MPR'));
-    const artists = new Text(data.longBylineText).runs?.filter((run: any) => run.endpoint?.browse?.id.startsWith('UC'));
+    const album = new Text(data.longBylineText).runs?.find((run: any) => run.endpoint?.payload?.browseId?.startsWith('MPR'));
+    const artists = new Text(data.longBylineText).runs?.filter((run: any) => run.endpoint?.payload?.browseId?.startsWith('UC'));
 
     this.author = new Text(data.shortBylineText).toString();
 
     if (album) {
       this.album = {
-        id: (album as TextRun).endpoint?.browse?.id,
+        id: (album as TextRun).endpoint?.payload?.browseId,
         name: (album as TextRun).text,
         year: new Text(data.longBylineText).runs?.slice(-1)[0].text,
         endpoint: (album as TextRun).endpoint
@@ -71,13 +71,13 @@ class PlaylistPanelVideo extends YTNode {
     if (artists) {
       this.artists = artists.map((artist) => ({
         name: (artist as TextRun).text,
-        channel_id: (artist as TextRun).endpoint?.browse?.id,
+        channel_id: (artist as TextRun).endpoint?.payload?.browseId,
         endpoint: (artist as TextRun).endpoint
       }));
     }
 
-    this.badges = Parser.parse(data.badges);
-    this.menu = Parser.parse(data.menu);
+    this.badges = Parser.parseArray(data.badges);
+    this.menu = Parser.parseItem(data.menu);
     this.set_video_id = data.playlistSetVideoId;
   }
 }

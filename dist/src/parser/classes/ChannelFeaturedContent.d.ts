@@ -1,9 +1,9 @@
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 declare class ChannelFeaturedContent extends YTNode {
     static type: string;
     title: Text;
-    items: import("../helpers").SuperParsedResult<YTNode>;
+    items: import("../helpers.js").SuperParsedResult<YTNode>;
     constructor(data: any);
 }
 export default ChannelFeaturedContent;

@@ -1,23 +1,18 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class EndScreenPlaylist extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class EndScreenPlaylist extends YTNode {
     constructor(data) {
         super();
         this.id = data.playlistId;
-        this.title = new Text_1.default(data.title);
-        this.author = new Text_1.default(data.longBylineText);
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
-        this.thumbnails = Thumbnail_1.default.fromResponse(data.thumbnail);
-        this.video_count = new Text_1.default(data.videoCountText);
+        this.title = new Text(data.title);
+        this.author = new Text(data.longBylineText);
+        this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+        this.video_count = new Text(data.videoCountText);
     }
 }
 EndScreenPlaylist.type = 'EndScreenPlaylist';
-exports.default = EndScreenPlaylist;
+export default EndScreenPlaylist;
 //# sourceMappingURL=EndScreenPlaylist.js.map

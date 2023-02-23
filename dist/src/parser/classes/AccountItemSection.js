@@ -1,33 +1,28 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const __1 = __importDefault(require(".."));
-const Text_1 = __importDefault(require("./misc/Text"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const AccountItemSectionHeader_1 = __importDefault(require("./AccountItemSectionHeader"));
-const helpers_1 = require("../helpers");
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import AccountItemSectionHeader from './AccountItemSectionHeader.js';
+import { YTNode } from '../helpers.js';
 class AccountItem {
     constructor(data) {
-        this.account_name = new Text_1.default(data.accountName);
-        this.account_photo = Thumbnail_1.default.fromResponse(data.accountPhoto);
+        this.account_name = new Text(data.accountName);
+        this.account_photo = Thumbnail.fromResponse(data.accountPhoto);
         this.is_selected = data.isSelected;
         this.is_disabled = data.isDisabled;
         this.has_channel = data.hasChannel;
-        this.endpoint = new NavigationEndpoint_1.default(data.serviceEndpoint);
-        this.account_byline = new Text_1.default(data.accountByline);
+        this.endpoint = new NavigationEndpoint(data.serviceEndpoint);
+        this.account_byline = new Text(data.accountByline);
     }
 }
 AccountItem.type = 'AccountItem';
-class AccountItemSection extends helpers_1.YTNode {
+class AccountItemSection extends YTNode {
     constructor(data) {
         super();
         this.contents = data.contents.map((ac) => new AccountItem(ac.accountItem));
-        this.header = __1.default.parseItem(data.header, AccountItemSectionHeader_1.default);
+        this.header = Parser.parseItem(data.header, AccountItemSectionHeader);
     }
 }
 AccountItemSection.type = 'AccountItemSection';
-exports.default = AccountItemSection;
+export default AccountItemSection;
 //# sourceMappingURL=AccountItemSection.js.map

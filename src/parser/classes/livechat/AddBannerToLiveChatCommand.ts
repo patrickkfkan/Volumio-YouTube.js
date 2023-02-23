@@ -1,14 +1,15 @@
-import Parser from '../../index';
-import { YTNode } from '../../helpers';
+import Parser from '../../index.js';
+import { YTNode } from '../../helpers.js';
+import type LiveChatBanner from './items/LiveChatBanner.js';
 
 class AddBannerToLiveChatCommand extends YTNode {
   static type = 'AddBannerToLiveChatCommand';
 
-  banner;
+  banner: LiveChatBanner | null;
 
   constructor(data: any) {
     super();
-    this.banner = Parser.parse(data.bannerRenderer);
+    this.banner = Parser.parseItem<LiveChatBanner>(data.bannerRenderer);
   }
 }
 

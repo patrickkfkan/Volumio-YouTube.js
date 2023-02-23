@@ -1,14 +1,9 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Button_1 = __importDefault(require("../Button"));
-class MenuNavigationItem extends Button_1.default {
+import Button from '../Button.js';
+class MenuNavigationItem extends Button {
     constructor(data) {
         super(data);
     }
 }
 MenuNavigationItem.type = 'MenuNavigationItem';
-exports.default = MenuNavigationItem;
+export default MenuNavigationItem;
 //# sourceMappingURL=MenuNavigationItem.js.map

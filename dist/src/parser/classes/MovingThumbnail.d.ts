@@ -1,4 +1,4 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class MovingThumbnail extends YTNode {
     static type: string;
     constructor(data: any);

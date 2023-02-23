@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../../helpers");
-class AnalyticsRoot extends helpers_1.YTNode {
+import { YTNode } from '../../helpers.js';
+class AnalyticsRoot extends YTNode {
     constructor(data) {
         super();
         const cards = data.analyticsTableCarouselData.data.tableCards;
@@ -22,5 +20,5 @@ class AnalyticsRoot extends helpers_1.YTNode {
     }
 }
 AnalyticsRoot.type = 'AnalyticsRoot';
-exports.default = AnalyticsRoot;
+export default AnalyticsRoot;
 //# sourceMappingURL=AnalyticsRoot.js.map

@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../helpers");
-class PlaylistMetadata extends helpers_1.YTNode {
+import { YTNode } from '../helpers.js';
+class PlaylistMetadata extends YTNode {
     constructor(data) {
         super();
         this.title = data.title;
@@ -10,5 +8,5 @@ class PlaylistMetadata extends helpers_1.YTNode {
     }
 }
 PlaylistMetadata.type = 'PlaylistMetadata';
-exports.default = PlaylistMetadata;
+export default PlaylistMetadata;
 //# sourceMappingURL=PlaylistMetadata.js.map

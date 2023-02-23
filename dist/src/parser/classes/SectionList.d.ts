@@ -1,10 +1,11 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class SectionList extends YTNode {
     static type: string;
-    target_id: any;
-    contents: import("../helpers").SuperParsedResult<YTNode>;
-    continuation: any;
-    header: import("../helpers").SuperParsedResult<YTNode> | undefined;
+    target_id?: string;
+    contents: import("../helpers.js").ObservedArray<YTNode>;
+    continuation?: string;
+    header?: import("../helpers.js").SuperParsedResult<YTNode> | undefined;
+    sub_menu?: YTNode | null | undefined;
     constructor(data: any);
 }
 export default SectionList;

@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const helpers_1 = require("../helpers");
-class MetadataRow extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+class MetadataRow extends YTNode {
     constructor(data) {
         super();
-        this.title = new Text_1.default(data.title);
-        this.contents = data.contents.map((content) => new Text_1.default(content));
+        this.title = new Text(data.title);
+        this.contents = data.contents.map((content) => new Text(content));
     }
 }
 MetadataRow.type = 'MetadataRow';
-exports.default = MetadataRow;
+export default MetadataRow;
 //# sourceMappingURL=MetadataRow.js.map

@@ -1,13 +1,14 @@
-import Text from './misc/Text';
-import Thumbnail from './misc/Thumbnail';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import Button from './Button.js';
+import { YTNode } from '../helpers.js';
 declare class PlayerErrorMessage extends YTNode {
     static type: string;
     subreason: Text;
     reason: Text;
-    proceed_button: import("../helpers").SuperParsedResult<YTNode>;
+    proceed_button: Button | null;
     thumbnails: Thumbnail[];
-    icon_type: string;
+    icon_type: string | null;
     constructor(data: any);
 }
 export default PlayerErrorMessage;

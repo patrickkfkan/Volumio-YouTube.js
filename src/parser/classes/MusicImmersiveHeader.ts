@@ -1,9 +1,11 @@
-import Text from './misc/Text';
-import Parser from '../index';
-import MusicThumbnail from './MusicThumbnail';
+import Text from './misc/Text.js';
+import Parser from '../index.js';
+import MusicThumbnail from './MusicThumbnail.js';
 
-import { YTNode } from '../helpers';
-import Button from './Button';
+import { YTNode } from '../helpers.js';
+
+/*** Volumio-YouTube.js ***/
+import Button from './Button.js';
 
 class MusicImmersiveHeader extends YTNode {
   static type = 'MusicImmersiveHeader';
@@ -11,6 +13,8 @@ class MusicImmersiveHeader extends YTNode {
   title: Text;
   description: Text;
   thumbnail: MusicThumbnail | null;
+
+  /*** Volumio-YouTube.js ***/
   play_button: Button | null;
   start_radio_button: Button | null;
 
@@ -22,7 +26,11 @@ class MusicImmersiveHeader extends YTNode {
     /**
          Not useful for now.
          this.menu = Parser.parse(data.menu);
+         this.play_button = Parser.parse(data.playButton);
+         this.start_radio_button = Parser.parse(data.startRadioButton);
      */
+
+    /*** Volumio-YouTube.js ***/
     this.play_button = Parser.parseItem(data.playButton, Button);
     this.start_radio_button = Parser.parseItem(data.startRadioButton, Button);
   }

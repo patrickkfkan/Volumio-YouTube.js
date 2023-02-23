@@ -1,16 +1,16 @@
-import Text from './misc/Text';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay';
-import Menu from './menus/Menu';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
+import Menu from './menus/Menu.js';
+import { YTNode } from '../helpers.js';
 declare class MusicTwoRowItem extends YTNode {
     static type: string;
     title: Text;
     endpoint: NavigationEndpoint;
     id: string | undefined;
     subtitle: Text;
-    badges: import("../helpers").SuperParsedResult<YTNode>;
+    badges: import("../helpers.js").SuperParsedResult<YTNode>;
     item_type: string;
     subscribers?: string;
     item_count?: string | null;

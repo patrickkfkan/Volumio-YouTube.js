@@ -1,8 +1,8 @@
-import ChildElement from './misc/ChildElement';
-import { YTNode } from '../helpers';
+import ChildElement from './misc/ChildElement.js';
+import { YTNode } from '../helpers.js';
 declare class Element extends YTNode {
     static type: string;
-    model: import("../helpers").SuperParsedResult<YTNode> | undefined;
+    model: import("../helpers.js").SuperParsedResult<YTNode> | undefined;
     child_elements?: ChildElement[];
     constructor(data: any);
 }

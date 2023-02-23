@@ -1,6 +1,6 @@
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
-import Menu from './menus/Menu';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+import Menu from './menus/Menu.js';
 declare class VideoPrimaryInfo extends YTNode {
     static type: string;
     title: Text;

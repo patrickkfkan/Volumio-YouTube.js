@@ -1,16 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const helpers_1 = require("../helpers");
-class FeedFilterChipBar extends helpers_1.YTNode {
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+import ChipCloudChip from './ChipCloudChip.js';
+class FeedFilterChipBar extends YTNode {
     constructor(data) {
         super();
-        this.contents = index_1.default.parse(data.contents);
+        this.contents = Parser.parseArray(data.contents, ChipCloudChip);
     }
 }
 FeedFilterChipBar.type = 'FeedFilterChipBar';
-exports.default = FeedFilterChipBar;
+export default FeedFilterChipBar;
 //# sourceMappingURL=FeedFilterChipBar.js.map

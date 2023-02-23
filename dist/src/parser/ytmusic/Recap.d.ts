@@ -1,20 +1,22 @@
-import { ParsedResponse } from '../index';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import Playlist from './Playlist';
-import MusicHeader from '../classes/MusicHeader';
-import MusicCarouselShelf from '../classes/MusicCarouselShelf';
-import HighlightsCarousel from '../classes/HighlightsCarousel';
-import ItemSection from '../classes/ItemSection';
-import Message from '../classes/Message';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import HighlightsCarousel from '../classes/HighlightsCarousel.js';
+import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
+import MusicHeader from '../classes/MusicHeader.js';
+import Playlist from './Playlist.js';
+import ItemSection from '../classes/ItemSection.js';
+import Message from '../classes/Message.js';
+import type { ObservedArray } from '../helpers.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 declare class Recap {
     #private;
-    header: HighlightsCarousel | MusicHeader | undefined;
-    sections: import("../helpers").ObservedArray<ItemSection | Message | MusicCarouselShelf> | undefined;
-    constructor(response: AxioslikeResponse, actions: Actions);
+    header?: HighlightsCarousel | MusicHeader;
+    sections?: ObservedArray<ItemSection | MusicCarouselShelf | Message>;
+    constructor(response: ApiResponse, actions: Actions);
     /**
      * Retrieves recap playlist.
      */
     getPlaylist(): Promise<Playlist>;
-    get page(): ParsedResponse;
+    get page(): IBrowseResponse;
 }
 export default Recap;

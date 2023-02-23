@@ -1,5 +1,5 @@
-import Parser from '../index';
-import { YTNode } from '../helpers';
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
 
 class TwoColumnWatchNextResults extends YTNode {
   static type = 'TwoColumnWatchNextResults';
@@ -10,9 +10,9 @@ class TwoColumnWatchNextResults extends YTNode {
 
   constructor(data: any) {
     super();
-    this.results = Parser.parse(data.results?.results.contents, true);
-    this.secondary_results = Parser.parse(data.secondaryResults?.secondaryResults.results, true);
-    this.conversation_bar = Parser.parse(data?.conversationBar);
+    this.results = Parser.parseArray(data.results?.results.contents);
+    this.secondary_results = Parser.parseArray(data.secondaryResults?.secondaryResults.results);
+    this.conversation_bar = Parser.parseItem(data?.conversationBar);
   }
 }
 

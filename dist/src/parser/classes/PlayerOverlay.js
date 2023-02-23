@@ -1,26 +1,22 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Menu_1 = __importDefault(require("./menus/Menu"));
-const Button_1 = __importDefault(require("./Button"));
-const WatchNextEndScreen_1 = __importDefault(require("./WatchNextEndScreen"));
-const PlayerOverlayAutoplay_1 = __importDefault(require("./PlayerOverlayAutoplay"));
-const helpers_1 = require("../helpers");
-class PlayerOverlay extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Menu from './menus/Menu.js';
+import Button from './Button.js';
+import WatchNextEndScreen from './WatchNextEndScreen.js';
+import PlayerOverlayAutoplay from './PlayerOverlayAutoplay.js';
+import { YTNode } from '../helpers.js';
+class PlayerOverlay extends YTNode {
     constructor(data) {
         super();
-        this.end_screen = index_1.default.parseItem(data.endScreen, WatchNextEndScreen_1.default);
-        this.autoplay = index_1.default.parseItem(data.autoplay, PlayerOverlayAutoplay_1.default);
-        this.share_button = index_1.default.parseItem(data.shareButton, Button_1.default);
-        this.add_to_menu = index_1.default.parseItem(data.addToMenu, Menu_1.default);
-        this.fullscreen_engagement = index_1.default.parse(data.fullscreenEngagement);
-        this.actions = index_1.default.parseArray(data.actions);
-        this.browser_media_session = index_1.default.parseItem(data.browserMediaSession);
+        this.end_screen = Parser.parseItem(data.endScreen, WatchNextEndScreen);
+        this.autoplay = Parser.parseItem(data.autoplay, PlayerOverlayAutoplay);
+        this.share_button = Parser.parseItem(data.shareButton, Button);
+        this.add_to_menu = Parser.parseItem(data.addToMenu, Menu);
+        this.fullscreen_engagement = Parser.parse(data.fullscreenEngagement);
+        this.actions = Parser.parseArray(data.actions);
+        this.browser_media_session = Parser.parseItem(data.browserMediaSession);
+        this.decorated_player_bar = Parser.parseItem(data.decoratedPlayerBarRenderer);
     }
 }
 PlayerOverlay.type = 'PlayerOverlay';
-exports.default = PlayerOverlay;
+export default PlayerOverlay;
 //# sourceMappingURL=PlayerOverlay.js.map

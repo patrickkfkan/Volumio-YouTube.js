@@ -1,28 +1,32 @@
-import Parser, { ParsedResponse } from '..';
-import { AxioslikeResponse } from '../../core/Actions';
+import Parser from '../index.js';
+import ItemSection from '../classes/ItemSection.js';
+import SectionList from '../classes/SectionList.js';
+import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults.js';
 
-import ItemSection from '../classes/ItemSection';
-import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults';
-import SectionList from '../classes/SectionList';
-
-import { InnertubeError } from '../../utils/Utils';
+import { InnertubeError } from '../../utils/Utils.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { ObservedArray } from '../helpers.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 
 class TimeWatched {
-  #page;
-  contents;
+  #page: IBrowseResponse;
+  contents?: ObservedArray<ItemSection>;
 
-  constructor(response: AxioslikeResponse) {
+  constructor(response: ApiResponse) {
     this.#page = Parser.parseResponse(response.data);
+
+    if (!this.#page.contents)
+      throw new InnertubeError('Page contents not found');
 
     const tab = this.#page.contents.item().as(SingleColumnBrowseResults).tabs.get({ selected: true });
 
     if (!tab)
       throw new InnertubeError('Could not find target tab.');
 
-    this.contents = tab.content?.as(SectionList).contents.array().as(ItemSection);
+    this.contents = tab.content?.as(SectionList).contents.as(ItemSection);
   }
 
-  get page(): ParsedResponse {
+  get page(): IBrowseResponse {
     return this.#page;
   }
 }

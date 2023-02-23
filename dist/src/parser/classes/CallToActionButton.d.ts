@@ -1,5 +1,5 @@
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 declare class CallToActionButton extends YTNode {
     static type: string;
     label: Text;

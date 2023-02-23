@@ -1,41 +1,37 @@
-import Parser, { ParsedResponse } from '../index';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
+import type Actions from '../../core/Actions.js';
+import { InnertubeError } from '../../utils/Utils.js';
+import Parser, { MusicShelfContinuation } from '../index.js';
 
-import { InnertubeError } from '../../utils/Utils';
+import ChipCloud from '../classes/ChipCloud.js';
+import ChipCloudChip from '../classes/ChipCloudChip.js';
+import DidYouMean from '../classes/DidYouMean.js';
+import ItemSection from '../classes/ItemSection.js';
+import Message from '../classes/Message.js';
+import MusicHeader from '../classes/MusicHeader.js';
+import MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
+import MusicShelf from '../classes/MusicShelf.js';
+import SectionList from '../classes/SectionList.js';
+import ShowingResultsFor from '../classes/ShowingResultsFor.js';
+import TabbedSearchResults from '../classes/TabbedSearchResults.js';
 
-import SectionList from '../classes/SectionList';
-import TabbedSearchResults from '../classes/TabbedSearchResults';
-
-import DidYouMean from '../classes/DidYouMean';
-import ShowingResultsFor from '../classes/ShowingResultsFor';
-import MusicShelf from '../classes/MusicShelf';
-import MusicResponsiveListItem from '../classes/MusicResponsiveListItem';
-
-import ChipCloud from '../classes/ChipCloud';
-import ChipCloudChip from '../classes/ChipCloudChip';
-import ItemSection from '../classes/ItemSection';
-import Message from '../classes/Message';
+import type { ObservedArray } from '../helpers.js';
+import type { ISearchResponse } from '../types/ParsedResponse.js';
+import type { ApiResponse } from '../../core/Actions.js';
 
 class Search {
-  #page;
-  #actions;
-  #continuation;
+  #page: ISearchResponse;
+  #actions: Actions;
+  #continuation?: string;
 
-  header;
+  header?: ChipCloud;
+  contents?: ObservedArray<MusicShelf | ItemSection>;
 
-  did_you_mean: DidYouMean | null;
-  showing_results_for: ShowingResultsFor | null;
-  message: Message | null;
-
-  results;
-  sections;
-
-  constructor(response: AxioslikeResponse | ParsedResponse, actions: Actions, args: { is_continuation?: boolean, is_filtered?: boolean } = {}) {
+  constructor(response: ApiResponse, actions: Actions, is_filtered?: boolean) {
     this.#actions = actions;
+    this.#page = Parser.parseResponse<ISearchResponse>(response.data);
 
-    this.#page = args.is_continuation ?
-      response as ParsedResponse :
-      Parser.parseResponse((response as AxioslikeResponse).data);
+    if (!this.#page.contents || !this.#page.contents_memo)
+      throw new InnertubeError('Response did not contain any contents.');
 
     const tab = this.#page.contents.item().as(TabbedSearchResults).tabs.get({ selected: true });
 
@@ -47,104 +43,161 @@ class Search {
     if (!tab_content)
       throw new InnertubeError('Target tab did not have any content.');
 
-    this.header = tab_content.hasKey('header') ? tab_content.header?.item().as(ChipCloud) : null;
+    this.header = tab_content.header?.item().as(ChipCloud);
+    this.contents = tab_content.contents.as(MusicShelf, ItemSection);
 
-    const shelves = tab_content.contents.array().as(MusicShelf, ItemSection);
-    const item_section = shelves.firstOfType(ItemSection);
-
-    this.did_you_mean = item_section?.contents?.firstOfType(DidYouMean) || null;
-    this.showing_results_for = item_section?.contents?.firstOfType(ShowingResultsFor) || null;
-    this.message = item_section?.contents?.firstOfType(Message) || null;
-
-    if (args.is_continuation || args.is_filtered) {
-      this.results = shelves.firstOfType(MusicShelf)?.contents;
-      this.#continuation = shelves.firstOfType(MusicShelf)?.continuation;
-    } else {
-      this.sections = shelves.filterType(MusicShelf);
+    if (is_filtered) {
+      this.#continuation = this.contents.firstOfType(MusicShelf)?.continuation;
     }
   }
 
   /**
-   * Equivalent to clicking on the shelf to load more items.
+   * Loads more items for the given shelf.
    */
   async getMore(shelf: MusicShelf | undefined): Promise<Search> {
     if (!shelf || !shelf.endpoint)
       throw new InnertubeError('Cannot retrieve more items for this shelf because it does not have an endpoint.');
 
-    const response = await shelf.endpoint.call(this.#actions, 'YTMUSIC', true);
+    const response = await shelf.endpoint.call(this.#actions, { client: 'YTMUSIC' });
 
     if (!response)
       throw new InnertubeError('Endpoint did not return any data');
 
-    return new Search(response, this.#actions, { is_continuation: true });
+    return new Search(response, this.#actions, true);
   }
 
   /**
-   * Retrieves continuation, only works for individual sections or filtered results.
+   * Retrieves search continuation. Only available for filtered searches and shelf continuations.
    */
-  async getContinuation() {
+  async getContinuation(): Promise<SearchContinuation> {
     if (!this.#continuation)
       throw new InnertubeError('Continuation not found.');
 
-    const response = await this.#actions.search({ ctoken: this.#continuation, client: 'YTMUSIC' });
-    const data = response.data.continuationContents.musicShelfContinuation;
+    const response = await this.#actions.execute('/search', {
+      continuation: this.#continuation,
+      client: 'YTMUSIC'
+    });
 
-    this.results = Parser.parse(data.contents).array().as(MusicResponsiveListItem);
-    this.#continuation = data?.continuations?.[0]?.nextContinuationData?.continuation;
-
-    return this;
+    return new SearchContinuation(this.#actions, response);
   }
 
   /**
    * Applies given filter to the search.
    */
-  async selectFilter(name: string): Promise<Search> {
-    if (!this.filters?.includes(name))
+  async applyFilter(target_filter: string | ChipCloudChip): Promise<Search> {
+    let cloud_chip: ChipCloudChip | undefined;
+
+    if (typeof target_filter === 'string') {
+      cloud_chip = this.header?.chips?.as(ChipCloudChip).get({ text: target_filter });
+      if (!cloud_chip)
+        throw new InnertubeError('Could not find filter with given name.', { available_filters: this.filters });
+    } else if (target_filter?.is(ChipCloudChip)) {
+      cloud_chip = target_filter;
+    }
+
+    if (!cloud_chip)
       throw new InnertubeError('Invalid filter', { available_filters: this.filters });
 
-    const filter = this.header?.chips?.as(ChipCloudChip).get({ text: name });
+    if (cloud_chip?.is_selected) return this;
 
-    if (filter?.is_selected) return this;
+    if (!cloud_chip.endpoint)
+      throw new InnertubeError('Selected filter does not have an endpoint.');
 
-    const response = await filter?.endpoint?.call(this.#actions, 'YTMUSIC', true);
+    const response = await cloud_chip.endpoint.call(this.#actions, { client: 'YTMUSIC' });
+    return new Search(response, this.#actions, true);
+  }
 
-    if (!response)
-      throw new InnertubeError('Endpoint did not return any data');
-
-    return new Search(response, this.#actions, { is_continuation: true });
+  get filters(): string[] {
+    return this.header?.chips?.as(ChipCloudChip).map((chip) => chip.text) || [];
   }
 
   get has_continuation(): boolean {
     return !!this.#continuation;
   }
 
-  get filters(): string[] | null {
-    return this.header?.chips?.as(ChipCloudChip).map((chip) => chip.text) || null;
+  get did_you_mean(): DidYouMean | undefined {
+    return this.#page.contents_memo?.getType(DidYouMean).first();
+  }
+
+  get showing_results_for(): ShowingResultsFor | undefined {
+    return this.#page.contents_memo?.getType(ShowingResultsFor).first();
+  }
+
+  get message(): Message | undefined {
+    return this.#page.contents_memo?.getType(Message).first();
   }
 
   get songs(): MusicShelf | undefined {
-    return this.sections?.find((section) => section.title.toString() === 'Songs');
+    return this.contents?.filterType(MusicShelf).find((section) => section.title.toString() === 'Songs');
   }
 
   get videos(): MusicShelf | undefined {
-    return this.sections?.find((section) => section.title.toString() === 'Videos');
+    return this.contents?.filterType(MusicShelf).find((section) => section.title.toString() === 'Videos');
   }
 
   get albums(): MusicShelf | undefined {
-    return this.sections?.find((section) => section.title.toString() === 'Albums');
+    return this.contents?.filterType(MusicShelf).find((section) => section.title.toString() === 'Albums');
   }
 
   get artists(): MusicShelf | undefined {
-    return this.sections?.find((section) => section.title.toString() === 'Artists');
+    return this.contents?.filterType(MusicShelf).find((section) => section.title.toString() === 'Artists');
   }
 
   get playlists(): MusicShelf | undefined {
-    return this.sections?.find((section) => section.title.toString() === 'Community playlists');
+    return this.contents?.filterType(MusicShelf).find((section) => section.title.toString() === 'Community playlists');
   }
 
-  get page(): ParsedResponse {
+  /**
+   * @deprecated Use {@link Search.contents} instead.
+   */
+  get results(): ObservedArray<MusicResponsiveListItem> | undefined {
+    return this.contents?.firstOfType(MusicShelf)?.contents;
+  }
+
+  /**
+   * @deprecated Use {@link Search.contents} instead.
+   */
+  get sections(): ObservedArray<MusicShelf> | undefined {
+    return this.contents?.filterType(MusicShelf);
+  }
+
+  get page(): ISearchResponse {
     return this.#page;
   }
 }
 
 export default Search;
+
+export class SearchContinuation {
+  #actions: Actions;
+  #page: ISearchResponse;
+  header?: MusicHeader;
+  contents?: MusicShelfContinuation;
+
+  constructor(actions: Actions, response: ApiResponse) {
+    this.#actions = actions;
+    this.#page = Parser.parseResponse<ISearchResponse>(response.data);
+    this.header = this.#page.header?.item().as(MusicHeader);
+    this.contents = this.#page.continuation_contents?.as(MusicShelfContinuation);
+  }
+
+  async getContinuation(): Promise<SearchContinuation> {
+    if (!this.contents?.continuation)
+      throw new InnertubeError('Continuation not found.');
+
+    const response = await this.#actions.execute('/search', {
+      continuation: this.contents.continuation,
+      client: 'YTMUSIC'
+    });
+
+    return new SearchContinuation(this.#actions, response);
+  }
+
+  get has_continuation(): boolean {
+    return !!this.contents?.continuation;
+  }
+
+  get page(): ISearchResponse {
+    return this.#page;
+  }
+}

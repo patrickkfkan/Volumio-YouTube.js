@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 class ChildElement {
     constructor(data) {
         var _a, _b;
@@ -11,5 +9,5 @@ class ChildElement {
     }
 }
 ChildElement.type = 'ChildElement';
-exports.default = ChildElement;
+export default ChildElement;
 //# sourceMappingURL=ChildElement.js.map

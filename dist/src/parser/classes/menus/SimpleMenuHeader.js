@@ -1,18 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../../index"));
-const Text_1 = __importDefault(require("../misc/Text"));
-const helpers_1 = require("../../helpers");
-class SimpleMenuHeader extends helpers_1.YTNode {
+import Parser from '../../index.js';
+import Text from '../misc/Text.js';
+import { YTNode } from '../../helpers.js';
+class SimpleMenuHeader extends YTNode {
     constructor(data) {
         super();
-        this.title = new Text_1.default(data.title);
-        this.buttons = index_1.default.parse(data.buttons);
+        this.title = new Text(data.title);
+        this.buttons = Parser.parse(data.buttons);
     }
 }
 SimpleMenuHeader.type = 'SimpleMenuHeader';
-exports.default = SimpleMenuHeader;
+export default SimpleMenuHeader;
 //# sourceMappingURL=SimpleMenuHeader.js.map

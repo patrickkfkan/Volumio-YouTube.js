@@ -1,39 +1,45 @@
-import Parser from '..';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import { InnertubeError } from '../../utils/Utils';
+import Parser from '../index.js';
+import { InnertubeError } from '../../utils/Utils.js';
 
-import Tab from '../classes/Tab';
-import TwoColumnBrowseResults from '../classes/TwoColumnBrowseResults';
-import SectionList from '../classes/SectionList';
-import ItemSection from '../classes/ItemSection';
+import CompactLink from '../classes/CompactLink.js';
+import ItemSection from '../classes/ItemSection.js';
+import PageIntroduction from '../classes/PageIntroduction.js';
+import SectionList from '../classes/SectionList.js';
+import SettingsOptions from '../classes/SettingsOptions.js';
+import SettingsSidebar from '../classes/SettingsSidebar.js';
+import SettingsSwitch from '../classes/SettingsSwitch.js';
+import Tab from '../classes/Tab.js';
+import TwoColumnBrowseResults from '../classes/TwoColumnBrowseResults.js';
 
-import PageIntroduction from '../classes/PageIntroduction';
-import SettingsOptions from '../classes/SettingsOptions';
-import SettingsSwitch from '../classes/SettingsSwitch';
-import SettingsSidebar from '../classes/SettingsSidebar';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 
 class Settings {
-  #page;
-  #actions;
+  #page: IBrowseResponse;
+  #actions: Actions;
 
-  sidebar: SettingsSidebar | null | undefined;
-  introduction: PageIntroduction | null | undefined;
+  sidebar?: SettingsSidebar;
+  introduction?: PageIntroduction;
   sections;
 
-  constructor(actions: Actions, response: AxioslikeResponse) {
+  constructor(actions: Actions, response: ApiResponse) {
     this.#actions = actions;
-    this.#page = Parser.parseResponse(response.data);
+    this.#page = Parser.parseResponse<IBrowseResponse>(response.data);
 
     this.sidebar = this.#page.sidebar?.as(SettingsSidebar);
+
+    if (!this.#page.contents)
+      throw new InnertubeError('Page contents not found');
 
     const tab = this.#page.contents.item().as(TwoColumnBrowseResults).tabs.array().as(Tab).get({ selected: true });
 
     if (!tab)
       throw new InnertubeError('Target tab not found');
 
-    const contents = tab.content?.as(SectionList).contents.array().as(ItemSection);
+    const contents = tab.content?.as(SectionList).contents.as(ItemSection);
 
-    this.introduction = contents?.shift()?.contents?.get({ type: 'PageIntroduction' })?.as(PageIntroduction);
+    this.introduction = contents?.shift()?.contents?.firstOfType(PageIntroduction);
 
     this.sections = contents?.map((el: ItemSection) => ({
       title: el.header?.title.toString() || null,
@@ -44,16 +50,23 @@ class Settings {
   /**
    * Selects an item from the sidebar menu. Use {@link sidebar_items} to see available items.
    */
-  async selectSidebarItem(name: string) {
+  async selectSidebarItem(target_item: string | CompactLink): Promise<Settings> {
     if (!this.sidebar)
       throw new InnertubeError('Sidebar not available');
 
-    const item = this.sidebar.items.get({ title: name });
+    let item: CompactLink | undefined;
 
-    if (!item)
-      throw new InnertubeError(`Item "${name}" not found`, { available_items: this.sidebar_items });
+    if (typeof target_item === 'string') {
+      item = this.sidebar.items.get({ title: target_item });
+      if (!item)
+        throw new InnertubeError(`Item "${target_item}" not found`, { available_items: this.sidebar_items });
+    } else if (target_item?.is(CompactLink)) {
+      item = target_item;
+    } else {
+      throw new InnertubeError('Invalid item', { target_item });
+    }
 
-    const response = await item.endpoint.callTest(this.#actions, { parse: false });
+    const response = await item.endpoint.call(this.#actions, { parse: false });
 
     return new Settings(this.#actions, response);
   }
@@ -61,7 +74,7 @@ class Settings {
   /**
    * Finds a setting by name and returns it. Use {@link setting_options} to see available options.
    */
-  getSettingOption(name: string) {
+  getSettingOption(name: string): SettingsSwitch {
     if (!this.sections)
       throw new InnertubeError('Sections not available');
 
@@ -112,6 +125,10 @@ class Settings {
       throw new InnertubeError('Sidebar not available');
 
     return this.sidebar.items.map((item) => item.title.toString());
+  }
+
+  get page(): IBrowseResponse {
+    return this.#page;
   }
 }
 

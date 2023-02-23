@@ -1,24 +1,28 @@
-import Tab from '../parser/classes/Tab';
-import { InnertubeError } from '../utils/Utils';
-import Actions from './Actions';
-import Feed from './Feed';
+import Tab from '../parser/classes/Tab.js';
+import Feed from './Feed.js';
+import { InnertubeError } from '../utils/Utils.js';
 
-class TabbedFeed extends Feed {
-  #tabs;
-  #actions;
+import type Actions from './Actions.js';
+import type { ObservedArray } from '../parser/helpers.js';
+import type { IParsedResponse } from '../parser/types/ParsedResponse.js';
+import type { ApiResponse } from './Actions.js';
 
-  constructor(actions: Actions, data: any, already_parsed = false) {
+class TabbedFeed<T extends IParsedResponse> extends Feed<T> {
+  #tabs?: ObservedArray<Tab>;
+  #actions: Actions;
+
+  constructor(actions: Actions, data: ApiResponse | IParsedResponse, already_parsed = false) {
     super(actions, data, already_parsed);
     this.#actions = actions;
-    this.#tabs = this.page.contents_memo.getType(Tab);
+    this.#tabs = this.page.contents_memo?.getType(Tab);
   }
 
-  get tabs() {
-    return this.#tabs.map((tab) => tab.title.toString());
+  get tabs(): string[] {
+    return this.#tabs?.map((tab) => tab.title.toString()) ?? [];
   }
 
-  async getTab(title: string) {
-    const tab = this.#tabs.find((tab) => tab.title.toLowerCase() === title.toLowerCase());
+  async getTabByName(title: string): Promise<TabbedFeed<T>> {
+    const tab = this.#tabs?.find((tab) => tab.title.toLowerCase() === title.toLowerCase());
 
     if (!tab)
       throw new InnertubeError(`Tab "${title}" not found`);
@@ -28,14 +32,29 @@ class TabbedFeed extends Feed {
 
     const response = await tab.endpoint.call(this.#actions);
 
-    if (!response)
-      throw new InnertubeError('Failed to call endpoint');
-
-    return new TabbedFeed(this.#actions, response.data, false);
+    return new TabbedFeed<T>(this.#actions, response, false);
   }
 
-  get title() {
-    return this.page.contents_memo.getType(Tab)?.find((tab) => tab.selected)?.title.toString();
+  async getTabByURL(url: string): Promise<TabbedFeed<T>> {
+    const tab = this.#tabs?.find((tab) => tab.endpoint.metadata.url?.split('/').pop() === url);
+
+    if (!tab)
+      throw new InnertubeError(`Tab "${url}" not found`);
+
+    if (tab.selected)
+      return this;
+
+    const response = await tab.endpoint.call(this.#actions);
+
+    return new TabbedFeed<T>(this.#actions, response, false);
+  }
+
+  hasTabWithURL(url: string): boolean {
+    return this.#tabs?.some((tab) => tab.endpoint.metadata.url?.split('/').pop() === url) ?? false;
+  }
+
+  get title(): string | undefined {
+    return this.page.contents_memo?.getType(Tab)?.find((tab) => tab.selected)?.title.toString();
   }
 }
 

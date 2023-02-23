@@ -1,5 +1,5 @@
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 
 class PlayerCaptionsTracklist extends YTNode {
   static type = 'PlayerCaptionsTracklist';
@@ -14,8 +14,15 @@ class PlayerCaptionsTracklist extends YTNode {
   }[];
 
   audio_tracks: {
+    audio_track_id: string;
+    captions_initial_state: string;
+    default_caption_track_index: number;
+    has_default_track: boolean;
+    visibility: string;
     caption_track_indices: number;
   }[];
+
+  default_audio_track_index: number;
 
   translation_languages: {
     language_code: string;
@@ -34,8 +41,15 @@ class PlayerCaptionsTracklist extends YTNode {
     }));
 
     this.audio_tracks = data.audioTracks.map((at: any) => ({
+      audio_track_id: at.audioTrackId,
+      captions_initial_state: at.captionsInitialState,
+      default_caption_track_index: at.defaultCaptionTrackIndex,
+      has_default_track: at.hasDefaultTrack,
+      visibility: at.visibility,
       caption_track_indices: at.captionTrackIndices
     }));
+
+    this.default_audio_track_index = data.defaultAudioTrackIndex;
 
     this.translation_languages = data.translationLanguages.map((tl: any) => ({
       language_code: tl.languageCode,

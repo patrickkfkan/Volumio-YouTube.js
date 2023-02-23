@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,36 +18,34 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var _NotificationsMenu_page, _NotificationsMenu_actions;
-Object.defineProperty(exports, "__esModule", { value: true });
-const __1 = __importDefault(require(".."));
-const Utils_1 = require("../../utils/Utils");
-const SimpleMenuHeader_1 = __importDefault(require("../classes/menus/SimpleMenuHeader"));
-const ContinuationItem_1 = __importDefault(require("../classes/ContinuationItem"));
+import Parser from '../index.js';
+import ContinuationItem from '../classes/ContinuationItem.js';
+import SimpleMenuHeader from '../classes/menus/SimpleMenuHeader.js';
+import Notification from '../classes/Notification.js';
+import { InnertubeError } from '../../utils/Utils.js';
 class NotificationsMenu {
     constructor(actions, response) {
-        var _a, _b;
         _NotificationsMenu_page.set(this, void 0);
         _NotificationsMenu_actions.set(this, void 0);
         __classPrivateFieldSet(this, _NotificationsMenu_actions, actions, "f");
-        __classPrivateFieldSet(this, _NotificationsMenu_page, __1.default.parseResponse(response.data), "f");
-        this.header = ((_b = (_a = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.get('SimpleMenuHeader')) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.as(SimpleMenuHeader_1.default)) || null;
-        this.contents = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.get('Notification');
+        __classPrivateFieldSet(this, _NotificationsMenu_page, Parser.parseResponse(response.data), "f");
+        this.header = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.getType(SimpleMenuHeader).first();
+        this.contents = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.getType(Notification);
     }
     getContinuation() {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            const continuation = (_a = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.get('ContinuationItem')) === null || _a === void 0 ? void 0 : _a[0].as(ContinuationItem_1.default);
+            const continuation = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.getType(ContinuationItem).first();
             if (!continuation)
-                throw new Utils_1.InnertubeError('Continuation not found');
-            const response = yield continuation.endpoint.callTest(__classPrivateFieldGet(this, _NotificationsMenu_actions, "f"), { parse: false });
+                throw new InnertubeError('Continuation not found');
+            const response = yield continuation.endpoint.call(__classPrivateFieldGet(this, _NotificationsMenu_actions, "f"), { parse: false });
             return new NotificationsMenu(__classPrivateFieldGet(this, _NotificationsMenu_actions, "f"), response);
         });
     }
+    get page() {
+        return __classPrivateFieldGet(this, _NotificationsMenu_page, "f");
+    }
 }
 _NotificationsMenu_page = new WeakMap(), _NotificationsMenu_actions = new WeakMap();
-exports.default = NotificationsMenu;
+export default NotificationsMenu;
 //# sourceMappingURL=NotificationsMenu.js.map

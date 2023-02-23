@@ -1,7 +1,7 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
 declare class AppendContinuationItemsAction extends YTNode {
     static type: string;
-    items: import("../../helpers").SuperParsedResult<YTNode>;
+    items: import("../../helpers.js").SuperParsedResult<YTNode>;
     target: string;
     constructor(data: any);
 }

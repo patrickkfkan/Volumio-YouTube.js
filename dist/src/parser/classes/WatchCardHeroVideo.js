@@ -1,20 +1,16 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class WatchCardHeroVideo extends helpers_1.YTNode {
+import Parser from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class WatchCardHeroVideo extends YTNode {
     constructor(data) {
+        var _a;
         super();
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
-        this.call_to_action_button = index_1.default.parse(data.callToActionButton);
-        this.hero_image = index_1.default.parse(data.heroImage);
-        this.label = data.accessibility.accessibilityData.label;
+        this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        this.call_to_action_button = Parser.parseItem(data.callToActionButton);
+        this.hero_image = Parser.parseItem(data.heroImage);
+        this.label = ((_a = data.lengthText) === null || _a === void 0 ? void 0 : _a.accessibility.accessibilityData.label) || '';
     }
 }
 WatchCardHeroVideo.type = 'WatchCardHeroVideo';
-exports.default = WatchCardHeroVideo;
+export default WatchCardHeroVideo;
 //# sourceMappingURL=WatchCardHeroVideo.js.map

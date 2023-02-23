@@ -1,3 +1,4 @@
+/*** Volumio-YouTube.js ***/
 // eslint-disable-next-line
 require('event-target-polyfill');
 

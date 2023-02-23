@@ -1,12 +1,13 @@
-import { ParsedResponse } from '..';
-import { AxioslikeResponse } from '../../core/Actions';
-import MusicNavigationButton from '../classes/MusicNavigationButton';
-import MusicCarouselShelf from '../classes/MusicCarouselShelf';
+import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
+import MusicNavigationButton from '../classes/MusicNavigationButton.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { ObservedArray } from '../helpers.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 declare class Explore {
     #private;
     top_buttons: MusicNavigationButton[];
-    sections: MusicCarouselShelf[];
-    constructor(response: AxioslikeResponse);
-    get page(): ParsedResponse;
+    sections: ObservedArray<MusicCarouselShelf>;
+    constructor(response: ApiResponse);
+    get page(): IBrowseResponse;
 }
 export default Explore;

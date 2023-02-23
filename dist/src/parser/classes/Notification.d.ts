@@ -1,7 +1,7 @@
-import Text from './misc/Text';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 declare class Notification extends YTNode {
     static type: string;
     thumbnails: Thumbnail[];
@@ -11,7 +11,7 @@ declare class Notification extends YTNode {
     notification_id: any;
     endpoint: NavigationEndpoint;
     record_click_endpoint: NavigationEndpoint;
-    menu: import("../helpers").SuperParsedResult<YTNode>;
+    menu: import("../helpers.js").SuperParsedResult<YTNode>;
     read: boolean;
     constructor(data: any);
 }

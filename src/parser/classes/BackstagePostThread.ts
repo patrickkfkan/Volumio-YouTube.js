@@ -1,5 +1,5 @@
-import Parser from '../index';
-import { YTNode } from '../helpers';
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
 
 class BackstagePostThread extends YTNode {
   static type = 'BackstagePostThread';
@@ -8,7 +8,7 @@ class BackstagePostThread extends YTNode {
 
   constructor(data: any) {
     super();
-    this.post = Parser.parse(data.post);
+    this.post = Parser.parseItem(data.post);
   }
 }
 

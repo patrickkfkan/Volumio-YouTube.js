@@ -1,5 +1,5 @@
-import NavigationEndpoint from '../NavigationEndpoint';
-import Thumbnail from './Thumbnail';
+import NavigationEndpoint from '../NavigationEndpoint.js';
+import Thumbnail from './Thumbnail.js';
 declare class Author {
     #private;
     id: string;

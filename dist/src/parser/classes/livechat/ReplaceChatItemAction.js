@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../../index"));
-const helpers_1 = require("../../helpers");
-class ReplaceChatItemAction extends helpers_1.YTNode {
+import Parser from '../../index.js';
+import { YTNode } from '../../helpers.js';
+class ReplaceChatItemAction extends YTNode {
     constructor(data) {
         super();
         this.target_item_id = data.targetItemId;
-        this.replacement_item = index_1.default.parse(data.replacementItem);
+        this.replacement_item = Parser.parseItem(data.replacementItem);
     }
 }
 ReplaceChatItemAction.type = 'ReplaceChatItemAction';
-exports.default = ReplaceChatItemAction;
+export default ReplaceChatItemAction;
 //# sourceMappingURL=ReplaceChatItemAction.js.map

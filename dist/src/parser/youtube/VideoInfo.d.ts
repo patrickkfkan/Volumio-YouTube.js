@@ -1,52 +1,31 @@
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import Player from '../../core/Player';
-import VideoPrimaryInfo from '../classes/VideoPrimaryInfo';
-import VideoSecondaryInfo from '../classes/VideoSecondaryInfo';
-import Format from '../classes/misc/Format';
-import MerchandiseShelf from '../classes/MerchandiseShelf';
-import ChipCloud from '../classes/ChipCloud';
-import PlayerOverlay from '../classes/PlayerOverlay';
-import CommentsEntryPointHeader from '../classes/comments/CommentsEntryPointHeader';
-import LiveChat from '../classes/LiveChat';
-import LiveChatWrap from './LiveChat';
-export declare type URLTransformer = (url: URL) => URL;
-export interface FormatOptions {
-    /**
-     * Video quality; 360p, 720p, 1080p, etc... also accepts 'best' and 'bestefficiency'.
-     */
-    quality?: string;
-    /**
-     * Download type, can be: video, audio or video+audio
-     */
-    type?: 'video' | 'audio' | 'video+audio';
-    /**
-     * File format, use 'any' to download any format
-     */
-    format?: string;
-    /**
-     * InnerTube client, can be ANDROID, WEB or YTMUSIC
-     */
-    client?: 'ANDROID' | 'WEB' | 'YTMUSIC';
-}
-export interface DownloadOptions extends FormatOptions {
-    /**
-     * Download range, indicates which bytes should be downloaded.
-     */
-    range?: {
-        start: number;
-        end: number;
-    };
-}
+import ChipCloud from '../classes/ChipCloud.js';
+import ChipCloudChip from '../classes/ChipCloudChip.js';
+import CommentsEntryPointHeader from '../classes/comments/CommentsEntryPointHeader.js';
+import LiveChat from '../classes/LiveChat.js';
+import MerchandiseShelf from '../classes/MerchandiseShelf.js';
+import PlayerOverlay from '../classes/PlayerOverlay.js';
+import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
+import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
+import LiveChatWrap from './LiveChat.js';
+import type CardCollection from '../classes/CardCollection.js';
+import type Endscreen from '../classes/Endscreen.js';
+import type Format from '../classes/misc/Format.js';
+import type PlayerAnnotationsExpanded from '../classes/PlayerAnnotationsExpanded.js';
+import type PlayerCaptionsTracklist from '../classes/PlayerCaptionsTracklist.js';
+import type PlayerLiveStoryboardSpec from '../classes/PlayerLiveStoryboardSpec.js';
+import type PlayerStoryboardSpec from '../classes/PlayerStoryboardSpec.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type Player from '../../core/Player.js';
+import type { ObservedArray, YTNode } from '../helpers.js';
+import type { INextResponse, IPlayerResponse } from '../types/ParsedResponse.js';
+import { DownloadOptions, FormatFilter, FormatOptions, URLTransformer } from '../../utils/FormatUtils.js';
 declare class VideoInfo {
     #private;
     basic_info: {
         like_count: number | undefined;
         is_liked: boolean | undefined;
         is_disliked: boolean | undefined;
-        /**
-         * Microformat is a bit redundant, so only
-         * a few things there are interesting to us.
-         */
         embed: {
             iframe_url: string;
             flash_url: string;
@@ -62,6 +41,7 @@ declare class VideoInfo {
         is_unlisted: boolean | undefined;
         is_family_safe: boolean | undefined;
         has_ypc_metadata: boolean | null;
+        start_timestamp: Date | null;
         id?: string | undefined;
         channel_id?: string | undefined;
         title?: string | undefined;
@@ -69,183 +49,119 @@ declare class VideoInfo {
         keywords?: string[] | undefined;
         is_owner_viewing?: boolean | undefined;
         short_description?: string | undefined;
-        thumbnail?: import("../classes/misc/Thumbnail").default[] | undefined;
+        thumbnail?: import("../classes/misc/Thumbnail.js").default[] | undefined;
         allow_ratings?: boolean | undefined;
         view_count?: number | undefined;
         author?: string | undefined;
         is_private?: boolean | undefined;
+        is_live?: boolean | undefined;
         is_live_content?: boolean | undefined;
+        is_upcoming?: boolean | undefined;
         is_crawlable?: boolean | undefined;
     };
     streaming_data: {
         expires: Date;
         formats: Format[];
         adaptive_formats: Format[];
-        dash_manifest_url: any;
-        dls_manifest_url: any;
+        dash_manifest_url: string | null;
+        hls_manifest_url: string | null;
     } | undefined;
     playability_status: {
         status: string;
-        error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
+        error_screen: YTNode | null;
+        audio_only_playablility: import("../classes/AudioOnlyPlayability.js").default | null;
         embeddable: boolean;
-        reason: any;
-    } | undefined;
-    annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
-    storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
-    endscreen: import("../classes/Endscreen").default | null;
-    captions: import("../classes/PlayerCaptionsTracklist").default | null;
-    cards: import("../classes/CardCollection").default | null;
-    primary_info: VideoPrimaryInfo | undefined;
-    secondary_info: VideoSecondaryInfo | undefined;
-    merchandise: MerchandiseShelf | undefined;
-    related_chip_cloud: ChipCloud | undefined;
-    watch_next_feed: import("../helpers").ObservedArray<import("../helpers").YTNode> | null | undefined;
-    player_overlays: PlayerOverlay | undefined;
-    comments_entry_point_header: CommentsEntryPointHeader | undefined;
-    livechat: LiveChat | undefined;
+        reason: string;
+    };
+    annotations?: ObservedArray<PlayerAnnotationsExpanded>;
+    storyboards?: PlayerStoryboardSpec | PlayerLiveStoryboardSpec;
+    endscreen?: Endscreen;
+    captions?: PlayerCaptionsTracklist;
+    cards?: CardCollection;
+    primary_info?: VideoPrimaryInfo | null;
+    secondary_info?: VideoSecondaryInfo | null;
+    merchandise?: MerchandiseShelf | null;
+    related_chip_cloud?: ChipCloud | null;
+    watch_next_feed?: ObservedArray<YTNode> | null;
+    player_overlays?: PlayerOverlay | null;
+    comments_entry_point_header?: CommentsEntryPointHeader | null;
+    livechat?: LiveChat | null;
     /**
      * @param data - API response.
-     * @param cpn - Client Playback Nonce
+     * @param actions - Actions instance.
+     * @param player - Player instance.
+     * @param cpn - Client Playback Nonce.
      */
-    constructor(data: [AxioslikeResponse, AxioslikeResponse?], actions: Actions, player: Player, cpn: string);
+    constructor(data: [ApiResponse, ApiResponse?], actions: Actions, player?: Player, cpn?: string);
     /**
-     * Applies given filter to the watch next feed.
+     * Applies given filter to the watch next feed. Use {@link filters} to get available filters.
+     * @param target_filter - Filter to apply.
      */
-    selectFilter(name: string): Promise<this>;
+    selectFilter(target_filter: string | ChipCloudChip | undefined): Promise<VideoInfo>;
     /**
-     * Adds the video to the watch history.
+     * Adds video to the watch history.
      */
-    addToWatchHistory(): Promise<any>;
+    addToWatchHistory(): Promise<Response>;
     /**
      * Retrieves watch next feed continuation.
      */
-    getWatchNextContinuation(): Promise<this>;
+    getWatchNextContinuation(): Promise<VideoInfo>;
     /**
      * Likes the video.
      */
-    like(): Promise<AxioslikeResponse | undefined>;
+    like(): Promise<ApiResponse>;
     /**
      * Dislikes the video.
      */
-    dislike(): Promise<AxioslikeResponse | undefined>;
+    dislike(): Promise<ApiResponse>;
     /**
      * Removes like/dislike.
      */
-    removeLike(): Promise<AxioslikeResponse | undefined>;
+    removeRating(): Promise<ApiResponse>;
     /**
      * Retrieves Live Chat if available.
      */
     getLiveChat(): LiveChatWrap;
+    /**
+     * Selects the format that best matches the given options.
+     * @param options - Options
+     */
+    chooseFormat(options: FormatOptions): Format;
+    /**
+     * Generates a DASH manifest from the streaming data.
+     * @param url_transformer - Function to transform the URLs.
+     * @param format_filter - Function to filter the formats.
+     * @returns DASH manifest
+     */
+    toDash(url_transformer?: URLTransformer, format_filter?: FormatFilter): string;
+    /**
+     * Downloads the video.
+     * @param options - Download options.
+     */
+    download(options?: DownloadOptions): Promise<ReadableStream<Uint8Array>>;
+    /**
+     * Watch next feed filters.
+     */
     get filters(): string[];
+    /**
+     * Actions instance.
+     */
     get actions(): Actions;
-    get cpn(): string;
-    get page(): [{
-        actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null;
-        actions_memo: import("../helpers").Memo;
-        contents: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        contents_memo: import("../helpers").Memo;
-        on_response_received_actions: import("../helpers").ObservedArray<import("../index").ReloadContinuationItemsCommand | import("../index").AppendContinuationItemsAction> | null;
-        on_response_received_actions_memo: import("../helpers").Memo;
-        on_response_received_endpoints: import("../helpers").ObservedArray<import("../index").ReloadContinuationItemsCommand | import("../index").AppendContinuationItemsAction> | null;
-        on_response_received_endpoints_memo: import("../helpers").Memo;
-        on_response_received_commands: import("../helpers").ObservedArray<import("../index").ReloadContinuationItemsCommand | import("../index").AppendContinuationItemsAction> | null;
-        on_response_received_commands_memo: import("../helpers").Memo;
-        continuation: import("../index").TimedContinuation | null | undefined;
-        continuation_contents: import("../index").SectionListContinuation | import("../index").LiveChatContinuation | import("../index").MusicPlaylistShelfContinuation | import("../index").MusicShelfContinuation | import("../index").GridContinuation | import("../index").PlaylistPanelContinuation | null | undefined;
-        metadata: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        header: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        microformat: import("../helpers").YTNode | null;
-        sidebar: import("../helpers").YTNode | null;
-        overlay: import("../helpers").YTNode | null;
-        refinements: any;
-        estimated_results: number | null;
-        player_overlays: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        playback_tracking: {
-            videostats_watchtime_url: any;
-            videostats_playback_url: any;
-        } | null;
-        playability_status: {
-            status: string;
-            error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-            audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
-            embeddable: boolean;
-            reason: any;
-        } | undefined;
-        streaming_data: {
-            expires: Date;
-            formats: Format[];
-            adaptive_formats: Format[];
-            dash_manifest_url: any;
-            dls_manifest_url: any;
-        } | undefined;
-        current_video_endpoint: import("../classes/NavigationEndpoint").default | null;
-        captions: import("../classes/PlayerCaptionsTracklist").default | null;
-        video_details: import("../classes/misc/VideoDetails").default | undefined;
-        annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
-        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null; /**
-         * Get songs used in the video.
-         */
-        endscreen: import("../classes/Endscreen").default | null;
-        cards: import("../classes/CardCollection").default | null;
-    }, ({
-        actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null;
-        actions_memo: import("../helpers").Memo;
-        contents: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        contents_memo: import("../helpers").Memo;
-        on_response_received_actions: import("../helpers").ObservedArray<import("../index").ReloadContinuationItemsCommand | import("../index").AppendContinuationItemsAction> | null;
-        on_response_received_actions_memo: import("../helpers").Memo;
-        on_response_received_endpoints: import("../helpers").ObservedArray<import("../index").ReloadContinuationItemsCommand | import("../index").AppendContinuationItemsAction> | null;
-        on_response_received_endpoints_memo: import("../helpers").Memo;
-        on_response_received_commands: import("../helpers").ObservedArray<import("../index").ReloadContinuationItemsCommand | import("../index").AppendContinuationItemsAction> | null;
-        on_response_received_commands_memo: import("../helpers").Memo;
-        continuation: import("../index").TimedContinuation | null | undefined;
-        continuation_contents: import("../index").SectionListContinuation | import("../index").LiveChatContinuation | import("../index").MusicPlaylistShelfContinuation | import("../index").MusicShelfContinuation | import("../index").GridContinuation | import("../index").PlaylistPanelContinuation | null | undefined;
-        metadata: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        header: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        microformat: import("../helpers").YTNode | null;
-        sidebar: import("../helpers").YTNode | null;
-        overlay: import("../helpers").YTNode | null;
-        refinements: any;
-        estimated_results: number | null;
-        player_overlays: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        playback_tracking: {
-            videostats_watchtime_url: any;
-            videostats_playback_url: any;
-        } | null;
-        playability_status: {
-            status: string;
-            error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-            audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
-            embeddable: boolean;
-            reason: any;
-        } | undefined;
-        streaming_data: {
-            expires: Date;
-            formats: Format[];
-            adaptive_formats: Format[];
-            dash_manifest_url: any;
-            dls_manifest_url: any;
-        } | undefined;
-        current_video_endpoint: import("../classes/NavigationEndpoint").default | null;
-        captions: import("../classes/PlayerCaptionsTracklist").default | null;
-        video_details: import("../classes/misc/VideoDetails").default | undefined;
-        annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
-        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null; /**
-         * Get songs used in the video.
-         */
-        endscreen: import("../classes/Endscreen").default | null;
-        cards: import("../classes/CardCollection").default | null;
-    } | undefined)?];
+    /**
+     * Content Playback Nonce.
+     */
+    get cpn(): string | undefined;
+    /**
+     * Checks if continuation is available for the watch next feed.
+     */
+    get wn_has_continuation(): boolean;
     /**
      * Get songs used in the video.
      */
     get music_tracks(): never[];
-    chooseFormat(options: FormatOptions): Format;
-    toDash(url_transformer?: URLTransformer): string;
     /**
-     * @param options - download options.
+     * Original parsed InnerTube response.
      */
-    download(options?: DownloadOptions): Promise<any>;
+    get page(): [IPlayerResponse, INextResponse?];
 }
 export default VideoInfo;

@@ -1,7 +1,7 @@
-import { YTNode } from '../../../helpers';
-import Text from '../../misc/Text';
-import Thumbnail from '../../misc/Thumbnail';
-import NavigationEndpoint from '../../NavigationEndpoint';
+import { YTNode } from '../../../helpers.js';
+import Text from '../../misc/Text.js';
+import Thumbnail from '../../misc/Thumbnail.js';
+import NavigationEndpoint from '../../NavigationEndpoint.js';
 declare class LiveChatProductItem extends YTNode {
     static type: string;
     title: string;
@@ -10,12 +10,12 @@ declare class LiveChatProductItem extends YTNode {
     price: string;
     vendor_name: string;
     from_vendor_text: string;
-    information_button: import("../../../helpers").SuperParsedResult<YTNode>;
+    information_button: YTNode | null;
     endpoint: NavigationEndpoint;
     creator_message: string;
     creator_name: string;
     author_photo: Thumbnail[];
-    information_dialog: import("../../../helpers").SuperParsedResult<YTNode>;
+    information_dialog: YTNode | null;
     is_verified: boolean;
     creator_custom_message: Text;
     constructor(data: any);

@@ -1,6 +1,6 @@
-import Text from './misc/Text';
-import Button from './Button';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Button from './Button.js';
+import { YTNode } from '../helpers.js';
 declare class LiveChatDialog extends YTNode {
     static type: string;
     confirm_button: Button | null;

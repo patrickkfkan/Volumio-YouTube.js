@@ -1,7 +1,7 @@
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 declare class EndscreenElement extends YTNode {
     static type: string;
     style: string;
@@ -14,7 +14,7 @@ declare class EndscreenElement extends YTNode {
     hovercard_button: YTNode | null | undefined;
     is_subscribe: boolean | undefined;
     playlist_length: Text | undefined;
-    thumbnail_overlays: import("../helpers").ObservedArray<YTNode> | undefined;
+    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode> | undefined;
     left: number;
     top: number;
     width: number;

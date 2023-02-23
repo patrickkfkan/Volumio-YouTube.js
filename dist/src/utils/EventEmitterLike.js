@@ -1,4 +1,3 @@
-"use strict";
 var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
     if (kind === "m") throw new TypeError("Private method is not writable");
     if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
@@ -11,7 +10,7 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
 var _CustomEvent_detail, _EventEmitterLike_legacy_listeners;
-Object.defineProperty(exports, "__esModule", { value: true });
+/*** Volumio-YouTube.js ***/
 // eslint-disable-next-line
 require('event-target-polyfill');
 // Polyfill CustomEvents on node
@@ -31,7 +30,7 @@ if (!Reflect.has(globalThis, 'CustomEvent')) {
     _CustomEvent_detail = new WeakMap();
     Reflect.set(globalThis, 'CustomEvent', CustomEvent);
 }
-class EventEmitterLike extends EventTarget {
+export default class EventEmitterLike extends EventTarget {
     constructor() {
         super();
         _EventEmitterLike_legacy_listeners.set(this, new Map());
@@ -73,6 +72,5 @@ class EventEmitterLike extends EventTarget {
         }
     }
 }
-exports.default = EventEmitterLike;
 _EventEmitterLike_legacy_listeners = new WeakMap();
 //# sourceMappingURL=EventEmitterLike.js.map

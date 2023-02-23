@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../../helpers");
-class DataModelSection extends helpers_1.YTNode {
+import { YTNode } from '../../helpers.js';
+class DataModelSection extends YTNode {
     constructor(data) {
         super();
         this.title = data.title;
@@ -32,5 +30,5 @@ class DataModelSection extends helpers_1.YTNode {
     }
 }
 DataModelSection.type = 'DataModelSection';
-exports.default = DataModelSection;
+export default DataModelSection;
 //# sourceMappingURL=DataModelSection.js.map

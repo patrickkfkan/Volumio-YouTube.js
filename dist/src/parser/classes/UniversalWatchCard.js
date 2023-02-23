@@ -1,19 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const helpers_1 = require("../helpers");
-class UniversalWatchCard extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+class UniversalWatchCard extends YTNode {
     constructor(data) {
         super();
-        // TODO: use parseItem / parseArray for these
-        this.header = index_1.default.parse(data.header);
-        this.call_to_action = index_1.default.parse(data.callToAction);
-        this.sections = index_1.default.parse(data.sections);
+        this.header = Parser.parseItem(data.header);
+        this.call_to_action = Parser.parseItem(data.callToAction);
+        this.sections = Parser.parseArray(data.sections);
+        if (data.collapsedLabel) {
+            this.collapsed_label = new Text(data.collapsedLabel);
+        }
     }
 }
 UniversalWatchCard.type = 'UniversalWatchCard';
-exports.default = UniversalWatchCard;
+export default UniversalWatchCard;
 //# sourceMappingURL=UniversalWatchCard.js.map

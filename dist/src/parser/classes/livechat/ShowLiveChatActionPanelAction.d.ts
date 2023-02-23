@@ -1,7 +1,8 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
+import LiveChatActionPanel from './LiveChatActionPanel.js';
 declare class ShowLiveChatActionPanelAction extends YTNode {
     static type: string;
-    panel_to_show: import("../../helpers").SuperParsedResult<YTNode>;
+    panel_to_show: LiveChatActionPanel | null;
     constructor(data: any);
 }
 export default ShowLiveChatActionPanelAction;

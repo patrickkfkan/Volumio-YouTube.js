@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../../helpers");
-class MusicMenuItemDivider extends helpers_1.YTNode {
+import { YTNode } from '../../helpers.js';
+class MusicMenuItemDivider extends YTNode {
     // eslint-disable-next-line
     constructor(data) {
         super();
     }
 }
 MusicMenuItemDivider.type = 'MusicMenuItemDivider';
-exports.default = MusicMenuItemDivider;
+export default MusicMenuItemDivider;
 //# sourceMappingURL=MusicMenuItemDivider.js.map

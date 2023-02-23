@@ -1,11 +1,12 @@
-import Text from './misc/Text';
-import Button from './Button';
-import SubscribeButton from './SubscribeButton';
-import MetadataRowContainer from './MetadataRowContainer';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Button from './Button.js';
+import VideoOwner from './VideoOwner.js';
+import SubscribeButton from './SubscribeButton.js';
+import MetadataRowContainer from './MetadataRowContainer.js';
+import { YTNode } from '../helpers.js';
 declare class VideoSecondaryInfo extends YTNode {
     static type: string;
-    owner: import("../helpers").SuperParsedResult<YTNode>;
+    owner: VideoOwner | null;
     description: Text;
     subscribe_button: Button | SubscribeButton | null;
     metadata: MetadataRowContainer | null;

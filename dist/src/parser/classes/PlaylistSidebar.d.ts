@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class PlaylistSidebar extends YTNode {
     static type: string;
-    items: import("../helpers").SuperParsedResult<YTNode>;
+    items: import("../helpers.js").SuperParsedResult<YTNode>;
     constructor(data: any);
-    get contents(): import("../helpers").SuperParsedResult<YTNode>;
+    get contents(): import("../helpers.js").SuperParsedResult<YTNode>;
 }
 export default PlaylistSidebar;

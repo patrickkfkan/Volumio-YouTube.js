@@ -1,7 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../../helpers");
-class CtaGoToCreatorStudio extends helpers_1.YTNode {
+import { YTNode } from '../../helpers.js';
+class CtaGoToCreatorStudio extends YTNode {
     constructor(data) {
         super();
         this.title = data.buttonLabel;
@@ -10,5 +8,5 @@ class CtaGoToCreatorStudio extends helpers_1.YTNode {
     }
 }
 CtaGoToCreatorStudio.type = 'CtaGoToCreatorStudio';
-exports.default = CtaGoToCreatorStudio;
+export default CtaGoToCreatorStudio;
 //# sourceMappingURL=CtaGoToCreatorStudio.js.map

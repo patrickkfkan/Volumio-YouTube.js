@@ -1,122 +1,42 @@
-import { GridContinuation, MusicShelfContinuation, ParsedResponse, PlaylistPanelContinuation, SectionListContinuation } from '..';
-import Actions from '../../core/Actions';
-import NavigationEndpoint from '../classes/NavigationEndpoint';
-declare type Continuation = {
-    type: 'browse' | 'next';
-    token: string;
-    payload?: {};
-};
-declare type ItemFilter = ((item: any) => boolean) | null;
-declare type SortBy = 'recently_added' | 'a_z' | 'z_a';
+import { GridContinuation, MusicShelfContinuation } from '../index.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import Grid from '../classes/Grid.js';
+import MusicShelf from '../classes/MusicShelf.js';
+import MusicSideAlignedItem from '../classes/MusicSideAlignedItem.js';
+import ChipCloudChip from '../classes/ChipCloudChip.js';
+import MusicMultiSelectMenuItem from '../classes/menus/MusicMultiSelectMenuItem.js';
+import type { ObservedArray } from '../helpers.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 declare class Library {
     #private;
-    constructor(actions: Actions);
+    header?: MusicSideAlignedItem;
+    contents?: ObservedArray<Grid | MusicShelf>;
+    constructor(response: ApiResponse, actions: Actions);
     /**
-     * Retrieves the library's playlists
+     * Applies given sort option to the library items.
      */
-    getPlaylists(args?: {
-        sort_by?: SortBy;
-    }): Promise<LibraryItemList>;
+    applySort(sort_by: string | MusicMultiSelectMenuItem): Promise<Library>;
     /**
-     * Retrieves the library's albums
+     * Applies given filter to the library.
      */
-    getAlbums(args?: {
-        sort_by?: SortBy;
-    }): Promise<LibraryItemList>;
+    applyFilter(filter: string | ChipCloudChip): Promise<Library>;
     /**
-     * Retrieves the library's artists
+     * Retrieves continuation of the library items.
      */
-    getArtists(args?: {
-        sort_by?: SortBy;
-    }): Promise<LibraryItemList>;
-    /**
-     * Retrieves the library's songs
-     */
-    getSongs(args?: {
-        sort_by?: SortBy | 'random';
-    }): Promise<LibraryItemList>;
-    /**
-     * Retrieves the library's subscriptions
-     */
-    getSubscriptions(args?: {
-        sort_by?: SortBy;
-    }): Promise<LibraryItemList>;
-    /**
-     * Retrieves recent activity
-     */
-    getRecentActivity(args: {
-        all: boolean;
-    }): Promise<LibraryItemList | LibrarySectionList>;
+    getContinuation(): Promise<LibraryContinuation>;
+    get has_continuation(): boolean;
+    get sort_options(): string[];
+    get filters(): string[];
+    get page(): IBrowseResponse;
 }
-declare abstract class LibraryResultsBase {
+declare class LibraryContinuation {
     #private;
-    has_continuation: boolean;
-    constructor(continuation: Continuation | null, page: ParsedResponse, actions: Actions);
-    getContinuation(): Promise<LibraryResultsBase>;
-    get page(): {
-        actions: import("../helpers").SuperParsedResult<import("../helpers").YTNode> | null;
-        actions_memo: import("../helpers").Memo;
-        contents: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        contents_memo: import("../helpers").Memo;
-        on_response_received_actions: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
-        on_response_received_actions_memo: import("../helpers").Memo;
-        on_response_received_endpoints: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
-        on_response_received_endpoints_memo: import("../helpers").Memo;
-        on_response_received_commands: import("../helpers").ObservedArray<import("..").ReloadContinuationItemsCommand | import("..").AppendContinuationItemsAction> | null;
-        on_response_received_commands_memo: import("../helpers").Memo;
-        continuation: import("..").TimedContinuation | null | undefined;
-        continuation_contents: SectionListContinuation | import("..").LiveChatContinuation | import("..").MusicPlaylistShelfContinuation | MusicShelfContinuation | GridContinuation | PlaylistPanelContinuation | null | undefined;
-        metadata: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        header: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        microformat: import("../helpers").YTNode | null;
-        sidebar: import("../helpers").YTNode | null;
-        overlay: import("../helpers").YTNode | null;
-        refinements: any;
-        estimated_results: number | null;
-        player_overlays: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-        playback_tracking: {
-            videostats_watchtime_url: any;
-            videostats_playback_url: any;
-        } | null;
-        playability_status: {
-            status: string;
-            error_screen: import("../helpers").SuperParsedResult<import("../helpers").YTNode>;
-            audio_only_playablility: import("../classes/AudioOnlyPlayability").default | null;
-            embeddable: boolean;
-            reason: any;
-        } | undefined;
-        streaming_data: {
-            expires: Date;
-            formats: import("../classes/misc/Format").default[];
-            adaptive_formats: import("../classes/misc/Format").default[];
-            dash_manifest_url: any;
-            dls_manifest_url: any;
-        } | undefined;
-        current_video_endpoint: NavigationEndpoint | null;
-        captions: import("../classes/PlayerCaptionsTracklist").default | null;
-        video_details: import("../classes/misc/VideoDetails").default | undefined;
-        annotations: import("../helpers").ObservedArray<import("../classes/PlayerAnnotationsExpanded").default>;
-        storyboards: import("../classes/PlayerStoryboardSpec").default | import("../classes/PlayerLiveStoryboardSpec").default | null;
-        endscreen: import("../classes/Endscreen").default | null;
-        cards: import("../classes/CardCollection").default | null;
-    };
-    abstract parseContinuationContents(page: ParsedResponse, from_continuation: Continuation): Promise<LibraryResultsBase>;
+    contents: GridContinuation | MusicShelfContinuation;
+    constructor(response: ApiResponse, actions: Actions);
+    getContinuation(): Promise<LibraryContinuation>;
+    get has_continuation(): boolean;
+    get page(): IBrowseResponse;
 }
-declare class LibraryItemList extends LibraryResultsBase {
-    #private;
-    items: any[];
-    sort_by: SortBy | 'random' | null;
-    constructor(items: Array<any>, filter: ItemFilter, continuation: Continuation | null, page: ParsedResponse, actions: Actions, overrides?: {
-        sort_by: SortBy | 'random' | null;
-    });
-    parseContinuationContents(page: ParsedResponse, from_continuation: Continuation): Promise<LibraryItemList>;
-    get all_items(): any[];
-    get filter(): ItemFilter;
-}
-declare class LibrarySectionList extends LibraryResultsBase {
-    #private;
-    sections: any[];
-    constructor(sections: Array<any>, continuation: Continuation | null, page: ParsedResponse, actions: Actions);
-    parseContinuationContents(page: ParsedResponse, from_continuation: Continuation): Promise<LibrarySectionList>;
-}
+export { LibraryContinuation };
 export default Library;

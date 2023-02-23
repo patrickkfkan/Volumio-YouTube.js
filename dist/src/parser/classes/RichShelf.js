@@ -1,20 +1,15 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const helpers_1 = require("../helpers");
-class RichShelf extends helpers_1.YTNode {
+import Parser from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+class RichShelf extends YTNode {
     constructor(data) {
         super();
-        this.title = new Text_1.default(data.title);
-        this.contents = index_1.default.parse(data.contents);
-        this.endpoint = data.endpoint ? new NavigationEndpoint_1.default(data.endpoint) : null;
+        this.title = new Text(data.title);
+        this.contents = Parser.parseArray(data.contents);
+        this.endpoint = data.endpoint ? new NavigationEndpoint(data.endpoint) : null;
     }
 }
 RichShelf.type = 'RichShelf';
-exports.default = RichShelf;
+export default RichShelf;
 //# sourceMappingURL=RichShelf.js.map

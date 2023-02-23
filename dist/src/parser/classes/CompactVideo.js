@@ -1,38 +1,50 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const Author_1 = __importDefault(require("./misc/Author"));
-const Utils_1 = require("../../utils/Utils");
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class CompactVideo extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import Author from './misc/Author.js';
+import { timeToSeconds } from '../../utils/Utils.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import MetadataBadge from './MetadataBadge.js';
+import { YTNode } from '../helpers.js';
+class CompactVideo extends YTNode {
     constructor(data) {
         super();
         this.id = data.videoId;
-        this.thumbnails = Thumbnail_1.default.fromResponse(data.thumbnail) || null;
-        this.rich_thumbnail = data.richThumbnail && index_1.default.parse(data.richThumbnail);
-        this.title = new Text_1.default(data.title);
-        this.author = new Author_1.default(data.longBylineText, data.ownerBadges, data.channelThumbnail);
-        this.view_count = new Text_1.default(data.viewCountText);
-        this.short_view_count = new Text_1.default(data.shortViewCountText);
-        this.published = new Text_1.default(data.publishedTimeText);
+        this.thumbnails = Thumbnail.fromResponse(data.thumbnail) || null;
+        this.rich_thumbnail = data.richThumbnail && Parser.parse(data.richThumbnail);
+        this.title = new Text(data.title);
+        this.author = new Author(data.longBylineText, data.ownerBadges, data.channelThumbnail);
+        this.view_count = new Text(data.viewCountText);
+        this.short_view_count = new Text(data.shortViewCountText);
+        this.published = new Text(data.publishedTimeText);
+        this.badges = Parser.parseArray(data.badges, MetadataBadge);
         this.duration = {
-            text: new Text_1.default(data.lengthText).toString(),
-            seconds: (0, Utils_1.timeToSeconds)(new Text_1.default(data.lengthText).toString())
+            text: new Text(data.lengthText).toString(),
+            seconds: timeToSeconds(new Text(data.lengthText).toString())
         };
-        this.thumbnail_overlays = index_1.default.parse(data.thumbnailOverlays);
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
-        this.menu = index_1.default.parse(data.menu);
+        this.thumbnail_overlays = Parser.parseArray(data.thumbnailOverlays);
+        this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        this.menu = Parser.parseItem(data.menu);
     }
     get best_thumbnail() {
         return this.thumbnails[0];
     }
+    get is_fundraiser() {
+        return this.badges.some((badge) => badge.label === 'Fundraiser');
+    }
+    get is_live() {
+        return this.badges.some((badge) => {
+            if (badge.style === 'BADGE_STYLE_TYPE_LIVE_NOW' || badge.label === 'LIVE')
+                return true;
+        });
+    }
+    get is_new() {
+        return this.badges.some((badge) => badge.label === 'New');
+    }
+    get is_premiere() {
+        return this.badges.some((badge) => badge.style === 'PREMIERE');
+    }
 }
 CompactVideo.type = 'CompactVideo';
-exports.default = CompactVideo;
+export default CompactVideo;
 //# sourceMappingURL=CompactVideo.js.map

@@ -1,8 +1,10 @@
-import Text from './misc/Text';
-import Author from './misc/Author';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Author from './misc/Author.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import type Menu from './menus/Menu.js';
+import MetadataBadge from './MetadataBadge.js';
+import { YTNode } from '../helpers.js';
 declare class CompactVideo extends YTNode {
     static type: string;
     id: string;
@@ -13,14 +15,19 @@ declare class CompactVideo extends YTNode {
     view_count: Text;
     short_view_count: Text;
     published: Text;
+    badges: MetadataBadge[];
     duration: {
         text: string;
         seconds: number;
     };
-    thumbnail_overlays: import("../helpers").SuperParsedResult<YTNode>;
+    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
     endpoint: NavigationEndpoint;
-    menu: import("../helpers").SuperParsedResult<YTNode>;
+    menu: Menu | null;
     constructor(data: any);
     get best_thumbnail(): Thumbnail;
+    get is_fundraiser(): boolean;
+    get is_live(): boolean;
+    get is_new(): boolean;
+    get is_premiere(): boolean;
 }
 export default CompactVideo;

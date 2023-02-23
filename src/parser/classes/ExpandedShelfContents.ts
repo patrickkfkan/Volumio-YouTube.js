@@ -1,5 +1,5 @@
-import Parser from '../index';
-import { YTNode } from '../helpers';
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
 
 class ExpandedShelfContents extends YTNode {
   static type = 'ExpandedShelfContents';
@@ -8,7 +8,7 @@ class ExpandedShelfContents extends YTNode {
 
   constructor(data: any) {
     super();
-    this.items = Parser.parse(data.items);
+    this.items = Parser.parseArray(data.items);
   }
 
   // XXX: alias for consistency

@@ -1,15 +1,15 @@
-import Text from './misc/Text';
-import NavigationEndpoint from './NavigationEndpoint';
-import MusicResponsiveListItem from './MusicResponsiveListItem';
-import { YTNode } from '../helpers';
-import Button from './Button';
+import Text from './misc/Text.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import MusicResponsiveListItem from './MusicResponsiveListItem.js';
+import { YTNode } from '../helpers.js';
+import Button from './Button.js';
 declare class MusicShelf extends YTNode {
     static type: string;
     title: Text;
-    contents: import("../helpers").ObservedArray<MusicResponsiveListItem>;
-    endpoint: NavigationEndpoint | null;
-    continuation: string | null;
-    bottom_text: Text | null;
+    contents: import("../helpers.js").ObservedArray<MusicResponsiveListItem>;
+    endpoint?: NavigationEndpoint;
+    continuation?: string;
+    bottom_text?: Text;
     bottom_button?: Button | null;
     subheaders?: Array<any>;
     constructor(data: any);

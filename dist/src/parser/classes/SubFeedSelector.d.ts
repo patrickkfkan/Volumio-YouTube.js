@@ -1,9 +1,9 @@
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 declare class SubFeedSelector extends YTNode {
     static type: string;
     title: Text;
-    options: import("../helpers").SuperParsedResult<YTNode>;
+    options: import("../helpers.js").SuperParsedResult<YTNode>;
     constructor(data: any);
 }
 export default SubFeedSelector;

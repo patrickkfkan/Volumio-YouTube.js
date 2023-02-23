@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const helpers_1 = require("../helpers");
-class MicroformatData extends helpers_1.YTNode {
+import Thumbnail from './misc/Thumbnail.js';
+import { YTNode } from '../helpers.js';
+class MicroformatData extends YTNode {
     constructor(data) {
         super();
         this.url_canonical = data.urlCanonical;
         this.title = data.title;
         this.description = data.description;
-        this.thumbnail = data.thumbnail ? Thumbnail_1.default.fromResponse(data.thumbnail) : null;
+        this.thumbnail = data.thumbnail ? Thumbnail.fromResponse(data.thumbnail) : null;
         this.site_name = data.siteName;
         this.app_name = data.appName;
         this.android_package = data.androidPackage;
@@ -35,5 +30,5 @@ class MicroformatData extends helpers_1.YTNode {
     }
 }
 MicroformatData.type = 'MicroformatData';
-exports.default = MicroformatData;
+export default MicroformatData;
 //# sourceMappingURL=MicroformatData.js.map

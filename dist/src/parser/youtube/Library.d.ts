@@ -1,53 +1,53 @@
-import { ParsedResponse } from '..';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import Feed from '../../core/Feed';
-import History from './History';
-import Playlist from './Playlist';
-import ProfileColumnStats from '../classes/ProfileColumnStats';
-import ProfileColumnUserInfo from '../classes/ProfileColumnUserInfo';
-declare class Library {
+import type Actions from '../../core/Actions.js';
+import Feed from '../../core/Feed.js';
+import History from './History.js';
+import Playlist from './Playlist.js';
+import ProfileColumnStats from '../classes/ProfileColumnStats.js';
+import ProfileColumnUserInfo from '../classes/ProfileColumnUserInfo.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
+import { ApiResponse } from '../../core/Actions.js';
+declare class Library extends Feed<IBrowseResponse> {
     #private;
     profile: {
-        stats: ProfileColumnStats | null;
-        user_info: ProfileColumnUserInfo | null;
+        stats?: ProfileColumnStats;
+        user_info?: ProfileColumnUserInfo;
     };
     sections: {
-        type: any;
-        title: any;
-        contents: any;
-        getAll: () => Promise<Feed | Playlist | History>;
+        type: string | undefined;
+        title: import("../classes/misc/Text.js").default;
+        contents: any[];
+        getAll: () => Promise<History | Playlist | Feed<import("../types/ParsedResponse.js").IParsedResponse>>;
     }[];
-    constructor(response: AxioslikeResponse, actions: Actions);
+    constructor(actions: Actions, data: ApiResponse | IBrowseResponse);
     get history(): {
-        type: any;
-        title: any;
-        contents: any;
-        getAll: () => Promise<Feed | Playlist | History>;
+        type: string | undefined;
+        title: import("../classes/misc/Text.js").default;
+        contents: any[];
+        getAll: () => Promise<History | Playlist | Feed<import("../types/ParsedResponse.js").IParsedResponse>>;
     } | undefined;
     get watch_later(): {
-        type: any;
-        title: any;
-        contents: any;
-        getAll: () => Promise<Feed | Playlist | History>;
+        type: string | undefined;
+        title: import("../classes/misc/Text.js").default;
+        contents: any[];
+        getAll: () => Promise<History | Playlist | Feed<import("../types/ParsedResponse.js").IParsedResponse>>;
     } | undefined;
     get liked_videos(): {
-        type: any;
-        title: any;
-        contents: any;
-        getAll: () => Promise<Feed | Playlist | History>;
+        type: string | undefined;
+        title: import("../classes/misc/Text.js").default;
+        contents: any[];
+        getAll: () => Promise<History | Playlist | Feed<import("../types/ParsedResponse.js").IParsedResponse>>;
     } | undefined;
-    get playlists(): {
-        type: any;
-        title: any;
-        contents: any;
-        getAll: () => Promise<Feed | Playlist | History>;
+    get playlists_section(): {
+        type: string | undefined;
+        title: import("../classes/misc/Text.js").default;
+        contents: any[];
+        getAll: () => Promise<History | Playlist | Feed<import("../types/ParsedResponse.js").IParsedResponse>>;
     } | undefined;
     get clips(): {
-        type: any;
-        title: any;
-        contents: any;
-        getAll: () => Promise<Feed | Playlist | History>;
+        type: string | undefined;
+        title: import("../classes/misc/Text.js").default;
+        contents: any[];
+        getAll: () => Promise<History | Playlist | Feed<import("../types/ParsedResponse.js").IParsedResponse>>;
     } | undefined;
-    get page(): ParsedResponse;
 }
 export default Library;

@@ -1,21 +1,26 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("../misc/Text"));
-const Thumbnail_1 = __importDefault(require("../misc/Thumbnail"));
-const helpers_1 = require("../../helpers");
-class CommentsEntryPointHeader extends helpers_1.YTNode {
+import Text from '../misc/Text.js';
+import Thumbnail from '../misc/Thumbnail.js';
+import { YTNode } from '../../helpers.js';
+class CommentsEntryPointHeader extends YTNode {
     constructor(data) {
         super();
-        this.header = new Text_1.default(data.headerText);
-        this.comment_count = new Text_1.default(data.commentCount);
-        this.teaser_avatar = Thumbnail_1.default.fromResponse(data.teaserAvatar || data.simpleboxAvatar);
-        this.teaser_content = new Text_1.default(data.teaserContent);
-        this.simplebox_placeholder = new Text_1.default(data.simpleboxPlaceholder);
+        if (data.header) {
+            this.header = new Text(data.headerText);
+        }
+        if (data.commentCount) {
+            this.comment_count = new Text(data.commentCount);
+        }
+        if (data.teaserAvatar || data.simpleboxAvatar) {
+            this.teaser_avatar = Thumbnail.fromResponse(data.teaserAvatar || data.simpleboxAvatar);
+        }
+        if (data.teaserContent) {
+            this.teaser_content = new Text(data.teaserContent);
+        }
+        if (data.simpleboxPlaceholder) {
+            this.simplebox_placeholder = new Text(data.simpleboxPlaceholder);
+        }
     }
 }
 CommentsEntryPointHeader.type = 'CommentsEntryPointHeader';
-exports.default = CommentsEntryPointHeader;
+export default CommentsEntryPointHeader;
 //# sourceMappingURL=CommentsEntryPointHeader.js.map

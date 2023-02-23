@@ -1,15 +1,9 @@
+import { Platform, getRandomUserAgent, getStringBetweenStrings, PlayerError } from '../utils/Utils.js';
 
-import { FetchFunction } from '../utils/HTTPClient';
-import { getRandomUserAgent, getStringBetweenStrings, PlayerError } from '../utils/Utils';
+import Constants from '../utils/Constants.js';
 
-import Constants from '../utils/Constants';
-import UniversalCache from '../utils/Cache';
-
-// See https://github.com/LuanRT/Jinter
-import Jinter from 'jintr';
-
-// eslint-disable-next-line
-const nfFetch = require('node-fetch').default;
+import { ICache } from '../types/Cache.js';
+import { FetchFunction } from '../types/PlatformShim.js';
 
 export default class Player {
   #nsig_sc;
@@ -26,7 +20,7 @@ export default class Player {
     this.#player_id = player_id;
   }
 
-  static async create(cache: UniversalCache | undefined, fetch: FetchFunction = nfFetch) {
+  static async create(cache: ICache | undefined, fetch: FetchFunction = Platform.shim.fetch): Promise<Player> {
     const url = new URL('/iframe_api', Constants.URLS.YT_BASE);
     const res = await fetch(url);
 
@@ -69,7 +63,7 @@ export default class Player {
     return await Player.fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id);
   }
 
-  decipher(url?: string, signature_cipher?: string, cipher?: string) {
+  decipher(url?: string, signature_cipher?: string, cipher?: string): string {
     url = url || signature_cipher || cipher;
 
     if (!url)
@@ -78,13 +72,13 @@ export default class Player {
     const args = new URLSearchParams(url);
     const url_components = new URL(args.get('url') || url);
 
-    url_components.searchParams.set('ratebypass', 'yes');
-
     if (signature_cipher || cipher) {
-      const sig_decipher = new Jinter(this.#sig_sc);
-      sig_decipher.scope.set('sig', args.get('s'));
+      const signature = Platform.shim.eval(this.#sig_sc, {
+        sig: args.get('s')
+      });
 
-      const signature = sig_decipher.interpret();
+      if (typeof signature !== 'string')
+        throw new PlayerError('Failed to decipher signature');
 
       const sp = args.get('sp');
 
@@ -96,10 +90,12 @@ export default class Player {
     const n = url_components.searchParams.get('n');
 
     if (n) {
-      const nsig_decipher = new Jinter(this.#nsig_sc);
-      nsig_decipher.scope.set('nsig', n);
+      const nsig = Platform.shim.eval(this.#nsig_sc, {
+        nsig: n
+      });
 
-      const nsig = nsig_decipher.interpret();
+      if (typeof nsig !== 'string')
+        throw new PlayerError('Failed to decipher nsig');
 
       if (nsig.startsWith('enhanced_except_')) {
         console.warn('Warning:\nCould not transform nsig, download may be throttled.\nChanging the InnerTube client to "ANDROID" might help!');
@@ -111,7 +107,7 @@ export default class Player {
     return url_components.toString();
   }
 
-  static async fromCache(cache: UniversalCache, player_id: string) {
+  static async fromCache(cache: ICache, player_id: string): Promise<Player | null> {
     const buffer = await cache.get(player_id);
 
     if (!buffer)
@@ -137,13 +133,13 @@ export default class Player {
     return new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
   }
 
-  static async fromSource(cache: UniversalCache | undefined, sig_timestamp: number, sig_sc: string, nsig_sc: string, player_id: string) {
+  static async fromSource(cache: ICache | undefined, sig_timestamp: number, sig_sc: string, nsig_sc: string, player_id: string): Promise<Player> {
     const player = new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
     await player.cache(cache);
     return player;
   }
 
-  async cache(cache?: UniversalCache) {
+  async cache(cache?: ICache): Promise<void> {
     if (!cache) return;
 
     const encoder = new TextEncoder();
@@ -164,22 +160,22 @@ export default class Player {
     await cache.set(this.#player_id, new Uint8Array(buffer));
   }
 
-  static extractSigTimestamp(data: string) {
+  static extractSigTimestamp(data: string): number {
     return parseInt(getStringBetweenStrings(data, 'signatureTimestamp:', ',') || '0');
   }
 
-  static extractSigSourceCode(data: string) {
+  static extractSigSourceCode(data: string): string {
     const calls = getStringBetweenStrings(data, 'function(a){a=a.split("")', 'return a.join("")}');
-    const obj_name = calls?.split('.')?.[0]?.replace(';', '');
-    const functions = getStringBetweenStrings(data, `var ${obj_name}=`, '};');
+    const obj_name = calls?.split(/\.|\[/)?.[0]?.replace(';', '')?.trim();
+    const functions = getStringBetweenStrings(data, `var ${obj_name}={`, '};');
 
     if (!functions || !calls)
       console.warn(new PlayerError('Failed to extract signature decipher algorithm'));
 
-    return `function descramble_sig(a) { a = a.split(""); let ${obj_name}=${functions}}${calls} return a.join("") } descramble_sig(sig);`;
+    return `function descramble_sig(a) { a = a.split(""); let ${obj_name}={${functions}}${calls} return a.join("") } descramble_sig(sig);`;
   }
 
-  static extractNSigSourceCode(data: string) {
+  static extractNSigSourceCode(data: string): string {
     const sc = `function descramble_nsig(a) { let b=a.split("")${getStringBetweenStrings(data, 'b=a.split("")', '}return b.join("")}')}} return b.join(""); } descramble_nsig(nsig)`;
 
     if (!sc)
@@ -188,23 +184,23 @@ export default class Player {
     return sc;
   }
 
-  get url() {
+  get url(): string {
     return new URL(`/s/player/${this.#player_id}/player_ias.vflset/en_US/base.js`, Constants.URLS.YT_BASE).toString();
   }
 
-  get sts() {
+  get sts(): number {
     return this.#sig_sc_timestamp;
   }
 
-  get nsig_sc() {
+  get nsig_sc(): string {
     return this.#nsig_sc;
   }
 
-  get sig_sc() {
+  get sig_sc(): string {
     return this.#sig_sc;
   }
 
-  static get LIBRARY_VERSION() {
+  static get LIBRARY_VERSION(): number {
     return 2;
   }
 }

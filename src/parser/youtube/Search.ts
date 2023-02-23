@@ -1,86 +1,79 @@
-import Actions from '../../core/Actions';
-import { observe, ObservedArray, YTNode } from '../helpers';
-import { InnertubeError } from '../../utils/Utils';
+import Feed from '../../core/Feed.js';
+import HorizontalCardList from '../classes/HorizontalCardList.js';
+import ItemSection from '../classes/ItemSection.js';
+import SearchRefinementCard from '../classes/SearchRefinementCard.js';
+import SectionList from '../classes/SectionList.js';
+import UniversalWatchCard from '../classes/UniversalWatchCard.js';
+import { InnertubeError } from '../../utils/Utils.js';
 
-import Feed from '../../core/Feed';
-import SectionList from '../classes/SectionList';
-import ItemSection from '../classes/ItemSection';
-import HorizontalCardList from '../classes/HorizontalCardList';
-import RichListHeader from '../classes/RichListHeader';
-import SearchRefinementCard from '../classes/SearchRefinementCard';
-import TwoColumnSearchResults from '../classes/TwoColumnSearchResults';
-import UniversalWatchCard from '../classes/UniversalWatchCard';
-import WatchCardHeroVideo from '../classes/WatchCardHeroVideo';
-import WatchCardSectionSequence from '../classes/WatchCardSectionSequence';
+import type Actions from '../../core/Actions.js';
+import type { ObservedArray, YTNode } from '../helpers.js';
+import type { ISearchResponse } from '../types/ParsedResponse.js';
+import type { ApiResponse } from '../../core/Actions.js';
 
-class Search extends Feed {
-  results: ObservedArray<YTNode> | null | undefined;
-  refinements;
-  estimated_results;
-  watch_card;
-  refinement_cards;
+class Search extends Feed<ISearchResponse> {
+  results?: ObservedArray<YTNode> | null;
+  refinements: string[];
+  estimated_results: number;
+  watch_card?: UniversalWatchCard;
+  refinement_cards?: HorizontalCardList | null;
 
-  constructor(actions: Actions, data: any, already_parsed = false) {
+  constructor(actions: Actions, data: ApiResponse | ISearchResponse, already_parsed = false) {
     super(actions, data, already_parsed);
 
     const contents =
-      this.page.contents?.item().as(TwoColumnSearchResults).primary_contents.item().as(SectionList).contents.array() ||
-      this.page.on_response_received_commands?.[0].contents;
+      this.page.contents_memo?.getType(SectionList).first().contents ||
+      this.page.on_response_received_commands?.first().contents;
 
-    const secondary_contents_maybe = this.page.contents?.item().key('secondary_contents');
-    const secondary_contents = secondary_contents_maybe?.isParsed() ? secondary_contents_maybe.parsed().item().key('contents').parsed().array() : undefined;
+    if (!contents)
+      throw new InnertubeError('No contents found in search response');
 
     this.results = contents.firstOfType(ItemSection)?.contents;
-
-    const card_list = this.results?.get({ type: 'HorizontalCardList' }, true)?.as(HorizontalCardList);
-    const universal_watch_card = secondary_contents?.firstOfType(UniversalWatchCard);
 
     this.refinements = this.page.refinements || [];
     this.estimated_results = this.page.estimated_results;
 
-    this.watch_card = {
-      header: universal_watch_card?.header.item() || null,
-      call_to_action: universal_watch_card?.call_to_action.item().as(WatchCardHeroVideo) || null,
-      sections: universal_watch_card?.sections.array().filterType(WatchCardSectionSequence) || []
-    };
-
-    this.refinement_cards = {
-      header: card_list?.header.item().as(RichListHeader) || null,
-      cards: card_list?.cards.array().filterType(SearchRefinementCard) || observe([] as SearchRefinementCard[])
-    };
+    this.watch_card = this.page.contents_memo?.getType(UniversalWatchCard).first();
+    this.refinement_cards = this.results?.get({ type: 'HorizontalCardList' }, true)?.as(HorizontalCardList);
   }
 
   /**
-   * Applies given refinement card and returns a new {@link Search} object.
+   * Applies given refinement card and returns a new {@link Search} object. Use {@link refinement_card_queries} to get a list of available refinement cards.
    */
-  async selectRefinementCard(card: SearchRefinementCard | string) {
+  async selectRefinementCard(card: SearchRefinementCard | string): Promise<Search> {
     let target_card: SearchRefinementCard | undefined;
 
     if (typeof card === 'string') {
-      target_card = this.refinement_cards.cards.get({ query: card });
+      if (!this.refinement_cards) throw new InnertubeError('No refinement cards found.');
+      target_card = this.refinement_cards?.cards.get({ query: card })?.as(SearchRefinementCard);
       if (!target_card)
-        throw new InnertubeError('Refinement card not found!', { available_cards: this.refinement_card_queries });
+        throw new InnertubeError(`Refinement card "${card}" not found`, { available_cards: this.refinement_card_queries });
     } else if (card.type === 'SearchRefinementCard') {
       target_card = card;
     } else {
       throw new InnertubeError('Invalid refinement card!');
     }
 
-    const page = await target_card.endpoint.call(this.actions, undefined, true);
+    const page = await target_card.endpoint.call<ISearchResponse>(this.actions, { parse: true });
 
     return new Search(this.actions, page, true);
   }
 
-  get refinement_card_queries() {
-    return this.refinement_cards.cards.map((card) => card.query);
+  /**
+   * Returns a list of refinement card queries.
+   */
+  get refinement_card_queries(): string[] {
+    return this.refinement_cards?.cards.as(SearchRefinementCard).map((card) => card.query) || [];
   }
 
   /**
    * Retrieves next batch of results.
    */
   async getContinuation(): Promise<Search> {
-    const continuation = await this.getContinuationData();
-    return new Search(this.actions, continuation, true);
+    const response = await this.getContinuationData();
+    if (!response)
+      throw new InnertubeError('Could not get continuation data');
+    return new Search(this.actions, response, true);
   }
 }
 

@@ -1,5 +1,5 @@
-import Session from './Session';
-import { OAuthError } from '../utils/Utils';
+import { OAuthError } from '../utils/Utils.js';
+import type Session from './Session.js';
 export interface Credentials {
     /**
      * Token used to sign in.
@@ -14,13 +14,13 @@ export interface Credentials {
      */
     expires: Date;
 }
-export declare type OAuthAuthPendingData = any;
-export declare type OAuthAuthEventHandler = (data: {
+export type OAuthAuthPendingData = any;
+export type OAuthAuthEventHandler = (data: {
     credentials: Credentials;
     status: 'SUCCESS';
 }) => any;
-export declare type OAuthAuthPendingEventHandler = (data: OAuthAuthPendingData) => any;
-export declare type OAuthAuthErrorEventHandler = (err: OAuthError) => any;
+export type OAuthAuthPendingEventHandler = (data: OAuthAuthPendingData) => any;
+export type OAuthAuthErrorEventHandler = (err: OAuthError) => any;
 declare class OAuth {
     #private;
     constructor(session: Session);
@@ -34,7 +34,7 @@ declare class OAuth {
      * Refresh access token if the same has expired.
      */
     refreshIfRequired(): Promise<void>;
-    revokeCredentials(): Promise<any>;
+    revokeCredentials(): Promise<Response | undefined>;
     get credentials(): Credentials | undefined;
     get has_access_token_expired(): boolean;
     validateCredentials(): this is this & {

@@ -1,10 +1,11 @@
-import Thumbnail from '../misc/Thumbnail';
-import Text from '../misc/Text';
-import { YTNode } from '../../helpers';
+import Thumbnail from '../misc/Thumbnail.js';
+import Text from '../misc/Text.js';
+import type Button from '../Button.js';
+import { YTNode } from '../../helpers.js';
 declare class CommentReplyDialog extends YTNode {
     static type: string;
-    reply_button: import("../../helpers").SuperParsedResult<YTNode>;
-    cancel_button: import("../../helpers").SuperParsedResult<YTNode>;
+    reply_button: Button | null;
+    cancel_button: Button | null;
     author_thumbnail: Thumbnail[];
     placeholder: Text;
     error_message: Text;

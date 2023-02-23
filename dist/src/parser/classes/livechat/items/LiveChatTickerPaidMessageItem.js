@@ -1,39 +1,36 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("../../misc/Text"));
-const Thumbnail_1 = __importDefault(require("../../misc/Thumbnail"));
-const NavigationEndpoint_1 = __importDefault(require("../../NavigationEndpoint"));
-const MetadataBadge_1 = __importDefault(require("../../MetadataBadge"));
-const LiveChatAuthorBadge_1 = __importDefault(require("../../LiveChatAuthorBadge"));
-const index_1 = __importDefault(require("../../../index"));
-const helpers_1 = require("../../../helpers");
-class LiveChatTickerPaidMessageItem extends helpers_1.YTNode {
+import Parser from '../../../index.js';
+import LiveChatAuthorBadge from '../../LiveChatAuthorBadge.js';
+import MetadataBadge from '../../MetadataBadge.js';
+import Text from '../../misc/Text.js';
+import Thumbnail from '../../misc/Thumbnail.js';
+import NavigationEndpoint from '../../NavigationEndpoint.js';
+import { observe, YTNode } from '../../../helpers.js';
+class LiveChatTickerPaidMessageItem extends YTNode {
     constructor(data) {
+        var _a, _b;
         super();
         this.author = {
             id: data.authorExternalChannelId,
-            thumbnails: Thumbnail_1.default.fromResponse(data.authorPhoto),
-            badges: index_1.default.parseArray(data.authorBadges, [MetadataBadge_1.default, LiveChatAuthorBadge_1.default]),
+            name: new Text(data === null || data === void 0 ? void 0 : data.authorName),
+            thumbnails: Thumbnail.fromResponse(data.authorPhoto),
+            badges: observe([]).as(LiveChatAuthorBadge, MetadataBadge),
             is_moderator: null,
             is_verified: null,
             is_verified_artist: null
         };
-        const badges = index_1.default.parseArray(data.authorBadges, [MetadataBadge_1.default, LiveChatAuthorBadge_1.default]);
+        const badges = Parser.parseArray(data.authorBadges, [MetadataBadge, LiveChatAuthorBadge]);
         this.author.badges = badges;
-        this.author.is_moderator = (badges === null || badges === void 0 ? void 0 : badges.some((badge) => badge.icon_type == 'MODERATOR')) || null;
-        this.author.is_verified = (badges === null || badges === void 0 ? void 0 : badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED')) || null;
-        this.author.is_verified_artist = (badges === null || badges === void 0 ? void 0 : badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED_ARTIST')) || null;
-        this.amount = new Text_1.default(data.amount);
+        this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == 'MODERATOR') : null;
+        this.author.is_verified = badges ? badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED') : null;
+        this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED_ARTIST') : null;
+        this.amount = new Text(data.amount);
         this.duration_sec = data.durationSec;
         this.full_duration_sec = data.fullDurationSec;
-        this.show_item = index_1.default.parse(data.showItemEndpoint.showLiveChatItemEndpoint.renderer);
-        this.show_item_endpoint = new NavigationEndpoint_1.default(data.showItemEndpoint);
+        this.show_item = Parser.parse((_b = (_a = data.showItemEndpoint) === null || _a === void 0 ? void 0 : _a.showLiveChatItemEndpoint) === null || _b === void 0 ? void 0 : _b.renderer);
+        this.show_item_endpoint = new NavigationEndpoint(data.showItemEndpoint);
         this.id = data.id;
     }
 }
 LiveChatTickerPaidMessageItem.type = 'LiveChatTickerPaidMessageItem';
-exports.default = LiveChatTickerPaidMessageItem;
+export default LiveChatTickerPaidMessageItem;
 //# sourceMappingURL=LiveChatTickerPaidMessageItem.js.map

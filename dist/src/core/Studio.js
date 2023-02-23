@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,14 +18,10 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var _Studio_instances, _Studio_session, _Studio_getInitialUploadData, _Studio_uploadVideo, _Studio_setVideoMetadata;
-Object.defineProperty(exports, "__esModule", { value: true });
-const proto_1 = __importDefault(require("../proto"));
-const Utils_1 = require("../utils/Utils");
-const utils_1 = require("../utils");
+import Proto from '../proto/index.js';
+import { Constants } from '../utils/index.js';
+import { InnertubeError, MissingParamError, Platform } from '../utils/Utils.js';
 class Studio {
     constructor(session) {
         _Studio_instances.add(this);
@@ -43,9 +38,37 @@ class Studio {
      */
     setThumbnail(video_id, buffer) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!__classPrivateFieldGet(this, _Studio_session, "f").logged_in)
+                throw new InnertubeError('You must be signed in to perform this operation.');
             if (!video_id || !buffer)
-                throw new Utils_1.MissingParamError('One or more parameters are missing.');
-            const payload = proto_1.default.encodeCustomThumbnailPayload(video_id, buffer);
+                throw new MissingParamError('One or more parameters are missing.');
+            const payload = Proto.encodeCustomThumbnailPayload(video_id, buffer);
+            const response = yield __classPrivateFieldGet(this, _Studio_session, "f").actions.execute('/video_manager/metadata_update', {
+                protobuf: true,
+                serialized_data: payload
+            });
+            return response;
+        });
+    }
+    /**
+     * Updates given video's metadata.
+     * @example
+     * ```ts
+     * const response = await yt.studio.updateVideoMetadata('videoid', {
+     *   tags: [ 'astronomy', 'NASA', 'APOD' ],
+     *   title: 'Artemis Mission',
+     *   description: 'A nicely written description...',
+     *   category: 27,
+     *   license: 'creative_commons'
+     *   // ...
+     * });
+     * ```
+     */
+    updateVideoMetadata(video_id, metadata) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (!__classPrivateFieldGet(this, _Studio_session, "f").logged_in)
+                throw new InnertubeError('You must be signed in to perform this operation.');
+            const payload = Proto.encodeVideoMetadataPayload(video_id, metadata);
             const response = yield __classPrivateFieldGet(this, _Studio_session, "f").actions.execute('/video_manager/metadata_update', {
                 protobuf: true,
                 serialized_data: payload
@@ -63,10 +86,12 @@ class Studio {
      */
     upload(file, metadata = {}) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!__classPrivateFieldGet(this, _Studio_session, "f").logged_in)
+                throw new InnertubeError('You must be signed in to perform this operation.');
             const initial_data = yield __classPrivateFieldGet(this, _Studio_instances, "m", _Studio_getInitialUploadData).call(this);
             const upload_result = yield __classPrivateFieldGet(this, _Studio_instances, "m", _Studio_uploadVideo).call(this, initial_data.upload_url, file);
             if (upload_result.status !== 'STATUS_SUCCESS')
-                throw new Utils_1.InnertubeError('Could not process video.');
+                throw new InnertubeError('Could not process video.');
             const response = yield __classPrivateFieldGet(this, _Studio_instances, "m", _Studio_setVideoMetadata).call(this, initial_data, upload_result, metadata);
             return response;
         });
@@ -74,17 +99,17 @@ class Studio {
 }
 _Studio_session = new WeakMap(), _Studio_instances = new WeakSet(), _Studio_getInitialUploadData = function _Studio_getInitialUploadData() {
     return __awaiter(this, void 0, void 0, function* () {
-        const frontend_upload_id = `innertube_android:${(0, Utils_1.uuidv4)()}:0:v=3,api=1,cf=3`;
+        const frontend_upload_id = `innertube_android:${Platform.shim.uuidv4()}:0:v=3,api=1,cf=3`;
         const payload = {
             frontendUploadId: frontend_upload_id,
             deviceDisplayName: 'Pixel 6 Pro',
-            fileId: `goog-edited-video://generated?videoFileUri=content://media/external/video/media/${(0, Utils_1.uuidv4)()}`,
+            fileId: `goog-edited-video://generated?videoFileUri=content://media/external/video/media/${Platform.shim.uuidv4()}`,
             mp4MoovAtomRelocationStatus: 'UNSUPPORTED',
             transcodeResult: 'DISABLED',
             connectionType: 'WIFI'
         };
         const response = yield __classPrivateFieldGet(this, _Studio_session, "f").http.fetch('/upload/youtubei', {
-            baseURL: utils_1.Constants.URLS.YT_UPLOAD,
+            baseURL: Constants.URLS.YT_UPLOAD,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -94,7 +119,7 @@ _Studio_session = new WeakMap(), _Studio_instances = new WeakSet(), _Studio_getI
             body: JSON.stringify(payload)
         });
         if (!response.ok)
-            throw new Utils_1.InnertubeError('Could not get initial upload data');
+            throw new InnertubeError('Could not get initial upload data');
         return {
             frontend_upload_id,
             upload_id: response.headers.get('x-guploader-uploadid'),
@@ -116,7 +141,7 @@ _Studio_session = new WeakMap(), _Studio_instances = new WeakSet(), _Studio_getI
             body: file
         });
         if (!response.ok)
-            throw new Utils_1.InnertubeError('Could not upload video');
+            throw new InnertubeError('Could not upload video');
         const data = yield response.json();
         return data;
     });
@@ -149,5 +174,5 @@ _Studio_session = new WeakMap(), _Studio_instances = new WeakSet(), _Studio_getI
         return response;
     });
 };
-exports.default = Studio;
+export default Studio;
 //# sourceMappingURL=Studio.js.map

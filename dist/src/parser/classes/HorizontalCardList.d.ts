@@ -1,10 +1,13 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
+import SearchRefinementCard from './SearchRefinementCard.js';
+import Button from './Button.js';
+import MacroMarkersListItem from './MacroMarkersListItem.js';
 declare class HorizontalCardList extends YTNode {
     static type: string;
-    cards: import("../helpers").SuperParsedResult<YTNode>;
-    header: import("../helpers").SuperParsedResult<YTNode>;
-    previous_button: import("../helpers").SuperParsedResult<YTNode>;
-    next_button: import("../helpers").SuperParsedResult<YTNode>;
+    cards: import("../helpers.js").ObservedArray<SearchRefinementCard | MacroMarkersListItem>;
+    header: YTNode | null;
+    previous_button: Button | null;
+    next_button: Button | null;
     constructor(data: any);
 }
 export default HorizontalCardList;

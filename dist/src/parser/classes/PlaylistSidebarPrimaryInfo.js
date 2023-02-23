@@ -1,23 +1,18 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class PlaylistSidebarPrimaryInfo extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class PlaylistSidebarPrimaryInfo extends YTNode {
     constructor(data) {
         super();
-        this.stats = data.stats.map((stat) => new Text_1.default(stat));
-        this.thumbnail_renderer = index_1.default.parse(data.thumbnailRenderer);
-        this.title = new Text_1.default(data.title);
-        this.menu = data.menu && index_1.default.parse(data.menu);
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
-        this.description = new Text_1.default(data.description);
+        this.stats = data.stats.map((stat) => new Text(stat));
+        this.thumbnail_renderer = Parser.parse(data.thumbnailRenderer);
+        this.title = new Text(data.title);
+        this.menu = Parser.parseItem(data.menu);
+        this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        this.description = new Text(data.description);
     }
 }
 PlaylistSidebarPrimaryInfo.type = 'PlaylistSidebarPrimaryInfo';
-exports.default = PlaylistSidebarPrimaryInfo;
+export default PlaylistSidebarPrimaryInfo;
 //# sourceMappingURL=PlaylistSidebarPrimaryInfo.js.map

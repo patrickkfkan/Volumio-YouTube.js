@@ -1,9 +1,12 @@
-import { YTNode } from '../helpers';
+import type Menu from './menus/Menu.js';
+import type Button from './Button.js';
+import type SortFilterSubMenu from './SortFilterSubMenu.js';
+import { YTNode } from '../helpers.js';
 declare class LiveChatHeader extends YTNode {
     static type: string;
-    overflow_menu: import("../helpers").SuperParsedResult<YTNode>;
-    collapse_button: import("../helpers").SuperParsedResult<YTNode>;
-    view_selector: import("../helpers").SuperParsedResult<YTNode>;
+    overflow_menu: Menu | null;
+    collapse_button: Button | null;
+    view_selector: SortFilterSubMenu | null;
     constructor(data: any);
 }
 export default LiveChatHeader;

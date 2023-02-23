@@ -1,7 +1,7 @@
-import { YTNode } from '../helpers';
+import { YTNode } from '../helpers.js';
 declare class RichSection extends YTNode {
     static type: string;
-    contents: import("../helpers").SuperParsedResult<YTNode>;
+    content: YTNode | null;
     constructor(data: any);
 }
 export default RichSection;

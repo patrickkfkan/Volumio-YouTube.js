@@ -1,9 +1,9 @@
-import Text from './misc/Text';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay';
-import Menu from './menus/Menu';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
+import Menu from './menus/Menu.js';
+import { YTNode } from '../helpers.js';
 declare class MusicResponsiveListItem extends YTNode {
     #private;
     static type: string;
@@ -11,11 +11,11 @@ declare class MusicResponsiveListItem extends YTNode {
     item_type: string | undefined;
     index: Text | undefined;
     thumbnails: Thumbnail[];
-    badges: import("../helpers").ObservedArray<YTNode>;
+    badges: import("../helpers.js").ObservedArray<YTNode>;
     menu: Menu | null;
     overlay: MusicItemThumbnailOverlay | null;
     id?: string;
-    title?: string | Text;
+    title?: string;
     duration?: {
         text: string;
         seconds: number;

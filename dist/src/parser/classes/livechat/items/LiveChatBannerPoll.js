@@ -1,26 +1,21 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../../../index"));
-const Text_1 = __importDefault(require("../../misc/Text"));
-const Thumbnail_1 = __importDefault(require("../../misc/Thumbnail"));
-const helpers_1 = require("../../../helpers");
-class LiveChatBannerPoll extends helpers_1.YTNode {
+import { YTNode } from '../../../helpers.js';
+import Parser from '../../../index.js';
+import Text from '../../misc/Text.js';
+import Thumbnail from '../../misc/Thumbnail.js';
+class LiveChatBannerPoll extends YTNode {
     constructor(data) {
         super();
-        this.poll_question = new Text_1.default(data.pollQuestion);
-        this.author_photo = Thumbnail_1.default.fromResponse(data.authorPhoto);
+        this.poll_question = new Text(data.pollQuestion);
+        this.author_photo = Thumbnail.fromResponse(data.authorPhoto);
         this.choices = data.pollChoices.map((choice) => ({
             option_id: choice.pollOptionId,
-            text: new Text_1.default(choice.text).toString()
+            text: new Text(choice.text).toString()
         }));
         this.collapsed_state_entity_key = data.collapsedStateEntityKey;
         this.live_chat_poll_state_entity_key = data.liveChatPollStateEntityKey;
-        this.context_menu_button = index_1.default.parse(data.contextMenuButton);
+        this.context_menu_button = Parser.parseItem(data.contextMenuButton);
     }
 }
 LiveChatBannerPoll.type = 'LiveChatBannerPoll';
-exports.default = LiveChatBannerPoll;
+export default LiveChatBannerPoll;
 //# sourceMappingURL=LiveChatBannerPoll.js.map

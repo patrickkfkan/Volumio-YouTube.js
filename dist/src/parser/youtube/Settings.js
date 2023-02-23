@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,34 +18,33 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var _Settings_page, _Settings_actions;
-Object.defineProperty(exports, "__esModule", { value: true });
-const __1 = __importDefault(require(".."));
-const Utils_1 = require("../../utils/Utils");
-const Tab_1 = __importDefault(require("../classes/Tab"));
-const TwoColumnBrowseResults_1 = __importDefault(require("../classes/TwoColumnBrowseResults"));
-const SectionList_1 = __importDefault(require("../classes/SectionList"));
-const ItemSection_1 = __importDefault(require("../classes/ItemSection"));
-const PageIntroduction_1 = __importDefault(require("../classes/PageIntroduction"));
-const SettingsOptions_1 = __importDefault(require("../classes/SettingsOptions"));
-const SettingsSwitch_1 = __importDefault(require("../classes/SettingsSwitch"));
-const SettingsSidebar_1 = __importDefault(require("../classes/SettingsSidebar"));
+import Parser from '../index.js';
+import { InnertubeError } from '../../utils/Utils.js';
+import CompactLink from '../classes/CompactLink.js';
+import ItemSection from '../classes/ItemSection.js';
+import PageIntroduction from '../classes/PageIntroduction.js';
+import SectionList from '../classes/SectionList.js';
+import SettingsOptions from '../classes/SettingsOptions.js';
+import SettingsSidebar from '../classes/SettingsSidebar.js';
+import SettingsSwitch from '../classes/SettingsSwitch.js';
+import Tab from '../classes/Tab.js';
+import TwoColumnBrowseResults from '../classes/TwoColumnBrowseResults.js';
 class Settings {
     constructor(actions, response) {
-        var _a, _b, _c, _d, _e;
+        var _a, _b, _c, _d;
         _Settings_page.set(this, void 0);
         _Settings_actions.set(this, void 0);
         __classPrivateFieldSet(this, _Settings_actions, actions, "f");
-        __classPrivateFieldSet(this, _Settings_page, __1.default.parseResponse(response.data), "f");
-        this.sidebar = (_a = __classPrivateFieldGet(this, _Settings_page, "f").sidebar) === null || _a === void 0 ? void 0 : _a.as(SettingsSidebar_1.default);
-        const tab = __classPrivateFieldGet(this, _Settings_page, "f").contents.item().as(TwoColumnBrowseResults_1.default).tabs.array().as(Tab_1.default).get({ selected: true });
+        __classPrivateFieldSet(this, _Settings_page, Parser.parseResponse(response.data), "f");
+        this.sidebar = (_a = __classPrivateFieldGet(this, _Settings_page, "f").sidebar) === null || _a === void 0 ? void 0 : _a.as(SettingsSidebar);
+        if (!__classPrivateFieldGet(this, _Settings_page, "f").contents)
+            throw new InnertubeError('Page contents not found');
+        const tab = __classPrivateFieldGet(this, _Settings_page, "f").contents.item().as(TwoColumnBrowseResults).tabs.array().as(Tab).get({ selected: true });
         if (!tab)
-            throw new Utils_1.InnertubeError('Target tab not found');
-        const contents = (_b = tab.content) === null || _b === void 0 ? void 0 : _b.as(SectionList_1.default).contents.array().as(ItemSection_1.default);
-        this.introduction = (_e = (_d = (_c = contents === null || contents === void 0 ? void 0 : contents.shift()) === null || _c === void 0 ? void 0 : _c.contents) === null || _d === void 0 ? void 0 : _d.get({ type: 'PageIntroduction' })) === null || _e === void 0 ? void 0 : _e.as(PageIntroduction_1.default);
+            throw new InnertubeError('Target tab not found');
+        const contents = (_b = tab.content) === null || _b === void 0 ? void 0 : _b.as(SectionList).contents.as(ItemSection);
+        this.introduction = (_d = (_c = contents === null || contents === void 0 ? void 0 : contents.shift()) === null || _c === void 0 ? void 0 : _c.contents) === null || _d === void 0 ? void 0 : _d.firstOfType(PageIntroduction);
         this.sections = contents === null || contents === void 0 ? void 0 : contents.map((el) => {
             var _a;
             return ({
@@ -58,14 +56,23 @@ class Settings {
     /**
      * Selects an item from the sidebar menu. Use {@link sidebar_items} to see available items.
      */
-    selectSidebarItem(name) {
+    selectSidebarItem(target_item) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this.sidebar)
-                throw new Utils_1.InnertubeError('Sidebar not available');
-            const item = this.sidebar.items.get({ title: name });
-            if (!item)
-                throw new Utils_1.InnertubeError(`Item "${name}" not found`, { available_items: this.sidebar_items });
-            const response = yield item.endpoint.callTest(__classPrivateFieldGet(this, _Settings_actions, "f"), { parse: false });
+                throw new InnertubeError('Sidebar not available');
+            let item;
+            if (typeof target_item === 'string') {
+                item = this.sidebar.items.get({ title: target_item });
+                if (!item)
+                    throw new InnertubeError(`Item "${target_item}" not found`, { available_items: this.sidebar_items });
+            }
+            else if (target_item === null || target_item === void 0 ? void 0 : target_item.is(CompactLink)) {
+                item = target_item;
+            }
+            else {
+                throw new InnertubeError('Invalid item', { target_item });
+            }
+            const response = yield item.endpoint.call(__classPrivateFieldGet(this, _Settings_actions, "f"), { parse: false });
             return new Settings(__classPrivateFieldGet(this, _Settings_actions, "f"), response);
         });
     }
@@ -75,36 +82,36 @@ class Settings {
     getSettingOption(name) {
         var _a;
         if (!this.sections)
-            throw new Utils_1.InnertubeError('Sections not available');
+            throw new InnertubeError('Sections not available');
         for (const section of this.sections) {
             if (!section.contents)
                 continue;
             for (const el of section.contents) {
-                const options = el.as(SettingsOptions_1.default).options;
+                const options = el.as(SettingsOptions).options;
                 if (options) {
                     for (const option of options) {
-                        if (option.is(SettingsSwitch_1.default) &&
+                        if (option.is(SettingsSwitch) &&
                             ((_a = option.title) === null || _a === void 0 ? void 0 : _a.toString()) === name)
                             return option;
                     }
                 }
             }
         }
-        throw new Utils_1.InnertubeError(`Option "${name}" not found`, { available_options: this.setting_options });
+        throw new InnertubeError(`Option "${name}" not found`, { available_options: this.setting_options });
     }
     /**
      * Returns settings available in the page.
      */
     get setting_options() {
         if (!this.sections)
-            throw new Utils_1.InnertubeError('Sections not available');
+            throw new InnertubeError('Sections not available');
         let options = [];
         for (const section of this.sections) {
             if (!section.contents)
                 continue;
             for (const el of section.contents) {
-                if (el.as(SettingsOptions_1.default).options)
-                    options = options.concat(el.as(SettingsOptions_1.default).options);
+                if (el.as(SettingsOptions).options)
+                    options = options.concat(el.as(SettingsOptions).options);
             }
         }
         return options.map((opt) => { var _a; return (_a = opt.title) === null || _a === void 0 ? void 0 : _a.toString(); }).filter((el) => el);
@@ -114,10 +121,13 @@ class Settings {
      */
     get sidebar_items() {
         if (!this.sidebar)
-            throw new Utils_1.InnertubeError('Sidebar not available');
+            throw new InnertubeError('Sidebar not available');
         return this.sidebar.items.map((item) => item.title.toString());
+    }
+    get page() {
+        return __classPrivateFieldGet(this, _Settings_page, "f");
     }
 }
 _Settings_page = new WeakMap(), _Settings_actions = new WeakMap();
-exports.default = Settings;
+export default Settings;
 //# sourceMappingURL=Settings.js.map

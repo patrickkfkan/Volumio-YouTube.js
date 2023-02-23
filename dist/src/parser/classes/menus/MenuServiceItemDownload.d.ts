@@ -1,5 +1,5 @@
-import NavigationEndpoint from '../NavigationEndpoint';
-import { YTNode } from '../../helpers';
+import NavigationEndpoint from '../NavigationEndpoint.js';
+import { YTNode } from '../../helpers.js';
 declare class MenuServiceItemDownload extends YTNode {
     static type: string;
     has_separator: boolean;

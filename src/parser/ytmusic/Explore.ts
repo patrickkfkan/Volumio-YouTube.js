@@ -1,24 +1,26 @@
-import Parser, { ParsedResponse } from '..';
+import Parser from '../index.js';
 
-import { InnertubeError } from '../../utils/Utils';
-import { AxioslikeResponse } from '../../core/Actions';
+import Grid from '../classes/Grid.js';
+import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
+import MusicNavigationButton from '../classes/MusicNavigationButton.js';
+import SectionList from '../classes/SectionList.js';
+import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults.js';
 
-import Grid from '../classes/Grid';
-import SectionList from '../classes/SectionList';
-import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults';
-import MusicNavigationButton from '../classes/MusicNavigationButton';
-import MusicCarouselShelf from '../classes/MusicCarouselShelf';
+import type { ApiResponse } from '../../core/Actions.js';
+import { InnertubeError } from '../../utils/Utils.js';
+import type { ObservedArray } from '../helpers.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 
 class Explore {
-  #page;
+  #page: IBrowseResponse;
 
-  top_buttons;
-  sections;
+  top_buttons: MusicNavigationButton[];
+  sections: ObservedArray<MusicCarouselShelf>;
 
-  constructor(response: AxioslikeResponse) {
-    this.#page = Parser.parseResponse(response.data);
+  constructor(response: ApiResponse) {
+    this.#page = Parser.parseResponse<IBrowseResponse>(response.data);
 
-    const tab = this.#page.contents.item().as(SingleColumnBrowseResults).tabs.get({ selected: true });
+    const tab = this.#page.contents?.item().as(SingleColumnBrowseResults).tabs.get({ selected: true });
 
     if (!tab)
       throw new InnertubeError('Could not find target tab.');
@@ -28,11 +30,11 @@ class Explore {
     if (!section_list)
       throw new InnertubeError('Target tab did not have any content.');
 
-    this.top_buttons = section_list.contents.array().firstOfType(Grid)?.items.array().as(MusicNavigationButton) || ([] as MusicNavigationButton[]);
-    this.sections = section_list.contents.array().getAll({ type: 'MusicCarouselShelf' }) as MusicCarouselShelf[];
+    this.top_buttons = section_list.contents.firstOfType(Grid)?.items.as(MusicNavigationButton) || [];
+    this.sections = section_list.contents.filterType(MusicCarouselShelf);
   }
 
-  get page(): ParsedResponse {
+  get page(): IBrowseResponse {
     return this.#page;
   }
 }

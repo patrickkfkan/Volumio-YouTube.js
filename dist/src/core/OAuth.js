@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,13 +18,9 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var _OAuth_instances, _OAuth_identity, _OAuth_session, _OAuth_credentials, _OAuth_polling_interval, _OAuth_loadCachedCredentials, _OAuth_getUserCode, _OAuth_startPolling, _OAuth_refreshAccessToken, _OAuth_getClientIdentity;
-Object.defineProperty(exports, "__esModule", { value: true });
-const Constants_1 = __importDefault(require("../utils/Constants"));
-const Utils_1 = require("../utils/Utils");
+import Constants from '../utils/Constants.js';
+import { OAuthError, Platform } from '../utils/Utils.js';
 class OAuth {
     constructor(session) {
         _OAuth_instances.add(this);
@@ -82,7 +77,7 @@ class OAuth {
             if (!__classPrivateFieldGet(this, _OAuth_credentials, "f"))
                 return;
             yield this.removeCache();
-            return __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL(`/o/oauth2/revoke?token=${encodeURIComponent(__classPrivateFieldGet(this, _OAuth_credentials, "f").access_token)}`, Constants_1.default.URLS.YT_BASE), {
+            return __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL(`/o/oauth2/revoke?token=${encodeURIComponent(__classPrivateFieldGet(this, _OAuth_credentials, "f").access_token)}`, Constants.URLS.YT_BASE), {
                 method: 'post'
             });
         });
@@ -121,16 +116,15 @@ _OAuth_identity = new WeakMap(), _OAuth_session = new WeakMap(), _OAuth_credenti
         return true;
     });
 }, _OAuth_getUserCode = function _OAuth_getUserCode() {
-    var _a;
     return __awaiter(this, void 0, void 0, function* () {
         __classPrivateFieldSet(this, _OAuth_identity, yield __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_getClientIdentity).call(this), "f");
         const data = {
-            client_id: (_a = __classPrivateFieldGet(this, _OAuth_identity, "f")) === null || _a === void 0 ? void 0 : _a.client_id,
-            scope: Constants_1.default.OAUTH.SCOPE,
-            device_id: (0, Utils_1.uuidv4)(),
-            model_name: Constants_1.default.OAUTH.MODEL_NAME
+            client_id: __classPrivateFieldGet(this, _OAuth_identity, "f").client_id,
+            scope: Constants.OAUTH.SCOPE,
+            device_id: Platform.shim.uuidv4(),
+            model_name: Constants.OAUTH.MODEL_NAME
         };
-        const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/o/oauth2/device/code', Constants_1.default.URLS.YT_BASE), {
+        const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/o/oauth2/device/code', Constants.URLS.YT_BASE), {
             body: JSON.stringify(data),
             method: 'POST',
             headers: {
@@ -144,9 +138,9 @@ _OAuth_identity = new WeakMap(), _OAuth_session = new WeakMap(), _OAuth_credenti
     });
 }, _OAuth_startPolling = function _OAuth_startPolling(device_code) {
     const poller = setInterval(() => __awaiter(this, void 0, void 0, function* () {
-        const data = Object.assign(Object.assign({}, __classPrivateFieldGet(this, _OAuth_identity, "f")), { code: device_code, grant_type: Constants_1.default.OAUTH.GRANT_TYPE });
+        const data = Object.assign(Object.assign({}, __classPrivateFieldGet(this, _OAuth_identity, "f")), { code: device_code, grant_type: Constants.OAUTH.GRANT_TYPE });
         try {
-            const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/o/oauth2/token', Constants_1.default.URLS.YT_BASE), {
+            const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/o/oauth2/token', Constants.URLS.YT_BASE), {
                 body: JSON.stringify(data),
                 method: 'POST',
                 headers: {
@@ -157,10 +151,10 @@ _OAuth_identity = new WeakMap(), _OAuth_session = new WeakMap(), _OAuth_credenti
             if (response_data.error) {
                 switch (response_data.error) {
                     case 'access_denied':
-                        __classPrivateFieldGet(this, _OAuth_session, "f").emit('auth-error', new Utils_1.OAuthError('Access was denied.', { status: 'ACCESS_DENIED' }));
+                        __classPrivateFieldGet(this, _OAuth_session, "f").emit('auth-error', new OAuthError('Access was denied.', { status: 'ACCESS_DENIED' }));
                         break;
                     case 'expired_token':
-                        __classPrivateFieldGet(this, _OAuth_session, "f").emit('auth-error', new Utils_1.OAuthError('The device code has expired, restarting auth flow.', { status: 'DEVICE_CODE_EXPIRED' }));
+                        __classPrivateFieldGet(this, _OAuth_session, "f").emit('auth-error', new OAuthError('The device code has expired, restarting auth flow.', { status: 'DEVICE_CODE_EXPIRED' }));
                         clearInterval(poller);
                         __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_getUserCode).call(this);
                         break;
@@ -183,7 +177,7 @@ _OAuth_identity = new WeakMap(), _OAuth_session = new WeakMap(), _OAuth_credenti
         }
         catch (err) {
             clearInterval(poller);
-            return __classPrivateFieldGet(this, _OAuth_session, "f").emit('auth-error', new Utils_1.OAuthError('Could not obtain user code.', { status: 'FAILED', error: err }));
+            return __classPrivateFieldGet(this, _OAuth_session, "f").emit('auth-error', new OAuthError('Could not obtain user code.', { status: 'FAILED', error: err }));
         }
     }), __classPrivateFieldGet(this, _OAuth_polling_interval, "f") * 1000);
 }, _OAuth_refreshAccessToken = function _OAuth_refreshAccessToken() {
@@ -192,7 +186,7 @@ _OAuth_identity = new WeakMap(), _OAuth_session = new WeakMap(), _OAuth_credenti
             return;
         __classPrivateFieldSet(this, _OAuth_identity, yield __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_getClientIdentity).call(this), "f");
         const data = Object.assign(Object.assign({}, __classPrivateFieldGet(this, _OAuth_identity, "f")), { refresh_token: __classPrivateFieldGet(this, _OAuth_credentials, "f").refresh_token, grant_type: 'refresh_token' });
-        const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/o/oauth2/token', Constants_1.default.URLS.YT_BASE), {
+        const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/o/oauth2/token', Constants.URLS.YT_BASE), {
             body: JSON.stringify(data),
             method: 'POST',
             headers: {
@@ -214,21 +208,20 @@ _OAuth_identity = new WeakMap(), _OAuth_session = new WeakMap(), _OAuth_credenti
 }, _OAuth_getClientIdentity = function _OAuth_getClientIdentity() {
     var _a;
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/tv', Constants_1.default.URLS.YT_BASE), { headers: Constants_1.default.OAUTH.HEADERS });
+        const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/tv', Constants.URLS.YT_BASE), { headers: Constants.OAUTH.HEADERS });
         const response_data = yield response.text();
-        const url_body = (_a = Constants_1.default.OAUTH.REGEX.AUTH_SCRIPT.exec(response_data)) === null || _a === void 0 ? void 0 : _a[1];
+        const url_body = (_a = Constants.OAUTH.REGEX.AUTH_SCRIPT.exec(response_data)) === null || _a === void 0 ? void 0 : _a[1];
         if (!url_body)
-            throw new Utils_1.OAuthError('Could not obtain script url.', { status: 'FAILED' });
-        const script = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch(url_body, { baseURL: Constants_1.default.URLS.YT_BASE });
+            throw new OAuthError('Could not obtain script url.', { status: 'FAILED' });
+        const script = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch(url_body, { baseURL: Constants.URLS.YT_BASE });
         const client_identity = (yield script.text())
             .replace(/\n/g, '')
-            .match(Constants_1.default.OAUTH.REGEX.CLIENT_IDENTITY);
-        // TODO: check this.
+            .match(Constants.OAUTH.REGEX.CLIENT_IDENTITY);
         const groups = client_identity === null || client_identity === void 0 ? void 0 : client_identity.groups;
         if (!groups)
-            throw new Utils_1.OAuthError('Could not obtain client identity.', { status: 'FAILED' });
+            throw new OAuthError('Could not obtain client identity.', { status: 'FAILED' });
         return groups;
     });
 };
-exports.default = OAuth;
+export default OAuth;
 //# sourceMappingURL=OAuth.js.map

@@ -1,13 +1,14 @@
-import { ParsedResponse } from '../index';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import MusicDetailHeader from '../classes/MusicDetailHeader';
+import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
+import MusicDetailHeader from '../classes/MusicDetailHeader.js';
+import type { ObservedArray, YTNode } from '../helpers.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { IBrowseResponse } from '../types/ParsedResponse.js';
 declare class Playlist {
     #private;
-    header: MusicDetailHeader | undefined;
-    items: import("../helpers").ObservedArray<import("../helpers").YTNode> | null;
-    constructor(response: AxioslikeResponse, actions: Actions);
-    get page(): ParsedResponse;
-    get has_continuation(): boolean;
+    header?: MusicDetailHeader;
+    items?: ObservedArray<YTNode> | null;
+    constructor(response: ApiResponse, actions: Actions);
     /**
      * Retrieves playlist items continuation.
      */
@@ -15,7 +16,9 @@ declare class Playlist {
     /**
      * Retrieves related playlists
      */
-    getRelated(): Promise<(import("../classes/MusicTwoRowItem").default | import("../classes/MusicResponsiveListItem").default | import("../classes/MusicNavigationButton").default)[]>;
+    getRelated(): Promise<MusicCarouselShelf>;
     getSuggestions(refresh?: boolean): Promise<any>;
+    get page(): IBrowseResponse;
+    get has_continuation(): boolean;
 }
 export default Playlist;

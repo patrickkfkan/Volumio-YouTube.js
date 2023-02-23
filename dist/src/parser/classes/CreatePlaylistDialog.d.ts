@@ -1,6 +1,6 @@
-import { ObservedArray, YTNode } from '../helpers';
-import Button from './Button';
-import DropdownItem from './DropdownItem';
+import { ObservedArray, YTNode } from '../helpers.js';
+import Button from './Button.js';
+import DropdownItem from './DropdownItem.js';
 declare class CreatePlaylistDialog extends YTNode {
     static type: string;
     title: string;

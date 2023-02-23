@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -19,13 +18,9 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
     return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 var _PlaylistManager_actions;
-Object.defineProperty(exports, "__esModule", { value: true });
-const Playlist_1 = __importDefault(require("../parser/youtube/Playlist"));
-const Utils_1 = require("../utils/Utils");
+import Playlist from '../parser/youtube/Playlist.js';
+import { InnertubeError, throwIfMissing } from '../utils/Utils.js';
 class PlaylistManager {
     constructor(actions) {
         _PlaylistManager_actions.set(this, void 0);
@@ -33,11 +28,19 @@ class PlaylistManager {
     }
     /**
      * Creates a playlist.
+     * @param title - The title of the playlist.
+     * @param video_ids - An array of video IDs to add to the playlist.
      */
     create(title, video_ids) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ title, video_ids });
-            const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('/playlist/create', { title, ids: video_ids, parse: false });
+            throwIfMissing({ title, video_ids });
+            if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+                throw new InnertubeError('You must be signed in to perform this operation.');
+            const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('/playlist/create', {
+                title,
+                ids: video_ids,
+                parse: false
+            });
             return {
                 success: response.success,
                 status_code: response.status_code,
@@ -48,10 +51,13 @@ class PlaylistManager {
     }
     /**
      * Deletes a given playlist.
+     * @param playlist_id - The playlist ID.
      */
     delete(playlist_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ playlist_id });
+            throwIfMissing({ playlist_id });
+            if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+                throw new InnertubeError('You must be signed in to perform this operation.');
             const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('playlist/delete', { playlistId: playlist_id });
             return {
                 playlist_id,
@@ -63,10 +69,14 @@ class PlaylistManager {
     }
     /**
      * Adds videos to a given playlist.
+     * @param playlist_id - The playlist ID.
+     * @param video_ids - An array of video IDs to add to the playlist.
      */
     addVideos(playlist_id, video_ids) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ playlist_id, video_ids });
+            throwIfMissing({ playlist_id, video_ids });
+            if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+                throw new InnertubeError('You must be signed in to perform this operation.');
             const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('/browse/edit_playlist', {
                 playlistId: playlist_id,
                 actions: video_ids.map((id) => ({
@@ -83,14 +93,21 @@ class PlaylistManager {
     }
     /**
      * Removes videos from a given playlist.
+     * @param playlist_id - The playlist ID.
+     * @param video_ids - An array of video IDs to remove from the playlist.
      */
     removeVideos(playlist_id, video_ids) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ playlist_id, video_ids });
-            const info = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('/browse', { browseId: `VL${playlist_id}`, parse: true });
-            const playlist = new Playlist_1.default(__classPrivateFieldGet(this, _PlaylistManager_actions, "f"), info, true);
+            throwIfMissing({ playlist_id, video_ids });
+            if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+                throw new InnertubeError('You must be signed in to perform this operation.');
+            const info = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('/browse', {
+                browseId: `VL${playlist_id}`,
+                parse: true
+            });
+            const playlist = new Playlist(__classPrivateFieldGet(this, _PlaylistManager_actions, "f"), info, true);
             if (!playlist.info.is_editable)
-                throw new Utils_1.InnertubeError('This playlist cannot be edited.', playlist_id);
+                throw new InnertubeError('This playlist cannot be edited.', playlist_id);
             const payload = {
                 playlistId: playlist_id,
                 actions: []
@@ -108,7 +125,7 @@ class PlaylistManager {
             });
             yield getSetVideoIds(playlist);
             if (!payload.actions.length)
-                throw new Utils_1.InnertubeError('Given video ids were not found in this playlist.', video_ids);
+                throw new InnertubeError('Given video ids were not found in this playlist.', video_ids);
             const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('/browse/edit_playlist', Object.assign(Object.assign({}, payload), { parse: false }));
             return {
                 playlist_id,
@@ -118,14 +135,22 @@ class PlaylistManager {
     }
     /**
      * Moves a video to a new position within a given playlist.
+     * @param playlist_id - The playlist ID.
+     * @param moved_video_id - The video ID to move.
+     * @param predecessor_video_id - The video ID to move the moved video before.
      */
     moveVideo(playlist_id, moved_video_id, predecessor_video_id) {
         return __awaiter(this, void 0, void 0, function* () {
-            (0, Utils_1.throwIfMissing)({ playlist_id, moved_video_id, predecessor_video_id });
-            const info = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('/browse', { browseId: `VL${playlist_id}`, parse: true });
-            const playlist = new Playlist_1.default(__classPrivateFieldGet(this, _PlaylistManager_actions, "f"), info, true);
+            throwIfMissing({ playlist_id, moved_video_id, predecessor_video_id });
+            if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+                throw new InnertubeError('You must be signed in to perform this operation.');
+            const info = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute('/browse', {
+                browseId: `VL${playlist_id}`,
+                parse: true
+            });
+            const playlist = new Playlist(__classPrivateFieldGet(this, _PlaylistManager_actions, "f"), info, true);
             if (!playlist.info.is_editable)
-                throw new Utils_1.InnertubeError('This playlist cannot be edited.', playlist_id);
+                throw new InnertubeError('This playlist cannot be edited.', playlist_id);
             const payload = {
                 playlistId: playlist_id,
                 actions: []
@@ -156,5 +181,5 @@ class PlaylistManager {
     }
 }
 _PlaylistManager_actions = new WeakMap();
-exports.default = PlaylistManager;
+export default PlaylistManager;
 //# sourceMappingURL=PlaylistManager.js.map

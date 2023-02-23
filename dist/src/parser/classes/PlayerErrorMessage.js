@@ -1,22 +1,19 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const helpers_1 = require("../helpers");
-class PlayerErrorMessage extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import Button from './Button.js';
+import { YTNode } from '../helpers.js';
+class PlayerErrorMessage extends YTNode {
     constructor(data) {
+        var _a;
         super();
-        this.subreason = new Text_1.default(data.subreason);
-        this.reason = new Text_1.default(data.reason);
-        this.proceed_button = index_1.default.parse(data.proceedButton);
-        this.thumbnails = Thumbnail_1.default.fromResponse(data.thumbnail);
-        this.icon_type = data.icon.iconType;
+        this.subreason = new Text(data.subreason);
+        this.reason = new Text(data.reason);
+        this.proceed_button = Parser.parseItem(data.proceedButton, Button);
+        this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+        this.icon_type = ((_a = data.icon) === null || _a === void 0 ? void 0 : _a.iconType) || null;
     }
 }
 PlayerErrorMessage.type = 'PlayerErrorMessage';
-exports.default = PlayerErrorMessage;
+export default PlayerErrorMessage;
 //# sourceMappingURL=PlayerErrorMessage.js.map

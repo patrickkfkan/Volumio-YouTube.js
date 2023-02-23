@@ -1,14 +1,22 @@
-import Proto from '../proto/index';
-import Actions from './Actions';
+import Proto from '../proto/index.js';
+import type Actions from './Actions.js';
+import type { ApiResponse } from './Actions.js';
 
-import Analytics from '../parser/youtube/Analytics';
-import TimeWatched from '../parser/youtube/TimeWatched';
-import AccountInfo from '../parser/youtube/AccountInfo';
-import Settings from '../parser/youtube/Settings';
+import Analytics from '../parser/youtube/Analytics.js';
+import TimeWatched from '../parser/youtube/TimeWatched.js';
+import AccountInfo from '../parser/youtube/AccountInfo.js';
+import Settings from '../parser/youtube/Settings.js';
+
+import { InnertubeError } from '../utils/Utils.js';
 
 class AccountManager {
-  #actions;
-  channel;
+  #actions: Actions;
+
+  channel: {
+    editName: (new_name: string) => Promise<ApiResponse>;
+    editDescription: (new_description: string) => Promise<ApiResponse>;
+    getBasicAnalytics: () => Promise<Analytics>;
+  };
 
   constructor(actions: Actions) {
     this.#actions = actions;
@@ -16,13 +24,30 @@ class AccountManager {
     this.channel = {
       /**
        * Edits channel name.
+       * @param new_name - The new channel name.
        */
-      editName: (new_name: string) => this.#actions.channel('channel/edit_name', { new_name }),
+      editName: (new_name: string) => {
+        if (!this.#actions.session.logged_in)
+          throw new InnertubeError('You must be signed in to perform this operation.');
+
+        return this.#actions.execute('/channel/edit_name', {
+          givenName: new_name,
+          client: 'ANDROID'
+        });
+      },
       /**
        * Edits channel description.
-       *
+       * @param new_description - The new description.
        */
-      editDescription: (new_description: string) => this.#actions.channel('channel/edit_description', { new_description }),
+      editDescription: (new_description: string) => {
+        if (!this.#actions.session.logged_in)
+          throw new InnertubeError('You must be signed in to perform this operation.');
+
+        return this.#actions.execute('/channel/edit_description', {
+          givenDescription: new_description,
+          client: 'ANDROID'
+        });
+      },
       /**
        * Retrieves basic channel analytics.
        */
@@ -33,7 +58,10 @@ class AccountManager {
   /**
    * Retrieves channel info.
    */
-  async getInfo() {
+  async getInfo(): Promise<AccountInfo> {
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
+
     const response = await this.#actions.execute('/account/accounts_list', { client: 'ANDROID' });
     return new AccountInfo(response);
   }
@@ -41,7 +69,7 @@ class AccountManager {
   /**
    * Retrieves time watched statistics.
    */
-  async getTimeWatched() {
+  async getTimeWatched(): Promise<TimeWatched> {
     const response = await this.#actions.execute('/browse', {
       browseId: 'SPtime_watched',
       client: 'ANDROID'
@@ -53,7 +81,7 @@ class AccountManager {
   /**
    * Opens YouTube settings.
    */
-  async getSettings() {
+  async getSettings(): Promise<Settings> {
     const response = await this.#actions.execute('/browse', {
       browseId: 'SPaccount_overview'
     });
@@ -64,11 +92,16 @@ class AccountManager {
   /**
    * Retrieves basic channel analytics.
    */
-  async getAnalytics() {
+  async getAnalytics(): Promise<Analytics> {
     const info = await this.getInfo();
 
     const params = Proto.encodeChannelAnalyticsParams(info.footers?.endpoint.payload.browseId);
-    const response = await this.#actions.browse('FEanalytics_screen', { params, client: 'ANDROID' });
+
+    const response = await this.#actions.execute('/browse', {
+      browseId: 'FEanalytics_screen',
+      client: 'ANDROID',
+      params
+    });
 
     return new Analytics(response);
   }

@@ -1,16 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const helpers_1 = require("../helpers");
-class BackstageImage extends helpers_1.YTNode {
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class BackstageImage extends YTNode {
     constructor(data) {
         super();
-        this.image = Thumbnail_1.default.fromResponse(data.image);
+        this.image = Thumbnail.fromResponse(data.image);
+        this.endpoint = new NavigationEndpoint(data.command);
     }
 }
 BackstageImage.type = 'BackstageImage';
-exports.default = BackstageImage;
+export default BackstageImage;
 //# sourceMappingURL=BackstageImage.js.map

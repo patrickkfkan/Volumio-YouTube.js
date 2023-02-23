@@ -1,6 +1,6 @@
-import Text from '../../misc/Text';
-import Thumbnail from '../../misc/Thumbnail';
-import { YTNode } from '../../../helpers';
+import { YTNode } from '../../../helpers.js';
+import Text from '../../misc/Text.js';
+import Thumbnail from '../../misc/Thumbnail.js';
 declare class LiveChatBannerPoll extends YTNode {
     static type: string;
     poll_question: Text;
@@ -11,7 +11,7 @@ declare class LiveChatBannerPoll extends YTNode {
     }[];
     collapsed_state_entity_key: string;
     live_chat_poll_state_entity_key: string;
-    context_menu_button: import("../../../helpers").SuperParsedResult<YTNode>;
+    context_menu_button: YTNode | null;
     constructor(data: any);
 }
 export default LiveChatBannerPoll;

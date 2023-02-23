@@ -1,5 +1,5 @@
-import AccountItemSectionHeader from './AccountItemSectionHeader';
-import { YTNode } from '../helpers';
+import AccountItemSectionHeader from './AccountItemSectionHeader.js';
+import { YTNode } from '../helpers.js';
 declare class AccountItemSection extends YTNode {
     static type: string;
     contents: any;

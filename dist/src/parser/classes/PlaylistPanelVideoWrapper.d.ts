@@ -1,5 +1,5 @@
-import { YTNode } from '../helpers';
-import PlaylistPanelVideo from './PlaylistPanelVideo';
+import { YTNode } from '../helpers.js';
+import PlaylistPanelVideo from './PlaylistPanelVideo.js';
 declare class PlaylistPanelVideoWrapper extends YTNode {
     static type: string;
     primary: PlaylistPanelVideo | null;

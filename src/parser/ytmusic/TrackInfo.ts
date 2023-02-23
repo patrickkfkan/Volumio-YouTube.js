@@ -1,46 +1,55 @@
-import Parser, { ParsedResponse } from '..';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import Constants from '../../utils/Constants';
-import { InnertubeError } from '../../utils/Utils';
+import Parser from '../index.js';
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
 
-import Tab from '../classes/Tab';
-import Tabbed from '../classes/Tabbed';
-import WatchNextTabbedResults from '../classes/WatchNextTabbedResults';
-import SingleColumnMusicWatchNextResults from '../classes/SingleColumnMusicWatchNextResults';
-import MicroformatData from '../classes/MicroformatData';
-import PlayerOverlay from '../classes/PlayerOverlay';
-import PlaylistPanel from '../classes/PlaylistPanel';
-import SectionList from '../classes/SectionList';
-import MusicQueue from '../classes/MusicQueue';
-import MusicCarouselShelf from '../classes/MusicCarouselShelf';
-import MusicDescriptionShelf from '../classes/MusicDescriptionShelf';
-import AutomixPreviewVideo from '../classes/AutomixPreviewVideo';
-import Message from '../classes/Message';
+import Constants from '../../utils/Constants.js';
+import { InnertubeError } from '../../utils/Utils.js';
 
-import { ObservedArray } from '../helpers';
+import AutomixPreviewVideo from '../classes/AutomixPreviewVideo.js';
+import Endscreen from '../classes/Endscreen.js';
+import Message from '../classes/Message.js';
+import MicroformatData from '../classes/MicroformatData.js';
+import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
+import MusicDescriptionShelf from '../classes/MusicDescriptionShelf.js';
+import MusicQueue from '../classes/MusicQueue.js';
+import PlayerOverlay from '../classes/PlayerOverlay.js';
+import PlaylistPanel from '../classes/PlaylistPanel.js';
+import RichGrid from '../classes/RichGrid.js';
+import SectionList from '../classes/SectionList.js';
+import Tab from '../classes/Tab.js';
+import WatchNextTabbedResults from '../classes/WatchNextTabbedResults.js';
+
+import type Format from '../classes/misc/Format.js';
+import type NavigationEndpoint from '../classes/NavigationEndpoint.js';
+import type PlayerLiveStoryboardSpec from '../classes/PlayerLiveStoryboardSpec.js';
+import type PlayerStoryboardSpec from '../classes/PlayerStoryboardSpec.js';
+import type { ObservedArray, YTNode } from '../helpers.js';
+import type { INextResponse, IPlayerResponse } from '../types/ParsedResponse.js';
+
+import FormatUtils, { DownloadOptions, FormatFilter, FormatOptions, URLTransformer } from '../../utils/FormatUtils.js';
 
 class TrackInfo {
-  #page: [ ParsedResponse, ParsedResponse? ];
+  #page: [ IPlayerResponse, INextResponse? ];
   #actions: Actions;
-  #cpn;
+  #cpn: string;
 
   basic_info;
   streaming_data;
   playability_status;
-  storyboards;
-  endscreen;
+  storyboards?: PlayerStoryboardSpec | PlayerLiveStoryboardSpec;
+  endscreen?: Endscreen;
 
   #playback_tracking;
 
-  tabs;
-  current_video_endpoint;
-  player_overlays;
+  tabs?: ObservedArray<Tab>;
+  current_video_endpoint?: NavigationEndpoint;
+  player_overlays?: PlayerOverlay;
 
-  constructor(data: [AxioslikeResponse, AxioslikeResponse?], actions: Actions, cpn: string) {
+  constructor(data: [ApiResponse, ApiResponse?], actions: Actions, cpn: string) {
     this.#actions = actions;
 
-    const info = Parser.parseResponse(data[0].data);
-    const next = data?.[1]?.data ? Parser.parseResponse(data[1].data) : undefined;
+    const info = Parser.parseResponse<IPlayerResponse>(data[0].data);
+    const next = data?.[1]?.data ? Parser.parseResponse<INextResponse>(data[1].data) : undefined;
 
     this.#page = [ info, next ];
     this.#cpn = cpn;
@@ -70,38 +79,69 @@ class TrackInfo {
     this.#playback_tracking = info.playback_tracking;
 
     if (next) {
-      const single_col = next.contents.item().as(SingleColumnMusicWatchNextResults);
-      const tabbed_results = single_col.contents.item().as(Tabbed).contents.item().as(WatchNextTabbedResults);
+      const tabbed_results = next.contents_memo?.getType(WatchNextTabbedResults)?.[0];
 
-      this.tabs = tabbed_results.tabs.array().as(Tab);
+      this.tabs = tabbed_results?.tabs.array().as(Tab);
       this.current_video_endpoint = next.current_video_endpoint;
 
       // TODO: update PlayerOverlay, YTMusic's is a little bit different.
-      this.player_overlays = next.player_overlays.item().as(PlayerOverlay);
+      this.player_overlays = next.player_overlays?.item().as(PlayerOverlay);
     }
+  }
+
+  /**
+ * Generates a DASH manifest from the streaming data.
+ * @param url_transformer - Function to transform the URLs.
+ * @param format_filter - Function to filter the formats.
+ * @returns DASH manifest
+ */
+  toDash(url_transformer?: URLTransformer, format_filter?: FormatFilter): string {
+    return FormatUtils.toDash(this.streaming_data, url_transformer, format_filter, this.#cpn, this.#actions.session.player);
+  }
+
+  /**
+   * Selects the format that best matches the given options.
+   * @param options - Options
+   */
+  chooseFormat(options: FormatOptions): Format {
+    return FormatUtils.chooseFormat(options, this.streaming_data);
+  }
+
+  /**
+   * Downloads the video.
+   * @param options - Download options.
+   */
+  async download(options: DownloadOptions = {}): Promise<ReadableStream<Uint8Array>> {
+    return FormatUtils.download(options, this.#actions, this.playability_status, this.streaming_data, this.#actions.session.player);
   }
 
   /**
    * Retrieves contents of the given tab.
    */
-  async getTab(title: string) {
+  async getTab(title_or_page_type: string): Promise<ObservedArray<YTNode> | SectionList | MusicQueue | RichGrid | Message> {
     if (!this.tabs)
       throw new InnertubeError('Could not find any tab');
 
-    const target_tab = this.tabs.get({ title });
+    const target_tab =
+      this.tabs.get({ title: title_or_page_type }) ||
+      this.tabs.matchCondition((tab) => tab.endpoint.payload.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType === title_or_page_type) ||
+      this.tabs?.[0];
 
     if (!target_tab)
-      throw new InnertubeError(`Tab "${title}" not found`, { available_tabs: this.available_tabs });
+      throw new InnertubeError(`Tab "${title_or_page_type}" not found`, { available_tabs: this.available_tabs });
 
     if (target_tab.content)
       return target_tab.content;
 
-    const page = await target_tab.endpoint.callTest(this.#actions, { client: 'YTMUSIC', parse: true });
+    const page = await target_tab.endpoint.call(this.#actions, { client: 'YTMUSIC', parse: true });
 
-    if (page.contents.item().key('type').string() === 'Message')
+    if (page.contents?.item().key('type').string() === 'Message')
       return page.contents.item().as(Message);
 
-    return page.contents.item().as(SectionList).contents.array();
+    if (!page.contents)
+      throw new InnertubeError('Page contents was empty', page);
+
+    return page.contents.item().as(SectionList).contents;
   }
 
   /**
@@ -121,13 +161,13 @@ class TrackInfo {
       if (!automix_preview_video)
         throw new InnertubeError('Automix item not found');
 
-      const page = await automix_preview_video.playlist_video?.endpoint.callTest(this.#actions, {
+      const page = await automix_preview_video.playlist_video?.endpoint.call(this.#actions, {
         videoId: this.basic_info.id,
         client: 'YTMUSIC',
         parse: true
       });
 
-      if (!page)
+      if (!page || !page.contents_memo)
         throw new InnertubeError('Could not fetch automix');
 
       return page.contents_memo.getType(PlaylistPanel)?.[0];
@@ -140,7 +180,7 @@ class TrackInfo {
    * Retrieves related content.
    */
   async getRelated(): Promise<ObservedArray<MusicCarouselShelf | MusicDescriptionShelf>> {
-    const tab = await this.getTab('Related') as ObservedArray<MusicDescriptionShelf | MusicDescriptionShelf>;
+    const tab = await this.getTab('MUSIC_PAGE_TYPE_TRACK_RELATED') as ObservedArray<MusicDescriptionShelf | MusicDescriptionShelf>;
     return tab;
   }
 
@@ -148,14 +188,14 @@ class TrackInfo {
    * Retrieves lyrics.
    */
   async getLyrics(): Promise<MusicDescriptionShelf | undefined> {
-    const tab = await this.getTab('Lyrics') as ObservedArray<MusicCarouselShelf | MusicDescriptionShelf>;
+    const tab = await this.getTab('MUSIC_PAGE_TYPE_TRACK_LYRICS') as ObservedArray<MusicCarouselShelf | MusicDescriptionShelf>;
     return tab.firstOfType(MusicDescriptionShelf);
   }
 
   /**
    * Adds the song to the watch history.
    */
-  async addToWatchHistory() {
+  async addToWatchHistory(): Promise<Response> {
     if (!this.#playback_tracking)
       throw new InnertubeError('Playback tracking not available');
 
@@ -180,7 +220,7 @@ class TrackInfo {
     return this.tabs ? this.tabs.map((tab) => tab.title) : [];
   }
 
-  get page() {
+  get page(): [IPlayerResponse, INextResponse?] {
     return this.#page;
   }
 }

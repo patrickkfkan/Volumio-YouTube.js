@@ -1,8 +1,8 @@
-import NavigationEndpoint from './NavigationEndpoint';
-import SectionList from './SectionList';
-import MusicQueue from './MusicQueue';
-import RichGrid from './RichGrid';
-import { YTNode } from '../helpers';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import SectionList from './SectionList.js';
+import MusicQueue from './MusicQueue.js';
+import RichGrid from './RichGrid.js';
+import { YTNode } from '../helpers.js';
 declare class Tab extends YTNode {
     static type: string;
     title: string;

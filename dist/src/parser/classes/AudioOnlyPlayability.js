@@ -1,12 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const helpers_1 = require("../helpers");
-class AudioOnlyPlayability extends helpers_1.YTNode {
+import { YTNode } from '../helpers.js';
+class AudioOnlyPlayability extends YTNode {
     constructor(data) {
         super();
         this.audio_only_availability = data.audioOnlyAvailability;
     }
 }
 AudioOnlyPlayability.type = 'AudioOnlyPlayability';
-exports.default = AudioOnlyPlayability;
+export default AudioOnlyPlayability;
 //# sourceMappingURL=AudioOnlyPlayability.js.map

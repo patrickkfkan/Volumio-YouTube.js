@@ -1,28 +1,33 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../../../index"));
-const Text_1 = __importDefault(require("../../misc/Text"));
-const Thumbnail_1 = __importDefault(require("../../misc/Thumbnail"));
-const NavigationEndpoint_1 = __importDefault(require("../../NavigationEndpoint"));
-const helpers_1 = require("../../../helpers");
-class LiveChatMembershipItem extends helpers_1.YTNode {
+import { observe, YTNode } from '../../../helpers.js';
+import Parser from '../../../index.js';
+import LiveChatAuthorBadge from '../../LiveChatAuthorBadge.js';
+import MetadataBadge from '../../MetadataBadge.js';
+import Text from '../../misc/Text.js';
+import Thumbnail from '../../misc/Thumbnail.js';
+import NavigationEndpoint from '../../NavigationEndpoint.js';
+class LiveChatMembershipItem extends YTNode {
     constructor(data) {
         super();
         this.id = data.id;
         this.timestamp = Math.floor(parseInt(data.timestampUsec) / 1000);
-        this.header_subtext = new Text_1.default(data.headerSubtext);
+        this.header_subtext = new Text(data.headerSubtext);
         this.author = {
             id: data.authorExternalChannelId,
-            name: new Text_1.default(data === null || data === void 0 ? void 0 : data.authorName),
-            thumbnails: Thumbnail_1.default.fromResponse(data.authorPhoto),
-            badges: index_1.default.parse(data.authorBadges)
+            name: new Text(data === null || data === void 0 ? void 0 : data.authorName),
+            thumbnails: Thumbnail.fromResponse(data.authorPhoto),
+            badges: observe([]).as(LiveChatAuthorBadge, MetadataBadge),
+            is_moderator: null,
+            is_verified: null,
+            is_verified_artist: null
         };
-        this.menu_endpoint = new NavigationEndpoint_1.default(data.contextMenuEndpoint);
+        const badges = Parser.parseArray(data.authorBadges);
+        this.author.badges = badges;
+        this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == 'MODERATOR') : null;
+        this.author.is_verified = badges ? badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED') : null;
+        this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == 'BADGE_STYLE_TYPE_VERIFIED_ARTIST') : null;
+        this.menu_endpoint = new NavigationEndpoint(data.contextMenuEndpoint);
     }
 }
 LiveChatMembershipItem.type = 'LiveChatMembershipItem';
-exports.default = LiveChatMembershipItem;
+export default LiveChatMembershipItem;
 //# sourceMappingURL=LiveChatMembershipItem.js.map

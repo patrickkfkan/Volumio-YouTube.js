@@ -1,22 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class SearchSuggestion extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class SearchSuggestion extends YTNode {
     constructor(data) {
         super();
-        this.suggestion = new Text_1.default(data.suggestion);
-        this.endpoint = new NavigationEndpoint_1.default(data.navigationEndpoint);
+        this.suggestion = new Text(data.suggestion);
+        this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
         this.icon_type = data.icon.iconType;
         if (data.serviceEndpoint) {
-            this.service_endpoint = new NavigationEndpoint_1.default(data.serviceEndpoint);
+            this.service_endpoint = new NavigationEndpoint(data.serviceEndpoint);
         }
     }
 }
 SearchSuggestion.type = 'SearchSuggestion';
-exports.default = SearchSuggestion;
+export default SearchSuggestion;
 //# sourceMappingURL=SearchSuggestion.js.map

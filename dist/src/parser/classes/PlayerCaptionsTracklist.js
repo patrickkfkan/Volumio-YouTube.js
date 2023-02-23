@@ -1,30 +1,31 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const helpers_1 = require("../helpers");
-class PlayerCaptionsTracklist extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+class PlayerCaptionsTracklist extends YTNode {
     constructor(data) {
         super();
         this.caption_tracks = data.captionTracks.map((ct) => ({
             base_url: ct.baseUrl,
-            name: new Text_1.default(ct.name),
+            name: new Text(ct.name),
             vss_id: ct.vssId,
             language_code: ct.languageCode,
             kind: ct.kind,
             is_translatable: ct.isTranslatable
         }));
         this.audio_tracks = data.audioTracks.map((at) => ({
+            audio_track_id: at.audioTrackId,
+            captions_initial_state: at.captionsInitialState,
+            default_caption_track_index: at.defaultCaptionTrackIndex,
+            has_default_track: at.hasDefaultTrack,
+            visibility: at.visibility,
             caption_track_indices: at.captionTrackIndices
         }));
+        this.default_audio_track_index = data.defaultAudioTrackIndex;
         this.translation_languages = data.translationLanguages.map((tl) => ({
             language_code: tl.languageCode,
-            language_name: new Text_1.default(tl.languageName)
+            language_name: new Text(tl.languageName)
         }));
     }
 }
 PlayerCaptionsTracklist.type = 'PlayerCaptionsTracklist';
-exports.default = PlayerCaptionsTracklist;
+export default PlayerCaptionsTracklist;
 //# sourceMappingURL=PlayerCaptionsTracklist.js.map

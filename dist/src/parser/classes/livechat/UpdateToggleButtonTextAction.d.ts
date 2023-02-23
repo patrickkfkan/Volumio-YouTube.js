@@ -1,4 +1,4 @@
-import { YTNode } from '../../helpers';
+import { YTNode } from '../../helpers.js';
 declare class UpdateToggleButtonTextAction extends YTNode {
     static type: string;
     default_text: string;

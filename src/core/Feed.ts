@@ -1,59 +1,60 @@
-import Parser, { ParsedResponse, ReloadContinuationItemsCommand } from '../parser/index';
-import { Memo, ObservedArray } from '../parser/helpers';
-import { InnertubeError } from '../utils/Utils';
-import Actions from './Actions';
+import type { Memo, ObservedArray, SuperParsedResult, YTNode } from '../parser/helpers.js';
+import Parser, { ReloadContinuationItemsCommand } from '../parser/index.js';
+import { concatMemos, InnertubeError } from '../utils/Utils.js';
+import type Actions from './Actions.js';
 
-import Post from '../parser/classes/Post';
-import BackstagePost from '../parser/classes/BackstagePost';
+import BackstagePost from '../parser/classes/BackstagePost.js';
+import Channel from '../parser/classes/Channel.js';
+import CompactVideo from '../parser/classes/CompactVideo.js';
+import GridChannel from '../parser/classes/GridChannel.js';
+import GridPlaylist from '../parser/classes/GridPlaylist.js';
+import GridVideo from '../parser/classes/GridVideo.js';
+import Playlist from '../parser/classes/Playlist.js';
+import PlaylistPanelVideo from '../parser/classes/PlaylistPanelVideo.js';
+import PlaylistVideo from '../parser/classes/PlaylistVideo.js';
+import Post from '../parser/classes/Post.js';
+import ReelItem from '../parser/classes/ReelItem.js';
+import ReelShelf from '../parser/classes/ReelShelf.js';
+import RichShelf from '../parser/classes/RichShelf.js';
+import Shelf from '../parser/classes/Shelf.js';
+import Tab from '../parser/classes/Tab.js';
+import Video from '../parser/classes/Video.js';
 
-import Channel from '../parser/classes/Channel';
-import CompactVideo from '../parser/classes/CompactVideo';
+import AppendContinuationItemsAction from '../parser/classes/actions/AppendContinuationItemsAction.js';
+import ContinuationItem from '../parser/classes/ContinuationItem.js';
+import TwoColumnBrowseResults from '../parser/classes/TwoColumnBrowseResults.js';
+import TwoColumnSearchResults from '../parser/classes/TwoColumnSearchResults.js';
+import WatchCardCompactVideo from '../parser/classes/WatchCardCompactVideo.js';
 
-import GridChannel from '../parser/classes/GridChannel';
-import GridPlaylist from '../parser/classes/GridPlaylist';
-import GridVideo from '../parser/classes/GridVideo';
+import type MusicQueue from '../parser/classes/MusicQueue.js';
+import type RichGrid from '../parser/classes/RichGrid.js';
+import type SectionList from '../parser/classes/SectionList.js';
 
-import Playlist from '../parser/classes/Playlist';
-import PlaylistPanelVideo from '../parser/classes/PlaylistPanelVideo';
-import PlaylistVideo from '../parser/classes/PlaylistVideo';
+import type { IParsedResponse } from '../parser/types/index.js';
+import type { ApiResponse } from './Actions.js';
 
-import Tab from '../parser/classes/Tab';
-import ReelShelf from '../parser/classes/ReelShelf';
-import RichShelf from '../parser/classes/RichShelf';
-import Shelf from '../parser/classes/Shelf';
-
-import TwoColumnBrowseResults from '../parser/classes/TwoColumnBrowseResults';
-import TwoColumnSearchResults from '../parser/classes/TwoColumnSearchResults';
-import WatchCardCompactVideo from '../parser/classes/WatchCardCompactVideo';
-import AppendContinuationItemsAction from '../parser/classes/actions/AppendContinuationItemsAction';
-import ContinuationItem from '../parser/classes/ContinuationItem';
-
-import Video from '../parser/classes/Video';
-
-// TODO: add a way subdivide into sections and return subfeeds?
-class Feed {
-  #page: ParsedResponse;
+class Feed<T extends IParsedResponse = IParsedResponse> {
+  #page: T;
   #continuation?: ObservedArray<ContinuationItem>;
-  #actions;
-  #memo;
+  #actions: Actions;
+  #memo: Memo;
 
-  constructor(actions: Actions, data: any, already_parsed = false) {
-    if (data.on_response_received_actions || data.on_response_received_endpoints || already_parsed) {
-      this.#page = data;
+  constructor(actions: Actions, response: ApiResponse | IParsedResponse, already_parsed = false) {
+    if (this.#isParsed(response) || already_parsed) {
+      this.#page = response as T;
     } else {
-      this.#page = Parser.parseResponse(data);
+      this.#page = Parser.parseResponse<T>(response.data);
     }
 
-    // Xxx: this can be extremely confusing — maybe refactor?
-    const memo =
-            this.#page.on_response_received_commands ?
-              this.#page.on_response_received_commands_memo :
-              this.#page.on_response_received_endpoints ?
-                this.#page.on_response_received_endpoints_memo :
-                this.#page.contents ?
-                  this.#page.contents_memo :
-                  this.#page.on_response_received_actions ?
-                    this.#page.on_response_received_actions_memo : undefined;
+    const memo = concatMemos(...[
+      this.#page.contents_memo,
+      this.#page.continuation_contents_memo,
+      this.#page.on_response_received_commands_memo,
+      this.#page.on_response_received_endpoints_memo,
+      this.#page.on_response_received_actions_memo,
+      this.#page.sidebar_memo,
+      this.#page.header_memo
+    ]);
 
     if (!memo)
       throw new InnertubeError('No memo found in feed');
@@ -62,13 +63,18 @@ class Feed {
     this.#actions = actions;
   }
 
+  #isParsed(response: IParsedResponse | ApiResponse): response is IParsedResponse {
+    return !('data' in response);
+  }
+
   /**
    * Get all videos on a given page via memo
    */
   static getVideosFromMemo(memo: Memo) {
-    return memo.getType<Video | GridVideo | CompactVideo | PlaylistVideo | PlaylistPanelVideo | WatchCardCompactVideo>([
+    return memo.getType<Video | GridVideo | ReelItem | CompactVideo | PlaylistVideo | PlaylistPanelVideo | WatchCardCompactVideo>([
       Video,
       GridVideo,
+      ReelItem,
       CompactVideo,
       PlaylistVideo,
       PlaylistPanelVideo,
@@ -118,10 +124,10 @@ class Feed {
   /**
    * Returns contents from the page.
    */
-  get contents() {
-    const tab_content = this.#memo.getType(Tab)?.[0]?.content;
-    const reload_continuation_items = this.#memo.getType(ReloadContinuationItemsCommand)?.[0];
-    const append_continuation_items = this.#memo.getType(AppendContinuationItemsAction)?.[0];
+  get page_contents(): SectionList | MusicQueue | RichGrid | ReloadContinuationItemsCommand {
+    const tab_content = this.#memo.getType(Tab)?.first().content;
+    const reload_continuation_items = this.#memo.getType(ReloadContinuationItemsCommand).first();
+    const append_continuation_items = this.#memo.getType(AppendContinuationItemsAction).first();
 
     return tab_content || reload_continuation_items || append_continuation_items;
   }
@@ -137,17 +143,17 @@ class Feed {
    * Finds shelf by title.
    */
   getShelf(title: string) {
-    return this.shelves.find((shelf) => shelf.title.toString() === title);
+    return this.shelves.get({ title });
   }
 
   /**
    * Returns secondary contents from the page.
    */
-  get secondary_contents() {
-    if (!this.#page.contents.is_node)
+  get secondary_contents(): SuperParsedResult<YTNode> | undefined {
+    if (!this.#page.contents?.is_node)
       return undefined;
 
-    const node = this.#page.contents.item();
+    const node = this.#page.contents?.item();
 
     if (!node.is(TwoColumnBrowseResults, TwoColumnSearchResults))
       return undefined;
@@ -155,35 +161,35 @@ class Feed {
     return node.secondary_contents;
   }
 
-  get actions() {
+  get actions(): Actions {
     return this.#actions;
   }
 
   /**
    * Get the original page data
    */
-  get page() {
+  get page(): T {
     return this.#page;
   }
 
   /**
    * Checks if the feed has continuation.
    */
-  get has_continuation() {
+  get has_continuation(): boolean {
     return (this.#memo.get('ContinuationItem') || []).length > 0;
   }
 
   /**
    * Retrieves continuation data as it is.
    */
-  async getContinuationData(): Promise<ParsedResponse | undefined> {
+  async getContinuationData(): Promise<T | undefined> {
     if (this.#continuation) {
       if (this.#continuation.length > 1)
         throw new InnertubeError('There are too many continuations, you\'ll need to find the correct one yourself in this.page');
       if (this.#continuation.length === 0)
         throw new InnertubeError('There are no continuations');
 
-      const response = await this.#continuation[0].endpoint.call(this.#actions, undefined, true);
+      const response = await this.#continuation[0].endpoint.call<T>(this.#actions, { parse: true });
 
       return response;
     }
@@ -197,9 +203,11 @@ class Feed {
   /**
    * Retrieves next batch of contents and returns a new {@link Feed} object.
    */
-  async getContinuation() {
+  async getContinuation(): Promise<Feed<T>> {
     const continuation_data = await this.getContinuationData();
-    return new Feed(this.actions, continuation_data, true);
+    if (!continuation_data)
+      throw new InnertubeError('Could not get continuation data');
+    return new Feed<T>(this.actions, continuation_data, true);
   }
 }
 

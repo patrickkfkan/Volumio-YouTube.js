@@ -1,22 +1,17 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const CompactLink_1 = __importDefault(require("./CompactLink"));
-const helpers_1 = require("../helpers");
-class SettingsSidebar extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import CompactLink from './CompactLink.js';
+import { YTNode } from '../helpers.js';
+class SettingsSidebar extends YTNode {
     constructor(data) {
         super();
-        this.title = new Text_1.default(data.title);
-        this.items = index_1.default.parseArray(data.items, CompactLink_1.default);
+        this.title = new Text(data.title);
+        this.items = Parser.parseArray(data.items, CompactLink);
     }
     get contents() {
         return this.items;
     }
 }
 SettingsSidebar.type = 'SettingsSidebar';
-exports.default = SettingsSidebar;
+export default SettingsSidebar;
 //# sourceMappingURL=SettingsSidebar.js.map

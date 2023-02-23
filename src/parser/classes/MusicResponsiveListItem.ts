@@ -1,18 +1,18 @@
 // TODO: this needs a refactor
 // Seems like a mess to use
 
-import Parser from '../index';
-import Text from './misc/Text';
-import TextRun from './misc/TextRun';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay';
-import MusicResponsiveListItemFlexColumn from './MusicResponsiveListItemFlexColumn';
-import MusicResponsiveListItemFixedColumn from './MusicResponsiveListItemFixedColumn';
-import Menu from './menus/Menu';
+import Parser from '../index.js';
+import Text from './misc/Text.js';
+import TextRun from './misc/TextRun.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
+import MusicResponsiveListItemFlexColumn from './MusicResponsiveListItemFlexColumn.js';
+import MusicResponsiveListItemFixedColumn from './MusicResponsiveListItemFixedColumn.js';
+import Menu from './menus/Menu.js';
 
-import { timeToSeconds } from '../../utils/Utils';
-import { YTNode } from '../helpers';
+import { timeToSeconds } from '../../utils/Utils.js';
+import { YTNode } from '../helpers.js';
 
 class MusicResponsiveListItem extends YTNode {
   static type = 'MusicResponsiveListItem';
@@ -30,7 +30,7 @@ class MusicResponsiveListItem extends YTNode {
   overlay;
 
   id?: string;
-  title?: string | Text;
+  title?: string;
   duration?: {
     text: string;
     seconds: number;
@@ -80,7 +80,9 @@ class MusicResponsiveListItem extends YTNode {
 
     this.endpoint = data.navigationEndpoint ? new NavigationEndpoint(data.navigationEndpoint) : null;
 
-    switch (this.endpoint?.browse?.page_type) {
+    const page_type = this.endpoint?.payload?.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType;
+
+    switch (page_type) {
       case 'MUSIC_PAGE_TYPE_ALBUM':
         this.item_type = 'album';
         this.#parseAlbum();
@@ -139,9 +141,10 @@ class MusicResponsiveListItem extends YTNode {
   }
 
   #parseSong() {
-    this.id = this.#playlist_item_data.video_id || this.endpoint?.watch?.video_id;
-    this.title = this.#flex_columns[0].key('title').instanceof(Text);
-    // Required for ytmusic plugin's list item display and custom retrieval of artists
+    this.id = this.#playlist_item_data.video_id || this.endpoint?.payload?.videoId;
+    this.title = this.#flex_columns[0].key('title').instanceof(Text).toString();
+
+    /*** Volumio-YouTube.js ***/
     this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
 
     const duration_text =
@@ -153,21 +156,21 @@ class MusicResponsiveListItem extends YTNode {
       seconds: timeToSeconds(duration_text)
     });
 
-    const album = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.browse?.id.startsWith('MPR')) as TextRun ||
-      this.#flex_columns[2]?.key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.browse?.id.startsWith('MPR')) as TextRun;
+    const album = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.payload?.browseId.startsWith('MPR')) as TextRun ||
+      this.#flex_columns[2]?.key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.payload?.browseId.startsWith('MPR')) as TextRun;
     if (album) {
       this.album = {
-        id: album.endpoint?.browse?.id,
+        id: album.endpoint?.payload?.browseId,
         name: album.text,
         endpoint: album.endpoint
       };
     }
 
-    const artists = this.#flex_columns[1].key('title').instanceof(Text).runs?.filter((run) => Reflect.get(run, 'endpoint')?.browse?.id.startsWith('UC')) as TextRun[];
+    const artists = this.#flex_columns[1].key('title').instanceof(Text).runs?.filter((run) => Reflect.get(run, 'endpoint')?.payload?.browseId.startsWith('UC')) as TextRun[];
     if (artists) {
       this.artists = artists.map((artist) => ({
         name: artist.text,
-        channel_id: artist.endpoint?.browse?.id,
+        channel_id: artist.endpoint?.payload?.browseId,
         endpoint: artist.endpoint
       }));
     }
@@ -175,16 +178,18 @@ class MusicResponsiveListItem extends YTNode {
 
   #parseVideo() {
     this.id = this.#playlist_item_data.video_id;
-    this.title = this.#flex_columns[0].key('title').instanceof(Text);
-    // Required for ytmusic plugin's list item display and custom retrieval of artists
+    this.title = this.#flex_columns[0].key('title').instanceof(Text).toString();
+    
+    /*** Volumio-YouTube.js ***/
     this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
+    
     this.views = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => run.text.match(/(.*?) views/))?.text;
 
-    const authors = this.#flex_columns[1].key('title').instanceof(Text).runs?.filter((run) => Reflect.get(run, 'endpoint')?.browse?.id.startsWith('UC')) as TextRun[];
+    const authors = this.#flex_columns[1].key('title').instanceof(Text).runs?.filter((run) => Reflect.get(run, 'endpoint')?.payload?.browseId.startsWith('UC')) as TextRun[];
     if (authors) {
       this.authors = authors.map((author) => ({
         name: author.text,
-        channel_id: author.endpoint?.browse?.id,
+        channel_id: author.endpoint?.payload?.browseId,
         endpoint: author.endpoint
       }));
     }
@@ -198,7 +203,7 @@ class MusicResponsiveListItem extends YTNode {
   }
 
   #parseArtist() {
-    this.id = this.endpoint?.browse?.id;
+    this.id = this.endpoint?.payload?.browseId;
     this.name = this.#flex_columns[0].key('title').instanceof(Text).toString();
     this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
     this.subscribers = this.subtitle.runs?.find((run) => (/^(\d*\.)?\d+[M|K]? subscribers?$/i).test(run.text))?.text || '';
@@ -211,15 +216,16 @@ class MusicResponsiveListItem extends YTNode {
   }
 
   #parseAlbum() {
-    this.id = this.endpoint?.browse?.id;
+    this.id = this.endpoint?.payload?.browseId;
     this.title = this.#flex_columns[0].key('title').instanceof(Text).toString();
-    // Required for ytmusic plugin's list item display
+
+    /*** Volumio-YouTube.js ***/
     this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
 
-    const author = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.browse?.id.startsWith('UC')) as TextRun;
+    const author = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.payload?.browseId.startsWith('UC')) as TextRun;
     author && (this.author = {
       name: author.text,
-      channel_id: author.endpoint?.browse?.id,
+      channel_id: author.endpoint?.payload?.browseId,
       endpoint: author.endpoint
     });
 
@@ -227,9 +233,10 @@ class MusicResponsiveListItem extends YTNode {
   }
 
   #parsePlaylist() {
-    this.id = this.endpoint?.browse?.id;
+    this.id = this.endpoint?.payload?.browseId;
     this.title = this.#flex_columns[0].key('title').instanceof(Text).toString();
-    // Required for ytmusic plugin's list item display
+
+    /*** Volumio-YouTube.js ***/
     this.subtitle = this.#flex_columns[1].key('title').instanceof(Text);
 
     const item_count_run = this.#flex_columns[1].key('title')
@@ -237,12 +244,12 @@ class MusicResponsiveListItem extends YTNode {
 
     this.item_count = item_count_run ? item_count_run.text : undefined;
 
-    const author = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.browse?.id.startsWith('UC')) as TextRun;
+    const author = this.#flex_columns[1].key('title').instanceof(Text).runs?.find((run) => Reflect.get(run, 'endpoint')?.payload?.browseId.startsWith('UC')) as TextRun;
 
     if (author) {
       this.author = {
         name: author.text,
-        channel_id: author.endpoint?.browse?.id,
+        channel_id: author.endpoint?.payload?.browseId,
         endpoint: author.endpoint
       };
     }

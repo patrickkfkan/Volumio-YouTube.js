@@ -1,34 +1,42 @@
-import Parser from '..';
-import Actions, { AxioslikeResponse } from '../../core/Actions';
-import { InnertubeError } from '../../utils/Utils';
+import Parser from '../index.js';
 
-import Notification from '../classes/Notification';
-import SimpleMenuHeader from '../classes/menus/SimpleMenuHeader';
-import ContinuationItem from '../classes/ContinuationItem';
+import ContinuationItem from '../classes/ContinuationItem.js';
+import SimpleMenuHeader from '../classes/menus/SimpleMenuHeader.js';
+import Notification from '../classes/Notification.js';
+
+import type Actions from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
+import type { IGetNotificationsMenuResponse } from '../types/ParsedResponse.js';
+import { InnertubeError } from '../../utils/Utils.js';
 
 class NotificationsMenu {
-  #page;
-  #actions;
+  #page: IGetNotificationsMenuResponse;
+  #actions: Actions;
 
-  header;
-  contents;
+  header: SimpleMenuHeader;
+  contents: Notification[];
 
-  constructor(actions: Actions, response: AxioslikeResponse) {
+  constructor(actions: Actions, response: ApiResponse) {
     this.#actions = actions;
-    this.#page = Parser.parseResponse(response.data);
+    this.#page = Parser.parseResponse<IGetNotificationsMenuResponse>(response.data);
 
-    this.header = this.#page.actions_memo.get('SimpleMenuHeader')?.[0]?.as(SimpleMenuHeader) || null;
-    this.contents = this.#page.actions_memo.get('Notification') as Notification[];
+    this.header = this.#page.actions_memo.getType(SimpleMenuHeader).first();
+    this.contents = this.#page.actions_memo.getType(Notification);
   }
 
   async getContinuation(): Promise<NotificationsMenu> {
-    const continuation = this.#page.actions_memo.get('ContinuationItem')?.[0].as(ContinuationItem);
+    const continuation = this.#page.actions_memo.getType(ContinuationItem).first();
 
     if (!continuation)
       throw new InnertubeError('Continuation not found');
 
-    const response = await continuation.endpoint.callTest(this.#actions, { parse: false });
+    const response = await continuation.endpoint.call(this.#actions, { parse: false });
+
     return new NotificationsMenu(this.#actions, response);
+  }
+
+  get page(): IGetNotificationsMenuResponse {
+    return this.#page;
   }
 }
 

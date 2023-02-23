@@ -1,16 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const helpers_1 = require("../helpers");
-class MerchandiseShelf extends helpers_1.YTNode {
+import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+class MerchandiseShelf extends YTNode {
     constructor(data) {
         super();
         this.title = data.title;
-        this.menu = index_1.default.parse(data.actionButton);
-        this.items = index_1.default.parse(data.items);
+        this.menu = Parser.parse(data.actionButton);
+        this.items = Parser.parse(data.items);
     }
     // XXX: alias for consistency
     get contents() {
@@ -18,5 +13,5 @@ class MerchandiseShelf extends helpers_1.YTNode {
     }
 }
 MerchandiseShelf.type = 'MerchandiseShelf';
-exports.default = MerchandiseShelf;
+export default MerchandiseShelf;
 //# sourceMappingURL=MerchandiseShelf.js.map

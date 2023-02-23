@@ -1,4 +1,3 @@
-"use strict";
 var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
     if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
     if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
@@ -11,11 +10,9 @@ var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (
     return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
 };
 var _YTNode_instances, _YTNode_is, _Maybe_instances, _Maybe_value, _Maybe_checkPrimative, _Maybe_assertPrimative, _SuperParsedResult_result;
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Memo = exports.observe = exports.SuperParsedResult = exports.Maybe = exports.YTNode = void 0;
-const Utils_1 = require("../utils/Utils");
+import { deepCompare, ParsingError } from '../utils/Utils.js';
 const isObserved = Symbol('ObservedArray.isObserved');
-class YTNode {
+export class YTNode {
     constructor() {
         _YTNode_instances.add(this);
         this.type = this.constructor.type;
@@ -33,7 +30,7 @@ class YTNode {
      */
     as(...types) {
         if (!this.is(...types)) {
-            throw new Utils_1.ParsingError(`Cannot cast ${this.type} to one of ${types.map((t) => t.type).join(', ')}`);
+            throw new ParsingError(`Cannot cast ${this.type} to one of ${types.map((t) => t.type).join(', ')}`);
         }
         return this;
     }
@@ -53,17 +50,16 @@ class YTNode {
      */
     key(key) {
         if (!this.hasKey(key)) {
-            throw new Utils_1.ParsingError(`Missing key ${key}`);
+            throw new ParsingError(`Missing key ${key}`);
         }
         return new Maybe(this[key]);
     }
 }
-exports.YTNode = YTNode;
 _YTNode_instances = new WeakSet(), _YTNode_is = function _YTNode_is(type) {
     return this.type === type.type;
 };
 YTNode.type = 'YTNode';
-class Maybe {
+export class Maybe {
     constructor(value) {
         _Maybe_instances.add(this);
         _Maybe_value.set(this, void 0);
@@ -260,7 +256,6 @@ class Maybe {
         return __classPrivateFieldGet(this, _Maybe_value, "f") instanceof type;
     }
 }
-exports.Maybe = Maybe;
 _Maybe_value = new WeakMap(), _Maybe_instances = new WeakSet(), _Maybe_checkPrimative = function _Maybe_checkPrimative(type) {
     if (typeof __classPrivateFieldGet(this, _Maybe_value, "f") !== type) {
         return false;
@@ -275,7 +270,7 @@ _Maybe_value = new WeakMap(), _Maybe_instances = new WeakSet(), _Maybe_checkPrim
 /**
  * Represents a parsed response in an unknown state. Either a YTNode or a YTNode[] or null.
  */
-class SuperParsedResult {
+export class SuperParsedResult {
     constructor(result) {
         _SuperParsedResult_result.set(this, void 0);
         __classPrivateFieldSet(this, _SuperParsedResult_result, result, "f");
@@ -302,18 +297,17 @@ class SuperParsedResult {
         return __classPrivateFieldGet(this, _SuperParsedResult_result, "f");
     }
 }
-exports.SuperParsedResult = SuperParsedResult;
 _SuperParsedResult_result = new WeakMap();
 /**
  * Creates a trap to intercept property access
  * and add utilities to an object.
  */
-function observe(obj) {
+export function observe(obj) {
     return new Proxy(obj, {
         get(target, prop) {
             if (prop == 'get') {
                 return (rule, del_item) => (target.find((obj, index) => {
-                    const match = (0, Utils_1.deepCompare)(rule, obj);
+                    const match = deepCompare(rule, obj);
                     if (match && del_item) {
                         target.splice(index, 1);
                     }
@@ -325,11 +319,16 @@ function observe(obj) {
             }
             if (prop == 'getAll') {
                 return (rule, del_items) => (target.filter((obj, index) => {
-                    const match = (0, Utils_1.deepCompare)(rule, obj);
+                    const match = deepCompare(rule, obj);
                     if (match && del_items) {
                         target.splice(index, 1);
                     }
                     return match;
+                }));
+            }
+            if (prop == 'matchCondition') {
+                return (condition) => (target.find((obj) => {
+                    return condition(obj);
                 }));
             }
             if (prop == 'filterType') {
@@ -350,12 +349,15 @@ function observe(obj) {
                     });
                 };
             }
+            if (prop == 'first') {
+                return () => target[0];
+            }
             if (prop == 'as') {
                 return (...types) => {
                     return observe(target.map((node) => {
                         if (node.is(...types))
                             return node;
-                        throw new Utils_1.ParsingError(`Expected node of any type ${types.map((type) => type.type).join(', ')}, got ${node.type}`);
+                        throw new ParsingError(`Expected node of any type ${types.map((type) => type.type).join(', ')}, got ${node.type}`);
                     }));
                 };
             }
@@ -366,13 +368,11 @@ function observe(obj) {
         }
     });
 }
-exports.observe = observe;
-class Memo extends Map {
+export class Memo extends Map {
     getType(type) {
         if (Array.isArray(type))
             return observe(type.flatMap((type) => (this.get(type.type) || [])));
         return observe((this.get(type.type) || []));
     }
 }
-exports.Memo = Memo;
 //# sourceMappingURL=helpers.js.map

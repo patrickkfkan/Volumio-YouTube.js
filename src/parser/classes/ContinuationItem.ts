@@ -1,6 +1,6 @@
-import Parser from '../index';
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import Parser from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 
 class ContinuationItem extends YTNode {
   static type = 'ContinuationItem';
@@ -14,7 +14,7 @@ class ContinuationItem extends YTNode {
     this.trigger = data.trigger;
 
     if (data.button) {
-      this.button = Parser.parse(data.button);
+      this.button = Parser.parseItem(data.button);
     }
 
     this.endpoint = new NavigationEndpoint(data.continuationEndpoint);

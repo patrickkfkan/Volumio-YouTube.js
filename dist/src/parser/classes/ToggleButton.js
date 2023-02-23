@@ -1,17 +1,12 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const NavigationEndpoint_1 = __importDefault(require("./NavigationEndpoint"));
-const helpers_1 = require("../helpers");
-class ToggleButton extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
+class ToggleButton extends YTNode {
     constructor(data) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
         super();
-        this.text = new Text_1.default(data.defaultText);
-        this.toggled_text = new Text_1.default(data.toggledText);
+        this.text = new Text(data.defaultText);
+        this.toggled_text = new Text(data.toggledText);
         this.tooltip = data.defaultTooltip;
         this.toggled_tooltip = data.toggledTooltip;
         this.is_toggled = data.isToggled;
@@ -22,17 +17,17 @@ class ToggleButton extends helpers_1.YTNode {
             ((_f = data === null || data === void 0 ? void 0 : data.accessibility) === null || _f === void 0 ? void 0 : _f.label);
         if (this.icon_type == 'LIKE') {
             this.like_count = parseInt(acc_label.replace(/\D/g, ''));
-            this.short_like_count = new Text_1.default(data.defaultText).toString();
+            this.short_like_count = new Text(data.defaultText).toString();
         }
         this.endpoint =
             ((_h = (_g = data.defaultServiceEndpoint) === null || _g === void 0 ? void 0 : _g.commandExecutorCommand) === null || _h === void 0 ? void 0 : _h.commands) ?
-                new NavigationEndpoint_1.default(data.defaultServiceEndpoint.commandExecutorCommand.commands.pop()) :
-                new NavigationEndpoint_1.default(data.defaultServiceEndpoint);
-        this.toggled_endpoint = new NavigationEndpoint_1.default(data.toggledServiceEndpoint);
+                new NavigationEndpoint(data.defaultServiceEndpoint.commandExecutorCommand.commands.pop()) :
+                new NavigationEndpoint(data.defaultServiceEndpoint);
+        this.toggled_endpoint = new NavigationEndpoint(data.toggledServiceEndpoint);
         this.button_id = ((_k = (_j = data.toggleButtonSupportedData) === null || _j === void 0 ? void 0 : _j.toggleButtonIdData) === null || _k === void 0 ? void 0 : _k.id) || null;
         this.target_id = data.targetId || null;
     }
 }
 ToggleButton.type = 'ToggleButton';
-exports.default = ToggleButton;
+export default ToggleButton;
 //# sourceMappingURL=ToggleButton.js.map

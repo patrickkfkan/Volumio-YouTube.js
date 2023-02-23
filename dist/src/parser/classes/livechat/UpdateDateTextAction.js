@@ -1,16 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("../misc/Text"));
-const helpers_1 = require("../../helpers");
-class UpdateDateTextAction extends helpers_1.YTNode {
+import Text from '../misc/Text.js';
+import { YTNode } from '../../helpers.js';
+class UpdateDateTextAction extends YTNode {
     constructor(data) {
         super();
-        this.date_text = new Text_1.default(data.dateText).toString();
+        this.date_text = new Text(data.dateText).toString();
     }
 }
 UpdateDateTextAction.type = 'UpdateDateTextAction';
-exports.default = UpdateDateTextAction;
+export default UpdateDateTextAction;
 //# sourceMappingURL=UpdateDateTextAction.js.map

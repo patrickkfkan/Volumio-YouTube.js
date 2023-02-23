@@ -148,7 +148,7 @@ export declare class SuperParsedResult<T extends YTNode = YTNode> {
     array(): ObservedArray<T>;
     item(): T;
 }
-export declare type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
+export type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
     /**
      * Returns the first object to match the rule.
      */
@@ -157,6 +157,10 @@ export declare type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
      * Returns all objects that match the rule.
      */
     getAll: (rule: object, del_items?: boolean) => T[];
+    /**
+     * Returns the first object to match the condition.
+     */
+    matchCondition: (condition: (node: T) => boolean) => T | undefined;
     /**
      * Removes the item at the given index.
      */
@@ -169,6 +173,10 @@ export declare type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
      * Get the first of a specific type
      */
     firstOfType<R extends YTNode, K extends YTNodeConstructor<R>[]>(...types: K): InstanceType<K[number]> | undefined;
+    /**
+     * Get the first item
+     */
+    first: () => T;
     /**
      * This is similar to filter but throws if there's a type mismatch.
      */

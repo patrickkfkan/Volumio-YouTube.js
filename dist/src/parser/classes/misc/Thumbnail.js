@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 class Thumbnail {
     constructor(data) {
         this.url = data.url;
@@ -15,5 +13,5 @@ class Thumbnail {
         return data.thumbnails.map((x) => new Thumbnail(x)).sort((a, b) => b.width - a.width);
     }
 }
-exports.default = Thumbnail;
+export default Thumbnail;
 //# sourceMappingURL=Thumbnail.js.map

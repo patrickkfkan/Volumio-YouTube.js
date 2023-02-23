@@ -1,17 +1,13 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Text_1 = __importDefault(require("./misc/Text"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const helpers_1 = require("../helpers");
-class PlayerMicroformat extends helpers_1.YTNode {
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import { YTNode } from '../helpers.js';
+class PlayerMicroformat extends YTNode {
     constructor(data) {
+        var _a;
         super();
-        this.title = new Text_1.default(data.title);
-        this.description = new Text_1.default(data.description);
-        this.thumbnails = Thumbnail_1.default.fromResponse(data.thumbnail);
+        this.title = new Text(data.title);
+        this.description = new Text(data.description);
+        this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
         this.embed = {
             iframe_url: data.embed.iframeUrl,
             flash_url: data.embed.flashUrl,
@@ -33,8 +29,9 @@ class PlayerMicroformat extends helpers_1.YTNode {
         this.publish_date = data.publishDate;
         this.upload_date = data.uploadDate;
         this.available_countries = data.availableCountries;
+        this.start_timestamp = ((_a = data.liveBroadcastDetails) === null || _a === void 0 ? void 0 : _a.startTimestamp) ? new Date(data.liveBroadcastDetails.startTimestamp) : null;
     }
 }
 PlayerMicroformat.type = 'PlayerMicroformat';
-exports.default = PlayerMicroformat;
+export default PlayerMicroformat;
 //# sourceMappingURL=PlayerMicroformat.js.map

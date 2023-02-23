@@ -1,8 +1,8 @@
-import Text from './misc/Text';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 declare class LiveChat extends YTNode {
     static type: string;
-    header: import("../helpers").SuperParsedResult<YTNode>;
+    header: import("../helpers.js").SuperParsedResult<YTNode>;
     initial_display_state: string;
     continuation: string;
     client_messages: {

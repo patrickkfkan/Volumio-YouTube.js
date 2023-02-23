@@ -1,7 +1,7 @@
-import Text from './misc/Text';
-import Thumbnail from './misc/Thumbnail';
-import NavigationEndpoint from './NavigationEndpoint';
-import { YTNode } from '../helpers';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import { YTNode } from '../helpers.js';
 declare class PlaylistPanelVideo extends YTNode {
     static type: string;
     title: Text;
@@ -25,8 +25,8 @@ declare class PlaylistPanelVideo extends YTNode {
         channel_id: string | undefined;
         endpoint: NavigationEndpoint | undefined;
     }[];
-    badges: import("../helpers").SuperParsedResult<YTNode>;
-    menu: import("../helpers").SuperParsedResult<YTNode>;
+    badges: import("../helpers.js").ObservedArray<YTNode>;
+    menu: YTNode | null;
     set_video_id: string | undefined;
     constructor(data: any);
 }

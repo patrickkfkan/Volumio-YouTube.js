@@ -1,15 +1,16 @@
-import Text from '../../misc/Text';
-import Thumbnail from '../../misc/Thumbnail';
-import NavigationEndpoint from '../../NavigationEndpoint';
-import MetadataBadge from '../../MetadataBadge';
-import LiveChatAuthorBadge from '../../LiveChatAuthorBadge';
-import { YTNode } from '../../../helpers';
+import LiveChatAuthorBadge from '../../LiveChatAuthorBadge.js';
+import MetadataBadge from '../../MetadataBadge.js';
+import Text from '../../misc/Text.js';
+import Thumbnail from '../../misc/Thumbnail.js';
+import NavigationEndpoint from '../../NavigationEndpoint.js';
+import { ObservedArray, YTNode } from '../../../helpers.js';
 declare class LiveChatTickerPaidMessageItem extends YTNode {
     static type: string;
     author: {
         id: string;
+        name: Text;
         thumbnails: Thumbnail[];
-        badges: LiveChatAuthorBadge[] | MetadataBadge[];
+        badges: ObservedArray<LiveChatAuthorBadge | MetadataBadge>;
         is_moderator: boolean | null;
         is_verified: boolean | null;
         is_verified_artist: boolean | null;
@@ -17,7 +18,7 @@ declare class LiveChatTickerPaidMessageItem extends YTNode {
     amount: Text;
     duration_sec: string;
     full_duration_sec: string;
-    show_item: import("../../../helpers").SuperParsedResult<YTNode>;
+    show_item: import("../../../helpers.js").SuperParsedResult<YTNode>;
     show_item_endpoint: NavigationEndpoint;
     id: string;
     constructor(data: any);

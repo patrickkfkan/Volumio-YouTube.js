@@ -1,29 +1,47 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const index_1 = __importDefault(require("../index"));
-const Author_1 = __importDefault(require("./misc/Author"));
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const Text_1 = __importDefault(require("./misc/Text"));
-const helpers_1 = require("../helpers");
-class C4TabbedHeader extends helpers_1.YTNode {
+import Parser from '../index.js';
+import Author from './misc/Author.js';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+import { YTNode } from '../helpers.js';
+class C4TabbedHeader extends YTNode {
     constructor(data) {
         super();
-        this.author = new Author_1.default({
+        this.author = new Author({
             simpleText: data.title,
             navigationEndpoint: data.navigationEndpoint
         }, data.badges, data.avatar);
-        this.banner = data.banner ? Thumbnail_1.default.fromResponse(data.banner) : [];
-        this.tv_banner = data.tvBanner ? Thumbnail_1.default.fromResponse(data.tvBanner) : [];
-        this.mobile_banner = data.mobileBanner ? Thumbnail_1.default.fromResponse(data.mobileBanner) : [];
-        this.subscribers = new Text_1.default(data.subscriberCountText);
-        this.sponsor_button = data.sponsorButton ? index_1.default.parseItem(data.sponsorButton) : undefined;
-        this.subscribe_button = data.subscribeButton ? index_1.default.parseItem(data.subscribeButton) : undefined;
-        this.header_links = data.headerLinks ? index_1.default.parse(data.headerLinks) : undefined;
+        if (data.banner) {
+            this.banner = Thumbnail.fromResponse(data.banner);
+        }
+        if (data.tv_banner) {
+            this.tv_banner = Thumbnail.fromResponse(data.tvBanner);
+        }
+        if (data.mobile_banner) {
+            this.mobile_banner = Thumbnail.fromResponse(data.mobileBanner);
+        }
+        if (data.subscriberCountText) {
+            this.subscribers = new Text(data.subscriberCountText);
+        }
+        if (data.videosCountText) {
+            this.videos_count = new Text(data.videosCountText);
+        }
+        if (data.sponsorButton) {
+            this.sponsor_button = Parser.parseItem(data.sponsorButton);
+        }
+        if (data.subscribeButton) {
+            this.subscribe_button = Parser.parseItem(data.subscribeButton);
+        }
+        if (data.headerLinks) {
+            this.header_links = Parser.parseItem(data.headerLinks);
+        }
+        if (data.channelHandleText) {
+            this.channel_handle = new Text(data.channelHandleText);
+        }
+        if (data.channelId) {
+            this.channel_id = data.channelId;
+        }
     }
 }
 C4TabbedHeader.type = 'C4TabbedHeader';
-exports.default = C4TabbedHeader;
+export default C4TabbedHeader;
 //# sourceMappingURL=C4TabbedHeader.js.map

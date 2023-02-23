@@ -1,11 +1,6 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-const Thumbnail_1 = __importDefault(require("./misc/Thumbnail"));
-const helpers_1 = require("../helpers");
-class ChannelMetadata extends helpers_1.YTNode {
+import Thumbnail from './misc/Thumbnail.js';
+import { YTNode } from '../helpers.js';
+class ChannelMetadata extends YTNode {
     constructor(data) {
         super();
         this.title = data.title;
@@ -16,7 +11,7 @@ class ChannelMetadata extends helpers_1.YTNode {
         this.external_id = data.externalId;
         this.is_family_safe = data.isFamilySafe;
         this.keywords = data.keywords;
-        this.avatar = Thumbnail_1.default.fromResponse(data.avatar);
+        this.avatar = Thumbnail.fromResponse(data.avatar);
         this.available_countries = data.availableCountryCodes;
         this.android_deep_link = data.androidDeepLink;
         this.android_appindexing_link = data.androidAppindexingLink;
@@ -24,5 +19,5 @@ class ChannelMetadata extends helpers_1.YTNode {
     }
 }
 ChannelMetadata.type = 'ChannelMetadata';
-exports.default = ChannelMetadata;
+export default ChannelMetadata;
 //# sourceMappingURL=ChannelMetadata.js.map
