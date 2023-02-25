@@ -16157,7 +16157,7 @@ var Parser = class {
     __classPrivateFieldSet9(this, _a2, handler, "f", _Parser_errorHandler);
   }
   static parseResponse(data) {
-    var _b, _c;
+    var _b, _c, _d, _e;
     const parsed_data = {};
     __classPrivateFieldGet9(this, _a2, "m", _Parser_createMemo).call(this);
     const contents = this.parse(data.contents);
@@ -16232,6 +16232,7 @@ var Parser = class {
     }
     __classPrivateFieldGet9(this, _a2, "m", _Parser_clearMemo).call(this);
     this.applyMutations(contents_memo, (_c = (_b = data.frameworkUpdates) === null || _b === void 0 ? void 0 : _b.entityBatchUpdate) === null || _c === void 0 ? void 0 : _c.mutations);
+    this.applyMutations(continuation_contents_memo, (_e = (_d = data.frameworkUpdates) === null || _d === void 0 ? void 0 : _d.entityBatchUpdate) === null || _e === void 0 ? void 0 : _e.mutations);
     const continuation = data.continuation ? this.parseC(data.continuation) : null;
     if (continuation) {
       parsed_data.continuation = continuation;
@@ -16430,6 +16431,7 @@ var Parser = class {
     return (formats === null || formats === void 0 ? void 0 : formats.map((format) => new Format_default(format))) || [];
   }
   static applyMutations(memo, mutations) {
+    var _b, _c;
     const music_multi_select_menu_items = memo.getType(MusicMultiSelectMenuItem_default);
     if (music_multi_select_menu_items.length > 0 && !mutations) {
       console.warn(new InnertubeError(`Mutation data required for processing MusicMultiSelectMenuItems, but none found.
@@ -16438,14 +16440,25 @@ This is a bug, please report it at ${Platform.shim.info.bugs_url}`));
       const missing_or_invalid_mutations = [];
       for (const menu_item of music_multi_select_menu_items) {
         const mutation = mutations.find((mutation2) => {
-          var _b, _c;
-          return ((_c = (_b = mutation2.payload) === null || _b === void 0 ? void 0 : _b.musicFormBooleanChoice) === null || _c === void 0 ? void 0 : _c.id) === menu_item.form_item_entity_key;
+          var _b2, _c2;
+          return ((_c2 = (_b2 = mutation2.payload) === null || _b2 === void 0 ? void 0 : _b2.musicFormBooleanChoice) === null || _c2 === void 0 ? void 0 : _c2.id) === menu_item.form_item_entity_key;
         });
         const choice = mutation === null || mutation === void 0 ? void 0 : mutation.payload.musicFormBooleanChoice;
-        if ((choice === null || choice === void 0 ? void 0 : choice.selected) !== void 0 && (choice === null || choice === void 0 ? void 0 : choice.opaqueToken)) {
+        if ((choice === null || choice === void 0 ? void 0 : choice.selected) !== void 0) {
           menu_item.selected = choice.selected;
         } else {
           missing_or_invalid_mutations.push(`'${menu_item.title}'`);
+        }
+        if (choice === null || choice === void 0 ? void 0 : choice.opaqueToken) {
+          const command = (_c = (_b = menu_item.endpoint) === null || _b === void 0 ? void 0 : _b.payload.commands) === null || _c === void 0 ? void 0 : _c.find((c) => {
+            var _b2;
+            return (_b2 = c.musicBrowseFormBinderCommand) === null || _b2 === void 0 ? void 0 : _b2.browseEndpoint;
+          });
+          if (command) {
+            command.musicBrowseFormBinderCommand.browseEndpoint.formData = {
+              selectedValues: [choice.opaqueToken]
+            };
+          }
         }
       }
       if (missing_or_invalid_mutations.length > 0) {
