@@ -429,6 +429,10 @@ export class SectionListContinuation extends YTNode {
         this.continuation =
             ((_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation) ||
                 ((_g = (_f = (_e = data.continuations) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.reloadContinuationData) === null || _g === void 0 ? void 0 : _g.continuation) || null;
+        /*** Volumio-YouTube.js ***/
+        if (data.header) {
+            this.header = Parser.parse(data.header);
+        }
     }
 }
 SectionListContinuation.type = 'sectionListContinuation';

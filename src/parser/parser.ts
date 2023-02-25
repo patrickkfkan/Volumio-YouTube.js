@@ -548,6 +548,7 @@ export class SectionListContinuation extends YTNode {
 
   continuation: string;
   contents: ObservedArray<YTNode> | null;
+  header?;
 
   constructor(data: RawNode) {
     super();
@@ -555,6 +556,11 @@ export class SectionListContinuation extends YTNode {
     this.continuation =
       data.continuations?.[0]?.nextContinuationData?.continuation ||
       data.continuations?.[0]?.reloadContinuationData?.continuation || null;
+    
+    /*** Volumio-YouTube.js ***/
+    if (data.header) {
+      this.header = Parser.parse(data.header);
+    }
   }
 }
 

@@ -78,6 +78,7 @@ export declare class SectionListContinuation extends YTNode {
     static readonly type = "sectionListContinuation";
     continuation: string;
     contents: ObservedArray<YTNode> | null;
+    header?: SuperParsedResult<YTNode> | undefined;
     constructor(data: RawNode);
 }
 export declare class MusicPlaylistShelfContinuation extends YTNode {
