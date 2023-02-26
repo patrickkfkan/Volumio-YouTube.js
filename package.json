@@ -83,10 +83,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "jintr": "^0.4.1",
     "event-target-polyfill": "0.0.3",
+    "jintr": "^0.4.1",
     "linkedom": "^0.14.12",
     "node-fetch": "^2.6.7",
+    "uuid": "^9.0.0",
     "web-streams-polyfill": "^3.2.1"
   },
   "devDependencies": {

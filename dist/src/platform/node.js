@@ -31,6 +31,7 @@ var _Cache_instances, _Cache_persistent_directory, _Cache_persistent, _Cache_cre
 } from 'undici';*/
 // eslint-disable-next-line
 import { ReadableStream } from 'web-streams-polyfill';
+const uuid = require('uuid');
 const nodeFetch = require('node-fetch');
 const defaultFetch = nodeFetch.default;
 const Headers = nodeFetch.Headers;
@@ -138,7 +139,11 @@ Platform.load({
         return crypto.createHash('sha1').update(data).digest('hex');
     }),
     uuidv4() {
-        return crypto.randomUUID();
+        /*** Volumio-YouTube.js ***/
+        // crypto.randomUUID() available since Node v14.17.0.
+        // OK for Volumio on x86, but not rPi which runs a lower version.
+        //return crypto.randomUUID();
+        return uuid.v4();
     },
     serializeDOM(document) {
         return document.toString();
