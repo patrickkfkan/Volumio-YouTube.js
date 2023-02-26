@@ -7361,7 +7361,7 @@ var package_default = {
   },
   repository: {
     type: "git",
-    url: "git+https://github.com/LuanRT/YouTube.js.git"
+    url: "git+https://github.com/patrickkfkan/Volumio-YouTube.js.git"
   },
   license: "MIT",
   dependencies: {
@@ -7388,9 +7388,9 @@ var package_default = {
     typescript: "^4.9.5"
   },
   bugs: {
-    url: "https://github.com/LuanRT/YouTube.js/issues"
+    url: "https://github.com/patrickkfkan/Volumio-YouTube.js/issues"
   },
-  homepage: "https://github.com/LuanRT/YouTube.js#readme",
+  homepage: "https://github.com/patrickkfkan/Volumio-YouTube.js#readme",
   keywords: [
     "yt",
     "dl",
