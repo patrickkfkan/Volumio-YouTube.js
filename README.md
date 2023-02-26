@@ -17,6 +17,9 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.2.0-a.2
+- Replace `crypto.randomUUID` with [uuid](https://www.npmjs.com/package/uuid) since it is not available with the lower Node version on Volumio rPi.
+
 0.2.0-a.1:
 - Migrate to YouTube.js v3.0.0 (commit [a0bfe16](https://github.com/LuanRT/YouTube.js/commit/a0bfe164279ec27b0c49c6b0c32222c1a92df5c3)).
 - Add `header` to `SectionListContinuation` (required by ytmusic plugin's Library model).
