@@ -17,6 +17,11 @@ Fortunately, this is fine for the most part as the YouTube Music plugin does not
 
 ## Changelog:
 
+0.2.0-a.1:
+- Migrate to YouTube.js v3.0.0 (commit [a0bfe16](https://github.com/LuanRT/YouTube.js/commit/a0bfe164279ec27b0c49c6b0c32222c1a92df5c3)).
+- Add `header` to `SectionListContinuation` (required by ytmusic plugin's Library model).
+- Handle `formData` in `Parser#applyMutations()` (this was present before but subsequently removed; required by country selector in Explore -> Charts).
+
 0.1.1-b.2:
 - Add text fields to `ShowingResultsFor` parser class. Needed by ytmusic plugin to display the 'Showing results for...' text in search results.
 
