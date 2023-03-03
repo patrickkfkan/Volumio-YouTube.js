@@ -143,6 +143,6 @@ export interface IUpdatedMetadataResponse {
     continuation?: Continuation;
 }
 export interface IGuideResponse {
-    contents: SuperParsedResult<YTNode>;
+    items: SuperParsedResult<YTNode>;
     items_memo: Memo;
 }

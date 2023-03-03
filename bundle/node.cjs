@@ -23576,7 +23576,7 @@ var Guide = class {
   constructor(data) {
     _Guide_page.set(this, void 0);
     __classPrivateFieldSet45(this, _Guide_page, Parser.parseResponse(data), "f");
-    this.contents = __classPrivateFieldGet48(this, _Guide_page, "f").items_memo.getType(GuideSection_default);
+    this.contents = __classPrivateFieldGet48(this, _Guide_page, "f").items.array().as(GuideSection_default, GuideSubscriptionsSection_default);
   }
 };
 __name(Guide, "Guide");

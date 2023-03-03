@@ -12,11 +12,12 @@ var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (
 var _Guide_page;
 import { Parser } from '../index.js';
 import GuideSection from '../classes/GuideSection.js';
+import GuideSubscriptionsSection from '../classes/GuideSubscriptionsSection.js';
 export default class Guide {
     constructor(data) {
         _Guide_page.set(this, void 0);
         __classPrivateFieldSet(this, _Guide_page, Parser.parseResponse(data), "f");
-        this.contents = __classPrivateFieldGet(this, _Guide_page, "f").items_memo.getType(GuideSection);
+        this.contents = __classPrivateFieldGet(this, _Guide_page, "f").items.array().as(GuideSection, GuideSubscriptionsSection);
     }
 }
 _Guide_page = new WeakMap();
