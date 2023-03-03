@@ -12539,6 +12539,94 @@ __name(GridVideo, "GridVideo");
 GridVideo.type = "GridVideo";
 var GridVideo_default = GridVideo;
 
+// dist/src/parser/classes/GuideCollapsibleEntry.js
+var GuideCollapsibleEntry = class extends YTNode {
+  constructor(data) {
+    super();
+    this.expander_item = {
+      title: new Text_default(data.expanderItem.guideEntryRenderer.formattedTitle).toString(),
+      icon_type: data.expanderItem.guideEntryRenderer.icon.iconType
+    };
+    this.collapser_item = {
+      title: new Text_default(data.collapserItem.guideEntryRenderer.formattedTitle).toString(),
+      icon_type: data.collapserItem.guideEntryRenderer.icon.iconType
+    };
+    this.expandable_items = Parser.parseArray(data.expandableItems);
+  }
+};
+__name(GuideCollapsibleEntry, "GuideCollapsibleEntry");
+GuideCollapsibleEntry.type = "GuideCollapsibleEntry";
+var GuideCollapsibleEntry_default = GuideCollapsibleEntry;
+
+// dist/src/parser/classes/GuideCollapsibleSectionEntry.js
+var GuideCollapsibleSectionEntry = class extends YTNode {
+  constructor(data) {
+    super();
+    this.header_entry = Parser.parseItem(data.headerEntry);
+    this.expander_icon = data.expanderIcon.iconType;
+    this.collapser_icon = data.collapserIcon.iconType;
+    this.section_items = Parser.parseArray(data.sectionItems);
+  }
+};
+__name(GuideCollapsibleSectionEntry, "GuideCollapsibleSectionEntry");
+GuideCollapsibleSectionEntry.type = "GuideCollapsibleSectionEntry";
+var GuideCollapsibleSectionEntry_default = GuideCollapsibleSectionEntry;
+
+// dist/src/parser/classes/GuideEntry.js
+var GuideEntry = class extends YTNode {
+  constructor(data) {
+    var _a5;
+    super();
+    this.title = new Text_default(data.formattedTitle);
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint || data.serviceEndpoint);
+    if ((_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType) {
+      this.icon_type = data.icon.iconType;
+    }
+    if (data.thumbnail) {
+      this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    }
+    if (data.badges) {
+      this.badges = data.badges;
+    }
+    this.is_primary = !!data.isPrimary;
+  }
+};
+__name(GuideEntry, "GuideEntry");
+GuideEntry.type = "GuideEntry";
+var GuideEntry_default = GuideEntry;
+
+// dist/src/parser/classes/GuideDownloadsEntry.js
+var GuideDownloadsEntry = class extends GuideEntry_default {
+  constructor(data) {
+    super(data.entryRenderer.guideEntryRenderer);
+    this.always_show = !!data.alwaysShow;
+  }
+};
+__name(GuideDownloadsEntry, "GuideDownloadsEntry");
+GuideDownloadsEntry.type = "GuideDownloadsEntry";
+var GuideDownloadsEntry_default = GuideDownloadsEntry;
+
+// dist/src/parser/classes/GuideSection.js
+var GuideSection = class extends YTNode {
+  constructor(data) {
+    super();
+    if (data.formattedTitle) {
+      this.title = new Text_default(data.formattedTitle);
+    }
+    this.items = Parser.parseArray(data.items);
+  }
+};
+__name(GuideSection, "GuideSection");
+GuideSection.type = "GuideSection";
+var GuideSection_default = GuideSection;
+
+// dist/src/parser/classes/GuideSubscriptionsSection.js
+var GuideSubscriptionsSection = class extends GuideSection_default {
+};
+__name(GuideSubscriptionsSection, "GuideSubscriptionsSection");
+GuideSubscriptionsSection.type = "GuideSubscriptionsSection";
+var GuideSubscriptionsSection_default = GuideSubscriptionsSection;
+
 // dist/src/parser/classes/HashtagHeader.js
 var HashtagHeader = class extends YTNode {
   constructor(data) {
@@ -16425,6 +16513,12 @@ var YTNodes = {
   GridHeader: GridHeader_default,
   GridPlaylist: GridPlaylist_default,
   GridVideo: GridVideo_default,
+  GuideCollapsibleEntry: GuideCollapsibleEntry_default,
+  GuideCollapsibleSectionEntry: GuideCollapsibleSectionEntry_default,
+  GuideDownloadsEntry: GuideDownloadsEntry_default,
+  GuideEntry: GuideEntry_default,
+  GuideSection: GuideSection_default,
+  GuideSubscriptionsSection: GuideSubscriptionsSection_default,
   HashtagHeader: HashtagHeader_default,
   Heatmap: Heatmap_default,
   HeatMarker: HeatMarker_default,
@@ -16703,7 +16797,7 @@ var Parser = class {
     __classPrivateFieldSet9(this, _a2, handler, "f", _Parser_errorHandler);
   }
   static parseResponse(data) {
-    var _b, _c, _d, _e;
+    var _b, _c;
     const parsed_data = {};
     __classPrivateFieldGet9(this, _a2, "m", _Parser_createMemo).call(this);
     const contents = this.parse(data.contents);
@@ -16778,7 +16872,6 @@ var Parser = class {
     }
     __classPrivateFieldGet9(this, _a2, "m", _Parser_clearMemo).call(this);
     this.applyMutations(contents_memo, (_c = (_b = data.frameworkUpdates) === null || _b === void 0 ? void 0 : _b.entityBatchUpdate) === null || _c === void 0 ? void 0 : _c.mutations);
-    this.applyMutations(continuation_contents_memo, (_e = (_d = data.frameworkUpdates) === null || _d === void 0 ? void 0 : _d.entityBatchUpdate) === null || _e === void 0 ? void 0 : _e.mutations);
     const continuation = data.continuation ? this.parseC(data.continuation) : null;
     if (continuation) {
       parsed_data.continuation = continuation;
@@ -16870,6 +16963,13 @@ var Parser = class {
     if (cards) {
       parsed_data.cards = cards;
     }
+    __classPrivateFieldGet9(this, _a2, "m", _Parser_createMemo).call(this);
+    const items = this.parse(data.items);
+    if (items) {
+      parsed_data.items = items;
+      parsed_data.items_memo = __classPrivateFieldGet9(this, _a2, "m", _Parser_getMemo).call(this);
+    }
+    __classPrivateFieldGet9(this, _a2, "m", _Parser_clearMemo).call(this);
     return parsed_data;
   }
   static parseItem(data, validTypes) {
@@ -16977,7 +17077,6 @@ var Parser = class {
     return (formats === null || formats === void 0 ? void 0 : formats.map((format) => new Format_default(format))) || [];
   }
   static applyMutations(memo, mutations) {
-    var _b, _c;
     const music_multi_select_menu_items = memo.getType(MusicMultiSelectMenuItem_default);
     if (music_multi_select_menu_items.length > 0 && !mutations) {
       console.warn(new InnertubeError(`Mutation data required for processing MusicMultiSelectMenuItems, but none found.
@@ -16986,25 +17085,14 @@ This is a bug, please report it at ${Platform.shim.info.bugs_url}`));
       const missing_or_invalid_mutations = [];
       for (const menu_item of music_multi_select_menu_items) {
         const mutation = mutations.find((mutation2) => {
-          var _b2, _c2;
-          return ((_c2 = (_b2 = mutation2.payload) === null || _b2 === void 0 ? void 0 : _b2.musicFormBooleanChoice) === null || _c2 === void 0 ? void 0 : _c2.id) === menu_item.form_item_entity_key;
+          var _b, _c;
+          return ((_c = (_b = mutation2.payload) === null || _b === void 0 ? void 0 : _b.musicFormBooleanChoice) === null || _c === void 0 ? void 0 : _c.id) === menu_item.form_item_entity_key;
         });
         const choice = mutation === null || mutation === void 0 ? void 0 : mutation.payload.musicFormBooleanChoice;
-        if ((choice === null || choice === void 0 ? void 0 : choice.selected) !== void 0) {
+        if ((choice === null || choice === void 0 ? void 0 : choice.selected) !== void 0 && (choice === null || choice === void 0 ? void 0 : choice.opaqueToken)) {
           menu_item.selected = choice.selected;
         } else {
           missing_or_invalid_mutations.push(`'${menu_item.title}'`);
-        }
-        if (choice === null || choice === void 0 ? void 0 : choice.opaqueToken) {
-          const command = (_c = (_b = menu_item.endpoint) === null || _b === void 0 ? void 0 : _b.payload.commands) === null || _c === void 0 ? void 0 : _c.find((c) => {
-            var _b2;
-            return (_b2 = c.musicBrowseFormBinderCommand) === null || _b2 === void 0 ? void 0 : _b2.browseEndpoint;
-          });
-          if (command) {
-            command.musicBrowseFormBinderCommand.browseEndpoint.formData = {
-              selectedValues: [choice.opaqueToken]
-            };
-          }
         }
       }
       if (missing_or_invalid_mutations.length > 0) {
@@ -17056,7 +17144,8 @@ Parser.ignore_list = /* @__PURE__ */ new Set([
   "RunAttestationCommand",
   "CompactPromotedVideo",
   "StatementBanner",
-  "SearchSubMenu"
+  "SearchSubMenu",
+  "GuideSigninPromo"
 ]);
 var ItemSectionContinuation = class extends YTNode {
   constructor(data) {
@@ -17102,9 +17191,6 @@ var SectionListContinuation = class extends YTNode {
     super();
     this.contents = Parser.parse(data.contents, true);
     this.continuation = ((_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation) || ((_g = (_f = (_e = data.continuations) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.reloadContinuationData) === null || _g === void 0 ? void 0 : _g.continuation) || null;
-    if (data.header) {
-      this.header = Parser.parse(data.header);
-    }
   }
 };
 __name(SectionListContinuation, "SectionListContinuation");
@@ -23468,6 +23554,34 @@ _Studio_session = /* @__PURE__ */ new WeakMap(), _Studio_instances = /* @__PURE_
 }, "_Studio_setVideoMetadata");
 var Studio_default = Studio;
 
+// dist/src/parser/youtube/Guide.js
+var __classPrivateFieldSet45 = function(receiver, state, value, kind, f) {
+  if (kind === "m")
+    throw new TypeError("Private method is not writable");
+  if (kind === "a" && !f)
+    throw new TypeError("Private accessor was defined without a setter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot write private member to an object whose class did not declare it");
+  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+};
+var __classPrivateFieldGet48 = function(receiver, state, kind, f) {
+  if (kind === "a" && !f)
+    throw new TypeError("Private accessor was defined without a getter");
+  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+    throw new TypeError("Cannot read private member from an object whose class did not declare it");
+  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+};
+var _Guide_page;
+var Guide = class {
+  constructor(data) {
+    _Guide_page.set(this, void 0);
+    __classPrivateFieldSet45(this, _Guide_page, Parser.parseResponse(data), "f");
+    this.contents = __classPrivateFieldGet48(this, _Guide_page, "f").items_memo.getType(GuideSection_default);
+  }
+};
+__name(Guide, "Guide");
+_Guide_page = /* @__PURE__ */ new WeakMap();
+
 // dist/src/Innertube.js
 var __awaiter42 = function(thisArg, _arguments, P, generator) {
   function adopt(value) {
@@ -23576,6 +23690,12 @@ var Innertube = class {
     return __awaiter42(this, void 0, void 0, function* () {
       const response = yield this.actions.execute("/browse", { browseId: "FEwhat_to_watch" });
       return new HomeFeed(this.actions, response);
+    });
+  }
+  getGuide() {
+    return __awaiter42(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute("/guide");
+      return new Guide(response.data);
     });
   }
   getLibrary() {
@@ -23704,7 +23824,7 @@ var __awaiter43 = function(thisArg, _arguments, P, generator) {
     step((generator = generator.apply(thisArg, _arguments || [])).next());
   });
 };
-var __classPrivateFieldSet45 = function(receiver, state, value, kind, f) {
+var __classPrivateFieldSet46 = function(receiver, state, value, kind, f) {
   if (kind === "m")
     throw new TypeError("Private method is not writable");
   if (kind === "a" && !f)
@@ -23713,7 +23833,7 @@ var __classPrivateFieldSet45 = function(receiver, state, value, kind, f) {
     throw new TypeError("Cannot write private member to an object whose class did not declare it");
   return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
 };
-var __classPrivateFieldGet48 = function(receiver, state, kind, f) {
+var __classPrivateFieldGet49 = function(receiver, state, kind, f) {
   if (kind === "a" && !f)
     throw new TypeError("Private accessor was defined without a getter");
   if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
@@ -23741,8 +23861,8 @@ var Cache = class {
     _Cache_instances.add(this);
     _Cache_persistent_directory.set(this, void 0);
     _Cache_persistent.set(this, void 0);
-    __classPrivateFieldSet45(this, _Cache_persistent_directory, persistent_directory || Cache.default_persistent_directory, "f");
-    __classPrivateFieldSet45(this, _Cache_persistent, persistent, "f");
+    __classPrivateFieldSet46(this, _Cache_persistent_directory, persistent_directory || Cache.default_persistent_directory, "f");
+    __classPrivateFieldSet46(this, _Cache_persistent, persistent, "f");
   }
   static get temp_directory() {
     return `${import_os.default.tmpdir()}/youtubei.js`;
@@ -23751,11 +23871,11 @@ var Cache = class {
     return import_path.default.resolve(__dirname__, "..", "..", ".cache", "youtubei.js");
   }
   get cache_dir() {
-    return __classPrivateFieldGet48(this, _Cache_persistent, "f") ? __classPrivateFieldGet48(this, _Cache_persistent_directory, "f") : Cache.temp_directory;
+    return __classPrivateFieldGet49(this, _Cache_persistent, "f") ? __classPrivateFieldGet49(this, _Cache_persistent_directory, "f") : Cache.temp_directory;
   }
   get(key) {
     return __awaiter43(this, void 0, void 0, function* () {
-      yield __classPrivateFieldGet48(this, _Cache_instances, "m", _Cache_createCache).call(this);
+      yield __classPrivateFieldGet49(this, _Cache_instances, "m", _Cache_createCache).call(this);
       const file = import_path.default.resolve(this.cache_dir, key);
       try {
         const stat = yield import_promises.default.stat(file);
@@ -23773,14 +23893,14 @@ var Cache = class {
   }
   set(key, value) {
     return __awaiter43(this, void 0, void 0, function* () {
-      yield __classPrivateFieldGet48(this, _Cache_instances, "m", _Cache_createCache).call(this);
+      yield __classPrivateFieldGet49(this, _Cache_instances, "m", _Cache_createCache).call(this);
       const file = import_path.default.resolve(this.cache_dir, key);
       yield import_promises.default.writeFile(file, new Uint8Array(value));
     });
   }
   remove(key) {
     return __awaiter43(this, void 0, void 0, function* () {
-      yield __classPrivateFieldGet48(this, _Cache_instances, "m", _Cache_createCache).call(this);
+      yield __classPrivateFieldGet49(this, _Cache_instances, "m", _Cache_createCache).call(this);
       const file = import_path.default.resolve(this.cache_dir, key);
       try {
         yield import_promises.default.unlink(file);

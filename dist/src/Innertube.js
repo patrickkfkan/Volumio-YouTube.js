@@ -26,6 +26,7 @@ import PlaylistManager from './core/PlaylistManager.js';
 import YTStudio from './core/Studio.js';
 import TabbedFeed from './core/TabbedFeed.js';
 import HomeFeed from './parser/youtube/HomeFeed.js';
+import Guide from './parser/youtube/Guide.js';
 import Proto from './proto/index.js';
 import Constants from './utils/Constants.js';
 import { generateRandomString, throwIfMissing } from './utils/Utils.js';
@@ -132,6 +133,15 @@ class Innertube {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.actions.execute('/browse', { browseId: 'FEwhat_to_watch' });
             return new HomeFeed(this.actions, response);
+        });
+    }
+    /**
+     * Retrieves YouTube's content guide.
+     */
+    getGuide() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.actions.execute('/guide');
+            return new Guide(response.data);
         });
     }
     /**

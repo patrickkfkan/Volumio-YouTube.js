@@ -99,6 +99,12 @@ import { default as GridChannel } from './classes/GridChannel.js';
 import { default as GridHeader } from './classes/GridHeader.js';
 import { default as GridPlaylist } from './classes/GridPlaylist.js';
 import { default as GridVideo } from './classes/GridVideo.js';
+import { default as GuideCollapsibleEntry } from './classes/GuideCollapsibleEntry.js';
+import { default as GuideCollapsibleSectionEntry } from './classes/GuideCollapsibleSectionEntry.js';
+import { default as GuideDownloadsEntry } from './classes/GuideDownloadsEntry.js';
+import { default as GuideEntry } from './classes/GuideEntry.js';
+import { default as GuideSection } from './classes/GuideSection.js';
+import { default as GuideSubscriptionsSection } from './classes/GuideSubscriptionsSection.js';
 import { default as HashtagHeader } from './classes/HashtagHeader.js';
 import { default as Heatmap } from './classes/Heatmap.js';
 import { default as HeatMarker } from './classes/HeatMarker.js';
@@ -431,6 +437,12 @@ export const YTNodes = {
   GridHeader,
   GridPlaylist,
   GridVideo,
+  GuideCollapsibleEntry,
+  GuideCollapsibleSectionEntry,
+  GuideDownloadsEntry,
+  GuideEntry,
+  GuideSection,
+  GuideSubscriptionsSection,
   HashtagHeader,
   Heatmap,
   HeatMarker,

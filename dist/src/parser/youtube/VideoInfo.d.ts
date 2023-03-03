@@ -64,7 +64,10 @@ declare class VideoInfo {
         formats: Format[];
         adaptive_formats: Format[];
         dash_manifest_url: string | null;
-        hls_manifest_url: string | null;
+        hls_manifest_url: string | null; /**
+         * Microformat is a bit redundant, so only
+         * a few things there are interesting to us.
+         */
     } | undefined;
     playability_status: {
         status: string;

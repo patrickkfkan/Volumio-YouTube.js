@@ -149,10 +149,6 @@ export default class Parser {
 
     this.applyMutations(contents_memo, data.frameworkUpdates?.entityBatchUpdate?.mutations);
 
-    /*** Volumio-YouTube.js ***/
-    // TODO: Push to YouTube.js repo
-    this.applyMutations(continuation_contents_memo, data.frameworkUpdates?.entityBatchUpdate?.mutations);
-
     const continuation = data.continuation ? this.parseC(data.continuation) : null;
     if (continuation) {
       parsed_data.continuation = continuation;
@@ -265,6 +261,14 @@ export default class Parser {
     if (cards) {
       parsed_data.cards = cards;
     }
+
+    this.#createMemo();
+    const items = this.parse(data.items);
+    if (items) {
+      parsed_data.items = items;
+      parsed_data.items_memo = this.#getMemo();
+    }
+    this.#clearMemo();
 
     return parsed_data;
   }
@@ -432,29 +436,12 @@ export default class Parser {
           .find((mutation) => mutation.payload?.musicFormBooleanChoice?.id === menu_item.form_item_entity_key);
 
         const choice = mutation?.payload.musicFormBooleanChoice;
-        
-        /*** Volumio-YouTube.js ***/
-        // TODO: Push to YouTube.js repo
-        if (choice?.selected !== undefined) {
-        //if (choice?.selected !== undefined && choice?.opaqueToken) {
+
+        if (choice?.selected !== undefined && choice?.opaqueToken) {
           menu_item.selected = choice.selected;
         } else {
           missing_or_invalid_mutations.push(`'${menu_item.title}'`);
         }
-
-        /*** Volumio-YouTube.js ***/
-        // TODO: Push to YouTube.js repo
-        // Include `opaqueToken` in endpoint of menu items that invoke `musicBrowseFormBinderCommand` when clicked (e.g. Explore -> Charts).
-        // the command's `browseEndpoint`
-        if (choice?.opaqueToken) {
-          const command = menu_item.endpoint?.payload.commands?.find((c:any) => c.musicBrowseFormBinderCommand?.browseEndpoint);
-          if (command) {
-            command.musicBrowseFormBinderCommand.browseEndpoint.formData = { // `formData` is to be included in the payload of resulting requests
-              selectedValues: [ choice.opaqueToken ]
-            };
-          }
-        }
-
       }
       if (missing_or_invalid_mutations.length > 0) {
         console.warn(
@@ -502,7 +489,8 @@ export default class Parser {
     'RunAttestationCommand',
     'CompactPromotedVideo',
     'StatementBanner',
-    'SearchSubMenu'
+    'SearchSubMenu',
+    'GuideSigninPromo'
   ]);
 
   static shouldIgnore(classname: string) {
@@ -569,7 +557,6 @@ export class SectionListContinuation extends YTNode {
 
   continuation: string;
   contents: ObservedArray<YTNode> | null;
-  header?;
 
   constructor(data: RawNode) {
     super();
@@ -577,11 +564,6 @@ export class SectionListContinuation extends YTNode {
     this.continuation =
       data.continuations?.[0]?.nextContinuationData?.continuation ||
       data.continuations?.[0]?.reloadContinuationData?.continuation || null;
-    
-    /*** Volumio-YouTube.js ***/
-    if (data.header) {
-      this.header = Parser.parse(data.header);
-    }
   }
 }
 

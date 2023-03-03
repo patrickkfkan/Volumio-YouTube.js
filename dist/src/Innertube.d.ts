@@ -18,6 +18,7 @@ import PlaylistManager from './core/PlaylistManager.js';
 import YTStudio from './core/Studio.js';
 import TabbedFeed from './core/TabbedFeed.js';
 import HomeFeed from './parser/youtube/HomeFeed.js';
+import Guide from './parser/youtube/Guide.js';
 import type Actions from './core/Actions.js';
 import type Format from './parser/classes/misc/Format.js';
 import type { ApiResponse } from './core/Actions.js';
@@ -76,6 +77,10 @@ declare class Innertube {
      * Retrieves YouTube's home feed (aka recommendations).
      */
     getHomeFeed(): Promise<HomeFeed>;
+    /**
+     * Retrieves YouTube's content guide.
+     */
+    getGuide(): Promise<Guide>;
     /**
      * Returns the account's library.
      */

@@ -27,7 +27,7 @@ export default class Parser {
      * @param data - Raw data.
      */
     static parseResponse(data) {
-        var _b, _c, _d, _e;
+        var _b, _c;
         const parsed_data = {};
         __classPrivateFieldGet(this, _a, "m", _Parser_createMemo).call(this);
         const contents = this.parse(data.contents);
@@ -102,9 +102,6 @@ export default class Parser {
         }
         __classPrivateFieldGet(this, _a, "m", _Parser_clearMemo).call(this);
         this.applyMutations(contents_memo, (_c = (_b = data.frameworkUpdates) === null || _b === void 0 ? void 0 : _b.entityBatchUpdate) === null || _c === void 0 ? void 0 : _c.mutations);
-        /*** Volumio-YouTube.js ***/
-        // TODO: Push to YouTube.js repo
-        this.applyMutations(continuation_contents_memo, (_e = (_d = data.frameworkUpdates) === null || _d === void 0 ? void 0 : _d.entityBatchUpdate) === null || _e === void 0 ? void 0 : _e.mutations);
         const continuation = data.continuation ? this.parseC(data.continuation) : null;
         if (continuation) {
             parsed_data.continuation = continuation;
@@ -196,6 +193,13 @@ export default class Parser {
         if (cards) {
             parsed_data.cards = cards;
         }
+        __classPrivateFieldGet(this, _a, "m", _Parser_createMemo).call(this);
+        const items = this.parse(data.items);
+        if (items) {
+            parsed_data.items = items;
+            parsed_data.items_memo = __classPrivateFieldGet(this, _a, "m", _Parser_getMemo).call(this);
+        }
+        __classPrivateFieldGet(this, _a, "m", _Parser_clearMemo).call(this);
         return parsed_data;
     }
     /**
@@ -317,7 +321,6 @@ export default class Parser {
         return (formats === null || formats === void 0 ? void 0 : formats.map((format) => new Format(format))) || [];
     }
     static applyMutations(memo, mutations) {
-        var _b, _c;
         // Apply mutations to MusicMultiSelectMenuItems
         const music_multi_select_menu_items = memo.getType(MusicMultiSelectMenuItem);
         if (music_multi_select_menu_items.length > 0 && !mutations) {
@@ -330,26 +333,11 @@ export default class Parser {
                 const mutation = mutations
                     .find((mutation) => { var _b, _c; return ((_c = (_b = mutation.payload) === null || _b === void 0 ? void 0 : _b.musicFormBooleanChoice) === null || _c === void 0 ? void 0 : _c.id) === menu_item.form_item_entity_key; });
                 const choice = mutation === null || mutation === void 0 ? void 0 : mutation.payload.musicFormBooleanChoice;
-                /*** Volumio-YouTube.js ***/
-                // TODO: Push to YouTube.js repo
-                if ((choice === null || choice === void 0 ? void 0 : choice.selected) !== undefined) {
-                    //if (choice?.selected !== undefined && choice?.opaqueToken) {
+                if ((choice === null || choice === void 0 ? void 0 : choice.selected) !== undefined && (choice === null || choice === void 0 ? void 0 : choice.opaqueToken)) {
                     menu_item.selected = choice.selected;
                 }
                 else {
                     missing_or_invalid_mutations.push(`'${menu_item.title}'`);
-                }
-                /*** Volumio-YouTube.js ***/
-                // TODO: Push to YouTube.js repo
-                // Include `opaqueToken` in endpoint of menu items that invoke `musicBrowseFormBinderCommand` when clicked (e.g. Explore -> Charts).
-                // the command's `browseEndpoint`
-                if (choice === null || choice === void 0 ? void 0 : choice.opaqueToken) {
-                    const command = (_c = (_b = menu_item.endpoint) === null || _b === void 0 ? void 0 : _b.payload.commands) === null || _c === void 0 ? void 0 : _c.find((c) => { var _b; return (_b = c.musicBrowseFormBinderCommand) === null || _b === void 0 ? void 0 : _b.browseEndpoint; });
-                    if (command) {
-                        command.musicBrowseFormBinderCommand.browseEndpoint.formData = {
-                            selectedValues: [choice.opaqueToken]
-                        };
-                    }
                 }
             }
             if (missing_or_invalid_mutations.length > 0) {
@@ -403,7 +391,8 @@ Parser.ignore_list = new Set([
     'RunAttestationCommand',
     'CompactPromotedVideo',
     'StatementBanner',
-    'SearchSubMenu'
+    'SearchSubMenu',
+    'GuideSigninPromo'
 ]);
 // Continuation
 export class ItemSectionContinuation extends YTNode {
@@ -448,10 +437,6 @@ export class SectionListContinuation extends YTNode {
         this.continuation =
             ((_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation) ||
                 ((_g = (_f = (_e = data.continuations) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.reloadContinuationData) === null || _g === void 0 ? void 0 : _g.continuation) || null;
-        /*** Volumio-YouTube.js ***/
-        if (data.header) {
-            this.header = Parser.parse(data.header);
-        }
     }
 }
 SectionListContinuation.type = 'sectionListContinuation';
