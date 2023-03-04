@@ -23578,6 +23578,9 @@ var Guide = class {
     __classPrivateFieldSet45(this, _Guide_page, Parser.parseResponse(data), "f");
     this.contents = __classPrivateFieldGet48(this, _Guide_page, "f").items.array().as(GuideSection_default, GuideSubscriptionsSection_default);
   }
+  get page() {
+    return __classPrivateFieldGet48(this, _Guide_page, "f");
+  }
 };
 __name(Guide, "Guide");
 _Guide_page = /* @__PURE__ */ new WeakMap();

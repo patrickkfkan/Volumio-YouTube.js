@@ -19,6 +19,9 @@ export default class Guide {
         __classPrivateFieldSet(this, _Guide_page, Parser.parseResponse(data), "f");
         this.contents = __classPrivateFieldGet(this, _Guide_page, "f").items.array().as(GuideSection, GuideSubscriptionsSection);
     }
+    get page() {
+        return __classPrivateFieldGet(this, _Guide_page, "f");
+    }
 }
 _Guide_page = new WeakMap();
 //# sourceMappingURL=Guide.js.map
