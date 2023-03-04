@@ -108,6 +108,7 @@ import { default as GuideSubscriptionsSection } from './classes/GuideSubscriptio
 import { default as HashtagHeader } from './classes/HashtagHeader.js';
 import { default as Heatmap } from './classes/Heatmap.js';
 import { default as HeatMarker } from './classes/HeatMarker.js';
+import { default as HeroPlaylistThumbnail } from './classes/HeroPlaylistThumbnail.js';
 import { default as HighlightsCarousel } from './classes/HighlightsCarousel.js';
 import { default as HistorySuggestion } from './classes/HistorySuggestion.js';
 import { default as HorizontalCardList } from './classes/HorizontalCardList.js';
@@ -446,6 +447,7 @@ export const YTNodes = {
   HashtagHeader,
   Heatmap,
   HeatMarker,
+  HeroPlaylistThumbnail,
   HighlightsCarousel,
   HistorySuggestion,
   HorizontalCardList,

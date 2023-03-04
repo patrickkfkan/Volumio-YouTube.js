@@ -18,6 +18,7 @@ declare class PlaylistHeader extends YTNode {
     save_button: import("../helpers.js").SuperParsedResult<YTNode>;
     shuffle_play_button: import("../helpers.js").SuperParsedResult<YTNode>;
     menu: import("../helpers.js").SuperParsedResult<YTNode>;
+    banner: YTNode | null;
     constructor(data: any);
 }
 export default PlaylistHeader;

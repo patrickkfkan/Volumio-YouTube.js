@@ -20,6 +20,7 @@ class PlaylistHeader extends YTNode {
         this.save_button = Parser.parse(data.saveButton);
         this.shuffle_play_button = Parser.parse(data.shufflePlayButton);
         this.menu = Parser.parse(data.moreActionsMenu);
+        this.banner = Parser.parseItem(data.playlistHeaderBanner);
     }
 }
 PlaylistHeader.type = 'PlaylistHeader';

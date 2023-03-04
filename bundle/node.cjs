@@ -12667,6 +12667,18 @@ __name(HeatMarker, "HeatMarker");
 HeatMarker.type = "HeatMarker";
 var HeatMarker_default = HeatMarker;
 
+// dist/src/parser/classes/HeroPlaylistThumbnail.js
+var HeroPlaylistThumbnail = class extends YTNode {
+  constructor(data) {
+    super();
+    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.on_tap_endpoint = new NavigationEndpoint_default(data.onTap);
+  }
+};
+__name(HeroPlaylistThumbnail, "HeroPlaylistThumbnail");
+HeroPlaylistThumbnail.type = "HeroPlaylistThumbnail";
+var HeroPlaylistThumbnail_default = HeroPlaylistThumbnail;
+
 // dist/src/parser/classes/HighlightsCarousel.js
 var Panel = class {
   constructor(data) {
@@ -14919,6 +14931,7 @@ var PlaylistHeader = class extends YTNode {
     this.save_button = parser_default.parse(data.saveButton);
     this.shuffle_play_button = parser_default.parse(data.shufflePlayButton);
     this.menu = parser_default.parse(data.moreActionsMenu);
+    this.banner = parser_default.parseItem(data.playlistHeaderBanner);
   }
 };
 __name(PlaylistHeader, "PlaylistHeader");
@@ -16522,6 +16535,7 @@ var YTNodes = {
   HashtagHeader: HashtagHeader_default,
   Heatmap: Heatmap_default,
   HeatMarker: HeatMarker_default,
+  HeroPlaylistThumbnail: HeroPlaylistThumbnail_default,
   HighlightsCarousel: HighlightsCarousel_default,
   HistorySuggestion: HistorySuggestion_default,
   HorizontalCardList: HorizontalCardList_default,
