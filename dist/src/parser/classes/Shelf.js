@@ -17,6 +17,9 @@ class Shelf extends YTNode {
         if (data.menu) {
             this.menu = Parser.parseItem(data.menu);
         }
+        if (data.playAllButton) {
+            this.play_all_button = Parser.parseItem(data.playAllButton);
+        }
     }
 }
 Shelf.type = 'Shelf';

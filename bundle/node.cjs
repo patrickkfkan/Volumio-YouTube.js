@@ -15583,6 +15583,9 @@ var Shelf = class extends YTNode {
     if (data.menu) {
       this.menu = parser_default.parseItem(data.menu);
     }
+    if (data.playAllButton) {
+      this.play_all_button = parser_default.parseItem(data.playAllButton);
+    }
   }
 };
 __name(Shelf, "Shelf");
