@@ -14633,7 +14633,7 @@ var SearchFilter = class extends YTNode {
   constructor(data) {
     super();
     this.label = new Text_default(data.label);
-    this.endpoint = new NavigationEndpoint_default(data.endpoint);
+    this.endpoint = new NavigationEndpoint_default(data.endpoint || data.navigationEndpoint);
     this.tooltip = data.tooltip;
     if (data.status) {
       this.status = data.status;

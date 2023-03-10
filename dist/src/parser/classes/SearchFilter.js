@@ -5,7 +5,7 @@ class SearchFilter extends YTNode {
     constructor(data) {
         super();
         this.label = new Text(data.label);
-        this.endpoint = new NavigationEndpoint(data.endpoint);
+        this.endpoint = new NavigationEndpoint(data.endpoint || data.navigationEndpoint);
         this.tooltip = data.tooltip;
         if (data.status) {
             this.status = data.status;
