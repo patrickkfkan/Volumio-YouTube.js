@@ -11157,6 +11157,9 @@ var Playlist = class extends YTNode {
     this.badges = parser_default.parseArray(data.ownerBadges);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
+    if (data.viewPlaylistText) {
+      this.view_playlist = new NavigatableText_default(data.viewPlaylistText);
+    }
   }
 };
 __name(Playlist, "Playlist");
