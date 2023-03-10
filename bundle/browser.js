@@ -14635,6 +14635,15 @@ var SearchFilter = class extends YTNode {
     this.label = new Text_default(data.label);
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
     this.tooltip = data.tooltip;
+    if (data.status) {
+      this.status = data.status;
+    }
+  }
+  get disabled() {
+    return this.status === "FILTER_STATUS_DISABLED";
+  }
+  get selected() {
+    return this.status === "FILTER_STATUS_SELECTED";
   }
 };
 __name(SearchFilter, "SearchFilter");

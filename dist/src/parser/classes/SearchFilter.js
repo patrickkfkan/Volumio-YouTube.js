@@ -7,6 +7,15 @@ class SearchFilter extends YTNode {
         this.label = new Text(data.label);
         this.endpoint = new NavigationEndpoint(data.endpoint);
         this.tooltip = data.tooltip;
+        if (data.status) {
+            this.status = data.status;
+        }
+    }
+    get disabled() {
+        return this.status === 'FILTER_STATUS_DISABLED';
+    }
+    get selected() {
+        return this.status === 'FILTER_STATUS_SELECTED';
     }
 }
 SearchFilter.type = 'SearchFilter';

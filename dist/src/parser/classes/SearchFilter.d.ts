@@ -7,6 +7,9 @@ declare class SearchFilter extends YTNode {
     label: Text;
     endpoint: NavigationEndpoint;
     tooltip: string;
+    status?: string;
     constructor(data: RawNode);
+    get disabled(): boolean;
+    get selected(): boolean;
 }
 export default SearchFilter;
