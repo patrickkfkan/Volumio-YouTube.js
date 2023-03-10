@@ -1,4 +1,5 @@
 import { YTNode } from '../../helpers.js';
+import type { RawNode } from '../../index.js';
 declare class AnalyticsRoot extends YTNode {
     static type: string;
     title: string;
@@ -15,6 +16,6 @@ declare class AnalyticsRoot extends YTNode {
             bar_opacity: number;
         }[];
     }[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default AnalyticsRoot;

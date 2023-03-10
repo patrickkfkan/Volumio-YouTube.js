@@ -46,10 +46,10 @@ declare class Innertube {
     static create(config?: InnertubeConfig): Promise<Innertube>;
     /**
      * Retrieves video info.
-     * @param video_id - The video id.
+     * @param target - The video id or `NavigationEndpoint`.
      * @param client - The client to use.
      */
-    getInfo(video_id: string, client?: InnerTubeClient): Promise<VideoInfo>;
+    getInfo(target: string | NavigationEndpoint, client?: InnerTubeClient): Promise<VideoInfo>;
     /**
      * Retrieves basic video info.
      * @param video_id - The video id.

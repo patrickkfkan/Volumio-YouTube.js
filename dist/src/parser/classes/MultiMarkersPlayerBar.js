@@ -18,7 +18,7 @@ class MultiMarkersPlayerBar extends YTNode {
     constructor(data) {
         var _a;
         super();
-        this.markers_map = observe((_a = data.markersMap) === null || _a === void 0 ? void 0 : _a.map((marker) => new Marker(marker)));
+        this.markers_map = observe(((_a = data.markersMap) === null || _a === void 0 ? void 0 : _a.map((marker) => new Marker(marker))) || []);
     }
 }
 MultiMarkersPlayerBar.type = 'MultiMarkersPlayerBar';

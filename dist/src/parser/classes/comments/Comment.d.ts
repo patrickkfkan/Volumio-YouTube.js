@@ -9,6 +9,7 @@ import type PdgCommentChip from './PdgCommentChip.js';
 import type { ApiResponse } from '../../../core/Actions.js';
 import type Actions from '../../../core/Actions.js';
 import { YTNode } from '../../helpers.js';
+import type { RawNode } from '../../index.js';
 declare class Comment extends YTNode {
     #private;
     static type: string;
@@ -31,7 +32,7 @@ declare class Comment extends YTNode {
     is_hearted: boolean;
     is_pinned: boolean;
     is_member: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
     /**
      * Likes the comment.
      */

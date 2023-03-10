@@ -8,12 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import Feed from '../../core/Feed.js';
+import { InnertubeError } from '../../utils/Utils.js';
 import HorizontalCardList from '../classes/HorizontalCardList.js';
 import ItemSection from '../classes/ItemSection.js';
 import SearchRefinementCard from '../classes/SearchRefinementCard.js';
+import SearchSubMenu from '../classes/SearchSubMenu.js';
 import SectionList from '../classes/SectionList.js';
 import UniversalWatchCard from '../classes/UniversalWatchCard.js';
-import { InnertubeError } from '../../utils/Utils.js';
 class Search extends Feed {
     constructor(actions, data, already_parsed = false) {
         var _a, _b, _c, _d, _e, _f;
@@ -25,8 +26,9 @@ class Search extends Feed {
         this.results = (_c = contents.firstOfType(ItemSection)) === null || _c === void 0 ? void 0 : _c.contents;
         this.refinements = this.page.refinements || [];
         this.estimated_results = this.page.estimated_results;
-        this.watch_card = (_d = this.page.contents_memo) === null || _d === void 0 ? void 0 : _d.getType(UniversalWatchCard).first();
-        this.refinement_cards = (_f = (_e = this.results) === null || _e === void 0 ? void 0 : _e.get({ type: 'HorizontalCardList' }, true)) === null || _f === void 0 ? void 0 : _f.as(HorizontalCardList);
+        this.sub_menu = (_d = this.page.contents_memo) === null || _d === void 0 ? void 0 : _d.getType(SearchSubMenu).first();
+        this.watch_card = (_e = this.page.contents_memo) === null || _e === void 0 ? void 0 : _e.getType(UniversalWatchCard).first();
+        this.refinement_cards = (_f = this.results) === null || _f === void 0 ? void 0 : _f.firstOfType(HorizontalCardList);
     }
     /**
      * Applies given refinement card and returns a new {@link Search} object. Use {@link refinement_card_queries} to get a list of available refinement cards.

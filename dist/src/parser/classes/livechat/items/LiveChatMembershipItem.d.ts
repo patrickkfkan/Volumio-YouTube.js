@@ -4,6 +4,7 @@ import MetadataBadge from '../../MetadataBadge.js';
 import Text from '../../misc/Text.js';
 import Thumbnail from '../../misc/Thumbnail.js';
 import NavigationEndpoint from '../../NavigationEndpoint.js';
+import type { RawNode } from '../../../index.js';
 declare class LiveChatMembershipItem extends YTNode {
     static type: string;
     id: string;
@@ -19,6 +20,6 @@ declare class LiveChatMembershipItem extends YTNode {
         is_verified_artist: boolean | null;
     };
     menu_endpoint: NavigationEndpoint;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default LiveChatMembershipItem;

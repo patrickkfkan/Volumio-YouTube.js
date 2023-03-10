@@ -1,5 +1,6 @@
 import type Chapter from './Chapter.js';
 import type Heatmap from './Heatmap.js';
+import type { RawNode } from '../index.js';
 import { ObservedArray, YTNode } from '../helpers.js';
 declare class Marker extends YTNode {
     static type: string;
@@ -8,12 +9,12 @@ declare class Marker extends YTNode {
         heatmap?: Heatmap | null;
         chapters?: Chapter[];
     };
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 declare class MultiMarkersPlayerBar extends YTNode {
     static type: string;
     markers_map: ObservedArray<Marker>;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export { Marker };
 export default MultiMarkersPlayerBar;

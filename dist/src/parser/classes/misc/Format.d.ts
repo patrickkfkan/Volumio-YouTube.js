@@ -1,4 +1,5 @@
 import Player from '../../../core/Player.js';
+import type { RawNode } from '../../index.js';
 declare class Format {
     itag: number;
     mime_type: string;
@@ -36,8 +37,9 @@ declare class Format {
     has_video: boolean;
     language?: string | null;
     is_dubbed?: boolean;
+    is_descriptive?: boolean;
     is_original?: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
     /**
      * Decipher the streaming url of the format.
      * @returns Deciphered URL.

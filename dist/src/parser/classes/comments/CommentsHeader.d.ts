@@ -2,6 +2,7 @@ import Text from '../misc/Text.js';
 import Thumbnail from '../misc/Thumbnail.js';
 import type SortFilterSubMenu from '../SortFilterSubMenu.js';
 import { YTNode } from '../../helpers.js';
+import type { RawNode } from '../../index.js';
 declare class CommentsHeader extends YTNode {
     static type: string;
     title: Text;
@@ -16,6 +17,6 @@ declare class CommentsHeader extends YTNode {
         image: Thumbnail[];
         is_custom_emoji: boolean;
     }[] | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default CommentsHeader;

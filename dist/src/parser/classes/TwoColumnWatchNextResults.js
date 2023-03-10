@@ -17,7 +17,7 @@ class TwoColumnWatchNextResults extends YTNode {
         this.results = Parser.parseArray((_a = data.results) === null || _a === void 0 ? void 0 : _a.results.contents);
         this.secondary_results = Parser.parseArray((_b = data.secondaryResults) === null || _b === void 0 ? void 0 : _b.secondaryResults.results);
         this.conversation_bar = Parser.parseItem(data === null || data === void 0 ? void 0 : data.conversationBar);
-        const playlistData = (_c = data === null || data === void 0 ? void 0 : data.playlist) === null || _c === void 0 ? void 0 : _c.playlist;
+        const playlistData = (_c = data.playlist) === null || _c === void 0 ? void 0 : _c.playlist;
         if (playlistData) {
             this.playlist = {
                 id: playlistData.playlistId,

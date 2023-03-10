@@ -1,5 +1,6 @@
 import Text from '../misc/Text.js';
 import { YTNode } from '../../helpers.js';
+import type { RawNode } from '../../index.js';
 declare class EmojiPicker extends YTNode {
     static type: string;
     id: string;
@@ -15,6 +16,6 @@ declare class EmojiPicker extends YTNode {
     skin_tone_medium_label: string;
     skin_tone_medium_dark_label: string;
     skin_tone_dark_label: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default EmojiPicker;

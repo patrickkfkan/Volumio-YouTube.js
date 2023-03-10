@@ -202,6 +202,7 @@ class FormatUtils {
         if (!adaptive_formats.length)
             throw new InnertubeError('No adaptive formats found');
         const length = adaptive_formats[0].approx_duration_ms / 1000;
+        // DASH spec: https://standards.iso.org/ittf/PubliclyAvailableStandards/c083314_ISO_IEC%2023009-1_2022(en).zip
         const document = new Platform.shim.DOMParser().parseFromString('<?xml version="1.0" encoding="utf-8"?><MPD />', 'application/xml');
         const mpd = document.querySelector('MPD');
         const period = document.createElement('Period');
@@ -232,6 +233,7 @@ _a = FormatUtils, _FormatUtils_el = function _FormatUtils_el(document, tag, attr
     }
     return el;
 }, _FormatUtils_generateAdaptationSet = function _FormatUtils_generateAdaptationSet(document, period, formats, url_transformer, cpn, player) {
+    var _b;
     const mime_types = [];
     const mime_objects = [[]];
     formats.forEach((video_format) => {
@@ -251,50 +253,52 @@ _a = FormatUtils, _FormatUtils_el = function _FormatUtils_el(document, tag, attr
     });
     let set_id = 0;
     for (let i = 0; i < mime_types.length; i++) {
-        // When the video has multiple different audio tracks/langues we want to include the extra information in the manifest
-        if (mime_objects[i][0].has_audio && mime_objects[i][0].language) {
-            const languages = [];
-            const language_objects = [[]];
+        // When the video has multiple different audio tracks we want to include the extra information in the manifest
+        if (mime_objects[i][0].has_audio && mime_objects[i][0].audio_track) {
+            const track_ids = [];
+            const track_objects = [[]];
             mime_objects[i].forEach((format) => {
-                const language_index = languages.indexOf(format.language);
-                if (language_index > -1) {
-                    language_objects[language_index].push(format);
+                var _b, _c;
+                const id_index = track_ids.indexOf((_b = format.audio_track) === null || _b === void 0 ? void 0 : _b.id);
+                if (id_index > -1) {
+                    track_objects[id_index].push(format);
                 }
                 else {
-                    languages.push(format.language);
-                    language_objects.push([]);
-                    language_objects[languages.length - 1].push(format);
+                    track_ids.push((_c = format.audio_track) === null || _c === void 0 ? void 0 : _c.id);
+                    track_objects.push([]);
+                    track_objects[track_ids.length - 1].push(format);
                 }
             });
-            // The lang attribute has to go on the AdaptationSet element, so we need a separate adaptation set for each language
-            for (let j = 0; j < languages.length; j++) {
-                const first_format = language_objects[j][0];
+            // The lang attribute has to go on the AdaptationSet element and the Role element goes inside the AdaptationSet too, so we need a separate adaptation set for each language and role
+            for (let j = 0; j < track_ids.length; j++) {
+                const first_format = track_objects[j][0];
                 const children = [];
-                if (first_format.audio_track) {
-                    let role;
-                    if (first_format.audio_track.audio_is_default) {
-                        role = 'main';
-                    }
-                    else if (first_format.is_dubbed) {
-                        role = 'dub';
-                    }
-                    else {
-                        role = 'alternate';
-                    }
-                    children.push(__classPrivateFieldGet(this, _a, "m", _FormatUtils_el).call(this, document, 'Role', {
-                        schemeIdUri: 'urn:mpeg:dash:role:2011',
-                        value: role
-                    }));
+                let role;
+                if ((_b = first_format.audio_track) === null || _b === void 0 ? void 0 : _b.audio_is_default) {
+                    role = 'main';
                 }
+                else if (first_format.is_dubbed) {
+                    role = 'dub';
+                }
+                else if (first_format.is_descriptive) {
+                    role = 'description';
+                }
+                else {
+                    role = 'alternate';
+                }
+                children.push(__classPrivateFieldGet(this, _a, "m", _FormatUtils_el).call(this, document, 'Role', {
+                    schemeIdUri: 'urn:mpeg:dash:role:2011',
+                    value: role
+                }));
                 const set = __classPrivateFieldGet(this, _a, "m", _FormatUtils_el).call(this, document, 'AdaptationSet', {
                     id: `${set_id++}`,
                     mimeType: mime_types[i].split(';')[0],
                     startWithSAP: '1',
                     subsegmentAlignment: 'true',
-                    lang: languages[j]
+                    lang: first_format.language
                 }, children);
                 period.appendChild(set);
-                language_objects[j].forEach((format) => {
+                track_objects[j].forEach((format) => {
                     __classPrivateFieldGet(this, _a, "m", _FormatUtils_generateRepresentationAudio).call(this, document, set, format, url_transformer, cpn, player);
                 });
             }

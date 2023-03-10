@@ -7,6 +7,7 @@ import PlayerOverlay from '../classes/PlayerOverlay.js';
 import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
 import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
 import LiveChatWrap from './LiveChat.js';
+import NavigationEndpoint from '../classes/NavigationEndpoint.js';
 import type CardCollection from '../classes/CardCollection.js';
 import type Endscreen from '../classes/Endscreen.js';
 import type Format from '../classes/misc/Format.js';
@@ -40,6 +41,7 @@ declare class VideoInfo {
         } | null;
         is_unlisted: boolean | undefined;
         is_family_safe: boolean | undefined;
+        category: string | null;
         has_ypc_metadata: boolean | null;
         start_timestamp: Date | null;
         id?: string | undefined;
@@ -64,10 +66,7 @@ declare class VideoInfo {
         formats: Format[];
         adaptive_formats: Format[];
         dash_manifest_url: string | null;
-        hls_manifest_url: string | null; /**
-         * Microformat is a bit redundant, so only
-         * a few things there are interesting to us.
-         */
+        hls_manifest_url: string | null;
     } | undefined;
     playability_status: {
         status: string;
@@ -83,12 +82,36 @@ declare class VideoInfo {
     cards?: CardCollection;
     primary_info?: VideoPrimaryInfo | null;
     secondary_info?: VideoSecondaryInfo | null;
+    playlist?: {
+        id: string;
+        title: string;
+        author: import("../classes/misc/Text.js").default | import("../classes/misc/PlaylistAuthor.js").default;
+        contents: YTNode[];
+        current_index: number;
+        is_infinite: boolean;
+        menu: import("../classes/menus/Menu.js").default | null;
+    } | undefined;
+    game_info?: {
+        title: import("../classes/misc/Text.js").default | undefined;
+        release_year: import("../classes/misc/Text.js").default | undefined;
+    } | undefined;
     merchandise?: MerchandiseShelf | null;
     related_chip_cloud?: ChipCloud | null;
     watch_next_feed?: ObservedArray<YTNode> | null;
     player_overlays?: PlayerOverlay | null;
     comments_entry_point_header?: CommentsEntryPointHeader | null;
     livechat?: LiveChat | null;
+    autoplay?: {
+        sets: {
+            autoplay_video: NavigationEndpoint;
+            next_button_video?: NavigationEndpoint | undefined;
+        }[];
+        modified_sets?: {
+            autoplay_video: NavigationEndpoint;
+            next_button_video?: NavigationEndpoint | undefined;
+        }[] | undefined;
+        count_down_secs?: number | undefined;
+    } | undefined;
     /**
      * @param data - API response.
      * @param actions - Actions instance.
@@ -158,6 +181,10 @@ declare class VideoInfo {
      * Checks if continuation is available for the watch next feed.
      */
     get wn_has_continuation(): boolean;
+    /**
+     * Gets the endpoint of the autoplay video
+     */
+    get autoplay_video_endpoint(): NavigationEndpoint | null;
     /**
      * Get songs used in the video.
      */

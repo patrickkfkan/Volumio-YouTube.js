@@ -410,7 +410,6 @@ Parser.ignore_list = new Set([
     'RunAttestationCommand',
     'CompactPromotedVideo',
     'StatementBanner',
-    'SearchSubMenu',
     'GuideSigninPromo'
 ]);
 // Continuation

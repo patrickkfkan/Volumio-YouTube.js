@@ -24,7 +24,7 @@ import EventEmitterLike from '../utils/EventEmitterLike.js';
 import Actions from './Actions.js';
 import Player from './Player.js';
 import HTTPClient from '../utils/HTTPClient.js';
-import { Platform, generateRandomString, getRandomUserAgent, InnertubeError, SessionError } from '../utils/Utils.js';
+import { Platform, getRandomUserAgent, InnertubeError, SessionError } from '../utils/Utils.js';
 import OAuth from './OAuth.js';
 import Proto from '../proto/index.js';
 export var ClientType;
@@ -159,7 +159,7 @@ _a = Session, _Session_api_version = new WeakMap(), _Session_key = new WeakMap()
                 'user-agent': getRandomUserAgent('desktop'),
                 'accept': '*/*',
                 'referer': 'https://www.youtube.com/sw.js',
-                'cookie': `PREF=tz=${options.time_zone.replace('/', '.')}`
+                'cookie': `PREF=tz=${options.time_zone.replace('/', '.')};VISITOR_INFO1_LIVE=${Constants.CLIENTS.WEB.STATIC_VISITOR_ID};`
             }
         });
         if (!res.ok)
@@ -206,7 +206,7 @@ _a = Session, _Session_api_version = new WeakMap(), _Session_key = new WeakMap()
         return { context, api_key, api_version };
     });
 }, _Session_generateSessionData = function _Session_generateSessionData(options) {
-    const id = generateRandomString(11);
+    const id = Constants.CLIENTS.WEB.STATIC_VISITOR_ID;
     const timestamp = Math.floor(Date.now() / 1000);
     const context = {
         client: {

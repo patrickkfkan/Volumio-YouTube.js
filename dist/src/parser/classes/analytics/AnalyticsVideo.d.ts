@@ -1,5 +1,6 @@
 import Thumbnail from '../misc/Thumbnail.js';
 import { YTNode } from '../../helpers.js';
+import type { RawNode } from '../../index.js';
 declare class AnalyticsVideo extends YTNode {
     static type: string;
     title: string;
@@ -10,6 +11,6 @@ declare class AnalyticsVideo extends YTNode {
         duration: string;
         is_short: boolean;
     };
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default AnalyticsVideo;

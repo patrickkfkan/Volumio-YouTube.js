@@ -38,7 +38,7 @@ class TwoColumnWatchNextResults extends YTNode {
     this.secondary_results = Parser.parseArray(data.secondaryResults?.secondaryResults.results);
     this.conversation_bar = Parser.parseItem(data?.conversationBar);
 
-    const playlistData = data?.playlist?.playlist;
+    const playlistData = data.playlist?.playlist;
     if (playlistData) {
       this.playlist = {
         id: playlistData.playlistId,

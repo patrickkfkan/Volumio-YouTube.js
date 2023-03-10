@@ -1,5 +1,6 @@
 import { Run } from './Text.js';
 import Thumbnail from './Thumbnail.js';
+import type { RawNode } from '../../index.js';
 declare class EmojiRun implements Run {
     text: string;
     emoji: {
@@ -9,7 +10,7 @@ declare class EmojiRun implements Run {
         image: Thumbnail[];
         is_custom: boolean;
     };
-    constructor(data: any);
+    constructor(data: RawNode);
     toString(): string;
     toHTML(): string;
 }

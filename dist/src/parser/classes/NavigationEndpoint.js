@@ -5,7 +5,6 @@ class NavigationEndpoint extends YTNode {
     constructor(data) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         super();
-        // This is only present in Android nav endpoints
         if (Reflect.has(data || {}, 'innertubeCommand'))
             data = data.innertubeCommand;
         const name = Object.keys(data || {})

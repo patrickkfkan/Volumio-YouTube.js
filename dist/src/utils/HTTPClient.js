@@ -75,6 +75,11 @@ export default class HTTPClient {
                 __classPrivateFieldGet(this, _HTTPClient_instances, "m", _HTTPClient_adjustContext).call(this, n_body.context, n_body.client);
                 request_headers.set('x-youtube-client-version', n_body.context.client.clientVersion);
                 delete n_body.client;
+                if (Platform.shim.server) {
+                    if (n_body.context.client.clientName === 'ANDROID' || n_body.context.client.clientName === 'ANDROID_MUSIC') {
+                        request_headers.set('User-Agent', Constants.CLIENTS.ANDROID.USER_AGENT);
+                    }
+                }
                 is_web_kids = n_body.context.client.clientName === 'WEB_KIDS';
                 request_body = JSON.stringify(n_body);
             }
@@ -122,12 +127,14 @@ _HTTPClient_session = new WeakMap(), _HTTPClient_cookie = new WeakMap(), _HTTPCl
             ctx.client.clientFormFactor = 'SMALL_FORM_FACTOR';
             ctx.client.clientName = Constants.CLIENTS.ANDROID.NAME;
             ctx.client.androidSdkVersion = Constants.CLIENTS.ANDROID.SDK_VERSION;
+            ctx.client.platform = 'MOBILE';
             break;
         case 'YTMUSIC_ANDROID':
             ctx.client.clientVersion = Constants.CLIENTS.YTMUSIC_ANDROID.VERSION;
             ctx.client.clientFormFactor = 'SMALL_FORM_FACTOR';
             ctx.client.clientName = Constants.CLIENTS.YTMUSIC_ANDROID.NAME;
             ctx.client.androidSdkVersion = Constants.CLIENTS.ANDROID.SDK_VERSION;
+            ctx.client.platform = 'MOBILE';
             break;
         case 'YTSTUDIO_ANDROID':
             ctx.client.clientVersion = Constants.CLIENTS.YTSTUDIO_ANDROID.VERSION;
