@@ -37,6 +37,7 @@ export declare const CLIENTS: Readonly<{
         VERSION: string;
         API_KEY: string;
         API_VERSION: string;
+        STATIC_VISITOR_ID: string;
     };
     WEB_KIDS: {
         NAME: string;
@@ -50,6 +51,7 @@ export declare const CLIENTS: Readonly<{
         NAME: string;
         VERSION: string;
         SDK_VERSION: string;
+        USER_AGENT: string;
     };
     YTSTUDIO_ANDROID: {
         NAME: string;
@@ -115,6 +117,7 @@ declare const _default: {
             VERSION: string;
             API_KEY: string;
             API_VERSION: string;
+            STATIC_VISITOR_ID: string;
         };
         WEB_KIDS: {
             NAME: string;
@@ -128,6 +131,7 @@ declare const _default: {
             NAME: string;
             VERSION: string;
             SDK_VERSION: string;
+            USER_AGENT: string;
         };
         YTSTUDIO_ANDROID: {
             NAME: string;

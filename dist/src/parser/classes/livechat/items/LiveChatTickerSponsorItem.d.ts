@@ -3,6 +3,7 @@ import LiveChatAuthorBadge from '../../LiveChatAuthorBadge.js';
 import MetadataBadge from '../../MetadataBadge.js';
 import Text from '../../misc/Text.js';
 import Thumbnail from '../../misc/Thumbnail.js';
+import type { RawNode } from '../../../index.js';
 declare class LiveChatTickerSponsorItem extends YTNode {
     static type: string;
     id: string;
@@ -17,6 +18,6 @@ declare class LiveChatTickerSponsorItem extends YTNode {
         is_verified_artist: boolean | null;
     };
     duration_sec: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default LiveChatTickerSponsorItem;

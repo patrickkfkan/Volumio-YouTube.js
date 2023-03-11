@@ -12,7 +12,7 @@ declare class PlayerMicroformat extends YTNode {
         flash_secure_url: string;
         width: any;
         height: any;
-    };
+    } | null;
     length_seconds: number;
     channel: {
         id: string;

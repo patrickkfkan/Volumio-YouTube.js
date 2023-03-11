@@ -3,6 +3,7 @@ import MetadataBadge from '../../MetadataBadge.js';
 import Text from '../../misc/Text.js';
 import Thumbnail from '../../misc/Thumbnail.js';
 import NavigationEndpoint from '../../NavigationEndpoint.js';
+import type { RawNode } from '../../../index.js';
 import { ObservedArray, YTNode } from '../../../helpers.js';
 declare class LiveChatTickerPaidStickerItem extends YTNode {
     static type: string;
@@ -21,6 +22,6 @@ declare class LiveChatTickerPaidStickerItem extends YTNode {
     show_item: YTNode | null;
     show_item_endpoint: NavigationEndpoint;
     id: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default LiveChatTickerPaidStickerItem;

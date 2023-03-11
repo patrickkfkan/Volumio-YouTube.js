@@ -1,5 +1,6 @@
 import Text from '../misc/Text.js';
 import { YTNode } from '../../helpers.js';
+import type { RawNode } from '../../index.js';
 declare class PdgCommentChip extends YTNode {
     static type: string;
     text: Text;
@@ -8,6 +9,6 @@ declare class PdgCommentChip extends YTNode {
         foreground_title_color: string;
     };
     icon_type: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default PdgCommentChip;

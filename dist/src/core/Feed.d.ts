@@ -2,6 +2,7 @@ import type { Memo, ObservedArray, SuperParsedResult, YTNode } from '../parser/h
 import { ReloadContinuationItemsCommand } from '../parser/index.js';
 import type Actions from './Actions.js';
 import BackstagePost from '../parser/classes/BackstagePost.js';
+import SharedPost from '../parser/classes/SharedPost.js';
 import Channel from '../parser/classes/Channel.js';
 import CompactVideo from '../parser/classes/CompactVideo.js';
 import GridChannel from '../parser/classes/GridChannel.js';
@@ -40,7 +41,7 @@ declare class Feed<T extends IParsedResponse = IParsedResponse> {
     /**
      * Get all the community posts in the feed
      */
-    get posts(): ObservedArray<BackstagePost | Post>;
+    get posts(): ObservedArray<BackstagePost | Post | SharedPost>;
     /**
      * Get all the channels in the feed
      */

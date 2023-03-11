@@ -1,4 +1,5 @@
 import Thumbnail from './Thumbnail.js';
+import type { RawNode } from '../../index.js';
 declare class VideoDetails {
     id: string;
     channel_id: string;
@@ -16,6 +17,6 @@ declare class VideoDetails {
     is_live_content: boolean;
     is_upcoming: boolean;
     is_crawlable: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default VideoDetails;

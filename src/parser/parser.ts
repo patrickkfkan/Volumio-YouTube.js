@@ -266,6 +266,14 @@ export default class Parser {
       parsed_data.cards = cards;
     }
 
+    this.#createMemo();
+    const items = this.parse(data.items);
+    if (items) {
+      parsed_data.items = items;
+      parsed_data.items_memo = this.#getMemo();
+    }
+    this.#clearMemo();
+
     return parsed_data;
   }
 
@@ -432,7 +440,7 @@ export default class Parser {
           .find((mutation) => mutation.payload?.musicFormBooleanChoice?.id === menu_item.form_item_entity_key);
 
         const choice = mutation?.payload.musicFormBooleanChoice;
-        
+      
         /*** Volumio-YouTube.js ***/
         // TODO: Push to YouTube.js repo
         if (choice?.selected !== undefined) {
@@ -441,7 +449,6 @@ export default class Parser {
         } else {
           missing_or_invalid_mutations.push(`'${menu_item.title}'`);
         }
-
         /*** Volumio-YouTube.js ***/
         // TODO: Push to YouTube.js repo
         // Include `opaqueToken` in endpoint of menu items that invoke `musicBrowseFormBinderCommand` when clicked (e.g. Explore -> Charts).
@@ -454,7 +461,6 @@ export default class Parser {
             };
           }
         }
-
       }
       if (missing_or_invalid_mutations.length > 0) {
         console.warn(
@@ -502,7 +508,7 @@ export default class Parser {
     'RunAttestationCommand',
     'CompactPromotedVideo',
     'StatementBanner',
-    'SearchSubMenu'
+    'GuideSigninPromo'
   ]);
 
   static shouldIgnore(classname: string) {
@@ -570,7 +576,6 @@ export class SectionListContinuation extends YTNode {
   continuation: string;
   contents: ObservedArray<YTNode> | null;
   header?;
-
   constructor(data: RawNode) {
     super();
     this.contents = Parser.parse(data.contents, true);

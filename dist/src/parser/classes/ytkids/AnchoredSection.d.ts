@@ -1,6 +1,7 @@
 import NavigationEndpoint from '../NavigationEndpoint.js';
 import type SectionList from '../SectionList.js';
 import { YTNode } from '../../helpers.js';
+import type { RawNode } from '../../index.js';
 declare class AnchoredSection extends YTNode {
     static type: string;
     title: string;
@@ -11,6 +12,6 @@ declare class AnchoredSection extends YTNode {
         background_color: string;
     };
     category_type: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default AnchoredSection;

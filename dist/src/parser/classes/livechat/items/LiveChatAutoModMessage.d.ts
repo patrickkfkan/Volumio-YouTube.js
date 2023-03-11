@@ -2,6 +2,7 @@ import { ObservedArray, YTNode } from '../../../helpers.js';
 import Button from '../../Button.js';
 import Text from '../../misc/Text.js';
 import NavigationEndpoint from '../../NavigationEndpoint.js';
+import type { RawNode } from '../../../index.js';
 declare class LiveChatAutoModMessage extends YTNode {
     static type: string;
     auto_moderated_item: YTNode | null;
@@ -10,6 +11,6 @@ declare class LiveChatAutoModMessage extends YTNode {
     moderation_buttons: ObservedArray<Button>;
     timestamp: number;
     id: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default LiveChatAutoModMessage;

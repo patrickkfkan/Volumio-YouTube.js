@@ -22,6 +22,7 @@ var _Feed_instances, _Feed_page, _Feed_continuation, _Feed_actions, _Feed_memo, 
 import Parser, { ReloadContinuationItemsCommand } from '../parser/index.js';
 import { concatMemos, InnertubeError } from '../utils/Utils.js';
 import BackstagePost from '../parser/classes/BackstagePost.js';
+import SharedPost from '../parser/classes/SharedPost.js';
 import Channel from '../parser/classes/Channel.js';
 import CompactVideo from '../parser/classes/CompactVideo.js';
 import GridChannel from '../parser/classes/GridChannel.js';
@@ -99,7 +100,7 @@ class Feed {
      * Get all the community posts in the feed
      */
     get posts() {
-        return __classPrivateFieldGet(this, _Feed_memo, "f").getType([BackstagePost, Post]);
+        return __classPrivateFieldGet(this, _Feed_memo, "f").getType([BackstagePost, Post, SharedPost]);
     }
     /**
      * Get all the channels in the feed

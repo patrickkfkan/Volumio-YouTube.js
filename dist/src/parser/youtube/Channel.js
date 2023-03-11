@@ -232,11 +232,11 @@ export default class Channel extends TabbedFeed {
 }
 export class ChannelListContinuation extends Feed {
     constructor(actions, data, already_parsed = false) {
-        var _a;
+        var _a, _b;
         super(actions, data, already_parsed);
         this.contents =
-            this.page.on_response_received_actions.first() ||
-                ((_a = this.page.on_response_received_endpoints) === null || _a === void 0 ? void 0 : _a.first());
+            ((_a = this.page.on_response_received_actions) === null || _a === void 0 ? void 0 : _a.first()) ||
+                ((_b = this.page.on_response_received_endpoints) === null || _b === void 0 ? void 0 : _b.first());
     }
     /**
      * Retrieves list continuation.

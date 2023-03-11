@@ -8,6 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import Session from './core/Session.js';
+import NavigationEndpoint from './parser/classes/NavigationEndpoint.js';
 import Channel from './parser/youtube/Channel.js';
 import Comments from './parser/youtube/Comments.js';
 import History from './parser/youtube/History.js';
@@ -26,9 +27,10 @@ import PlaylistManager from './core/PlaylistManager.js';
 import YTStudio from './core/Studio.js';
 import TabbedFeed from './core/TabbedFeed.js';
 import HomeFeed from './parser/youtube/HomeFeed.js';
+import Guide from './parser/youtube/Guide.js';
 import Proto from './proto/index.js';
 import Constants from './utils/Constants.js';
-import { generateRandomString, throwIfMissing } from './utils/Utils.js';
+import { generateRandomString, InnertubeError, throwIfMissing } from './utils/Utils.js';
 class Innertube {
     constructor(session) {
         this.session = session;
@@ -47,15 +49,43 @@ class Innertube {
     }
     /**
      * Retrieves video info.
-     * @param video_id - The video id.
+     * @param target - The video id or `NavigationEndpoint`.
      * @param client - The client to use.
      */
-    getInfo(video_id, client) {
+    getInfo(target, client) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            throwIfMissing({ video_id });
+            throwIfMissing({ target });
+            let payload;
+            if (target instanceof NavigationEndpoint) {
+                const video_id = (_a = target.payload) === null || _a === void 0 ? void 0 : _a.videoId;
+                if (!video_id) {
+                    throw new InnertubeError('Missing video id in endpoint payload.', target);
+                }
+                payload = {
+                    videoId: video_id
+                };
+                if (target.payload.playlistId) {
+                    payload.playlistId = target.payload.playlistId;
+                }
+                if (target.payload.params) {
+                    payload.params = target.payload.params;
+                }
+                if (target.payload.index) {
+                    payload.playlistIndex = target.payload.index;
+                }
+            }
+            else if (typeof target === 'string') {
+                payload = {
+                    videoId: target
+                };
+            }
+            else {
+                throw new InnertubeError('Invalid target, expected either a video id or a valid NavigationEndpoint', target);
+            }
             const cpn = generateRandomString(16);
-            const initial_info = this.actions.getVideoInfo(video_id, cpn, client);
-            const continuation = this.actions.execute('/next', { videoId: video_id });
+            const initial_info = this.actions.getVideoInfo(payload.videoId, cpn, client);
+            const continuation = this.actions.execute('/next', payload);
             const response = yield Promise.all([initial_info, continuation]);
             return new VideoInfo(response, this.actions, this.session.player, cpn);
         });
@@ -132,6 +162,15 @@ class Innertube {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield this.actions.execute('/browse', { browseId: 'FEwhat_to_watch' });
             return new HomeFeed(this.actions, response);
+        });
+    }
+    /**
+     * Retrieves YouTube's content guide.
+     */
+    getGuide() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield this.actions.execute('/guide');
+            return new Guide(response.data);
         });
     }
     /**

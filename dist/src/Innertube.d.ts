@@ -18,6 +18,7 @@ import PlaylistManager from './core/PlaylistManager.js';
 import YTStudio from './core/Studio.js';
 import TabbedFeed from './core/TabbedFeed.js';
 import HomeFeed from './parser/youtube/HomeFeed.js';
+import Guide from './parser/youtube/Guide.js';
 import type Actions from './core/Actions.js';
 import type Format from './parser/classes/misc/Format.js';
 import type { ApiResponse } from './core/Actions.js';
@@ -45,10 +46,10 @@ declare class Innertube {
     static create(config?: InnertubeConfig): Promise<Innertube>;
     /**
      * Retrieves video info.
-     * @param video_id - The video id.
+     * @param target - The video id or `NavigationEndpoint`.
      * @param client - The client to use.
      */
-    getInfo(video_id: string, client?: InnerTubeClient): Promise<VideoInfo>;
+    getInfo(target: string | NavigationEndpoint, client?: InnerTubeClient): Promise<VideoInfo>;
     /**
      * Retrieves basic video info.
      * @param video_id - The video id.
@@ -76,6 +77,10 @@ declare class Innertube {
      * Retrieves YouTube's home feed (aka recommendations).
      */
     getHomeFeed(): Promise<HomeFeed>;
+    /**
+     * Retrieves YouTube's content guide.
+     */
+    getGuide(): Promise<Guide>;
     /**
      * Returns the account's library.
      */

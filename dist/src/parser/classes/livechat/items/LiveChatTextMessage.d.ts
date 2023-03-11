@@ -5,6 +5,7 @@ import MetadataBadge from '../../MetadataBadge.js';
 import Text from '../../misc/Text.js';
 import Thumbnail from '../../misc/Thumbnail.js';
 import NavigationEndpoint from '../../NavigationEndpoint.js';
+import type { RawNode } from '../../../index.js';
 declare class LiveChatTextMessage extends YTNode {
     static type: string;
     message: Text;
@@ -21,6 +22,6 @@ declare class LiveChatTextMessage extends YTNode {
     inline_action_buttons: ObservedArray<Button>;
     timestamp: number;
     id: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 export default LiveChatTextMessage;

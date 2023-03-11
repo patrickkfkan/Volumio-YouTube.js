@@ -13,6 +13,9 @@ import MusicTwoRowItem from '../parser/classes/MusicTwoRowItem.js';
 import PlaylistPanel from '../parser/classes/PlaylistPanel.js';
 import type { ObservedArray, YTNode } from '../parser/helpers.js';
 import type Session from './Session.js';
+export type SearchFilters = {
+    type?: 'all' | 'song' | 'video' | 'album' | 'playlist' | 'artist';
+};
 declare class Music {
     #private;
     constructor(session: Session);
@@ -26,9 +29,7 @@ declare class Music {
      * @param query - Search query.
      * @param filters - Search filters.
      */
-    search(query: string, filters?: {
-        type?: 'all' | 'song' | 'video' | 'album' | 'playlist' | 'artist';
-    }): Promise<Search>;
+    search(query: string, filters?: SearchFilters): Promise<Search>;
     /**
      * Retrieves the home feed.
      */

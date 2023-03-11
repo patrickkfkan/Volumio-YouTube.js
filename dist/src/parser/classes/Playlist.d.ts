@@ -3,6 +3,7 @@ import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import PlaylistAuthor from './misc/PlaylistAuthor.js';
 import { YTNode } from '../helpers.js';
+import NavigatableText from './misc/NavigatableText.js';
 declare class Playlist extends YTNode {
     static type: string;
     id: string;
@@ -17,6 +18,7 @@ declare class Playlist extends YTNode {
     badges: import("../helpers.js").ObservedArray<YTNode>;
     endpoint: NavigationEndpoint;
     thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
+    view_playlist?: NavigatableText;
     constructor(data: any);
 }
 export default Playlist;

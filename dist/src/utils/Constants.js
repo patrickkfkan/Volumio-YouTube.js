@@ -36,7 +36,8 @@ export const CLIENTS = Object.freeze({
         NAME: 'WEB',
         VERSION: '2.20230104.01.00',
         API_KEY: 'AIzaSyAO_FJ2SlqU8Q4STEHLGCilw_Y9_11qcW8',
-        API_VERSION: 'v1'
+        API_VERSION: 'v1',
+        STATIC_VISITOR_ID: '6zpwvWUNAco'
     },
     WEB_KIDS: {
         NAME: 'WEB_KIDS',
@@ -48,8 +49,9 @@ export const CLIENTS = Object.freeze({
     },
     ANDROID: {
         NAME: 'ANDROID',
-        VERSION: '17.34.35',
-        SDK_VERSION: '29'
+        VERSION: '18.06.35',
+        SDK_VERSION: '29',
+        USER_AGENT: 'com.google.android.youtube/18.06.35 (Linux; U; Android 10; US)'
     },
     YTSTUDIO_ANDROID: {
         NAME: 'ANDROID_CREATOR',

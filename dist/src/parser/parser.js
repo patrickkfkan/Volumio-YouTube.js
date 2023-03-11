@@ -196,6 +196,13 @@ export default class Parser {
         if (cards) {
             parsed_data.cards = cards;
         }
+        __classPrivateFieldGet(this, _a, "m", _Parser_createMemo).call(this);
+        const items = this.parse(data.items);
+        if (items) {
+            parsed_data.items = items;
+            parsed_data.items_memo = __classPrivateFieldGet(this, _a, "m", _Parser_getMemo).call(this);
+        }
+        __classPrivateFieldGet(this, _a, "m", _Parser_clearMemo).call(this);
         return parsed_data;
     }
     /**
@@ -403,7 +410,7 @@ Parser.ignore_list = new Set([
     'RunAttestationCommand',
     'CompactPromotedVideo',
     'StatementBanner',
-    'SearchSubMenu'
+    'GuideSigninPromo'
 ]);
 // Continuation
 export class ItemSectionContinuation extends YTNode {
