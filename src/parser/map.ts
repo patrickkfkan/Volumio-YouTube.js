@@ -194,6 +194,8 @@ import { default as GridChannel } from './classes/GridChannel.js';
 export { GridChannel };
 import { default as GridHeader } from './classes/GridHeader.js';
 export { GridHeader };
+import { default as GridMovie } from './classes/GridMovie.js';
+export { GridMovie };
 import { default as GridPlaylist } from './classes/GridPlaylist.js';
 export { GridPlaylist };
 import { default as GridVideo } from './classes/GridVideo.js';
@@ -226,6 +228,8 @@ import { default as HorizontalCardList } from './classes/HorizontalCardList.js';
 export { HorizontalCardList };
 import { default as HorizontalList } from './classes/HorizontalList.js';
 export { HorizontalList };
+import { default as HorizontalMovieList } from './classes/HorizontalMovieList.js';
+export { HorizontalMovieList };
 import { default as IconLink } from './classes/IconLink.js';
 export { IconLink };
 import { default as InteractiveTabbedHeader } from './classes/InteractiveTabbedHeader.js';
@@ -780,6 +784,7 @@ const map: Record<string, YTNodeConstructor> = {
   Grid,
   GridChannel,
   GridHeader,
+  GridMovie,
   GridPlaylist,
   GridVideo,
   GuideCollapsibleEntry,
@@ -796,6 +801,7 @@ const map: Record<string, YTNodeConstructor> = {
   HistorySuggestion,
   HorizontalCardList,
   HorizontalList,
+  HorizontalMovieList,
   IconLink,
   InteractiveTabbedHeader,
   ItemSection,

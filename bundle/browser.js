@@ -8041,6 +8041,7 @@ __export(map_exports, {
   Grid: () => Grid_default,
   GridChannel: () => GridChannel_default,
   GridHeader: () => GridHeader_default,
+  GridMovie: () => GridMovie_default,
   GridPlaylist: () => GridPlaylist_default,
   GridVideo: () => GridVideo_default,
   GuideCollapsibleEntry: () => GuideCollapsibleEntry_default,
@@ -8057,6 +8058,7 @@ __export(map_exports, {
   HistorySuggestion: () => HistorySuggestion_default,
   HorizontalCardList: () => HorizontalCardList_default,
   HorizontalList: () => HorizontalList_default,
+  HorizontalMovieList: () => HorizontalMovieList_default,
   IconLink: () => IconLink_default,
   InteractiveTabbedHeader: () => InteractiveTabbedHeader_default,
   ItemSection: () => ItemSection_default,
@@ -11710,6 +11712,26 @@ __name(GridHeader, "GridHeader");
 GridHeader.type = "GridHeader";
 var GridHeader_default = GridHeader;
 
+// dist/src/parser/classes/GridMovie.js
+var GridMovie = class extends YTNode {
+  constructor(data) {
+    var _a5;
+    super();
+    const length_alt = (_a5 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a5 === void 0 ? void 0 : _a5.thumbnailOverlayTimeStatusRenderer;
+    this.id = data.videoId;
+    this.title = new Text_default(data.title);
+    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.duration = data.lengthText ? new Text_default(data.lengthText) : (length_alt === null || length_alt === void 0 ? void 0 : length_alt.text) ? new Text_default(length_alt.text) : null;
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    this.badges = parser_default.parseArray(data.badges, MetadataBadge_default);
+    this.metadata = new Text_default(data.metadata);
+    this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
+  }
+};
+__name(GridMovie, "GridMovie");
+GridMovie.type = "GridMovie";
+var GridMovie_default = GridMovie;
+
 // dist/src/parser/classes/GridPlaylist.js
 var GridPlaylist = class extends YTNode {
   constructor(data) {
@@ -11993,6 +12015,22 @@ var HorizontalList = class extends YTNode {
 __name(HorizontalList, "HorizontalList");
 HorizontalList.type = "HorizontalList";
 var HorizontalList_default = HorizontalList;
+
+// dist/src/parser/classes/HorizontalMovieList.js
+var HorizontalMovieList = class extends YTNode {
+  constructor(data) {
+    super();
+    this.items = parser_default.parseArray(data.items);
+    this.previous_button = parser_default.parseItem(data.previousButton, Button_default);
+    this.next_button = parser_default.parseItem(data.nextButton, Button_default);
+  }
+  get contents() {
+    return this.items;
+  }
+};
+__name(HorizontalMovieList, "HorizontalMovieList");
+HorizontalMovieList.type = "HorizontalMovieList";
+var HorizontalMovieList_default = HorizontalMovieList;
 
 // dist/src/parser/classes/IconLink.js
 var IconLink = class extends YTNode {
@@ -15961,6 +15999,7 @@ var map = {
   Grid: Grid_default,
   GridChannel: GridChannel_default,
   GridHeader: GridHeader_default,
+  GridMovie: GridMovie_default,
   GridPlaylist: GridPlaylist_default,
   GridVideo: GridVideo_default,
   GuideCollapsibleEntry: GuideCollapsibleEntry_default,
@@ -15977,6 +16016,7 @@ var map = {
   HistorySuggestion: HistorySuggestion_default,
   HorizontalCardList: HorizontalCardList_default,
   HorizontalList: HorizontalList_default,
+  HorizontalMovieList: HorizontalMovieList_default,
   IconLink: IconLink_default,
   InteractiveTabbedHeader: InteractiveTabbedHeader_default,
   ItemSection: ItemSection_default,
