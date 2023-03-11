@@ -9325,6 +9325,7 @@ __export(map_exports, {
   PlayerCaptionsTracklist: () => PlayerCaptionsTracklist_default,
   PlayerErrorMessage: () => PlayerErrorMessage_default,
   PlayerLegacyDesktopYpcOffer: () => PlayerLegacyDesktopYpcOffer_default,
+  PlayerLegacyDesktopYpcTrailer: () => PlayerLegacyDesktopYpcTrailer_default,
   PlayerLiveStoryboardSpec: () => PlayerLiveStoryboardSpec_default,
   PlayerMicroformat: () => PlayerMicroformat_default,
   PlayerOverlay: () => PlayerOverlay_default,
@@ -9454,6 +9455,7 @@ __export(map_exports, {
   WatchCardSectionSequence: () => WatchCardSectionSequence_default,
   WatchNextEndScreen: () => WatchNextEndScreen_default,
   WatchNextTabbedResults: () => WatchNextTabbedResults_default,
+  YpcTrailer: () => YpcTrailer_default,
   default: () => GetParserByName
 });
 
@@ -15207,6 +15209,37 @@ __name(PlayerLegacyDesktopYpcOffer, "PlayerLegacyDesktopYpcOffer");
 PlayerLegacyDesktopYpcOffer.type = "PlayerLegacyDesktopYpcOffer";
 var PlayerLegacyDesktopYpcOffer_default = PlayerLegacyDesktopYpcOffer;
 
+// dist/src/parser/classes/YpcTrailer.js
+var YpcTrailer = class extends YTNode {
+  constructor(data) {
+    super();
+    this.video_message = data.fullVideoMessage;
+    this.player_response = data.unserializedPlayerResponse;
+  }
+};
+__name(YpcTrailer, "YpcTrailer");
+YpcTrailer.type = "YpcTrailer";
+var YpcTrailer_default = YpcTrailer;
+
+// dist/src/parser/classes/PlayerLegacyDesktopYpcTrailer.js
+var PlayerLegacyDesktopYpcTrailer = class extends YTNode {
+  constructor(data) {
+    super();
+    this.video_id = data.trailerVideoId;
+    this.title = data.itemTitle;
+    this.thumbnail = data.itemThumbnail;
+    this.offer_headline = data.offerHeadline;
+    this.offer_description = data.offerDescription;
+    this.offer_id = data.offerId;
+    this.offer_button_text = data.offerButtonText;
+    this.video_message = data.fullVideoMessage;
+    this.trailer = Parser.parseItem(data.ypcTrailer, YpcTrailer_default);
+  }
+};
+__name(PlayerLegacyDesktopYpcTrailer, "PlayerLegacyDesktopYpcTrailer");
+PlayerLegacyDesktopYpcTrailer.type = "PlayerLegacyDesktopYpcTrailer";
+var PlayerLegacyDesktopYpcTrailer_default = PlayerLegacyDesktopYpcTrailer;
+
 // dist/src/parser/classes/PlayerLiveStoryboardSpec.js
 var PlayerLiveStoryboardSpec = class extends YTNode {
   constructor() {
@@ -17297,6 +17330,7 @@ var map = {
   PlayerCaptionsTracklist: PlayerCaptionsTracklist_default,
   PlayerErrorMessage: PlayerErrorMessage_default,
   PlayerLegacyDesktopYpcOffer: PlayerLegacyDesktopYpcOffer_default,
+  PlayerLegacyDesktopYpcTrailer: PlayerLegacyDesktopYpcTrailer_default,
   PlayerLiveStoryboardSpec: PlayerLiveStoryboardSpec_default,
   PlayerMicroformat: PlayerMicroformat_default,
   PlayerOverlay: PlayerOverlay_default,
@@ -17408,6 +17442,7 @@ var map = {
   WatchCardSectionSequence: WatchCardSectionSequence_default,
   WatchNextEndScreen: WatchNextEndScreen_default,
   WatchNextTabbedResults: WatchNextTabbedResults_default,
+  YpcTrailer: YpcTrailer_default,
   AnchoredSection: AnchoredSection_default,
   KidsCategoriesHeader: KidsCategoriesHeader_default,
   KidsCategoryTab: KidsCategoryTab_default,
@@ -20851,6 +20886,16 @@ var VideoInfo = class {
       throw new InnertubeError("Live Chat is not available", { video_id: this.basic_info.id });
     return new LiveChat_default2(this);
   }
+  getTrailerInfo() {
+    var _a5, _b;
+    if (this.has_trailer) {
+      const player_response = (_b = (_a5 = this.playability_status.error_screen) === null || _a5 === void 0 ? void 0 : _a5.as(PlayerLegacyDesktopYpcTrailer_default).trailer) === null || _b === void 0 ? void 0 : _b.player_response;
+      if (player_response) {
+        return new VideoInfo([{ data: player_response }], __classPrivateFieldGet29(this, _VideoInfo_actions, "f"), __classPrivateFieldGet29(this, _VideoInfo_player, "f"), __classPrivateFieldGet29(this, _VideoInfo_cpn, "f"));
+      }
+    }
+    return null;
+  }
   chooseFormat(options) {
     return FormatUtils_default.chooseFormat(options, this.streaming_data);
   }
@@ -20881,6 +20926,10 @@ var VideoInfo = class {
   get autoplay_video_endpoint() {
     var _a5, _b, _c;
     return ((_c = (_b = (_a5 = this.autoplay) === null || _a5 === void 0 ? void 0 : _a5.sets) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.autoplay_video) || null;
+  }
+  get has_trailer() {
+    var _a5;
+    return !!((_a5 = this.playability_status.error_screen) === null || _a5 === void 0 ? void 0 : _a5.is(PlayerLegacyDesktopYpcTrailer_default));
   }
   get music_tracks() {
     return [];

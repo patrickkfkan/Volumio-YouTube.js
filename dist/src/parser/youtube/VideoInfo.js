@@ -40,6 +40,7 @@ import TwoColumnWatchNextResults from '../classes/TwoColumnWatchNextResults.js';
 import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
 import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
 import LiveChatWrap from './LiveChat.js';
+import PlayerLegacyDesktopYpcTrailer from '../classes/PlayerLegacyDesktopYpcTrailer.js';
 import FormatUtils from '../../utils/FormatUtils.js';
 import { InnertubeError } from '../../utils/Utils.js';
 class VideoInfo {
@@ -264,6 +265,20 @@ class VideoInfo {
         return new LiveChatWrap(this);
     }
     /**
+     * Retrieves trailer info if available (typically for non-purchased movies or films).
+     * @returns `VideoInfo` for the trailer, or `null` if none.
+     */
+    getTrailerInfo() {
+        var _a, _b;
+        if (this.has_trailer) {
+            const player_response = (_b = (_a = this.playability_status.error_screen) === null || _a === void 0 ? void 0 : _a.as(PlayerLegacyDesktopYpcTrailer).trailer) === null || _b === void 0 ? void 0 : _b.player_response;
+            if (player_response) {
+                return new VideoInfo([{ data: player_response }], __classPrivateFieldGet(this, _VideoInfo_actions, "f"), __classPrivateFieldGet(this, _VideoInfo_player, "f"), __classPrivateFieldGet(this, _VideoInfo_cpn, "f"));
+            }
+        }
+        return null;
+    }
+    /**
      * Selects the format that best matches the given options.
      * @param options - Options
      */
@@ -319,6 +334,13 @@ class VideoInfo {
     get autoplay_video_endpoint() {
         var _a, _b, _c;
         return ((_c = (_b = (_a = this.autoplay) === null || _a === void 0 ? void 0 : _a.sets) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.autoplay_video) || null;
+    }
+    /**
+     * Checks if trailer is available.
+     */
+    get has_trailer() {
+        var _a;
+        return !!((_a = this.playability_status.error_screen) === null || _a === void 0 ? void 0 : _a.is(PlayerLegacyDesktopYpcTrailer));
     }
     /**
      * Get songs used in the video.

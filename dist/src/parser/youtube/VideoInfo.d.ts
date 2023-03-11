@@ -149,6 +149,11 @@ declare class VideoInfo {
      */
     getLiveChat(): LiveChatWrap;
     /**
+     * Retrieves trailer info if available (typically for non-purchased movies or films).
+     * @returns `VideoInfo` for the trailer, or `null` if none.
+     */
+    getTrailerInfo(): VideoInfo | null;
+    /**
      * Selects the format that best matches the given options.
      * @param options - Options
      */
@@ -185,6 +190,10 @@ declare class VideoInfo {
      * Gets the endpoint of the autoplay video
      */
     get autoplay_video_endpoint(): NavigationEndpoint | null;
+    /**
+     * Checks if trailer is available.
+     */
+    get has_trailer(): boolean;
     /**
      * Get songs used in the video.
      */

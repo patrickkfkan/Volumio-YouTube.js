@@ -456,6 +456,8 @@ import { default as PlayerErrorMessage } from './classes/PlayerErrorMessage.js';
 export { PlayerErrorMessage };
 import { default as PlayerLegacyDesktopYpcOffer } from './classes/PlayerLegacyDesktopYpcOffer.js';
 export { PlayerLegacyDesktopYpcOffer };
+import { default as PlayerLegacyDesktopYpcTrailer } from './classes/PlayerLegacyDesktopYpcTrailer.js';
+export { PlayerLegacyDesktopYpcTrailer };
 import { default as PlayerLiveStoryboardSpec } from './classes/PlayerLiveStoryboardSpec.js';
 export { PlayerLiveStoryboardSpec };
 import { default as PlayerMicroformat } from './classes/PlayerMicroformat.js';
@@ -678,6 +680,8 @@ import { default as WatchNextEndScreen } from './classes/WatchNextEndScreen.js';
 export { WatchNextEndScreen };
 import { default as WatchNextTabbedResults } from './classes/WatchNextTabbedResults.js';
 export { WatchNextTabbedResults };
+import { default as YpcTrailer } from './classes/YpcTrailer.js';
+export { YpcTrailer };
 import { default as AnchoredSection } from './classes/ytkids/AnchoredSection.js';
 export { AnchoredSection };
 import { default as KidsCategoriesHeader } from './classes/ytkids/KidsCategoriesHeader.js';
@@ -910,6 +914,7 @@ const map: Record<string, YTNodeConstructor> = {
   PlayerCaptionsTracklist,
   PlayerErrorMessage,
   PlayerLegacyDesktopYpcOffer,
+  PlayerLegacyDesktopYpcTrailer,
   PlayerLiveStoryboardSpec,
   PlayerMicroformat,
   PlayerOverlay,
@@ -1021,6 +1026,7 @@ const map: Record<string, YTNodeConstructor> = {
   WatchCardSectionSequence,
   WatchNextEndScreen,
   WatchNextTabbedResults,
+  YpcTrailer,
   AnchoredSection,
   KidsCategoriesHeader,
   KidsCategoryTab,
