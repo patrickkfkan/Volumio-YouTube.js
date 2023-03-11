@@ -7895,10 +7895,10 @@ var Format = class {
     if (this.has_audio) {
       const args = new URLSearchParams(this.cipher || this.signature_cipher);
       const url_components = new URLSearchParams(args.get("url") || this.url);
-      this.language = ((_b = (_a5 = url_components.get("xtags")) === null || _a5 === void 0 ? void 0 : _a5.split(":").find((x) => x.startsWith("lang="))) === null || _b === void 0 ? void 0 : _b.split("=").at(1)) || null;
-      this.is_dubbed = ((_d = (_c = url_components.get("xtags")) === null || _c === void 0 ? void 0 : _c.split(":").find((x) => x.startsWith("acont="))) === null || _d === void 0 ? void 0 : _d.split("=").at(1)) === "dubbed";
-      this.is_descriptive = ((_f = (_e = url_components.get("xtags")) === null || _e === void 0 ? void 0 : _e.split(":").find((x) => x.startsWith("acont="))) === null || _f === void 0 ? void 0 : _f.split("=").at(1)) === "descriptive";
-      this.is_original = ((_h = (_g = url_components.get("xtags")) === null || _g === void 0 ? void 0 : _g.split(":").find((x) => x.startsWith("acont="))) === null || _h === void 0 ? void 0 : _h.split("=").at(1)) === "original" || !this.is_dubbed;
+      this.language = ((_b = (_a5 = url_components.get("xtags")) === null || _a5 === void 0 ? void 0 : _a5.split(":").find((x) => x.startsWith("lang="))) === null || _b === void 0 ? void 0 : _b.split("=")[1]) || null;
+      this.is_dubbed = ((_d = (_c = url_components.get("xtags")) === null || _c === void 0 ? void 0 : _c.split(":").find((x) => x.startsWith("acont="))) === null || _d === void 0 ? void 0 : _d.split("=")[1]) === "dubbed";
+      this.is_descriptive = ((_f = (_e = url_components.get("xtags")) === null || _e === void 0 ? void 0 : _e.split(":").find((x) => x.startsWith("acont="))) === null || _f === void 0 ? void 0 : _f.split("=")[1]) === "descriptive";
+      this.is_original = ((_h = (_g = url_components.get("xtags")) === null || _g === void 0 ? void 0 : _g.split(":").find((x) => x.startsWith("acont="))) === null || _h === void 0 ? void 0 : _h.split("=")[1]) === "original" || !this.is_dubbed;
       if (data.audioTrack) {
         this.audio_track = {
           audio_is_default: data.audioTrack.audioIsDefault,

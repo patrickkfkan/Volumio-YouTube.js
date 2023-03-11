@@ -83,10 +83,15 @@ class Format {
       const args = new URLSearchParams(this.cipher || this.signature_cipher);
       const url_components = new URLSearchParams(args.get('url') || this.url);
 
-      this.language = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('lang='))?.split('=').at(1) || null;
+      /*** Volumio-YouTube.js ***/
+      this.language = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('lang='))?.split('=')[1] || null;
+      this.is_dubbed = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=')[1] === 'dubbed';
+      this.is_descriptive = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=')[1] === 'descriptive';
+      this.is_original = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=')[1] === 'original' || !this.is_dubbed;
+      /*this.language = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('lang='))?.split('=').at(1) || null;
       this.is_dubbed = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=').at(1) === 'dubbed';
       this.is_descriptive = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=').at(1) === 'descriptive';
-      this.is_original = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=').at(1) === 'original' || !this.is_dubbed;
+      this.is_original = url_components.get('xtags')?.split(':').find((x: string) => x.startsWith('acont='))?.split('=').at(1) === 'original' || !this.is_dubbed;*/
 
       if (data.audioTrack) {
         this.audio_track = {
