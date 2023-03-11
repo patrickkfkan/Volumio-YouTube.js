@@ -1,4 +1,6 @@
-Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music plugin](https://github.com/patrickkfkan/volumio-ytmusic).
+Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music](https://github.com/patrickkfkan/volumio-ytmusic) and [YouTube3](https://github.com/patrickkfkan/volumio-youtube3)* plugins.
+
+<i>*Starting from v0.2.1-b.1.</i>
 
 ## Objectives
 
@@ -8,14 +10,25 @@ Achieved through polyfills and using [node-fetch](https://github.com/node-fetch/
 
 ### Multilanguage support
 
-The YouTube Music plugin supports languages other than English. This is done by directly setting the `session.context.client.hl` property of the `InnerTube` instance created by the library.
+The YouTube Music and YouTube3 plugins support languages other than English. This is done by directly setting the `session.context.client.hl` property of the `InnerTube` instance created by the library.
 
-Note that there is no `setLanguage()` function, because multilanguage support is not actually achievable in YouTube.js. The library extracts certain pieces of information by string-matching. An example would be getting an artist's subscriber count by matching the corresponding item's subtitle against the pattern '[decimal digit] subscribers'. If the subtitle is not in English, then the subscriber count could not be obtained.
-
-Fortunately, this is fine for the most part as the YouTube Music plugin does not utilize language-dependent data. On the other hand, some aspects of YouTube.js will fail and would have to be fixed, e.g. `Music#getUpNext()`.
+Note that there is no `setLanguage()` function, because multilanguage support is not actually achievable in YouTube.js. The library extracts certain pieces of information by string-matching. An example would be getting an artist's subscriber count by matching the corresponding item's subtitle against the pattern '[decimal digit] subscribers'. If the subtitle is not in English, then the subscriber count could not be obtained. Fortunately, this is fine for the most part as the plugins do not utilize language-dependent data.
 
 
 ## Changelog:
+
+0.2.1-b.1:
+- (yt) Add `getGuide()` (PR submitted and merged with YouTube.js repo: [#335](https://github.com/LuanRT/YouTube.js/pull/335)).
+- (yt) Add `banner` to `PlaylistHeader` (PR submitted and merged with YouTube.js repo: [#337](https://github.com/LuanRT/YouTube.js/pull/337)).
+- (yt) `TwoColumnWatchNextResults`: add `playlist` and `autoplay` (PR submitted and merged with YouTube.js repo: [#342](https://github.com/LuanRT/YouTube.js/pull/342)).
+- (yt) Add `play_all_button` to `Shelf` (PR submitted to YouTube.js repo: [#345](https://github.com/LuanRT/YouTube.js/pull/345)).
+- Merge from YouTube.js v3.3.0 (commit [2b29244](https://github.com/LuanRT/YouTube.js/commit/2b29244b411791e4109990985d6b3147ad942945)).
+- (yt) `SearchFilter` (PR submitted to YouTube.js repo: [#347](https://github.com/LuanRT/YouTube.js/pull/347)): 
+  - Add `status` and related getters
+  - Parse `data.navigationEndpoint`
+- (yt) Add `view_playlist` to `Playlist` (PR submitteed to YouTube.js repo: [#348](https://github.com/LuanRT/YouTube.js/pull/348)).
+- (yt) Add support for movie items and trailers (PR submitted to YouTube.js repo: [#349](https://github.com/LuanRT/YouTube.js/pull/349)).
+- Replace `<Array>.at(...)` with `\[...\] ` for compatibility with old Node version.
 
 0.2.0-a.2
 - Replace `crypto.randomUUID` with [uuid](https://www.npmjs.com/package/uuid) since it is not available with the lower Node version on Volumio rPi.
