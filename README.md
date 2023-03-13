@@ -17,17 +17,20 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 ## Changelog:
 
+0.2.1-b.2:
+- (yt) Add `GridMix` parser (PR submitted to YouTube.js repo: [#356](https://github.com/LuanRT/YouTube.js/pull/356))
+
 0.2.1-b.1:
 - (yt) Add `getGuide()` (PR submitted and merged with YouTube.js repo: [#335](https://github.com/LuanRT/YouTube.js/pull/335)).
 - (yt) Add `banner` to `PlaylistHeader` (PR submitted and merged with YouTube.js repo: [#337](https://github.com/LuanRT/YouTube.js/pull/337)).
 - (yt) `TwoColumnWatchNextResults`: add `playlist` and `autoplay` (PR submitted and merged with YouTube.js repo: [#342](https://github.com/LuanRT/YouTube.js/pull/342)).
-- (yt) Add `play_all_button` to `Shelf` (PR submitted to YouTube.js repo: [#345](https://github.com/LuanRT/YouTube.js/pull/345)).
+- (yt) Add `play_all_button` to `Shelf` (PR submitted and merged with YouTube.js repo: [#345](https://github.com/LuanRT/YouTube.js/pull/345)).
 - Merge from YouTube.js v3.3.0 (commit [2b29244](https://github.com/LuanRT/YouTube.js/commit/2b29244b411791e4109990985d6b3147ad942945)).
-- (yt) `SearchFilter` (PR submitted to YouTube.js repo: [#347](https://github.com/LuanRT/YouTube.js/pull/347)): 
+- (yt) `SearchFilter` (PR submitted and merged with YouTube.js repo: [#347](https://github.com/LuanRT/YouTube.js/pull/347)): 
   - Add `status` and related getters
   - Parse `data.navigationEndpoint`
-- (yt) Add `view_playlist` to `Playlist` (PR submitteed to YouTube.js repo: [#348](https://github.com/LuanRT/YouTube.js/pull/348)).
-- (yt) Add support for movie items and trailers (PR submitted to YouTube.js repo: [#349](https://github.com/LuanRT/YouTube.js/pull/349)).
+- (yt) Add `view_playlist` to `Playlist` (PR submitted and merged with YouTube.js repo: [#348](https://github.com/LuanRT/YouTube.js/pull/348)).
+- (yt) Add support for movie items and trailers (PR submitted and merged with YouTube.js repo: [#349](https://github.com/LuanRT/YouTube.js/pull/349)).
 - Replace `<Array>.at(...)` with `\[...\] ` for compatibility with old Node version.
 
 0.2.0-a.2
