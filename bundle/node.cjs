@@ -9213,6 +9213,7 @@ __export(map_exports, {
   Grid: () => Grid_default,
   GridChannel: () => GridChannel_default,
   GridHeader: () => GridHeader_default,
+  GridMix: () => GridMix_default,
   GridMovie: () => GridMovie_default,
   GridPlaylist: () => GridPlaylist_default,
   GridVideo: () => GridVideo_default,
@@ -12885,6 +12886,26 @@ var GridHeader = class extends YTNode {
 __name(GridHeader, "GridHeader");
 GridHeader.type = "GridHeader";
 var GridHeader_default = GridHeader;
+
+// dist/src/parser/classes/GridMix.js
+var GridMix = class extends YTNode {
+  constructor(data) {
+    var _a5, _b;
+    super();
+    this.id = data.playlistId;
+    this.title = new Text_default(data.title);
+    this.author = ((_a5 = data.shortBylineText) === null || _a5 === void 0 ? void 0 : _a5.simpleText) ? new Text_default(data.shortBylineText) : ((_b = data.longBylineText) === null || _b === void 0 ? void 0 : _b.simpleText) ? new Text_default(data.longBylineText) : null;
+    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.video_count = new Text_default(data.videoCountText);
+    this.video_count_short = new Text_default(data.videoCountShortText);
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    this.secondary_endpoint = new NavigationEndpoint_default(data.secondaryNavigationEndpoint);
+    this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
+  }
+};
+__name(GridMix, "GridMix");
+GridMix.type = "GridMix";
+var GridMix_default = GridMix;
 
 // dist/src/parser/classes/GridMovie.js
 var GridMovie = class extends YTNode {
@@ -17204,6 +17225,7 @@ var map = {
   Grid: Grid_default,
   GridChannel: GridChannel_default,
   GridHeader: GridHeader_default,
+  GridMix: GridMix_default,
   GridMovie: GridMovie_default,
   GridPlaylist: GridPlaylist_default,
   GridVideo: GridVideo_default,
