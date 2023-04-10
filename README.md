@@ -17,6 +17,9 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 ## Changelog:
 
+0.2.1-b.3:
+- Replace more `Array.at(...)` with `[...]`
+
 0.2.1-b.2:
 - (yt) Add `GridMix` parser (PR submitted to YouTube.js repo: [#356](https://github.com/LuanRT/YouTube.js/pull/356))
 
