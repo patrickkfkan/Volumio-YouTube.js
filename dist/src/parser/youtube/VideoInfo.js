@@ -106,7 +106,9 @@ class VideoInfo {
                 this.playlist = two_col.playlist;
             }
             this.watch_next_feed = ((_1 = secondary_results.firstOfType(ItemSection)) === null || _1 === void 0 ? void 0 : _1.contents) || secondary_results;
-            if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_2 = this.watch_next_feed.at(-1)) === null || _2 === void 0 ? void 0 : _2.is(ContinuationItem)))
+            /*** Volumio-YouTube.js ***/
+            if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_2 = this.watch_next_feed[this.watch_next_feed.length - 1]) === null || _2 === void 0 ? void 0 : _2.is(ContinuationItem)))
+                //if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && this.watch_next_feed.at(-1)?.is(ContinuationItem))
                 __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_3 = this.watch_next_feed.pop()) === null || _3 === void 0 ? void 0 : _3.as(ContinuationItem), "f");
             this.player_overlays = (_4 = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _4 === void 0 ? void 0 : _4.item().as(PlayerOverlay);
             if (two_col === null || two_col === void 0 ? void 0 : two_col.autoplay) {
@@ -187,7 +189,9 @@ class VideoInfo {
             if (!data)
                 throw new InnertubeError('AppendContinuationItemsAction not found');
             this.watch_next_feed = data === null || data === void 0 ? void 0 : data.contents;
-            if ((_d = (_c = this.watch_next_feed) === null || _c === void 0 ? void 0 : _c.at(-1)) === null || _d === void 0 ? void 0 : _d.is(ContinuationItem)) {
+            /*** Volumio-YouTube.js ***/
+            if ((_d = (_c = this.watch_next_feed) === null || _c === void 0 ? void 0 : _c[this.watch_next_feed.length - 1]) === null || _d === void 0 ? void 0 : _d.is(ContinuationItem)) {
+                //if (this.watch_next_feed?.at(-1)?.is(ContinuationItem)) {
                 __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_e = this.watch_next_feed.pop()) === null || _e === void 0 ? void 0 : _e.as(ContinuationItem), "f");
             }
             else {

@@ -528,7 +528,9 @@ export class ItemSectionContinuation extends YTNode {
     super();
     this.contents = Parser.parseArray(data.contents);
     if (Array.isArray(data.continuations)) {
-      this.continuation = data.continuations?.at(0)?.nextContinuationData?.continuation;
+      /*** Volumio-YouTube.js ***/
+      this.continuation = data.continuations?.[0]?.nextContinuationData?.continuation;
+      //this.continuation = data.continuations?.at(0)?.nextContinuationData?.continuation;
     }
   }
 }

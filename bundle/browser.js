@@ -7290,7 +7290,7 @@ __name(sha1Hash, "sha1Hash");
 // dist/package.json
 var package_default = {
   name: "volumio-youtubei.js",
-  version: "0.2.1-b.1",
+  version: "0.2.1-b.2",
   description: "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   type: "module",
   types: "./dist/src/platform/lib.d.ts",
@@ -12139,7 +12139,7 @@ var ItemSection = class extends YTNode {
       this.target_id = (data === null || data === void 0 ? void 0 : data.target_id) || (data === null || data === void 0 ? void 0 : data.sectionIdentifier);
     }
     if (data.continuations) {
-      this.continuation = (_c = (_b = (_a5 = data.continuations) === null || _a5 === void 0 ? void 0 : _a5.at(0)) === null || _b === void 0 ? void 0 : _b.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
+      this.continuation = (_c = (_b = (_a5 = data.continuations) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
     }
   }
 };
@@ -16719,7 +16719,7 @@ var ItemSectionContinuation = class extends YTNode {
     super();
     this.contents = Parser.parseArray(data.contents);
     if (Array.isArray(data.continuations)) {
-      this.continuation = (_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b.at(0)) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation;
+      this.continuation = (_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation;
     }
   }
 };
@@ -19604,7 +19604,7 @@ var VideoInfo = class {
         this.playlist = two_col.playlist;
       }
       this.watch_next_feed = ((_1 = secondary_results.firstOfType(ItemSection_default)) === null || _1 === void 0 ? void 0 : _1.contents) || secondary_results;
-      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_2 = this.watch_next_feed.at(-1)) === null || _2 === void 0 ? void 0 : _2.is(ContinuationItem_default)))
+      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_2 = this.watch_next_feed[this.watch_next_feed.length - 1]) === null || _2 === void 0 ? void 0 : _2.is(ContinuationItem_default)))
         __classPrivateFieldSet24(this, _VideoInfo_watch_next_continuation, (_3 = this.watch_next_feed.pop()) === null || _3 === void 0 ? void 0 : _3.as(ContinuationItem_default), "f");
       this.player_overlays = (_4 = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _4 === void 0 ? void 0 : _4.item().as(PlayerOverlay_default);
       if (two_col === null || two_col === void 0 ? void 0 : two_col.autoplay) {
@@ -19673,7 +19673,7 @@ var VideoInfo = class {
       if (!data)
         throw new InnertubeError("AppendContinuationItemsAction not found");
       this.watch_next_feed = data === null || data === void 0 ? void 0 : data.contents;
-      if ((_d = (_c = this.watch_next_feed) === null || _c === void 0 ? void 0 : _c.at(-1)) === null || _d === void 0 ? void 0 : _d.is(ContinuationItem_default)) {
+      if ((_d = (_c = this.watch_next_feed) === null || _c === void 0 ? void 0 : _c[this.watch_next_feed.length - 1]) === null || _d === void 0 ? void 0 : _d.is(ContinuationItem_default)) {
         __classPrivateFieldSet24(this, _VideoInfo_watch_next_continuation, (_e = this.watch_next_feed.pop()) === null || _e === void 0 ? void 0 : _e.as(ContinuationItem_default), "f");
       } else {
         __classPrivateFieldSet24(this, _VideoInfo_watch_next_continuation, void 0, "f");

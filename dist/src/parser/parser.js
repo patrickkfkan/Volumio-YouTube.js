@@ -419,7 +419,9 @@ export class ItemSectionContinuation extends YTNode {
         super();
         this.contents = Parser.parseArray(data.contents);
         if (Array.isArray(data.continuations)) {
-            this.continuation = (_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b.at(0)) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation;
+            /*** Volumio-YouTube.js ***/
+            this.continuation = (_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation;
+            //this.continuation = data.continuations?.at(0)?.nextContinuationData?.continuation;
         }
     }
 }

@@ -10,7 +10,9 @@ class ItemSection extends YTNode {
             this.target_id = (data === null || data === void 0 ? void 0 : data.target_id) || (data === null || data === void 0 ? void 0 : data.sectionIdentifier);
         }
         if (data.continuations) {
-            this.continuation = (_c = (_b = (_a = data.continuations) === null || _a === void 0 ? void 0 : _a.at(0)) === null || _b === void 0 ? void 0 : _b.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
+            /*** Volumio-YouTube.js ***/
+            this.continuation = (_c = (_b = (_a = data.continuations) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
+            //this.continuation = data.continuations?.at(0)?.nextContinuationData?.continuation;
         }
     }
 }
