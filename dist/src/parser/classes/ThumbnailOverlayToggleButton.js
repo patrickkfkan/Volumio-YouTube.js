@@ -3,7 +3,9 @@ import { YTNode } from '../helpers.js';
 class ThumbnailOverlayToggleButton extends YTNode {
     constructor(data) {
         super();
-        this.is_toggled = data.isToggled || null;
+        if (Reflect.has(data, 'isToggled')) {
+            this.is_toggled = data.isToggled;
+        }
         this.icon_type = {
             toggled: data.toggledIcon.iconType,
             untoggled: data.untoggledIcon.iconType

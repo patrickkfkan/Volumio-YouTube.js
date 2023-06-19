@@ -1,9 +1,8 @@
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class AddChatItemAction extends YTNode {
+export default class AddChatItemAction extends YTNode {
     static type: string;
-    item: YTNode | null;
-    client_id: string | null;
+    item: YTNode;
+    client_id?: string;
     constructor(data: RawNode);
 }
-export default AddChatItemAction;

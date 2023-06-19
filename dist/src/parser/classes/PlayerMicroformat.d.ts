@@ -1,18 +1,19 @@
+import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import { YTNode } from '../helpers.js';
-declare class PlayerMicroformat extends YTNode {
+export default class PlayerMicroformat extends YTNode {
     static type: string;
     title: Text;
     description: Text;
     thumbnails: Thumbnail[];
-    embed: {
+    embed?: {
         iframe_url: string;
         flash_url: string;
         flash_secure_url: string;
         width: any;
         height: any;
-    } | null;
+    };
     length_seconds: number;
     channel: {
         id: string;
@@ -28,6 +29,5 @@ declare class PlayerMicroformat extends YTNode {
     upload_date: string;
     available_countries: string[];
     start_timestamp: Date | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default PlayerMicroformat;

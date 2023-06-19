@@ -5,7 +5,7 @@ class ProfileColumnStats extends YTNode {
         super();
         this.items = Parser.parseArray(data.items);
     }
-    // XXX: alias for consistency
+    // XXX: Alias for consistency.
     get contents() {
         return this.items;
     }

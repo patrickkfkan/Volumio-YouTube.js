@@ -1,7 +1,7 @@
+import { YTNode } from '../helpers.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
 class Poll extends YTNode {
     constructor(data) {
         super();
@@ -15,11 +15,11 @@ class Poll extends YTNode {
             vote_percentage_if_not_selected: new Text(choice.votePercentageIfSelected),
             image: choice.image ? Thumbnail.fromResponse(choice.image) : null
         }));
-        if (data.type)
+        if (Reflect.has(data, 'type'))
             this.poll_type = data.type;
-        if (data.totalVotes)
+        if (Reflect.has(data, 'totalVotes'))
             this.total_votes = new Text(data.totalVotes);
-        if (data.liveChatPollId)
+        if (Reflect.has(data, 'liveChatPollId'))
             this.live_chat_poll_id = data.liveChatPollId;
     }
 }

@@ -1,8 +1,7 @@
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class UpdateLiveChatPollAction extends YTNode {
+export default class UpdateLiveChatPollAction extends YTNode {
     static type: string;
-    poll_to_update: YTNode | null;
+    poll_to_update: YTNode;
     constructor(data: RawNode);
 }
-export default UpdateLiveChatPollAction;

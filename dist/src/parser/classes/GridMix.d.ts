@@ -1,8 +1,9 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-declare class GridMix extends YTNode {
+export default class GridMix extends YTNode {
     static type: string;
     id: string;
     title: Text;
@@ -12,7 +13,6 @@ declare class GridMix extends YTNode {
     video_count_short: Text;
     endpoint: NavigationEndpoint;
     secondary_endpoint: NavigationEndpoint;
-    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
-    constructor(data: any);
+    thumbnail_overlays: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default GridMix;

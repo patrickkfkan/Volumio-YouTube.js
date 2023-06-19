@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers.js';
-declare class TwoColumnBrowseResults extends YTNode {
+import { YTNode, type SuperParsedResult } from '../helpers.js';
+import { type RawNode } from '../index.js';
+export default class TwoColumnBrowseResults extends YTNode {
     static type: string;
-    tabs: import("../helpers.js").SuperParsedResult<YTNode>;
-    secondary_contents: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    tabs: SuperParsedResult<YTNode>;
+    secondary_contents: SuperParsedResult<YTNode>;
+    constructor(data: RawNode);
 }
-export default TwoColumnBrowseResults;

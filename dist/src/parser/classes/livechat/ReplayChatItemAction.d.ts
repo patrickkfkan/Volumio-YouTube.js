@@ -1,9 +1,8 @@
-import { YTNode } from '../../helpers.js';
+import { type ObservedArray, YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class ReplayChatItemAction extends YTNode {
+export default class ReplayChatItemAction extends YTNode {
     static type: string;
-    actions: import("../../helpers.js").ObservedArray<YTNode>;
+    actions: ObservedArray<YTNode>;
     video_offset_time_msec: string;
     constructor(data: RawNode);
 }
-export default ReplayChatItemAction;

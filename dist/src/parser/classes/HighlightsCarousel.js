@@ -1,7 +1,8 @@
 import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-class Panel {
+import { YTNode, observe } from '../helpers.js';
+export class Panel extends YTNode {
     constructor(data) {
+        super();
         if (data.thumbnail) {
             this.thumbnail = {
                 image: data.thumbnail.image.sources,
@@ -32,7 +33,7 @@ Panel.type = 'Panel';
 class HighlightsCarousel extends YTNode {
     constructor(data) {
         super();
-        this.panels = data.highlightsCarousel.panels.map((el) => new Panel(el));
+        this.panels = observe(data.highlightsCarousel.panels.map((el) => new Panel(el)));
     }
 }
 HighlightsCarousel.type = 'HighlightsCarousel';

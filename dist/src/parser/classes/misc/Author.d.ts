@@ -1,16 +1,19 @@
-import NavigationEndpoint from '../NavigationEndpoint.js';
+import type { YTNode } from '../../helpers.js';
+import { type ObservedArray } from '../../helpers.js';
+import { type RawNode } from '../../index.js';
+import type NavigationEndpoint from '../NavigationEndpoint.js';
 import Thumbnail from './Thumbnail.js';
-declare class Author {
+export default class Author {
     #private;
     id: string;
     name: string;
     thumbnails: Thumbnail[];
-    endpoint: NavigationEndpoint | null;
-    badges?: any;
-    is_verified?: boolean | null;
-    is_verified_artist?: boolean | null;
-    url: string | null;
-    constructor(item: any, badges?: any, thumbs?: any);
+    endpoint?: NavigationEndpoint;
+    badges: ObservedArray<YTNode>;
+    is_moderator?: boolean;
+    is_verified?: boolean;
+    is_verified_artist?: boolean;
+    url: string;
+    constructor(item: RawNode, badges?: any, thumbs?: any, id?: string);
     get best_thumbnail(): Thumbnail | undefined;
 }
-export default Author;

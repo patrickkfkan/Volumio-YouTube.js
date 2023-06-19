@@ -1,7 +1,8 @@
 import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class MerchandiseItem extends YTNode {
+import type { RawNode } from '../index.js';
+export default class MerchandiseItem extends YTNode {
     static type: string;
     title: string;
     description: string;
@@ -14,6 +15,5 @@ declare class MerchandiseItem extends YTNode {
     additional_fees_text: string;
     region_format: string;
     endpoint: NavigationEndpoint;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MerchandiseItem;

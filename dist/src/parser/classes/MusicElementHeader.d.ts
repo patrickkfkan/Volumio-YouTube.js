@@ -1,8 +1,8 @@
+import { type RawNode } from '../index.js';
 import Element from './Element.js';
 import { YTNode } from '../helpers.js';
-declare class MusicElementHeader extends YTNode {
+export default class MusicElementHeader extends YTNode {
     static type: string;
     element: Element | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MusicElementHeader;

@@ -1,8 +1,8 @@
 import { YTNode } from '../helpers.js';
-declare class ThumbnailOverlayTimeStatus extends YTNode {
+import type { RawNode } from '../index.js';
+export default class ThumbnailOverlayTimeStatus extends YTNode {
     static type: string;
     text: string;
     style: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ThumbnailOverlayTimeStatus;

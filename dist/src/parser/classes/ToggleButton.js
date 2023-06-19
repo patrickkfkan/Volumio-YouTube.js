@@ -3,7 +3,7 @@ import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
 class ToggleButton extends YTNode {
     constructor(data) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+        var _a, _b, _c, _d, _e, _f, _g, _h;
         super();
         this.text = new Text(data.defaultText);
         this.toggled_text = new Text(data.toggledText);
@@ -24,8 +24,12 @@ class ToggleButton extends YTNode {
                 new NavigationEndpoint(data.defaultServiceEndpoint.commandExecutorCommand.commands.pop()) :
                 new NavigationEndpoint(data.defaultServiceEndpoint);
         this.toggled_endpoint = new NavigationEndpoint(data.toggledServiceEndpoint);
-        this.button_id = ((_k = (_j = data.toggleButtonSupportedData) === null || _j === void 0 ? void 0 : _j.toggleButtonIdData) === null || _k === void 0 ? void 0 : _k.id) || null;
-        this.target_id = data.targetId || null;
+        if (Reflect.has(data, 'toggleButtonSupportedData') && Reflect.has(data.toggleButtonSupportedData, 'toggleButtonIdData')) {
+            this.button_id = data.toggleButtonSupportedData.toggleButtonIdData.id;
+        }
+        if (Reflect.has(data, 'targetId')) {
+            this.target_id = data.targetId;
+        }
     }
 }
 ToggleButton.type = 'ToggleButton';

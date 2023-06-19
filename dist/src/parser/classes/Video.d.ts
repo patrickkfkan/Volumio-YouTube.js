@@ -1,31 +1,32 @@
-import Text from './misc/Text.js';
-import Author from './misc/Author.js';
-import Menu from './menus/Menu.js';
-import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import MetadataBadge from './MetadataBadge.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import ExpandableMetadata from './ExpandableMetadata.js';
-import { YTNode } from '../helpers.js';
-declare class Video extends YTNode {
+import MetadataBadge from './MetadataBadge.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Menu from './menus/Menu.js';
+import Author from './misc/Author.js';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+export default class Video extends YTNode {
     static type: string;
     id: string;
     title: Text;
-    description_snippet: Text | null;
-    snippets: {
+    description_snippet?: Text;
+    snippets?: {
         text: Text;
         hover_text: Text;
     }[];
     expandable_metadata: ExpandableMetadata | null;
     thumbnails: Thumbnail[];
-    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
-    rich_thumbnail: YTNode | null;
+    thumbnail_overlays: ObservedArray<YTNode>;
+    rich_thumbnail?: YTNode;
     author: Author;
     badges: MetadataBadge[];
     endpoint: NavigationEndpoint;
     published: Text;
     view_count: Text;
     short_view_count: Text;
-    upcoming: Date | undefined;
+    upcoming?: Date;
     duration: {
         text: string;
         seconds: number;
@@ -33,8 +34,8 @@ declare class Video extends YTNode {
     show_action_menu: boolean;
     is_watched: boolean;
     menu: Menu | null;
-    search_video_result_entity_key: string;
-    constructor(data: any);
+    search_video_result_entity_key?: string;
+    constructor(data: RawNode);
     get description(): string;
     get is_live(): boolean;
     get is_upcoming(): boolean | undefined;
@@ -43,4 +44,3 @@ declare class Video extends YTNode {
     get has_captions(): boolean;
     get best_thumbnail(): Thumbnail | undefined;
 }
-export default Video;

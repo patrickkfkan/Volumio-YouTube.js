@@ -1,7 +1,7 @@
+import { type RawNode } from '../index.js';
 import { YTNode } from '../helpers.js';
-declare class RelatedChipCloud extends YTNode {
+export default class RelatedChipCloud extends YTNode {
     static type: string;
-    content: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    content: YTNode;
+    constructor(data: RawNode);
 }
-export default RelatedChipCloud;

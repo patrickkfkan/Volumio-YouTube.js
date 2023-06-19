@@ -1,5 +1,5 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 import CreatePlaylistDialog from './CreatePlaylistDialog.js';
 class NavigationEndpoint extends YTNode {
     constructor(data) {
@@ -11,8 +11,8 @@ class NavigationEndpoint extends YTNode {
             .find((item) => item.endsWith('Endpoint') ||
             item.endsWith('Command'));
         this.payload = name ? Reflect.get(data, name) : {};
-        if (Reflect.has(this.payload, 'dialog')) {
-            this.dialog = Parser.parse(this.payload.dialog);
+        if (Reflect.has(this.payload, 'dialog') || Reflect.has(this.payload, 'content')) {
+            this.dialog = Parser.parseItem(this.payload.dialog || this.payload.content);
         }
         if (data === null || data === void 0 ? void 0 : data.serviceEndpoint) {
             data = data.serviceEndpoint;

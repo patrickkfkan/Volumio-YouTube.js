@@ -1,11 +1,11 @@
-import { RawNode } from '../index.js';
+import { type RawNode } from '../index.js';
 import Text from './misc/Text.js';
 import Button from './Button.js';
 import VideoOwner from './VideoOwner.js';
 import SubscribeButton from './SubscribeButton.js';
 import MetadataRowContainer from './MetadataRowContainer.js';
 import { YTNode } from '../helpers.js';
-declare class VideoSecondaryInfo extends YTNode {
+export default class VideoSecondaryInfo extends YTNode {
     #private;
     static type: string;
     owner: VideoOwner | null;
@@ -18,4 +18,3 @@ declare class VideoSecondaryInfo extends YTNode {
     description_collapsed_lines: string;
     constructor(data: RawNode);
 }
-export default VideoSecondaryInfo;

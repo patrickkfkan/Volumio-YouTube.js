@@ -1,8 +1,8 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
-import Text from './misc/Text.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import SubscriptionNotificationToggleButton from './SubscriptionNotificationToggleButton.js';
-import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
 class SubscribeButton extends YTNode {
     constructor(data) {
         var _a, _b;

@@ -1,12 +1,13 @@
-import type Message from './classes/Message.js';
-import type LiveChatParticipantsList from './classes/LiveChatParticipantsList.js';
-import type LiveChatHeader from './classes/LiveChatHeader.js';
-import type LiveChatItemList from './classes/LiveChatItemList.js';
+import Message from './classes/Message.js';
+import LiveChatParticipantsList from './classes/LiveChatParticipantsList.js';
+import LiveChatHeader from './classes/LiveChatHeader.js';
+import LiveChatItemList from './classes/LiveChatItemList.js';
 import type { IParsedResponse, IRawResponse, RawData, RawNode } from './types/index.js';
 import Format from './classes/misc/Format.js';
 import NavigationEndpoint from './classes/NavigationEndpoint.js';
 import Thumbnail from './classes/misc/Thumbnail.js';
-import { Memo, ObservedArray, SuperParsedResult, YTNode, YTNodeConstructor } from './helpers.js';
+import type { ObservedArray, YTNodeConstructor } from './helpers.js';
+import { Memo, SuperParsedResult, YTNode } from './helpers.js';
 export type ParserError = {
     classname: string;
     classdata: any;
@@ -26,20 +27,24 @@ export default class Parser {
      * @param data - The data to parse.
      * @param validTypes - YTNode types that are allowed to be parsed.
      */
-    static parseItem<T extends YTNode = YTNode>(data?: RawNode, validTypes?: YTNodeConstructor<T> | YTNodeConstructor<T>[]): T | null;
+    static parseItem<T extends YTNode, K extends YTNodeConstructor<T>[]>(data: RawNode | undefined, validTypes: K): InstanceType<K[number]> | null;
+    static parseItem<T extends YTNode>(data: RawNode | undefined, validTypes: YTNodeConstructor<T>): T | null;
+    static parseItem(data?: RawNode): YTNode;
     /**
      * Parses an array of items.
      * @param data - The data to parse.
      * @param validTypes - YTNode types that are allowed to be parsed.
      */
-    static parseArray<T extends YTNode = YTNode>(data?: RawNode[], validTypes?: YTNodeConstructor<T> | YTNodeConstructor<T>[]): ObservedArray<T>;
+    static parseArray<T extends YTNode, K extends YTNodeConstructor<T>[]>(data: RawNode[] | undefined, validTypes: K): ObservedArray<InstanceType<K[number]>>;
+    static parseArray<T extends YTNode = YTNode>(data: RawNode[] | undefined, validType: YTNodeConstructor<T>): ObservedArray<T>;
+    static parseArray(data: RawNode[] | undefined): ObservedArray<YTNode>;
     /**
      * Parses an item or an array of items.
      * @param data - The data to parse.
      * @param requireArray - Whether the data should be parsed as an array.
      * @param validTypes - YTNode types that are allowed to be parsed.
      */
-    static parse<T extends YTNode = YTNode>(data: RawData, requireArray: true, validTypes?: YTNodeConstructor<T> | YTNodeConstructor<T>[]): ObservedArray<T> | null;
+    static parse<T extends YTNode, K extends YTNodeConstructor<T>[]>(data: RawData, requireArray: true, validTypes?: K): ObservedArray<InstanceType<K[number]>> | null;
     static parse<T extends YTNode = YTNode>(data?: RawData, requireArray?: false | undefined, validTypes?: YTNodeConstructor<T> | YTNodeConstructor<T>[]): SuperParsedResult<T>;
     static parseC(data: RawNode): Continuation | null;
     static parseLC(data: RawNode): ItemSectionContinuation | SectionListContinuation | LiveChatContinuation | MusicPlaylistShelfContinuation | MusicShelfContinuation | GridContinuation | PlaylistPanelContinuation | null;
@@ -50,6 +55,12 @@ export default class Parser {
     static sanitizeClassName(input: string): string;
     static ignore_list: Set<string>;
     static shouldIgnore(classname: string): boolean;
+    static getParserByName(classname: string): YTNodeConstructor<YTNode>;
+    static hasParser(classname: string): boolean;
+    static addRuntimeParser(classname: string, ParserConstructor: YTNodeConstructor): void;
+    static getDynamicParsers(): {
+        [k: string]: YTNodeConstructor<YTNode>;
+    };
 }
 export declare class ItemSectionContinuation extends YTNode {
     static readonly type = "itemSectionContinuation";

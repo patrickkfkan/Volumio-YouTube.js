@@ -1,7 +1,7 @@
-import Author from './misc/Author.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Author from './misc/Author.js';
+import Text from './misc/Text.js';
 class WatchCardRichHeader extends YTNode {
     constructor(data) {
         super();

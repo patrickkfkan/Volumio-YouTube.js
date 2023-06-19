@@ -1,12 +1,12 @@
+import { type RawNode } from '../index.js';
 import Text from './misc/Text.js';
 import Button from './Button.js';
 import { YTNode } from '../helpers.js';
-declare class ConfirmDialog extends YTNode {
+export default class ConfirmDialog extends YTNode {
     static type: string;
     title: Text;
     confirm_button: Button | null;
     cancel_button: Button | null;
     dialog_messages: Text[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ConfirmDialog;

@@ -1,8 +1,8 @@
-import Parser from '../index.js';
-import Text from './misc/Text.js';
-import EndScreenVideo from './EndScreenVideo.js';
-import EndScreenPlaylist from './EndScreenPlaylist.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
+import EndScreenPlaylist from './EndScreenPlaylist.js';
+import EndScreenVideo from './EndScreenVideo.js';
+import Text from './misc/Text.js';
 class WatchNextEndScreen extends YTNode {
     constructor(data) {
         super();

@@ -1,24 +1,5 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Library_page, _Library_actions, _Library_continuation, _LibraryContinuation_page, _LibraryContinuation_actions, _LibraryContinuation_continuation;
+import { __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
 import Parser, { GridContinuation, MusicShelfContinuation, SectionListContinuation } from '../index.js';
 import Grid from '../classes/Grid.js';
 import MusicShelf from '../classes/MusicShelf.js';
@@ -39,7 +20,7 @@ class Library {
         __classPrivateFieldSet(this, _Library_page, Parser.parseResponse(response.data), "f");
         __classPrivateFieldSet(this, _Library_actions, actions, "f");
         const section_list = (_a = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a === void 0 ? void 0 : _a.getType(SectionList).first();
-        this.header = (_b = section_list === null || section_list === void 0 ? void 0 : section_list.header) === null || _b === void 0 ? void 0 : _b.item().as(MusicSideAlignedItem);
+        this.header = (_b = section_list === null || section_list === void 0 ? void 0 : section_list.header) === null || _b === void 0 ? void 0 : _b.as(MusicSideAlignedItem);
         this.contents = (_c = section_list === null || section_list === void 0 ? void 0 : section_list.contents) === null || _c === void 0 ? void 0 : _c.as(Grid, MusicShelf);
         __classPrivateFieldSet(this, _Library_continuation, (_e = (_d = this.contents) === null || _d === void 0 ? void 0 : _d.find((list) => list.continuation)) === null || _e === void 0 ? void 0 : _e.continuation, "f");
     }

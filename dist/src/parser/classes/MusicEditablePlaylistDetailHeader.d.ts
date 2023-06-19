@@ -1,7 +1,7 @@
+import { type RawNode } from '../index.js';
 import { YTNode } from '../helpers.js';
-declare class MusicEditablePlaylistDetailHeader extends YTNode {
+export default class MusicEditablePlaylistDetailHeader extends YTNode {
     static type: string;
-    header: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    header: YTNode;
+    constructor(data: RawNode);
 }
-export default MusicEditablePlaylistDetailHeader;

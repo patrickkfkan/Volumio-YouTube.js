@@ -1,22 +1,12 @@
-import { ObservedArray, YTNode } from '../../../helpers.js';
-import LiveChatAuthorBadge from '../../LiveChatAuthorBadge.js';
-import MetadataBadge from '../../MetadataBadge.js';
-import Text from '../../misc/Text.js';
-import Thumbnail from '../../misc/Thumbnail.js';
-import NavigationEndpoint from '../../NavigationEndpoint.js';
+import { YTNode } from '../../../helpers.js';
 import type { RawNode } from '../../../index.js';
-declare class LiveChatPaidMessage extends YTNode {
+import NavigationEndpoint from '../../NavigationEndpoint.js';
+import Author from '../../misc/Author.js';
+import Text from '../../misc/Text.js';
+export default class LiveChatPaidMessage extends YTNode {
     static type: string;
     message: Text;
-    author: {
-        id: string;
-        name: Text;
-        thumbnails: Thumbnail[];
-        badges: ObservedArray<LiveChatAuthorBadge | MetadataBadge>;
-        is_moderator: boolean | null;
-        is_verified: boolean | null;
-        is_verified_artist: boolean | null;
-    };
+    author: Author;
     header_background_color: number;
     header_text_color: number;
     body_background_color: number;
@@ -28,4 +18,3 @@ declare class LiveChatPaidMessage extends YTNode {
     id: string;
     constructor(data: RawNode);
 }
-export default LiveChatPaidMessage;

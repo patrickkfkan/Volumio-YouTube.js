@@ -1,6 +1,7 @@
 import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class Panel {
+import { type RawNode } from '../index.js';
+export declare class Panel extends YTNode {
     static type: string;
     thumbnail?: {
         image: {
@@ -36,11 +37,10 @@ declare class Panel {
         accessibility_text: string;
         state: string;
     };
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-declare class HighlightsCarousel extends YTNode {
+export default class HighlightsCarousel extends YTNode {
     static type: string;
     panels: Panel[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default HighlightsCarousel;

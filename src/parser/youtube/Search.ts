@@ -1,4 +1,4 @@
-import Feed from '../../core/Feed.js';
+import Feed from '../../core/mixins/Feed.js';
 import { InnertubeError } from '../../utils/Utils.js';
 import HorizontalCardList from '../classes/HorizontalCardList.js';
 import ItemSection from '../classes/ItemSection.js';
@@ -30,7 +30,7 @@ class Search extends Feed<ISearchResponse> {
     if (!contents)
       throw new InnertubeError('No contents found in search response');
 
-    this.results = contents.firstOfType(ItemSection)?.contents;
+    this.results = contents.find((content) => content.is(ItemSection) && content.contents && content.contents.length > 0)?.as(ItemSection).contents;
 
     this.refinements = this.page.refinements || [];
     this.estimated_results = this.page.estimated_results;

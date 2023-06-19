@@ -1,8 +1,9 @@
-import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class LiveChat extends YTNode {
+import { type RawNode } from '../index.js';
+import Text from './misc/Text.js';
+export default class LiveChat extends YTNode {
     static type: string;
-    header: import("../helpers.js").SuperParsedResult<YTNode>;
+    header: YTNode;
     initial_display_state: string;
     continuation: string;
     client_messages: {
@@ -13,6 +14,5 @@ declare class LiveChat extends YTNode {
         generic_error: Text;
     };
     is_replay: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default LiveChat;

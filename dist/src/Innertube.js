@@ -1,46 +1,33 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+var _Innertube_session;
+import { __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
 import Session from './core/Session.js';
 import NavigationEndpoint from './parser/classes/NavigationEndpoint.js';
 import Channel from './parser/youtube/Channel.js';
 import Comments from './parser/youtube/Comments.js';
+import Guide from './parser/youtube/Guide.js';
+import HashtagFeed from './parser/youtube/HashtagFeed.js';
 import History from './parser/youtube/History.js';
+import HomeFeed from './parser/youtube/HomeFeed.js';
 import Library from './parser/youtube/Library.js';
 import NotificationsMenu from './parser/youtube/NotificationsMenu.js';
 import Playlist from './parser/youtube/Playlist.js';
 import Search from './parser/youtube/Search.js';
 import VideoInfo from './parser/youtube/VideoInfo.js';
-import HashtagFeed from './parser/youtube/HashtagFeed.js';
-import AccountManager from './core/AccountManager.js';
-import Feed from './core/Feed.js';
-import InteractionManager from './core/InteractionManager.js';
-import YTKids from './core/Kids.js';
-import YTMusic from './core/Music.js';
-import PlaylistManager from './core/PlaylistManager.js';
-import YTStudio from './core/Studio.js';
-import TabbedFeed from './core/TabbedFeed.js';
-import HomeFeed from './parser/youtube/HomeFeed.js';
-import Guide from './parser/youtube/Guide.js';
+import { Kids, Music, Studio } from './core/clients/index.js';
+import { AccountManager, InteractionManager, PlaylistManager } from './core/managers/index.js';
+import { Feed, TabbedFeed } from './core/mixins/index.js';
 import Proto from './proto/index.js';
-import Constants from './utils/Constants.js';
-import { generateRandomString, InnertubeError, throwIfMissing } from './utils/Utils.js';
+import * as Constants from './utils/Constants.js';
+import { InnertubeError, generateRandomString, throwIfMissing } from './utils/Utils.js';
+import { BrowseEndpoint, GetNotificationMenuEndpoint, GuideEndpoint, NextEndpoint, PlayerEndpoint, ResolveURLEndpoint, SearchEndpoint } from './core/endpoints/index.js';
+import { GetUnseenCountEndpoint } from './core/endpoints/notification/index.js';
+/**
+ * Provides access to various services and modules in the YouTube API.
+ */
 class Innertube {
     constructor(session) {
-        this.session = session;
-        this.account = new AccountManager(this.session.actions);
-        this.playlist = new PlaylistManager(this.session.actions);
-        this.interact = new InteractionManager(this.session.actions);
-        this.music = new YTMusic(this.session);
-        this.studio = new YTStudio(this.session);
-        this.kids = new YTKids(this.session);
-        this.actions = this.session.actions;
+        _Innertube_session.set(this, void 0);
+        __classPrivateFieldSet(this, _Innertube_session, session, "f");
     }
     static create(config = {}) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -53,41 +40,39 @@ class Innertube {
      * @param client - The client to use.
      */
     getInfo(target, client) {
-        var _a;
+        var _a, _b, _c, _d, _e;
         return __awaiter(this, void 0, void 0, function* () {
             throwIfMissing({ target });
-            let payload;
+            let next_payload;
             if (target instanceof NavigationEndpoint) {
-                const video_id = (_a = target.payload) === null || _a === void 0 ? void 0 : _a.videoId;
-                if (!video_id) {
-                    throw new InnertubeError('Missing video id in endpoint payload.', target);
-                }
-                payload = {
-                    videoId: video_id
-                };
-                if (target.payload.playlistId) {
-                    payload.playlistId = target.payload.playlistId;
-                }
-                if (target.payload.params) {
-                    payload.params = target.payload.params;
-                }
-                if (target.payload.index) {
-                    payload.playlistIndex = target.payload.index;
-                }
+                next_payload = NextEndpoint.build({
+                    video_id: (_a = target.payload) === null || _a === void 0 ? void 0 : _a.videoId,
+                    playlist_id: (_b = target.payload) === null || _b === void 0 ? void 0 : _b.playlistId,
+                    params: (_c = target.payload) === null || _c === void 0 ? void 0 : _c.params,
+                    playlist_index: (_d = target.payload) === null || _d === void 0 ? void 0 : _d.index
+                });
             }
             else if (typeof target === 'string') {
-                payload = {
-                    videoId: target
-                };
+                next_payload = NextEndpoint.build({
+                    video_id: target
+                });
             }
             else {
                 throw new InnertubeError('Invalid target, expected either a video id or a valid NavigationEndpoint', target);
             }
+            if (!next_payload.videoId)
+                throw new InnertubeError('Video id cannot be empty', next_payload);
+            const player_payload = PlayerEndpoint.build({
+                video_id: next_payload.videoId,
+                playlist_id: next_payload === null || next_payload === void 0 ? void 0 : next_payload.playlistId,
+                client: client,
+                sts: (_e = __classPrivateFieldGet(this, _Innertube_session, "f").player) === null || _e === void 0 ? void 0 : _e.sts
+            });
+            const player_response = this.actions.execute(PlayerEndpoint.PATH, player_payload);
+            const next_response = this.actions.execute(NextEndpoint.PATH, next_payload);
+            const response = yield Promise.all([player_response, next_response]);
             const cpn = generateRandomString(16);
-            const initial_info = this.actions.getVideoInfo(payload.videoId, cpn, client);
-            const continuation = this.actions.execute('/next', payload);
-            const response = yield Promise.all([initial_info, continuation]);
-            return new VideoInfo(response, this.actions, this.session.player, cpn);
+            return new VideoInfo(response, this.actions, cpn);
         });
     }
     /**
@@ -96,11 +81,16 @@ class Innertube {
      * @param client - The client to use.
      */
     getBasicInfo(video_id, client) {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
             throwIfMissing({ video_id });
+            const response = yield this.actions.execute(PlayerEndpoint.PATH, PlayerEndpoint.build({
+                video_id: video_id,
+                client: client,
+                sts: (_a = __classPrivateFieldGet(this, _Innertube_session, "f").player) === null || _a === void 0 ? void 0 : _a.sts
+            }));
             const cpn = generateRandomString(16);
-            const response = yield this.actions.getVideoInfo(video_id, cpn, client);
-            return new VideoInfo([response], this.actions, this.session.player, cpn);
+            return new VideoInfo([response], this.actions, cpn);
         });
     }
     /**
@@ -111,10 +101,9 @@ class Innertube {
     search(query, filters = {}) {
         return __awaiter(this, void 0, void 0, function* () {
             throwIfMissing({ query });
-            const args = Object.assign({ query }, {
-                params: filters ? Proto.encodeSearchFilters(filters) : undefined
-            });
-            const response = yield this.actions.execute('/search', args);
+            const response = yield this.actions.execute(SearchEndpoint.PATH, SearchEndpoint.build({
+                query, params: filters ? Proto.encodeSearchFilters(filters) : undefined
+            }));
             return new Search(this.actions, response);
         });
     }
@@ -127,13 +116,13 @@ class Innertube {
             throwIfMissing({ query });
             const url = new URL(`${Constants.URLS.YT_SUGGESTIONS}search`);
             url.searchParams.set('q', query);
-            url.searchParams.set('hl', this.session.context.client.hl);
-            url.searchParams.set('gl', this.session.context.client.gl);
+            url.searchParams.set('hl', __classPrivateFieldGet(this, _Innertube_session, "f").context.client.hl);
+            url.searchParams.set('gl', __classPrivateFieldGet(this, _Innertube_session, "f").context.client.gl);
             url.searchParams.set('ds', 'yt');
             url.searchParams.set('client', 'youtube');
             url.searchParams.set('xssi', 't');
             url.searchParams.set('oe', 'UTF');
-            const response = yield this.session.http.fetch(url);
+            const response = yield __classPrivateFieldGet(this, _Innertube_session, "f").http.fetch(url);
             const response_data = yield response.text();
             const data = JSON.parse(response_data.replace(')]}\'', ''));
             const suggestions = data[1].map((suggestion) => suggestion[0]);
@@ -148,10 +137,11 @@ class Innertube {
     getComments(video_id, sort_by) {
         return __awaiter(this, void 0, void 0, function* () {
             throwIfMissing({ video_id });
-            const payload = Proto.encodeCommentsSectionParams(video_id, {
-                sort_by: sort_by || 'TOP_COMMENTS'
-            });
-            const response = yield this.actions.execute('/next', { continuation: payload });
+            const response = yield this.actions.execute(NextEndpoint.PATH, NextEndpoint.build({
+                continuation: Proto.encodeCommentsSectionParams(video_id, {
+                    sort_by: sort_by || 'TOP_COMMENTS'
+                })
+            }));
             return new Comments(this.actions, response.data);
         });
     }
@@ -160,7 +150,7 @@ class Innertube {
      */
     getHomeFeed() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/browse', { browseId: 'FEwhat_to_watch' });
+            const response = yield this.actions.execute(BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: 'FEwhat_to_watch' }));
             return new HomeFeed(this.actions, response);
         });
     }
@@ -169,7 +159,7 @@ class Innertube {
      */
     getGuide() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/guide');
+            const response = yield this.actions.execute(GuideEndpoint.PATH);
             return new Guide(response.data);
         });
     }
@@ -178,7 +168,7 @@ class Innertube {
      */
     getLibrary() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/browse', { browseId: 'FElibrary' });
+            const response = yield this.actions.execute(BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: 'FElibrary' }));
             return new Library(this.actions, response);
         });
     }
@@ -188,7 +178,7 @@ class Innertube {
      */
     getHistory() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/browse', { browseId: 'FEhistory' });
+            const response = yield this.actions.execute(BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: 'FEhistory' }));
             return new History(this.actions, response);
         });
     }
@@ -197,7 +187,7 @@ class Innertube {
      */
     getTrending() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/browse', { browseId: 'FEtrending', parse: true });
+            const response = yield this.actions.execute(BrowseEndpoint.PATH, Object.assign(Object.assign({}, BrowseEndpoint.build({ browse_id: 'FEtrending' })), { parse: true }));
             return new TabbedFeed(this.actions, response);
         });
     }
@@ -206,7 +196,7 @@ class Innertube {
      */
     getSubscriptionsFeed() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/browse', { browseId: 'FEsubscriptions', parse: true });
+            const response = yield this.actions.execute(BrowseEndpoint.PATH, Object.assign(Object.assign({}, BrowseEndpoint.build({ browse_id: 'FEsubscriptions' })), { parse: true }));
             return new Feed(this.actions, response);
         });
     }
@@ -217,7 +207,7 @@ class Innertube {
     getChannel(id) {
         return __awaiter(this, void 0, void 0, function* () {
             throwIfMissing({ id });
-            const response = yield this.actions.execute('/browse', { browseId: id });
+            const response = yield this.actions.execute(BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: id }));
             return new Channel(this.actions, response);
         });
     }
@@ -226,7 +216,9 @@ class Innertube {
      */
     getNotifications() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/notification/get_notification_menu', { notificationsMenuRequestType: 'NOTIFICATIONS_MENU_REQUEST_TYPE_INBOX' });
+            const response = yield this.actions.execute(GetNotificationMenuEndpoint.PATH, GetNotificationMenuEndpoint.build({
+                notifications_menu_request_type: 'NOTIFICATIONS_MENU_REQUEST_TYPE_INBOX'
+            }));
             return new NotificationsMenu(this.actions, response);
         });
     }
@@ -236,7 +228,7 @@ class Innertube {
     getUnseenNotificationsCount() {
         var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/notification/get_unseen_count');
+            const response = yield this.actions.execute(GetUnseenCountEndpoint.PATH);
             // TODO: properly parse this
             return ((_a = response.data) === null || _a === void 0 ? void 0 : _a.unseenCount) || ((_d = (_c = (_b = response.data) === null || _b === void 0 ? void 0 : _b.actions) === null || _c === void 0 ? void 0 : _c[0].updateNotificationsUnseenCountAction) === null || _d === void 0 ? void 0 : _d.unseenCount) || 0;
         });
@@ -251,7 +243,7 @@ class Innertube {
             if (!id.startsWith('VL')) {
                 id = `VL${id}`;
             }
-            const response = yield this.actions.execute('/browse', { browseId: id });
+            const response = yield this.actions.execute(BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: id }));
             return new Playlist(this.actions, response);
         });
     }
@@ -262,8 +254,10 @@ class Innertube {
     getHashtag(hashtag) {
         return __awaiter(this, void 0, void 0, function* () {
             throwIfMissing({ hashtag });
-            const params = Proto.encodeHashtag(hashtag);
-            const response = yield this.actions.execute('/browse', { browseId: 'FEhashtag', params });
+            const response = yield this.actions.execute(BrowseEndpoint.PATH, BrowseEndpoint.build({
+                browse_id: 'FEhashtag',
+                params: Proto.encodeHashtag(hashtag)
+            }));
             return new HashtagFeed(this.actions, response);
         });
     }
@@ -299,13 +293,62 @@ class Innertube {
      */
     resolveURL(url) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.actions.execute('/navigation/resolve_url', { url, parse: true });
+            const response = yield this.actions.execute(ResolveURLEndpoint.PATH, Object.assign(Object.assign({}, ResolveURLEndpoint.build({ url })), { parse: true }));
             return response.endpoint;
         });
     }
     call(endpoint, args) {
         return endpoint.call(this.actions, args);
     }
+    /**
+     * An interface for interacting with YouTube Music.
+     */
+    get music() {
+        return new Music(__classPrivateFieldGet(this, _Innertube_session, "f"));
+    }
+    /**
+     * An interface for interacting with YouTube Studio.
+     */
+    get studio() {
+        return new Studio(__classPrivateFieldGet(this, _Innertube_session, "f"));
+    }
+    /**
+     * An interface for interacting with YouTube Kids.
+     */
+    get kids() {
+        return new Kids(__classPrivateFieldGet(this, _Innertube_session, "f"));
+    }
+    /**
+     * An interface for managing and retrieving account information.
+     */
+    get account() {
+        return new AccountManager(__classPrivateFieldGet(this, _Innertube_session, "f").actions);
+    }
+    /**
+     * An interface for managing playlists.
+     */
+    get playlist() {
+        return new PlaylistManager(__classPrivateFieldGet(this, _Innertube_session, "f").actions);
+    }
+    /**
+     * An interface for directly interacting with certain YouTube features.
+     */
+    get interact() {
+        return new InteractionManager(__classPrivateFieldGet(this, _Innertube_session, "f").actions);
+    }
+    /**
+     * An internal class used to dispatch requests.
+     */
+    get actions() {
+        return __classPrivateFieldGet(this, _Innertube_session, "f").actions;
+    }
+    /**
+     * The session used by this instance.
+     */
+    get session() {
+        return __classPrivateFieldGet(this, _Innertube_session, "f");
+    }
 }
+_Innertube_session = new WeakMap();
 export default Innertube;
 //# sourceMappingURL=Innertube.js.map

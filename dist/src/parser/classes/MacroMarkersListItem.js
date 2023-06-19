@@ -10,7 +10,7 @@ class MacroMarkersListItem extends YTNode {
         this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
         this.on_tap_endpoint = new NavigationEndpoint(data.onTap);
         this.layout = data.layout;
-        this.is_highlighted = data.isHighlighted;
+        this.is_highlighted = !!data.isHighlighted;
     }
 }
 MacroMarkersListItem.type = 'MacroMarkersListItem';

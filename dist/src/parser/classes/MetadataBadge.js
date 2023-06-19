@@ -2,16 +2,16 @@ import { YTNode } from '../helpers.js';
 class MetadataBadge extends YTNode {
     constructor(data) {
         super();
-        if (data === null || data === void 0 ? void 0 : data.icon) {
+        if (Reflect.has(data, 'icon')) {
             this.icon_type = data.icon.iconType;
         }
-        if (data === null || data === void 0 ? void 0 : data.style) {
+        if (Reflect.has(data, 'style')) {
             this.style = data.style;
         }
-        if (data === null || data === void 0 ? void 0 : data.label) {
+        if (Reflect.has(data, 'label')) {
             this.label = data.label;
         }
-        if ((data === null || data === void 0 ? void 0 : data.tooltip) || (data === null || data === void 0 ? void 0 : data.iconTooltip)) {
+        if (Reflect.has(data, 'tooltip') || Reflect.has(data, 'iconTooltip')) {
             this.tooltip = data.tooltip || data.iconTooltip;
         }
     }

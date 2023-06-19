@@ -1,9 +1,9 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class SimpleTextSection extends YTNode {
+import type { RawNode } from '../index.js';
+export default class SimpleTextSection extends YTNode {
     static type: string;
     lines: Text[];
     style: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SimpleTextSection;

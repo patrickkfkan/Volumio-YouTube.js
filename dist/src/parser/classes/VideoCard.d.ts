@@ -1,6 +1,6 @@
+import type { RawNode } from '../index.js';
 import Video from './Video.js';
-declare class VideoCard extends Video {
+export default class VideoCard extends Video {
     static type: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default VideoCard;

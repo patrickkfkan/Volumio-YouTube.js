@@ -3,7 +3,7 @@ import { YTNode } from '../../helpers.js';
 class OpenPopupAction extends YTNode {
     constructor(data) {
         super();
-        this.popup = Parser.parse(data.popup);
+        this.popup = Parser.parseItem(data.popup);
         this.popup_type = data.popupType;
     }
 }

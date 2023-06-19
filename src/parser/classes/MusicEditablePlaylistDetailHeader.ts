@@ -1,18 +1,15 @@
-import Parser from '../index.js';
+import Parser, { type RawNode } from '../index.js';
 import { YTNode } from '../helpers.js';
 
-class MusicEditablePlaylistDetailHeader extends YTNode {
+export default class MusicEditablePlaylistDetailHeader extends YTNode {
   static type = 'MusicEditablePlaylistDetailHeader';
 
-  header;
+  header: YTNode;
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
-    this.header = Parser.parse(data.header);
+    this.header = Parser.parseItem(data.header);
 
-    // TODO: Should we also parse data.editHeader.musicPlaylistEditHeaderRenderer?
-    // It doesn't seem practical to do so...
+    // TODO: Parse data.editHeader.musicPlaylistEditHeaderRenderer.
   }
 }
-
-export default MusicEditablePlaylistDetailHeader;

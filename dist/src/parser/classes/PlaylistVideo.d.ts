@@ -1,28 +1,30 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Menu from './menus/Menu.js';
+import Author from './misc/Author.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import PlaylistAuthor from './misc/PlaylistAuthor.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import type Menu from './menus/Menu.js';
-import { YTNode } from '../helpers.js';
-declare class PlaylistVideo extends YTNode {
+export default class PlaylistVideo extends YTNode {
     static type: string;
     id: string;
     index: Text;
     title: Text;
-    author: PlaylistAuthor;
+    author: Author;
     thumbnails: Thumbnail[];
-    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
+    thumbnail_overlays: ObservedArray<YTNode>;
     set_video_id: string | undefined;
     endpoint: NavigationEndpoint;
     is_playable: boolean;
     menu: Menu | null;
-    upcoming: Date | undefined;
+    upcoming?: Date;
+    video_info: Text;
+    accessibility_label?: string;
     duration: {
         text: string;
         seconds: number;
     };
-    constructor(data: any);
+    constructor(data: RawNode);
     get is_live(): boolean;
     get is_upcoming(): boolean;
 }
-export default PlaylistVideo;

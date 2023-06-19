@@ -1,13 +1,13 @@
-import MusicTwoRowItem from './MusicTwoRowItem.js';
-import MusicResponsiveListItem from './MusicResponsiveListItem.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import MusicCarouselShelfBasicHeader from './MusicCarouselShelfBasicHeader.js';
 import MusicNavigationButton from './MusicNavigationButton.js';
-import { YTNode } from '../helpers.js';
-declare class MusicCarouselShelf extends YTNode {
+import MusicResponsiveListItem from './MusicResponsiveListItem.js';
+import MusicTwoRowItem from './MusicTwoRowItem.js';
+export default class MusicCarouselShelf extends YTNode {
     static type: string;
     header: MusicCarouselShelfBasicHeader | null;
-    contents: Array<MusicTwoRowItem | MusicResponsiveListItem | MusicNavigationButton>;
-    num_items_per_column: number | null;
-    constructor(data: any);
+    contents: ObservedArray<MusicTwoRowItem | MusicResponsiveListItem | MusicNavigationButton>;
+    num_items_per_column?: number;
+    constructor(data: RawNode);
 }
-export default MusicCarouselShelf;

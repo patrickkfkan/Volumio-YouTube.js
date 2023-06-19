@@ -1,11 +1,11 @@
-import Text from './misc/Text.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import CompactLink from './CompactLink.js';
-import { ObservedArray, YTNode } from '../helpers.js';
-declare class SettingsSidebar extends YTNode {
+import Text from './misc/Text.js';
+export default class SettingsSidebar extends YTNode {
     static type: string;
     title: Text;
     items: ObservedArray<CompactLink>;
-    constructor(data: any);
+    constructor(data: RawNode);
     get contents(): ObservedArray<CompactLink>;
 }
-export default SettingsSidebar;

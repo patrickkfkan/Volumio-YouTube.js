@@ -1,9 +1,9 @@
-import { YTNode } from '../helpers.js';
-declare class HorizontalList extends YTNode {
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
+export default class HorizontalList extends YTNode {
     static type: string;
     visible_item_count: string;
-    items: import("../helpers.js").ObservedArray<YTNode>;
-    constructor(data: any);
-    get contents(): import("../helpers.js").ObservedArray<YTNode>;
+    items: ObservedArray<YTNode>;
+    constructor(data: RawNode);
+    get contents(): ObservedArray<YTNode>;
 }
-export default HorizontalList;

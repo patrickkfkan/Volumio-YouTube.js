@@ -1,7 +1,7 @@
+import NavigationEndpoint from '../NavigationEndpoint.js';
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-import NavigationEndpoint from '../NavigationEndpoint.js';
-declare class AnalyticsShortsCarouselCard extends YTNode {
+export default class AnalyticsShortsCarouselCard extends YTNode {
     static type: string;
     title: string;
     shorts: {
@@ -11,4 +11,3 @@ declare class AnalyticsShortsCarouselCard extends YTNode {
     }[];
     constructor(data: RawNode);
 }
-export default AnalyticsShortsCarouselCard;

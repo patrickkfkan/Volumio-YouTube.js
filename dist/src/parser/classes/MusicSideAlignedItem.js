@@ -1,12 +1,12 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 class MusicSideAlignedItem extends YTNode {
     constructor(data) {
         super();
-        if (data.startItems) {
+        if (Reflect.has(data, 'startItems')) {
             this.start_items = Parser.parseArray(data.startItems);
         }
-        if (data.endItems) {
+        if (Reflect.has(data, 'endItems')) {
             this.end_items = Parser.parseArray(data.endItems);
         }
     }

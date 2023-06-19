@@ -1,8 +1,8 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class ChannelMobileHeader extends YTNode {
+import type { RawNode } from '../index.js';
+export default class ChannelMobileHeader extends YTNode {
     static type: string;
     title: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ChannelMobileHeader;

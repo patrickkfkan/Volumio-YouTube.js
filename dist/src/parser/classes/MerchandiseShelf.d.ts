@@ -1,10 +1,10 @@
-import { YTNode } from '../helpers.js';
-declare class MerchandiseShelf extends YTNode {
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+export default class MerchandiseShelf extends YTNode {
     static type: string;
     title: string;
-    menu: import("../helpers.js").SuperParsedResult<YTNode>;
-    items: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
-    get contents(): import("../helpers.js").SuperParsedResult<YTNode>;
+    menu: YTNode;
+    items: ObservedArray<YTNode>;
+    constructor(data: RawNode);
+    get contents(): ObservedArray<YTNode>;
 }
-export default MerchandiseShelf;

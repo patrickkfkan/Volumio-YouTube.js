@@ -1,16 +1,17 @@
+import { YTNode, type SuperParsedResult } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Menu from './menus/Menu.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
-import Menu from './menus/Menu.js';
-import { YTNode } from '../helpers.js';
-declare class MusicTwoRowItem extends YTNode {
+export default class MusicTwoRowItem extends YTNode {
     static type: string;
     title: Text;
     endpoint: NavigationEndpoint;
     id: string | undefined;
     subtitle: Text;
-    badges: import("../helpers.js").SuperParsedResult<YTNode>;
+    badges: SuperParsedResult<YTNode> | null;
     item_type: string;
     subscribers?: string;
     item_count?: string | null;
@@ -29,6 +30,5 @@ declare class MusicTwoRowItem extends YTNode {
     thumbnail: Thumbnail[];
     thumbnail_overlay: MusicItemThumbnailOverlay | null;
     menu: Menu | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MusicTwoRowItem;

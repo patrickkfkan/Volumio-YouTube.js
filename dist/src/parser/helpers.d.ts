@@ -188,5 +188,6 @@ export type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
  */
 export declare function observe<T extends YTNode>(obj: Array<T>): ObservedArray<T>;
 export declare class Memo extends Map<string, YTNode[]> {
-    getType<T extends YTNode>(type: YTNodeConstructor<T> | YTNodeConstructor<T>[]): ObservedArray<T>;
+    getType<T extends YTNode, K extends YTNodeConstructor<T>[]>(types: K): ObservedArray<InstanceType<K[number]>>;
+    getType<T extends YTNode, K extends YTNodeConstructor<T>[]>(...types: K): ObservedArray<InstanceType<K[number]>>;
 }

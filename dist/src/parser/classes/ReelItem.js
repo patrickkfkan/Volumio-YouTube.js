@@ -1,7 +1,7 @@
+import { YTNode } from '../helpers.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import { YTNode } from '../helpers.js';
 class ReelItem extends YTNode {
     constructor(data) {
         super();
@@ -10,6 +10,7 @@ class ReelItem extends YTNode {
         this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
         this.views = new Text(data.viewCountText);
         this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        this.accessibility_label = data.accessibility.accessibilityData.label;
     }
 }
 ReelItem.type = 'ReelItem';

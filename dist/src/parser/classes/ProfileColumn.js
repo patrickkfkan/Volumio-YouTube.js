@@ -1,11 +1,11 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 class ProfileColumn extends YTNode {
     constructor(data) {
         super();
-        this.items = Parser.parse(data.items);
+        this.items = Parser.parseArray(data.items);
     }
-    // XXX: alias for consistency
+    // XXX: Alias for consistency.
     get contents() {
         return this.items;
     }

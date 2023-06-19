@@ -5,17 +5,18 @@ import ChipCloudChip from '../classes/ChipCloudChip.js';
 import DidYouMean from '../classes/DidYouMean.js';
 import ItemSection from '../classes/ItemSection.js';
 import Message from '../classes/Message.js';
+import MusicCardShelf from '../classes/MusicCardShelf.js';
 import MusicHeader from '../classes/MusicHeader.js';
-import MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
+import type MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
 import MusicShelf from '../classes/MusicShelf.js';
 import ShowingResultsFor from '../classes/ShowingResultsFor.js';
 import type { ObservedArray } from '../helpers.js';
 import type { ISearchResponse } from '../types/ParsedResponse.js';
 import type { ApiResponse } from '../../core/Actions.js';
-declare class Search {
+export default class Search {
     #private;
     header?: ChipCloud;
-    contents?: ObservedArray<MusicShelf | ItemSection>;
+    contents?: ObservedArray<MusicShelf | MusicCardShelf | ItemSection>;
     constructor(response: ApiResponse, actions: Actions, is_filtered?: boolean);
     /**
      * Loads more items for the given shelf.
@@ -49,7 +50,6 @@ declare class Search {
     get sections(): ObservedArray<MusicShelf> | undefined;
     get page(): ISearchResponse;
 }
-export default Search;
 export declare class SearchContinuation {
     #private;
     header?: MusicHeader;

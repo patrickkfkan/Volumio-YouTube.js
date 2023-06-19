@@ -1,12 +1,12 @@
-import type Menu from './menus/Menu.js';
-import type Button from './Button.js';
-import type SortFilterSubMenu from './SortFilterSubMenu.js';
 import { YTNode } from '../helpers.js';
-declare class LiveChatHeader extends YTNode {
+import { type RawNode } from '../index.js';
+import Button from './Button.js';
+import SortFilterSubMenu from './SortFilterSubMenu.js';
+import Menu from './menus/Menu.js';
+export default class LiveChatHeader extends YTNode {
     static type: string;
     overflow_menu: Menu | null;
     collapse_button: Button | null;
     view_selector: SortFilterSubMenu | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default LiveChatHeader;

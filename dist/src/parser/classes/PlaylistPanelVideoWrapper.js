@@ -1,11 +1,13 @@
 import Parser from '../index.js';
-import { YTNode } from '../helpers.js';
+import { YTNode, observe } from '../helpers.js';
+import PlaylistPanelVideo from './PlaylistPanelVideo.js';
 class PlaylistPanelVideoWrapper extends YTNode {
     constructor(data) {
-        var _a;
         super();
-        this.primary = Parser.parseItem(data.primaryRenderer);
-        this.counterpart = ((_a = data.counterpart) === null || _a === void 0 ? void 0 : _a.map((item) => Parser.parseItem(item.counterpartRenderer))) || [];
+        this.primary = Parser.parseItem(data.primaryRenderer, PlaylistPanelVideo);
+        if (Reflect.has(data, 'counterpart')) {
+            this.counterpart = observe(data.counterpart.map((item) => Parser.parseItem(item.counterpartRenderer, PlaylistPanelVideo)) || []);
+        }
     }
 }
 PlaylistPanelVideoWrapper.type = 'PlaylistPanelVideoWrapper';

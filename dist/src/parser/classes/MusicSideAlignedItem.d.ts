@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers.js';
-declare class MusicSideAlignedItem extends YTNode {
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+export default class MusicSideAlignedItem extends YTNode {
     static type: string;
-    start_items?: import("../helpers.js").ObservedArray<YTNode> | undefined;
-    end_items?: import("../helpers.js").ObservedArray<YTNode> | undefined;
-    constructor(data: any);
+    start_items?: ObservedArray<YTNode>;
+    end_items?: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default MusicSideAlignedItem;

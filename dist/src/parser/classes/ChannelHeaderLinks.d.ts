@@ -1,17 +1,18 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import type { RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import { YTNode } from '../helpers.js';
-declare class HeaderLink {
+export declare class HeaderLink extends YTNode {
+    static type: string;
     endpoint: NavigationEndpoint;
     icon: Thumbnail[];
     title: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-declare class ChannelHeaderLinks extends YTNode {
+export default class ChannelHeaderLinks extends YTNode {
     static type: string;
-    primary: HeaderLink[];
-    secondary: HeaderLink[];
-    constructor(data: any);
+    primary: ObservedArray<HeaderLink>;
+    secondary: ObservedArray<HeaderLink>;
+    constructor(data: RawNode);
 }
-export default ChannelHeaderLinks;

@@ -1,22 +1,12 @@
-import { ObservedArray, YTNode } from '../../../helpers.js';
-import LiveChatAuthorBadge from '../../LiveChatAuthorBadge.js';
-import MetadataBadge from '../../MetadataBadge.js';
-import Text from '../../misc/Text.js';
-import Thumbnail from '../../misc/Thumbnail.js';
-import NavigationEndpoint from '../../NavigationEndpoint.js';
+import { YTNode } from '../../../helpers.js';
 import type { RawNode } from '../../../index.js';
-declare class LiveChatPaidSticker extends YTNode {
+import NavigationEndpoint from '../../NavigationEndpoint.js';
+import Author from '../../misc/Author.js';
+import Thumbnail from '../../misc/Thumbnail.js';
+export default class LiveChatPaidSticker extends YTNode {
     static type: string;
     id: string;
-    author: {
-        id: string;
-        name: Text;
-        thumbnails: Thumbnail[];
-        badges: ObservedArray<LiveChatAuthorBadge | MetadataBadge>;
-        is_moderator: boolean | null;
-        is_verified: boolean | null;
-        is_verified_artist: boolean | null;
-    };
+    author: Author;
     money_chip_background_color: number;
     money_chip_text_color: number;
     background_color: number;
@@ -24,8 +14,7 @@ declare class LiveChatPaidSticker extends YTNode {
     sticker: Thumbnail[];
     purchase_amount: string;
     context_menu: NavigationEndpoint;
-    menu_endpoint?: NavigationEndpoint;
+    menu_endpoint: NavigationEndpoint;
     timestamp: number;
     constructor(data: RawNode);
 }
-export default LiveChatPaidSticker;

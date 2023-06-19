@@ -1,20 +1,18 @@
 import Parser from '../../index.js';
-import type Button from '../Button.js';
-import type KidsCategoryTab from './KidsCategoryTab.js';
-import { YTNode } from '../../helpers.js';
+import Button from '../Button.js';
+import KidsCategoryTab from './KidsCategoryTab.js';
+import { type ObservedArray, YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
 
-class KidsCategoriesHeader extends YTNode {
+export default class KidsCategoriesHeader extends YTNode {
   static type = 'kidsCategoriesHeader';
 
-  category_tabs: KidsCategoryTab[];
+  category_tabs: ObservedArray<KidsCategoryTab>;
   privacy_button: Button | null;
 
   constructor(data: RawNode) {
     super();
-    this.category_tabs = Parser.parseArray<KidsCategoryTab>(data.categoryTabs);
-    this.privacy_button = Parser.parseItem<Button>(data.privacyButtonRenderer);
+    this.category_tabs = Parser.parseArray(data.categoryTabs, KidsCategoryTab);
+    this.privacy_button = Parser.parseItem(data.privacyButtonRenderer, Button);
   }
 }
-
-export default KidsCategoriesHeader;

@@ -3,7 +3,7 @@ import { YTNode } from '../helpers.js';
 class PlaylistSidebar extends YTNode {
     constructor(data) {
         super();
-        this.items = Parser.parse(data.items);
+        this.items = Parser.parseArray(data.items);
     }
     // XXX: alias for consistency
     get contents() {

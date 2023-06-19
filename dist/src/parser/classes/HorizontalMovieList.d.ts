@@ -1,11 +1,11 @@
-import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
 import Button from './Button.js';
-declare class HorizontalMovieList extends YTNode {
+export default class HorizontalMovieList extends YTNode {
     static type: string;
-    items: import("../helpers.js").ObservedArray<YTNode>;
+    items: ObservedArray<YTNode>;
     previous_button: Button | null;
     next_button: Button | null;
-    constructor(data: any);
-    get contents(): import("../helpers.js").ObservedArray<YTNode>;
+    constructor(data: RawNode);
+    get contents(): ObservedArray<YTNode>;
 }
-export default HorizontalMovieList;

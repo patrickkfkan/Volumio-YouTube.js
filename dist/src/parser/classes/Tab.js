@@ -8,7 +8,7 @@ class Tab extends YTNode {
     constructor(data) {
         super();
         this.title = data.title || 'N/A';
-        this.selected = data.selected || false;
+        this.selected = !!data.selected;
         this.endpoint = new NavigationEndpoint(data.endpoint);
         this.content = Parser.parseItem(data.content, [SectionList, MusicQueue, RichGrid]);
     }

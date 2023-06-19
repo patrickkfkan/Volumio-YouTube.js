@@ -5,6 +5,7 @@ class MultiPageMenuNotificationSection extends YTNode {
         super();
         this.items = Parser.parse(data.items);
     }
+    // XXX: Alias for consistency.
     get contents() {
         return this.items;
     }

@@ -1,4 +1,4 @@
-import Feed from '../../core/Feed.js';
+import Feed from '../../core/mixins/Feed.js';
 import HorizontalCardList from '../classes/HorizontalCardList.js';
 import SearchRefinementCard from '../classes/SearchRefinementCard.js';
 import SearchSubMenu from '../classes/SearchSubMenu.js';

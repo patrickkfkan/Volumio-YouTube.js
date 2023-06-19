@@ -1,11 +1,11 @@
-import Text from './misc/Text.js';
-import { ObservedArray, YTNode } from '../helpers.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import ItemSectionTab from './ItemSectionTab.js';
-declare class ItemSectionTabbedHeader extends YTNode {
+import Text from './misc/Text.js';
+export default class ItemSectionTabbedHeader extends YTNode {
     static type: string;
     title: Text;
-    tabs: Array<ItemSectionTab>;
+    tabs: ObservedArray<ItemSectionTab>;
     end_items?: ObservedArray<YTNode>;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ItemSectionTabbedHeader;

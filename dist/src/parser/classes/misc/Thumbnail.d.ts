@@ -1,5 +1,5 @@
 import type { RawNode } from '../../index.js';
-declare class Thumbnail {
+export default class Thumbnail {
     url: string;
     width: number;
     height: number;
@@ -9,4 +9,3 @@ declare class Thumbnail {
      */
     static fromResponse(data: any): Thumbnail[];
 }
-export default Thumbnail;

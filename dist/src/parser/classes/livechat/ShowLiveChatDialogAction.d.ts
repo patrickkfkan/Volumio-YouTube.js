@@ -1,8 +1,7 @@
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class ShowLiveChatDialogAction extends YTNode {
+export default class ShowLiveChatDialogAction extends YTNode {
     static type: string;
-    dialog: YTNode | null;
+    dialog: YTNode;
     constructor(data: RawNode);
 }
-export default ShowLiveChatDialogAction;

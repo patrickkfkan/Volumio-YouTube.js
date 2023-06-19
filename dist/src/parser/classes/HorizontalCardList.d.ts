@@ -1,13 +1,15 @@
-import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
 import SearchRefinementCard from './SearchRefinementCard.js';
 import Button from './Button.js';
 import MacroMarkersListItem from './MacroMarkersListItem.js';
-declare class HorizontalCardList extends YTNode {
+import GameCard from './GameCard.js';
+import VideoCard from './VideoCard.js';
+export default class HorizontalCardList extends YTNode {
     static type: string;
-    cards: import("../helpers.js").ObservedArray<SearchRefinementCard | MacroMarkersListItem>;
-    header: YTNode | null;
+    cards: ObservedArray<SearchRefinementCard | MacroMarkersListItem | GameCard | VideoCard>;
+    header: YTNode;
     previous_button: Button | null;
     next_button: Button | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default HorizontalCardList;

@@ -1,12 +1,12 @@
-import type HeatMarker from './HeatMarker.js';
-import { YTNode } from '../helpers.js';
-declare class Heatmap extends YTNode {
+import { type RawNode } from '../index.js';
+import HeatMarker from './HeatMarker.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
+export default class Heatmap extends YTNode {
     static type: string;
     max_height_dp: number;
     min_height_dp: number;
     show_hide_animation_duration_millis: number;
-    heat_markers: HeatMarker[];
-    heat_markers_decorations: any;
-    constructor(data: any);
+    heat_markers: ObservedArray<HeatMarker>;
+    heat_markers_decorations: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default Heatmap;

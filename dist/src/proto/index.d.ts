@@ -1,6 +1,8 @@
-import { VideoMetadata } from '../core/Studio.js';
+import type { UpdateVideoMetadataOptions } from '../types/index.js';
+import * as VisitorData from './generated/messages/youtube/VisitorData.js';
 declare class Proto {
     static encodeVisitorData(id: string, timestamp: number): string;
+    static decodeVisitorData(visitor_data: string): VisitorData.Type;
     static encodeChannelAnalyticsParams(channel_id: string): string;
     static encodeSearchFilters(filters: {
         upload_date?: 'all' | 'hour' | 'today' | 'week' | 'month' | 'year';
@@ -25,7 +27,7 @@ declare class Proto {
         target_language?: string;
     }): string;
     static encodeNotificationPref(channel_id: string, index: number): string;
-    static encodeVideoMetadataPayload(video_id: string, metadata: VideoMetadata): Uint8Array;
+    static encodeVideoMetadataPayload(video_id: string, metadata: UpdateVideoMetadataOptions): Uint8Array;
     static encodeCustomThumbnailPayload(video_id: string, bytes: Uint8Array): Uint8Array;
     static encodeHashtag(hashtag: string): string;
 }

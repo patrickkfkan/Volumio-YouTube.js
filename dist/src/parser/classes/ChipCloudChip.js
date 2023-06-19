@@ -4,9 +4,10 @@ import { YTNode } from '../helpers.js';
 class ChipCloudChip extends YTNode {
     constructor(data) {
         super();
-        // TODO: is this isSelected or just selected
         this.is_selected = data.isSelected;
-        this.endpoint = data.navigationEndpoint ? new NavigationEndpoint(data.navigationEndpoint) : undefined;
+        if (Reflect.has(data, 'navigationEndpoint')) {
+            this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        }
         this.text = new Text(data.text).toString();
     }
 }

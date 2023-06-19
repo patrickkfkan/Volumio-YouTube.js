@@ -1,24 +1,5 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Actions_instances, _Actions_session, _Actions_wrap, _Actions_isBrowse, _Actions_needsLogin;
+import { __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
 import Parser, { NavigateAction } from '../parser/index.js';
 import { InnertubeError } from '../utils/Utils.js';
 class Actions {
@@ -29,54 +10,6 @@ class Actions {
     }
     get session() {
         return __classPrivateFieldGet(this, _Actions_session, "f");
-    }
-    /**
-     * Used to retrieve video info.
-     * @param id - The video ID.
-     * @param cpn - Content Playback Nonce.
-     * @param client - The client to use.
-     * @param playlist_id - The playlist ID.
-     */
-    getVideoInfo(id, cpn, client, playlist_id) {
-        var _a;
-        return __awaiter(this, void 0, void 0, function* () {
-            const data = {
-                playbackContext: {
-                    contentPlaybackContext: {
-                        vis: 0,
-                        splay: false,
-                        referer: 'https://www.youtube.com',
-                        currentUrl: `/watch?v=${id}`,
-                        autonavState: 'STATE_NONE',
-                        signatureTimestamp: ((_a = __classPrivateFieldGet(this, _Actions_session, "f").player) === null || _a === void 0 ? void 0 : _a.sts) || 0,
-                        autoCaptionsDefaultOn: false,
-                        html5Preference: 'HTML5_PREF_WANTS',
-                        lactMilliseconds: '-1'
-                    }
-                },
-                attestationRequest: {
-                    omitBotguardData: true
-                },
-                videoId: id
-            };
-            if (client) {
-                data.client = client;
-            }
-            if (cpn) {
-                data.cpn = cpn;
-            }
-            if (playlist_id) {
-                data.playlistId = playlist_id;
-            }
-            const response = yield __classPrivateFieldGet(this, _Actions_session, "f").http.fetch('/player', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            return __classPrivateFieldGet(this, _Actions_instances, "m", _Actions_wrap).call(this, response);
-        });
     }
     /**
      * Makes calls to the playback tracking API.

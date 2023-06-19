@@ -1,11 +1,12 @@
 import Thumbnail from './misc/Thumbnail.js';
 import { YTNode } from '../helpers.js';
-declare class MicroformatData extends YTNode {
+import type { RawNode } from '../index.js';
+export default class MicroformatData extends YTNode {
     static type: string;
     url_canonical: string;
     title: string;
     description: string;
-    thumbnail: Thumbnail[] | null;
+    thumbnail: Thumbnail[];
     site_name: string;
     app_name: string;
     android_package: string;
@@ -23,8 +24,7 @@ declare class MicroformatData extends YTNode {
     noindex: string;
     is_unlisted: boolean;
     is_family_safe: boolean;
-    tags: any;
+    tags: string[];
     available_countries: string[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MicroformatData;

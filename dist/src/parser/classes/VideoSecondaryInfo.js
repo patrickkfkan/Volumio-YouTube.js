@@ -1,12 +1,9 @@
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _VideoSecondaryInfo_instances, _VideoSecondaryInfo_convertAttributedDescriptionToRuns;
+import { __classPrivateFieldGet } from "tslib";
 import Parser from '../index.js';
 import Text from './misc/Text.js';
 import Button from './Button.js';
+import VideoOwner from './VideoOwner.js';
 import SubscribeButton from './SubscribeButton.js';
 import MetadataRowContainer from './MetadataRowContainer.js';
 import { YTNode } from '../helpers.js';
@@ -14,7 +11,7 @@ class VideoSecondaryInfo extends YTNode {
     constructor(data) {
         super();
         _VideoSecondaryInfo_instances.add(this);
-        this.owner = Parser.parseItem(data.owner);
+        this.owner = Parser.parseItem(data.owner, VideoOwner);
         this.description = new Text(data.description);
         if (Reflect.has(data, 'attributedDescription')) {
             this.description = new Text(__classPrivateFieldGet(this, _VideoSecondaryInfo_instances, "m", _VideoSecondaryInfo_convertAttributedDescriptionToRuns).call(this, data.attributedDescription));

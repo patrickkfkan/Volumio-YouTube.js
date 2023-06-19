@@ -1,10 +1,10 @@
 import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-declare class IconLink extends YTNode {
+export default class IconLink extends YTNode {
     static type: string;
     icon_type: string;
     tooltip?: string;
     endpoint: NavigationEndpoint;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default IconLink;

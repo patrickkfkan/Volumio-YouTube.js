@@ -1,11 +1,12 @@
-import Text from './misc/Text.js';
-import Thumbnail from './misc/Thumbnail.js';
+import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import Button from './Button.js';
 import HorizontalCardList from './HorizontalCardList.js';
-import { YTNode } from '../helpers.js';
-declare class ExpandableMetadata extends YTNode {
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+export default class ExpandableMetadata extends YTNode {
     static type: string;
-    header: {
+    header?: {
         collapsed_title: Text;
         collapsed_thumbnail: Thumbnail[];
         collapsed_label: Text;
@@ -14,6 +15,5 @@ declare class ExpandableMetadata extends YTNode {
     expanded_content: HorizontalCardList | null;
     expand_button: Button | null;
     collapse_button: Button | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ExpandableMetadata;

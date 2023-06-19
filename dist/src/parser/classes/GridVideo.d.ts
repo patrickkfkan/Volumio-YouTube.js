@@ -1,16 +1,17 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Menu from './menus/Menu.js';
+import Author from './misc/Author.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import Author from './misc/Author.js';
-import type Menu from './menus/Menu.js';
-import { YTNode } from '../helpers.js';
-declare class GridVideo extends YTNode {
+export default class GridVideo extends YTNode {
     static type: string;
     id: string;
     title: Text;
     thumbnails: Thumbnail[];
-    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
-    rich_thumbnail: any;
+    thumbnail_overlays: ObservedArray<YTNode>;
+    rich_thumbnail: YTNode;
     published: Text;
     duration: Text | null;
     author: Author;
@@ -18,6 +19,10 @@ declare class GridVideo extends YTNode {
     short_view_count: Text;
     endpoint: NavigationEndpoint;
     menu: Menu | null;
-    constructor(data: any);
+    buttons?: ObservedArray<YTNode>;
+    upcoming?: Date;
+    upcoming_text?: Text;
+    is_reminder_set?: boolean;
+    constructor(data: RawNode);
+    get is_upcoming(): boolean;
 }
-export default GridVideo;

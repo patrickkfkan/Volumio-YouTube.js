@@ -1,13 +1,5 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-import TabbedFeed from '../../core/TabbedFeed.js';
+import { __awaiter } from "tslib";
+import TabbedFeed from '../../core/mixins/TabbedFeed.js';
 import C4TabbedHeader from '../classes/C4TabbedHeader.js';
 import CarouselHeader from '../classes/CarouselHeader.js';
 import ChannelAboutFullMetadata from '../classes/ChannelAboutFullMetadata.js';
@@ -18,8 +10,8 @@ import SubscribeButton from '../classes/SubscribeButton.js';
 import ExpandableTab from '../classes/ExpandableTab.js';
 import SectionList from '../classes/SectionList.js';
 import Tab from '../classes/Tab.js';
-import Feed from '../../core/Feed.js';
-import FilterableFeed from '../../core/FilterableFeed.js';
+import Feed from '../../core/mixins/Feed.js';
+import FilterableFeed from '../../core/mixins/FilterableFeed.js';
 import ChipCloudChip from '../classes/ChipCloudChip.js';
 import FeedFilterChipBar from '../classes/FeedFilterChipBar.js';
 import ChannelSubMenu from '../classes/ChannelSubMenu.js';

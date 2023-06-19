@@ -1,9 +1,9 @@
-import Thumbnail from '../misc/Thumbnail.js';
+import Button from '../Button.js';
 import Text from '../misc/Text.js';
-import type Button from '../Button.js';
+import Thumbnail from '../misc/Thumbnail.js';
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class CommentReplyDialog extends YTNode {
+export default class CommentReplyDialog extends YTNode {
     static type: string;
     reply_button: Button | null;
     cancel_button: Button | null;
@@ -12,4 +12,3 @@ declare class CommentReplyDialog extends YTNode {
     error_message: Text;
     constructor(data: RawNode);
 }
-export default CommentReplyDialog;

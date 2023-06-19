@@ -1,37 +1,7 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __await = (this && this.__await) || function (v) { return this instanceof __await ? (this.v = v, this) : new __await(v); }
-var __asyncGenerator = (this && this.__asyncGenerator) || function (thisArg, _arguments, generator) {
-    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
-    var g = generator.apply(thisArg, _arguments || []), i, q = [];
-    return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i;
-    function verb(n) { if (g[n]) i[n] = function (v) { return new Promise(function (a, b) { q.push([n, v, a, b]) > 1 || resume(n, v); }); }; }
-    function resume(n, v) { try { step(g[n](v)); } catch (e) { settle(q[0][3], e); } }
-    function step(r) { r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r); }
-    function fulfill(value) { resume("next", value); }
-    function reject(value) { resume("throw", value); }
-    function settle(f, v) { if (f(v), q.shift(), q.length) resume(q[0][0], q[0][1]); }
-};
 var _a, _Platform_shim;
+import { __asyncGenerator, __await, __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
 import { Memo } from '../parser/helpers.js';
+import { Text } from '../parser/misc.js';
 import userAgents from './user-agents.js';
 export class Platform {
     static load(platform) {
@@ -75,8 +45,7 @@ export class ChannelError extends Error {
 export function deepCompare(obj1, obj2) {
     const keys = Reflect.ownKeys(obj1);
     return keys.some((key) => {
-        var _b;
-        const is_text = ((_b = obj2[key]) === null || _b === void 0 ? void 0 : _b.constructor.name) === 'Text';
+        const is_text = obj2[key] instanceof Text;
         if (!is_text && typeof obj2[key] === 'object') {
             return JSON.stringify(obj1[key]) === JSON.stringify(obj2[key]);
         }
@@ -107,7 +76,7 @@ export function getRandomUserAgent(type) {
     return available_agents[random_index];
 }
 /**
- * Generates an authentication token from a cookies' sid..js
+ * Generates an authentication token from a cookies' sid.
  * @param sid - Sid extracted from cookies
  */
 export function generateSidAuth(sid) {
@@ -136,7 +105,7 @@ export function generateRandomString(length) {
  * @returns seconds
  */
 export function timeToSeconds(time) {
-    const params = time.split(':').map((param) => parseInt(param));
+    const params = time.split(':').map((param) => parseInt(param.replace(/\D/g, '')));
     switch (params.length) {
         case 1:
             return params[0];
@@ -219,5 +188,11 @@ export const debugFetch = (input, init) => {
 };
 export function u8ToBase64(u8) {
     return btoa(String.fromCharCode.apply(null, Array.from(u8)));
+}
+export function base64ToU8(base64) {
+    return new Uint8Array(atob(base64).split('').map((char) => char.charCodeAt(0)));
+}
+export function isTextRun(run) {
+    return !('emoji' in run);
 }
 //# sourceMappingURL=Utils.js.map

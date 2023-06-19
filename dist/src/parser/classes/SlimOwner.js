@@ -1,9 +1,9 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
-import Text from './misc/Text.js';
-import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import SubscribeButton from './SubscribeButton.js';
-import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
 class SlimOwner extends YTNode {
     constructor(data) {
         super();

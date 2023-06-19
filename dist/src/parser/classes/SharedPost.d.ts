@@ -1,4 +1,5 @@
 import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
 import BackstagePost from './BackstagePost.js';
 import Button from './Button.js';
 import Menu from './menus/Menu.js';
@@ -6,7 +7,7 @@ import Author from './misc/Author.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-declare class SharedPost extends YTNode {
+export default class SharedPost extends YTNode {
     static type: string;
     thumbnail: Thumbnail[];
     content: Text;
@@ -17,6 +18,5 @@ declare class SharedPost extends YTNode {
     endpoint: NavigationEndpoint;
     expand_button: Button | null;
     author: Author;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SharedPost;

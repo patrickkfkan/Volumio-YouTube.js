@@ -1,8 +1,8 @@
 import { YTNode } from '../helpers.js';
-declare class PlaylistMetadata extends YTNode {
+import type { RawNode } from '../index.js';
+export default class PlaylistMetadata extends YTNode {
     static type: string;
     title: string;
     description: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default PlaylistMetadata;

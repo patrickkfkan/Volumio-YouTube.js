@@ -1,5 +1,5 @@
-import { YTNode } from '../../helpers.js';
 import NavigationEndpoint from '../NavigationEndpoint.js';
+import { YTNode } from '../../helpers.js';
 class AnalyticsShortsCarouselCard extends YTNode {
     constructor(data) {
         super();

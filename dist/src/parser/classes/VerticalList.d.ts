@@ -1,11 +1,11 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import Text from './misc/Text.js';
-import { YTNode } from '../helpers.js';
-declare class VerticalList extends YTNode {
+export default class VerticalList extends YTNode {
     static type: string;
-    items: import("../helpers.js").SuperParsedResult<YTNode>;
+    items: ObservedArray<YTNode>;
     collapsed_item_count: string;
     collapsed_state_button_text: Text;
-    constructor(data: any);
-    get contents(): import("../helpers.js").SuperParsedResult<YTNode>;
+    constructor(data: RawNode);
+    get contents(): ObservedArray<YTNode>;
 }
-export default VerticalList;

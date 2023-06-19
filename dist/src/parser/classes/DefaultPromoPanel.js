@@ -1,7 +1,7 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
-import Text from './misc/Text.js';
+import Parser from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
 class DefaultPromoPanel extends YTNode {
     constructor(data) {
         super();

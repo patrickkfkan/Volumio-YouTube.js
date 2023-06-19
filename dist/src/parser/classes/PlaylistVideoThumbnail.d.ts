@@ -1,8 +1,8 @@
 import Thumbnail from './misc/Thumbnail.js';
 import { YTNode } from '../helpers.js';
-declare class PlaylistVideoThumbnail extends YTNode {
+import type { RawNode } from '../index.js';
+export default class PlaylistVideoThumbnail extends YTNode {
     static type: string;
     thumbnail: Thumbnail[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default PlaylistVideoThumbnail;

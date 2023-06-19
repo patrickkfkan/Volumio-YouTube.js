@@ -7,6 +7,6 @@ class MusicResponsiveListItemFlexColumn extends YTNode {
         this.display_priority = data.displayPriority;
     }
 }
-MusicResponsiveListItemFlexColumn.type = 'musicResponsiveListItemFlexColumnRenderer';
+MusicResponsiveListItemFlexColumn.type = 'MusicResponsiveListItemFlexColumn';
 export default MusicResponsiveListItemFlexColumn;
 //# sourceMappingURL=MusicResponsiveListItemFlexColumn.js.map

@@ -1,7 +1,7 @@
-import { Run } from './Text.js';
-import Thumbnail from './Thumbnail.js';
 import type { RawNode } from '../../index.js';
-declare class EmojiRun implements Run {
+import { type Run } from './Text.js';
+import Thumbnail from './Thumbnail.js';
+export default class EmojiRun implements Run {
     text: string;
     emoji: {
         emoji_id: string;
@@ -14,4 +14,3 @@ declare class EmojiRun implements Run {
     toString(): string;
     toHTML(): string;
 }
-export default EmojiRun;

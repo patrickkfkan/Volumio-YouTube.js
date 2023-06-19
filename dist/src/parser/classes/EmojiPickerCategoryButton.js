@@ -4,7 +4,9 @@ class EmojiPickerCategoryButton extends YTNode {
         var _a;
         super();
         this.category_id = data.categoryId;
-        this.icon_type = (_a = data.icon) === null || _a === void 0 ? void 0 : _a.iconType;
+        if (Reflect.has(data, 'icon')) {
+            this.icon_type = (_a = data.icon) === null || _a === void 0 ? void 0 : _a.iconType;
+        }
         this.tooltip = data.tooltip;
     }
 }

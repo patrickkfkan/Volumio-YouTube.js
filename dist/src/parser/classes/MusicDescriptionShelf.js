@@ -4,10 +4,10 @@ class MusicDescriptionShelf extends YTNode {
     constructor(data) {
         super();
         this.description = new Text(data.description);
-        if (this.max_collapsed_lines) {
+        if (Reflect.has(data, 'maxCollapsedLines')) {
             this.max_collapsed_lines = data.maxCollapsedLines;
         }
-        if (this.max_expanded_lines) {
+        if (Reflect.has(data, 'maxExpandedLines')) {
             this.max_expanded_lines = data.maxExpandedLines;
         }
         this.footer = new Text(data.footer);

@@ -1,7 +1,7 @@
 import { YTNode } from '../helpers.js';
-declare class SingleColumnMusicWatchNextResults extends YTNode {
+import { type RawNode } from '../index.js';
+export default class SingleColumnMusicWatchNextResults extends YTNode {
     static type: string;
     contents: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SingleColumnMusicWatchNextResults;

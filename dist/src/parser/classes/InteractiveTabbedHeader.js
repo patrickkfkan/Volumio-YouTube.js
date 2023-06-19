@@ -1,10 +1,10 @@
-import Parser from '../index.js';
-import { YTNode } from '../helpers.js';
+import Button from './Button.js';
+import MetadataBadge from './MetadataBadge.js';
+import SubscribeButton from './SubscribeButton.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import SubscribeButton from './SubscribeButton.js';
-import MetadataBadge from './MetadataBadge.js';
-import Button from './Button.js';
+import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 class InteractiveTabbedHeader extends YTNode {
     constructor(data) {
         super();

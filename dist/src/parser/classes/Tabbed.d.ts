@@ -1,7 +1,7 @@
-import { YTNode } from '../helpers.js';
-declare class Tabbed extends YTNode {
+import { YTNode, type SuperParsedResult } from '../helpers.js';
+import { type RawNode } from '../index.js';
+export default class Tabbed extends YTNode {
     static type: string;
-    contents: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    contents: SuperParsedResult<YTNode>;
+    constructor(data: RawNode);
 }
-export default Tabbed;

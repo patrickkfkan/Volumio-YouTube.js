@@ -1,5 +1,5 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 import ChipCloudChip from './ChipCloudChip.js';
 class FeedFilterChipBar extends YTNode {
     constructor(data) {

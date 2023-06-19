@@ -1,4 +1,4 @@
-import { ICache } from '../types/Cache.js';
+import type { ICache } from '../types/Cache.js';
 export default class UniversalCache implements ICache {
     #private;
     constructor(persistent: boolean, persistent_directory?: string);

@@ -1,6 +1,6 @@
+import { YTNode } from '../helpers.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import { YTNode } from '../helpers.js';
 class PlayerMicroformat extends YTNode {
     constructor(data) {
         var _a;
@@ -8,7 +8,7 @@ class PlayerMicroformat extends YTNode {
         this.title = new Text(data.title);
         this.description = new Text(data.description);
         this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
-        if (data.embed) {
+        if (Reflect.has(data, 'embed')) {
             this.embed = {
                 iframe_url: data.embed.iframeUrl,
                 flash_url: data.embed.flashUrl,
@@ -16,9 +16,6 @@ class PlayerMicroformat extends YTNode {
                 width: data.embed.width,
                 height: data.embed.height
             };
-        }
-        else {
-            this.embed = null;
         }
         this.length_seconds = parseInt(data.lengthSeconds);
         this.channel = {

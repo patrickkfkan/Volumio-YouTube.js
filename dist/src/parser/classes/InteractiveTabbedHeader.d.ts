@@ -1,10 +1,11 @@
-import { ObservedArray, YTNode } from '../helpers.js';
+import Button from './Button.js';
+import MetadataBadge from './MetadataBadge.js';
+import SubscribeButton from './SubscribeButton.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import SubscribeButton from './SubscribeButton.js';
-import MetadataBadge from './MetadataBadge.js';
-import Button from './Button.js';
-declare class InteractiveTabbedHeader extends YTNode {
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+export default class InteractiveTabbedHeader extends YTNode {
     static type: string;
     header_type: string;
     title: Text;
@@ -15,6 +16,5 @@ declare class InteractiveTabbedHeader extends YTNode {
     banner: Thumbnail[];
     buttons: ObservedArray<SubscribeButton | Button>;
     auto_generated: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default InteractiveTabbedHeader;

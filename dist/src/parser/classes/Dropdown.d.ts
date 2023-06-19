@@ -1,9 +1,9 @@
-import { ObservedArray, YTNode } from '../helpers.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import DropdownItem from './DropdownItem.js';
-declare class Dropdown extends YTNode {
+export default class Dropdown extends YTNode {
     static type: string;
     label: string;
     entries: ObservedArray<DropdownItem>;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default Dropdown;

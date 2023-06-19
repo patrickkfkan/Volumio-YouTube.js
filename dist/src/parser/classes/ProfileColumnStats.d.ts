@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers.js';
-declare class ProfileColumnStats extends YTNode {
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
+export default class ProfileColumnStats extends YTNode {
     static type: string;
-    items: import("../helpers.js").ObservedArray<YTNode>;
-    constructor(data: any);
-    get contents(): import("../helpers.js").ObservedArray<YTNode>;
+    items: ObservedArray<YTNode>;
+    constructor(data: RawNode);
+    get contents(): ObservedArray<YTNode>;
 }
-export default ProfileColumnStats;

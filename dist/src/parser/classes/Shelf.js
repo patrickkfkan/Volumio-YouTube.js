@@ -2,23 +2,23 @@ import Text from './misc/Text.js';
 import Parser from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
+import Button from './Button.js';
 class Shelf extends YTNode {
     constructor(data) {
-        var _a, _b;
         super();
         this.title = new Text(data.title);
-        if (data.endpoint) {
+        if (Reflect.has(data, 'endpoint')) {
             this.endpoint = new NavigationEndpoint(data.endpoint);
         }
-        this.content = Parser.parseItem(data.content) || null;
-        if ((_a = data.icon) === null || _a === void 0 ? void 0 : _a.iconType) {
-            this.icon_type = (_b = data.icon) === null || _b === void 0 ? void 0 : _b.iconType;
+        this.content = Parser.parseItem(data.content);
+        if (Reflect.has(data, 'icon')) {
+            this.icon_type = data.icon.iconType;
         }
-        if (data.menu) {
+        if (Reflect.has(data, 'menu')) {
             this.menu = Parser.parseItem(data.menu);
         }
-        if (data.playAllButton) {
-            this.play_all_button = Parser.parseItem(data.playAllButton);
+        if (Reflect.has(data, 'playAllButton')) {
+            this.play_all_button = Parser.parseItem(data.playAllButton, Button);
         }
     }
 }

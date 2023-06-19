@@ -4,10 +4,10 @@ import Text from './misc/Text.js';
 class MusicHeader extends YTNode {
     constructor(data) {
         super();
-        if (data.header) {
-            this.header = Parser.parse(data.header);
+        if (Reflect.has(data, 'header')) {
+            this.header = Parser.parseItem(data.header);
         }
-        if (data.title) {
+        if (Reflect.has(data, 'title')) {
             this.title = new Text(data.title);
         }
     }

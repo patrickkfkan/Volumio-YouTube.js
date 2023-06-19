@@ -1,4 +1,4 @@
-import { Memo, ObservedArray, SuperParsedResult, YTNode } from '../helpers.js';
+import type { Memo, ObservedArray, SuperParsedResult, YTNode } from '../helpers.js';
 import type { ReloadContinuationItemsCommand, AppendContinuationItemsAction, Continuation, GridContinuation, ItemSectionContinuation, LiveChatContinuation, MusicPlaylistShelfContinuation, MusicShelfContinuation, PlaylistPanelContinuation, SectionListContinuation } from '../index.js';
 import type PlayerCaptionsTracklist from '../classes/PlayerCaptionsTracklist.js';
 import type CardCollection from '../classes/CardCollection.js';

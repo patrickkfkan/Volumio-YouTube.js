@@ -1,7 +1,8 @@
+import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class Message extends YTNode {
+import type { RawNode } from '../index.js';
+export default class Message extends YTNode {
     static type: string;
-    text: string;
-    constructor(data: any);
+    text: Text;
+    constructor(data: RawNode);
 }
-export default Message;

@@ -4,7 +4,6 @@ class CtaGoToCreatorStudio extends YTNode {
         super();
         this.title = data.buttonLabel;
         this.use_new_specs = data.useNewSpecs;
-        // Is this even useful?
     }
 }
 CtaGoToCreatorStudio.type = 'CtaGoToCreatorStudio';

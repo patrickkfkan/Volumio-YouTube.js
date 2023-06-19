@@ -1,10 +1,10 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 class PlaylistSidebarSecondaryInfo extends YTNode {
     constructor(data) {
         super();
-        this.owner = Parser.parse(data.videoOwner) || null;
-        this.button = Parser.parse(data.button) || null;
+        this.owner = Parser.parseItem(data.videoOwner);
+        this.button = Parser.parseItem(data.button);
     }
 }
 PlaylistSidebarSecondaryInfo.type = 'PlaylistSidebarSecondaryInfo';

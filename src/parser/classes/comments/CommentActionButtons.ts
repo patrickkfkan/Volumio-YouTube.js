@@ -1,25 +1,24 @@
 import Parser from '../../index.js';
-import type Button from '../Button.js';
-import type ToggleButton from '../ToggleButton.js';
-import type CreatorHeart from './CreatorHeart.js';
+import Button from '../Button.js';
+import ToggleButton from '../ToggleButton.js';
+import CreatorHeart from './CreatorHeart.js';
+
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
 
-class CommentActionButtons extends YTNode {
+export default class CommentActionButtons extends YTNode {
   static type = 'CommentActionButtons';
 
-  like_button;
-  dislike_button;
-  reply_button;
-  creator_heart;
+  like_button: ToggleButton | null;
+  dislike_button: ToggleButton | null;
+  reply_button: Button | null;
+  creator_heart: CreatorHeart | null;
 
   constructor(data: RawNode) {
     super();
-    this.like_button = Parser.parseItem<ToggleButton>(data.likeButton);
-    this.dislike_button = Parser.parseItem<ToggleButton>(data.dislikeButton);
-    this.reply_button = Parser.parseItem<Button>(data.replyButton);
-    this.creator_heart = Parser.parseItem<CreatorHeart>(data.creatorHeart);
+    this.like_button = Parser.parseItem(data.likeButton, ToggleButton);
+    this.dislike_button = Parser.parseItem(data.dislikeButton, ToggleButton);
+    this.reply_button = Parser.parseItem(data.replyButton, Button);
+    this.creator_heart = Parser.parseItem(data.creatorHeart, CreatorHeart);
   }
 }
-
-export default CommentActionButtons;

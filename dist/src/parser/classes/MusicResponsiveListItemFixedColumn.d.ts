@@ -1,9 +1,9 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class MusicResponsiveListItemFixedColumn extends YTNode {
+import type { RawNode } from '../index.js';
+export default class MusicResponsiveListItemFixedColumn extends YTNode {
     static type: string;
     title: Text;
     display_priority: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MusicResponsiveListItemFixedColumn;

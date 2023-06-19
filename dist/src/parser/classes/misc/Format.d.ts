@@ -1,38 +1,39 @@
-import Player from '../../../core/Player.js';
+import type Player from '../../../core/Player.js';
 import type { RawNode } from '../../index.js';
-declare class Format {
+export default class Format {
     itag: number;
     mime_type: string;
+    is_type_otf: boolean;
     bitrate: number;
-    average_bitrate: number;
+    average_bitrate?: number;
     width: number;
     height: number;
-    init_range: {
+    init_range?: {
         start: number;
         end: number;
-    } | undefined;
-    index_range: {
+    };
+    index_range?: {
         start: number;
         end: number;
-    } | undefined;
+    };
     last_modified: Date;
-    content_length: number;
-    quality: string;
-    quality_label: string | undefined;
-    fps: number | undefined;
-    url: string;
-    cipher: string | undefined;
-    signature_cipher: string | undefined;
-    audio_quality: string | undefined;
+    content_length?: number;
+    quality?: string;
+    quality_label?: string;
+    fps?: number;
+    url?: string;
+    cipher?: string;
+    signature_cipher?: string;
+    audio_quality?: string;
     audio_track?: {
         audio_is_default: boolean;
         display_name: string;
         id: string;
     };
     approx_duration_ms: number;
-    audio_sample_rate: number;
-    audio_channels: number;
-    loudness_db: number;
+    audio_sample_rate?: number;
+    audio_channels?: number;
+    loudness_db?: number;
     has_audio: boolean;
     has_video: boolean;
     language?: string | null;
@@ -41,9 +42,8 @@ declare class Format {
     is_original?: boolean;
     constructor(data: RawNode);
     /**
-     * Decipher the streaming url of the format.
+     * Deciphers the streaming url of the format.
      * @returns Deciphered URL.
      */
     decipher(player: Player | undefined): string;
 }
-export default Format;

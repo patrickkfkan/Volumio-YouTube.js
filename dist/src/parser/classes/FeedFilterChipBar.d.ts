@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import ChipCloudChip from './ChipCloudChip.js';
-declare class FeedFilterChipBar extends YTNode {
+export default class FeedFilterChipBar extends YTNode {
     static type: string;
-    contents: import("../helpers.js").ObservedArray<ChipCloudChip>;
-    constructor(data: any);
+    contents: ObservedArray<ChipCloudChip>;
+    constructor(data: RawNode);
 }
-export default FeedFilterChipBar;

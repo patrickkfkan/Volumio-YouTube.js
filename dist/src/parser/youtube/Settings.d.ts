@@ -11,7 +11,7 @@ declare class Settings {
     introduction?: PageIntroduction;
     sections: {
         title: string | null;
-        contents: import("../helpers.js").ObservedArray<import("../helpers.js").YTNode> | null;
+        contents: import("../helpers.js").ObservedArray<import("../helpers.js").YTNode>;
     }[] | undefined;
     constructor(actions: Actions, response: ApiResponse);
     /**

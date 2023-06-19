@@ -1,9 +1,10 @@
+import { type RawNode } from '../index.js';
 import Text from './misc/Text.js';
-import { YTNode } from '../helpers.js';
-declare class SubFeedSelector extends YTNode {
+import { type ObservedArray, YTNode } from '../helpers.js';
+import SubFeedOption from './SubFeedOption.js';
+export default class SubFeedSelector extends YTNode {
     static type: string;
     title: Text;
-    options: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    options: ObservedArray<SubFeedOption>;
+    constructor(data: RawNode);
 }
-export default SubFeedSelector;

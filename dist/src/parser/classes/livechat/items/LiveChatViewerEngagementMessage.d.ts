@@ -1,9 +1,9 @@
-import LiveChatTextMessage from './LiveChatTextMessage.js';
+import { LiveChatMessageBase } from './LiveChatTextMessage.js';
 import type { RawNode } from '../../../index.js';
-declare class LiveChatViewerEngagementMessage extends LiveChatTextMessage {
+import type { YTNode } from '../../../helpers.js';
+export default class LiveChatViewerEngagementMessage extends LiveChatMessageBase {
     static type: string;
-    icon_type: string;
-    action_button: import("../../../helpers.js").YTNode | null;
+    icon_type?: string;
+    action_button: YTNode;
     constructor(data: RawNode);
 }
-export default LiveChatViewerEngagementMessage;

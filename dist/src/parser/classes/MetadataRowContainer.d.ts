@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers.js';
-declare class MetadataRowContainer extends YTNode {
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
+export default class MetadataRowContainer extends YTNode {
     static type: string;
-    rows: import("../helpers.js").ObservedArray<YTNode>;
+    rows: ObservedArray<YTNode>;
     collapsed_item_count: number;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MetadataRowContainer;

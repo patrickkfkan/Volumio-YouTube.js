@@ -1,13 +1,16 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
+import ItemSectionHeader from './ItemSectionHeader.js';
+import ItemSectionTabbedHeader from './ItemSectionTabbedHeader.js';
+import CommentsHeader from './comments/CommentsHeader.js';
 class ItemSection extends YTNode {
     constructor(data) {
         var _a, _b, _c;
         super();
-        this.header = Parser.parseItem(data.header);
-        this.contents = Parser.parse(data.contents, true);
+        this.header = Parser.parseItem(data.header, [CommentsHeader, ItemSectionHeader, ItemSectionTabbedHeader]);
+        this.contents = Parser.parseArray(data.contents);
         if (data.targetId || data.sectionIdentifier) {
-            this.target_id = (data === null || data === void 0 ? void 0 : data.target_id) || (data === null || data === void 0 ? void 0 : data.sectionIdentifier);
+            this.target_id = data.target_id || data.sectionIdentifier;
         }
         if (data.continuations) {
             /*** Volumio-YouTube.js ***/

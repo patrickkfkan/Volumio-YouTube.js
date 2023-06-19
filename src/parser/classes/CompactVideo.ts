@@ -1,20 +1,19 @@
-import Parser from '../index.js';
-import Text from './misc/Text.js';
-import Author from './misc/Author.js';
 import { timeToSeconds } from '../../utils/Utils.js';
+import { YTNode, type ObservedArray, type SuperParsedResult } from '../helpers.js';
+import Parser, { type RawNode } from '../index.js';
+import Menu from './menus/Menu.js';
+import MetadataBadge from './MetadataBadge.js';
+import Author from './misc/Author.js';
+import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-import type Menu from './menus/Menu.js';
-import MetadataBadge from './MetadataBadge.js';
 
-import { YTNode } from '../helpers.js';
-
-class CompactVideo extends YTNode {
+export default class CompactVideo extends YTNode {
   static type = 'CompactVideo';
 
   id: string;
   thumbnails: Thumbnail[];
-  rich_thumbnail;
+  rich_thumbnail?: SuperParsedResult<YTNode>;
   title: Text;
   author: Author;
   view_count: Text;
@@ -27,15 +26,19 @@ class CompactVideo extends YTNode {
     seconds: number;
   };
 
-  thumbnail_overlays;
+  thumbnail_overlays: ObservedArray<YTNode>;
   endpoint: NavigationEndpoint;
   menu: Menu | null;
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
     this.id = data.videoId;
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail) || null;
-    this.rich_thumbnail = data.richThumbnail && Parser.parse(data.richThumbnail);
+
+    if (Reflect.has(data, 'richThumbnail')) {
+      this.rich_thumbnail = Parser.parse(data.richThumbnail);
+    }
+
     this.title = new Text(data.title);
     this.author = new Author(data.longBylineText, data.ownerBadges, data.channelThumbnail);
     this.view_count = new Text(data.viewCountText);
@@ -50,7 +53,7 @@ class CompactVideo extends YTNode {
 
     this.thumbnail_overlays = Parser.parseArray(data.thumbnailOverlays);
     this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
-    this.menu = Parser.parseItem<Menu>(data.menu);
+    this.menu = Parser.parseItem(data.menu, Menu);
   }
 
   get best_thumbnail() {
@@ -76,5 +79,3 @@ class CompactVideo extends YTNode {
     return this.badges.some((badge) => badge.style === 'PREMIERE');
   }
 }
-
-export default CompactVideo;

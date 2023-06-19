@@ -1,10 +1,10 @@
-import Text from './misc/Text.js';
-import Button from './Button.js';
 import { YTNode } from '../helpers.js';
-declare class LiveChatDialog extends YTNode {
+import { type RawNode } from '../index.js';
+import Button from './Button.js';
+import Text from './misc/Text.js';
+export default class LiveChatDialog extends YTNode {
     static type: string;
     confirm_button: Button | null;
     dialog_messages: Text[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default LiveChatDialog;

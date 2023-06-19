@@ -1,24 +1,22 @@
-import Parser from '../index.js';
-import { YTNode } from '../helpers.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import Parser, { type RawNode } from '../index.js';
 
-class MerchandiseShelf extends YTNode {
+export default class MerchandiseShelf extends YTNode {
   static type = 'MerchandiseShelf';
 
   title: string;
-  menu;
-  items;
+  menu: YTNode;
+  items: ObservedArray<YTNode>;
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
     this.title = data.title;
-    this.menu = Parser.parse(data.actionButton);
-    this.items = Parser.parse(data.items);
+    this.menu = Parser.parseItem(data.actionButton);
+    this.items = Parser.parseArray(data.items);
   }
 
-  // XXX: alias for consistency
+  // XXX: Alias for consistency.
   get contents() {
     return this.items;
   }
 }
-
-export default MerchandiseShelf;

@@ -1,6 +1,7 @@
 import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-declare class SortFilterSubMenu extends YTNode {
+export default class SortFilterSubMenu extends YTNode {
     static type: string;
     title?: string;
     icon_type?: string;
@@ -13,6 +14,5 @@ declare class SortFilterSubMenu extends YTNode {
         endpoint: NavigationEndpoint;
         subtitle: string | null;
     }[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SortFilterSubMenu;

@@ -1,11 +1,12 @@
 import Thumbnail from './misc/Thumbnail.js';
 import { YTNode } from '../helpers.js';
-declare class ChannelMetadata extends YTNode {
+import type { RawNode } from '../index.js';
+export default class ChannelMetadata extends YTNode {
     static type: string;
     title: string;
     description: string;
     url: string;
-    rss_urls: any;
+    rss_url: string;
     vanity_channel_url: string;
     external_id: string;
     is_family_safe: boolean;
@@ -15,6 +16,5 @@ declare class ChannelMetadata extends YTNode {
     android_deep_link: string;
     android_appindexing_link: string;
     ios_appindexing_link: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ChannelMetadata;

@@ -1,4 +1,4 @@
-import FilterableFeed from '../../core/FilterableFeed.js';
+import FilterableFeed from '../../core/mixins/FilterableFeed.js';
 import HashtagHeader from '../classes/HashtagHeader.js';
 import RichGrid from '../classes/RichGrid.js';
 import type Actions from '../../core/Actions.js';

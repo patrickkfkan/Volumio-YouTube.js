@@ -1,18 +1,18 @@
+import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-declare class Notification extends YTNode {
+export default class Notification extends YTNode {
     static type: string;
     thumbnails: Thumbnail[];
     video_thumbnails: Thumbnail[];
     short_message: Text;
     sent_time: Text;
-    notification_id: any;
+    notification_id: string;
     endpoint: NavigationEndpoint;
     record_click_endpoint: NavigationEndpoint;
-    menu: import("../helpers.js").SuperParsedResult<YTNode>;
+    menu: YTNode;
     read: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default Notification;

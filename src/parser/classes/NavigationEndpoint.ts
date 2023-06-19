@@ -1,15 +1,15 @@
-import Parser from '../index.js';
 import type Actions from '../../core/Actions.js';
 import type { ApiResponse } from '../../core/Actions.js';
-import type { IParsedResponse } from '../types/ParsedResponse.js';
 import { YTNode } from '../helpers.js';
+import Parser, { type RawNode } from '../index.js';
+import type { IParsedResponse } from '../types/ParsedResponse.js';
 import CreatePlaylistDialog from './CreatePlaylistDialog.js';
 
-class NavigationEndpoint extends YTNode {
+export default class NavigationEndpoint extends YTNode {
   static type = 'NavigationEndpoint';
 
   payload;
-  dialog?;
+  dialog?: CreatePlaylistDialog | YTNode | null;
 
   metadata: {
     url?: string;
@@ -18,7 +18,7 @@ class NavigationEndpoint extends YTNode {
     send_post?: boolean;
   };
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
 
     if (Reflect.has(data || {}, 'innertubeCommand'))
@@ -32,8 +32,8 @@ class NavigationEndpoint extends YTNode {
 
     this.payload = name ? Reflect.get(data, name) : {};
 
-    if (Reflect.has(this.payload, 'dialog')) {
-      this.dialog = Parser.parse(this.payload.dialog);
+    if (Reflect.has(this.payload, 'dialog') || Reflect.has(this.payload, 'content')) {
+      this.dialog = Parser.parseItem(this.payload.dialog || this.payload.content);
     }
 
     if (data?.serviceEndpoint) {
@@ -106,5 +106,3 @@ class NavigationEndpoint extends YTNode {
     );
   }
 }
-
-export default NavigationEndpoint;

@@ -5,7 +5,7 @@ class VideoOwner extends YTNode {
     constructor(data) {
         super();
         // TODO: check this
-        this.subscription_button = data.subscriptionButton || null;
+        this.subscription_button = data.subscriptionButton;
         this.subscriber_count = new Text(data.subscriberCountText);
         this.author = new Author(Object.assign(Object.assign({}, data.title), { navigationEndpoint: data.navigationEndpoint }), data.badges, data.thumbnail);
     }

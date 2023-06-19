@@ -1,6 +1,6 @@
-import Text from './misc/Text.js';
 import { timeToSeconds } from '../../utils/Utils.js';
 import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
 class WatchCardCompactVideo extends YTNode {
     constructor(data) {
         super();

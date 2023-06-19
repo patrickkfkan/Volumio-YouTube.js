@@ -1,9 +1,9 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class TextHeader extends YTNode {
+import type { RawNode } from '../index.js';
+export default class TextHeader extends YTNode {
     static type: string;
     title: Text;
     style: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default TextHeader;

@@ -1,12 +1,14 @@
 import NavigationEndpoint from '../NavigationEndpoint.js';
 import { escape } from './Text.js';
-class TextRun {
+export default class TextRun {
     constructor(data) {
         this.text = data.text;
         this.bold = Boolean(data.bold);
         this.italics = Boolean(data.italics);
         this.strikethrough = Boolean(data.strikethrough);
-        this.endpoint = data.navigationEndpoint ? new NavigationEndpoint(data.navigationEndpoint) : undefined;
+        if (Reflect.has(data, 'navigationEndpoint')) {
+            this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+        }
         this.attachment = data.attachment;
     }
     toString() {
@@ -41,5 +43,4 @@ class TextRun {
         return wrapped_text;
     }
 }
-export default TextRun;
 //# sourceMappingURL=TextRun.js.map

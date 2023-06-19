@@ -1,11 +1,10 @@
-import type Button from '../Button.js';
-import type KidsCategoryTab from './KidsCategoryTab.js';
-import { YTNode } from '../../helpers.js';
+import Button from '../Button.js';
+import KidsCategoryTab from './KidsCategoryTab.js';
+import { type ObservedArray, YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class KidsCategoriesHeader extends YTNode {
+export default class KidsCategoriesHeader extends YTNode {
     static type: string;
-    category_tabs: KidsCategoryTab[];
+    category_tabs: ObservedArray<KidsCategoryTab>;
     privacy_button: Button | null;
     constructor(data: RawNode);
 }
-export default KidsCategoriesHeader;

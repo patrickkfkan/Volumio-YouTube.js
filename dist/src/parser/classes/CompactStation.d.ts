@@ -1,14 +1,14 @@
 import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-declare class CompactStation extends YTNode {
+export default class CompactStation extends YTNode {
     static type: string;
     title: Text;
     description: Text;
     video_count: Text;
     endpoint: NavigationEndpoint;
     thumbnail: Thumbnail[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default CompactStation;

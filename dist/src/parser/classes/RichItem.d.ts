@@ -1,7 +1,7 @@
+import { type RawNode } from '../index.js';
 import { YTNode } from '../helpers.js';
-declare class RichItem extends YTNode {
+export default class RichItem extends YTNode {
     static type: string;
-    content: YTNode | null;
-    constructor(data: any);
+    content: YTNode;
+    constructor(data: RawNode);
 }
-export default RichItem;

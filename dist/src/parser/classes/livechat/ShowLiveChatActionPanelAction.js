@@ -1,6 +1,6 @@
 import Parser from '../../index.js';
-import { YTNode } from '../../helpers.js';
 import LiveChatActionPanel from './LiveChatActionPanel.js';
+import { YTNode } from '../../helpers.js';
 class ShowLiveChatActionPanelAction extends YTNode {
     constructor(data) {
         super();

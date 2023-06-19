@@ -1,5 +1,5 @@
-import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
 class ThumbnailOverlayEndorsement extends YTNode {
     constructor(data) {
         super();

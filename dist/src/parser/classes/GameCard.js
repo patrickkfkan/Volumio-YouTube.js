@@ -1,5 +1,5 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 class GameCard extends YTNode {
     constructor(data) {
         super();

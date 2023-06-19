@@ -2,21 +2,20 @@ import { YTNode } from '../helpers.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 class SortFilterSubMenu extends YTNode {
     constructor(data) {
-        var _a, _b, _c;
         super();
-        if (data.title) {
+        if (Reflect.has(data, 'title')) {
             this.title = data.title;
         }
-        if ((_a = data.icon) === null || _a === void 0 ? void 0 : _a.iconType) {
+        if (Reflect.has(data, 'icon')) {
             this.icon_type = data.icon.iconType;
         }
-        if ((_c = (_b = data.accessibility) === null || _b === void 0 ? void 0 : _b.accessibilityData) === null || _c === void 0 ? void 0 : _c.label) {
+        if (Reflect.has(data, 'accessibility')) {
             this.label = data.accessibility.accessibilityData.label;
         }
-        if (data.tooltip) {
+        if (Reflect.has(data, 'tooltip')) {
             this.tooltip = data.tooltip;
         }
-        if (data.subMenuItems) {
+        if (Reflect.has(data, 'subMenuItems')) {
             this.sub_menu_items = data.subMenuItems.map((item) => {
                 var _a, _b;
                 return ({

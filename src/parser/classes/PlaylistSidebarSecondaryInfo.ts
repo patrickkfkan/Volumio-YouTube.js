@@ -1,17 +1,15 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser, { type RawNode } from '../index.js';
 
-class PlaylistSidebarSecondaryInfo extends YTNode {
+export default class PlaylistSidebarSecondaryInfo extends YTNode {
   static type = 'PlaylistSidebarSecondaryInfo';
 
-  owner;
-  button;
+  owner: YTNode;
+  button: YTNode;
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
-    this.owner = Parser.parse(data.videoOwner) || null;
-    this.button = Parser.parse(data.button) || null;
+    this.owner = Parser.parseItem(data.videoOwner);
+    this.button = Parser.parseItem(data.button);
   }
 }
-
-export default PlaylistSidebarSecondaryInfo;

@@ -1,11 +1,11 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import Text from './misc/Text.js';
-import { YTNode } from '../helpers.js';
-declare class UniversalWatchCard extends YTNode {
+export default class UniversalWatchCard extends YTNode {
     static type: string;
-    header: YTNode | null;
-    call_to_action: YTNode | null;
-    sections: import("../helpers.js").ObservedArray<YTNode>;
+    header: YTNode;
+    call_to_action: YTNode;
+    sections: ObservedArray<YTNode>;
     collapsed_label?: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default UniversalWatchCard;

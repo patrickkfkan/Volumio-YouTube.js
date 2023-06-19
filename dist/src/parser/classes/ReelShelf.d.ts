@@ -1,12 +1,12 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
-import { YTNode } from '../helpers.js';
-declare class ReelShelf extends YTNode {
+export default class ReelShelf extends YTNode {
     static type: string;
     title: Text;
-    items: import("../helpers.js").SuperParsedResult<YTNode>;
-    endpoint: NavigationEndpoint | null;
-    constructor(data: any);
-    get contents(): import("../helpers.js").SuperParsedResult<YTNode>;
+    items: ObservedArray<YTNode>;
+    endpoint?: NavigationEndpoint;
+    constructor(data: RawNode);
+    get contents(): ObservedArray<YTNode>;
 }
-export default ReelShelf;

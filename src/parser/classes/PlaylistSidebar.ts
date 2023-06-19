@@ -1,14 +1,14 @@
-import Parser from '../index.js';
-import { YTNode } from '../helpers.js';
+import Parser, { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
 
-class PlaylistSidebar extends YTNode {
+export default class PlaylistSidebar extends YTNode {
   static type = 'PlaylistSidebar';
 
-  items;
+  items: ObservedArray<YTNode>;
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
-    this.items = Parser.parse(data.items);
+    this.items = Parser.parseArray(data.items);
   }
 
   // XXX: alias for consistency
@@ -16,5 +16,3 @@ class PlaylistSidebar extends YTNode {
     return this.items;
   }
 }
-
-export default PlaylistSidebar;

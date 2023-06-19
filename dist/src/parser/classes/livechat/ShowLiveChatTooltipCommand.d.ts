@@ -1,8 +1,7 @@
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class ShowLiveChatTooltipCommand extends YTNode {
+export default class ShowLiveChatTooltipCommand extends YTNode {
     static type: string;
-    tooltip: YTNode | null;
+    tooltip: YTNode;
     constructor(data: RawNode);
 }
-export default ShowLiveChatTooltipCommand;

@@ -1,9 +1,13 @@
-class ChildElement {
+import { YTNode } from '../../helpers.js';
+class ChildElement extends YTNode {
     constructor(data) {
-        var _a, _b;
-        this.text = ((_b = (_a = data.type.textType) === null || _a === void 0 ? void 0 : _a.text) === null || _b === void 0 ? void 0 : _b.content) || null;
+        var _a;
+        super();
+        if (Reflect.has(data, 'type') && Reflect.has(data.type, 'textType')) {
+            this.text = (_a = data.type.textType.text) === null || _a === void 0 ? void 0 : _a.content;
+        }
         this.properties = data.properties;
-        if (data.childElements) {
+        if (Reflect.has(data, 'childElements')) {
             this.child_elements = data.childElements.map((el) => new ChildElement(el));
         }
     }

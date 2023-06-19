@@ -1,9 +1,9 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class ProfileColumnStatsEntry extends YTNode {
+import type { RawNode } from '../index.js';
+export default class ProfileColumnStatsEntry extends YTNode {
     static type: string;
     label: Text;
     value: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ProfileColumnStatsEntry;

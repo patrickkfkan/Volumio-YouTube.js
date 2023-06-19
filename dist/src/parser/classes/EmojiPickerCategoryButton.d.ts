@@ -1,9 +1,9 @@
 import { YTNode } from '../helpers.js';
-declare class EmojiPickerCategoryButton extends YTNode {
+import type { RawNode } from '../index.js';
+export default class EmojiPickerCategoryButton extends YTNode {
     static type: string;
     category_id: string;
-    icon_type: string;
+    icon_type?: string;
     tooltip: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default EmojiPickerCategoryButton;

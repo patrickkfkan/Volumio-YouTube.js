@@ -1,10 +1,10 @@
 import Text from './misc/Text.js';
-import { YTNode } from '../helpers.js';
 import Parser from '../parser.js';
+import { YTNode } from '../helpers.js';
 class GuideSection extends YTNode {
     constructor(data) {
         super();
-        if (data.formattedTitle) {
+        if (Reflect.has(data, 'formattedTitle')) {
             this.title = new Text(data.formattedTitle);
         }
         this.items = Parser.parseArray(data.items);

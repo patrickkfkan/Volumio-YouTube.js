@@ -1,7 +1,7 @@
 import GuideEntry from './GuideEntry.js';
-declare class GuideDownloadsEntry extends GuideEntry {
+import type { RawNode } from '../index.js';
+export default class GuideDownloadsEntry extends GuideEntry {
     static type: string;
     always_show: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default GuideDownloadsEntry;

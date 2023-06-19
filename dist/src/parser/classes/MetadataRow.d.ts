@@ -1,9 +1,9 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class MetadataRow extends YTNode {
+import type { RawNode } from '../index.js';
+export default class MetadataRow extends YTNode {
     static type: string;
     title: Text;
     contents: Text[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MetadataRow;

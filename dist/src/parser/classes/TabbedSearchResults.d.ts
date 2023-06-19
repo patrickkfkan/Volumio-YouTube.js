@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
 import Tab from './Tab.js';
-declare class TabbedSearchResults extends YTNode {
+export default class TabbedSearchResults extends YTNode {
     static type: string;
-    tabs: import("../helpers.js").ObservedArray<Tab>;
-    constructor(data: any);
+    tabs: ObservedArray<Tab>;
+    constructor(data: RawNode);
 }
-export default TabbedSearchResults;

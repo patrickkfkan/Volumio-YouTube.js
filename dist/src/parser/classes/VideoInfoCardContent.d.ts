@@ -1,8 +1,9 @@
+import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-declare class VideoInfoCardContent extends YTNode {
+export default class VideoInfoCardContent extends YTNode {
     static type: string;
     title: Text;
     channel_name: Text;
@@ -10,6 +11,5 @@ declare class VideoInfoCardContent extends YTNode {
     video_thumbnails: Thumbnail[];
     duration: Text;
     endpoint: NavigationEndpoint;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default VideoInfoCardContent;

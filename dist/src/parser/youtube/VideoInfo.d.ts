@@ -7,21 +7,18 @@ import PlayerOverlay from '../classes/PlayerOverlay.js';
 import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
 import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
 import LiveChatWrap from './LiveChat.js';
-import NavigationEndpoint from '../classes/NavigationEndpoint.js';
+import type NavigationEndpoint from '../classes/NavigationEndpoint.js';
 import type CardCollection from '../classes/CardCollection.js';
 import type Endscreen from '../classes/Endscreen.js';
-import type Format from '../classes/misc/Format.js';
 import type PlayerAnnotationsExpanded from '../classes/PlayerAnnotationsExpanded.js';
 import type PlayerCaptionsTracklist from '../classes/PlayerCaptionsTracklist.js';
 import type PlayerLiveStoryboardSpec from '../classes/PlayerLiveStoryboardSpec.js';
 import type PlayerStoryboardSpec from '../classes/PlayerStoryboardSpec.js';
 import type Actions from '../../core/Actions.js';
 import type { ApiResponse } from '../../core/Actions.js';
-import type Player from '../../core/Player.js';
 import type { ObservedArray, YTNode } from '../helpers.js';
-import type { INextResponse, IPlayerResponse } from '../types/ParsedResponse.js';
-import { DownloadOptions, FormatFilter, FormatOptions, URLTransformer } from '../../utils/FormatUtils.js';
-declare class VideoInfo {
+import { MediaInfo } from '../../core/mixins/index.js';
+declare class VideoInfo extends MediaInfo {
     #private;
     basic_info: {
         like_count: number | undefined;
@@ -33,7 +30,7 @@ declare class VideoInfo {
             flash_secure_url: string;
             width: any;
             height: any;
-        } | null;
+        } | null | undefined;
         channel: {
             id: string;
             name: string;
@@ -44,6 +41,7 @@ declare class VideoInfo {
         category: string | null;
         has_ypc_metadata: boolean | null;
         start_timestamp: Date | null;
+        view_count: number | undefined;
         id?: string | undefined;
         channel_id?: string | undefined;
         title?: string | undefined;
@@ -51,29 +49,15 @@ declare class VideoInfo {
         keywords?: string[] | undefined;
         is_owner_viewing?: boolean | undefined;
         short_description?: string | undefined;
-        thumbnail?: import("../classes/misc/Thumbnail.js").default[] | undefined;
+        thumbnail?: import("../misc.js").Thumbnail[] | undefined;
         allow_ratings?: boolean | undefined;
-        view_count?: number | undefined;
         author?: string | undefined;
         is_private?: boolean | undefined;
         is_live?: boolean | undefined;
         is_live_content?: boolean | undefined;
         is_upcoming?: boolean | undefined;
         is_crawlable?: boolean | undefined;
-    };
-    streaming_data: {
-        expires: Date;
-        formats: Format[];
-        adaptive_formats: Format[];
-        dash_manifest_url: string | null;
-        hls_manifest_url: string | null;
-    } | undefined;
-    playability_status: {
-        status: string;
-        error_screen: YTNode | null;
-        audio_only_playablility: import("../classes/AudioOnlyPlayability.js").default | null;
-        embeddable: boolean;
-        reason: string;
+        is_post_live_dvr?: boolean | undefined;
     };
     annotations?: ObservedArray<PlayerAnnotationsExpanded>;
     storyboards?: PlayerStoryboardSpec | PlayerLiveStoryboardSpec;
@@ -85,15 +69,15 @@ declare class VideoInfo {
     playlist?: {
         id: string;
         title: string;
-        author: import("../classes/misc/Text.js").default | import("../classes/misc/PlaylistAuthor.js").default;
+        author: import("../misc.js").Text | import("../misc.js").Author;
         contents: YTNode[];
         current_index: number;
         is_infinite: boolean;
-        menu: import("../classes/menus/Menu.js").default | null;
+        menu: import("../nodes.js").Menu | null;
     } | undefined;
     game_info?: {
-        title: import("../classes/misc/Text.js").default | undefined;
-        release_year: import("../classes/misc/Text.js").default | undefined;
+        title: import("../misc.js").Text | undefined;
+        release_year: import("../misc.js").Text | undefined;
     } | undefined;
     merchandise?: MerchandiseShelf | null;
     related_chip_cloud?: ChipCloud | null;
@@ -118,7 +102,7 @@ declare class VideoInfo {
      * @param player - Player instance.
      * @param cpn - Client Playback Nonce.
      */
-    constructor(data: [ApiResponse, ApiResponse?], actions: Actions, player?: Player, cpn?: string);
+    constructor(data: [ApiResponse, ApiResponse?], actions: Actions, cpn: string);
     /**
      * Applies given filter to the watch next feed. Use {@link filters} to get available filters.
      * @param target_filter - Filter to apply.
@@ -154,34 +138,9 @@ declare class VideoInfo {
      */
     getTrailerInfo(): VideoInfo | null;
     /**
-     * Selects the format that best matches the given options.
-     * @param options - Options
-     */
-    chooseFormat(options: FormatOptions): Format;
-    /**
-     * Generates a DASH manifest from the streaming data.
-     * @param url_transformer - Function to transform the URLs.
-     * @param format_filter - Function to filter the formats.
-     * @returns DASH manifest
-     */
-    toDash(url_transformer?: URLTransformer, format_filter?: FormatFilter): string;
-    /**
-     * Downloads the video.
-     * @param options - Download options.
-     */
-    download(options?: DownloadOptions): Promise<ReadableStream<Uint8Array>>;
-    /**
      * Watch next feed filters.
      */
     get filters(): string[];
-    /**
-     * Actions instance.
-     */
-    get actions(): Actions;
-    /**
-     * Content Playback Nonce.
-     */
-    get cpn(): string | undefined;
     /**
      * Checks if continuation is available for the watch next feed.
      */
@@ -198,9 +157,5 @@ declare class VideoInfo {
      * Get songs used in the video.
      */
     get music_tracks(): never[];
-    /**
-     * Original parsed InnerTube response.
-     */
-    get page(): [IPlayerResponse, INextResponse?];
 }
 export default VideoInfo;

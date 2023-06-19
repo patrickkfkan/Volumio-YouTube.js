@@ -1,8 +1,8 @@
+import type { RawNode } from '../index.js';
 import MetadataBadge from './MetadataBadge.js';
 import Thumbnail from './misc/Thumbnail.js';
-declare class LiveChatAuthorBadge extends MetadataBadge {
+export default class LiveChatAuthorBadge extends MetadataBadge {
     static type: string;
-    custom_thumbnail: Thumbnail[] | null;
-    constructor(data: any);
+    custom_thumbnail: Thumbnail[];
+    constructor(data: RawNode);
 }
-export default LiveChatAuthorBadge;

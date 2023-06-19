@@ -1,7 +1,7 @@
+import { type RawNode } from '../index.js';
 import { YTNode } from '../helpers.js';
-declare class BackstagePostThread extends YTNode {
+export default class BackstagePostThread extends YTNode {
     static type: string;
-    post: YTNode | null;
-    constructor(data: any);
+    post: YTNode;
+    constructor(data: RawNode);
 }
-export default BackstagePostThread;

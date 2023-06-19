@@ -1,8 +1,9 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-declare class PlaylistPanelVideo extends YTNode {
+export default class PlaylistPanelVideo extends YTNode {
     static type: string;
     title: Text;
     thumbnail: Thumbnail[];
@@ -15,19 +16,18 @@ declare class PlaylistPanelVideo extends YTNode {
     };
     author: string;
     album?: {
-        id: string | undefined;
+        id?: string;
         name: string;
-        year: string | undefined;
-        endpoint: NavigationEndpoint | undefined;
+        year?: string;
+        endpoint?: NavigationEndpoint;
     };
     artists?: {
         name: string;
-        channel_id: string | undefined;
-        endpoint: NavigationEndpoint | undefined;
+        channel_id?: string;
+        endpoint?: NavigationEndpoint;
     }[];
-    badges: import("../helpers.js").ObservedArray<YTNode>;
-    menu: YTNode | null;
-    set_video_id: string | undefined;
-    constructor(data: any);
+    badges: ObservedArray<YTNode>;
+    menu: YTNode;
+    set_video_id?: string;
+    constructor(data: RawNode);
 }
-export default PlaylistPanelVideo;

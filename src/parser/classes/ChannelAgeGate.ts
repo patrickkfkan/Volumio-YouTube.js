@@ -1,12 +1,11 @@
+import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
 import { Parser } from '../index.js';
 import Button from './Button.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
 
-import { YTNode } from '../helpers.js';
-import type { RawNode } from '../index.js';
-
-class ChannelAgeGate extends YTNode {
+export default class ChannelAgeGate extends YTNode {
   static type = 'ChannelAgeGate';
 
   channel_title: string;
@@ -22,9 +21,7 @@ class ChannelAgeGate extends YTNode {
     this.avatar = Thumbnail.fromResponse(data.avatar);
     this.header = new Text(data.header);
     this.main_text = new Text(data.mainText);
-    this.sign_in_button = Parser.parseItem<Button>(data.signInButton, Button);
+    this.sign_in_button = Parser.parseItem(data.signInButton, Button);
     this.secondary_text = new Text(data.secondaryText);
   }
 }
-
-export default ChannelAgeGate;

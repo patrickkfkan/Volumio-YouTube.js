@@ -1,6 +1,6 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
 import MusicResponsiveListItem from './MusicResponsiveListItem.js';
-import { YTNode } from '../helpers.js';
 class MusicPlaylistShelf extends YTNode {
     constructor(data) {
         var _a, _b, _c;

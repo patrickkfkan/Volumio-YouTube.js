@@ -1,9 +1,9 @@
 import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
 import Thumbnail from './misc/Thumbnail.js';
-declare class ThumbnailLandscapePortrait extends YTNode {
+export default class ThumbnailLandscapePortrait extends YTNode {
     static type: string;
     landscape: Thumbnail[];
     portrait: Thumbnail[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ThumbnailLandscapePortrait;

@@ -1,11 +1,11 @@
+import type { ObservedArray } from '../../helpers.js';
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class Menu extends YTNode {
+export default class Menu extends YTNode {
     static type: string;
-    items: import("../../helpers.js").ObservedArray<YTNode>;
-    top_level_buttons: import("../../helpers.js").ObservedArray<YTNode>;
-    label: any;
+    items: ObservedArray<YTNode>;
+    top_level_buttons: ObservedArray<YTNode>;
+    label?: string;
     constructor(data: RawNode);
-    get contents(): import("../../helpers.js").ObservedArray<YTNode>;
+    get contents(): ObservedArray<YTNode>;
 }
-export default Menu;

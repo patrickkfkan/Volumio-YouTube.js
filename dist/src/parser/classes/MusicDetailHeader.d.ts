@@ -1,8 +1,9 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import type NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-declare class MusicDetailHeader extends YTNode {
+export default class MusicDetailHeader extends YTNode {
     static type: string;
     title: Text;
     description: Text;
@@ -12,13 +13,12 @@ declare class MusicDetailHeader extends YTNode {
     song_count: string;
     total_duration: string;
     thumbnails: Thumbnail[];
-    badges: import("../helpers.js").SuperParsedResult<YTNode>;
+    badges: ObservedArray<YTNode>;
     author?: {
         name: string;
         channel_id: string | undefined;
         endpoint: NavigationEndpoint | undefined;
     };
-    menu: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    menu: YTNode;
+    constructor(data: RawNode);
 }
-export default MusicDetailHeader;

@@ -1,10 +1,10 @@
 import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class ChipCloudChip extends YTNode {
+import type { RawNode } from '../index.js';
+export default class ChipCloudChip extends YTNode {
     static type: string;
     is_selected: boolean;
-    endpoint: NavigationEndpoint | undefined;
+    endpoint?: NavigationEndpoint;
     text: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ChipCloudChip;

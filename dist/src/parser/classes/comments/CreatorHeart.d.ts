@@ -1,10 +1,10 @@
 import { YTNode } from '../../helpers.js';
-import Thumbnail from '../misc/Thumbnail.js';
 import type { RawNode } from '../../index.js';
-declare class CreatorHeart extends YTNode {
+import Thumbnail from '../misc/Thumbnail.js';
+export default class CreatorHeart extends YTNode {
     static type: string;
     creator_thumbnail: Thumbnail[];
-    heart_icon_type: string;
+    heart_icon_type?: string;
     heart_color: {
         basic_color_palette_data: {
             foreground_title_color: string;
@@ -16,4 +16,3 @@ declare class CreatorHeart extends YTNode {
     kennedy_heart_color_string: string;
     constructor(data: RawNode);
 }
-export default CreatorHeart;

@@ -7,18 +7,10 @@ export interface ApiResponse {
 }
 export type InnertubeEndpoint = '/player' | '/search' | '/browse' | '/next' | '/updated_metadata' | '/notification/get_notification_menu' | string;
 export type ParsedResponse<T> = T extends '/player' ? IPlayerResponse : T extends '/search' ? ISearchResponse : T extends '/browse' ? IBrowseResponse : T extends '/next' ? INextResponse : T extends '/updated_metadata' ? IUpdatedMetadataResponse : T extends '/navigation/resolve_url' ? IResolveURLResponse : T extends '/notification/get_notification_menu' ? IGetNotificationsMenuResponse : IParsedResponse;
-declare class Actions {
+export default class Actions {
     #private;
     constructor(session: Session);
     get session(): Session;
-    /**
-     * Used to retrieve video info.
-     * @param id - The video ID.
-     * @param cpn - Content Playback Nonce.
-     * @param client - The client to use.
-     * @param playlist_id - The playlist ID.
-     */
-    getVideoInfo(id: string, cpn?: string, client?: string, playlist_id?: string): Promise<ApiResponse>;
     /**
      * Makes calls to the playback tracking API.
      * @param url - The URL to call.
@@ -49,4 +41,3 @@ declare class Actions {
         serialized_data?: any;
     }): Promise<ApiResponse>;
 }
-export default Actions;

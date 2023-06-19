@@ -1,7 +1,7 @@
 import type Actions from '../../core/Actions.js';
 import { InnertubeError } from '../../utils/Utils.js';
 
-import Feed from '../../core/Feed.js';
+import Feed from '../../core/mixins/Feed.js';
 import History from './History.js';
 import Playlist from './Playlist.js';
 import Menu from '../classes/menus/Menu.js';
@@ -12,7 +12,7 @@ import ProfileColumnStats from '../classes/ProfileColumnStats.js';
 import ProfileColumnUserInfo from '../classes/ProfileColumnUserInfo.js';
 
 import type { IBrowseResponse } from '../types/ParsedResponse.js';
-import { ApiResponse } from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/Actions.js';
 
 class Library extends Feed<IBrowseResponse> {
   profile: {
@@ -28,8 +28,8 @@ class Library extends Feed<IBrowseResponse> {
     if (!this.page.contents_memo)
       throw new InnertubeError('Page contents not found');
 
-    const stats = this.page.contents_memo.getType(ProfileColumnStats)?.[0];
-    const user_info = this.page.contents_memo.getType(ProfileColumnUserInfo)?.[0];
+    const stats = this.page.contents_memo.getType(ProfileColumnStats).first();
+    const user_info = this.page.contents_memo.getType(ProfileColumnUserInfo).first();
 
     this.profile = { stats, user_info };
 

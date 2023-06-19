@@ -1,6 +1,6 @@
 import Thumbnail from './Thumbnail.js';
 import type { RawNode } from '../../index.js';
-declare class VideoDetails {
+export default class VideoDetails {
     id: string;
     channel_id: string;
     title: string;
@@ -17,6 +17,6 @@ declare class VideoDetails {
     is_live_content: boolean;
     is_upcoming: boolean;
     is_crawlable: boolean;
+    is_post_live_dvr: boolean;
     constructor(data: RawNode);
 }
-export default VideoDetails;

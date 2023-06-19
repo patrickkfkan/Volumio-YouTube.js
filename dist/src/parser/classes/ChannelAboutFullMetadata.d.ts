@@ -1,9 +1,10 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import Button from './Button.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import type Button from './Button.js';
-import { YTNode } from '../helpers.js';
-declare class ChannelAboutFullMetadata extends YTNode {
+export default class ChannelAboutFullMetadata extends YTNode {
     static type: string;
     id: string;
     name: Text;
@@ -14,13 +15,24 @@ declare class ChannelAboutFullMetadata extends YTNode {
         icon: Thumbnail[];
         title: Text;
     }[];
-    views: Text;
-    joined: Text;
+    view_count: Text;
+    joined_date: Text;
     description: Text;
     email_reveal: NavigationEndpoint;
     can_reveal_email: boolean;
     country: Text;
-    buttons: Button[];
-    constructor(data: any);
+    buttons: ObservedArray<Button>;
+    constructor(data: RawNode);
+    /**
+     * @deprecated
+     * This will be removed in a future release.
+     * Please use {@link Channel.view_count} instead.
+     */
+    get views(): Text;
+    /**
+     * @deprecated
+     * This will be removed in a future release.
+     * Please use {@link Channel.joined_date} instead.
+     */
+    get joined(): Text;
 }
-export default ChannelAboutFullMetadata;

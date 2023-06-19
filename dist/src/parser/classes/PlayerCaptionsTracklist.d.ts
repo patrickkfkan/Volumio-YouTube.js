@@ -1,8 +1,9 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class PlayerCaptionsTracklist extends YTNode {
+import type { RawNode } from '../index.js';
+export default class PlayerCaptionsTracklist extends YTNode {
     static type: string;
-    caption_tracks: {
+    caption_tracks?: {
         base_url: string;
         name: Text;
         vss_id: string;
@@ -10,7 +11,7 @@ declare class PlayerCaptionsTracklist extends YTNode {
         kind: string;
         is_translatable: boolean;
     }[];
-    audio_tracks: {
+    audio_tracks?: {
         audio_track_id: string;
         captions_initial_state: string;
         default_caption_track_index: number;
@@ -18,11 +19,10 @@ declare class PlayerCaptionsTracklist extends YTNode {
         visibility: string;
         caption_track_indices: number;
     }[];
-    default_audio_track_index: number;
-    translation_languages: {
+    default_audio_track_index?: number;
+    translation_languages?: {
         language_code: string;
         language_name: Text;
     }[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default PlayerCaptionsTracklist;

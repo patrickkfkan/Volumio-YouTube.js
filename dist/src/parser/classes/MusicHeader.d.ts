@@ -1,9 +1,9 @@
+import { type RawNode } from '../index.js';
 import { YTNode } from '../helpers.js';
 import Text from './misc/Text.js';
-declare class MusicHeader extends YTNode {
+export default class MusicHeader extends YTNode {
     static type: string;
-    header?: import("../helpers.js").SuperParsedResult<YTNode> | undefined;
+    header?: YTNode;
     title?: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MusicHeader;

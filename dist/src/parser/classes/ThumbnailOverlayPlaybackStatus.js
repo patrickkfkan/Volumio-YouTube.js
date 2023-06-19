@@ -1,9 +1,9 @@
-import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
 class ThumbnailOverlayPlaybackStatus extends YTNode {
     constructor(data) {
         super();
-        this.text = data.texts.map((text) => new Text(text))[0].toString();
+        this.texts = data.texts.map((text) => new Text(text));
     }
 }
 ThumbnailOverlayPlaybackStatus.type = 'ThumbnailOverlayPlaybackStatus';

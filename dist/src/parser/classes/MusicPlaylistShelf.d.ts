@@ -1,11 +1,11 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import MusicResponsiveListItem from './MusicResponsiveListItem.js';
-import { YTNode } from '../helpers.js';
-declare class MusicPlaylistShelf extends YTNode {
+export default class MusicPlaylistShelf extends YTNode {
     static type: string;
     playlist_id: string;
-    contents: import("../helpers.js").ObservedArray<MusicResponsiveListItem>;
+    contents: ObservedArray<MusicResponsiveListItem>;
     collapsed_item_count: number;
     continuation: string | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MusicPlaylistShelf;

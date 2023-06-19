@@ -1,14 +1,14 @@
-import Text from './misc/Text.js';
-import Thumbnail from './misc/Thumbnail.js';
+import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import SubscribeButton from './SubscribeButton.js';
-import { YTNode } from '../helpers.js';
-declare class SlimOwner extends YTNode {
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
+export default class SlimOwner extends YTNode {
     static type: string;
     thumbnail: Thumbnail[];
     title: Text;
     endpoint: NavigationEndpoint;
     subscribe_button: SubscribeButton | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SlimOwner;

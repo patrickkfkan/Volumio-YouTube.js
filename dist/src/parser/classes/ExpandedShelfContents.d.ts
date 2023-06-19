@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers.js';
-declare class ExpandedShelfContents extends YTNode {
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
+export default class ExpandedShelfContents extends YTNode {
     static type: string;
-    items: import("../helpers.js").ObservedArray<YTNode>;
-    constructor(data: any);
-    get contents(): import("../helpers.js").ObservedArray<YTNode>;
+    items: ObservedArray<YTNode>;
+    constructor(data: RawNode);
+    get contents(): ObservedArray<YTNode>;
 }
-export default ExpandedShelfContents;

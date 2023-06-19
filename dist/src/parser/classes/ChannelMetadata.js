@@ -6,7 +6,7 @@ class ChannelMetadata extends YTNode {
         this.title = data.title;
         this.description = data.description;
         this.url = data.channelUrl;
-        this.rss_urls = data.rssUrl;
+        this.rss_url = data.rssUrl;
         this.vanity_channel_url = data.vanityChannelUrl;
         this.external_id = data.externalId;
         this.is_family_safe = data.isFamilySafe;

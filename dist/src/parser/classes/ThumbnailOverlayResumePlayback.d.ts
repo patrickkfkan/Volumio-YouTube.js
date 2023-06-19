@@ -1,7 +1,7 @@
 import { YTNode } from '../helpers.js';
-declare class ThumbnailOverlayResumePlayback extends YTNode {
+import type { RawNode } from '../index.js';
+export default class ThumbnailOverlayResumePlayback extends YTNode {
     static type: string;
     percent_duration_watched: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ThumbnailOverlayResumePlayback;

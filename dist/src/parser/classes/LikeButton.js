@@ -1,16 +1,15 @@
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 class LikeButton extends YTNode {
     constructor(data) {
-        var _a;
         super();
         this.target = {
             video_id: data.target.videoId
         };
         this.like_status = data.likeStatus;
         this.likes_allowed = data.likesAllowed;
-        if (data.serviceEndpoints) {
-            this.endpoints = (_a = data.serviceEndpoints) === null || _a === void 0 ? void 0 : _a.map((endpoint) => new NavigationEndpoint(endpoint));
+        if (Reflect.has(data, 'serviceEndpoints')) {
+            this.endpoints = data.serviceEndpoints.map((endpoint) => new NavigationEndpoint(endpoint));
         }
     }
 }

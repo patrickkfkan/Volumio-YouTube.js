@@ -1,8 +1,8 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class FeedTabbedHeader extends YTNode {
+import type { RawNode } from '../index.js';
+export default class FeedTabbedHeader extends YTNode {
     static type: string;
     title: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default FeedTabbedHeader;

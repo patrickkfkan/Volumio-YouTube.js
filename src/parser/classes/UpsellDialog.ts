@@ -1,9 +1,9 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
-import type Button from './Button.js';
+import Parser, { type RawNode } from '../index.js';
+import Button from './Button.js';
 import Text from './misc/Text.js';
 
-class UpsellDialog extends YTNode {
+export default class UpsellDialog extends YTNode {
   static type = 'UpsellDialog';
 
   message_title: Text;
@@ -12,14 +12,12 @@ class UpsellDialog extends YTNode {
   dismiss_button: Button | null;
   is_visible: boolean;
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
     this.message_title = new Text(data.dialogMessageTitle);
     this.message_text = new Text(data.dialogMessageText);
-    this.action_button = Parser.parseItem<Button>(data.actionButton);
-    this.dismiss_button = Parser.parseItem<Button>(data.dismissButton);
+    this.action_button = Parser.parseItem(data.actionButton, Button);
+    this.dismiss_button = Parser.parseItem(data.dismissButton, Button);
     this.is_visible = data.isVisible;
   }
 }
-
-export default UpsellDialog;

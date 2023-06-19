@@ -1,5 +1,8 @@
-import { ICache } from '../types/Cache.js';
-import { FetchFunction } from '../types/PlatformShim.js';
+import type { ICache } from '../types/Cache.js';
+import type { FetchFunction } from '../types/PlatformShim.js';
+/**
+ * Represents YouTube's player script. This is required to decipher signatures.
+ */
 export default class Player {
     #private;
     constructor(signature_timestamp: number, sig_sc: string, nsig_sc: string, player_id: string);

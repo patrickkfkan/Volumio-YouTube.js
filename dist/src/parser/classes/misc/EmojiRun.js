@@ -1,6 +1,6 @@
 import { escape } from './Text.js';
 import Thumbnail from './Thumbnail.js';
-class EmojiRun {
+export default class EmojiRun {
     constructor(data) {
         var _a, _b, _c, _d, _e, _f;
         this.text =
@@ -23,5 +23,4 @@ class EmojiRun {
         return `<img src="${this.emoji.image[0].url}" alt="${escaped_text}" title="${escaped_text}" style="display: inline-block; vertical-align: text-top; height: var(--yt-emoji-size, 1rem); width: var(--yt-emoji-size, 1rem);" loading="lazy" crossorigin="anonymous" />`;
     }
 }
-export default EmojiRun;
 //# sourceMappingURL=EmojiRun.js.map

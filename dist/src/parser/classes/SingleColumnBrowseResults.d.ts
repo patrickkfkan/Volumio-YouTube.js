@@ -1,8 +1,8 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import Tab from './Tab.js';
-import { YTNode } from '../helpers.js';
-declare class SingleColumnBrowseResults extends YTNode {
+export default class SingleColumnBrowseResults extends YTNode {
     static type: string;
-    tabs: import("../helpers.js").ObservedArray<Tab>;
-    constructor(data: any);
+    tabs: ObservedArray<Tab>;
+    constructor(data: RawNode);
 }
-export default SingleColumnBrowseResults;

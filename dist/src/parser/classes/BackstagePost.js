@@ -1,8 +1,10 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import CommentActionButtons from './comments/CommentActionButtons.js';
+import Menu from './menus/Menu.js';
 import Author from './misc/Author.js';
 import Text from './misc/Text.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
 class BackstagePost extends YTNode {
     constructor(data) {
         super();
@@ -10,28 +12,28 @@ class BackstagePost extends YTNode {
         this.author = new Author(Object.assign(Object.assign({}, data.authorText), { navigationEndpoint: data.authorEndpoint }), null, data.authorThumbnail);
         this.content = new Text(data.contentText);
         this.published = new Text(data.publishedTimeText);
-        if (data.pollStatus) {
+        if (Reflect.has(data, 'pollStatus')) {
             this.poll_status = data.pollStatus;
         }
-        if (data.voteStatus) {
+        if (Reflect.has(data, 'voteStatus')) {
             this.vote_status = data.voteStatus;
         }
-        if (data.voteCount) {
+        if (Reflect.has(data, 'voteCount')) {
             this.vote_count = new Text(data.voteCount);
         }
-        if (data.actionMenu) {
-            this.menu = Parser.parseItem(data.actionMenu);
+        if (Reflect.has(data, 'actionMenu')) {
+            this.menu = Parser.parseItem(data.actionMenu, Menu);
         }
-        if (data.actionButtons) {
-            this.action_buttons = Parser.parseItem(data.actionButtons);
+        if (Reflect.has(data, 'actionButtons')) {
+            this.action_buttons = Parser.parseItem(data.actionButtons, CommentActionButtons);
         }
-        if (data.voteButton) {
-            this.vote_button = Parser.parseItem(data.voteButton);
+        if (Reflect.has(data, 'voteButton')) {
+            this.vote_button = Parser.parseItem(data.voteButton, CommentActionButtons);
         }
-        if (data.navigationEndpoint) {
+        if (Reflect.has(data, 'navigationEndpoint')) {
             this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
         }
-        if (data.backstageAttachment) {
+        if (Reflect.has(data, 'backstageAttachment')) {
             this.attachment = Parser.parseItem(data.backstageAttachment);
         }
         this.surface = data.surface;

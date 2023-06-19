@@ -1,4 +1,4 @@
-import { YTNode } from '../helpers.js';
+import type { YTNode } from '../helpers.js';
 declare class DelayQueue {
     front: number[];
     back: number[];

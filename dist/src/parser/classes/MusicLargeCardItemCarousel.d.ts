@@ -1,12 +1,13 @@
 import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
 declare class ActionButton {
     static type: string;
     icon_name: string;
     endpoint: NavigationEndpoint;
     a11y_text: string;
     style: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
 declare class Panel {
     static type: string;
@@ -20,12 +21,12 @@ declare class Panel {
     image_aspect_ratio: string;
     caption: string;
     action_buttons: ActionButton[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-declare class MusicLargeCardItemCarousel extends YTNode {
+export default class MusicLargeCardItemCarousel extends YTNode {
     static type: string;
     panels: Panel[];
     header: any;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MusicLargeCardItemCarousel;
+export {};

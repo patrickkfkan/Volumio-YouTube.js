@@ -1,5 +1,5 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 import DropdownItem from './DropdownItem.js';
 class Dropdown extends YTNode {
     constructor(data) {

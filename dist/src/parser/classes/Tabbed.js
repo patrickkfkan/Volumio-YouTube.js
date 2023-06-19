@@ -1,9 +1,8 @@
-import Parser from '../index.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
 class Tabbed extends YTNode {
     constructor(data) {
         super();
-        // TODO: use parseArray instead
         this.contents = Parser.parse(data);
     }
 }

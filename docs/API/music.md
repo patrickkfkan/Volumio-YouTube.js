@@ -77,7 +77,16 @@ Searches on YouTube Music.
 | Param | Type | Description |
 | --- | --- | --- |
 | query | `string` | Search query |
-| filters? | `object` | Search filters |
+| filters? | `MusicSearchFilters` | Search filters |
+
+<details>
+<summary>Search Filters</summary>
+
+| Filter | Type | Value | Description |
+| --- | --- | --- | --- |
+| type | `string` | `all`, `song`, `video`, `album`, `playlist`, `artist` | Search type |
+
+</details>
 
 <details>
 <summary>Methods & Getters</summary>

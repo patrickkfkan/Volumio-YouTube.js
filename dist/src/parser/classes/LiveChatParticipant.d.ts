@@ -1,11 +1,11 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import { YTNode } from '../helpers.js';
-declare class LiveChatParticipant extends YTNode {
+export default class LiveChatParticipant extends YTNode {
     static type: string;
     name: Text;
     photo: Thumbnail[];
-    badges: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    badges: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default LiveChatParticipant;

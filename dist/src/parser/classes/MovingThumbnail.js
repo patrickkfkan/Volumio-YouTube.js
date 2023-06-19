@@ -1,5 +1,5 @@
-import Thumbnail from './misc/Thumbnail.js';
 import { YTNode } from '../helpers.js';
+import Thumbnail from './misc/Thumbnail.js';
 class MovingThumbnail extends YTNode {
     constructor(data) {
         var _a;

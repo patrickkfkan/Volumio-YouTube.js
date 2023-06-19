@@ -1,20 +1,7 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Library_instances, _Library_getAll;
+import { __awaiter, __classPrivateFieldGet } from "tslib";
 import { InnertubeError } from '../../utils/Utils.js';
-import Feed from '../../core/Feed.js';
+import Feed from '../../core/mixins/Feed.js';
 import History from './History.js';
 import Playlist from './Playlist.js';
 import Menu from '../classes/menus/Menu.js';
@@ -24,13 +11,12 @@ import ProfileColumnStats from '../classes/ProfileColumnStats.js';
 import ProfileColumnUserInfo from '../classes/ProfileColumnUserInfo.js';
 class Library extends Feed {
     constructor(actions, data) {
-        var _a, _b;
         super(actions, data);
         _Library_instances.add(this);
         if (!this.page.contents_memo)
             throw new InnertubeError('Page contents not found');
-        const stats = (_a = this.page.contents_memo.getType(ProfileColumnStats)) === null || _a === void 0 ? void 0 : _a[0];
-        const user_info = (_b = this.page.contents_memo.getType(ProfileColumnUserInfo)) === null || _b === void 0 ? void 0 : _b[0];
+        const stats = this.page.contents_memo.getType(ProfileColumnStats).first();
+        const user_info = this.page.contents_memo.getType(ProfileColumnUserInfo).first();
         this.profile = { stats, user_info };
         const shelves = this.page.contents_memo.getType(Shelf);
         this.sections = shelves.map((shelf) => {

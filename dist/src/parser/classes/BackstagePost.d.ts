@@ -1,10 +1,11 @@
+import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import CommentActionButtons from './comments/CommentActionButtons.js';
+import Menu from './menus/Menu.js';
 import Author from './misc/Author.js';
 import Text from './misc/Text.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import type CommentActionButtons from './comments/CommentActionButtons.js';
-import type Menu from './menus/Menu.js';
-import { YTNode } from '../helpers.js';
-declare class BackstagePost extends YTNode {
+export default class BackstagePost extends YTNode {
     static type: string;
     id: string;
     author: Author;
@@ -14,11 +15,10 @@ declare class BackstagePost extends YTNode {
     vote_status?: string;
     vote_count?: Text;
     menu?: Menu | null;
-    action_buttons: CommentActionButtons | null | undefined;
-    vote_button: YTNode | null | undefined;
+    action_buttons?: CommentActionButtons | null;
+    vote_button?: CommentActionButtons | null;
     surface: string;
     endpoint?: NavigationEndpoint;
-    attachment: YTNode | null | undefined;
-    constructor(data: any);
+    attachment: YTNode | undefined;
+    constructor(data: RawNode);
 }
-export default BackstagePost;

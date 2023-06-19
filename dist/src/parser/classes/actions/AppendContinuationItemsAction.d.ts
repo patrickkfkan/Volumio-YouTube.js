@@ -1,9 +1,8 @@
-import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class AppendContinuationItemsAction extends YTNode {
+import { type SuperParsedResult, YTNode } from '../../helpers.js';
+export default class AppendContinuationItemsAction extends YTNode {
     static type: string;
-    items: import("../../helpers.js").SuperParsedResult<YTNode>;
+    items: SuperParsedResult<YTNode>;
     target: string;
     constructor(data: RawNode);
 }
-export default AppendContinuationItemsAction;

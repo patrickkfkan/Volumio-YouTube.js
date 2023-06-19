@@ -1,16 +1,16 @@
+import Author from '../misc/Author.js';
 import Text from '../misc/Text.js';
 import Thumbnail from '../misc/Thumbnail.js';
+import Menu from '../menus/Menu.js';
 import AuthorCommentBadge from './AuthorCommentBadge.js';
-import Author from '../misc/Author.js';
-import type Menu from '../menus/Menu.js';
-import type CommentActionButtons from './CommentActionButtons.js';
-import type SponsorCommentBadge from './SponsorCommentBadge.js';
-import type PdgCommentChip from './PdgCommentChip.js';
-import type { ApiResponse } from '../../../core/Actions.js';
-import type Actions from '../../../core/Actions.js';
+import CommentActionButtons from './CommentActionButtons.js';
+import PdgCommentChip from './PdgCommentChip.js';
+import SponsorCommentBadge from './SponsorCommentBadge.js';
 import { YTNode } from '../../helpers.js';
+import type Actions from '../../../core/Actions.js';
+import type { ApiResponse } from '../../../core/Actions.js';
 import type { RawNode } from '../../index.js';
-declare class Comment extends YTNode {
+export default class Comment extends YTNode {
     #private;
     static type: string;
     content: Text;
@@ -46,7 +46,7 @@ declare class Comment extends YTNode {
      */
     reply(text: string): Promise<ApiResponse>;
     /**
-     * Translates the comment to the given language.
+     * Translates the comment to a given language.
      * @param target_language - Ex; en, ja
      */
     translate(target_language: string): Promise<{
@@ -57,4 +57,3 @@ declare class Comment extends YTNode {
     }>;
     setActions(actions: Actions | undefined): void;
 }
-export default Comment;

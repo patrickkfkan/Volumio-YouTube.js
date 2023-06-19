@@ -2,13 +2,14 @@ import Video from './AnalyticsVideo.js';
 import { YTNode } from '../../helpers.js';
 class AnalyticsVodCarouselCard extends YTNode {
     constructor(data) {
-        var _a;
         super();
         this.title = data.title;
-        if (data.noDataMessage) {
+        if (Reflect.has(data, 'noDataMessage')) {
             this.no_data_message = data.noDataMessage;
         }
-        this.videos = ((_a = data.videoCarouselData) === null || _a === void 0 ? void 0 : _a.videos.map((video) => new Video(video))) || null;
+        if (Reflect.has(data, 'videoCarouselData') && Reflect.has(data.videoCarouselData, 'videos')) {
+            this.videos = data.videoCarouselData.videos.map((video) => new Video(video));
+        }
     }
 }
 AnalyticsVodCarouselCard.type = 'AnalyticsVodCarouselCard';

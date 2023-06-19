@@ -12,7 +12,7 @@ import ChipCloud from '../classes/ChipCloud.js';
 import ChipCloudChip from '../classes/ChipCloudChip.js';
 import MusicMultiSelectMenuItem from '../classes/menus/MusicMultiSelectMenuItem.js';
 import MusicSortFilterButton from '../classes/MusicSortFilterButton.js';
-import MusicMenuItemDivider from '../classes/menus/MusicMenuItemDivider.js';
+import type MusicMenuItemDivider from '../classes/menus/MusicMenuItemDivider.js';
 
 import { InnertubeError } from '../../utils/Utils.js';
 import type { ObservedArray } from '../helpers.js';
@@ -32,7 +32,7 @@ class Library {
 
     const section_list = this.#page.contents_memo?.getType(SectionList).first();
 
-    this.header = section_list?.header?.item().as(MusicSideAlignedItem);
+    this.header = section_list?.header?.as(MusicSideAlignedItem);
     this.contents = section_list?.contents?.as(Grid, MusicShelf);
 
     this.#continuation = this.contents?.find((list: Grid | MusicShelf) => list.continuation)?.continuation;

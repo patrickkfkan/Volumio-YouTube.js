@@ -1,9 +1,8 @@
 import { YTNode } from '../helpers.js';
-import { RawNode } from '../index.js';
-declare class YpcTrailer extends YTNode {
+import type { IRawResponse, RawNode } from '../index.js';
+export default class YpcTrailer extends YTNode {
     static type: string;
     video_message: string;
-    player_response: any;
+    player_response: IRawResponse;
     constructor(data: RawNode);
 }
-export default YpcTrailer;

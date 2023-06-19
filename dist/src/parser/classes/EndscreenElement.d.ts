@@ -1,20 +1,21 @@
+import { type RawNode } from '../index.js';
 import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
-import { YTNode } from '../helpers.js';
-declare class EndscreenElement extends YTNode {
+import { type ObservedArray, YTNode } from '../helpers.js';
+export default class EndscreenElement extends YTNode {
     static type: string;
     style: string;
     title: Text;
     endpoint: NavigationEndpoint;
-    image: Thumbnail[] | undefined;
-    icon: Thumbnail[] | undefined;
-    metadata: Text | undefined;
-    call_to_action: Text | undefined;
-    hovercard_button: YTNode | null | undefined;
-    is_subscribe: boolean | undefined;
-    playlist_length: Text | undefined;
-    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode> | undefined;
+    image?: Thumbnail[];
+    icon?: Thumbnail[];
+    metadata?: Text;
+    call_to_action?: Text;
+    hovercard_button?: YTNode;
+    is_subscribe?: boolean;
+    playlist_length?: Text;
+    thumbnail_overlays?: ObservedArray<YTNode>;
     left: number;
     top: number;
     width: number;
@@ -22,6 +23,5 @@ declare class EndscreenElement extends YTNode {
     start_ms: number;
     end_ms: number;
     id: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default EndscreenElement;

@@ -28,6 +28,531 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
+// node_modules/tslib/tslib.js
+var require_tslib = __commonJS({
+  "node_modules/tslib/tslib.js"(exports, module2) {
+    var __extends2;
+    var __assign2;
+    var __rest2;
+    var __decorate2;
+    var __param2;
+    var __esDecorate2;
+    var __runInitializers2;
+    var __propKey2;
+    var __setFunctionName2;
+    var __metadata2;
+    var __awaiter2;
+    var __generator2;
+    var __exportStar2;
+    var __values2;
+    var __read2;
+    var __spread2;
+    var __spreadArrays2;
+    var __spreadArray2;
+    var __await2;
+    var __asyncGenerator2;
+    var __asyncDelegator2;
+    var __asyncValues2;
+    var __makeTemplateObject2;
+    var __importStar2;
+    var __importDefault2;
+    var __classPrivateFieldGet2;
+    var __classPrivateFieldSet2;
+    var __classPrivateFieldIn2;
+    var __createBinding2;
+    (function(factory) {
+      var root = typeof global === "object" ? global : typeof self === "object" ? self : typeof this === "object" ? this : {};
+      if (typeof define === "function" && define.amd) {
+        define("tslib", ["exports"], function(exports2) {
+          factory(createExporter(root, createExporter(exports2)));
+        });
+      } else if (typeof module2 === "object" && typeof module2.exports === "object") {
+        factory(createExporter(root, createExporter(module2.exports)));
+      } else {
+        factory(createExporter(root));
+      }
+      function createExporter(exports2, previous) {
+        if (exports2 !== root) {
+          if (typeof Object.create === "function") {
+            Object.defineProperty(exports2, "__esModule", { value: true });
+          } else {
+            exports2.__esModule = true;
+          }
+        }
+        return function(id, v) {
+          return exports2[id] = previous ? previous(id, v) : v;
+        };
+      }
+      __name(createExporter, "createExporter");
+    })(function(exporter) {
+      var extendStatics = Object.setPrototypeOf || { __proto__: [] } instanceof Array && function(d, b) {
+        d.__proto__ = b;
+      } || function(d, b) {
+        for (var p in b)
+          if (Object.prototype.hasOwnProperty.call(b, p))
+            d[p] = b[p];
+      };
+      __extends2 = /* @__PURE__ */ __name(function(d, b) {
+        if (typeof b !== "function" && b !== null)
+          throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() {
+          this.constructor = d;
+        }
+        __name(__, "__");
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+      }, "__extends");
+      __assign2 = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+          s = arguments[i];
+          for (var p in s)
+            if (Object.prototype.hasOwnProperty.call(s, p))
+              t[p] = s[p];
+        }
+        return t;
+      };
+      __rest2 = /* @__PURE__ */ __name(function(s, e) {
+        var t = {};
+        for (var p in s)
+          if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+            t[p] = s[p];
+        if (s != null && typeof Object.getOwnPropertySymbols === "function")
+          for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+              t[p[i]] = s[p[i]];
+          }
+        return t;
+      }, "__rest");
+      __decorate2 = /* @__PURE__ */ __name(function(decorators, target, key, desc) {
+        var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+        if (typeof Reflect === "object" && typeof Reflect.decorate === "function")
+          r = Reflect.decorate(decorators, target, key, desc);
+        else
+          for (var i = decorators.length - 1; i >= 0; i--)
+            if (d = decorators[i])
+              r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+        return c > 3 && r && Object.defineProperty(target, key, r), r;
+      }, "__decorate");
+      __param2 = /* @__PURE__ */ __name(function(paramIndex, decorator) {
+        return function(target, key) {
+          decorator(target, key, paramIndex);
+        };
+      }, "__param");
+      __esDecorate2 = /* @__PURE__ */ __name(function(ctor, descriptorIn, decorators, contextIn, initializers, extraInitializers) {
+        function accept(f) {
+          if (f !== void 0 && typeof f !== "function")
+            throw new TypeError("Function expected");
+          return f;
+        }
+        __name(accept, "accept");
+        var kind = contextIn.kind, key = kind === "getter" ? "get" : kind === "setter" ? "set" : "value";
+        var target = !descriptorIn && ctor ? contextIn["static"] ? ctor : ctor.prototype : null;
+        var descriptor = descriptorIn || (target ? Object.getOwnPropertyDescriptor(target, contextIn.name) : {});
+        var _, done = false;
+        for (var i = decorators.length - 1; i >= 0; i--) {
+          var context = {};
+          for (var p in contextIn)
+            context[p] = p === "access" ? {} : contextIn[p];
+          for (var p in contextIn.access)
+            context.access[p] = contextIn.access[p];
+          context.addInitializer = function(f) {
+            if (done)
+              throw new TypeError("Cannot add initializers after decoration has completed");
+            extraInitializers.push(accept(f || null));
+          };
+          var result = (0, decorators[i])(kind === "accessor" ? { get: descriptor.get, set: descriptor.set } : descriptor[key], context);
+          if (kind === "accessor") {
+            if (result === void 0)
+              continue;
+            if (result === null || typeof result !== "object")
+              throw new TypeError("Object expected");
+            if (_ = accept(result.get))
+              descriptor.get = _;
+            if (_ = accept(result.set))
+              descriptor.set = _;
+            if (_ = accept(result.init))
+              initializers.unshift(_);
+          } else if (_ = accept(result)) {
+            if (kind === "field")
+              initializers.unshift(_);
+            else
+              descriptor[key] = _;
+          }
+        }
+        if (target)
+          Object.defineProperty(target, contextIn.name, descriptor);
+        done = true;
+      }, "__esDecorate");
+      __runInitializers2 = /* @__PURE__ */ __name(function(thisArg, initializers, value) {
+        var useValue = arguments.length > 2;
+        for (var i = 0; i < initializers.length; i++) {
+          value = useValue ? initializers[i].call(thisArg, value) : initializers[i].call(thisArg);
+        }
+        return useValue ? value : void 0;
+      }, "__runInitializers");
+      __propKey2 = /* @__PURE__ */ __name(function(x) {
+        return typeof x === "symbol" ? x : "".concat(x);
+      }, "__propKey");
+      __setFunctionName2 = /* @__PURE__ */ __name(function(f, name, prefix) {
+        if (typeof name === "symbol")
+          name = name.description ? "[".concat(name.description, "]") : "";
+        return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
+      }, "__setFunctionName");
+      __metadata2 = /* @__PURE__ */ __name(function(metadataKey, metadataValue) {
+        if (typeof Reflect === "object" && typeof Reflect.metadata === "function")
+          return Reflect.metadata(metadataKey, metadataValue);
+      }, "__metadata");
+      __awaiter2 = /* @__PURE__ */ __name(function(thisArg, _arguments, P, generator) {
+        function adopt(value) {
+          return value instanceof P ? value : new P(function(resolve) {
+            resolve(value);
+          });
+        }
+        __name(adopt, "adopt");
+        return new (P || (P = Promise))(function(resolve, reject) {
+          function fulfilled(value) {
+            try {
+              step(generator.next(value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+          __name(fulfilled, "fulfilled");
+          function rejected(value) {
+            try {
+              step(generator["throw"](value));
+            } catch (e) {
+              reject(e);
+            }
+          }
+          __name(rejected, "rejected");
+          function step(result) {
+            result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
+          }
+          __name(step, "step");
+          step((generator = generator.apply(thisArg, _arguments || [])).next());
+        });
+      }, "__awaiter");
+      __generator2 = /* @__PURE__ */ __name(function(thisArg, body) {
+        var _ = { label: 0, sent: function() {
+          if (t[0] & 1)
+            throw t[1];
+          return t[1];
+        }, trys: [], ops: [] }, f, y, t, g;
+        return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+          return this;
+        }), g;
+        function verb(n) {
+          return function(v) {
+            return step([n, v]);
+          };
+        }
+        __name(verb, "verb");
+        function step(op) {
+          if (f)
+            throw new TypeError("Generator is already executing.");
+          while (g && (g = 0, op[0] && (_ = 0)), _)
+            try {
+              if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done)
+                return t;
+              if (y = 0, t)
+                op = [op[0] & 2, t.value];
+              switch (op[0]) {
+                case 0:
+                case 1:
+                  t = op;
+                  break;
+                case 4:
+                  _.label++;
+                  return { value: op[1], done: false };
+                case 5:
+                  _.label++;
+                  y = op[1];
+                  op = [0];
+                  continue;
+                case 7:
+                  op = _.ops.pop();
+                  _.trys.pop();
+                  continue;
+                default:
+                  if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                    _ = 0;
+                    continue;
+                  }
+                  if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+                    _.label = op[1];
+                    break;
+                  }
+                  if (op[0] === 6 && _.label < t[1]) {
+                    _.label = t[1];
+                    t = op;
+                    break;
+                  }
+                  if (t && _.label < t[2]) {
+                    _.label = t[2];
+                    _.ops.push(op);
+                    break;
+                  }
+                  if (t[2])
+                    _.ops.pop();
+                  _.trys.pop();
+                  continue;
+              }
+              op = body.call(thisArg, _);
+            } catch (e) {
+              op = [6, e];
+              y = 0;
+            } finally {
+              f = t = 0;
+            }
+          if (op[0] & 5)
+            throw op[1];
+          return { value: op[0] ? op[1] : void 0, done: true };
+        }
+        __name(step, "step");
+      }, "__generator");
+      __exportStar2 = /* @__PURE__ */ __name(function(m, o) {
+        for (var p in m)
+          if (p !== "default" && !Object.prototype.hasOwnProperty.call(o, p))
+            __createBinding2(o, m, p);
+      }, "__exportStar");
+      __createBinding2 = Object.create ? function(o, m, k, k2) {
+        if (k2 === void 0)
+          k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o, k2, desc);
+      } : function(o, m, k, k2) {
+        if (k2 === void 0)
+          k2 = k;
+        o[k2] = m[k];
+      };
+      __values2 = /* @__PURE__ */ __name(function(o) {
+        var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+        if (m)
+          return m.call(o);
+        if (o && typeof o.length === "number")
+          return {
+            next: function() {
+              if (o && i >= o.length)
+                o = void 0;
+              return { value: o && o[i++], done: !o };
+            }
+          };
+        throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+      }, "__values");
+      __read2 = /* @__PURE__ */ __name(function(o, n) {
+        var m = typeof Symbol === "function" && o[Symbol.iterator];
+        if (!m)
+          return o;
+        var i = m.call(o), r, ar = [], e;
+        try {
+          while ((n === void 0 || n-- > 0) && !(r = i.next()).done)
+            ar.push(r.value);
+        } catch (error) {
+          e = { error };
+        } finally {
+          try {
+            if (r && !r.done && (m = i["return"]))
+              m.call(i);
+          } finally {
+            if (e)
+              throw e.error;
+          }
+        }
+        return ar;
+      }, "__read");
+      __spread2 = /* @__PURE__ */ __name(function() {
+        for (var ar = [], i = 0; i < arguments.length; i++)
+          ar = ar.concat(__read2(arguments[i]));
+        return ar;
+      }, "__spread");
+      __spreadArrays2 = /* @__PURE__ */ __name(function() {
+        for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+          s += arguments[i].length;
+        for (var r = Array(s), k = 0, i = 0; i < il; i++)
+          for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+        return r;
+      }, "__spreadArrays");
+      __spreadArray2 = /* @__PURE__ */ __name(function(to, from, pack) {
+        if (pack || arguments.length === 2)
+          for (var i = 0, l = from.length, ar; i < l; i++) {
+            if (ar || !(i in from)) {
+              if (!ar)
+                ar = Array.prototype.slice.call(from, 0, i);
+              ar[i] = from[i];
+            }
+          }
+        return to.concat(ar || Array.prototype.slice.call(from));
+      }, "__spreadArray");
+      __await2 = /* @__PURE__ */ __name(function(v) {
+        return this instanceof __await2 ? (this.v = v, this) : new __await2(v);
+      }, "__await");
+      __asyncGenerator2 = /* @__PURE__ */ __name(function(thisArg, _arguments, generator) {
+        if (!Symbol.asyncIterator)
+          throw new TypeError("Symbol.asyncIterator is not defined.");
+        var g = generator.apply(thisArg, _arguments || []), i, q = [];
+        return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
+          return this;
+        }, i;
+        function verb(n) {
+          if (g[n])
+            i[n] = function(v) {
+              return new Promise(function(a, b) {
+                q.push([n, v, a, b]) > 1 || resume(n, v);
+              });
+            };
+        }
+        __name(verb, "verb");
+        function resume(n, v) {
+          try {
+            step(g[n](v));
+          } catch (e) {
+            settle(q[0][3], e);
+          }
+        }
+        __name(resume, "resume");
+        function step(r) {
+          r.value instanceof __await2 ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
+        }
+        __name(step, "step");
+        function fulfill(value) {
+          resume("next", value);
+        }
+        __name(fulfill, "fulfill");
+        function reject(value) {
+          resume("throw", value);
+        }
+        __name(reject, "reject");
+        function settle(f, v) {
+          if (f(v), q.shift(), q.length)
+            resume(q[0][0], q[0][1]);
+        }
+        __name(settle, "settle");
+      }, "__asyncGenerator");
+      __asyncDelegator2 = /* @__PURE__ */ __name(function(o) {
+        var i, p;
+        return i = {}, verb("next"), verb("throw", function(e) {
+          throw e;
+        }), verb("return"), i[Symbol.iterator] = function() {
+          return this;
+        }, i;
+        function verb(n, f) {
+          i[n] = o[n] ? function(v) {
+            return (p = !p) ? { value: __await2(o[n](v)), done: false } : f ? f(v) : v;
+          } : f;
+        }
+        __name(verb, "verb");
+      }, "__asyncDelegator");
+      __asyncValues2 = /* @__PURE__ */ __name(function(o) {
+        if (!Symbol.asyncIterator)
+          throw new TypeError("Symbol.asyncIterator is not defined.");
+        var m = o[Symbol.asyncIterator], i;
+        return m ? m.call(o) : (o = typeof __values2 === "function" ? __values2(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
+          return this;
+        }, i);
+        function verb(n) {
+          i[n] = o[n] && function(v) {
+            return new Promise(function(resolve, reject) {
+              v = o[n](v), settle(resolve, reject, v.done, v.value);
+            });
+          };
+        }
+        __name(verb, "verb");
+        function settle(resolve, reject, d, v) {
+          Promise.resolve(v).then(function(v2) {
+            resolve({ value: v2, done: d });
+          }, reject);
+        }
+        __name(settle, "settle");
+      }, "__asyncValues");
+      __makeTemplateObject2 = /* @__PURE__ */ __name(function(cooked, raw) {
+        if (Object.defineProperty) {
+          Object.defineProperty(cooked, "raw", { value: raw });
+        } else {
+          cooked.raw = raw;
+        }
+        return cooked;
+      }, "__makeTemplateObject");
+      var __setModuleDefault = Object.create ? function(o, v) {
+        Object.defineProperty(o, "default", { enumerable: true, value: v });
+      } : function(o, v) {
+        o["default"] = v;
+      };
+      __importStar2 = /* @__PURE__ */ __name(function(mod) {
+        if (mod && mod.__esModule)
+          return mod;
+        var result = {};
+        if (mod != null) {
+          for (var k in mod)
+            if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k))
+              __createBinding2(result, mod, k);
+        }
+        __setModuleDefault(result, mod);
+        return result;
+      }, "__importStar");
+      __importDefault2 = /* @__PURE__ */ __name(function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
+      }, "__importDefault");
+      __classPrivateFieldGet2 = /* @__PURE__ */ __name(function(receiver, state, kind, f) {
+        if (kind === "a" && !f)
+          throw new TypeError("Private accessor was defined without a getter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+          throw new TypeError("Cannot read private member from an object whose class did not declare it");
+        return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
+      }, "__classPrivateFieldGet");
+      __classPrivateFieldSet2 = /* @__PURE__ */ __name(function(receiver, state, value, kind, f) {
+        if (kind === "m")
+          throw new TypeError("Private method is not writable");
+        if (kind === "a" && !f)
+          throw new TypeError("Private accessor was defined without a setter");
+        if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
+          throw new TypeError("Cannot write private member to an object whose class did not declare it");
+        return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
+      }, "__classPrivateFieldSet");
+      __classPrivateFieldIn2 = /* @__PURE__ */ __name(function(state, receiver) {
+        if (receiver === null || typeof receiver !== "object" && typeof receiver !== "function")
+          throw new TypeError("Cannot use 'in' operator on non-object");
+        return typeof state === "function" ? receiver === state : state.has(receiver);
+      }, "__classPrivateFieldIn");
+      exporter("__extends", __extends2);
+      exporter("__assign", __assign2);
+      exporter("__rest", __rest2);
+      exporter("__decorate", __decorate2);
+      exporter("__param", __param2);
+      exporter("__esDecorate", __esDecorate2);
+      exporter("__runInitializers", __runInitializers2);
+      exporter("__propKey", __propKey2);
+      exporter("__setFunctionName", __setFunctionName2);
+      exporter("__metadata", __metadata2);
+      exporter("__awaiter", __awaiter2);
+      exporter("__generator", __generator2);
+      exporter("__exportStar", __exportStar2);
+      exporter("__createBinding", __createBinding2);
+      exporter("__values", __values2);
+      exporter("__read", __read2);
+      exporter("__spread", __spread2);
+      exporter("__spreadArrays", __spreadArrays2);
+      exporter("__spreadArray", __spreadArray2);
+      exporter("__await", __await2);
+      exporter("__asyncGenerator", __asyncGenerator2);
+      exporter("__asyncDelegator", __asyncDelegator2);
+      exporter("__asyncValues", __asyncValues2);
+      exporter("__makeTemplateObject", __makeTemplateObject2);
+      exporter("__importStar", __importStar2);
+      exporter("__importDefault", __importDefault2);
+      exporter("__classPrivateFieldGet", __classPrivateFieldGet2);
+      exporter("__classPrivateFieldSet", __classPrivateFieldSet2);
+      exporter("__classPrivateFieldIn", __classPrivateFieldIn2);
+    });
+  }
+});
+
 // node_modules/web-streams-polyfill/dist/polyfill.js
 var require_polyfill = __commonJS({
   "node_modules/web-streams-polyfill/dist/polyfill.js"(exports, module2) {
@@ -504,12 +1029,12 @@ var require_polyfill = __commonJS({
         return new TypeError("ReadableStreamDefaultReader.prototype." + name + " can only be used on a ReadableStreamDefaultReader");
       }
       __name(defaultReaderBrandCheckException, "defaultReaderBrandCheckException");
-      var _a5;
+      var _a7;
       var AsyncIteratorPrototype;
       if (typeof SymbolPolyfill.asyncIterator === "symbol") {
-        AsyncIteratorPrototype = (_a5 = {}, _a5[SymbolPolyfill.asyncIterator] = function() {
+        AsyncIteratorPrototype = (_a7 = {}, _a7[SymbolPolyfill.asyncIterator] = function() {
           return this;
-        }, _a5);
+        }, _a7);
         Object.defineProperty(AsyncIteratorPrototype, SymbolPolyfill.asyncIterator, { enumerable: false });
       }
       var ReadableStreamAsyncIteratorImpl = function() {
@@ -628,7 +1153,7 @@ var require_polyfill = __commonJS({
         }
         try {
           return x._asyncIteratorImpl instanceof ReadableStreamAsyncIteratorImpl;
-        } catch (_a6) {
+        } catch (_a8) {
           return false;
         }
       }
@@ -1605,7 +2130,7 @@ var require_polyfill = __commonJS({
         }
         try {
           return typeof value.aborted === "boolean";
-        } catch (_a6) {
+        } catch (_a8) {
           return false;
         }
       }
@@ -1748,12 +2273,12 @@ var require_polyfill = __commonJS({
       }
       __name(IsWritableStreamLocked, "IsWritableStreamLocked");
       function WritableStreamAbort(stream, reason) {
-        var _a6;
+        var _a8;
         if (stream._state === "closed" || stream._state === "errored") {
           return promiseResolvedWith(void 0);
         }
         stream._writableStreamController._abortReason = reason;
-        (_a6 = stream._writableStreamController._abortController) === null || _a6 === void 0 ? void 0 : _a6.abort();
+        (_a8 = stream._writableStreamController._abortController) === null || _a8 === void 0 ? void 0 : _a8.abort();
         var state = stream._state;
         if (state === "closed" || state === "errored") {
           return promiseResolvedWith(void 0);
@@ -2533,7 +3058,7 @@ var require_polyfill = __commonJS({
         try {
           new ctor();
           return true;
-        } catch (_a6) {
+        } catch (_a8) {
           return false;
         }
       }
@@ -3705,7 +4230,7 @@ var require_polyfill = __commonJS({
           value: "size",
           configurable: true
         });
-      } catch (_a6) {
+      } catch (_a8) {
       }
       var ByteLengthQueuingStrategy = function() {
         function ByteLengthQueuingStrategy2(options) {
@@ -3768,7 +4293,7 @@ var require_polyfill = __commonJS({
           value: "size",
           configurable: true
         });
-      } catch (_a6) {
+      } catch (_a8) {
       }
       var CountQueuingStrategy = function() {
         function CountQueuingStrategy2(options) {
@@ -7148,9 +7673,9 @@ var require_lib2 = __commonJS({
       }
     }
     __name(validateValue, "validateValue");
-    function find(map2, name) {
+    function find(map, name) {
       name = name.toLowerCase();
-      for (const key in map2) {
+      for (const key in map) {
         if (key.toLowerCase() === name) {
           return key;
         }
@@ -7872,51 +8397,83 @@ var require_lib2 = __commonJS({
 // dist/src/platform/node.js
 var node_exports = {};
 __export(node_exports, {
-  AccountManager: () => AccountManager_default,
   Actions: () => Actions_default,
   AppendContinuationItemsAction: () => AppendContinuationItemsAction2,
   ClientType: () => ClientType,
+  Clients: () => clients_exports,
   Constants: () => Constants_exports,
   Continuation: () => Continuation,
-  EventEmitter: () => EventEmitterLike,
-  Feed: () => Feed_default,
-  FilterableFeed: () => FilterableFeed_default,
+  Endpoints: () => endpoints_exports,
+  EventEmitter: () => EventEmitterLike_default,
   FormatUtils: () => FormatUtils_default,
+  Generator: () => generator_exports,
   GridContinuation: () => GridContinuation,
-  HTTPClient: () => HTTPClient,
+  HTTPClient: () => HTTPClient_default,
   Helpers: () => helpers_exports,
   Innertube: () => Innertube_default,
-  InteractionManager: () => InteractionManager_default,
   ItemSectionContinuation: () => ItemSectionContinuation,
-  Kids: () => Kids_default,
   LiveChatContinuation: () => LiveChatContinuation,
-  Misc: () => Misc,
-  Music: () => Music_default,
+  Managers: () => managers_exports,
+  Misc: () => misc_exports,
+  Mixins: () => mixins_exports,
   MusicPlaylistShelfContinuation: () => MusicPlaylistShelfContinuation,
   MusicShelfContinuation: () => MusicShelfContinuation,
   NavigateAction: () => NavigateAction,
   OAuth: () => OAuth_default,
   Parser: () => parser_default,
   Platform: () => Platform,
-  Player: () => Player,
-  PlaylistManager: () => PlaylistManager_default,
+  Player: () => Player_default,
   PlaylistPanelContinuation: () => PlaylistPanelContinuation,
   Proto: () => proto_default,
   ReloadContinuationItemsCommand: () => ReloadContinuationItemsCommand,
   SectionListContinuation: () => SectionListContinuation,
-  Session: () => Session,
-  Studio: () => Studio_default,
-  TabbedFeed: () => TabbedFeed_default,
+  Session: () => Session_default,
   Types: () => types_exports,
-  UniversalCache: () => UniversalCache,
+  UniversalCache: () => Cache_default,
   Utils: () => Utils_exports,
   YT: () => youtube_exports,
   YTKids: () => ytkids_exports,
   YTMusic: () => ytmusic_exports,
-  YTNodes: () => map_exports,
+  YTNodes: () => nodes_exports,
   default: () => node_default
 });
 module.exports = __toCommonJS(node_exports);
+
+// node_modules/tslib/modules/index.js
+var import_tslib = __toESM(require_tslib(), 1);
+var {
+  __extends,
+  __assign,
+  __rest,
+  __decorate,
+  __param,
+  __esDecorate,
+  __runInitializers,
+  __propKey,
+  __setFunctionName,
+  __metadata,
+  __awaiter,
+  __generator,
+  __exportStar,
+  __createBinding,
+  __values,
+  __read,
+  __spread,
+  __spreadArrays,
+  __spreadArray,
+  __await,
+  __asyncGenerator,
+  __asyncDelegator,
+  __asyncValues,
+  __makeTemplateObject,
+  __importStar,
+  __importDefault,
+  __classPrivateFieldGet,
+  __classPrivateFieldSet,
+  __classPrivateFieldIn
+} = import_tslib.default;
+
+// dist/src/platform/node.js
 var import_web_streams_polyfill = __toESM(require_polyfill(), 1);
 
 // dist/src/utils/Utils.js
@@ -7930,6 +8487,7 @@ __export(Utils_exports, {
   Platform: () => Platform,
   PlayerError: () => PlayerError,
   SessionError: () => SessionError,
+  base64ToU8: () => base64ToU8,
   concatMemos: () => concatMemos,
   debugFetch: () => debugFetch,
   deepCompare: () => deepCompare,
@@ -7939,6 +8497,7 @@ __export(Utils_exports, {
   getRandomUserAgent: () => getRandomUserAgent,
   getStringBetweenStrings: () => getStringBetweenStrings,
   hasKeys: () => hasKeys,
+  isTextRun: () => isTextRun,
   streamToIterable: () => streamToIterable,
   throwIfMissing: () => throwIfMissing,
   timeToSeconds: () => timeToSeconds,
@@ -7954,22 +8513,6 @@ __export(helpers_exports, {
   YTNode: () => YTNode,
   observe: () => observe
 });
-var __classPrivateFieldGet = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __classPrivateFieldSet = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
 var _YTNode_instances;
 var _YTNode_is;
 var _Maybe_instances;
@@ -8114,8 +8657,8 @@ var Maybe = class {
     return __classPrivateFieldGet(this, _Maybe_value, "f");
   }
   isObserved() {
-    var _a5;
-    return (_a5 = __classPrivateFieldGet(this, _Maybe_value, "f")) === null || _a5 === void 0 ? void 0 : _a5[isObserved];
+    var _a7;
+    return (_a7 = __classPrivateFieldGet(this, _Maybe_value, "f")) === null || _a7 === void 0 ? void 0 : _a7[isObserved];
   }
   parsed() {
     if (!(__classPrivateFieldGet(this, _Maybe_value, "f") instanceof SuperParsedResult)) {
@@ -8249,362 +8792,25 @@ function observe(obj) {
 }
 __name(observe, "observe");
 var Memo = class extends Map {
-  getType(type) {
-    if (Array.isArray(type))
-      return observe(type.flatMap((type2) => this.get(type2.type) || []));
-    return observe(this.get(type.type) || []);
+  getType(...types) {
+    types = types.flat();
+    return observe(types.flatMap((type) => this.get(type.type) || []));
   }
 };
 __name(Memo, "Memo");
 
-// dist/src/utils/user-agents.js
-var user_agents_default = {
-  "desktop": [
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.61",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-  ],
-  "mobile": [
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (Linux; Android 12; SM-G990U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
-    "Mozilla/5.0 (Linux; Android 13; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/108.1  Mobile/15E148 Safari/605.1.15",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15G77 ChannelId(73) NebulaSDK/1.8.100112 Nebula PSDType(1) AlipayDefined(nt:4G,ws:320|504|2.0) AliApp(AP/10.1.30.300) AlipayClient/10.1.30.300 Alipay Language/zh-Hans",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (Linux; Android 13; SM-N981U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
-    "Mozilla/5.0 (Linux; Android 13; SM-A515F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (Linux; Android 12; M2010J19SG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 15_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
-    "Mozilla/5.0 (Linux; Android 11; M2102J20SG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1"
-  ]
-};
-
-// dist/src/utils/Utils.js
-var __awaiter = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet2 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet2 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __await = function(v) {
-  return this instanceof __await ? (this.v = v, this) : new __await(v);
-};
-var __asyncGenerator = function(thisArg, _arguments, generator) {
-  if (!Symbol.asyncIterator)
-    throw new TypeError("Symbol.asyncIterator is not defined.");
-  var g = generator.apply(thisArg, _arguments || []), i, q = [];
-  return i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
-    return this;
-  }, i;
-  function verb(n) {
-    if (g[n])
-      i[n] = function(v) {
-        return new Promise(function(a, b) {
-          q.push([n, v, a, b]) > 1 || resume(n, v);
-        });
-      };
-  }
-  __name(verb, "verb");
-  function resume(n, v) {
-    try {
-      step(g[n](v));
-    } catch (e) {
-      settle(q[0][3], e);
-    }
-  }
-  __name(resume, "resume");
-  function step(r) {
-    r.value instanceof __await ? Promise.resolve(r.value.v).then(fulfill, reject) : settle(q[0][2], r);
-  }
-  __name(step, "step");
-  function fulfill(value) {
-    resume("next", value);
-  }
-  __name(fulfill, "fulfill");
-  function reject(value) {
-    resume("throw", value);
-  }
-  __name(reject, "reject");
-  function settle(f, v) {
-    if (f(v), q.shift(), q.length)
-      resume(q[0][0], q[0][1]);
-  }
-  __name(settle, "settle");
-};
-var _a;
-var _Platform_shim;
-var Platform = class {
-  static load(platform) {
-    __classPrivateFieldSet2(Platform, _a, platform, "f", _Platform_shim);
-  }
-  static get shim() {
-    if (!__classPrivateFieldGet2(Platform, _a, "f", _Platform_shim)) {
-      throw new Error("Platform is not loaded");
-    }
-    return __classPrivateFieldGet2(Platform, _a, "f", _Platform_shim);
-  }
-};
-__name(Platform, "Platform");
-_a = Platform;
-_Platform_shim = { value: void 0 };
-var InnertubeError = class extends Error {
-  constructor(message, info) {
-    super(message);
-    if (info) {
-      this.info = info;
-    }
-    this.date = new Date();
-    this.version = Platform.shim.info.version;
-  }
-};
-__name(InnertubeError, "InnertubeError");
-var ParsingError = class extends InnertubeError {
-};
-__name(ParsingError, "ParsingError");
-var MissingParamError = class extends InnertubeError {
-};
-__name(MissingParamError, "MissingParamError");
-var OAuthError = class extends InnertubeError {
-};
-__name(OAuthError, "OAuthError");
-var PlayerError = class extends Error {
-};
-__name(PlayerError, "PlayerError");
-var SessionError = class extends Error {
-};
-__name(SessionError, "SessionError");
-var ChannelError = class extends Error {
-};
-__name(ChannelError, "ChannelError");
-function deepCompare(obj1, obj2) {
-  const keys = Reflect.ownKeys(obj1);
-  return keys.some((key) => {
-    var _b;
-    const is_text = ((_b = obj2[key]) === null || _b === void 0 ? void 0 : _b.constructor.name) === "Text";
-    if (!is_text && typeof obj2[key] === "object") {
-      return JSON.stringify(obj1[key]) === JSON.stringify(obj2[key]);
-    }
-    return obj1[key] === (is_text ? obj2[key].toString() : obj2[key]);
-  });
-}
-__name(deepCompare, "deepCompare");
-function getStringBetweenStrings(data, start_string, end_string) {
-  const regex = new RegExp(`${escapeStringRegexp(start_string)}(.*?)${escapeStringRegexp(end_string)}`, "s");
-  const match = data.match(regex);
-  return match ? match[1] : void 0;
-}
-__name(getStringBetweenStrings, "getStringBetweenStrings");
-function escapeStringRegexp(input) {
-  return input.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
-}
-__name(escapeStringRegexp, "escapeStringRegexp");
-function getRandomUserAgent(type) {
-  const available_agents = user_agents_default[type];
-  const random_index = Math.floor(Math.random() * available_agents.length);
-  return available_agents[random_index];
-}
-__name(getRandomUserAgent, "getRandomUserAgent");
-function generateSidAuth(sid) {
-  return __awaiter(this, void 0, void 0, function* () {
-    const youtube = "https://www.youtube.com";
-    const timestamp = Math.floor(new Date().getTime() / 1e3);
-    const input = [timestamp, sid, youtube].join(" ");
-    const gen_hash = yield Platform.shim.sha1Hash(input);
-    return ["SAPISIDHASH", [timestamp, gen_hash].join("_")].join(" ");
-  });
-}
-__name(generateSidAuth, "generateSidAuth");
-function generateRandomString(length) {
-  const result = [];
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-  for (let i = 0; i < length; i++) {
-    result.push(alphabet.charAt(Math.floor(Math.random() * alphabet.length)));
-  }
-  return result.join("");
-}
-__name(generateRandomString, "generateRandomString");
-function timeToSeconds(time) {
-  const params = time.split(":").map((param) => parseInt(param));
-  switch (params.length) {
-    case 1:
-      return params[0];
-    case 2:
-      return params[0] * 60 + params[1];
-    case 3:
-      return params[0] * 3600 + params[1] * 60 + params[2];
-    default:
-      throw new Error("Invalid time string");
-  }
-}
-__name(timeToSeconds, "timeToSeconds");
-function concatMemos(...iterables) {
-  const memo = new Memo();
-  for (const iterable of iterables) {
-    if (!iterable)
-      continue;
-    for (const item of iterable) {
-      memo.set(...item);
-    }
-  }
-  return memo;
-}
-__name(concatMemos, "concatMemos");
-function throwIfMissing(params) {
-  for (const [key, value] of Object.entries(params)) {
-    if (!value)
-      throw new MissingParamError(`${key} is missing`);
-  }
-}
-__name(throwIfMissing, "throwIfMissing");
-function hasKeys(params, ...keys) {
-  for (const key of keys) {
-    if (!Reflect.has(params, key) || params[key] === void 0)
-      return false;
-  }
-  return true;
-}
-__name(hasKeys, "hasKeys");
-function streamToIterable(stream) {
-  return __asyncGenerator(this, arguments, /* @__PURE__ */ __name(function* streamToIterable_1() {
-    const reader = stream.getReader();
-    try {
-      while (true) {
-        const { done, value } = yield __await(reader.read());
-        if (done) {
-          return yield __await(void 0);
-        }
-        yield yield __await(value);
-      }
-    } finally {
-      reader.releaseLock();
-    }
-  }, "streamToIterable_1"));
-}
-__name(streamToIterable, "streamToIterable");
-var debugFetch = /* @__PURE__ */ __name((input, init) => {
-  const url = typeof input === "string" ? new URL(input) : input instanceof URL ? input : new URL(input.url);
-  const headers = (init === null || init === void 0 ? void 0 : init.headers) ? new Headers(init.headers) : input instanceof Request ? input.headers : new Headers();
-  const arr_headers = [...headers];
-  const body_contents = (init === null || init === void 0 ? void 0 : init.body) ? typeof init.body === "string" ? headers.get("content-type") === "application/json" ? JSON.stringify(JSON.parse(init.body), null, 2) : init.body : "    <binary>" : "    (none)";
-  const headers_serialized = arr_headers.length > 0 ? `${arr_headers.map(([key, value]) => `    ${key}: ${value}`).join("\n")}` : "    (none)";
-  console.log(`YouTube.js Fetch:
-  url: ${url.toString()}
-  method: ${(init === null || init === void 0 ? void 0 : init.method) || "GET"}
-  headers:
-${headers_serialized}
-' + 
-    '  body:
-${body_contents}`);
-  return Platform.shim.fetch(input, init);
-}, "debugFetch");
-function u8ToBase64(u8) {
-  return btoa(String.fromCharCode.apply(null, Array.from(u8)));
-}
-__name(u8ToBase64, "u8ToBase64");
-
-// dist/src/platform/node.js
-var import_crypto = __toESM(require("crypto"), 1);
-var import_path = __toESM(require("path"), 1);
-var import_os = __toESM(require("os"), 1);
-var import_promises = __toESM(require("fs/promises"), 1);
-var import_fs = require("fs");
-
-// dist/src/platform/polyfills/server-dom.js
-var import_linkedom = require("linkedom");
-var server_dom_default = import_linkedom.DOMParser;
-
-// dist/src/platform/node.js
-var import_url = require("url");
-
-// dist/src/platform/jsruntime/jinter.js
-var import_jintr = __toESM(require("jintr"), 1);
-function evaluate(code, env) {
-  const runtime = new import_jintr.default.default(code);
-  for (const [key, value] of Object.entries(env)) {
-    runtime.scope.set(key, value);
-  }
-  return runtime.interpret();
-}
-__name(evaluate, "evaluate");
+// dist/src/parser/misc.js
+var misc_exports = {};
+__export(misc_exports, {
+  Author: () => Author_default,
+  ChildElement: () => ChildElement_default,
+  EmojiRun: () => EmojiRun,
+  Format: () => Format,
+  Text: () => Text,
+  TextRun: () => TextRun,
+  Thumbnail: () => Thumbnail,
+  VideoDetails: () => VideoDetails
+});
 
 // dist/src/utils/Constants.js
 var Constants_exports = {};
@@ -8613,8 +8819,7 @@ __export(Constants_exports, {
   INNERTUBE_HEADERS_BASE: () => INNERTUBE_HEADERS_BASE,
   OAUTH: () => OAUTH,
   STREAM_HEADERS: () => STREAM_HEADERS,
-  URLS: () => URLS,
-  default: () => Constants_default
+  URLS: () => URLS
 });
 var URLS = Object.freeze({
   YT_BASE: "https://www.youtube.com",
@@ -8695,113 +8900,64 @@ var INNERTUBE_HEADERS_BASE = Object.freeze({
   "accept-encoding": "gzip, deflate",
   "content-type": "application/json"
 });
-var Constants_default = {
-  URLS,
-  OAUTH,
-  CLIENTS,
-  STREAM_HEADERS,
-  INNERTUBE_HEADERS_BASE
-};
 
-// dist/src/utils/EventEmitterLike.js
-var __classPrivateFieldSet3 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet3 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _CustomEvent_detail;
-var _EventEmitterLike_legacy_listeners;
-require_event_target_polyfill();
-if (!Reflect.has(globalThis, "CustomEvent")) {
-  class CustomEvent2 extends Event {
-    constructor(type, options) {
-      var _a5;
-      super(type, options);
-      _CustomEvent_detail.set(this, void 0);
-      __classPrivateFieldSet3(this, _CustomEvent_detail, (_a5 = options === null || options === void 0 ? void 0 : options.detail) !== null && _a5 !== void 0 ? _a5 : null, "f");
-    }
-    get detail() {
-      return __classPrivateFieldGet3(this, _CustomEvent_detail, "f");
-    }
-  }
-  __name(CustomEvent2, "CustomEvent");
-  _CustomEvent_detail = /* @__PURE__ */ new WeakMap();
-  Reflect.set(globalThis, "CustomEvent", CustomEvent2);
-}
-var EventEmitterLike = class extends EventTarget {
-  constructor() {
+// dist/src/parser/classes/AudioOnlyPlayability.js
+var AudioOnlyPlayability = class extends YTNode {
+  constructor(data) {
     super();
-    _EventEmitterLike_legacy_listeners.set(this, /* @__PURE__ */ new Map());
-  }
-  emit(type, ...args) {
-    const event = new CustomEvent(type, { detail: args });
-    this.dispatchEvent(event);
-  }
-  on(type, listener) {
-    const wrapper = /* @__PURE__ */ __name((ev) => {
-      if (ev instanceof CustomEvent) {
-        listener(...ev.detail);
-      } else {
-        listener(ev);
-      }
-    }, "wrapper");
-    __classPrivateFieldGet3(this, _EventEmitterLike_legacy_listeners, "f").set(listener, wrapper);
-    this.addEventListener(type, wrapper);
-  }
-  once(type, listener) {
-    const wrapper = /* @__PURE__ */ __name((ev) => {
-      if (ev instanceof CustomEvent) {
-        listener(...ev.detail);
-      } else {
-        listener(ev);
-      }
-      this.off(type, listener);
-    }, "wrapper");
-    __classPrivateFieldGet3(this, _EventEmitterLike_legacy_listeners, "f").set(listener, wrapper);
-    this.addEventListener(type, wrapper);
-  }
-  off(type, listener) {
-    const wrapper = __classPrivateFieldGet3(this, _EventEmitterLike_legacy_listeners, "f").get(listener);
-    if (wrapper) {
-      this.removeEventListener(type, wrapper);
-      __classPrivateFieldGet3(this, _EventEmitterLike_legacy_listeners, "f").delete(listener);
-    }
+    this.audio_only_availability = data.audioOnlyAvailability;
   }
 };
-__name(EventEmitterLike, "EventEmitterLike");
-_EventEmitterLike_legacy_listeners = /* @__PURE__ */ new WeakMap();
+__name(AudioOnlyPlayability, "AudioOnlyPlayability");
+AudioOnlyPlayability.type = "AudioOnlyPlayability";
+var AudioOnlyPlayability_default = AudioOnlyPlayability;
+
+// dist/src/parser/classes/Button.js
+var Button = class extends YTNode {
+  constructor(data) {
+    super();
+    if (Reflect.has(data, "text")) {
+      this.text = new Text(data.text).toString();
+    }
+    if (Reflect.has(data, "accessibility") && Reflect.has(data.accessibility, "label")) {
+      this.label = data.accessibility.label;
+    }
+    if (Reflect.has(data, "tooltip")) {
+      this.tooltip = data.tooltip;
+    }
+    if (Reflect.has(data, "icon") && Reflect.has(data.icon, "iconType")) {
+      this.icon_type = data.icon.iconType;
+    }
+    if (Reflect.has(data, "isDisabled")) {
+      this.is_disabled = data.isDisabled;
+    }
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint || data.serviceEndpoint || data.command);
+  }
+};
+__name(Button, "Button");
+Button.type = "Button";
+var Button_default = Button;
 
 // dist/src/parser/classes/DropdownItem.js
 var DropdownItem = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c;
+    var _a7;
     super();
-    this.label = new Text_default(data.label).toString();
+    this.label = new Text(data.label).toString();
     this.selected = !!data.isSelected;
-    if (data.int32Value) {
+    if (Reflect.has(data, "int32Value")) {
       this.value = data.int32Value;
     } else if (data.stringValue) {
       this.value = data.stringValue;
     }
-    if ((_a5 = data.onSelectCommand) === null || _a5 === void 0 ? void 0 : _a5.browseEndpoint) {
+    if (Reflect.has(data, "onSelectCommand")) {
       this.endpoint = new NavigationEndpoint_default(data.onSelectCommand);
     }
-    if ((_b = data.icon) === null || _b === void 0 ? void 0 : _b.iconType) {
-      this.icon_type = (_c = data.icon) === null || _c === void 0 ? void 0 : _c.iconType;
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = (_a7 = data.icon) === null || _a7 === void 0 ? void 0 : _a7.iconType;
     }
-    if (data.descriptionText) {
-      this.description = new Text_default(data.descriptionText).toString();
+    if (Reflect.has(data, "descriptionText")) {
+      this.description = new Text(data.descriptionText);
     }
   }
 };
@@ -8824,13 +8980,12 @@ var Dropdown_default = Dropdown;
 // dist/src/parser/classes/CreatePlaylistDialog.js
 var CreatePlaylistDialog = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
-    this.title = new Text_default(data.dialogTitle).toString();
+    this.title = new Text(data.dialogTitle).toString();
     this.title_placeholder = data.titlePlaceholder || "";
-    this.privacy_option = ((_a5 = parser_default.parseItem(data.privacyOption, Dropdown_default)) === null || _a5 === void 0 ? void 0 : _a5.entries) || null;
-    this.create_button = parser_default.parseItem(data.cancelButton);
-    this.cancel_button = parser_default.parseItem(data.cancelButton);
+    this.privacy_option = parser_default.parseItem(data.privacyOption, Dropdown_default);
+    this.create_button = parser_default.parseItem(data.cancelButton, Button_default);
+    this.cancel_button = parser_default.parseItem(data.cancelButton, Button_default);
   }
 };
 __name(CreatePlaylistDialog, "CreatePlaylistDialog");
@@ -8840,20 +8995,20 @@ var CreatePlaylistDialog_default = CreatePlaylistDialog;
 // dist/src/parser/classes/NavigationEndpoint.js
 var NavigationEndpoint = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h;
+    var _a7, _b2, _c, _d, _e, _f, _g, _h;
     super();
     if (Reflect.has(data || {}, "innertubeCommand"))
       data = data.innertubeCommand;
     const name = Object.keys(data || {}).find((item) => item.endsWith("Endpoint") || item.endsWith("Command"));
     this.payload = name ? Reflect.get(data, name) : {};
-    if (Reflect.has(this.payload, "dialog")) {
-      this.dialog = parser_default.parse(this.payload.dialog);
+    if (Reflect.has(this.payload, "dialog") || Reflect.has(this.payload, "content")) {
+      this.dialog = parser_default.parseItem(this.payload.dialog || this.payload.content);
     }
     if (data === null || data === void 0 ? void 0 : data.serviceEndpoint) {
       data = data.serviceEndpoint;
     }
     this.metadata = {};
-    if ((_b = (_a5 = data === null || data === void 0 ? void 0 : data.commandMetadata) === null || _a5 === void 0 ? void 0 : _a5.webCommandMetadata) === null || _b === void 0 ? void 0 : _b.url) {
+    if ((_b2 = (_a7 = data === null || data === void 0 ? void 0 : data.commandMetadata) === null || _a7 === void 0 ? void 0 : _a7.webCommandMetadata) === null || _b2 === void 0 ? void 0 : _b2.url) {
       this.metadata.url = data.commandMetadata.webCommandMetadata.url;
     }
     if ((_d = (_c = data === null || data === void 0 ? void 0 : data.commandMetadata) === null || _c === void 0 ? void 0 : _c.webCommandMetadata) === null || _d === void 0 ? void 0 : _d.webPageType) {
@@ -8906,6 +9061,44 @@ __name(NavigationEndpoint, "NavigationEndpoint");
 NavigationEndpoint.type = "NavigationEndpoint";
 var NavigationEndpoint_default = NavigationEndpoint;
 
+// dist/src/parser/classes/misc/Thumbnail.js
+var Thumbnail = class {
+  constructor(data) {
+    this.url = data.url;
+    this.width = data.width;
+    this.height = data.height;
+  }
+  static fromResponse(data) {
+    if (!data || !data.thumbnails)
+      return [];
+    return data.thumbnails.map((x) => new Thumbnail(x)).sort((a, b) => b.width - a.width);
+  }
+};
+__name(Thumbnail, "Thumbnail");
+
+// dist/src/parser/classes/misc/EmojiRun.js
+var EmojiRun = class {
+  constructor(data) {
+    var _a7, _b2, _c, _d, _e, _f;
+    this.text = ((_a7 = data.emoji) === null || _a7 === void 0 ? void 0 : _a7.emojiId) || ((_c = (_b2 = data.emoji) === null || _b2 === void 0 ? void 0 : _b2.shortcuts) === null || _c === void 0 ? void 0 : _c[0]) || "";
+    this.emoji = {
+      emoji_id: data.emoji.emojiId,
+      shortcuts: ((_d = data.emoji) === null || _d === void 0 ? void 0 : _d.shortcuts) || [],
+      search_terms: ((_e = data.emoji) === null || _e === void 0 ? void 0 : _e.searchTerms) || [],
+      image: Thumbnail.fromResponse(data.emoji.image),
+      is_custom: !!((_f = data.emoji) === null || _f === void 0 ? void 0 : _f.isCustomEmoji)
+    };
+  }
+  toString() {
+    return this.text;
+  }
+  toHTML() {
+    const escaped_text = escape(this.text);
+    return `<img src="${this.emoji.image[0].url}" alt="${escaped_text}" title="${escaped_text}" style="display: inline-block; vertical-align: text-top; height: var(--yt-emoji-size, 1rem); width: var(--yt-emoji-size, 1rem);" loading="lazy" crossorigin="anonymous" />`;
+  }
+};
+__name(EmojiRun, "EmojiRun");
+
 // dist/src/parser/classes/misc/TextRun.js
 var TextRun = class {
   constructor(data) {
@@ -8913,7 +9106,9 @@ var TextRun = class {
     this.bold = Boolean(data.bold);
     this.italics = Boolean(data.italics);
     this.strikethrough = Boolean(data.strikethrough);
-    this.endpoint = data.navigationEndpoint ? new NavigationEndpoint_default(data.navigationEndpoint) : void 0;
+    if (Reflect.has(data, "navigationEndpoint")) {
+      this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    }
     this.attachment = data.attachment;
   }
   toString() {
@@ -8949,47 +9144,6 @@ var TextRun = class {
   }
 };
 __name(TextRun, "TextRun");
-var TextRun_default = TextRun;
-
-// dist/src/parser/classes/misc/Thumbnail.js
-var Thumbnail = class {
-  constructor(data) {
-    this.url = data.url;
-    this.width = data.width;
-    this.height = data.height;
-  }
-  static fromResponse(data) {
-    if (!data || !data.thumbnails)
-      return [];
-    return data.thumbnails.map((x) => new Thumbnail(x)).sort((a, b) => b.width - a.width);
-  }
-};
-__name(Thumbnail, "Thumbnail");
-var Thumbnail_default = Thumbnail;
-
-// dist/src/parser/classes/misc/EmojiRun.js
-var EmojiRun = class {
-  constructor(data) {
-    var _a5, _b, _c, _d, _e, _f;
-    this.text = ((_a5 = data.emoji) === null || _a5 === void 0 ? void 0 : _a5.emojiId) || ((_c = (_b = data.emoji) === null || _b === void 0 ? void 0 : _b.shortcuts) === null || _c === void 0 ? void 0 : _c[0]) || "";
-    this.emoji = {
-      emoji_id: data.emoji.emojiId,
-      shortcuts: ((_d = data.emoji) === null || _d === void 0 ? void 0 : _d.shortcuts) || [],
-      search_terms: ((_e = data.emoji) === null || _e === void 0 ? void 0 : _e.searchTerms) || [],
-      image: Thumbnail_default.fromResponse(data.emoji.image),
-      is_custom: !!((_f = data.emoji) === null || _f === void 0 ? void 0 : _f.isCustomEmoji)
-    };
-  }
-  toString() {
-    return this.text;
-  }
-  toHTML() {
-    const escaped_text = escape(this.text);
-    return `<img src="${this.emoji.image[0].url}" alt="${escaped_text}" title="${escaped_text}" style="display: inline-block; vertical-align: text-top; height: var(--yt-emoji-size, 1rem); width: var(--yt-emoji-size, 1rem);" loading="lazy" crossorigin="anonymous" />`;
-  }
-};
-__name(EmojiRun, "EmojiRun");
-var EmojiRun_default = EmojiRun;
 
 // dist/src/parser/classes/misc/Text.js
 function escape(text) {
@@ -8998,32 +9152,297 @@ function escape(text) {
 __name(escape, "escape");
 var Text = class {
   constructor(data) {
-    if ((data === null || data === void 0 ? void 0 : data.hasOwnProperty("runs")) && Array.isArray(data.runs)) {
-      this.runs = data.runs.map((run) => run.emoji ? new EmojiRun_default(run) : new TextRun_default(run));
+    var _a7, _b2, _c, _d;
+    if (typeof data === "object" && data !== null && Reflect.has(data, "runs") && Array.isArray(data.runs)) {
+      this.runs = data.runs.map((run) => run.emoji ? new EmojiRun(run) : new TextRun(run));
       this.text = this.runs.map((run) => run.text).join("");
     } else {
-      this.text = (data === null || data === void 0 ? void 0 : data.simpleText) || "N/A";
+      this.text = data === null || data === void 0 ? void 0 : data.simpleText;
+    }
+    if (typeof data === "object" && data !== null && Reflect.has(data, "navigationEndpoint")) {
+      this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    }
+    if (typeof data === "object" && data !== null && Reflect.has(data, "titleNavigationEndpoint")) {
+      this.endpoint = new NavigationEndpoint_default(data.titleNavigationEndpoint);
+    }
+    if (!this.endpoint) {
+      if ((_b2 = (_a7 = this.runs) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.endpoint) {
+        this.endpoint = (_d = (_c = this.runs) === null || _c === void 0 ? void 0 : _c[0]) === null || _d === void 0 ? void 0 : _d.endpoint;
+      }
     }
   }
   toHTML() {
     return this.runs ? this.runs.map((run) => run.toHTML()).join("") : this.text;
   }
+  isEmpty() {
+    return this.text === void 0;
+  }
   toString() {
-    return this.text;
+    return this.text || "N/A";
   }
 };
 __name(Text, "Text");
-var Text_default = Text;
+
+// dist/src/parser/classes/CardCollection.js
+var CardCollection = class extends YTNode {
+  constructor(data) {
+    super();
+    this.cards = parser_default.parseArray(data.cards);
+    this.header = new Text(data.headerText);
+    this.allow_teaser_dismiss = data.allowTeaserDismiss;
+  }
+};
+__name(CardCollection, "CardCollection");
+CardCollection.type = "CardCollection";
+var CardCollection_default = CardCollection;
+
+// dist/src/parser/classes/Endscreen.js
+var Endscreen = class extends YTNode {
+  constructor(data) {
+    super();
+    this.elements = parser_default.parseArray(data.elements);
+    this.start_ms = data.startMs;
+  }
+};
+__name(Endscreen, "Endscreen");
+Endscreen.type = "Endscreen";
+var Endscreen_default = Endscreen;
+
+// dist/src/parser/classes/PlayerAnnotationsExpanded.js
+var PlayerAnnotationsExpanded = class extends YTNode {
+  constructor(data) {
+    super();
+    if (Reflect.has(data, "featuredChannel")) {
+      this.featured_channel = {
+        start_time_ms: data.featuredChannel.startTimeMs,
+        end_time_ms: data.featuredChannel.endTimeMs,
+        watermark: Thumbnail.fromResponse(data.featuredChannel.watermark),
+        channel_name: data.featuredChannel.channelName,
+        endpoint: new NavigationEndpoint_default(data.featuredChannel.navigationEndpoint),
+        subscribe_button: parser_default.parseItem(data.featuredChannel.subscribeButton)
+      };
+    }
+    this.allow_swipe_dismiss = data.allowSwipeDismiss;
+    this.annotation_id = data.annotationId;
+  }
+};
+__name(PlayerAnnotationsExpanded, "PlayerAnnotationsExpanded");
+PlayerAnnotationsExpanded.type = "PlayerAnnotationsExpanded";
+var PlayerAnnotationsExpanded_default = PlayerAnnotationsExpanded;
+
+// dist/src/parser/classes/PlayerCaptionsTracklist.js
+var PlayerCaptionsTracklist = class extends YTNode {
+  constructor(data) {
+    super();
+    if (Reflect.has(data, "captionTracks")) {
+      this.caption_tracks = data.captionTracks.map((ct) => ({
+        base_url: ct.baseUrl,
+        name: new Text(ct.name),
+        vss_id: ct.vssId,
+        language_code: ct.languageCode,
+        kind: ct.kind,
+        is_translatable: ct.isTranslatable
+      }));
+    }
+    if (Reflect.has(data, "audioTracks")) {
+      this.audio_tracks = data.audioTracks.map((at) => ({
+        audio_track_id: at.audioTrackId,
+        captions_initial_state: at.captionsInitialState,
+        default_caption_track_index: at.defaultCaptionTrackIndex,
+        has_default_track: at.hasDefaultTrack,
+        visibility: at.visibility,
+        caption_track_indices: at.captionTrackIndices
+      }));
+    }
+    if (Reflect.has(data, "defaultAudioTrackIndex")) {
+      this.default_audio_track_index = data.defaultAudioTrackIndex;
+    }
+    if (Reflect.has(data, "translationLanguages")) {
+      this.translation_languages = data.translationLanguages.map((tl) => ({
+        language_code: tl.languageCode,
+        language_name: new Text(tl.languageName)
+      }));
+    }
+  }
+};
+__name(PlayerCaptionsTracklist, "PlayerCaptionsTracklist");
+PlayerCaptionsTracklist.type = "PlayerCaptionsTracklist";
+var PlayerCaptionsTracklist_default = PlayerCaptionsTracklist;
+
+// dist/src/parser/classes/PlayerLiveStoryboardSpec.js
+var PlayerLiveStoryboardSpec = class extends YTNode {
+  constructor() {
+    super();
+  }
+};
+__name(PlayerLiveStoryboardSpec, "PlayerLiveStoryboardSpec");
+PlayerLiveStoryboardSpec.type = "PlayerLiveStoryboardSpec";
+var PlayerLiveStoryboardSpec_default = PlayerLiveStoryboardSpec;
+
+// dist/src/parser/classes/PlayerStoryboardSpec.js
+var PlayerStoryboardSpec = class extends YTNode {
+  constructor(data) {
+    super();
+    const parts = data.spec.split("|");
+    const url = new URL(parts.shift());
+    this.boards = parts.map((part, i) => {
+      const [thumbnail_width, thumbnail_height, thumbnail_count, columns, rows, interval, name, sigh] = part.split("#");
+      url.searchParams.set("sigh", sigh);
+      const storyboard_count = Math.ceil(parseInt(thumbnail_count, 10) / (parseInt(columns, 10) * parseInt(rows, 10)));
+      return {
+        template_url: url.toString().replace("$L", i).replace("$N", name),
+        thumbnail_width: parseInt(thumbnail_width, 10),
+        thumbnail_height: parseInt(thumbnail_height, 10),
+        thumbnail_count: parseInt(thumbnail_count, 10),
+        interval: parseInt(interval, 10),
+        columns: parseInt(columns, 10),
+        rows: parseInt(rows, 10),
+        storyboard_count
+      };
+    });
+  }
+};
+__name(PlayerStoryboardSpec, "PlayerStoryboardSpec");
+PlayerStoryboardSpec.type = "PlayerStoryboardSpec";
+var PlayerStoryboardSpec_default = PlayerStoryboardSpec;
+
+// dist/src/parser/classes/Message.js
+var Message = class extends YTNode {
+  constructor(data) {
+    super();
+    this.text = new Text(data.text);
+  }
+};
+__name(Message, "Message");
+Message.type = "Message";
+var Message_default = Message;
+
+// dist/src/parser/classes/LiveChatParticipant.js
+var LiveChatParticipant = class extends YTNode {
+  constructor(data) {
+    super();
+    this.name = new Text(data.authorName);
+    this.photo = Thumbnail.fromResponse(data.authorPhoto);
+    this.badges = parser_default.parseArray(data.authorBadges);
+  }
+};
+__name(LiveChatParticipant, "LiveChatParticipant");
+LiveChatParticipant.type = "LiveChatParticipant";
+var LiveChatParticipant_default = LiveChatParticipant;
+
+// dist/src/parser/classes/LiveChatParticipantsList.js
+var LiveChatParticipantsList = class extends YTNode {
+  constructor(data) {
+    super();
+    this.title = new Text(data.title);
+    this.participants = parser_default.parseArray(data.participants, LiveChatParticipant_default);
+  }
+};
+__name(LiveChatParticipantsList, "LiveChatParticipantsList");
+LiveChatParticipantsList.type = "LiveChatParticipantsList";
+var LiveChatParticipantsList_default = LiveChatParticipantsList;
+
+// dist/src/parser/classes/SortFilterSubMenu.js
+var SortFilterSubMenu = class extends YTNode {
+  constructor(data) {
+    super();
+    if (Reflect.has(data, "title")) {
+      this.title = data.title;
+    }
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = data.icon.iconType;
+    }
+    if (Reflect.has(data, "accessibility")) {
+      this.label = data.accessibility.accessibilityData.label;
+    }
+    if (Reflect.has(data, "tooltip")) {
+      this.tooltip = data.tooltip;
+    }
+    if (Reflect.has(data, "subMenuItems")) {
+      this.sub_menu_items = data.subMenuItems.map((item) => {
+        var _a7, _b2;
+        return {
+          title: item.title,
+          selected: item.selected,
+          continuation: (_b2 = (_a7 = item.continuation) === null || _a7 === void 0 ? void 0 : _a7.reloadContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation,
+          endpoint: new NavigationEndpoint_default(item.serviceEndpoint || item.navigationEndpoint),
+          subtitle: item.subtitle || null
+        };
+      });
+    }
+  }
+};
+__name(SortFilterSubMenu, "SortFilterSubMenu");
+SortFilterSubMenu.type = "SortFilterSubMenu";
+var SortFilterSubMenu_default = SortFilterSubMenu;
+
+// dist/src/parser/classes/menus/Menu.js
+var Menu = class extends YTNode {
+  constructor(data) {
+    super();
+    this.items = parser_default.parseArray(data.items);
+    this.top_level_buttons = parser_default.parseArray(data.topLevelButtons);
+    if (Reflect.has(data, "accessibility") && Reflect.has(data.accessibility, "accessibilityData")) {
+      this.label = data.accessibility.accessibilityData.label;
+    }
+  }
+  get contents() {
+    return this.items;
+  }
+};
+__name(Menu, "Menu");
+Menu.type = "Menu";
+var Menu_default = Menu;
+
+// dist/src/parser/classes/LiveChatHeader.js
+var LiveChatHeader = class extends YTNode {
+  constructor(data) {
+    super();
+    this.overflow_menu = parser_default.parseItem(data.overflowMenu, Menu_default);
+    this.collapse_button = parser_default.parseItem(data.collapseButton, Button_default);
+    this.view_selector = parser_default.parseItem(data.viewSelector, SortFilterSubMenu_default);
+  }
+};
+__name(LiveChatHeader, "LiveChatHeader");
+LiveChatHeader.type = "LiveChatHeader";
+var LiveChatHeader_default = LiveChatHeader;
+
+// dist/src/parser/classes/LiveChatItemList.js
+var LiveChatItemList = class extends YTNode {
+  constructor(data) {
+    super();
+    this.max_items_to_display = data.maxItemsToDisplay;
+    this.more_comments_below_button = parser_default.parseItem(data.moreCommentsBelowButton, Button_default);
+  }
+};
+__name(LiveChatItemList, "LiveChatItemList");
+LiveChatItemList.type = "LiveChatItemList";
+var LiveChatItemList_default = LiveChatItemList;
+
+// dist/src/parser/classes/Alert.js
+var Alert = class extends YTNode {
+  constructor(data) {
+    super();
+    this.text = new Text(data.text);
+    this.alert_type = data.type;
+  }
+};
+__name(Alert, "Alert");
+Alert.type = "Alert";
+var Alert_default = Alert;
 
 // dist/src/parser/classes/menus/MusicMultiSelectMenuItem.js
 var MusicMultiSelectMenuItem = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
-    this.title = new Text_default(data.title).text;
+    this.title = new Text(data.title).toString();
     this.form_item_entity_key = data.formItemEntityKey;
-    this.selected_icon_type = ((_a5 = data.selectedIcon) === null || _a5 === void 0 ? void 0 : _a5.iconType) || null;
-    this.endpoint = data.selectedCommand ? new NavigationEndpoint_default(data.selectedCommand) : null;
+    if (Reflect.has(data, "selectedIcon")) {
+      this.selected_icon_type = data.selectedIcon.iconType;
+    }
+    if (Reflect.has(data, "selectedCommand")) {
+      this.endpoint = new NavigationEndpoint_default(data.selectedCommand);
+    }
     this.selected = !!this.endpoint;
   }
 };
@@ -9034,13 +9453,14 @@ var MusicMultiSelectMenuItem_default = MusicMultiSelectMenuItem;
 // dist/src/parser/classes/misc/Format.js
 var Format = class {
   constructor(data) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h;
+    var _a7, _b2, _c, _d, _e, _f, _g, _h;
     this.itag = data.itag;
     this.mime_type = data.mimeType;
+    this.is_type_otf = data.type === "FORMAT_STREAM_TYPE_OTF";
     this.bitrate = data.bitrate;
     this.average_bitrate = data.averageBitrate;
-    this.width = data.width || void 0;
-    this.height = data.height || void 0;
+    this.width = data.width;
+    this.height = data.height;
     this.init_range = data.initRange ? {
       start: parseInt(data.initRange.start),
       end: parseInt(data.initRange.end)
@@ -9052,12 +9472,12 @@ var Format = class {
     this.last_modified = new Date(Math.floor(parseInt(data.lastModified) / 1e3));
     this.content_length = parseInt(data.contentLength);
     this.quality = data.quality;
-    this.quality_label = data.qualityLabel || void 0;
-    this.fps = data.fps || void 0;
-    this.url = data.url || void 0;
-    this.cipher = data.cipher || void 0;
-    this.signature_cipher = data.signatureCipher || void 0;
-    this.audio_quality = data.audioQuality || void 0;
+    this.quality_label = data.qualityLabel;
+    this.fps = data.fps;
+    this.url = data.url;
+    this.cipher = data.cipher;
+    this.signature_cipher = data.signatureCipher;
+    this.audio_quality = data.audioQuality;
     this.approx_duration_ms = parseInt(data.approxDurationMs);
     this.audio_sample_rate = parseInt(data.audioSampleRate);
     this.audio_channels = data.audioChannels;
@@ -9067,11 +9487,11 @@ var Format = class {
     if (this.has_audio) {
       const args = new URLSearchParams(this.cipher || this.signature_cipher);
       const url_components = new URLSearchParams(args.get("url") || this.url);
-      this.language = ((_b = (_a5 = url_components.get("xtags")) === null || _a5 === void 0 ? void 0 : _a5.split(":").find((x) => x.startsWith("lang="))) === null || _b === void 0 ? void 0 : _b.split("=")[1]) || null;
+      this.language = ((_b2 = (_a7 = url_components.get("xtags")) === null || _a7 === void 0 ? void 0 : _a7.split(":").find((x) => x.startsWith("lang="))) === null || _b2 === void 0 ? void 0 : _b2.split("=")[1]) || null;
       this.is_dubbed = ((_d = (_c = url_components.get("xtags")) === null || _c === void 0 ? void 0 : _c.split(":").find((x) => x.startsWith("acont="))) === null || _d === void 0 ? void 0 : _d.split("=")[1]) === "dubbed";
       this.is_descriptive = ((_f = (_e = url_components.get("xtags")) === null || _e === void 0 ? void 0 : _e.split(":").find((x) => x.startsWith("acont="))) === null || _f === void 0 ? void 0 : _f.split("=")[1]) === "descriptive";
       this.is_original = ((_h = (_g = url_components.get("xtags")) === null || _g === void 0 ? void 0 : _g.split(":").find((x) => x.startsWith("acont="))) === null || _h === void 0 ? void 0 : _h.split("=")[1]) === "original" || !this.is_dubbed;
-      if (data.audioTrack) {
+      if (Reflect.has(data, "audioTrack")) {
         this.audio_track = {
           audio_is_default: data.audioTrack.audioIsDefault,
           display_name: data.audioTrack.displayName,
@@ -9087,7 +9507,6 @@ var Format = class {
   }
 };
 __name(Format, "Format");
-var Format_default = Format;
 
 // dist/src/parser/classes/misc/VideoDetails.js
 var VideoDetails = class {
@@ -9099,7 +9518,7 @@ var VideoDetails = class {
     this.keywords = data.keywords;
     this.is_owner_viewing = !!data.isOwnerViewing;
     this.short_description = data.shortDescription;
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
     this.allow_ratings = !!data.allowRatings;
     this.view_count = parseInt(data.viewCount);
     this.author = data.author;
@@ -9107,15 +9526,15 @@ var VideoDetails = class {
     this.is_live = !!data.isLive;
     this.is_live_content = !!data.isLiveContent;
     this.is_upcoming = !!data.isUpcoming;
+    this.is_post_live_dvr = !!data.isPostLiveDvr;
     this.is_crawlable = !!data.isCrawlable;
   }
 };
 __name(VideoDetails, "VideoDetails");
-var VideoDetails_default = VideoDetails;
 
-// dist/src/parser/map.js
-var map_exports = {};
-__export(map_exports, {
+// dist/src/parser/nodes.js
+var nodes_exports = {};
+__export(nodes_exports, {
   AccountChannel: () => AccountChannel_default,
   AccountItemSection: () => AccountItemSection_default,
   AccountItemSectionHeader: () => AccountItemSectionHeader_default,
@@ -9171,6 +9590,7 @@ __export(map_exports, {
   CommentSimplebox: () => CommentSimplebox_default,
   CommentThread: () => CommentThread_default,
   CommentsEntryPointHeader: () => CommentsEntryPointHeader_default,
+  CommentsEntryPointTeaser: () => CommentsEntryPointTeaser_default,
   CommentsHeader: () => CommentsHeader_default,
   CompactChannel: () => CompactChannel_default,
   CompactLink: () => CompactLink_default,
@@ -9216,6 +9636,7 @@ __export(map_exports, {
   GridMix: () => GridMix_default,
   GridMovie: () => GridMovie_default,
   GridPlaylist: () => GridPlaylist_default,
+  GridShow: () => GridShow_default,
   GridVideo: () => GridVideo_default,
   GuideCollapsibleEntry: () => GuideCollapsibleEntry_default,
   GuideCollapsibleSectionEntry: () => GuideCollapsibleSectionEntry_default,
@@ -9233,6 +9654,8 @@ __export(map_exports, {
   HorizontalList: () => HorizontalList_default,
   HorizontalMovieList: () => HorizontalMovieList_default,
   IconLink: () => IconLink_default,
+  InfoPanelContainer: () => InfoPanelContainer_default,
+  InfoPanelContent: () => InfoPanelContent_default,
   InteractiveTabbedHeader: () => InteractiveTabbedHeader_default,
   ItemSection: () => ItemSection_default,
   ItemSectionHeader: () => ItemSectionHeader_default,
@@ -9282,13 +9705,14 @@ __export(map_exports, {
   MetadataRowHeader: () => MetadataRowHeader_default,
   MetadataScreen: () => MetadataScreen_default,
   MicroformatData: () => MicroformatData_default,
-  Misc: () => Misc,
   Mix: () => Mix_default,
   Movie: () => Movie_default,
   MovingThumbnail: () => MovingThumbnail_default,
   MultiMarkersPlayerBar: () => MultiMarkersPlayerBar_default,
   MultiPageMenu: () => MultiPageMenu_default,
   MultiPageMenuNotificationSection: () => MultiPageMenuNotificationSection_default,
+  MusicCardShelf: () => MusicCardShelf_default,
+  MusicCardShelfHeaderBasic: () => MusicCardShelfHeaderBasic_default,
   MusicCarouselShelf: () => MusicCarouselShelf_default,
   MusicCarouselShelfBasicHeader: () => MusicCarouselShelfBasicHeader_default,
   MusicDescriptionShelf: () => MusicDescriptionShelf_default,
@@ -9314,6 +9738,8 @@ __export(map_exports, {
   MusicShelf: () => MusicShelf_default,
   MusicSideAlignedItem: () => MusicSideAlignedItem_default,
   MusicSortFilterButton: () => MusicSortFilterButton_default,
+  MusicTastebuilderShelf: () => MusicTastebuilderShelf_default,
+  MusicTastebuilderShelfThumbnail: () => MusicTastebuilderShelfThumbnail_default,
   MusicThumbnail: () => MusicThumbnail_default,
   MusicTwoRowItem: () => MusicTwoRowItem_default,
   MusicVisualHeader: () => MusicVisualHeader_default,
@@ -9387,6 +9813,7 @@ __export(map_exports, {
   SettingsSwitch: () => SettingsSwitch_default,
   SharedPost: () => SharedPost_default,
   Shelf: () => Shelf_default,
+  ShowCustomThumbnail: () => ShowCustomThumbnail_default,
   ShowLiveChatActionPanelAction: () => ShowLiveChatActionPanelAction_default,
   ShowLiveChatDialogAction: () => ShowLiveChatDialogAction_default,
   ShowLiveChatTooltipCommand: () => ShowLiveChatTooltipCommand_default,
@@ -9456,15 +9883,14 @@ __export(map_exports, {
   WatchCardSectionSequence: () => WatchCardSectionSequence_default,
   WatchNextEndScreen: () => WatchNextEndScreen_default,
   WatchNextTabbedResults: () => WatchNextTabbedResults_default,
-  YpcTrailer: () => YpcTrailer_default,
-  default: () => GetParserByName
+  YpcTrailer: () => YpcTrailer_default
 });
 
 // dist/src/parser/classes/AccountChannel.js
 var AccountChannel = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
   }
 };
@@ -9476,7 +9902,7 @@ var AccountChannel_default = AccountChannel;
 var AccountItemSectionHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
   }
 };
 __name(AccountItemSectionHeader, "AccountItemSectionHeader");
@@ -9484,15 +9910,16 @@ AccountItemSectionHeader.type = "AccountItemSectionHeader";
 var AccountItemSectionHeader_default = AccountItemSectionHeader;
 
 // dist/src/parser/classes/AccountItemSection.js
-var AccountItem = class {
+var AccountItem = class extends YTNode {
   constructor(data) {
-    this.account_name = new Text_default(data.accountName);
-    this.account_photo = Thumbnail_default.fromResponse(data.accountPhoto);
-    this.is_selected = data.isSelected;
-    this.is_disabled = data.isDisabled;
-    this.has_channel = data.hasChannel;
+    super();
+    this.account_name = new Text(data.accountName);
+    this.account_photo = Thumbnail.fromResponse(data.accountPhoto);
+    this.is_selected = !!data.isSelected;
+    this.is_disabled = !!data.isDisabled;
+    this.has_channel = !!data.hasChannel;
     this.endpoint = new NavigationEndpoint_default(data.serviceEndpoint);
-    this.account_byline = new Text_default(data.accountByline);
+    this.account_byline = new Text(data.accountByline);
   }
 };
 __name(AccountItem, "AccountItem");
@@ -9500,7 +9927,7 @@ AccountItem.type = "AccountItem";
 var AccountItemSection = class extends YTNode {
   constructor(data) {
     super();
-    this.contents = data.contents.map((ac) => new AccountItem(ac.accountItem));
+    this.contents = observe(data.contents.map((ac) => new AccountItem(ac.accountItem)));
     this.header = parser_default.parseItem(data.header, AccountItemSectionHeader_default);
   }
 };
@@ -9536,25 +9963,13 @@ var AppendContinuationItemsAction_default = AppendContinuationItemsAction;
 var OpenPopupAction = class extends YTNode {
   constructor(data) {
     super();
-    this.popup = parser_default.parse(data.popup);
+    this.popup = parser_default.parseItem(data.popup);
     this.popup_type = data.popupType;
   }
 };
 __name(OpenPopupAction, "OpenPopupAction");
 OpenPopupAction.type = "OpenPopupAction";
 var OpenPopupAction_default = OpenPopupAction;
-
-// dist/src/parser/classes/Alert.js
-var Alert = class extends YTNode {
-  constructor(data) {
-    super();
-    this.text = new Text_default(data.text);
-    this.alert_type = data.type;
-  }
-};
-__name(Alert, "Alert");
-Alert.type = "Alert";
-var Alert_default = Alert;
 
 // dist/src/parser/classes/analytics/DataModelSection.js
 var DataModelSection = class extends YTNode {
@@ -9653,7 +10068,7 @@ var AnalyticsVideo = class extends YTNode {
     this.metadata = {
       views: data.videoDescription.split("\xB7")[0].trim(),
       published: data.videoDescription.split("\xB7")[1].trim(),
-      thumbnails: Thumbnail_default.fromResponse(data.thumbnailDetails),
+      thumbnails: Thumbnail.fromResponse(data.thumbnailDetails),
       duration: data.formattedLength,
       is_short: data.isShort
     };
@@ -9666,13 +10081,14 @@ var AnalyticsVideo_default = AnalyticsVideo;
 // dist/src/parser/classes/analytics/AnalyticsVodCarouselCard.js
 var AnalyticsVodCarouselCard = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
     this.title = data.title;
-    if (data.noDataMessage) {
+    if (Reflect.has(data, "noDataMessage")) {
       this.no_data_message = data.noDataMessage;
     }
-    this.videos = ((_a5 = data.videoCarouselData) === null || _a5 === void 0 ? void 0 : _a5.videos.map((video) => new AnalyticsVideo_default(video))) || null;
+    if (Reflect.has(data, "videoCarouselData") && Reflect.has(data.videoCarouselData, "videos")) {
+      this.videos = data.videoCarouselData.videos.map((video) => new AnalyticsVideo_default(video));
+    }
   }
 };
 __name(AnalyticsVodCarouselCard, "AnalyticsVodCarouselCard");
@@ -9695,31 +10111,20 @@ var CtaGoToCreatorStudio_default = CtaGoToCreatorStudio;
 var StatRow = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.contents = new Text_default(data.contents);
+    this.title = new Text(data.title);
+    this.contents = new Text(data.contents);
   }
 };
 __name(StatRow, "StatRow");
 StatRow.type = "StatRow";
 var StatRow_default = StatRow;
 
-// dist/src/parser/classes/AudioOnlyPlayability.js
-var AudioOnlyPlayability = class extends YTNode {
-  constructor(data) {
-    super();
-    this.audio_only_availability = data.audioOnlyAvailability;
-  }
-};
-__name(AudioOnlyPlayability, "AudioOnlyPlayability");
-AudioOnlyPlayability.type = "AudioOnlyPlayability";
-var AudioOnlyPlayability_default = AudioOnlyPlayability;
-
 // dist/src/parser/classes/AutomixPreviewVideo.js
 var AutomixPreviewVideo = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
-    if ((_b = (_a5 = data === null || data === void 0 ? void 0 : data.content) === null || _a5 === void 0 ? void 0 : _a5.automixPlaylistVideoRenderer) === null || _b === void 0 ? void 0 : _b.navigationEndpoint) {
+    if ((_b2 = (_a7 = data === null || data === void 0 ? void 0 : data.content) === null || _a7 === void 0 ? void 0 : _a7.automixPlaylistVideoRenderer) === null || _b2 === void 0 ? void 0 : _b2.navigationEndpoint) {
       this.playlist_video = {
         endpoint: new NavigationEndpoint_default(data.content.automixPlaylistVideoRenderer.navigationEndpoint)
       };
@@ -9734,7 +10139,7 @@ var AutomixPreviewVideo_default = AutomixPreviewVideo;
 var BackstageImage = class extends YTNode {
   constructor(data) {
     super();
-    this.image = Thumbnail_default.fromResponse(data.image);
+    this.image = Thumbnail.fromResponse(data.image);
     this.endpoint = new NavigationEndpoint_default(data.command);
   }
 };
@@ -9742,60 +10147,74 @@ __name(BackstageImage, "BackstageImage");
 BackstageImage.type = "BackstageImage";
 var BackstageImage_default = BackstageImage;
 
-// dist/src/parser/classes/misc/NavigatableText.js
-var NavigatableText = class extends Text_default {
-  constructor(node) {
-    var _a5, _b;
-    super(node);
-    this.endpoint = ((_b = (_a5 = node === null || node === void 0 ? void 0 : node.runs) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.navigationEndpoint) ? new NavigationEndpoint_default(node === null || node === void 0 ? void 0 : node.runs[0].navigationEndpoint) : (node === null || node === void 0 ? void 0 : node.navigationEndpoint) ? new NavigationEndpoint_default(node === null || node === void 0 ? void 0 : node.navigationEndpoint) : (node === null || node === void 0 ? void 0 : node.titleNavigationEndpoint) ? new NavigationEndpoint_default(node === null || node === void 0 ? void 0 : node.titleNavigationEndpoint) : null;
-  }
-  toJSON() {
-    return this;
+// dist/src/parser/classes/ToggleButton.js
+var ToggleButton = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2, _c, _d, _e, _f, _g, _h;
+    super();
+    this.text = new Text(data.defaultText);
+    this.toggled_text = new Text(data.toggledText);
+    this.tooltip = data.defaultTooltip;
+    this.toggled_tooltip = data.toggledTooltip;
+    this.is_toggled = data.isToggled;
+    this.is_disabled = data.isDisabled;
+    this.icon_type = data.defaultIcon.iconType;
+    const acc_label = ((_c = (_b2 = (_a7 = data === null || data === void 0 ? void 0 : data.defaultText) === null || _a7 === void 0 ? void 0 : _a7.accessibility) === null || _b2 === void 0 ? void 0 : _b2.accessibilityData) === null || _c === void 0 ? void 0 : _c.label) || ((_e = (_d = data === null || data === void 0 ? void 0 : data.accessibilityData) === null || _d === void 0 ? void 0 : _d.accessibilityData) === null || _e === void 0 ? void 0 : _e.label) || ((_f = data === null || data === void 0 ? void 0 : data.accessibility) === null || _f === void 0 ? void 0 : _f.label);
+    if (this.icon_type == "LIKE") {
+      this.like_count = parseInt(acc_label.replace(/\D/g, ""));
+      this.short_like_count = new Text(data.defaultText).toString();
+    }
+    this.endpoint = ((_h = (_g = data.defaultServiceEndpoint) === null || _g === void 0 ? void 0 : _g.commandExecutorCommand) === null || _h === void 0 ? void 0 : _h.commands) ? new NavigationEndpoint_default(data.defaultServiceEndpoint.commandExecutorCommand.commands.pop()) : new NavigationEndpoint_default(data.defaultServiceEndpoint);
+    this.toggled_endpoint = new NavigationEndpoint_default(data.toggledServiceEndpoint);
+    if (Reflect.has(data, "toggleButtonSupportedData") && Reflect.has(data.toggleButtonSupportedData, "toggleButtonIdData")) {
+      this.button_id = data.toggleButtonSupportedData.toggleButtonIdData.id;
+    }
+    if (Reflect.has(data, "targetId")) {
+      this.target_id = data.targetId;
+    }
   }
 };
-__name(NavigatableText, "NavigatableText");
-NavigatableText.type = "NavigatableText";
-var NavigatableText_default = NavigatableText;
+__name(ToggleButton, "ToggleButton");
+ToggleButton.type = "ToggleButton";
+var ToggleButton_default = ToggleButton;
 
-// dist/src/parser/classes/misc/Author.js
-var __classPrivateFieldSet4 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet4 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _Author_nav_text;
-var Author = class {
-  constructor(item, badges, thumbs) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7;
-    _Author_nav_text.set(this, void 0);
-    __classPrivateFieldSet4(this, _Author_nav_text, new NavigatableText_default(item), "f");
-    this.id = ((_d = (_c = (_b = (_a5 = __classPrivateFieldGet4(this, _Author_nav_text, "f").runs) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.browseId) || ((_g = (_f = (_e = __classPrivateFieldGet4(this, _Author_nav_text, "f")) === null || _e === void 0 ? void 0 : _e.endpoint) === null || _f === void 0 ? void 0 : _f.payload) === null || _g === void 0 ? void 0 : _g.browseId) || "N/A";
-    this.name = __classPrivateFieldGet4(this, _Author_nav_text, "f").text || "N/A";
-    this.thumbnails = thumbs ? Thumbnail_default.fromResponse(thumbs) : [];
-    this.endpoint = ((_j = (_h = __classPrivateFieldGet4(this, _Author_nav_text, "f").runs) === null || _h === void 0 ? void 0 : _h[0]) === null || _j === void 0 ? void 0 : _j.endpoint) || __classPrivateFieldGet4(this, _Author_nav_text, "f").endpoint;
-    this.badges = Array.isArray(badges) ? parser_default.parseArray(badges) : [];
-    this.is_verified = ((_k = this.badges) === null || _k === void 0 ? void 0 : _k.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED")) || null;
-    this.is_verified_artist = ((_l = this.badges) === null || _l === void 0 ? void 0 : _l.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST")) || null;
-    this.url = ((_r = (_q = (_p = (_o = (_m = __classPrivateFieldGet4(this, _Author_nav_text, "f")) === null || _m === void 0 ? void 0 : _m.runs) === null || _o === void 0 ? void 0 : _o[0]) === null || _p === void 0 ? void 0 : _p.endpoint) === null || _q === void 0 ? void 0 : _q.metadata) === null || _r === void 0 ? void 0 : _r.api_url) === "/browse" && `${Constants_default.URLS.YT_BASE}${((_w = (_v = (_u = (_t = (_s = __classPrivateFieldGet4(this, _Author_nav_text, "f")) === null || _s === void 0 ? void 0 : _s.runs) === null || _t === void 0 ? void 0 : _t[0]) === null || _u === void 0 ? void 0 : _u.endpoint) === null || _v === void 0 ? void 0 : _v.payload) === null || _w === void 0 ? void 0 : _w.canonicalBaseUrl) || `/u/${(_1 = (_0 = (_z = (_y = (_x = __classPrivateFieldGet4(this, _Author_nav_text, "f")) === null || _x === void 0 ? void 0 : _x.runs) === null || _y === void 0 ? void 0 : _y[0]) === null || _z === void 0 ? void 0 : _z.endpoint) === null || _0 === void 0 ? void 0 : _0.payload) === null || _1 === void 0 ? void 0 : _1.browseId}`}` || `${Constants_default.URLS.YT_BASE}${((_4 = (_3 = (_2 = __classPrivateFieldGet4(this, _Author_nav_text, "f")) === null || _2 === void 0 ? void 0 : _2.endpoint) === null || _3 === void 0 ? void 0 : _3.payload) === null || _4 === void 0 ? void 0 : _4.canonicalBaseUrl) || `/u/${(_7 = (_6 = (_5 = __classPrivateFieldGet4(this, _Author_nav_text, "f")) === null || _5 === void 0 ? void 0 : _5.endpoint) === null || _6 === void 0 ? void 0 : _6.payload) === null || _7 === void 0 ? void 0 : _7.browseId}`}` || null;
-  }
-  get best_thumbnail() {
-    return this.thumbnails[0];
+// dist/src/parser/classes/comments/CreatorHeart.js
+var CreatorHeart = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2;
+    super();
+    this.creator_thumbnail = Thumbnail.fromResponse(data.creatorThumbnail);
+    if (Reflect.has(data, "heartIcon") && Reflect.has(data.heartIcon, "iconType")) {
+      this.heart_icon_type = data.heartIcon.iconType;
+    }
+    this.heart_color = {
+      basic_color_palette_data: {
+        foreground_title_color: (_b2 = (_a7 = data.heartColor) === null || _a7 === void 0 ? void 0 : _a7.basicColorPaletteData) === null || _b2 === void 0 ? void 0 : _b2.foregroundTitleColor
+      }
+    };
+    this.hearted_tooltip = data.heartedTooltip;
+    this.is_hearted = data.isHearted;
+    this.is_enabled = data.isEnabled;
+    this.kennedy_heart_color_string = data.kennedyHeartColorString;
   }
 };
-__name(Author, "Author");
-_Author_nav_text = /* @__PURE__ */ new WeakMap();
-var Author_default = Author;
+__name(CreatorHeart, "CreatorHeart");
+CreatorHeart.type = "CreatorHeart";
+var CreatorHeart_default = CreatorHeart;
+
+// dist/src/parser/classes/comments/CommentActionButtons.js
+var CommentActionButtons = class extends YTNode {
+  constructor(data) {
+    super();
+    this.like_button = parser_default.parseItem(data.likeButton, ToggleButton_default);
+    this.dislike_button = parser_default.parseItem(data.dislikeButton, ToggleButton_default);
+    this.reply_button = parser_default.parseItem(data.replyButton, Button_default);
+    this.creator_heart = parser_default.parseItem(data.creatorHeart, CreatorHeart_default);
+  }
+};
+__name(CommentActionButtons, "CommentActionButtons");
+CommentActionButtons.type = "CommentActionButtons";
+var CommentActionButtons_default = CommentActionButtons;
 
 // dist/src/parser/classes/BackstagePost.js
 var BackstagePost = class extends YTNode {
@@ -9803,30 +10222,30 @@ var BackstagePost = class extends YTNode {
     super();
     this.id = data.postId;
     this.author = new Author_default(Object.assign(Object.assign({}, data.authorText), { navigationEndpoint: data.authorEndpoint }), null, data.authorThumbnail);
-    this.content = new Text_default(data.contentText);
-    this.published = new Text_default(data.publishedTimeText);
-    if (data.pollStatus) {
+    this.content = new Text(data.contentText);
+    this.published = new Text(data.publishedTimeText);
+    if (Reflect.has(data, "pollStatus")) {
       this.poll_status = data.pollStatus;
     }
-    if (data.voteStatus) {
+    if (Reflect.has(data, "voteStatus")) {
       this.vote_status = data.voteStatus;
     }
-    if (data.voteCount) {
-      this.vote_count = new Text_default(data.voteCount);
+    if (Reflect.has(data, "voteCount")) {
+      this.vote_count = new Text(data.voteCount);
     }
-    if (data.actionMenu) {
-      this.menu = parser_default.parseItem(data.actionMenu);
+    if (Reflect.has(data, "actionMenu")) {
+      this.menu = parser_default.parseItem(data.actionMenu, Menu_default);
     }
-    if (data.actionButtons) {
-      this.action_buttons = parser_default.parseItem(data.actionButtons);
+    if (Reflect.has(data, "actionButtons")) {
+      this.action_buttons = parser_default.parseItem(data.actionButtons, CommentActionButtons_default);
     }
-    if (data.voteButton) {
-      this.vote_button = parser_default.parseItem(data.voteButton);
+    if (Reflect.has(data, "voteButton")) {
+      this.vote_button = parser_default.parseItem(data.voteButton, CommentActionButtons_default);
     }
-    if (data.navigationEndpoint) {
+    if (Reflect.has(data, "navigationEndpoint")) {
       this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     }
-    if (data.backstageAttachment) {
+    if (Reflect.has(data, "backstageAttachment")) {
       this.attachment = parser_default.parseItem(data.backstageAttachment);
     }
     this.surface = data.surface;
@@ -9862,40 +10281,74 @@ var BrowseFeedActions_default = BrowseFeedActions;
 var BrowserMediaSession = class extends YTNode {
   constructor(data) {
     super();
-    this.album = new Text_default(data.album);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnailDetails);
+    this.album = new Text(data.album);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnailDetails);
   }
 };
 __name(BrowserMediaSession, "BrowserMediaSession");
 BrowserMediaSession.type = "BrowserMediaSession";
 var BrowserMediaSession_default = BrowserMediaSession;
 
-// dist/src/parser/classes/Button.js
-var Button = class extends YTNode {
+// dist/src/parser/classes/ChannelHeaderLinks.js
+var HeaderLink = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d;
     super();
-    if (data.text) {
-      this.text = new Text_default(data.text).toString();
-    }
-    if ((_a5 = data.accessibility) === null || _a5 === void 0 ? void 0 : _a5.label) {
-      this.label = (_b = data.accessibility) === null || _b === void 0 ? void 0 : _b.label;
-    }
-    if (data.tooltip) {
-      this.tooltip = data.tooltip;
-    }
-    if ((_c = data.icon) === null || _c === void 0 ? void 0 : _c.iconType) {
-      this.icon_type = (_d = data.icon) === null || _d === void 0 ? void 0 : _d.iconType;
-    }
-    if (Reflect.has(data, "isDisabled")) {
-      this.is_disabled = data.isDisabled;
-    }
-    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint || data.serviceEndpoint || data.command);
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    this.icon = Thumbnail.fromResponse(data.icon);
+    this.title = new Text(data.title);
   }
 };
-__name(Button, "Button");
-Button.type = "Button";
-var Button_default = Button;
+__name(HeaderLink, "HeaderLink");
+HeaderLink.type = "HeaderLink";
+var ChannelHeaderLinks = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2;
+    super();
+    this.primary = observe(((_a7 = data.primaryLinks) === null || _a7 === void 0 ? void 0 : _a7.map((link) => new HeaderLink(link))) || []);
+    this.secondary = observe(((_b2 = data.secondaryLinks) === null || _b2 === void 0 ? void 0 : _b2.map((link) => new HeaderLink(link))) || []);
+  }
+};
+__name(ChannelHeaderLinks, "ChannelHeaderLinks");
+ChannelHeaderLinks.type = "ChannelHeaderLinks";
+var ChannelHeaderLinks_default = ChannelHeaderLinks;
+
+// dist/src/parser/classes/SubscriptionNotificationToggleButton.js
+var SubscriptionNotificationToggleButton = class extends YTNode {
+  constructor(data) {
+    super();
+    this.states = data.states.map((data2) => ({
+      id: data2.stateId,
+      next_id: data2.nextStateId,
+      state: parser_default.parse(data2.state)
+    }));
+    this.current_state_id = data.currentStateId;
+    this.target_id = data.targetId;
+  }
+};
+__name(SubscriptionNotificationToggleButton, "SubscriptionNotificationToggleButton");
+SubscriptionNotificationToggleButton.type = "SubscriptionNotificationToggleButton";
+var SubscriptionNotificationToggleButton_default = SubscriptionNotificationToggleButton;
+
+// dist/src/parser/classes/SubscribeButton.js
+var SubscribeButton = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2;
+    super();
+    this.title = new Text(data.buttonText);
+    this.subscribed = data.subscribed;
+    this.enabled = data.enabled;
+    this.item_type = data.type;
+    this.channel_id = data.channelId;
+    this.show_preferences = data.showPreferences;
+    this.subscribed_text = new Text(data.subscribedButtonText);
+    this.unsubscribed_text = new Text(data.unsubscribedButtonText);
+    this.notification_preference_button = parser_default.parseItem(data.notificationPreferenceButton, SubscriptionNotificationToggleButton_default);
+    this.endpoint = new NavigationEndpoint_default(((_a7 = data.serviceEndpoints) === null || _a7 === void 0 ? void 0 : _a7[0]) || ((_b2 = data.onSubscribeEndpoints) === null || _b2 === void 0 ? void 0 : _b2[0]));
+  }
+};
+__name(SubscribeButton, "SubscribeButton");
+SubscribeButton.type = "SubscribeButton";
+var SubscribeButton_default = SubscribeButton;
 
 // dist/src/parser/classes/C4TabbedHeader.js
 var C4TabbedHeader = class extends YTNode {
@@ -9905,34 +10358,34 @@ var C4TabbedHeader = class extends YTNode {
       simpleText: data.title,
       navigationEndpoint: data.navigationEndpoint
     }, data.badges, data.avatar);
-    if (data.banner) {
-      this.banner = Thumbnail_default.fromResponse(data.banner);
+    if (Reflect.has(data, "banner")) {
+      this.banner = Thumbnail.fromResponse(data.banner);
     }
-    if (data.tv_banner) {
-      this.tv_banner = Thumbnail_default.fromResponse(data.tvBanner);
+    if (Reflect.has(data, "tv_banner")) {
+      this.tv_banner = Thumbnail.fromResponse(data.tvBanner);
     }
-    if (data.mobile_banner) {
-      this.mobile_banner = Thumbnail_default.fromResponse(data.mobileBanner);
+    if (Reflect.has(data, "mobile_banner")) {
+      this.mobile_banner = Thumbnail.fromResponse(data.mobileBanner);
     }
-    if (data.subscriberCountText) {
-      this.subscribers = new Text_default(data.subscriberCountText);
+    if (Reflect.has(data, "subscriberCountText")) {
+      this.subscribers = new Text(data.subscriberCountText);
     }
-    if (data.videosCountText) {
-      this.videos_count = new Text_default(data.videosCountText);
+    if (Reflect.has(data, "videosCountText")) {
+      this.videos_count = new Text(data.videosCountText);
     }
-    if (data.sponsorButton) {
-      this.sponsor_button = parser_default.parseItem(data.sponsorButton);
+    if (Reflect.has(data, "sponsorButton")) {
+      this.sponsor_button = parser_default.parseItem(data.sponsorButton, Button_default);
     }
-    if (data.subscribeButton) {
-      this.subscribe_button = parser_default.parseItem(data.subscribeButton);
+    if (Reflect.has(data, "subscribeButton")) {
+      this.subscribe_button = parser_default.parseItem(data.subscribeButton, [SubscribeButton_default, Button_default]);
     }
-    if (data.headerLinks) {
-      this.header_links = parser_default.parseItem(data.headerLinks);
+    if (Reflect.has(data, "headerLinks")) {
+      this.header_links = parser_default.parseItem(data.headerLinks, ChannelHeaderLinks_default);
     }
-    if (data.channelHandleText) {
-      this.channel_handle = new Text_default(data.channelHandleText);
+    if (Reflect.has(data, "channelHandleText")) {
+      this.channel_handle = new Text(data.channelHandleText);
     }
-    if (data.channelId) {
+    if (Reflect.has(data, "channelId")) {
       this.channel_id = data.channelId;
     }
   }
@@ -9945,7 +10398,7 @@ var C4TabbedHeader_default = C4TabbedHeader;
 var CallToActionButton = class extends YTNode {
   constructor(data) {
     super();
-    this.label = new Text_default(data.label);
+    this.label = new Text(data.label);
     this.icon_type = data.icon.iconType;
     this.style = data.style;
   }
@@ -9960,8 +10413,12 @@ var Card = class extends YTNode {
     super();
     this.teaser = parser_default.parseItem(data.teaser);
     this.content = parser_default.parseItem(data.content);
-    this.card_id = data.cardId || null;
-    this.feature = data.feature || null;
+    if (Reflect.has(data, "cardId")) {
+      this.card_id = data.cardId;
+    }
+    if (Reflect.has(data, "feature")) {
+      this.feature = data.feature;
+    }
     this.cue_ranges = data.cueRanges.map((cr) => ({
       start_card_active_ms: cr.startCardActiveMs,
       end_card_active_ms: cr.endCardActiveMs,
@@ -9973,19 +10430,6 @@ var Card = class extends YTNode {
 __name(Card, "Card");
 Card.type = "Card";
 var Card_default = Card;
-
-// dist/src/parser/classes/CardCollection.js
-var CardCollection = class extends YTNode {
-  constructor(data) {
-    super();
-    this.cards = parser_default.parseArray(data.cards);
-    this.header = new Text_default(data.headerText);
-    this.allow_teaser_dismiss = data.allowTeaserDismiss;
-  }
-};
-__name(CardCollection, "CardCollection");
-CardCollection.type = "CardCollection";
-var CardCollection_default = CardCollection;
 
 // dist/src/parser/classes/CarouselHeader.js
 var CarouselHeader = class extends YTNode {
@@ -10005,8 +10449,11 @@ var CarouselItem = class extends YTNode {
     this.items = parser_default.parseArray(data.carouselItems);
     this.background_color = data.backgroundColor;
     this.layout_style = data.layoutStyle;
-    this.pagination_thumbnails = Thumbnail_default.fromResponse(data.paginationThumbnails);
+    this.pagination_thumbnails = Thumbnail.fromResponse(data.paginationThumbnails);
     this.paginator_alignment = data.paginatorAlignment;
+  }
+  get contents() {
+    return this.items;
   }
 };
 __name(CarouselItem, "CarouselItem");
@@ -10019,13 +10466,19 @@ var Channel = class extends YTNode {
     super();
     this.id = data.channelId;
     this.author = new Author_default(Object.assign(Object.assign({}, data.title), { navigationEndpoint: data.navigationEndpoint }), data.ownerBadges, data.thumbnail);
-    this.subscribers = new Text_default(data.subscriberCountText);
-    this.videos = new Text_default(data.videoCountText);
-    this.long_byline = new Text_default(data.longBylineText);
-    this.short_byline = new Text_default(data.shortBylineText);
+    this.subscriber_count = new Text(data.subscriberCountText);
+    this.video_count = new Text(data.videoCountText);
+    this.long_byline = new Text(data.longBylineText);
+    this.short_byline = new Text(data.shortBylineText);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.subscribe_button = parser_default.parseItem(data.subscribeButton);
-    this.description_snippet = new Text_default(data.descriptionSnippet);
+    this.subscribe_button = parser_default.parseItem(data.subscribeButton, [SubscribeButton_default, Button_default]);
+    this.description_snippet = new Text(data.descriptionSnippet);
+  }
+  get subscribers() {
+    return this.subscriber_count;
+  }
+  get videos() {
+    return this.video_count;
   }
 };
 __name(Channel, "Channel");
@@ -10035,24 +10488,30 @@ var Channel_default = Channel;
 // dist/src/parser/classes/ChannelAboutFullMetadata.js
 var ChannelAboutFullMetadata = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
     this.id = data.channelId;
-    this.name = new Text_default(data.title);
-    this.avatar = Thumbnail_default.fromResponse(data.avatar);
+    this.name = new Text(data.title);
+    this.avatar = Thumbnail.fromResponse(data.avatar);
     this.canonical_channel_url = data.canonicalChannelUrl;
-    this.primary_links = (_b = (_a5 = data.primaryLinks) === null || _a5 === void 0 ? void 0 : _a5.map((link) => ({
+    this.primary_links = (_b2 = (_a7 = data.primaryLinks) === null || _a7 === void 0 ? void 0 : _a7.map((link) => ({
       endpoint: new NavigationEndpoint_default(link.navigationEndpoint),
-      icon: Thumbnail_default.fromResponse(link.icon),
-      title: new Text_default(link.title)
-    }))) !== null && _b !== void 0 ? _b : [];
-    this.views = new Text_default(data.viewCountText);
-    this.joined = new Text_default(data.joinedDateText);
-    this.description = new Text_default(data.description);
+      icon: Thumbnail.fromResponse(link.icon),
+      title: new Text(link.title)
+    }))) !== null && _b2 !== void 0 ? _b2 : [];
+    this.view_count = new Text(data.viewCountText);
+    this.joined_date = new Text(data.joinedDateText);
+    this.description = new Text(data.description);
     this.email_reveal = new NavigationEndpoint_default(data.onBusinessEmailRevealClickCommand);
     this.can_reveal_email = !data.signInForBusinessEmail;
-    this.country = new Text_default(data.country);
-    this.buttons = parser_default.parseArray(data.actionButtons);
+    this.country = new Text(data.country);
+    this.buttons = parser_default.parseArray(data.actionButtons, Button_default);
+  }
+  get views() {
+    return this.view_count;
+  }
+  get joined() {
+    return this.joined_date;
   }
 };
 __name(ChannelAboutFullMetadata, "ChannelAboutFullMetadata");
@@ -10064,11 +10523,11 @@ var ChannelAgeGate = class extends YTNode {
   constructor(data) {
     super();
     this.channel_title = data.channelTitle;
-    this.avatar = Thumbnail_default.fromResponse(data.avatar);
-    this.header = new Text_default(data.header);
-    this.main_text = new Text_default(data.mainText);
-    this.sign_in_button = Parser.parseItem(data.signInButton, Button_default);
-    this.secondary_text = new Text_default(data.secondaryText);
+    this.avatar = Thumbnail.fromResponse(data.avatar);
+    this.header = new Text(data.header);
+    this.main_text = new Text(data.mainText);
+    this.sign_in_button = parser_default2.parseItem(data.signInButton, Button_default);
+    this.secondary_text = new Text(data.secondaryText);
   }
 };
 __name(ChannelAgeGate, "ChannelAgeGate");
@@ -10079,34 +10538,13 @@ var ChannelAgeGate_default = ChannelAgeGate;
 var ChannelFeaturedContent = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.items = parser_default.parse(data.items);
+    this.title = new Text(data.title);
+    this.items = parser_default.parseArray(data.items);
   }
 };
 __name(ChannelFeaturedContent, "ChannelFeaturedContent");
 ChannelFeaturedContent.type = "ChannelFeaturedContent";
 var ChannelFeaturedContent_default = ChannelFeaturedContent;
-
-// dist/src/parser/classes/ChannelHeaderLinks.js
-var HeaderLink = class {
-  constructor(data) {
-    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.icon = Thumbnail_default.fromResponse(data.icon);
-    this.title = new Text_default(data.title);
-  }
-};
-__name(HeaderLink, "HeaderLink");
-var ChannelHeaderLinks = class extends YTNode {
-  constructor(data) {
-    var _a5, _b;
-    super();
-    this.primary = ((_a5 = data.primaryLinks) === null || _a5 === void 0 ? void 0 : _a5.map((link) => new HeaderLink(link))) || [];
-    this.secondary = ((_b = data.secondaryLinks) === null || _b === void 0 ? void 0 : _b.map((link) => new HeaderLink(link))) || [];
-  }
-};
-__name(ChannelHeaderLinks, "ChannelHeaderLinks");
-ChannelHeaderLinks.type = "ChannelHeaderLinks";
-var ChannelHeaderLinks_default = ChannelHeaderLinks;
 
 // dist/src/parser/classes/ChannelMetadata.js
 var ChannelMetadata = class extends YTNode {
@@ -10115,12 +10553,12 @@ var ChannelMetadata = class extends YTNode {
     this.title = data.title;
     this.description = data.description;
     this.url = data.channelUrl;
-    this.rss_urls = data.rssUrl;
+    this.rss_url = data.rssUrl;
     this.vanity_channel_url = data.vanityChannelUrl;
     this.external_id = data.externalId;
     this.is_family_safe = data.isFamilySafe;
     this.keywords = data.keywords;
-    this.avatar = Thumbnail_default.fromResponse(data.avatar);
+    this.avatar = Thumbnail.fromResponse(data.avatar);
     this.available_countries = data.availableCountryCodes;
     this.android_deep_link = data.androidDeepLink;
     this.android_appindexing_link = data.androidAppindexingLink;
@@ -10135,7 +10573,7 @@ var ChannelMetadata_default = ChannelMetadata;
 var ChannelMobileHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
   }
 };
 __name(ChannelMobileHeader, "ChannelMobileHeader");
@@ -10146,10 +10584,10 @@ var ChannelMobileHeader_default = ChannelMobileHeader;
 var ChannelOptions = class extends YTNode {
   constructor(data) {
     super();
-    this.avatar = Thumbnail_default.fromResponse(data.avatar);
+    this.avatar = Thumbnail.fromResponse(data.avatar);
     this.endpoint = new NavigationEndpoint_default(data.avatarEndpoint);
     this.name = data.name;
-    this.links = data.links.map((link) => new Text_default(link));
+    this.links = data.links.map((link) => new Text(link));
   }
 };
 __name(ChannelOptions, "ChannelOptions");
@@ -10175,10 +10613,11 @@ var ChannelSubMenu_default = ChannelSubMenu;
 // dist/src/parser/classes/ChannelThumbnailWithLink.js
 var ChannelThumbnailWithLink = class extends YTNode {
   constructor(data) {
+    var _a7, _b2;
     super();
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.label = data.accessibility.accessibilityData.label;
+    this.label = (_b2 = (_a7 = data.accessibility) === null || _a7 === void 0 ? void 0 : _a7.accessibilityData) === null || _b2 === void 0 ? void 0 : _b2.label;
   }
 };
 __name(ChannelThumbnailWithLink, "ChannelThumbnailWithLink");
@@ -10190,10 +10629,16 @@ var ChannelVideoPlayer = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.videoId;
-    this.title = new Text_default(data.title);
-    this.description = new Text_default(data.description);
-    this.views = new Text_default(data.viewCountText);
-    this.published = new Text_default(data.publishedTimeText);
+    this.title = new Text(data.title);
+    this.description = new Text(data.description);
+    this.view_count = new Text(data.viewCountText);
+    this.published_time = new Text(data.publishedTimeText);
+  }
+  get views() {
+    return this.view_count;
+  }
+  get published() {
+    return this.published_time;
   }
 };
 __name(ChannelVideoPlayer, "ChannelVideoPlayer");
@@ -10204,9 +10649,9 @@ var ChannelVideoPlayer_default = ChannelVideoPlayer;
 var Chapter = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.time_range_start_millis = data.timeRangeStartMillis;
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
   }
 };
 __name(Chapter, "Chapter");
@@ -10218,7 +10663,7 @@ var ChildVideo = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.videoId;
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.duration = {
       text: data.lengthText.simpleText,
       seconds: timeToSeconds(data.lengthText.simpleText)
@@ -10235,8 +10680,10 @@ var ChipCloudChip = class extends YTNode {
   constructor(data) {
     super();
     this.is_selected = data.isSelected;
-    this.endpoint = data.navigationEndpoint ? new NavigationEndpoint_default(data.navigationEndpoint) : void 0;
-    this.text = new Text_default(data.text).toString();
+    if (Reflect.has(data, "navigationEndpoint")) {
+      this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    }
+    this.text = new Text(data.text).toString();
   }
 };
 __name(ChipCloudChip, "ChipCloudChip");
@@ -10261,10 +10708,10 @@ var ChipCloud_default = ChipCloud;
 var CollaboratorInfoCardContent = class extends YTNode {
   constructor(data) {
     super();
-    this.channel_avatar = Thumbnail_default.fromResponse(data.channelAvatar);
-    this.custom_text = new Text_default(data.customText);
-    this.channel_name = new Text_default(data.channelName);
-    this.subscriber_count = new Text_default(data.subscriberCountText);
+    this.channel_avatar = Thumbnail.fromResponse(data.channelAvatar);
+    this.custom_text = new Text(data.customText);
+    this.channel_name = new Text(data.channelName);
+    this.subscriber_count = new Text(data.subscriberCountText);
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
   }
 };
@@ -10276,9 +10723,9 @@ var CollaboratorInfoCardContent_default = CollaboratorInfoCardContent;
 var CollageHeroImage = class extends YTNode {
   constructor(data) {
     super();
-    this.left = Thumbnail_default.fromResponse(data.leftThumbnail);
-    this.top_right = Thumbnail_default.fromResponse(data.topRightThumbnail);
-    this.bottom_right = Thumbnail_default.fromResponse(data.bottomRightThumbnail);
+    this.left = Thumbnail.fromResponse(data.leftThumbnail);
+    this.top_right = Thumbnail.fromResponse(data.topRightThumbnail);
+    this.bottom_right = Thumbnail.fromResponse(data.bottomRightThumbnail);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
   }
 };
@@ -10287,35 +10734,20 @@ CollageHeroImage.type = "CollageHeroImage";
 var CollageHeroImage_default = CollageHeroImage;
 
 // dist/src/parser/classes/comments/AuthorCommentBadge.js
-var __classPrivateFieldSet5 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet5 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _AuthorCommentBadge_data;
 var AuthorCommentBadge = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
     _AuthorCommentBadge_data.set(this, void 0);
-    this.icon_type = ((_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType) || null;
+    if (Reflect.has(data, "icon") && Reflect.has(data.icon, "iconType")) {
+      this.icon_type = data.icon.iconType;
+    }
     this.tooltip = data.iconTooltip;
     this.tooltip === "Verified" && (this.style = "BADGE_STYLE_TYPE_VERIFIED") && (data.style = "BADGE_STYLE_TYPE_VERIFIED");
-    __classPrivateFieldSet5(this, _AuthorCommentBadge_data, data, "f");
+    __classPrivateFieldSet(this, _AuthorCommentBadge_data, data, "f");
   }
   get orig_badge() {
-    return __classPrivateFieldGet5(this, _AuthorCommentBadge_data, "f");
+    return __classPrivateFieldGet(this, _AuthorCommentBadge_data, "f");
   }
 };
 __name(AuthorCommentBadge, "AuthorCommentBadge");
@@ -10327,16 +10759,47 @@ var AuthorCommentBadge_default = AuthorCommentBadge;
 var CommentReplyDialog = class extends YTNode {
   constructor(data) {
     super();
-    this.reply_button = parser_default.parseItem(data.replyButton);
-    this.cancel_button = parser_default.parseItem(data.cancelButton);
-    this.author_thumbnail = Thumbnail_default.fromResponse(data.authorThumbnail);
-    this.placeholder = new Text_default(data.placeholderText);
-    this.error_message = new Text_default(data.errorMessage);
+    this.reply_button = parser_default.parseItem(data.replyButton, Button_default);
+    this.cancel_button = parser_default.parseItem(data.cancelButton, Button_default);
+    this.author_thumbnail = Thumbnail.fromResponse(data.authorThumbnail);
+    this.placeholder = new Text(data.placeholderText);
+    this.error_message = new Text(data.errorMessage);
   }
 };
 __name(CommentReplyDialog, "CommentReplyDialog");
 CommentReplyDialog.type = "CommentReplyDialog";
 var CommentReplyDialog_default = CommentReplyDialog;
+
+// dist/src/parser/classes/comments/PdgCommentChip.js
+var PdgCommentChip = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2;
+    super();
+    this.text = new Text(data.chipText);
+    this.color_pallette = {
+      background_color: (_a7 = data.chipColorPalette) === null || _a7 === void 0 ? void 0 : _a7.backgroundColor,
+      foreground_title_color: (_b2 = data.chipColorPalette) === null || _b2 === void 0 ? void 0 : _b2.foregroundTitleColor
+    };
+    if (Reflect.has(data, "chipIcon") && Reflect.has(data.chipIcon, "iconType")) {
+      this.icon_type = data.chipIcon.iconType;
+    }
+  }
+};
+__name(PdgCommentChip, "PdgCommentChip");
+PdgCommentChip.type = "PdgCommentChip";
+var PdgCommentChip_default = PdgCommentChip;
+
+// dist/src/parser/classes/comments/SponsorCommentBadge.js
+var SponsorCommentBadge = class extends YTNode {
+  constructor(data) {
+    super();
+    this.custom_badge = Thumbnail.fromResponse(data.customBadge);
+    this.tooltip = data.tooltip;
+  }
+};
+__name(SponsorCommentBadge, "SponsorCommentBadge");
+SponsorCommentBadge.type = "SponsorCommentBadge";
+var SponsorCommentBadge_default = SponsorCommentBadge;
 
 // dist/src/proto/generated/runtime/wire/index.js
 var WireType;
@@ -10347,7 +10810,7 @@ var WireType;
   WireType2[WireType2["StartGroup"] = 3] = "StartGroup";
   WireType2[WireType2["EndGroup"] = 4] = "EndGroup";
   WireType2[WireType2["Fixed32"] = 5] = "Fixed32";
-})(WireType = WireType || (WireType = {}));
+})(WireType || (WireType = {}));
 
 // dist/src/proto/generated/runtime/Long.js
 var UINT16_MAX = 65535;
@@ -10853,7 +11316,69 @@ function* unpackFixed64(wireValue) {
 }
 __name(unpackFixed64, "unpackFixed64");
 
+// dist/src/proto/generated/runtime/wire/deserialize.js
+function deserialize(uint8array) {
+  let idx = 0;
+  const offset = uint8array.byteOffset;
+  const result = [];
+  const dataview = new DataView(uint8array.buffer, offset);
+  while (idx < uint8array.length) {
+    const decodeResult = decode2(new DataView(uint8array.buffer, offset + idx));
+    const key = decodeResult[1][0];
+    idx += decodeResult[0];
+    const type = key & 7;
+    const fieldNumber = key >>> 3;
+    switch (type) {
+      default:
+        throw new Error(`Unknown wire type ${type}`);
+      case WireType.Varint: {
+        const [len, value] = decode2(new DataView(uint8array.buffer, offset + idx));
+        result.push([fieldNumber, { type, value }]);
+        idx += len;
+        break;
+      }
+      case WireType.Fixed64:
+        const lo = dataview.getUint32(idx, true);
+        const hi = dataview.getUint32(idx += 4, true);
+        idx += 4;
+        result.push([fieldNumber, {
+          type,
+          value: new Long(lo, hi)
+        }]);
+        break;
+      case WireType.LengthDelimited: {
+        const [len, value] = decode2(new DataView(uint8array.buffer, offset + idx));
+        result.push([fieldNumber, {
+          type,
+          value: uint8array.subarray(idx += len, idx += value[0])
+        }]);
+        break;
+      }
+      case WireType.StartGroup:
+      case WireType.EndGroup:
+        result.push([fieldNumber, { type }]);
+        break;
+      case WireType.Fixed32:
+        result.push([fieldNumber, {
+          type,
+          value: dataview.getUint32(idx, true)
+        }]);
+        idx += 4;
+        break;
+    }
+  }
+  return result;
+}
+__name(deserialize, "deserialize");
+
 // dist/src/proto/generated/messages/youtube/VisitorData.js
+function getDefaultValue() {
+  return {
+    id: "",
+    timestamp: 0
+  };
+}
+__name(getDefaultValue, "getDefaultValue");
 function encodeBinary(value) {
   const result = [];
   if (value.id !== void 0) {
@@ -10867,6 +11392,31 @@ function encodeBinary(value) {
   return serialize(result);
 }
 __name(encodeBinary, "encodeBinary");
+function decodeBinary(binary) {
+  const result = getDefaultValue();
+  const wireMessage = deserialize(binary);
+  const wireFields = new Map(wireMessage);
+  field: {
+    const wireValue = wireFields.get(1);
+    if (wireValue === void 0)
+      break field;
+    const value = wireValueToTsValueFns.string(wireValue);
+    if (value === void 0)
+      break field;
+    result.id = value;
+  }
+  field: {
+    const wireValue = wireFields.get(5);
+    if (wireValue === void 0)
+      break field;
+    const value = wireValueToTsValueFns.int32(wireValue);
+    if (value === void 0)
+      break field;
+    result.timestamp = value;
+  }
+  return result;
+}
+__name(decodeBinary, "decodeBinary");
 
 // dist/src/proto/generated/messages/youtube/(ChannelAnalytics)/Params.js
 function encodeBinary2(value) {
@@ -11554,6 +12104,10 @@ var Proto = class {
     const buf = encodeBinary({ id, timestamp });
     return encodeURIComponent(u8ToBase64(buf).replace(/\+/g, "-").replace(/\//g, "_"));
   }
+  static decodeVisitorData(visitor_data) {
+    const data = decodeBinary(base64ToU8(decodeURIComponent(visitor_data)));
+    return data;
+  }
   static encodeChannelAnalyticsParams(channel_id) {
     const buf = encodeBinary3({
       params: {
@@ -11631,13 +12185,13 @@ var Proto = class {
     return encodeURIComponent(u8ToBase64(buf));
   }
   static encodeMusicSearchFilters(filters) {
-    var _a5;
+    var _a7;
     const data = {
       filters: {
         type: {}
       }
     };
-    if (filters.type && filters.type !== "all" && ((_a5 = data.filters) === null || _a5 === void 0 ? void 0 : _a5.type))
+    if (filters.type && filters.type !== "all" && ((_a7 = data.filters) === null || _a7 === void 0 ? void 0 : _a7.type))
       data.filters.type[filters.type] = 1;
     const buf = encodeBinary8(data);
     return encodeURIComponent(u8ToBase64(buf));
@@ -11807,133 +12361,86 @@ __name(Proto, "Proto");
 var proto_default = Proto;
 
 // dist/src/parser/classes/comments/Comment.js
-var __awaiter2 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldGet6 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __classPrivateFieldSet6 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
 var _Comment_actions;
 var Comment = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d, _e, _f, _g;
+    var _a7, _b2, _c, _d, _e, _f, _g;
     super();
     _Comment_actions.set(this, void 0);
-    this.content = new Text_default(data.contentText);
-    this.published = new Text_default(data.publishedTimeText);
+    this.content = new Text(data.contentText);
+    this.published = new Text(data.publishedTimeText);
     this.author_is_channel_owner = data.authorIsChannelOwner;
-    this.current_user_reply_thumbnail = Thumbnail_default.fromResponse(data.currentUserReplyThumbnail);
-    this.sponsor_comment_badge = parser_default.parseItem(data.sponsorCommentBadge);
-    this.paid_comment_chip = parser_default.parseItem(data.paidCommentChipRenderer);
+    this.current_user_reply_thumbnail = Thumbnail.fromResponse(data.currentUserReplyThumbnail);
+    this.sponsor_comment_badge = parser_default.parseItem(data.sponsorCommentBadge, SponsorCommentBadge_default);
+    this.paid_comment_chip = parser_default.parseItem(data.paidCommentChipRenderer, PdgCommentChip_default);
     this.author_badge = parser_default.parseItem(data.authorCommentBadge, AuthorCommentBadge_default);
     this.author = new Author_default(Object.assign(Object.assign({}, data.authorText), { navigationEndpoint: data.authorEndpoint }), this.author_badge ? [{
-      metadataBadgeRenderer: (_a5 = this.author_badge) === null || _a5 === void 0 ? void 0 : _a5.orig_badge
+      metadataBadgeRenderer: (_a7 = this.author_badge) === null || _a7 === void 0 ? void 0 : _a7.orig_badge
     }] : null, data.authorThumbnail);
-    this.action_menu = parser_default.parseItem(data.actionMenu);
-    this.action_buttons = parser_default.parseItem(data.actionButtons);
+    this.action_menu = parser_default.parseItem(data.actionMenu, Menu_default);
+    this.action_buttons = parser_default.parseItem(data.actionButtons, CommentActionButtons_default);
     this.comment_id = data.commentId;
     this.vote_status = data.voteStatus;
-    this.vote_count = data.voteCount ? new Text_default(data.voteCount).toString() : "0";
+    this.vote_count = data.voteCount ? new Text(data.voteCount).toString() : "0";
     this.reply_count = data.replyCount || 0;
-    this.is_liked = !!((_c = (_b = this.action_buttons) === null || _b === void 0 ? void 0 : _b.like_button) === null || _c === void 0 ? void 0 : _c.is_toggled);
+    this.is_liked = !!((_c = (_b2 = this.action_buttons) === null || _b2 === void 0 ? void 0 : _b2.like_button) === null || _c === void 0 ? void 0 : _c.is_toggled);
     this.is_disliked = !!((_e = (_d = this.action_buttons) === null || _d === void 0 ? void 0 : _d.dislike_button) === null || _e === void 0 ? void 0 : _e.is_toggled);
     this.is_hearted = !!((_g = (_f = this.action_buttons) === null || _f === void 0 ? void 0 : _f.creator_heart) === null || _g === void 0 ? void 0 : _g.is_hearted);
     this.is_pinned = !!data.pinnedCommentBadge;
     this.is_member = !!data.sponsorCommentBadge;
   }
   like() {
-    var _a5;
-    return __awaiter2(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet6(this, _Comment_actions, "f"))
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Comment_actions, "f"))
         throw new InnertubeError("An active caller must be provide to perform this operation.");
-      const button = (_a5 = this.action_buttons) === null || _a5 === void 0 ? void 0 : _a5.like_button;
+      const button = (_a7 = this.action_buttons) === null || _a7 === void 0 ? void 0 : _a7.like_button;
       if (!button)
         throw new InnertubeError("Like button was not found.", { comment_id: this.comment_id });
       if (button.is_toggled)
         throw new InnertubeError("This comment is already liked", { comment_id: this.comment_id });
-      const response = yield button.endpoint.call(__classPrivateFieldGet6(this, _Comment_actions, "f"), { parse: false });
+      const response = yield button.endpoint.call(__classPrivateFieldGet(this, _Comment_actions, "f"), { parse: false });
       return response;
     });
   }
   dislike() {
-    var _a5;
-    return __awaiter2(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet6(this, _Comment_actions, "f"))
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Comment_actions, "f"))
         throw new InnertubeError("An active caller must be provide to perform this operation.");
-      const button = (_a5 = this.action_buttons) === null || _a5 === void 0 ? void 0 : _a5.dislike_button;
+      const button = (_a7 = this.action_buttons) === null || _a7 === void 0 ? void 0 : _a7.dislike_button;
       if (!button)
         throw new InnertubeError("Dislike button was not found.", { comment_id: this.comment_id });
       if (button.is_toggled)
         throw new InnertubeError("This comment is already disliked", { comment_id: this.comment_id });
-      const response = yield button.endpoint.call(__classPrivateFieldGet6(this, _Comment_actions, "f"), { parse: false });
+      const response = yield button.endpoint.call(__classPrivateFieldGet(this, _Comment_actions, "f"), { parse: false });
       return response;
     });
   }
   reply(text) {
-    var _a5, _b, _c;
-    return __awaiter2(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet6(this, _Comment_actions, "f"))
+    var _a7, _b2, _c;
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Comment_actions, "f"))
         throw new InnertubeError("An active caller must be provide to perform this operation.");
-      if (!((_a5 = this.action_buttons) === null || _a5 === void 0 ? void 0 : _a5.reply_button))
+      if (!((_a7 = this.action_buttons) === null || _a7 === void 0 ? void 0 : _a7.reply_button))
         throw new InnertubeError("Cannot reply to another reply. Try mentioning the user instead.", { comment_id: this.comment_id });
-      const button = (_b = this.action_buttons) === null || _b === void 0 ? void 0 : _b.reply_button;
+      const button = (_b2 = this.action_buttons) === null || _b2 === void 0 ? void 0 : _b2.reply_button;
       if (!((_c = button.endpoint) === null || _c === void 0 ? void 0 : _c.dialog))
         throw new InnertubeError("Reply button endpoint did not have a dialog.");
-      const dialog = button.endpoint.dialog;
-      const dialog_button = dialog.item().as(CommentReplyDialog_default).reply_button;
+      const dialog = button.endpoint.dialog.as(CommentReplyDialog_default);
+      const dialog_button = dialog.reply_button;
       if (!dialog_button)
         throw new InnertubeError("Reply button was not found in the dialog.", { comment_id: this.comment_id });
       if (!dialog_button.endpoint)
         throw new InnertubeError("Reply button endpoint was not found.", { comment_id: this.comment_id });
-      const response = yield dialog_button.endpoint.call(__classPrivateFieldGet6(this, _Comment_actions, "f"), { commentText: text });
+      const response = yield dialog_button.endpoint.call(__classPrivateFieldGet(this, _Comment_actions, "f"), { commentText: text });
       return response;
     });
   }
   translate(target_language) {
-    var _a5, _b, _c, _d, _e, _f;
-    return __awaiter2(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet6(this, _Comment_actions, "f"))
+    var _a7, _b2, _c, _d, _e, _f;
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Comment_actions, "f"))
         throw new InnertubeError("An active caller must be provide to perform this operation.");
       const text = this.content.toString().replace(/[^\p{L}\p{N}\p{P}\p{Z}]/gu, "");
       const payload = {
@@ -11942,284 +12449,20 @@ var Comment = class extends YTNode {
         comment_id: this.comment_id
       };
       const action = proto_default.encodeCommentActionParams(22, payload);
-      const response = yield __classPrivateFieldGet6(this, _Comment_actions, "f").execute("comment/perform_comment_action", { action, client: "ANDROID" });
-      const mutations = (_b = (_a5 = response.data.frameworkUpdates) === null || _a5 === void 0 ? void 0 : _a5.entityBatchUpdate) === null || _b === void 0 ? void 0 : _b.mutations;
+      const response = yield __classPrivateFieldGet(this, _Comment_actions, "f").execute("comment/perform_comment_action", { action, client: "ANDROID" });
+      const mutations = (_b2 = (_a7 = response.data.frameworkUpdates) === null || _a7 === void 0 ? void 0 : _a7.entityBatchUpdate) === null || _b2 === void 0 ? void 0 : _b2.mutations;
       const content = (_f = (_e = (_d = (_c = mutations === null || mutations === void 0 ? void 0 : mutations[0]) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.commentEntityPayload) === null || _e === void 0 ? void 0 : _e.translatedContent) === null || _f === void 0 ? void 0 : _f.content;
       return Object.assign(Object.assign({}, response), { content });
     });
   }
   setActions(actions) {
-    __classPrivateFieldSet6(this, _Comment_actions, actions, "f");
+    __classPrivateFieldSet(this, _Comment_actions, actions, "f");
   }
 };
 __name(Comment, "Comment");
 _Comment_actions = /* @__PURE__ */ new WeakMap();
 Comment.type = "Comment";
 var Comment_default = Comment;
-
-// dist/src/parser/classes/comments/CommentActionButtons.js
-var CommentActionButtons = class extends YTNode {
-  constructor(data) {
-    super();
-    this.like_button = parser_default.parseItem(data.likeButton);
-    this.dislike_button = parser_default.parseItem(data.dislikeButton);
-    this.reply_button = parser_default.parseItem(data.replyButton);
-    this.creator_heart = parser_default.parseItem(data.creatorHeart);
-  }
-};
-__name(CommentActionButtons, "CommentActionButtons");
-CommentActionButtons.type = "CommentActionButtons";
-var CommentActionButtons_default = CommentActionButtons;
-
-// dist/src/parser/classes/comments/CommentDialog.js
-var CommentDialog = class extends YTNode {
-  constructor(data) {
-    super();
-    this.editable_text = new Text_default(data.editableText);
-    this.author_thumbnail = Thumbnail_default.fromResponse(data.authorThumbnail);
-    this.submit_button = parser_default.parseItem(data.submitButton);
-    this.cancel_button = parser_default.parseItem(data.cancelButton);
-    this.placeholder = new Text_default(data.placeholderText);
-    this.emoji_button = parser_default.parseItem(data.emojiButton);
-    this.emoji_picker = parser_default.parseItem(data.emojiPicker);
-  }
-};
-__name(CommentDialog, "CommentDialog");
-CommentDialog.type = "CommentDialog";
-var CommentDialog_default = CommentDialog;
-
-// dist/src/parser/classes/comments/CommentReplies.js
-var CommentReplies = class extends YTNode {
-  constructor(data) {
-    super();
-    this.contents = parser_default.parseArray(data.contents);
-    this.view_replies = parser_default.parseItem(data.viewReplies);
-    this.hide_replies = parser_default.parseItem(data.hideReplies);
-    this.view_replies_creator_thumbnail = Thumbnail_default.fromResponse(data.viewRepliesCreatorThumbnail);
-    this.has_channel_owner_replied = !!data.viewRepliesCreatorThumbnail;
-  }
-};
-__name(CommentReplies, "CommentReplies");
-CommentReplies.type = "CommentReplies";
-var CommentReplies_default = CommentReplies;
-
-// dist/src/parser/classes/comments/CommentsEntryPointHeader.js
-var CommentsEntryPointHeader = class extends YTNode {
-  constructor(data) {
-    super();
-    if (data.header) {
-      this.header = new Text_default(data.headerText);
-    }
-    if (data.commentCount) {
-      this.comment_count = new Text_default(data.commentCount);
-    }
-    if (data.teaserAvatar || data.simpleboxAvatar) {
-      this.teaser_avatar = Thumbnail_default.fromResponse(data.teaserAvatar || data.simpleboxAvatar);
-    }
-    if (data.teaserContent) {
-      this.teaser_content = new Text_default(data.teaserContent);
-    }
-    if (data.simpleboxPlaceholder) {
-      this.simplebox_placeholder = new Text_default(data.simpleboxPlaceholder);
-    }
-  }
-};
-__name(CommentsEntryPointHeader, "CommentsEntryPointHeader");
-CommentsEntryPointHeader.type = "CommentsEntryPointHeader";
-var CommentsEntryPointHeader_default = CommentsEntryPointHeader;
-
-// dist/src/parser/classes/comments/CommentsHeader.js
-var CommentsHeader = class extends YTNode {
-  constructor(data) {
-    var _a5;
-    super();
-    this.title = new Text_default(data.titleText);
-    this.count = new Text_default(data.countText);
-    this.comments_count = new Text_default(data.commentsCount);
-    this.create_renderer = parser_default.parseItem(data.createRenderer);
-    this.sort_menu = parser_default.parseItem(data.sortMenu);
-    this.custom_emojis = ((_a5 = data.customEmojis) === null || _a5 === void 0 ? void 0 : _a5.map((emoji) => ({
-      emoji_id: emoji.emojiId,
-      shortcuts: emoji.shortcuts,
-      search_terms: emoji.searchTerms,
-      image: Thumbnail_default.fromResponse(emoji.image),
-      is_custom_emoji: emoji.isCustomEmoji
-    }))) || null;
-  }
-};
-__name(CommentsHeader, "CommentsHeader");
-CommentsHeader.type = "CommentsHeader";
-var CommentsHeader_default = CommentsHeader;
-
-// dist/src/parser/classes/comments/CommentSimplebox.js
-var CommentSimplebox = class extends YTNode {
-  constructor(data) {
-    super();
-    this.submit_button = parser_default.parseItem(data.submitButton);
-    this.cancel_button = parser_default.parseItem(data.cancelButton);
-    this.author_thumbnails = Thumbnail_default.fromResponse(data.authorThumbnail);
-    this.placeholder = new Text_default(data.placeholderText);
-    this.avatar_size = data.avatarSize;
-  }
-};
-__name(CommentSimplebox, "CommentSimplebox");
-CommentSimplebox.type = "CommentSimplebox";
-var CommentSimplebox_default = CommentSimplebox;
-
-// dist/src/parser/classes/ContinuationItem.js
-var ContinuationItem = class extends YTNode {
-  constructor(data) {
-    super();
-    this.trigger = data.trigger;
-    if (data.button) {
-      this.button = parser_default.parseItem(data.button);
-    }
-    this.endpoint = new NavigationEndpoint_default(data.continuationEndpoint);
-  }
-};
-__name(ContinuationItem, "ContinuationItem");
-ContinuationItem.type = "ContinuationItem";
-var ContinuationItem_default = ContinuationItem;
-
-// dist/src/parser/classes/comments/CommentThread.js
-var __awaiter3 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldGet7 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __classPrivateFieldSet7 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var _CommentThread_actions;
-var _CommentThread_continuation;
-var CommentThread = class extends YTNode {
-  constructor(data) {
-    super();
-    _CommentThread_actions.set(this, void 0);
-    _CommentThread_continuation.set(this, void 0);
-    this.comment = parser_default.parseItem(data.comment, Comment_default);
-    this.comment_replies_data = parser_default.parseItem(data.replies);
-    this.is_moderated_elq_comment = data.isModeratedElqComment;
-    this.has_replies = !!this.comment_replies_data;
-  }
-  getReplies() {
-    var _a5, _b;
-    return __awaiter3(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet7(this, _CommentThread_actions, "f"))
-        throw new InnertubeError("Actions instance not set for this thread.");
-      if (!this.comment_replies_data)
-        throw new InnertubeError("This comment has no replies.", { comment_id: (_a5 = this.comment) === null || _a5 === void 0 ? void 0 : _a5.comment_id });
-      const continuation = (_b = this.comment_replies_data.contents) === null || _b === void 0 ? void 0 : _b.firstOfType(ContinuationItem_default);
-      if (!continuation)
-        throw new InnertubeError("Replies continuation not found.");
-      const response = yield continuation.endpoint.call(__classPrivateFieldGet7(this, _CommentThread_actions, "f"), { parse: true });
-      if (!response.on_response_received_endpoints_memo)
-        throw new InnertubeError("Unexpected response.", response);
-      this.replies = observe(response.on_response_received_endpoints_memo.getType(Comment_default).map((comment) => {
-        comment.setActions(__classPrivateFieldGet7(this, _CommentThread_actions, "f"));
-        return comment;
-      }));
-      __classPrivateFieldSet7(this, _CommentThread_continuation, response === null || response === void 0 ? void 0 : response.on_response_received_endpoints_memo.getType(ContinuationItem_default).first(), "f");
-      return this;
-    });
-  }
-  getContinuation() {
-    var _a5, _b;
-    return __awaiter3(this, void 0, void 0, function* () {
-      if (!this.replies)
-        throw new InnertubeError("Cannot retrieve continuation because this thread's replies have not been loaded.");
-      if (!__classPrivateFieldGet7(this, _CommentThread_continuation, "f"))
-        throw new InnertubeError("Continuation not found.");
-      if (!__classPrivateFieldGet7(this, _CommentThread_actions, "f"))
-        throw new InnertubeError("Actions instance not set for this thread.");
-      const load_more_button = (_a5 = __classPrivateFieldGet7(this, _CommentThread_continuation, "f").button) === null || _a5 === void 0 ? void 0 : _a5.as(Button_default);
-      if (!load_more_button)
-        throw new InnertubeError('"Load more" button not found.');
-      const response = yield load_more_button.endpoint.call(__classPrivateFieldGet7(this, _CommentThread_actions, "f"), { parse: true });
-      if (!response.on_response_received_endpoints_memo)
-        throw new InnertubeError("Unexpected response.", response);
-      this.replies = observe(response.on_response_received_endpoints_memo.getType(Comment_default).map((comment) => {
-        comment.setActions(__classPrivateFieldGet7(this, _CommentThread_actions, "f"));
-        return comment;
-      }));
-      __classPrivateFieldSet7(this, _CommentThread_continuation, (_b = response.on_response_received_endpoints_memo.getType(ContinuationItem_default)) === null || _b === void 0 ? void 0 : _b[0], "f");
-      return this;
-    });
-  }
-  get has_continuation() {
-    if (!this.replies)
-      throw new InnertubeError("Cannot determine if there is a continuation because this thread's replies have not been loaded.");
-    return !!__classPrivateFieldGet7(this, _CommentThread_continuation, "f");
-  }
-  setActions(actions) {
-    __classPrivateFieldSet7(this, _CommentThread_actions, actions, "f");
-  }
-};
-__name(CommentThread, "CommentThread");
-_CommentThread_actions = /* @__PURE__ */ new WeakMap(), _CommentThread_continuation = /* @__PURE__ */ new WeakMap();
-CommentThread.type = "CommentThread";
-var CommentThread_default = CommentThread;
-
-// dist/src/parser/classes/comments/CreatorHeart.js
-var CreatorHeart = class extends YTNode {
-  constructor(data) {
-    var _a5, _b, _c;
-    super();
-    this.creator_thumbnail = Thumbnail_default.fromResponse(data.creatorThumbnail);
-    this.heart_icon_type = (_a5 = data.heartIcon) === null || _a5 === void 0 ? void 0 : _a5.iconType;
-    this.heart_color = {
-      basic_color_palette_data: {
-        foreground_title_color: (_c = (_b = data.heartColor) === null || _b === void 0 ? void 0 : _b.basicColorPaletteData) === null || _c === void 0 ? void 0 : _c.foregroundTitleColor
-      }
-    };
-    this.hearted_tooltip = data.heartedTooltip;
-    this.is_hearted = data.isHearted;
-    this.is_enabled = data.isEnabled;
-    this.kennedy_heart_color_string = data.kennedyHeartColorString;
-  }
-};
-__name(CreatorHeart, "CreatorHeart");
-CreatorHeart.type = "CreatorHeart";
-var CreatorHeart_default = CreatorHeart;
 
 // dist/src/parser/classes/comments/EmojiPicker.js
 var EmojiPicker = class extends YTNode {
@@ -12228,9 +12471,9 @@ var EmojiPicker = class extends YTNode {
     this.id = data.id;
     this.categories = parser_default.parseArray(data.categories);
     this.category_buttons = parser_default.parseArray(data.categoryButtons);
-    this.search_placeholder = new Text_default(data.searchPlaceholderText);
-    this.search_no_results = new Text_default(data.searchNoResultsText);
-    this.pick_skin_tone = new Text_default(data.pickSkinToneText);
+    this.search_placeholder = new Text(data.searchPlaceholderText);
+    this.search_no_results = new Text(data.searchNoResultsText);
+    this.pick_skin_tone = new Text(data.pickSkinToneText);
     this.clear_search_label = data.clearSearchLabel;
     this.skin_tone_generic_label = data.skinToneGenericLabel;
     this.skin_tone_light_label = data.skinToneLightLabel;
@@ -12244,48 +12487,222 @@ __name(EmojiPicker, "EmojiPicker");
 EmojiPicker.type = "EmojiPicker";
 var EmojiPicker_default = EmojiPicker;
 
-// dist/src/parser/classes/comments/PdgCommentChip.js
-var PdgCommentChip = class extends YTNode {
+// dist/src/parser/classes/comments/CommentDialog.js
+var CommentDialog = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c;
     super();
-    this.text = new Text_default(data.chipText);
-    this.color_pallette = {
-      background_color: (_a5 = data.chipColorPalette) === null || _a5 === void 0 ? void 0 : _a5.backgroundColor,
-      foreground_title_color: (_b = data.chipColorPalette) === null || _b === void 0 ? void 0 : _b.foregroundTitleColor
-    };
-    this.icon_type = (_c = data.chipIcon) === null || _c === void 0 ? void 0 : _c.iconType;
+    this.editable_text = new Text(data.editableText);
+    this.author_thumbnail = Thumbnail.fromResponse(data.authorThumbnail);
+    this.submit_button = parser_default.parseItem(data.submitButton, Button_default);
+    this.cancel_button = parser_default.parseItem(data.cancelButton, Button_default);
+    this.placeholder = new Text(data.placeholderText);
+    this.emoji_button = parser_default.parseItem(data.emojiButton, Button_default);
+    this.emoji_picker = parser_default.parseItem(data.emojiPicker, EmojiPicker_default);
   }
 };
-__name(PdgCommentChip, "PdgCommentChip");
-PdgCommentChip.type = "PdgCommentChip";
-var PdgCommentChip_default = PdgCommentChip;
+__name(CommentDialog, "CommentDialog");
+CommentDialog.type = "CommentDialog";
+var CommentDialog_default = CommentDialog;
 
-// dist/src/parser/classes/comments/SponsorCommentBadge.js
-var SponsorCommentBadge = class extends YTNode {
+// dist/src/parser/classes/comments/CommentReplies.js
+var CommentReplies = class extends YTNode {
   constructor(data) {
     super();
-    this.custom_badge = Thumbnail_default.fromResponse(data.customBadge);
-    this.tooltip = data.tooltip;
+    this.contents = parser_default.parseArray(data.contents);
+    this.view_replies = parser_default.parseItem(data.viewReplies, Button_default);
+    this.hide_replies = parser_default.parseItem(data.hideReplies, Button_default);
+    this.view_replies_creator_thumbnail = Thumbnail.fromResponse(data.viewRepliesCreatorThumbnail);
+    this.has_channel_owner_replied = !!data.viewRepliesCreatorThumbnail;
   }
 };
-__name(SponsorCommentBadge, "SponsorCommentBadge");
-SponsorCommentBadge.type = "SponsorCommentBadge";
-var SponsorCommentBadge_default = SponsorCommentBadge;
+__name(CommentReplies, "CommentReplies");
+CommentReplies.type = "CommentReplies";
+var CommentReplies_default = CommentReplies;
+
+// dist/src/parser/classes/comments/CommentsEntryPointTeaser.js
+var CommentsEntryPointTeaser = class extends YTNode {
+  constructor(data) {
+    super();
+    if (Reflect.has(data, "teaserAvatar")) {
+      this.teaser_avatar = Thumbnail.fromResponse(data.teaserAvatar);
+    }
+    if (Reflect.has(data, "teaserContent")) {
+      this.teaser_content = new Text(data.teaserContent);
+    }
+  }
+};
+__name(CommentsEntryPointTeaser, "CommentsEntryPointTeaser");
+CommentsEntryPointTeaser.type = "CommentsEntryPointTeaser";
+var CommentsEntryPointTeaser_default = CommentsEntryPointTeaser;
+
+// dist/src/parser/classes/comments/CommentsEntryPointHeader.js
+var CommentsEntryPointHeader = class extends YTNode {
+  constructor(data) {
+    super();
+    if (Reflect.has(data, "headerText")) {
+      this.header = new Text(data.headerText);
+    }
+    if (Reflect.has(data, "commentCount")) {
+      this.comment_count = new Text(data.commentCount);
+    }
+    if (Reflect.has(data, "teaserAvatar") || Reflect.has(data, "simpleboxAvatar")) {
+      this.teaser_avatar = Thumbnail.fromResponse(data.teaserAvatar || data.simpleboxAvatar);
+    }
+    if (Reflect.has(data, "teaserContent")) {
+      this.teaser_content = new Text(data.teaserContent);
+    }
+    if (Reflect.has(data, "contentRenderer")) {
+      this.content_renderer = parser_default2.parseItem(data.contentRenderer, CommentsEntryPointTeaser_default);
+    }
+    if (Reflect.has(data, "simpleboxPlaceholder")) {
+      this.simplebox_placeholder = new Text(data.simpleboxPlaceholder);
+    }
+  }
+};
+__name(CommentsEntryPointHeader, "CommentsEntryPointHeader");
+CommentsEntryPointHeader.type = "CommentsEntryPointHeader";
+var CommentsEntryPointHeader_default = CommentsEntryPointHeader;
+
+// dist/src/parser/classes/comments/CommentsHeader.js
+var CommentsHeader = class extends YTNode {
+  constructor(data) {
+    super();
+    this.title = new Text(data.titleText);
+    this.count = new Text(data.countText);
+    this.comments_count = new Text(data.commentsCount);
+    this.create_renderer = parser_default.parseItem(data.createRenderer);
+    this.sort_menu = parser_default.parseItem(data.sortMenu, SortFilterSubMenu_default);
+    if (Reflect.has(data, "customEmojis")) {
+      this.custom_emojis = data.customEmojis.map((emoji) => {
+        return {
+          emoji_id: emoji.emojiId,
+          shortcuts: emoji.shortcuts,
+          search_terms: emoji.searchTerms,
+          image: Thumbnail.fromResponse(emoji.image),
+          is_custom_emoji: emoji.isCustomEmoji
+        };
+      });
+    }
+  }
+};
+__name(CommentsHeader, "CommentsHeader");
+CommentsHeader.type = "CommentsHeader";
+var CommentsHeader_default = CommentsHeader;
+
+// dist/src/parser/classes/comments/CommentSimplebox.js
+var CommentSimplebox = class extends YTNode {
+  constructor(data) {
+    super();
+    this.submit_button = parser_default.parseItem(data.submitButton, Button_default);
+    this.cancel_button = parser_default.parseItem(data.cancelButton, Button_default);
+    this.author_thumbnail = Thumbnail.fromResponse(data.authorThumbnail);
+    this.placeholder = new Text(data.placeholderText);
+    this.avatar_size = data.avatarSize;
+  }
+};
+__name(CommentSimplebox, "CommentSimplebox");
+CommentSimplebox.type = "CommentSimplebox";
+var CommentSimplebox_default = CommentSimplebox;
+
+// dist/src/parser/classes/ContinuationItem.js
+var ContinuationItem = class extends YTNode {
+  constructor(data) {
+    super();
+    this.trigger = data.trigger;
+    if (Reflect.has(data, "button")) {
+      this.button = parser_default.parseItem(data.button, Button_default);
+    }
+    this.endpoint = new NavigationEndpoint_default(data.continuationEndpoint);
+  }
+};
+__name(ContinuationItem, "ContinuationItem");
+ContinuationItem.type = "ContinuationItem";
+var ContinuationItem_default = ContinuationItem;
+
+// dist/src/parser/classes/comments/CommentThread.js
+var _CommentThread_actions;
+var _CommentThread_continuation;
+var CommentThread = class extends YTNode {
+  constructor(data) {
+    super();
+    _CommentThread_actions.set(this, void 0);
+    _CommentThread_continuation.set(this, void 0);
+    this.comment = parser_default.parseItem(data.comment, Comment_default);
+    this.comment_replies_data = parser_default.parseItem(data.replies, CommentReplies_default);
+    this.is_moderated_elq_comment = data.isModeratedElqComment;
+    this.has_replies = !!this.comment_replies_data;
+  }
+  getReplies() {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _CommentThread_actions, "f"))
+        throw new InnertubeError("Actions instance not set for this thread.");
+      if (!this.comment_replies_data)
+        throw new InnertubeError("This comment has no replies.", this);
+      const continuation = (_a7 = this.comment_replies_data.contents) === null || _a7 === void 0 ? void 0 : _a7.firstOfType(ContinuationItem_default);
+      if (!continuation)
+        throw new InnertubeError("Replies continuation not found.");
+      const response = yield continuation.endpoint.call(__classPrivateFieldGet(this, _CommentThread_actions, "f"), { parse: true });
+      if (!response.on_response_received_endpoints_memo)
+        throw new InnertubeError("Unexpected response.", response);
+      this.replies = observe(response.on_response_received_endpoints_memo.getType(Comment_default).map((comment) => {
+        comment.setActions(__classPrivateFieldGet(this, _CommentThread_actions, "f"));
+        return comment;
+      }));
+      __classPrivateFieldSet(this, _CommentThread_continuation, response === null || response === void 0 ? void 0 : response.on_response_received_endpoints_memo.getType(ContinuationItem_default).first(), "f");
+      return this;
+    });
+  }
+  getContinuation() {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!this.replies)
+        throw new InnertubeError("Cannot retrieve continuation because this thread's replies have not been loaded.");
+      if (!__classPrivateFieldGet(this, _CommentThread_continuation, "f"))
+        throw new InnertubeError("Continuation not found.");
+      if (!__classPrivateFieldGet(this, _CommentThread_actions, "f"))
+        throw new InnertubeError("Actions instance not set for this thread.");
+      const load_more_button = (_a7 = __classPrivateFieldGet(this, _CommentThread_continuation, "f").button) === null || _a7 === void 0 ? void 0 : _a7.as(Button_default);
+      if (!load_more_button)
+        throw new InnertubeError('"Load more" button not found.');
+      const response = yield load_more_button.endpoint.call(__classPrivateFieldGet(this, _CommentThread_actions, "f"), { parse: true });
+      if (!response.on_response_received_endpoints_memo)
+        throw new InnertubeError("Unexpected response.", response);
+      this.replies = observe(response.on_response_received_endpoints_memo.getType(Comment_default).map((comment) => {
+        comment.setActions(__classPrivateFieldGet(this, _CommentThread_actions, "f"));
+        return comment;
+      }));
+      __classPrivateFieldSet(this, _CommentThread_continuation, response.on_response_received_endpoints_memo.getType(ContinuationItem_default).first(), "f");
+      return this;
+    });
+  }
+  get has_continuation() {
+    if (!this.replies)
+      throw new InnertubeError("Cannot determine if there is a continuation because this thread's replies have not been loaded.");
+    return !!__classPrivateFieldGet(this, _CommentThread_continuation, "f");
+  }
+  setActions(actions) {
+    __classPrivateFieldSet(this, _CommentThread_actions, actions, "f");
+  }
+};
+__name(CommentThread, "CommentThread");
+_CommentThread_actions = /* @__PURE__ */ new WeakMap(), _CommentThread_continuation = /* @__PURE__ */ new WeakMap();
+CommentThread.type = "CommentThread";
+var CommentThread_default = CommentThread;
 
 // dist/src/parser/classes/CompactChannel.js
 var CompactChannel = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.channel_id = data.channelId;
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
-    this.display_name = new Text_default(data.displayName);
-    this.video_count = new Text_default(data.videoCountText);
-    this.subscriber_count = new Text_default(data.subscriberCountText);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+    this.display_name = new Text(data.displayName);
+    this.video_count = new Text(data.videoCountText);
+    this.subscriber_count = new Text(data.subscriberCountText);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.tv_banner = Thumbnail_default.fromResponse(data.tvBanner);
-    this.menu = parser_default.parseItem(data.menu);
+    this.tv_banner = Thumbnail.fromResponse(data.tvBanner);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
   }
 };
 __name(CompactChannel, "CompactChannel");
@@ -12296,7 +12713,7 @@ var CompactChannel_default = CompactChannel;
 var CompactLink = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title).toString();
+    this.title = new Text(data.title).toString();
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.style = data.style;
   }
@@ -12305,37 +12722,25 @@ __name(CompactLink, "CompactLink");
 CompactLink.type = "CompactLink";
 var CompactLink_default = CompactLink;
 
-// dist/src/parser/classes/misc/PlaylistAuthor.js
-var PlaylistAuthor = class extends Author_default {
-  constructor(item, badges, thumbs) {
-    super(item, badges, thumbs);
-    delete this.badges;
-    delete this.is_verified;
-    delete this.is_verified_artist;
-  }
-};
-__name(PlaylistAuthor, "PlaylistAuthor");
-var PlaylistAuthor_default = PlaylistAuthor;
-
 // dist/src/parser/classes/Playlist.js
 var Playlist = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
     this.id = data.playlistId;
-    this.title = new Text_default(data.title);
-    this.author = ((_a5 = data.shortBylineText) === null || _a5 === void 0 ? void 0 : _a5.simpleText) ? new Text_default(data.shortBylineText) : new PlaylistAuthor_default(data.longBylineText, data.ownerBadges, null);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail || { thumbnails: data.thumbnails.map((th) => th.thumbnails).flat(1) });
-    this.video_count = new Text_default(data.thumbnailText);
-    this.video_count_short = new Text_default(data.videoCountShortText);
+    this.title = new Text(data.title);
+    this.author = ((_a7 = data.shortBylineText) === null || _a7 === void 0 ? void 0 : _a7.simpleText) ? new Text(data.shortBylineText) : new Author_default(data.longBylineText, data.ownerBadges, null);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail || { thumbnails: data.thumbnails.map((th) => th.thumbnails).flat(1) });
+    this.video_count = new Text(data.thumbnailText);
+    this.video_count_short = new Text(data.videoCountShortText);
     this.first_videos = parser_default.parseArray(data.videos);
     this.share_url = data.shareUrl || null;
     this.menu = parser_default.parseItem(data.menu);
     this.badges = parser_default.parseArray(data.ownerBadges);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
-    if (data.viewPlaylistText) {
-      this.view_playlist = new NavigatableText_default(data.viewPlaylistText);
+    if (Reflect.has(data, "viewPlaylistText")) {
+      this.view_playlist = new Text(data.viewPlaylistText);
     }
   }
 };
@@ -12367,11 +12772,11 @@ var CompactPlaylist_default = CompactPlaylist;
 var CompactStation = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.description = new Text_default(data.description);
-    this.video_count = new Text_default(data.videoCountText);
+    this.title = new Text(data.title);
+    this.description = new Text(data.description);
+    this.video_count = new Text(data.videoCountText);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
   }
 };
 __name(CompactStation, "CompactStation");
@@ -12382,16 +12787,16 @@ var CompactStation_default = CompactStation;
 var MetadataBadge = class extends YTNode {
   constructor(data) {
     super();
-    if (data === null || data === void 0 ? void 0 : data.icon) {
+    if (Reflect.has(data, "icon")) {
       this.icon_type = data.icon.iconType;
     }
-    if (data === null || data === void 0 ? void 0 : data.style) {
+    if (Reflect.has(data, "style")) {
       this.style = data.style;
     }
-    if (data === null || data === void 0 ? void 0 : data.label) {
+    if (Reflect.has(data, "label")) {
       this.label = data.label;
     }
-    if ((data === null || data === void 0 ? void 0 : data.tooltip) || (data === null || data === void 0 ? void 0 : data.iconTooltip)) {
+    if (Reflect.has(data, "tooltip") || Reflect.has(data, "iconTooltip")) {
       this.tooltip = data.tooltip || data.iconTooltip;
     }
   }
@@ -12405,21 +12810,23 @@ var CompactVideo = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.videoId;
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail) || null;
-    this.rich_thumbnail = data.richThumbnail && parser_default.parse(data.richThumbnail);
-    this.title = new Text_default(data.title);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail) || null;
+    if (Reflect.has(data, "richThumbnail")) {
+      this.rich_thumbnail = parser_default.parse(data.richThumbnail);
+    }
+    this.title = new Text(data.title);
     this.author = new Author_default(data.longBylineText, data.ownerBadges, data.channelThumbnail);
-    this.view_count = new Text_default(data.viewCountText);
-    this.short_view_count = new Text_default(data.shortViewCountText);
-    this.published = new Text_default(data.publishedTimeText);
+    this.view_count = new Text(data.viewCountText);
+    this.short_view_count = new Text(data.shortViewCountText);
+    this.published = new Text(data.publishedTimeText);
     this.badges = parser_default.parseArray(data.badges, MetadataBadge_default);
     this.duration = {
-      text: new Text_default(data.lengthText).toString(),
-      seconds: timeToSeconds(new Text_default(data.lengthText).toString())
+      text: new Text(data.lengthText).toString(),
+      seconds: timeToSeconds(new Text(data.lengthText).toString())
     };
     this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.menu = parser_default.parseItem(data.menu);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
   }
   get best_thumbnail() {
     return this.thumbnails[0];
@@ -12448,26 +12855,15 @@ var CompactVideo_default = CompactVideo;
 var ConfirmDialog = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.confirm_button = parser_default.parseItem(data.confirmButton, Button_default);
     this.cancel_button = parser_default.parseItem(data.cancelButton, Button_default);
-    this.dialog_messages = data.dialogMessages.map((txt) => new Text_default(txt));
+    this.dialog_messages = data.dialogMessages.map((txt) => new Text(txt));
   }
 };
 __name(ConfirmDialog, "ConfirmDialog");
 ConfirmDialog.type = "ConfirmDialog";
 var ConfirmDialog_default = ConfirmDialog;
-
-// dist/src/parser/classes/Message.js
-var Message = class extends YTNode {
-  constructor(data) {
-    super();
-    this.text = new Text_default(data.text).toString();
-  }
-};
-__name(Message, "Message");
-Message.type = "Message";
-var Message_default = Message;
 
 // dist/src/parser/classes/ConversationBar.js
 var ConversationBar = class extends YTNode {
@@ -12493,12 +12889,69 @@ __name(CopyLink, "CopyLink");
 CopyLink.type = "CopyLink";
 var CopyLink_default = CopyLink;
 
+// dist/src/parser/classes/HeatMarker.js
+var HeatMarker = class extends YTNode {
+  constructor(data) {
+    super();
+    this.time_range_start_millis = data.timeRangeStartMillis;
+    this.marker_duration_millis = data.markerDurationMillis;
+    this.heat_marker_intensity_score_normalized = data.heatMarkerIntensityScoreNormalized;
+  }
+};
+__name(HeatMarker, "HeatMarker");
+HeatMarker.type = "HeatMarker";
+var HeatMarker_default = HeatMarker;
+
+// dist/src/parser/classes/Heatmap.js
+var Heatmap = class extends YTNode {
+  constructor(data) {
+    super();
+    this.max_height_dp = data.maxHeightDp;
+    this.min_height_dp = data.minHeightDp;
+    this.show_hide_animation_duration_millis = data.showHideAnimationDurationMillis;
+    this.heat_markers = parser_default.parseArray(data.heatMarkers, HeatMarker_default);
+    this.heat_markers_decorations = parser_default.parseArray(data.heatMarkersDecorations);
+  }
+};
+__name(Heatmap, "Heatmap");
+Heatmap.type = "Heatmap";
+var Heatmap_default = Heatmap;
+
+// dist/src/parser/classes/MultiMarkersPlayerBar.js
+var Marker = class extends YTNode {
+  constructor(data) {
+    super();
+    this.marker_key = data.key;
+    this.value = {};
+    if (Reflect.has(data, "value")) {
+      if (Reflect.has(data.value, "heatmap")) {
+        this.value.heatmap = parser_default.parseItem(data.value.heatmap, Heatmap_default);
+      }
+      if (Reflect.has(data.value, "chapters")) {
+        this.value.chapters = parser_default.parseArray(data.value.chapters, Chapter_default);
+      }
+    }
+  }
+};
+__name(Marker, "Marker");
+Marker.type = "Marker";
+var MultiMarkersPlayerBar = class extends YTNode {
+  constructor(data) {
+    var _a7;
+    super();
+    this.markers_map = observe(((_a7 = data.markersMap) === null || _a7 === void 0 ? void 0 : _a7.map((marker) => new Marker(marker))) || []);
+  }
+};
+__name(MultiMarkersPlayerBar, "MultiMarkersPlayerBar");
+MultiMarkersPlayerBar.type = "MultiMarkersPlayerBar";
+var MultiMarkersPlayerBar_default = MultiMarkersPlayerBar;
+
 // dist/src/parser/classes/DecoratedPlayerBar.js
 var DecoratedPlayerBar = class extends YTNode {
   constructor(data) {
     super();
-    this.player_bar = parser_default.parseItem(data.playerBar);
-    this.player_bar_action_button = parser_default.parseItem(data.playerBarActionButton);
+    this.player_bar = parser_default.parseItem(data.playerBar, MultiMarkersPlayerBar_default);
+    this.player_bar_action_button = parser_default.parseItem(data.playerBarActionButton, Button_default);
   }
 };
 __name(DecoratedPlayerBar, "DecoratedPlayerBar");
@@ -12509,8 +12962,8 @@ var DecoratedPlayerBar_default = DecoratedPlayerBar;
 var DefaultPromoPanel = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.description = new Text_default(data.description);
+    this.title = new Text(data.title);
+    this.description = new Text(data.description);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.large_form_factor_background_thumbnail = parser_default.parseItem(data.largeFormFactorBackgroundThumbnail);
     this.small_form_factor_background_thumbnail = parser_default.parseItem(data.smallFormFactorBackgroundThumbnail);
@@ -12530,8 +12983,8 @@ var DefaultPromoPanel_default = DefaultPromoPanel;
 var DidYouMean = class extends YTNode {
   constructor(data) {
     super();
-    this.text = new Text_default(data.didYouMean).toString();
-    this.corrected_query = new Text_default(data.correctedQuery);
+    this.text = new Text(data.didYouMean).toString();
+    this.corrected_query = new Text(data.correctedQuery);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint || data.correctedQueryEndpoint);
   }
 };
@@ -12554,12 +13007,15 @@ DownloadButton.type = "DownloadButton";
 var DownloadButton_default = DownloadButton;
 
 // dist/src/parser/classes/misc/ChildElement.js
-var ChildElement = class {
+var ChildElement = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
-    this.text = ((_b = (_a5 = data.type.textType) === null || _a5 === void 0 ? void 0 : _a5.text) === null || _b === void 0 ? void 0 : _b.content) || null;
+    var _a7;
+    super();
+    if (Reflect.has(data, "type") && Reflect.has(data.type, "textType")) {
+      this.text = (_a7 = data.type.textType.text) === null || _a7 === void 0 ? void 0 : _a7.content;
+    }
     this.properties = data.properties;
-    if (data.childElements) {
+    if (Reflect.has(data, "childElements")) {
       this.child_elements = data.childElements.map((el) => new ChildElement(el));
     }
   }
@@ -12571,15 +13027,15 @@ var ChildElement_default = ChildElement;
 // dist/src/parser/classes/Element.js
 var Element = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c;
+    var _a7;
     super();
     if (Reflect.has(data, "elementRenderer")) {
       return parser_default.parseItem(data, Element);
     }
     const type = data.newElement.type.componentType;
-    this.model = parser_default.parse(type === null || type === void 0 ? void 0 : type.model);
-    if ((_a5 = data.newElement) === null || _a5 === void 0 ? void 0 : _a5.childElements) {
-      this.child_elements = ((_c = (_b = data.newElement) === null || _b === void 0 ? void 0 : _b.childElements) === null || _c === void 0 ? void 0 : _c.map((el) => new ChildElement_default(el))) || null;
+    this.model = parser_default.parseItem(type === null || type === void 0 ? void 0 : type.model);
+    if (Reflect.has(data, "newElement") && Reflect.has(data.newElement, "childElements")) {
+      this.child_elements = observe(((_a7 = data.newElement.childElements) === null || _a7 === void 0 ? void 0 : _a7.map((el) => new ChildElement_default(el))) || []);
     }
   }
 };
@@ -12591,9 +13047,9 @@ var Element_default = Element;
 var EmergencyOnebox = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.first_option = parser_default.parse(data.firstOption);
-    this.menu = parser_default.parse(data.menu);
+    this.title = new Text(data.title);
+    this.first_option = parser_default.parseItem(data.firstOption);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
   }
 };
 __name(EmergencyOnebox, "EmergencyOnebox");
@@ -12605,7 +13061,7 @@ var EmojiPickerCategory = class extends YTNode {
   constructor(data) {
     super();
     this.category_id = data.categoryId;
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.emoji_ids = data.emojiIds;
     this.image_loading_lazy = !!data.imageLoadingLazy;
     this.category_type = data.categoryType;
@@ -12618,10 +13074,12 @@ var EmojiPickerCategory_default = EmojiPickerCategory;
 // dist/src/parser/classes/EmojiPickerCategoryButton.js
 var EmojiPickerCategoryButton = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
     this.category_id = data.categoryId;
-    this.icon_type = (_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType;
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = (_a7 = data.icon) === null || _a7 === void 0 ? void 0 : _a7.iconType;
+    }
     this.tooltip = data.tooltip;
   }
 };
@@ -12634,8 +13092,8 @@ var EmojiPickerUpsellCategory = class extends YTNode {
   constructor(data) {
     super();
     this.category_id = data.categoryId;
-    this.title = new Text_default(data.title);
-    this.upsell = new Text_default(data.upsell);
+    this.title = new Text(data.title);
+    this.upsell = new Text(data.upsell);
     this.emoji_tooltip = data.emojiTooltip;
     this.endpoint = new NavigationEndpoint_default(data.command);
     this.emoji_ids = data.emojiIds;
@@ -12645,47 +13103,37 @@ __name(EmojiPickerUpsellCategory, "EmojiPickerUpsellCategory");
 EmojiPickerUpsellCategory.type = "EmojiPickerUpsellCategory";
 var EmojiPickerUpsellCategory_default = EmojiPickerUpsellCategory;
 
-// dist/src/parser/classes/Endscreen.js
-var Endscreen = class extends YTNode {
-  constructor(data) {
-    super();
-    this.elements = parser_default.parseArray(data.elements);
-    this.start_ms = data.startMs;
-  }
-};
-__name(Endscreen, "Endscreen");
-Endscreen.type = "Endscreen";
-var Endscreen_default = Endscreen;
-
 // dist/src/parser/classes/EndscreenElement.js
 var EndscreenElement = class extends YTNode {
   constructor(data) {
     super();
-    this.style = `${data.style}`;
-    this.title = new Text_default(data.title);
+    this.style = data.style;
+    this.title = new Text(data.title);
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
-    if (data.image) {
-      this.image = Thumbnail_default.fromResponse(data.image);
+    if (Reflect.has(data, "image")) {
+      this.image = Thumbnail.fromResponse(data.image);
     }
-    if (data.icon) {
-      this.icon = Thumbnail_default.fromResponse(data.icon);
+    if (Reflect.has(data, "icon")) {
+      this.icon = Thumbnail.fromResponse(data.icon);
     }
-    if (data.metadata) {
-      this.metadata = new Text_default(data.metadata);
+    if (Reflect.has(data, "metadata")) {
+      this.metadata = new Text(data.metadata);
     }
-    if (data.callToAction) {
-      this.call_to_action = new Text_default(data.callToAction);
+    if (Reflect.has(data, "callToAction")) {
+      this.call_to_action = new Text(data.callToAction);
     }
-    if (data.hovercardButton) {
+    if (Reflect.has(data, "hovercardButton")) {
       this.hovercard_button = parser_default.parseItem(data.hovercardButton);
     }
-    if (data.isSubscribe) {
+    if (Reflect.has(data, "isSubscribe")) {
       this.is_subscribe = !!data.isSubscribe;
     }
-    if (data.playlistLength) {
-      this.playlist_length = new Text_default(data.playlistLength);
+    if (Reflect.has(data, "playlistLength")) {
+      this.playlist_length = new Text(data.playlistLength);
     }
-    this.thumbnail_overlays = data.thumbnailOverlays ? parser_default.parseArray(data.thumbnailOverlays) : void 0;
+    if (Reflect.has(data, "thumbnailOverlays")) {
+      this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
+    }
     this.left = parseFloat(data.left);
     this.width = parseFloat(data.width);
     this.top = parseFloat(data.top);
@@ -12704,11 +13152,11 @@ var EndScreenPlaylist = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.playlistId;
-    this.title = new Text_default(data.title);
-    this.author = new Text_default(data.longBylineText);
+    this.title = new Text(data.title);
+    this.author = new Text(data.longBylineText);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.video_count = new Text_default(data.videoCountText);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.video_count = new Text(data.videoCountText);
   }
 };
 __name(EndScreenPlaylist, "EndScreenPlaylist");
@@ -12720,15 +13168,15 @@ var EndScreenVideo = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.videoId;
-    this.title = new Text_default(data.title);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.thumbnail_overlays = parser_default.parse(data.thumbnailOverlays);
+    this.title = new Text(data.title);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
     this.author = new Author_default(data.shortBylineText, data.ownerBadges);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.short_view_count = new Text_default(data.shortViewCountText);
-    this.badges = parser_default.parse(data.badges);
+    this.short_view_count = new Text(data.shortViewCountText);
+    this.badges = parser_default.parseArray(data.badges);
     this.duration = {
-      text: new Text_default(data.lengthText).toString(),
+      text: new Text(data.lengthText).toString(),
       seconds: data.lengthInSeconds
     };
   }
@@ -12737,19 +13185,174 @@ __name(EndScreenVideo, "EndScreenVideo");
 EndScreenVideo.type = "EndScreenVideo";
 var EndScreenVideo_default = EndScreenVideo;
 
+// dist/src/parser/classes/SearchRefinementCard.js
+var SearchRefinementCard = class extends YTNode {
+  constructor(data) {
+    super();
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.endpoint = new NavigationEndpoint_default(data.searchEndpoint);
+    this.query = new Text(data.query).toString();
+  }
+};
+__name(SearchRefinementCard, "SearchRefinementCard");
+SearchRefinementCard.type = "SearchRefinementCard";
+var SearchRefinementCard_default = SearchRefinementCard;
+
+// dist/src/parser/classes/MacroMarkersListItem.js
+var MacroMarkersListItem = class extends YTNode {
+  constructor(data) {
+    super();
+    this.title = new Text(data.title);
+    this.time_description = new Text(data.timeDescription);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+    this.on_tap_endpoint = new NavigationEndpoint_default(data.onTap);
+    this.layout = data.layout;
+    this.is_highlighted = !!data.isHighlighted;
+  }
+};
+__name(MacroMarkersListItem, "MacroMarkersListItem");
+MacroMarkersListItem.type = "MacroMarkersListItem";
+var MacroMarkersListItem_default = MacroMarkersListItem;
+
+// dist/src/parser/classes/GameCard.js
+var GameCard = class extends YTNode {
+  constructor(data) {
+    super();
+    this.game = parser_default.parseItem(data.game);
+  }
+};
+__name(GameCard, "GameCard");
+GameCard.type = "GameCard";
+var GameCard_default = GameCard;
+
+// dist/src/parser/classes/ThumbnailOverlayTimeStatus.js
+var ThumbnailOverlayTimeStatus = class extends YTNode {
+  constructor(data) {
+    super();
+    this.text = new Text(data.text).toString();
+    this.style = data.style;
+  }
+};
+__name(ThumbnailOverlayTimeStatus, "ThumbnailOverlayTimeStatus");
+ThumbnailOverlayTimeStatus.type = "ThumbnailOverlayTimeStatus";
+var ThumbnailOverlayTimeStatus_default = ThumbnailOverlayTimeStatus;
+
+// dist/src/parser/classes/Video.js
+var Video = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2, _c;
+    super();
+    const overlay_time_status = ((_a7 = data.thumbnailOverlays.find((overlay) => overlay.thumbnailOverlayTimeStatusRenderer)) === null || _a7 === void 0 ? void 0 : _a7.thumbnailOverlayTimeStatusRenderer.text) || "N/A";
+    this.id = data.videoId;
+    this.title = new Text(data.title);
+    if (Reflect.has(data, "descriptionSnippet")) {
+      this.description_snippet = new Text(data.descriptionSnippet);
+    }
+    if (Reflect.has(data, "detailedMetadataSnippets")) {
+      this.snippets = data.detailedMetadataSnippets.map((snippet) => ({
+        text: new Text(snippet.snippetText),
+        hover_text: new Text(snippet.snippetHoverText)
+      }));
+    }
+    this.expandable_metadata = parser_default.parseItem(data.expandableMetadata, ExpandableMetadata_default);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
+    if (Reflect.has(data, "richThumbnail")) {
+      this.rich_thumbnail = parser_default.parseItem(data.richThumbnail);
+    }
+    this.author = new Author_default(data.ownerText, data.ownerBadges, (_c = (_b2 = data.channelThumbnailSupportedRenderers) === null || _b2 === void 0 ? void 0 : _b2.channelThumbnailWithLinkRenderer) === null || _c === void 0 ? void 0 : _c.thumbnail);
+    this.badges = parser_default.parseArray(data.badges, MetadataBadge_default);
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    this.published = new Text(data.publishedTimeText);
+    this.view_count = new Text(data.viewCountText);
+    this.short_view_count = new Text(data.shortViewCountText);
+    if (Reflect.has(data, "upcomingEventData")) {
+      this.upcoming = new Date(Number(`${data.upcomingEventData.startTime}000`));
+    }
+    this.duration = {
+      text: data.lengthText ? new Text(data.lengthText).toString() : new Text(overlay_time_status).toString(),
+      seconds: timeToSeconds(data.lengthText ? new Text(data.lengthText).toString() : new Text(overlay_time_status).toString())
+    };
+    this.show_action_menu = !!data.showActionMenu;
+    this.is_watched = !!data.isWatched;
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
+    if (Reflect.has(data, "searchVideoResultEntityKey")) {
+      this.search_video_result_entity_key = data.searchVideoResultEntityKey;
+    }
+  }
+  get description() {
+    var _a7;
+    if (this.snippets) {
+      return this.snippets.map((snip) => snip.text.toString()).join("");
+    }
+    return ((_a7 = this.description_snippet) === null || _a7 === void 0 ? void 0 : _a7.toString()) || "";
+  }
+  get is_live() {
+    var _a7;
+    return this.badges.some((badge) => {
+      if (badge.style === "BADGE_STYLE_TYPE_LIVE_NOW" || badge.label === "LIVE")
+        return true;
+    }) || ((_a7 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a7 === void 0 ? void 0 : _a7.style) === "LIVE";
+  }
+  get is_upcoming() {
+    return this.upcoming && this.upcoming > new Date();
+  }
+  get is_premiere() {
+    return this.badges.some((badge) => badge.label === "PREMIERE");
+  }
+  get is_4k() {
+    return this.badges.some((badge) => badge.label === "4K");
+  }
+  get has_captions() {
+    return this.badges.some((badge) => badge.label === "CC");
+  }
+  get best_thumbnail() {
+    return this.thumbnails[0];
+  }
+};
+__name(Video, "Video");
+Video.type = "Video";
+var Video_default = Video;
+
+// dist/src/parser/classes/VideoCard.js
+var VideoCard = class extends Video_default {
+  constructor(data) {
+    super(data);
+  }
+};
+__name(VideoCard, "VideoCard");
+VideoCard.type = "VideoCard";
+var VideoCard_default = VideoCard;
+
+// dist/src/parser/classes/HorizontalCardList.js
+var HorizontalCardList = class extends YTNode {
+  constructor(data) {
+    super();
+    this.cards = parser_default.parseArray(data.cards, [SearchRefinementCard_default, MacroMarkersListItem_default, GameCard_default, VideoCard_default]);
+    this.header = parser_default.parseItem(data.header);
+    this.previous_button = parser_default.parseItem(data.previousButton, Button_default);
+    this.next_button = parser_default.parseItem(data.nextButton, Button_default);
+  }
+};
+__name(HorizontalCardList, "HorizontalCardList");
+HorizontalCardList.type = "HorizontalCardList";
+var HorizontalCardList_default = HorizontalCardList;
+
 // dist/src/parser/classes/ExpandableMetadata.js
 var ExpandableMetadata = class extends YTNode {
   constructor(data) {
     super();
-    this.header = {
-      collapsed_title: new Text_default(data.header.collapsedTitle),
-      collapsed_thumbnail: Thumbnail_default.fromResponse(data.header.collapsedThumbnail),
-      collapsed_label: new Text_default(data.header.collapsedLabel),
-      expanded_title: new Text_default(data.header.expandedTitle)
-    };
-    this.expanded_content = parser_default.parseItem(data.expandedContent);
-    this.expand_button = parser_default.parseItem(data.expandButton);
-    this.collapse_button = parser_default.parseItem(data.collapseButton);
+    if (Reflect.has(data, "header")) {
+      this.header = {
+        collapsed_title: new Text(data.header.collapsedTitle),
+        collapsed_thumbnail: Thumbnail.fromResponse(data.header.collapsedThumbnail),
+        collapsed_label: new Text(data.header.collapsedLabel),
+        expanded_title: new Text(data.header.expandedTitle)
+      };
+    }
+    this.expanded_content = parser_default.parseItem(data.expandedContent, HorizontalCardList_default);
+    this.expand_button = parser_default.parseItem(data.expandButton, Button_default);
+    this.collapse_button = parser_default.parseItem(data.collapseButton, Button_default);
   }
 };
 __name(ExpandableMetadata, "ExpandableMetadata");
@@ -12763,7 +13366,7 @@ var ExpandableTab = class extends YTNode {
     this.title = data.title;
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
     this.selected = data.selected;
-    this.content = data.content ? parser_default.parseItem(data.content) : null;
+    this.content = parser_default.parseItem(data.content);
   }
 };
 __name(ExpandableTab, "ExpandableTab");
@@ -12799,33 +13402,22 @@ var FeedFilterChipBar_default = FeedFilterChipBar;
 var FeedTabbedHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
   }
 };
 __name(FeedTabbedHeader, "FeedTabbedHeader");
 FeedTabbedHeader.type = "FeedTabbedHeader";
 var FeedTabbedHeader_default = FeedTabbedHeader;
 
-// dist/src/parser/classes/GameCard.js
-var GameCard = class extends YTNode {
-  constructor(data) {
-    super();
-    this.game = parser_default.parseItem(data.game);
-  }
-};
-__name(GameCard, "GameCard");
-GameCard.type = "GameCard";
-var GameCard_default = GameCard;
-
 // dist/src/parser/classes/GameDetails.js
 var GameDetails = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.box_art = Thumbnail_default.fromResponse(data.boxArt);
-    this.box_art_overlay_text = new Text_default(data.boxArtOverlayText);
+    this.title = new Text(data.title);
+    this.box_art = Thumbnail.fromResponse(data.boxArt);
+    this.box_art_overlay_text = new Text(data.boxArtOverlayText);
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
-    this.is_official_box_art = data.isOfficialBoxArt;
+    this.is_official_box_art = !!data.isOfficialBoxArt;
   }
 };
 __name(GameDetails, "GameDetails");
@@ -12835,22 +13427,22 @@ var GameDetails_default = GameDetails;
 // dist/src/parser/classes/Grid.js
 var Grid = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     super();
     this.items = parser_default.parseArray(data.items);
-    if (data.header) {
-      this.header = parser_default.parse(data.header);
+    if (Reflect.has(data, "header")) {
+      this.header = parser_default.parseItem(data.header);
     }
-    if (data.isCollapsible) {
+    if (Reflect.has(data, "isCollapsible")) {
       this.is_collapsible = data.isCollapsible;
     }
-    if (data.visibleRowCount) {
+    if (Reflect.has(data, "visibleRowCount")) {
       this.visible_row_count = data.visibleRowCount;
     }
-    if (data.targetId) {
+    if (Reflect.has(data, "targetId")) {
       this.target_id = data.targetId;
     }
-    this.continuation = ((_c = (_b = (_a5 = data.continuations) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || null;
+    this.continuation = ((_c = (_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || null;
   }
   get contents() {
     return this.items;
@@ -12866,10 +13458,10 @@ var GridChannel = class extends YTNode {
     super();
     this.id = data.channelId;
     this.author = new Author_default(Object.assign(Object.assign({}, data.title), { navigationEndpoint: data.navigationEndpoint }), data.ownerBadges, data.thumbnail);
-    this.subscribers = new Text_default(data.subscriberCountText);
-    this.video_count = new Text_default(data.videoCountText);
+    this.subscribers = new Text(data.subscriberCountText);
+    this.video_count = new Text(data.videoCountText);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.subscribe_button = parser_default.parse(data.subscribeButton);
+    this.subscribe_button = parser_default.parseItem(data.subscribeButton);
   }
 };
 __name(GridChannel, "GridChannel");
@@ -12880,7 +13472,7 @@ var GridChannel_default = GridChannel;
 var GridHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
   }
 };
 __name(GridHeader, "GridHeader");
@@ -12890,14 +13482,14 @@ var GridHeader_default = GridHeader;
 // dist/src/parser/classes/GridMix.js
 var GridMix = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
     this.id = data.playlistId;
-    this.title = new Text_default(data.title);
-    this.author = ((_a5 = data.shortBylineText) === null || _a5 === void 0 ? void 0 : _a5.simpleText) ? new Text_default(data.shortBylineText) : ((_b = data.longBylineText) === null || _b === void 0 ? void 0 : _b.simpleText) ? new Text_default(data.longBylineText) : null;
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.video_count = new Text_default(data.videoCountText);
-    this.video_count_short = new Text_default(data.videoCountShortText);
+    this.title = new Text(data.title);
+    this.author = ((_a7 = data.shortBylineText) === null || _a7 === void 0 ? void 0 : _a7.simpleText) ? new Text(data.shortBylineText) : ((_b2 = data.longBylineText) === null || _b2 === void 0 ? void 0 : _b2.simpleText) ? new Text(data.longBylineText) : null;
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.video_count = new Text(data.videoCountText);
+    this.video_count_short = new Text(data.videoCountShortText);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.secondary_endpoint = new NavigationEndpoint_default(data.secondaryNavigationEndpoint);
     this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
@@ -12910,16 +13502,16 @@ var GridMix_default = GridMix;
 // dist/src/parser/classes/GridMovie.js
 var GridMovie = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
-    const length_alt = (_a5 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a5 === void 0 ? void 0 : _a5.thumbnailOverlayTimeStatusRenderer;
+    const length_alt = (_a7 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a7 === void 0 ? void 0 : _a7.thumbnailOverlayTimeStatusRenderer;
     this.id = data.videoId;
-    this.title = new Text_default(data.title);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.duration = data.lengthText ? new Text_default(data.lengthText) : (length_alt === null || length_alt === void 0 ? void 0 : length_alt.text) ? new Text_default(length_alt.text) : null;
+    this.title = new Text(data.title);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.duration = data.lengthText ? new Text(data.lengthText) : (length_alt === null || length_alt === void 0 ? void 0 : length_alt.text) ? new Text(length_alt.text) : null;
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.badges = parser_default.parseArray(data.badges, MetadataBadge_default);
-    this.metadata = new Text_default(data.metadata);
+    this.metadata = new Text(data.metadata);
     this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
   }
 };
@@ -12930,64 +13522,134 @@ var GridMovie_default = GridMovie;
 // dist/src/parser/classes/GridPlaylist.js
 var GridPlaylist = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
     this.id = data.playlistId;
-    this.title = new Text_default(data.title);
-    if (data.shortBylineText) {
-      this.author = new PlaylistAuthor_default(data.shortBylineText, data.ownerBadges);
+    this.title = new Text(data.title);
+    if (Reflect.has(data, "shortBylineText")) {
+      this.author = new Author_default(data.shortBylineText, data.ownerBadges);
     }
-    this.badges = parser_default.parse(data.ownerBadges);
+    this.badges = parser_default.parseArray(data.ownerBadges);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.view_playlist = new NavigatableText_default(data.viewPlaylistText);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.thumbnail_renderer = parser_default.parse(data.thumbnailRenderer);
-    this.sidebar_thumbnails = [].concat(...((_a5 = data.sidebarThumbnails) === null || _a5 === void 0 ? void 0 : _a5.map((thumbnail) => Thumbnail_default.fromResponse(thumbnail))) || []) || null;
-    this.video_count = new Text_default(data.thumbnailText);
-    this.video_count_short = new Text_default(data.videoCountShortText);
+    this.view_playlist = new Text(data.viewPlaylistText);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.thumbnail_renderer = parser_default.parseItem(data.thumbnailRenderer);
+    this.sidebar_thumbnails = [].concat(...((_a7 = data.sidebarThumbnails) === null || _a7 === void 0 ? void 0 : _a7.map((thumbnail) => Thumbnail.fromResponse(thumbnail))) || []) || null;
+    this.video_count = new Text(data.thumbnailText);
+    this.video_count_short = new Text(data.videoCountShortText);
   }
 };
 __name(GridPlaylist, "GridPlaylist");
 GridPlaylist.type = "GridPlaylist";
 var GridPlaylist_default = GridPlaylist;
 
+// dist/src/parser/classes/ShowCustomThumbnail.js
+var ShowCustomThumbnail = class extends YTNode {
+  constructor(data) {
+    super();
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+  }
+};
+__name(ShowCustomThumbnail, "ShowCustomThumbnail");
+ShowCustomThumbnail.type = "ShowCustomThumbnail";
+var ShowCustomThumbnail_default = ShowCustomThumbnail;
+
+// dist/src/parser/classes/ThumbnailOverlayBottomPanel.js
+var ThumbnailOverlayBottomPanel = class extends YTNode {
+  constructor(data) {
+    super();
+    if (Reflect.has(data, "text")) {
+      this.text = new Text(data.text);
+    }
+    if (Reflect.has(data, "icon") && Reflect.has(data.icon, "iconType")) {
+      this.icon_type = data.icon.iconType;
+    }
+  }
+};
+__name(ThumbnailOverlayBottomPanel, "ThumbnailOverlayBottomPanel");
+ThumbnailOverlayBottomPanel.type = "ThumbnailOverlayBottomPanel";
+var ThumbnailOverlayBottomPanel_default = ThumbnailOverlayBottomPanel;
+
+// dist/src/parser/classes/GridShow.js
+var GridShow = class extends YTNode {
+  constructor(data) {
+    super();
+    this.title = new Text(data.title);
+    this.thumbnail_renderer = parser_default2.parseItem(data.thumbnailRenderer, ShowCustomThumbnail_default);
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    this.long_byline_text = new Text(data.longBylineText);
+    this.thumbnail_overlays = parser_default2.parseArray(data.thumbnailOverlays, ThumbnailOverlayBottomPanel_default);
+    this.author = new Author_default(data.shortBylineText, void 0);
+  }
+};
+__name(GridShow, "GridShow");
+GridShow.type = "GridShow";
+var GridShow_default = GridShow;
+
 // dist/src/parser/classes/GridVideo.js
 var GridVideo = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7, _b2;
     super();
-    const length_alt = (_a5 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a5 === void 0 ? void 0 : _a5.thumbnailOverlayTimeStatusRenderer;
+    const length_alt = (_a7 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a7 === void 0 ? void 0 : _a7.thumbnailOverlayTimeStatusRenderer;
     this.id = data.videoId;
-    this.title = new Text_default(data.title);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.title = new Text(data.title);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
-    this.rich_thumbnail = data.richThumbnail && parser_default.parse(data.richThumbnail);
-    this.published = new Text_default(data.publishedTimeText);
-    this.duration = data.lengthText ? new Text_default(data.lengthText) : (length_alt === null || length_alt === void 0 ? void 0 : length_alt.text) ? new Text_default(length_alt.text) : null;
+    this.rich_thumbnail = parser_default.parseItem(data.richThumbnail);
+    this.published = new Text(data.publishedTimeText);
+    this.duration = data.lengthText ? new Text(data.lengthText) : (length_alt === null || length_alt === void 0 ? void 0 : length_alt.text) ? new Text(length_alt.text) : null;
     this.author = data.shortBylineText && new Author_default(data.shortBylineText, data.ownerBadges);
-    this.views = new Text_default(data.viewCountText);
-    this.short_view_count = new Text_default(data.shortViewCountText);
+    this.views = new Text(data.viewCountText);
+    this.short_view_count = new Text(data.shortViewCountText);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.menu = parser_default.parseItem(data.menu);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
+    if (Reflect.has(data, "buttons")) {
+      this.buttons = parser_default.parseArray(data.buttons);
+    }
+    if (Reflect.has(data, "upcomingEventData")) {
+      this.upcoming = new Date(Number(`${data.upcomingEventData.startTime}000`));
+      this.upcoming_text = new Text(data.upcomingEventData.upcomingEventText);
+      this.is_reminder_set = !!((_b2 = data.upcomingEventData) === null || _b2 === void 0 ? void 0 : _b2.isReminderSet);
+    }
+  }
+  get is_upcoming() {
+    return Boolean(this.upcoming && this.upcoming > new Date());
   }
 };
 __name(GridVideo, "GridVideo");
 GridVideo.type = "GridVideo";
 var GridVideo_default = GridVideo;
 
+// dist/src/parser/classes/GuideEntry.js
+var GuideEntry = class extends YTNode {
+  constructor(data) {
+    super();
+    this.title = new Text(data.formattedTitle);
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint || data.serviceEndpoint);
+    if (Reflect.has(data, "icon") && Reflect.has(data.icon, "iconType")) {
+      this.icon_type = data.icon.iconType;
+    }
+    if (Reflect.has(data, "thumbnail")) {
+      this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    }
+    if (Reflect.has(data, "badges")) {
+      this.badges = data.badges;
+    }
+    this.is_primary = !!data.isPrimary;
+  }
+};
+__name(GuideEntry, "GuideEntry");
+GuideEntry.type = "GuideEntry";
+var GuideEntry_default = GuideEntry;
+
 // dist/src/parser/classes/GuideCollapsibleEntry.js
 var GuideCollapsibleEntry = class extends YTNode {
   constructor(data) {
     super();
-    this.expander_item = {
-      title: new Text_default(data.expanderItem.guideEntryRenderer.formattedTitle).toString(),
-      icon_type: data.expanderItem.guideEntryRenderer.icon.iconType
-    };
-    this.collapser_item = {
-      title: new Text_default(data.collapserItem.guideEntryRenderer.formattedTitle).toString(),
-      icon_type: data.collapserItem.guideEntryRenderer.icon.iconType
-    };
-    this.expandable_items = Parser.parseArray(data.expandableItems);
+    this.expander_item = parser_default2.parseItem(data.expanderItem, GuideEntry_default);
+    this.collapser_item = parser_default2.parseItem(data.collapserItem, GuideEntry_default);
+    this.expandable_items = parser_default2.parseArray(data.expandableItems);
   }
 };
 __name(GuideCollapsibleEntry, "GuideCollapsibleEntry");
@@ -12998,38 +13660,15 @@ var GuideCollapsibleEntry_default = GuideCollapsibleEntry;
 var GuideCollapsibleSectionEntry = class extends YTNode {
   constructor(data) {
     super();
-    this.header_entry = Parser.parseItem(data.headerEntry);
+    this.header_entry = parser_default2.parseItem(data.headerEntry);
     this.expander_icon = data.expanderIcon.iconType;
     this.collapser_icon = data.collapserIcon.iconType;
-    this.section_items = Parser.parseArray(data.sectionItems);
+    this.section_items = parser_default2.parseArray(data.sectionItems);
   }
 };
 __name(GuideCollapsibleSectionEntry, "GuideCollapsibleSectionEntry");
 GuideCollapsibleSectionEntry.type = "GuideCollapsibleSectionEntry";
 var GuideCollapsibleSectionEntry_default = GuideCollapsibleSectionEntry;
-
-// dist/src/parser/classes/GuideEntry.js
-var GuideEntry = class extends YTNode {
-  constructor(data) {
-    var _a5;
-    super();
-    this.title = new Text_default(data.formattedTitle);
-    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint || data.serviceEndpoint);
-    if ((_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType) {
-      this.icon_type = data.icon.iconType;
-    }
-    if (data.thumbnail) {
-      this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    }
-    if (data.badges) {
-      this.badges = data.badges;
-    }
-    this.is_primary = !!data.isPrimary;
-  }
-};
-__name(GuideEntry, "GuideEntry");
-GuideEntry.type = "GuideEntry";
-var GuideEntry_default = GuideEntry;
 
 // dist/src/parser/classes/GuideDownloadsEntry.js
 var GuideDownloadsEntry = class extends GuideEntry_default {
@@ -13046,10 +13685,10 @@ var GuideDownloadsEntry_default = GuideDownloadsEntry;
 var GuideSection = class extends YTNode {
   constructor(data) {
     super();
-    if (data.formattedTitle) {
-      this.title = new Text_default(data.formattedTitle);
+    if (Reflect.has(data, "formattedTitle")) {
+      this.title = new Text(data.formattedTitle);
     }
-    this.items = Parser.parseArray(data.items);
+    this.items = parser_default2.parseArray(data.items);
   }
 };
 __name(GuideSection, "GuideSection");
@@ -13067,47 +13706,19 @@ var GuideSubscriptionsSection_default = GuideSubscriptionsSection;
 var HashtagHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.hashtag = new Text_default(data.hashtag);
-    this.hashtag_info = new Text_default(data.hashtagInfoText);
+    this.hashtag = new Text(data.hashtag);
+    this.hashtag_info = new Text(data.hashtagInfoText);
   }
 };
 __name(HashtagHeader, "HashtagHeader");
 HashtagHeader.type = "HashtagHeader";
 var HashtagHeader_default = HashtagHeader;
 
-// dist/src/parser/classes/Heatmap.js
-var Heatmap = class extends YTNode {
-  constructor(data) {
-    super();
-    this.max_height_dp = data.maxHeightDp;
-    this.min_height_dp = data.minHeightDp;
-    this.show_hide_animation_duration_millis = data.showHideAnimationDurationMillis;
-    this.heat_markers = parser_default.parseArray(data.heatMarkers);
-    this.heat_markers_decorations = parser_default.parseArray(data.heatMarkersDecorations);
-  }
-};
-__name(Heatmap, "Heatmap");
-Heatmap.type = "Heatmap";
-var Heatmap_default = Heatmap;
-
-// dist/src/parser/classes/HeatMarker.js
-var HeatMarker = class extends YTNode {
-  constructor(data) {
-    super();
-    this.time_range_start_millis = data.timeRangeStartMillis;
-    this.marker_duration_millis = data.markerDurationMillis;
-    this.heat_marker_intensity_score_normalized = data.heatMarkerIntensityScoreNormalized;
-  }
-};
-__name(HeatMarker, "HeatMarker");
-HeatMarker.type = "HeatMarker";
-var HeatMarker_default = HeatMarker;
-
 // dist/src/parser/classes/HeroPlaylistThumbnail.js
 var HeroPlaylistThumbnail = class extends YTNode {
   constructor(data) {
     super();
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.on_tap_endpoint = new NavigationEndpoint_default(data.onTap);
   }
 };
@@ -13116,8 +13727,9 @@ HeroPlaylistThumbnail.type = "HeroPlaylistThumbnail";
 var HeroPlaylistThumbnail_default = HeroPlaylistThumbnail;
 
 // dist/src/parser/classes/HighlightsCarousel.js
-var Panel = class {
+var Panel = class extends YTNode {
   constructor(data) {
+    super();
     if (data.thumbnail) {
       this.thumbnail = {
         image: data.thumbnail.image.sources,
@@ -13149,7 +13761,7 @@ Panel.type = "Panel";
 var HighlightsCarousel = class extends YTNode {
   constructor(data) {
     super();
-    this.panels = data.highlightsCarousel.panels.map((el) => new Panel(el));
+    this.panels = observe(data.highlightsCarousel.panels.map((el) => new Panel(el)));
   }
 };
 __name(HighlightsCarousel, "HighlightsCarousel");
@@ -13160,10 +13772,12 @@ var HighlightsCarousel_default = HighlightsCarousel;
 var SearchSuggestion = class extends YTNode {
   constructor(data) {
     super();
-    this.suggestion = new Text_default(data.suggestion);
+    this.suggestion = new Text(data.suggestion);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.icon_type = data.icon.iconType;
-    if (data.serviceEndpoint) {
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = data.icon.iconType;
+    }
+    if (Reflect.has(data, "serviceEndpoint")) {
       this.service_endpoint = new NavigationEndpoint_default(data.serviceEndpoint);
     }
   }
@@ -13181,20 +13795,6 @@ var HistorySuggestion = class extends SearchSuggestion_default {
 __name(HistorySuggestion, "HistorySuggestion");
 HistorySuggestion.type = "HistorySuggestion";
 var HistorySuggestion_default = HistorySuggestion;
-
-// dist/src/parser/classes/HorizontalCardList.js
-var HorizontalCardList = class extends YTNode {
-  constructor(data) {
-    super();
-    this.cards = parser_default.parseArray(data.cards);
-    this.header = parser_default.parseItem(data.header);
-    this.previous_button = parser_default.parseItem(data.previousButton, Button_default);
-    this.next_button = parser_default.parseItem(data.nextButton, Button_default);
-  }
-};
-__name(HorizontalCardList, "HorizontalCardList");
-HorizontalCardList.type = "HorizontalCardList";
-var HorizontalCardList_default = HorizontalCardList;
 
 // dist/src/parser/classes/HorizontalList.js
 var HorizontalList = class extends YTNode {
@@ -13230,11 +13830,11 @@ var HorizontalMovieList_default = HorizontalMovieList;
 // dist/src/parser/classes/IconLink.js
 var IconLink = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
-    this.icon_type = (_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType;
-    if (data.tooltip) {
-      this.tooltip = new Text_default(data.tooltip).toString();
+    this.icon_type = (_a7 = data.icon) === null || _a7 === void 0 ? void 0 : _a7.iconType;
+    if (Reflect.has(data, "tooltip")) {
+      this.tooltip = new Text(data.tooltip).toString();
     }
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
   }
@@ -13243,87 +13843,68 @@ __name(IconLink, "IconLink");
 IconLink.type = "IconLink";
 var IconLink_default = IconLink;
 
-// dist/src/parser/classes/SubscriptionNotificationToggleButton.js
-var SubscriptionNotificationToggleButton = class extends YTNode {
+// dist/src/parser/classes/InfoPanelContent.js
+var InfoPanelContent = class extends YTNode {
   constructor(data) {
     super();
-    this.states = data.states.map((data2) => ({
-      id: data2.stateId,
-      next_id: data2.nextStateId,
-      state: parser_default.parse(data2.state)
-    }));
-    this.current_state_id = data.currentStateId;
-    this.target_id = data.targetId;
+    this.title = new Text(data.title);
+    this.source = new Text(data.source);
+    this.paragraphs = data.paragraphs.map((p) => new Text(p));
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+    this.source_endpoint = new NavigationEndpoint_default(data.sourceEndpoint);
+    this.truncate_paragraphs = !!data.truncateParagraphs;
+    this.background = data.background;
+    if (Reflect.has(data, "inlineLinkIcon") && Reflect.has(data.inlineLinkIcon, "iconType")) {
+      this.inline_link_icon_type = data.inlineLinkIcon.iconType;
+    }
   }
 };
-__name(SubscriptionNotificationToggleButton, "SubscriptionNotificationToggleButton");
-SubscriptionNotificationToggleButton.type = "SubscriptionNotificationToggleButton";
-var SubscriptionNotificationToggleButton_default = SubscriptionNotificationToggleButton;
+__name(InfoPanelContent, "InfoPanelContent");
+InfoPanelContent.type = "InfoPanelContent";
+var InfoPanelContent_default = InfoPanelContent;
 
-// dist/src/parser/classes/SubscribeButton.js
-var SubscribeButton = class extends YTNode {
+// dist/src/parser/classes/InfoPanelContainer.js
+var InfoPanelContainer = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7;
     super();
-    this.title = new Text_default(data.buttonText);
-    this.subscribed = data.subscribed;
-    this.enabled = data.enabled;
-    this.item_type = data.type;
-    this.channel_id = data.channelId;
-    this.show_preferences = data.showPreferences;
-    this.subscribed_text = new Text_default(data.subscribedButtonText);
-    this.unsubscribed_text = new Text_default(data.unsubscribedButtonText);
-    this.notification_preference_button = parser_default.parseItem(data.notificationPreferenceButton, SubscriptionNotificationToggleButton_default);
-    this.endpoint = new NavigationEndpoint_default(((_a5 = data.serviceEndpoints) === null || _a5 === void 0 ? void 0 : _a5[0]) || ((_b = data.onSubscribeEndpoints) === null || _b === void 0 ? void 0 : _b[0]));
+    this.title = new Text(data.title);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
+    this.content = parser_default.parseItem(data.content, InfoPanelContent_default);
+    this.background = data.background;
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = (_a7 = data.icon) === null || _a7 === void 0 ? void 0 : _a7.iconType;
+    }
   }
 };
-__name(SubscribeButton, "SubscribeButton");
-SubscribeButton.type = "SubscribeButton";
-var SubscribeButton_default = SubscribeButton;
+__name(InfoPanelContainer, "InfoPanelContainer");
+InfoPanelContainer.type = "InfoPanelContainer";
+var InfoPanelContainer_default = InfoPanelContainer;
 
 // dist/src/parser/classes/InteractiveTabbedHeader.js
 var InteractiveTabbedHeader = class extends YTNode {
   constructor(data) {
     super();
     this.header_type = data.type;
-    this.title = new Text_default(data.title);
-    this.description = new Text_default(data.description);
-    this.metadata = new Text_default(data.metadata);
+    this.title = new Text(data.title);
+    this.description = new Text(data.description);
+    this.metadata = new Text(data.metadata);
     this.badges = parser_default.parseArray(data.badges, MetadataBadge_default);
-    this.box_art = Thumbnail_default.fromResponse(data.boxArt);
-    this.banner = Thumbnail_default.fromResponse(data.banner);
+    this.box_art = Thumbnail.fromResponse(data.boxArt);
+    this.banner = Thumbnail.fromResponse(data.banner);
     this.buttons = parser_default.parseArray(data.buttons, [SubscribeButton_default, Button_default]);
-    this.auto_generated = new Text_default(data.autoGenerated);
+    this.auto_generated = new Text(data.autoGenerated);
   }
 };
 __name(InteractiveTabbedHeader, "InteractiveTabbedHeader");
 InteractiveTabbedHeader.type = "InteractiveTabbedHeader";
 var InteractiveTabbedHeader_default = InteractiveTabbedHeader;
 
-// dist/src/parser/classes/ItemSection.js
-var ItemSection = class extends YTNode {
-  constructor(data) {
-    var _a5, _b, _c;
-    super();
-    this.header = parser_default.parseItem(data.header);
-    this.contents = parser_default.parse(data.contents, true);
-    if (data.targetId || data.sectionIdentifier) {
-      this.target_id = (data === null || data === void 0 ? void 0 : data.target_id) || (data === null || data === void 0 ? void 0 : data.sectionIdentifier);
-    }
-    if (data.continuations) {
-      this.continuation = (_c = (_b = (_a5 = data.continuations) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
-    }
-  }
-};
-__name(ItemSection, "ItemSection");
-ItemSection.type = "ItemSection";
-var ItemSection_default = ItemSection;
-
 // dist/src/parser/classes/ItemSectionHeader.js
 var ItemSectionHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
   }
 };
 __name(ItemSectionHeader, "ItemSectionHeader");
@@ -13334,8 +13915,8 @@ var ItemSectionHeader_default = ItemSectionHeader;
 var ItemSectionTab = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.selected = data.selected || false;
+    this.title = new Text(data.title);
+    this.selected = !!data.selected;
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
   }
 };
@@ -13347,9 +13928,9 @@ var ItemSectionTab_default = ItemSectionTab;
 var ItemSectionTabbedHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.tabs = parser_default.parseArray(data.tabs, ItemSectionTab_default);
-    if (data.endItems) {
+    if (Reflect.has(data, "endItems")) {
       this.end_items = parser_default.parseArray(data.endItems);
     }
   }
@@ -13358,18 +13939,36 @@ __name(ItemSectionTabbedHeader, "ItemSectionTabbedHeader");
 ItemSectionTabbedHeader.type = "ItemSectionTabbedHeader";
 var ItemSectionTabbedHeader_default = ItemSectionTabbedHeader;
 
+// dist/src/parser/classes/ItemSection.js
+var ItemSection = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2, _c;
+    super();
+    this.header = parser_default.parseItem(data.header, [CommentsHeader_default, ItemSectionHeader_default, ItemSectionTabbedHeader_default]);
+    this.contents = parser_default.parseArray(data.contents);
+    if (data.targetId || data.sectionIdentifier) {
+      this.target_id = data.target_id || data.sectionIdentifier;
+    }
+    if (data.continuations) {
+      this.continuation = (_c = (_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
+    }
+  }
+};
+__name(ItemSection, "ItemSection");
+ItemSection.type = "ItemSection";
+var ItemSection_default = ItemSection;
+
 // dist/src/parser/classes/LikeButton.js
 var LikeButton = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
     this.target = {
       video_id: data.target.videoId
     };
     this.like_status = data.likeStatus;
     this.likes_allowed = data.likesAllowed;
-    if (data.serviceEndpoints) {
-      this.endpoints = (_a5 = data.serviceEndpoints) === null || _a5 === void 0 ? void 0 : _a5.map((endpoint) => new NavigationEndpoint_default(endpoint));
+    if (Reflect.has(data, "serviceEndpoints")) {
+      this.endpoints = data.serviceEndpoints.map((endpoint) => new NavigationEndpoint_default(endpoint));
     }
   }
 };
@@ -13380,30 +13979,62 @@ var LikeButton_default = LikeButton;
 // dist/src/parser/classes/LiveChat.js
 var LiveChat = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
-    this.header = parser_default.parse(data.header);
+    this.header = parser_default.parseItem(data.header);
     this.initial_display_state = data.initialDisplayState;
-    this.continuation = (_b = (_a5 = data.continuations[0]) === null || _a5 === void 0 ? void 0 : _a5.reloadContinuationData) === null || _b === void 0 ? void 0 : _b.continuation;
+    this.continuation = (_b2 = (_a7 = data.continuations[0]) === null || _a7 === void 0 ? void 0 : _a7.reloadContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation;
     this.client_messages = {
-      reconnect_message: new Text_default(data.clientMessages.reconnectMessage),
-      unable_to_reconnect_message: new Text_default(data.clientMessages.unableToReconnectMessage),
-      fatal_error: new Text_default(data.clientMessages.fatalError),
-      reconnected_message: new Text_default(data.clientMessages.reconnectedMessage),
-      generic_error: new Text_default(data.clientMessages.genericError)
+      reconnect_message: new Text(data.clientMessages.reconnectMessage),
+      unable_to_reconnect_message: new Text(data.clientMessages.unableToReconnectMessage),
+      fatal_error: new Text(data.clientMessages.fatalError),
+      reconnected_message: new Text(data.clientMessages.reconnectedMessage),
+      generic_error: new Text(data.clientMessages.genericError)
     };
-    this.is_replay = data.isReplay || false;
+    this.is_replay = !!data.isReplay;
   }
 };
 __name(LiveChat, "LiveChat");
 LiveChat.type = "LiveChat";
 var LiveChat_default = LiveChat;
 
+// dist/src/parser/classes/livechat/items/LiveChatBannerHeader.js
+var LiveChatBannerHeader = class extends YTNode {
+  constructor(data) {
+    super();
+    this.text = new Text(data.text);
+    if (Reflect.has(data, "icon") && Reflect.has(data.icon, "iconType")) {
+      this.icon_type = data.icon.iconType;
+    }
+    this.context_menu_button = parser_default.parseItem(data.contextMenuButton, Button_default);
+  }
+};
+__name(LiveChatBannerHeader, "LiveChatBannerHeader");
+LiveChatBannerHeader.type = "LiveChatBannerHeader";
+var LiveChatBannerHeader_default = LiveChatBannerHeader;
+
+// dist/src/parser/classes/livechat/items/LiveChatBanner.js
+var LiveChatBanner = class extends YTNode {
+  constructor(data) {
+    super();
+    this.header = parser_default.parseItem(data.header, LiveChatBannerHeader_default);
+    this.contents = parser_default.parseItem(data.contents);
+    this.action_id = data.actionId;
+    this.viewer_is_creator = data.viewerIsCreator;
+    this.target_id = data.targetId;
+    this.is_stackable = data.isStackable;
+    this.background_type = data.backgroundType;
+  }
+};
+__name(LiveChatBanner, "LiveChatBanner");
+LiveChatBanner.type = "LiveChatBanner";
+var LiveChatBanner_default = LiveChatBanner;
+
 // dist/src/parser/classes/livechat/AddBannerToLiveChatCommand.js
 var AddBannerToLiveChatCommand = class extends YTNode {
   constructor(data) {
     super();
-    this.banner = parser_default.parseItem(data.bannerRenderer);
+    this.banner = parser_default.parseItem(data.bannerRenderer, LiveChatBanner_default);
   }
 };
 __name(AddBannerToLiveChatCommand, "AddBannerToLiveChatCommand");
@@ -13415,7 +14046,9 @@ var AddChatItemAction = class extends YTNode {
   constructor(data) {
     super();
     this.item = parser_default.parseItem(data.item);
-    this.client_id = data.clientId || null;
+    if (Reflect.has(data, "clientId")) {
+      this.client_id = data.clientId;
+    }
   }
 };
 __name(AddChatItemAction, "AddChatItemAction");
@@ -13450,9 +14083,9 @@ var LiveChatAutoModMessage = class extends YTNode {
   constructor(data) {
     super();
     this.menu_endpoint = new NavigationEndpoint_default(data.contextMenuEndpoint);
-    this.moderation_buttons = parser_default.parseArray(data.moderationButtons, [Button_default]);
+    this.moderation_buttons = parser_default.parseArray(data.moderationButtons, Button_default);
     this.auto_moderated_item = parser_default.parseItem(data.autoModeratedItem);
-    this.header_text = new Text_default(data.headerText);
+    this.header_text = new Text(data.headerText);
     this.timestamp = Math.floor(parseInt(data.timestampUsec) / 1e3);
     this.id = data.id;
   }
@@ -13461,66 +14094,24 @@ __name(LiveChatAutoModMessage, "LiveChatAutoModMessage");
 LiveChatAutoModMessage.type = "LiveChatAutoModMessage";
 var LiveChatAutoModMessage_default = LiveChatAutoModMessage;
 
-// dist/src/parser/classes/livechat/items/LiveChatBanner.js
-var LiveChatBanner = class extends YTNode {
-  constructor(data) {
-    super();
-    this.header = parser_default.parseItem(data.header);
-    this.contents = parser_default.parseItem(data.contents);
-    this.action_id = data.actionId;
-    this.viewer_is_creator = data.viewerIsCreator;
-    this.target_id = data.targetId;
-    this.is_stackable = data.isStackable;
-    this.background_type = data.backgroundType;
-  }
-};
-__name(LiveChatBanner, "LiveChatBanner");
-LiveChatBanner.type = "LiveChatBanner";
-var LiveChatBanner_default = LiveChatBanner;
-
-// dist/src/parser/classes/livechat/items/LiveChatBannerHeader.js
-var LiveChatBannerHeader = class extends YTNode {
-  constructor(data) {
-    var _a5;
-    super();
-    this.text = new Text_default(data.text).toString();
-    this.icon_type = (_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType;
-    this.context_menu_button = parser_default.parseItem(data.contextMenuButton);
-  }
-};
-__name(LiveChatBannerHeader, "LiveChatBannerHeader");
-LiveChatBannerHeader.type = "LiveChatBannerHeader";
-var LiveChatBannerHeader_default = LiveChatBannerHeader;
-
 // dist/src/parser/classes/livechat/items/LiveChatBannerPoll.js
 var LiveChatBannerPoll = class extends YTNode {
   constructor(data) {
     super();
-    this.poll_question = new Text_default(data.pollQuestion);
-    this.author_photo = Thumbnail_default.fromResponse(data.authorPhoto);
+    this.poll_question = new Text(data.pollQuestion);
+    this.author_photo = Thumbnail.fromResponse(data.authorPhoto);
     this.choices = data.pollChoices.map((choice) => ({
       option_id: choice.pollOptionId,
-      text: new Text_default(choice.text).toString()
+      text: new Text(choice.text).toString()
     }));
     this.collapsed_state_entity_key = data.collapsedStateEntityKey;
     this.live_chat_poll_state_entity_key = data.liveChatPollStateEntityKey;
-    this.context_menu_button = parser_default.parseItem(data.contextMenuButton);
+    this.context_menu_button = parser_default.parseItem(data.contextMenuButton, Button_default);
   }
 };
 __name(LiveChatBannerPoll, "LiveChatBannerPoll");
 LiveChatBannerPoll.type = "LiveChatBannerPoll";
 var LiveChatBannerPoll_default = LiveChatBannerPoll;
-
-// dist/src/parser/classes/LiveChatAuthorBadge.js
-var LiveChatAuthorBadge = class extends MetadataBadge_default {
-  constructor(data) {
-    super(data);
-    this.custom_thumbnail = data.customThumbnail ? Thumbnail_default.fromResponse(data.customThumbnail) : null;
-  }
-};
-__name(LiveChatAuthorBadge, "LiveChatAuthorBadge");
-LiveChatAuthorBadge.type = "LiveChatAuthorBadge";
-var LiveChatAuthorBadge_default = LiveChatAuthorBadge;
 
 // dist/src/parser/classes/livechat/items/LiveChatMembershipItem.js
 var LiveChatMembershipItem = class extends YTNode {
@@ -13528,21 +14119,8 @@ var LiveChatMembershipItem = class extends YTNode {
     super();
     this.id = data.id;
     this.timestamp = Math.floor(parseInt(data.timestampUsec) / 1e3);
-    this.header_subtext = new Text_default(data.headerSubtext);
-    this.author = {
-      id: data.authorExternalChannelId,
-      name: new Text_default(data === null || data === void 0 ? void 0 : data.authorName),
-      thumbnails: Thumbnail_default.fromResponse(data.authorPhoto),
-      badges: observe([]).as(LiveChatAuthorBadge_default, MetadataBadge_default),
-      is_moderator: null,
-      is_verified: null,
-      is_verified_artist: null
-    };
-    const badges = parser_default.parseArray(data.authorBadges);
-    this.author.badges = badges;
-    this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == "MODERATOR") : null;
-    this.author.is_verified = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED") : null;
-    this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST") : null;
+    this.header_subtext = new Text(data.headerSubtext);
+    this.author = new Author_default(data.authorName, data.authorBadges, data.authorPhoto, data.authorExternalChannelId);
     this.menu_endpoint = new NavigationEndpoint_default(data.contextMenuEndpoint);
   }
 };
@@ -13554,29 +14132,16 @@ var LiveChatMembershipItem_default = LiveChatMembershipItem;
 var LiveChatPaidMessage = class extends YTNode {
   constructor(data) {
     super();
-    this.message = new Text_default(data.message);
-    this.author = {
-      id: data.authorExternalChannelId,
-      name: new Text_default(data.authorName),
-      thumbnails: Thumbnail_default.fromResponse(data.authorPhoto),
-      badges: observe([]).as(LiveChatAuthorBadge_default, MetadataBadge_default),
-      is_moderator: null,
-      is_verified: null,
-      is_verified_artist: null
-    };
-    const badges = parser_default.parseArray(data.authorBadges, [MetadataBadge_default, LiveChatAuthorBadge_default]);
-    this.author.badges = badges;
-    this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == "MODERATOR") : null;
-    this.author.is_verified = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED") : null;
-    this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST") : null;
+    this.message = new Text(data.message);
+    this.author = new Author_default(data.authorName, data.authorBadges, data.authorPhoto, data.authorExternalChannelId);
     this.header_background_color = data.headerBackgroundColor;
     this.header_text_color = data.headerTextColor;
     this.body_background_color = data.bodyBackgroundColor;
     this.body_text_color = data.bodyTextColor;
-    this.purchase_amount = new Text_default(data.purchaseAmountText).toString();
+    this.purchase_amount = new Text(data.purchaseAmountText).toString();
     this.menu_endpoint = new NavigationEndpoint_default(data.contextMenuEndpoint);
     this.timestamp = Math.floor(parseInt(data.timestampUsec) / 1e3);
-    this.timestamp_text = new Text_default(data.timestampText).toString();
+    this.timestamp_text = new Text(data.timestampText).toString();
     this.id = data.id;
   }
 };
@@ -13589,26 +14154,13 @@ var LiveChatPaidSticker = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.id;
-    this.author = {
-      id: data.authorExternalChannelId,
-      name: new Text_default(data.authorName),
-      thumbnails: Thumbnail_default.fromResponse(data.authorPhoto),
-      badges: observe([]).as(LiveChatAuthorBadge_default, MetadataBadge_default),
-      is_moderator: null,
-      is_verified: null,
-      is_verified_artist: null
-    };
-    const badges = parser_default.parseArray(data.authorBadges, [MetadataBadge_default, LiveChatAuthorBadge_default]);
-    this.author.badges = badges;
-    this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == "MODERATOR") : null;
-    this.author.is_verified = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED") : null;
-    this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST") : null;
+    this.author = new Author_default(data.authorName, data.authorBadges, data.authorPhoto, data.authorExternalChannelId);
     this.money_chip_background_color = data.moneyChipBackgroundColor;
     this.money_chip_text_color = data.moneyChipTextColor;
     this.background_color = data.backgroundColor;
     this.author_name_text_color = data.authorNameTextColor;
-    this.sticker = Thumbnail_default.fromResponse(data.sticker);
-    this.purchase_amount = new Text_default(data.purchaseAmountText).toString();
+    this.sticker = Thumbnail.fromResponse(data.sticker);
+    this.purchase_amount = new Text(data.purchaseAmountText).toString();
     this.menu_endpoint = new NavigationEndpoint_default(data.contextMenuEndpoint);
     this.context_menu = this.menu_endpoint;
     this.timestamp = Math.floor(parseInt(data.timestampUsec) / 1e3);
@@ -13636,7 +14188,7 @@ var LiveChatProductItem = class extends YTNode {
     super();
     this.title = data.title;
     this.accessibility_title = data.accessibilityTitle;
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
     this.price = data.price;
     this.vendor_name = data.vendorName;
     this.from_vendor_text = data.fromVendorText;
@@ -13644,10 +14196,10 @@ var LiveChatProductItem = class extends YTNode {
     this.endpoint = new NavigationEndpoint_default(data.onClickCommand);
     this.creator_message = data.creatorMessage;
     this.creator_name = data.creatorName;
-    this.author_photo = Thumbnail_default.fromResponse(data.authorPhoto);
+    this.author_photo = Thumbnail.fromResponse(data.authorPhoto);
     this.information_dialog = parser_default.parseItem(data.informationDialog);
     this.is_verified = data.isVerified;
-    this.creator_custom_message = new Text_default(data.creatorCustomMessage);
+    this.creator_custom_message = new Text(data.creatorCustomMessage);
   }
 };
 __name(LiveChatProductItem, "LiveChatProductItem");
@@ -13657,38 +14209,34 @@ var LiveChatProductItem_default = LiveChatProductItem;
 // dist/src/parser/classes/livechat/items/LiveChatRestrictedParticipation.js
 var LiveChatRestrictedParticipation = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
-    this.message = new Text_default(data.message);
-    this.icon_type = (_a5 = data === null || data === void 0 ? void 0 : data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType;
+    this.message = new Text(data.message);
+    if (Reflect.has(data, "icon") && Reflect.has(data.icon, "iconType")) {
+      this.icon_type = data.icon.iconType;
+    }
   }
 };
 __name(LiveChatRestrictedParticipation, "LiveChatRestrictedParticipation");
+LiveChatRestrictedParticipation.type = "LiveChatRestrictedParticipation";
 var LiveChatRestrictedParticipation_default = LiveChatRestrictedParticipation;
 
 // dist/src/parser/classes/livechat/items/LiveChatTextMessage.js
-var LiveChatTextMessage = class extends YTNode {
+var LiveChatMessageBase = class extends YTNode {
   constructor(data) {
     super();
-    this.message = new Text_default(data.message);
-    this.author = {
-      id: data.authorExternalChannelId,
-      name: new Text_default(data.authorName),
-      thumbnails: Thumbnail_default.fromResponse(data.authorPhoto),
-      badges: observe([]).as(LiveChatAuthorBadge_default, MetadataBadge_default),
-      is_moderator: null,
-      is_verified: null,
-      is_verified_artist: null
-    };
-    const badges = parser_default.parseArray(data.authorBadges, [MetadataBadge_default, LiveChatAuthorBadge_default]);
-    this.author.badges = badges;
-    this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == "MODERATOR") : null;
-    this.author.is_verified = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED") : null;
-    this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST") : null;
-    this.menu_endpoint = new NavigationEndpoint_default(data.contextMenuEndpoint);
-    this.inline_action_buttons = parser_default.parseArray(data.inlineActionButtons, [Button_default]);
+    this.message = new Text(data.message);
+    this.inline_action_buttons = parser_default.parseArray(data.inlineActionButtons, Button_default);
     this.timestamp = Math.floor(parseInt(data.timestampUsec) / 1e3);
     this.id = data.id;
+  }
+};
+__name(LiveChatMessageBase, "LiveChatMessageBase");
+LiveChatMessageBase.type = "LiveChatMessageBase";
+var LiveChatTextMessage = class extends LiveChatMessageBase {
+  constructor(data) {
+    super(data);
+    this.author = new Author_default(data.authorName, data.authorBadges, data.authorPhoto, data.authorExternalChannelId);
+    this.menu_endpoint = new NavigationEndpoint_default(data.contextMenuEndpoint);
   }
 };
 __name(LiveChatTextMessage, "LiveChatTextMessage");
@@ -13698,26 +14246,13 @@ var LiveChatTextMessage_default = LiveChatTextMessage;
 // dist/src/parser/classes/livechat/items/LiveChatTickerPaidMessageItem.js
 var LiveChatTickerPaidMessageItem = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
-    this.author = {
-      id: data.authorExternalChannelId,
-      name: new Text_default(data === null || data === void 0 ? void 0 : data.authorName),
-      thumbnails: Thumbnail_default.fromResponse(data.authorPhoto),
-      badges: observe([]).as(LiveChatAuthorBadge_default, MetadataBadge_default),
-      is_moderator: null,
-      is_verified: null,
-      is_verified_artist: null
-    };
-    const badges = parser_default.parseArray(data.authorBadges, [MetadataBadge_default, LiveChatAuthorBadge_default]);
-    this.author.badges = badges;
-    this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == "MODERATOR") : null;
-    this.author.is_verified = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED") : null;
-    this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST") : null;
-    this.amount = new Text_default(data.amount);
+    this.author = new Author_default(data.authorName, data.authorBadges, data.authorPhoto, data.authorExternalChannelId);
+    this.amount = new Text(data.amount);
     this.duration_sec = data.durationSec;
     this.full_duration_sec = data.fullDurationSec;
-    this.show_item = parser_default.parse((_b = (_a5 = data.showItemEndpoint) === null || _a5 === void 0 ? void 0 : _a5.showLiveChatItemEndpoint) === null || _b === void 0 ? void 0 : _b.renderer);
+    this.show_item = parser_default.parseItem((_b2 = (_a7 = data.showItemEndpoint) === null || _a7 === void 0 ? void 0 : _a7.showLiveChatItemEndpoint) === null || _b2 === void 0 ? void 0 : _b2.renderer);
     this.show_item_endpoint = new NavigationEndpoint_default(data.showItemEndpoint);
     this.id = data.id;
   }
@@ -13727,31 +14262,7 @@ LiveChatTickerPaidMessageItem.type = "LiveChatTickerPaidMessageItem";
 var LiveChatTickerPaidMessageItem_default = LiveChatTickerPaidMessageItem;
 
 // dist/src/parser/classes/livechat/items/LiveChatTickerPaidStickerItem.js
-var LiveChatTickerPaidStickerItem = class extends YTNode {
-  constructor(data) {
-    var _a5, _b;
-    super();
-    this.author = {
-      id: data.authorExternalChannelId,
-      name: new Text_default(data === null || data === void 0 ? void 0 : data.authorName),
-      thumbnails: Thumbnail_default.fromResponse(data.authorPhoto),
-      badges: observe([]).as(LiveChatAuthorBadge_default, MetadataBadge_default),
-      is_moderator: null,
-      is_verified: null,
-      is_verified_artist: null
-    };
-    const badges = parser_default.parseArray(data.authorBadges, [MetadataBadge_default, LiveChatAuthorBadge_default]);
-    this.author.badges = badges;
-    this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == "MODERATOR") : null;
-    this.author.is_verified = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED") : null;
-    this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST") : null;
-    this.amount = new Text_default(data.amount);
-    this.duration_sec = data.durationSec;
-    this.full_duration_sec = data.fullDurationSec;
-    this.show_item = parser_default.parseItem((_b = (_a5 = data.showItemEndpoint) === null || _a5 === void 0 ? void 0 : _a5.showLiveChatItemEndpoint) === null || _b === void 0 ? void 0 : _b.renderer);
-    this.show_item_endpoint = new NavigationEndpoint_default(data.showItemEndpoint);
-    this.id = data.id;
-  }
+var LiveChatTickerPaidStickerItem = class extends LiveChatTickerPaidMessageItem_default {
 };
 __name(LiveChatTickerPaidStickerItem, "LiveChatTickerPaidStickerItem");
 LiveChatTickerPaidStickerItem.type = "LiveChatTickerPaidStickerItem";
@@ -13762,21 +14273,8 @@ var LiveChatTickerSponsorItem = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.id;
-    this.detail = new Text_default(data.detailText);
-    this.author = {
-      id: data.authorExternalChannelId,
-      name: new Text_default(data === null || data === void 0 ? void 0 : data.authorName),
-      thumbnails: Thumbnail_default.fromResponse(data.sponsorPhoto),
-      badges: observe([]).as(LiveChatAuthorBadge_default, MetadataBadge_default),
-      is_moderator: null,
-      is_verified: null,
-      is_verified_artist: null
-    };
-    const badges = parser_default.parseArray(data.authorBadges, [MetadataBadge_default, LiveChatAuthorBadge_default]);
-    this.author.badges = badges;
-    this.author.is_moderator = badges ? badges.some((badge) => badge.icon_type == "MODERATOR") : null;
-    this.author.is_verified = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED") : null;
-    this.author.is_verified_artist = badges ? badges.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST") : null;
+    this.detail = new Text(data.detailText);
+    this.author = new Author_default(data.authorName, data.authorBadges, data.sponsorPhoto, data.authorExternalChannelId);
     this.duration_sec = data.durationSec;
   }
 };
@@ -13785,12 +14283,12 @@ LiveChatTickerSponsorItem.type = "LiveChatTickerSponsorItem";
 var LiveChatTickerSponsorItem_default = LiveChatTickerSponsorItem;
 
 // dist/src/parser/classes/livechat/items/LiveChatViewerEngagementMessage.js
-var LiveChatViewerEngagementMessage = class extends LiveChatTextMessage_default {
+var LiveChatViewerEngagementMessage = class extends LiveChatMessageBase {
   constructor(data) {
     super(data);
-    delete this.author;
-    delete this.menu_endpoint;
-    this.icon_type = data.icon.iconType;
+    if (Reflect.has(data, "icon") && Reflect.has(data.icon, "iconType")) {
+      this.icon_type = data.icon.iconType;
+    }
     this.action_button = parser_default.parseItem(data.actionButton);
   }
 };
@@ -13802,11 +14300,11 @@ var LiveChatViewerEngagementMessage_default = LiveChatViewerEngagementMessage;
 var PollHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.poll_question = new Text_default(data.pollQuestion);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.metadata = new Text_default(data.metadataText);
+    this.poll_question = new Text(data.pollQuestion);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.metadata = new Text(data.metadataText);
     this.live_chat_poll_type = data.liveChatPollType;
-    this.context_menu_button = parser_default.parseItem(data.contextMenuButton);
+    this.context_menu_button = parser_default.parseItem(data.contextMenuButton, Button_default);
   }
 };
 __name(PollHeader, "PollHeader");
@@ -13830,7 +14328,7 @@ var LiveChatActionPanel_default = LiveChatActionPanel;
 var MarkChatItemAsDeletedAction = class extends YTNode {
   constructor(data) {
     super();
-    this.deleted_state_message = new Text_default(data.deletedStateMessage);
+    this.deleted_state_message = new Text(data.deletedStateMessage);
     this.target_item_id = data.targetItemId;
   }
 };
@@ -13842,8 +14340,8 @@ var MarkChatItemAsDeletedAction_default = MarkChatItemAsDeletedAction;
 var MarkChatItemsByAuthorAsDeletedAction = class extends YTNode {
   constructor(data) {
     super();
-    this.deleted_state_message = new Text_default(data.deletedStateMessage);
-    this.channel_id = data.externalChannelId;
+    this.deleted_state_message = new Text(data.deletedStateMessage);
+    this.external_channel_id = data.externalChannelId;
   }
 };
 __name(MarkChatItemsByAuthorAsDeletedAction, "MarkChatItemsByAuthorAsDeletedAction");
@@ -13898,9 +14396,9 @@ var ReplaceChatItemAction_default = ReplaceChatItemAction;
 // dist/src/parser/classes/livechat/ReplayChatItemAction.js
 var ReplayChatItemAction = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
-    this.actions = parser_default.parseArray((_a5 = data.actions) === null || _a5 === void 0 ? void 0 : _a5.map((action) => {
+    this.actions = parser_default.parseArray((_a7 = data.actions) === null || _a7 === void 0 ? void 0 : _a7.map((action) => {
       delete action.clickTrackingParams;
       return action;
     }));
@@ -13948,7 +14446,7 @@ var ShowLiveChatTooltipCommand_default = ShowLiveChatTooltipCommand;
 var UpdateDateTextAction = class extends YTNode {
   constructor(data) {
     super();
-    this.date_text = new Text_default(data.dateText).toString();
+    this.date_text = new Text(data.dateText).toString();
   }
 };
 __name(UpdateDateTextAction, "UpdateDateTextAction");
@@ -13959,7 +14457,7 @@ var UpdateDateTextAction_default = UpdateDateTextAction;
 var UpdateDescriptionAction = class extends YTNode {
   constructor(data) {
     super();
-    this.description = new Text_default(data.description);
+    this.description = new Text(data.description);
   }
 };
 __name(UpdateDescriptionAction, "UpdateDescriptionAction");
@@ -13981,7 +14479,7 @@ var UpdateLiveChatPollAction_default = UpdateLiveChatPollAction;
 var UpdateTitleAction = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
   }
 };
 __name(UpdateTitleAction, "UpdateTitleAction");
@@ -13992,8 +14490,8 @@ var UpdateTitleAction_default = UpdateTitleAction;
 var UpdateToggleButtonTextAction = class extends YTNode {
   constructor(data) {
     super();
-    this.default_text = new Text_default(data.defaultText).toString();
-    this.toggled_text = new Text_default(data.toggledText).toString();
+    this.default_text = new Text(data.defaultText).toString();
+    this.toggled_text = new Text(data.toggledText).toString();
     this.button_id = data.buttonId;
   }
 };
@@ -14006,8 +14504,8 @@ var UpdateViewershipAction = class extends YTNode {
   constructor(data) {
     super();
     const view_count_renderer = data.viewCount.videoViewCountRenderer;
-    this.view_count = new Text_default(view_count_renderer.viewCount);
-    this.extra_short_view_count = new Text_default(view_count_renderer.extraShortViewCount);
+    this.view_count = new Text(view_count_renderer.viewCount);
+    this.extra_short_view_count = new Text(view_count_renderer.extraShortViewCount);
     this.is_live = view_count_renderer.isLive;
   }
 };
@@ -14015,114 +14513,42 @@ __name(UpdateViewershipAction, "UpdateViewershipAction");
 UpdateViewershipAction.type = "UpdateViewershipAction";
 var UpdateViewershipAction_default = UpdateViewershipAction;
 
+// dist/src/parser/classes/LiveChatAuthorBadge.js
+var LiveChatAuthorBadge = class extends MetadataBadge_default {
+  constructor(data) {
+    super(data);
+    this.custom_thumbnail = Thumbnail.fromResponse(data.customThumbnail);
+  }
+};
+__name(LiveChatAuthorBadge, "LiveChatAuthorBadge");
+LiveChatAuthorBadge.type = "LiveChatAuthorBadge";
+var LiveChatAuthorBadge_default = LiveChatAuthorBadge;
+
 // dist/src/parser/classes/LiveChatDialog.js
 var LiveChatDialog = class extends YTNode {
   constructor(data) {
     super();
     this.confirm_button = parser_default.parseItem(data.confirmButton, Button_default);
-    this.dialog_messages = data.dialogMessages.map((el) => new Text_default(el));
+    this.dialog_messages = data.dialogMessages.map((el) => new Text(el));
   }
 };
 __name(LiveChatDialog, "LiveChatDialog");
 LiveChatDialog.type = "LiveChatDialog";
 var LiveChatDialog_default = LiveChatDialog;
 
-// dist/src/parser/classes/LiveChatHeader.js
-var LiveChatHeader = class extends YTNode {
-  constructor(data) {
-    super();
-    this.overflow_menu = parser_default.parseItem(data.overflowMenu);
-    this.collapse_button = parser_default.parseItem(data.collapseButton);
-    this.view_selector = parser_default.parseItem(data.viewSelector);
-  }
-};
-__name(LiveChatHeader, "LiveChatHeader");
-LiveChatHeader.type = "LiveChatHeader";
-var LiveChatHeader_default = LiveChatHeader;
-
-// dist/src/parser/classes/LiveChatItemList.js
-var LiveChatItemList = class extends YTNode {
-  constructor(data) {
-    super();
-    this.max_items_to_display = data.maxItemsToDisplay;
-    this.more_comments_below_button = parser_default.parseItem(data.moreCommentsBelowButton);
-  }
-};
-__name(LiveChatItemList, "LiveChatItemList");
-LiveChatItemList.type = "LiveChatItemList";
-var LiveChatItemList_default = LiveChatItemList;
-
 // dist/src/parser/classes/LiveChatMessageInput.js
 var LiveChatMessageInput = class extends YTNode {
   constructor(data) {
     super();
-    this.author_name = new Text_default(data.authorName);
-    this.author_photo = Thumbnail_default.fromResponse(data.authorPhoto);
-    this.send_button = parser_default.parseItem(data.sendButton);
+    this.author_name = new Text(data.authorName);
+    this.author_photo = Thumbnail.fromResponse(data.authorPhoto);
+    this.send_button = parser_default.parseItem(data.sendButton, Button_default);
     this.target_id = data.targetId;
   }
 };
 __name(LiveChatMessageInput, "LiveChatMessageInput");
 LiveChatMessageInput.type = "LiveChatMessageInput";
 var LiveChatMessageInput_default = LiveChatMessageInput;
-
-// dist/src/parser/classes/LiveChatParticipant.js
-var LiveChatParticipant = class extends YTNode {
-  constructor(data) {
-    super();
-    this.name = new Text_default(data.authorName);
-    this.photo = Thumbnail_default.fromResponse(data.authorPhoto);
-    this.badges = parser_default.parse(data.authorBadges);
-  }
-};
-__name(LiveChatParticipant, "LiveChatParticipant");
-LiveChatParticipant.type = "LiveChatParticipant";
-var LiveChatParticipant_default = LiveChatParticipant;
-
-// dist/src/parser/classes/LiveChatParticipantsList.js
-var LiveChatParticipantsList = class extends YTNode {
-  constructor(data) {
-    super();
-    this.title = new Text_default(data.title);
-    this.participants = parser_default.parseArray(data.participants);
-  }
-};
-__name(LiveChatParticipantsList, "LiveChatParticipantsList");
-LiveChatParticipantsList.type = "LiveChatParticipantsList";
-var LiveChatParticipantsList_default = LiveChatParticipantsList;
-
-// dist/src/parser/classes/MacroMarkersListItem.js
-var MacroMarkersListItem = class extends YTNode {
-  constructor(data) {
-    super();
-    this.title = new Text_default(data.title);
-    this.time_description = new Text_default(data.timeDescription);
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
-    this.on_tap_endpoint = new NavigationEndpoint_default(data.onTap);
-    this.layout = data.layout;
-    this.is_highlighted = data.isHighlighted;
-  }
-};
-__name(MacroMarkersListItem, "MacroMarkersListItem");
-MacroMarkersListItem.type = "MacroMarkersListItem";
-var MacroMarkersListItem_default = MacroMarkersListItem;
-
-// dist/src/parser/classes/menus/Menu.js
-var Menu = class extends YTNode {
-  constructor(data) {
-    var _a5, _b;
-    super();
-    this.items = parser_default.parseArray(data.items);
-    this.top_level_buttons = parser_default.parseArray(data.topLevelButtons);
-    this.label = ((_b = (_a5 = data.accessibility) === null || _a5 === void 0 ? void 0 : _a5.accessibilityData) === null || _b === void 0 ? void 0 : _b.label) || null;
-  }
-  get contents() {
-    return this.items;
-  }
-};
-__name(Menu, "Menu");
-Menu.type = "Menu";
-var Menu_default = Menu;
 
 // dist/src/parser/classes/menus/MenuNavigationItem.js
 var MenuNavigationItem = class extends Button_default {
@@ -14148,7 +14574,7 @@ var MenuServiceItem_default = MenuServiceItem;
 var MenuServiceItemDownload = class extends YTNode {
   constructor(data) {
     super();
-    this.has_separator = data.hasSeparator;
+    this.has_separator = !!data.hasSeparator;
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint || data.serviceEndpoint);
   }
 };
@@ -14185,7 +14611,7 @@ var MultiPageMenuNotificationSection_default = MultiPageMenuNotificationSection;
 
 // dist/src/parser/classes/menus/MusicMenuItemDivider.js
 var MusicMenuItemDivider = class extends YTNode {
-  constructor(data) {
+  constructor(_data) {
     super();
   }
 };
@@ -14196,9 +14622,11 @@ var MusicMenuItemDivider_default = MusicMenuItemDivider;
 // dist/src/parser/classes/menus/MusicMultiSelectMenu.js
 var MusicMultiSelectMenu = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
-    this.title = new Text_default((_a5 = data.title.musicMenuTitleRenderer) === null || _a5 === void 0 ? void 0 : _a5.primaryText).text;
+    if (Reflect.has(data, "title") && Reflect.has(data.title, "musicMenuTitleRenderer")) {
+      this.title = new Text((_a7 = data.title.musicMenuTitleRenderer) === null || _a7 === void 0 ? void 0 : _a7.primaryText);
+    }
     this.options = parser_default.parseArray(data.options, [MusicMultiSelectMenuItem_default, MusicMenuItemDivider_default]);
   }
 };
@@ -14210,7 +14638,7 @@ var MusicMultiSelectMenu_default = MusicMultiSelectMenu;
 var SimpleMenuHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.buttons = parser_default.parse(data.buttons);
   }
 };
@@ -14224,7 +14652,7 @@ var MerchandiseItem = class extends YTNode {
     super();
     this.title = data.title;
     this.description = data.description;
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.price = data.price;
     this.vendor_name = data.vendorName;
     this.button_text = data.buttonText;
@@ -14244,8 +14672,8 @@ var MerchandiseShelf = class extends YTNode {
   constructor(data) {
     super();
     this.title = data.title;
-    this.menu = parser_default.parse(data.actionButton);
-    this.items = parser_default.parse(data.items);
+    this.menu = parser_default.parseItem(data.actionButton);
+    this.items = parser_default.parseArray(data.items);
   }
   get contents() {
     return this.items;
@@ -14259,8 +14687,8 @@ var MerchandiseShelf_default = MerchandiseShelf;
 var MetadataRow = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.contents = data.contents.map((content) => new Text_default(content));
+    this.title = new Text(data.title);
+    this.contents = data.contents.map((content) => new Text(content));
   }
 };
 __name(MetadataRow, "MetadataRow");
@@ -14283,7 +14711,7 @@ var MetadataRowContainer_default = MetadataRowContainer;
 var MetadataRowHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.content = new Text_default(data.content);
+    this.content = new Text(data.content);
     this.has_divider_line = data.hasDividerLine;
   }
 };
@@ -14309,7 +14737,7 @@ var MicroformatData = class extends YTNode {
     this.url_canonical = data.urlCanonical;
     this.title = data.title;
     this.description = data.description;
-    this.thumbnail = data.thumbnail ? Thumbnail_default.fromResponse(data.thumbnail) : null;
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
     this.site_name = data.siteName;
     this.app_name = data.appName;
     this.android_package = data.androidPackage;
@@ -14348,25 +14776,27 @@ var Mix_default = Mix;
 // dist/src/parser/classes/Movie.js
 var Movie = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     super();
-    const overlay_time_status = ((_a5 = data.thumbnailOverlays.find((overlay) => overlay.thumbnailOverlayTimeStatusRenderer)) === null || _a5 === void 0 ? void 0 : _a5.thumbnailOverlayTimeStatusRenderer.text) || "N/A";
+    const overlay_time_status = ((_a7 = data.thumbnailOverlays.find((overlay) => overlay.thumbnailOverlayTimeStatusRenderer)) === null || _a7 === void 0 ? void 0 : _a7.thumbnailOverlayTimeStatusRenderer.text) || "N/A";
     this.id = data.videoId;
-    this.title = new Text_default(data.title);
-    this.description_snippet = data.descriptionSnippet ? new Text_default(data.descriptionSnippet) : null;
-    this.top_metadata_items = new Text_default(data.topMetadataItems);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.thumbnail_overlays = parser_default.parse(data.thumbnailOverlays);
-    this.author = new Author_default(data.longBylineText, data.ownerBadges, (_c = (_b = data.channelThumbnailSupportedRenderers) === null || _b === void 0 ? void 0 : _b.channelThumbnailWithLinkRenderer) === null || _c === void 0 ? void 0 : _c.thumbnail);
+    this.title = new Text(data.title);
+    if (Reflect.has(data, "descriptionSnippet")) {
+      this.description_snippet = new Text(data.descriptionSnippet);
+    }
+    this.top_metadata_items = new Text(data.topMetadataItems);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
+    this.author = new Author_default(data.longBylineText, data.ownerBadges, (_c = (_b2 = data.channelThumbnailSupportedRenderers) === null || _b2 === void 0 ? void 0 : _b2.channelThumbnailWithLinkRenderer) === null || _c === void 0 ? void 0 : _c.thumbnail);
     this.duration = {
-      text: data.lengthText ? new Text_default(data.lengthText).text : new Text_default(overlay_time_status).text,
-      seconds: timeToSeconds(data.lengthText ? new Text_default(data.lengthText).text : new Text_default(overlay_time_status).text)
+      text: data.lengthText ? new Text(data.lengthText).toString() : new Text(overlay_time_status).toString(),
+      seconds: timeToSeconds(data.lengthText ? new Text(data.lengthText).toString() : new Text(overlay_time_status).toString())
     };
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.badges = parser_default.parse(data.badges);
+    this.badges = parser_default.parseArray(data.badges);
     this.use_vertical_poster = data.useVerticalPoster;
     this.show_action_menu = data.showActionMenu;
-    this.menu = parser_default.parse(data.menu);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
   }
 };
 __name(Movie, "Movie");
@@ -14376,55 +14806,51 @@ var Movie_default = Movie;
 // dist/src/parser/classes/MovingThumbnail.js
 var MovingThumbnail = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
-    return (_a5 = data.movingThumbnailDetails) === null || _a5 === void 0 ? void 0 : _a5.thumbnails.map((thumbnail) => new Thumbnail_default(thumbnail)).sort((a, b) => b.width - a.width);
+    return (_a7 = data.movingThumbnailDetails) === null || _a7 === void 0 ? void 0 : _a7.thumbnails.map((thumbnail) => new Thumbnail(thumbnail)).sort((a, b) => b.width - a.width);
   }
 };
 __name(MovingThumbnail, "MovingThumbnail");
 MovingThumbnail.type = "MovingThumbnail";
 var MovingThumbnail_default = MovingThumbnail;
 
-// dist/src/parser/classes/MultiMarkersPlayerBar.js
-var Marker = class extends YTNode {
+// dist/src/parser/classes/MusicCardShelfHeaderBasic.js
+var MusicCardShelfHeaderBasic = class extends YTNode {
   constructor(data) {
     super();
-    this.marker_key = data.key;
-    this.value = {};
-    if (data.value.heatmap) {
-      this.value.heatmap = parser_default.parseItem(data.value.heatmap);
-    }
-    if (data.value.chapters) {
-      this.value.chapters = parser_default.parseArray(data.value.chapters);
-    }
+    this.title = new Text(data.title);
   }
 };
-__name(Marker, "Marker");
-Marker.type = "Marker";
-var MultiMarkersPlayerBar = class extends YTNode {
+__name(MusicCardShelfHeaderBasic, "MusicCardShelfHeaderBasic");
+MusicCardShelfHeaderBasic.type = "MusicCardShelfHeaderBasic";
+var MusicCardShelfHeaderBasic_default = MusicCardShelfHeaderBasic;
+
+// dist/src/parser/classes/MusicInlineBadge.js
+var MusicInlineBadge = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
-    this.markers_map = observe(((_a5 = data.markersMap) === null || _a5 === void 0 ? void 0 : _a5.map((marker) => new Marker(marker))) || []);
+    this.icon_type = data.icon.iconType;
+    this.label = data.accessibilityData.accessibilityData.label;
   }
 };
-__name(MultiMarkersPlayerBar, "MultiMarkersPlayerBar");
-MultiMarkersPlayerBar.type = "MultiMarkersPlayerBar";
-var MultiMarkersPlayerBar_default = MultiMarkersPlayerBar;
+__name(MusicInlineBadge, "MusicInlineBadge");
+MusicInlineBadge.type = "MusicInlineBadge";
+var MusicInlineBadge_default = MusicInlineBadge;
 
 // dist/src/parser/classes/MusicPlayButton.js
 var MusicPlayButton = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7, _b2;
     super();
     this.endpoint = new NavigationEndpoint_default(data.playNavigationEndpoint);
     this.play_icon_type = data.playIcon.iconType;
     this.pause_icon_type = data.pauseIcon.iconType;
-    if (data.accessibilityPlayData) {
-      this.play_label = data.accessibilityPlayData.accessibilityData.label;
+    if (Reflect.has(data, "accessibilityPlayData")) {
+      this.play_label = (_a7 = data.accessibilityPlayData.accessibilityData) === null || _a7 === void 0 ? void 0 : _a7.label;
     }
-    if (data.accessibilityPlayData) {
-      this.pause_label = (_a5 = data.accessibilityPauseData) === null || _a5 === void 0 ? void 0 : _a5.accessibilityData.label;
+    if (Reflect.has(data, "accessibilityPauseData")) {
+      this.pause_label = (_b2 = data.accessibilityPauseData.accessibilityData) === null || _b2 === void 0 ? void 0 : _b2.label;
     }
     this.icon_color = data.iconColor;
   }
@@ -14446,15 +14872,307 @@ __name(MusicItemThumbnailOverlay, "MusicItemThumbnailOverlay");
 MusicItemThumbnailOverlay.type = "MusicItemThumbnailOverlay";
 var MusicItemThumbnailOverlay_default = MusicItemThumbnailOverlay;
 
+// dist/src/parser/classes/MusicThumbnail.js
+var MusicThumbnail = class extends YTNode {
+  constructor(data) {
+    super();
+    this.contents = Thumbnail.fromResponse(data.thumbnail);
+  }
+};
+__name(MusicThumbnail, "MusicThumbnail");
+MusicThumbnail.type = "MusicThumbnail";
+var MusicThumbnail_default = MusicThumbnail;
+
+// dist/src/parser/classes/MusicCardShelf.js
+var MusicCardShelf = class extends YTNode {
+  constructor(data) {
+    super();
+    this.thumbnail = parser_default.parseItem(data.thumbnail, MusicThumbnail_default);
+    this.title = new Text(data.title);
+    this.subtitle = new Text(data.subtitle);
+    this.buttons = parser_default.parseArray(data.buttons, Button_default);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
+    this.on_tap = new NavigationEndpoint_default(data.onTap);
+    this.header = parser_default.parseItem(data.header, MusicCardShelfHeaderBasic_default);
+    if (Reflect.has(data, "endIcon") && Reflect.has(data.endIcon, "iconType")) {
+      this.end_icon_type = data.endIcon.iconType;
+    }
+    this.subtitle_badges = parser_default.parseArray(data.subtitleBadges, MusicInlineBadge_default);
+    this.thumbnail_overlay = parser_default.parseItem(data.thumbnailOverlay, MusicItemThumbnailOverlay_default);
+    if (Reflect.has(data, "contents")) {
+      this.contents = parser_default.parseArray(data.contents);
+    }
+  }
+};
+__name(MusicCardShelf, "MusicCardShelf");
+MusicCardShelf.type = "MusicCardShelf";
+var MusicCardShelf_default = MusicCardShelf;
+
+// dist/src/parser/classes/MusicCarouselShelfBasicHeader.js
+var MusicCarouselShelfBasicHeader = class extends YTNode {
+  constructor(data) {
+    super();
+    this.title = new Text(data.title);
+    if (Reflect.has(data, "strapline")) {
+      this.strapline = new Text(data.strapline);
+    }
+    if (Reflect.has(data, "thumbnail")) {
+      this.thumbnail = parser_default.parseItem(data.thumbnail, MusicThumbnail_default);
+    }
+    if (Reflect.has(data, "moreContentButton")) {
+      this.more_content = parser_default.parseItem(data.moreContentButton, Button_default);
+    }
+    if (Reflect.has(data, "endIcons")) {
+      this.end_icons = parser_default.parseArray(data.endIcons, IconLink_default);
+    }
+  }
+};
+__name(MusicCarouselShelfBasicHeader, "MusicCarouselShelfBasicHeader");
+MusicCarouselShelfBasicHeader.type = "MusicCarouselShelfBasicHeader";
+var MusicCarouselShelfBasicHeader_default = MusicCarouselShelfBasicHeader;
+
+// dist/src/parser/classes/MusicNavigationButton.js
+var MusicNavigationButton = class extends YTNode {
+  constructor(data) {
+    super();
+    this.button_text = new Text(data.buttonText).toString();
+    this.endpoint = new NavigationEndpoint_default(data.clickCommand);
+  }
+};
+__name(MusicNavigationButton, "MusicNavigationButton");
+MusicNavigationButton.type = "MusicNavigationButton";
+var MusicNavigationButton_default = MusicNavigationButton;
+
+// dist/src/parser/classes/MusicResponsiveListItemFixedColumn.js
+var MusicResponsiveListItemFixedColumn = class extends YTNode {
+  constructor(data) {
+    super();
+    this.title = new Text(data.text);
+    this.display_priority = data.displayPriority;
+  }
+};
+__name(MusicResponsiveListItemFixedColumn, "MusicResponsiveListItemFixedColumn");
+MusicResponsiveListItemFixedColumn.type = "musicResponsiveListItemFlexColumnRenderer";
+var MusicResponsiveListItemFixedColumn_default = MusicResponsiveListItemFixedColumn;
+
+// dist/src/parser/classes/MusicResponsiveListItemFlexColumn.js
+var MusicResponsiveListItemFlexColumn = class extends YTNode {
+  constructor(data) {
+    super();
+    this.title = new Text(data.text);
+    this.display_priority = data.displayPriority;
+  }
+};
+__name(MusicResponsiveListItemFlexColumn, "MusicResponsiveListItemFlexColumn");
+MusicResponsiveListItemFlexColumn.type = "MusicResponsiveListItemFlexColumn";
+var MusicResponsiveListItemFlexColumn_default = MusicResponsiveListItemFlexColumn;
+
+// dist/src/parser/classes/MusicResponsiveListItem.js
+var _MusicResponsiveListItem_instances;
+var _MusicResponsiveListItem_playlist_item_data;
+var _MusicResponsiveListItem_parseOther;
+var _MusicResponsiveListItem_parseVideoOrSong;
+var _MusicResponsiveListItem_parseSong;
+var _MusicResponsiveListItem_parseVideo;
+var _MusicResponsiveListItem_parseArtist;
+var _MusicResponsiveListItem_parseLibraryArtist;
+var _MusicResponsiveListItem_parseAlbum;
+var _MusicResponsiveListItem_parsePlaylist;
+var MusicResponsiveListItem = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2, _c, _d, _e, _f;
+    super();
+    _MusicResponsiveListItem_instances.add(this);
+    _MusicResponsiveListItem_playlist_item_data.set(this, void 0);
+    this.flex_columns = parser_default.parseArray(data.flexColumns, MusicResponsiveListItemFlexColumn_default);
+    this.fixed_columns = parser_default.parseArray(data.fixedColumns, MusicResponsiveListItemFixedColumn_default);
+    __classPrivateFieldSet(this, _MusicResponsiveListItem_playlist_item_data, {
+      video_id: ((_a7 = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _a7 === void 0 ? void 0 : _a7.videoId) || null,
+      playlist_set_video_id: ((_b2 = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _b2 === void 0 ? void 0 : _b2.playlistSetVideoId) || null
+    }, "f");
+    this.endpoint = data.navigationEndpoint ? new NavigationEndpoint_default(data.navigationEndpoint) : null;
+    const page_type = (_f = (_e = (_d = (_c = this.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.browseEndpointContextSupportedConfigs) === null || _e === void 0 ? void 0 : _e.browseEndpointContextMusicConfig) === null || _f === void 0 ? void 0 : _f.pageType;
+    switch (page_type) {
+      case "MUSIC_PAGE_TYPE_ALBUM":
+        this.item_type = "album";
+        __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseAlbum).call(this);
+        break;
+      case "MUSIC_PAGE_TYPE_PLAYLIST":
+        this.item_type = "playlist";
+        __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parsePlaylist).call(this);
+        break;
+      case "MUSIC_PAGE_TYPE_ARTIST":
+      case "MUSIC_PAGE_TYPE_USER_CHANNEL":
+        this.item_type = "artist";
+        __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseArtist).call(this);
+        break;
+      case "MUSIC_PAGE_TYPE_LIBRARY_ARTIST":
+        this.item_type = "library_artist";
+        __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseLibraryArtist).call(this);
+        break;
+      default:
+        if (this.flex_columns[1]) {
+          __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseVideoOrSong).call(this);
+        } else {
+          __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseOther).call(this);
+        }
+        break;
+    }
+    if (data.index) {
+      this.index = new Text(data.index);
+    }
+    this.thumbnail = parser_default.parseItem(data.thumbnail, MusicThumbnail_default);
+    this.badges = parser_default.parseArray(data.badges);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
+    this.overlay = parser_default.parseItem(data.overlay, MusicItemThumbnailOverlay_default);
+  }
+  get thumbnails() {
+    var _a7;
+    return ((_a7 = this.thumbnail) === null || _a7 === void 0 ? void 0 : _a7.contents) || [];
+  }
+};
+__name(MusicResponsiveListItem, "MusicResponsiveListItem");
+_MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _MusicResponsiveListItem_instances = /* @__PURE__ */ new WeakSet(), _MusicResponsiveListItem_parseOther = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseOther2() {
+  this.title = this.flex_columns.first().key("title").instanceof(Text).toString();
+  if (this.endpoint) {
+    this.item_type = "endpoint";
+  } else {
+    this.item_type = "unknown";
+  }
+}, "_MusicResponsiveListItem_parseOther"), _MusicResponsiveListItem_parseVideoOrSong = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseVideoOrSong2() {
+  var _a7, _b2;
+  const is_video = (_b2 = (_a7 = this.flex_columns[1]) === null || _a7 === void 0 ? void 0 : _a7.key("title").instanceof(Text).runs) === null || _b2 === void 0 ? void 0 : _b2.some((run) => run.text.match(/(.*?) views/));
+  if (is_video) {
+    this.item_type = "video";
+    __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseVideo).call(this);
+  } else {
+    this.item_type = "song";
+    __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseSong).call(this);
+  }
+}, "_MusicResponsiveListItem_parseVideoOrSong"), _MusicResponsiveListItem_parseSong = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseSong2() {
+  var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+  this.id = __classPrivateFieldGet(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id || ((_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.videoId);
+  this.title = this.flex_columns.first().key("title").instanceof(Text).toString();
+  this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
+  const duration_text = ((_e = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find(
+    (run) => /^\d+$/.test(run.text.replace(/:/g, ""))
+  )) === null || _e === void 0 ? void 0 : _e.text) || ((_g = (_f = this.fixed_columns.first()) === null || _f === void 0 ? void 0 : _f.key("title").instanceof(Text)) === null || _g === void 0 ? void 0 : _g.toString());
+  if (duration_text) {
+    this.duration = {
+      text: duration_text,
+      seconds: timeToSeconds(duration_text)
+    };
+  }
+  const album_run = ((_j = (_h = this.flex_columns[1]) === null || _h === void 0 ? void 0 : _h.key("title").instanceof(Text).runs) === null || _j === void 0 ? void 0 : _j.find(
+    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("MPR")
+  )) || ((_l = (_k = this.flex_columns[2]) === null || _k === void 0 ? void 0 : _k.key("title").instanceof(Text).runs) === null || _l === void 0 ? void 0 : _l.find(
+    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("MPR")
+  ));
+  if (album_run && isTextRun(album_run)) {
+    this.album = {
+      id: (_o = (_m = album_run.endpoint) === null || _m === void 0 ? void 0 : _m.payload) === null || _o === void 0 ? void 0 : _o.browseId,
+      name: album_run.text,
+      endpoint: album_run.endpoint
+    };
+  }
+  const artist_runs = (_q = (_p = this.flex_columns[1]) === null || _p === void 0 ? void 0 : _p.key("title").instanceof(Text).runs) === null || _q === void 0 ? void 0 : _q.filter(
+    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("UC")
+  );
+  if (artist_runs) {
+    this.artists = artist_runs.map((run) => {
+      var _a8, _b3;
+      return {
+        name: run.text,
+        channel_id: isTextRun(run) ? (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId : void 0,
+        endpoint: isTextRun(run) ? run.endpoint : void 0
+      };
+    });
+  }
+}, "_MusicResponsiveListItem_parseSong"), _MusicResponsiveListItem_parseVideo = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseVideo2() {
+  var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k;
+  this.id = __classPrivateFieldGet(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id;
+  this.title = this.flex_columns.first().key("title").instanceof(Text).toString();
+  this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
+  this.views = (_c = (_b2 = (_a7 = this.flex_columns[1]) === null || _a7 === void 0 ? void 0 : _a7.key("title").instanceof(Text).runs) === null || _b2 === void 0 ? void 0 : _b2.find((run) => run.text.match(/(.*?) views/))) === null || _c === void 0 ? void 0 : _c.toString();
+  const author_runs = (_e = (_d = this.flex_columns[1]) === null || _d === void 0 ? void 0 : _d.key("title").instanceof(Text).runs) === null || _e === void 0 ? void 0 : _e.filter(
+    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("UC")
+  );
+  if (author_runs) {
+    this.authors = author_runs.map((run) => {
+      var _a8, _b3;
+      return {
+        name: run.text,
+        channel_id: isTextRun(run) ? (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId : void 0,
+        endpoint: isTextRun(run) ? run.endpoint : void 0
+      };
+    });
+  }
+  const duration_text = ((_g = (_f = this.flex_columns[1].key("title").instanceof(Text).runs) === null || _f === void 0 ? void 0 : _f.find((run) => /^\d+$/.test(run.text.replace(/:/g, "")))) === null || _g === void 0 ? void 0 : _g.text) || ((_k = (_j = (_h = this.fixed_columns.first()) === null || _h === void 0 ? void 0 : _h.key("title").instanceof(Text).runs) === null || _j === void 0 ? void 0 : _j.find((run) => /^\d+$/.test(run.text.replace(/:/g, "")))) === null || _k === void 0 ? void 0 : _k.text);
+  if (duration_text) {
+    this.duration = {
+      text: duration_text,
+      seconds: timeToSeconds(duration_text)
+    };
+  }
+}, "_MusicResponsiveListItem_parseVideo"), _MusicResponsiveListItem_parseArtist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseArtist2() {
+  var _a7, _b2, _c, _d, _e, _f;
+  this.id = (_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
+  this.name = this.flex_columns.first().key("title").instanceof(Text).toString();
+  this.subtitle = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text);
+  this.subscribers = ((_f = (_e = (_d = this.subtitle) === null || _d === void 0 ? void 0 : _d.runs) === null || _e === void 0 ? void 0 : _e.find((run) => /^(\d*\.)?\d+[M|K]? subscribers?$/i.test(run.text))) === null || _f === void 0 ? void 0 : _f.text) || "";
+}, "_MusicResponsiveListItem_parseArtist"), _MusicResponsiveListItem_parseLibraryArtist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseLibraryArtist2() {
+  var _a7, _b2, _c, _d;
+  this.name = this.flex_columns.first().key("title").instanceof(Text).toString();
+  this.subtitle = (_a7 = this.flex_columns[1]) === null || _a7 === void 0 ? void 0 : _a7.key("title").instanceof(Text);
+  this.song_count = ((_d = (_c = (_b2 = this.subtitle) === null || _b2 === void 0 ? void 0 : _b2.runs) === null || _c === void 0 ? void 0 : _c.find((run) => /^\d+(,\d+)? songs?$/i.test(run.text))) === null || _d === void 0 ? void 0 : _d.text) || "";
+}, "_MusicResponsiveListItem_parseLibraryArtist"), _MusicResponsiveListItem_parseAlbum = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseAlbum2() {
+  var _a7, _b2, _c, _d, _e, _f, _g, _h, _j;
+  this.id = (_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
+  this.title = this.flex_columns.first().title.toString();
+  this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
+  const author_run = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find(
+    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("UC")
+  );
+  if (author_run && isTextRun(author_run)) {
+    this.author = {
+      name: author_run.text,
+      channel_id: (_f = (_e = author_run.endpoint) === null || _e === void 0 ? void 0 : _e.payload) === null || _f === void 0 ? void 0 : _f.browseId,
+      endpoint: author_run.endpoint
+    };
+  }
+  this.year = (_j = (_h = (_g = this.flex_columns[1]) === null || _g === void 0 ? void 0 : _g.key("title").instanceof(Text).runs) === null || _h === void 0 ? void 0 : _h.find(
+    (run) => /^[12][0-9]{3}$/.test(run.text)
+  )) === null || _j === void 0 ? void 0 : _j.text;
+}, "_MusicResponsiveListItem_parseAlbum"), _MusicResponsiveListItem_parsePlaylist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parsePlaylist2() {
+  var _a7, _b2, _c, _d, _e, _f, _g, _h;
+  this.id = (_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
+  this.title = this.flex_columns.first().title.toString();
+  this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
+  const item_count_run = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find((run) => run.text.match(/\d+ (song|songs)/));
+  this.item_count = item_count_run ? item_count_run.text : void 0;
+  const author_run = (_f = (_e = this.flex_columns[1]) === null || _e === void 0 ? void 0 : _e.key("title").instanceof(Text).runs) === null || _f === void 0 ? void 0 : _f.find(
+    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("UC")
+  );
+  if (author_run && isTextRun(author_run)) {
+    this.author = {
+      name: author_run.text,
+      channel_id: (_h = (_g = author_run.endpoint) === null || _g === void 0 ? void 0 : _g.payload) === null || _h === void 0 ? void 0 : _h.browseId,
+      endpoint: author_run.endpoint
+    };
+  }
+}, "_MusicResponsiveListItem_parsePlaylist");
+MusicResponsiveListItem.type = "MusicResponsiveListItem";
+var MusicResponsiveListItem_default = MusicResponsiveListItem;
+
 // dist/src/parser/classes/MusicTwoRowItem.js
 var MusicTwoRowItem = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
+    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.id = ((_b = (_a5 = this.endpoint) === null || _a5 === void 0 ? void 0 : _a5.payload) === null || _b === void 0 ? void 0 : _b.browseId) || ((_d = (_c = this.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.videoId);
-    this.subtitle = new Text_default(data.subtitle);
+    this.id = ((_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) || ((_d = (_c = this.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.videoId);
+    this.subtitle = new Text(data.subtitle);
     this.badges = parser_default.parse(data.subtitleBadges);
     const page_type = (_h = (_g = (_f = (_e = this.endpoint) === null || _e === void 0 ? void 0 : _e.payload) === null || _f === void 0 ? void 0 : _f.browseEndpointContextSupportedConfigs) === null || _g === void 0 ? void 0 : _g.browseEndpointContextMusicConfig) === null || _h === void 0 ? void 0 : _h.pageType;
     switch (page_type) {
@@ -14490,15 +15208,15 @@ var MusicTwoRowItem = class extends YTNode {
       this.item_count = item_count_run ? item_count_run.text : null;
     } else if (this.item_type == "album") {
       const artists = (_q = this.subtitle.runs) === null || _q === void 0 ? void 0 : _q.filter((run) => {
-        var _a6, _b2;
-        return (_b2 = (_a6 = run.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC");
+        var _a8, _b3;
+        return (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC");
       });
       if (artists) {
         this.artists = artists.map((artist) => {
-          var _a6, _b2;
+          var _a8, _b3;
           return {
             name: artist.text,
-            channel_id: (_b2 = (_a6 = artist.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId,
+            channel_id: (_b3 = (_a8 = artist.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
             endpoint: artist.endpoint
           };
         });
@@ -14509,8 +15227,8 @@ var MusicTwoRowItem = class extends YTNode {
     } else if (this.item_type == "video") {
       this.views = ((_t = (_s = this === null || this === void 0 ? void 0 : this.subtitle.runs) === null || _s === void 0 ? void 0 : _s.find((run) => run === null || run === void 0 ? void 0 : run.text.match(/(.*?) views/))) === null || _t === void 0 ? void 0 : _t.text) || "N/A";
       const author = (_u = this.subtitle.runs) === null || _u === void 0 ? void 0 : _u.find((run) => {
-        var _a6, _b2, _c2;
-        return (_c2 = (_b2 = (_a6 = run.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC");
+        var _a8, _b3, _c2;
+        return (_c2 = (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC");
       });
       if (author) {
         this.author = {
@@ -14521,21 +15239,21 @@ var MusicTwoRowItem = class extends YTNode {
       }
     } else if (this.item_type == "song") {
       const artists = (_x = this.subtitle.runs) === null || _x === void 0 ? void 0 : _x.filter((run) => {
-        var _a6, _b2;
-        return (_b2 = (_a6 = run.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC");
+        var _a8, _b3;
+        return (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC");
       });
       if (artists) {
         this.artists = artists.map((artist) => {
-          var _a6, _b2;
+          var _a8, _b3;
           return {
             name: artist === null || artist === void 0 ? void 0 : artist.text,
-            channel_id: (_b2 = (_a6 = artist === null || artist === void 0 ? void 0 : artist.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId,
+            channel_id: (_b3 = (_a8 = artist === null || artist === void 0 ? void 0 : artist.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
             endpoint: artist === null || artist === void 0 ? void 0 : artist.endpoint
           };
         });
       }
     }
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnailRenderer.musicThumbnailRenderer.thumbnail);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnailRenderer.musicThumbnailRenderer.thumbnail);
     this.thumbnail_overlay = parser_default.parseItem(data.thumbnailOverlay, MusicItemThumbnailOverlay_default);
     this.menu = parser_default.parseItem(data.menu, Menu_default);
   }
@@ -14544,292 +15262,15 @@ __name(MusicTwoRowItem, "MusicTwoRowItem");
 MusicTwoRowItem.type = "MusicTwoRowItem";
 var MusicTwoRowItem_default = MusicTwoRowItem;
 
-// dist/src/parser/classes/MusicResponsiveListItemFlexColumn.js
-var MusicResponsiveListItemFlexColumn = class extends YTNode {
-  constructor(data) {
-    super();
-    this.title = new Text_default(data.text);
-    this.display_priority = data.displayPriority;
-  }
-};
-__name(MusicResponsiveListItemFlexColumn, "MusicResponsiveListItemFlexColumn");
-MusicResponsiveListItemFlexColumn.type = "musicResponsiveListItemFlexColumnRenderer";
-var MusicResponsiveListItemFlexColumn_default = MusicResponsiveListItemFlexColumn;
-
-// dist/src/parser/classes/MusicResponsiveListItemFixedColumn.js
-var MusicResponsiveListItemFixedColumn = class extends YTNode {
-  constructor(data) {
-    super();
-    this.title = new Text_default(data.text);
-    this.display_priority = data.displayPriority;
-  }
-};
-__name(MusicResponsiveListItemFixedColumn, "MusicResponsiveListItemFixedColumn");
-MusicResponsiveListItemFixedColumn.type = "musicResponsiveListItemFlexColumnRenderer";
-var MusicResponsiveListItemFixedColumn_default = MusicResponsiveListItemFixedColumn;
-
-// dist/src/parser/classes/MusicResponsiveListItem.js
-var __classPrivateFieldSet8 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet8 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _MusicResponsiveListItem_instances;
-var _MusicResponsiveListItem_flex_columns;
-var _MusicResponsiveListItem_fixed_columns;
-var _MusicResponsiveListItem_playlist_item_data;
-var _MusicResponsiveListItem_parseOther;
-var _MusicResponsiveListItem_parseVideoOrSong;
-var _MusicResponsiveListItem_parseSong;
-var _MusicResponsiveListItem_parseVideo;
-var _MusicResponsiveListItem_parseArtist;
-var _MusicResponsiveListItem_parseLibraryArtist;
-var _MusicResponsiveListItem_parseAlbum;
-var _MusicResponsiveListItem_parsePlaylist;
-var MusicResponsiveListItem = class extends YTNode {
-  constructor(data) {
-    var _a5, _b, _c, _d, _e, _f, _g;
-    super();
-    _MusicResponsiveListItem_instances.add(this);
-    _MusicResponsiveListItem_flex_columns.set(this, void 0);
-    _MusicResponsiveListItem_fixed_columns.set(this, void 0);
-    _MusicResponsiveListItem_playlist_item_data.set(this, void 0);
-    __classPrivateFieldSet8(this, _MusicResponsiveListItem_flex_columns, parser_default.parseArray(data.flexColumns, MusicResponsiveListItemFlexColumn_default), "f");
-    __classPrivateFieldSet8(this, _MusicResponsiveListItem_fixed_columns, parser_default.parseArray(data.fixedColumns, MusicResponsiveListItemFixedColumn_default), "f");
-    __classPrivateFieldSet8(this, _MusicResponsiveListItem_playlist_item_data, {
-      video_id: ((_a5 = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _a5 === void 0 ? void 0 : _a5.videoId) || null,
-      playlist_set_video_id: ((_b = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _b === void 0 ? void 0 : _b.playlistSetVideoId) || null
-    }, "f");
-    this.endpoint = data.navigationEndpoint ? new NavigationEndpoint_default(data.navigationEndpoint) : null;
-    const page_type = (_f = (_e = (_d = (_c = this.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.browseEndpointContextSupportedConfigs) === null || _e === void 0 ? void 0 : _e.browseEndpointContextMusicConfig) === null || _f === void 0 ? void 0 : _f.pageType;
-    switch (page_type) {
-      case "MUSIC_PAGE_TYPE_ALBUM":
-        this.item_type = "album";
-        __classPrivateFieldGet8(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseAlbum).call(this);
-        break;
-      case "MUSIC_PAGE_TYPE_PLAYLIST":
-        this.item_type = "playlist";
-        __classPrivateFieldGet8(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parsePlaylist).call(this);
-        break;
-      case "MUSIC_PAGE_TYPE_ARTIST":
-      case "MUSIC_PAGE_TYPE_USER_CHANNEL":
-        this.item_type = "artist";
-        __classPrivateFieldGet8(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseArtist).call(this);
-        break;
-      case "MUSIC_PAGE_TYPE_LIBRARY_ARTIST":
-        this.item_type = "library_artist";
-        __classPrivateFieldGet8(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseLibraryArtist).call(this);
-        break;
-      default:
-        if (__classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1]) {
-          __classPrivateFieldGet8(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseVideoOrSong).call(this);
-        } else {
-          __classPrivateFieldGet8(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseOther).call(this);
-        }
-        break;
-    }
-    if (data.index) {
-      this.index = new Text_default(data.index);
-    }
-    this.thumbnails = data.thumbnail ? Thumbnail_default.fromResponse((_g = data.thumbnail.musicThumbnailRenderer) === null || _g === void 0 ? void 0 : _g.thumbnail) : [];
-    this.badges = parser_default.parseArray(data.badges);
-    this.menu = parser_default.parseItem(data.menu, Menu_default);
-    this.overlay = parser_default.parseItem(data.overlay, MusicItemThumbnailOverlay_default);
-  }
-};
-__name(MusicResponsiveListItem, "MusicResponsiveListItem");
-_MusicResponsiveListItem_flex_columns = /* @__PURE__ */ new WeakMap(), _MusicResponsiveListItem_fixed_columns = /* @__PURE__ */ new WeakMap(), _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _MusicResponsiveListItem_instances = /* @__PURE__ */ new WeakSet(), _MusicResponsiveListItem_parseOther = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseOther2() {
-  this.title = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[0].key("title").instanceof(Text_default).toString();
-  if (this.endpoint) {
-    this.item_type = "endpoint";
-  } else {
-    this.item_type = "unknown";
-  }
-}, "_MusicResponsiveListItem_parseOther"), _MusicResponsiveListItem_parseVideoOrSong = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseVideoOrSong2() {
-  var _a5;
-  const is_video = (_a5 = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _a5 === void 0 ? void 0 : _a5.some((run) => run.text.match(/(.*?) views/));
-  if (is_video) {
-    this.item_type = "video";
-    __classPrivateFieldGet8(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseVideo).call(this);
-  } else {
-    this.item_type = "song";
-    __classPrivateFieldGet8(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseSong).call(this);
-  }
-}, "_MusicResponsiveListItem_parseVideoOrSong"), _MusicResponsiveListItem_parseSong = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseSong2() {
-  var _a5, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
-  this.id = __classPrivateFieldGet8(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id || ((_b = (_a5 = this.endpoint) === null || _a5 === void 0 ? void 0 : _a5.payload) === null || _b === void 0 ? void 0 : _b.videoId);
-  this.title = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[0].key("title").instanceof(Text_default).toString();
-  this.subtitle = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default);
-  const duration_text = ((_d = (_c = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _c === void 0 ? void 0 : _c.find((run) => /^\d+$/.test(run.text.replace(/:/g, "")))) === null || _d === void 0 ? void 0 : _d.text) || ((_g = (_f = (_e = __classPrivateFieldGet8(this, _MusicResponsiveListItem_fixed_columns, "f")) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.key("title").instanceof(Text_default)) === null || _g === void 0 ? void 0 : _g.toString());
-  duration_text && (this.duration = {
-    text: duration_text,
-    seconds: timeToSeconds(duration_text)
-  });
-  const album = ((_h = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _h === void 0 ? void 0 : _h.find((run) => {
-    var _a6, _b2;
-    return (_b2 = (_a6 = Reflect.get(run, "endpoint")) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("MPR");
-  })) || ((_k = (_j = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[2]) === null || _j === void 0 ? void 0 : _j.key("title").instanceof(Text_default).runs) === null || _k === void 0 ? void 0 : _k.find((run) => {
-    var _a6, _b2;
-    return (_b2 = (_a6 = Reflect.get(run, "endpoint")) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("MPR");
-  }));
-  if (album) {
-    this.album = {
-      id: (_m = (_l = album.endpoint) === null || _l === void 0 ? void 0 : _l.payload) === null || _m === void 0 ? void 0 : _m.browseId,
-      name: album.text,
-      endpoint: album.endpoint
-    };
-  }
-  const artists = (_o = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _o === void 0 ? void 0 : _o.filter((run) => {
-    var _a6, _b2;
-    return (_b2 = (_a6 = Reflect.get(run, "endpoint")) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC");
-  });
-  if (artists) {
-    this.artists = artists.map((artist) => {
-      var _a6, _b2;
-      return {
-        name: artist.text,
-        channel_id: (_b2 = (_a6 = artist.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId,
-        endpoint: artist.endpoint
-      };
-    });
-  }
-}, "_MusicResponsiveListItem_parseSong"), _MusicResponsiveListItem_parseVideo = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseVideo2() {
-  var _a5, _b, _c, _d, _e, _f, _g, _h;
-  this.id = __classPrivateFieldGet8(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id;
-  this.title = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[0].key("title").instanceof(Text_default).toString();
-  this.subtitle = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default);
-  this.views = (_b = (_a5 = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _a5 === void 0 ? void 0 : _a5.find((run) => run.text.match(/(.*?) views/))) === null || _b === void 0 ? void 0 : _b.text;
-  const authors = (_c = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _c === void 0 ? void 0 : _c.filter((run) => {
-    var _a6, _b2;
-    return (_b2 = (_a6 = Reflect.get(run, "endpoint")) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC");
-  });
-  if (authors) {
-    this.authors = authors.map((author) => {
-      var _a6, _b2;
-      return {
-        name: author.text,
-        channel_id: (_b2 = (_a6 = author.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId,
-        endpoint: author.endpoint
-      };
-    });
-  }
-  const duration_text = ((_e = (_d = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _d === void 0 ? void 0 : _d.find((run) => /^\d+$/.test(run.text.replace(/:/g, "")))) === null || _e === void 0 ? void 0 : _e.text) || ((_h = (_g = (_f = __classPrivateFieldGet8(this, _MusicResponsiveListItem_fixed_columns, "f")[0]) === null || _f === void 0 ? void 0 : _f.key("title").instanceof(Text_default).runs) === null || _g === void 0 ? void 0 : _g.find((run) => /^\d+$/.test(run.text.replace(/:/g, "")))) === null || _h === void 0 ? void 0 : _h.text);
-  duration_text && (this.duration = {
-    text: duration_text,
-    seconds: timeToSeconds(duration_text)
-  });
-}, "_MusicResponsiveListItem_parseVideo"), _MusicResponsiveListItem_parseArtist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseArtist2() {
-  var _a5, _b, _c, _d;
-  this.id = (_b = (_a5 = this.endpoint) === null || _a5 === void 0 ? void 0 : _a5.payload) === null || _b === void 0 ? void 0 : _b.browseId;
-  this.name = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[0].key("title").instanceof(Text_default).toString();
-  this.subtitle = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default);
-  this.subscribers = ((_d = (_c = this.subtitle.runs) === null || _c === void 0 ? void 0 : _c.find((run) => /^(\d*\.)?\d+[M|K]? subscribers?$/i.test(run.text))) === null || _d === void 0 ? void 0 : _d.text) || "";
-}, "_MusicResponsiveListItem_parseArtist"), _MusicResponsiveListItem_parseLibraryArtist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseLibraryArtist2() {
-  var _a5, _b, _c;
-  this.name = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[0].key("title").instanceof(Text_default).toString();
-  this.subtitle = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default);
-  this.song_count = ((_c = (_b = (_a5 = this.subtitle) === null || _a5 === void 0 ? void 0 : _a5.runs) === null || _b === void 0 ? void 0 : _b.find((run) => /^\d+(,\d+)? songs?$/i.test(run.text))) === null || _c === void 0 ? void 0 : _c.text) || "";
-}, "_MusicResponsiveListItem_parseLibraryArtist"), _MusicResponsiveListItem_parseAlbum = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseAlbum2() {
-  var _a5, _b, _c, _d, _e, _f, _g;
-  this.id = (_b = (_a5 = this.endpoint) === null || _a5 === void 0 ? void 0 : _a5.payload) === null || _b === void 0 ? void 0 : _b.browseId;
-  this.title = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[0].key("title").instanceof(Text_default).toString();
-  this.subtitle = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default);
-  const author = (_c = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _c === void 0 ? void 0 : _c.find((run) => {
-    var _a6, _b2;
-    return (_b2 = (_a6 = Reflect.get(run, "endpoint")) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC");
-  });
-  author && (this.author = {
-    name: author.text,
-    channel_id: (_e = (_d = author.endpoint) === null || _d === void 0 ? void 0 : _d.payload) === null || _e === void 0 ? void 0 : _e.browseId,
-    endpoint: author.endpoint
-  });
-  this.year = (_g = (_f = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _f === void 0 ? void 0 : _f.find((run) => /^[12][0-9]{3}$/.test(run.text))) === null || _g === void 0 ? void 0 : _g.text;
-}, "_MusicResponsiveListItem_parseAlbum"), _MusicResponsiveListItem_parsePlaylist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parsePlaylist2() {
-  var _a5, _b, _c, _d, _e, _f;
-  this.id = (_b = (_a5 = this.endpoint) === null || _a5 === void 0 ? void 0 : _a5.payload) === null || _b === void 0 ? void 0 : _b.browseId;
-  this.title = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[0].key("title").instanceof(Text_default).toString();
-  this.subtitle = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default);
-  const item_count_run = (_c = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _c === void 0 ? void 0 : _c.find((run) => run.text.match(/\d+ (song|songs)/));
-  this.item_count = item_count_run ? item_count_run.text : void 0;
-  const author = (_d = __classPrivateFieldGet8(this, _MusicResponsiveListItem_flex_columns, "f")[1].key("title").instanceof(Text_default).runs) === null || _d === void 0 ? void 0 : _d.find((run) => {
-    var _a6, _b2;
-    return (_b2 = (_a6 = Reflect.get(run, "endpoint")) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC");
-  });
-  if (author) {
-    this.author = {
-      name: author.text,
-      channel_id: (_f = (_e = author.endpoint) === null || _e === void 0 ? void 0 : _e.payload) === null || _f === void 0 ? void 0 : _f.browseId,
-      endpoint: author.endpoint
-    };
-  }
-}, "_MusicResponsiveListItem_parsePlaylist");
-MusicResponsiveListItem.type = "MusicResponsiveListItem";
-var MusicResponsiveListItem_default = MusicResponsiveListItem;
-
-// dist/src/parser/classes/MusicThumbnail.js
-var MusicThumbnail = class extends YTNode {
-  constructor(data) {
-    super();
-    this.contents = Thumbnail_default.fromResponse(data.thumbnail);
-  }
-};
-__name(MusicThumbnail, "MusicThumbnail");
-MusicThumbnail.type = "MusicThumbnail";
-var MusicThumbnail_default = MusicThumbnail;
-
-// dist/src/parser/classes/MusicCarouselShelfBasicHeader.js
-var MusicCarouselShelfBasicHeader = class extends YTNode {
-  constructor(data) {
-    super();
-    if (data.strapline) {
-      this.strapline = new Text_default(data.strapline);
-    }
-    this.title = new Text_default(data.title);
-    if (data.thumbnail) {
-      this.thumbnail = parser_default.parseItem(data.thumbnail, MusicThumbnail_default);
-    }
-    if (data.moreContentButton) {
-      this.more_content = parser_default.parseItem(data.moreContentButton, Button_default);
-    }
-    if (data.endIcons) {
-      this.end_icons = parser_default.parseArray(data.endIcons, IconLink_default);
-    }
-  }
-};
-__name(MusicCarouselShelfBasicHeader, "MusicCarouselShelfBasicHeader");
-MusicCarouselShelfBasicHeader.type = "MusicCarouselShelfBasicHeader";
-var MusicCarouselShelfBasicHeader_default = MusicCarouselShelfBasicHeader;
-
-// dist/src/parser/classes/MusicNavigationButton.js
-var MusicNavigationButton = class extends YTNode {
-  constructor(data) {
-    super();
-    this.button_text = new Text_default(data.buttonText).toString();
-    this.endpoint = new NavigationEndpoint_default(data.clickCommand);
-  }
-};
-__name(MusicNavigationButton, "MusicNavigationButton");
-MusicNavigationButton.type = "MusicNavigationButton";
-var MusicNavigationButton_default = MusicNavigationButton;
-
 // dist/src/parser/classes/MusicCarouselShelf.js
 var MusicCarouselShelf = class extends YTNode {
   constructor(data) {
     super();
     this.header = parser_default.parseItem(data.header, MusicCarouselShelfBasicHeader_default);
     this.contents = parser_default.parseArray(data.contents, [MusicTwoRowItem_default, MusicResponsiveListItem_default, MusicNavigationButton_default]);
-    this.num_items_per_column = Reflect.has(data, "numItemsPerColumn") ? parseInt(data.numItemsPerColumn) : null;
+    if (Reflect.has(data, "numItemsPerColumn")) {
+      this.num_items_per_column = parseInt(data.numItemsPerColumn);
+    }
   }
 };
 __name(MusicCarouselShelf, "MusicCarouselShelf");
@@ -14840,14 +15281,14 @@ var MusicCarouselShelf_default = MusicCarouselShelf;
 var MusicDescriptionShelf = class extends YTNode {
   constructor(data) {
     super();
-    this.description = new Text_default(data.description);
-    if (this.max_collapsed_lines) {
+    this.description = new Text(data.description);
+    if (Reflect.has(data, "maxCollapsedLines")) {
       this.max_collapsed_lines = data.maxCollapsedLines;
     }
-    if (this.max_expanded_lines) {
+    if (Reflect.has(data, "maxExpandedLines")) {
       this.max_expanded_lines = data.maxExpandedLines;
     }
-    this.footer = new Text_default(data.footer);
+    this.footer = new Text(data.footer);
   }
 };
 __name(MusicDescriptionShelf, "MusicDescriptionShelf");
@@ -14857,20 +15298,20 @@ var MusicDescriptionShelf_default = MusicDescriptionShelf;
 // dist/src/parser/classes/MusicDetailHeader.js
 var MusicDetailHeader = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h, _j;
+    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j;
     super();
-    this.title = new Text_default(data.title);
-    this.description = new Text_default(data.description);
-    this.subtitle = new Text_default(data.subtitle);
-    this.second_subtitle = new Text_default(data.secondSubtitle);
-    this.year = ((_b = (_a5 = this.subtitle.runs) === null || _a5 === void 0 ? void 0 : _a5.find((run) => /^[12][0-9]{3}$/.test(run.text))) === null || _b === void 0 ? void 0 : _b.text) || "";
+    this.title = new Text(data.title);
+    this.description = new Text(data.description);
+    this.subtitle = new Text(data.subtitle);
+    this.second_subtitle = new Text(data.secondSubtitle);
+    this.year = ((_b2 = (_a7 = this.subtitle.runs) === null || _a7 === void 0 ? void 0 : _a7.find((run) => /^[12][0-9]{3}$/.test(run.text))) === null || _b2 === void 0 ? void 0 : _b2.text) || "";
     this.song_count = ((_d = (_c = this.second_subtitle.runs) === null || _c === void 0 ? void 0 : _c[0]) === null || _d === void 0 ? void 0 : _d.text) || "";
     this.total_duration = ((_f = (_e = this.second_subtitle.runs) === null || _e === void 0 ? void 0 : _e[2]) === null || _f === void 0 ? void 0 : _f.text) || "";
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail.croppedSquareThumbnailRenderer.thumbnail);
-    this.badges = parser_default.parse(data.subtitleBadges);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail.croppedSquareThumbnailRenderer.thumbnail);
+    this.badges = parser_default.parseArray(data.subtitleBadges);
     const author = (_g = this.subtitle.runs) === null || _g === void 0 ? void 0 : _g.find((run) => {
-      var _a6, _b2;
-      return (_b2 = (_a6 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC");
+      var _a8, _b3;
+      return (_b3 = (_a8 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC");
     });
     if (author) {
       this.author = {
@@ -14879,7 +15320,7 @@ var MusicDetailHeader = class extends YTNode {
         endpoint: author.endpoint
       };
     }
-    this.menu = parser_default.parse(data.menu);
+    this.menu = parser_default.parseItem(data.menu);
   }
 };
 __name(MusicDetailHeader, "MusicDetailHeader");
@@ -14902,7 +15343,7 @@ var MusicDownloadStateBadge_default = MusicDownloadStateBadge;
 var MusicEditablePlaylistDetailHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.header = parser_default.parse(data.header);
+    this.header = parser_default.parseItem(data.header);
   }
 };
 __name(MusicEditablePlaylistDetailHeader, "MusicEditablePlaylistDetailHeader");
@@ -14924,11 +15365,11 @@ var MusicElementHeader_default = MusicElementHeader;
 var MusicHeader = class extends YTNode {
   constructor(data) {
     super();
-    if (data.header) {
-      this.header = parser_default.parse(data.header);
+    if (Reflect.has(data, "header")) {
+      this.header = parser_default.parseItem(data.header);
     }
-    if (data.title) {
-      this.title = new Text_default(data.title);
+    if (Reflect.has(data, "title")) {
+      this.title = new Text(data.title);
     }
   }
 };
@@ -14940,8 +15381,8 @@ var MusicHeader_default = MusicHeader;
 var MusicImmersiveHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.description = new Text_default(data.description);
+    this.title = new Text(data.title);
+    this.description = new Text(data.description);
     this.thumbnail = parser_default.parseItem(data.thumbnail, MusicThumbnail_default);
     this.play_button = parser_default.parseItem(data.playButton, Button_default);
     this.start_radio_button = parser_default.parseItem(data.startRadioButton, Button_default);
@@ -14950,18 +15391,6 @@ var MusicImmersiveHeader = class extends YTNode {
 __name(MusicImmersiveHeader, "MusicImmersiveHeader");
 MusicImmersiveHeader.type = "MusicImmersiveHeader";
 var MusicImmersiveHeader_default = MusicImmersiveHeader;
-
-// dist/src/parser/classes/MusicInlineBadge.js
-var MusicInlineBadge = class extends YTNode {
-  constructor(data) {
-    super();
-    this.icon_type = data.icon.iconType;
-    this.label = data.accessibilityData.accessibilityData.label;
-  }
-};
-__name(MusicInlineBadge, "MusicInlineBadge");
-MusicInlineBadge.type = "MusicInlineBadge";
-var MusicInlineBadge_default = MusicInlineBadge;
 
 // dist/src/parser/classes/MusicLargeCardItemCarousel.js
 var ActionButton = class {
@@ -15000,29 +15429,93 @@ var MusicLargeCardItemCarousel_default = MusicLargeCardItemCarousel;
 // dist/src/parser/classes/MusicPlaylistShelf.js
 var MusicPlaylistShelf = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     super();
     this.playlist_id = data.playlistId;
     this.contents = parser_default.parseArray(data.contents, MusicResponsiveListItem_default);
     this.collapsed_item_count = data.collapsedItemCount;
-    this.continuation = ((_c = (_b = (_a5 = data.continuations) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || null;
+    this.continuation = ((_c = (_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || null;
   }
 };
 __name(MusicPlaylistShelf, "MusicPlaylistShelf");
 MusicPlaylistShelf.type = "MusicPlaylistShelf";
 var MusicPlaylistShelf_default = MusicPlaylistShelf;
 
+// dist/src/parser/classes/PlaylistPanelVideo.js
+var PlaylistPanelVideo = class extends YTNode {
+  constructor(data) {
+    var _a7, _b2, _c, _d, _e;
+    super();
+    this.title = new Text(data.title);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    this.selected = data.selected;
+    this.video_id = data.videoId;
+    this.duration = {
+      text: new Text(data.lengthText).toString(),
+      seconds: timeToSeconds(new Text(data.lengthText).toString())
+    };
+    const album = (_a7 = new Text(data.longBylineText).runs) === null || _a7 === void 0 ? void 0 : _a7.find((run) => {
+      var _a8, _b3, _c2;
+      return (_c2 = (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("MPR");
+    });
+    const artists = (_b2 = new Text(data.longBylineText).runs) === null || _b2 === void 0 ? void 0 : _b2.filter((run) => {
+      var _a8, _b3, _c2;
+      return (_c2 = (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC");
+    });
+    this.author = new Text(data.shortBylineText).toString();
+    if (album) {
+      this.album = {
+        id: (_d = (_c = album.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.browseId,
+        name: album.text,
+        year: (_e = new Text(data.longBylineText).runs) === null || _e === void 0 ? void 0 : _e.slice(-1)[0].text,
+        endpoint: album.endpoint
+      };
+    }
+    if (artists) {
+      this.artists = artists.map((artist) => {
+        var _a8, _b3;
+        return {
+          name: artist.text,
+          channel_id: (_b3 = (_a8 = artist.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
+          endpoint: artist.endpoint
+        };
+      });
+    }
+    this.badges = parser_default.parseArray(data.badges);
+    this.menu = parser_default.parseItem(data.menu);
+    this.set_video_id = data.playlistSetVideoId;
+  }
+};
+__name(PlaylistPanelVideo, "PlaylistPanelVideo");
+PlaylistPanelVideo.type = "PlaylistPanelVideo";
+var PlaylistPanelVideo_default = PlaylistPanelVideo;
+
+// dist/src/parser/classes/PlaylistPanelVideoWrapper.js
+var PlaylistPanelVideoWrapper = class extends YTNode {
+  constructor(data) {
+    super();
+    this.primary = parser_default.parseItem(data.primaryRenderer, PlaylistPanelVideo_default);
+    if (Reflect.has(data, "counterpart")) {
+      this.counterpart = observe(data.counterpart.map((item) => parser_default.parseItem(item.counterpartRenderer, PlaylistPanelVideo_default)) || []);
+    }
+  }
+};
+__name(PlaylistPanelVideoWrapper, "PlaylistPanelVideoWrapper");
+PlaylistPanelVideoWrapper.type = "PlaylistPanelVideoWrapper";
+var PlaylistPanelVideoWrapper_default = PlaylistPanelVideoWrapper;
+
 // dist/src/parser/classes/PlaylistPanel.js
 var PlaylistPanel = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d, _e, _f;
+    var _a7, _b2, _c, _d, _e, _f;
     super();
     this.title = data.title;
-    this.title_text = new Text_default(data.titleText);
-    this.contents = parser_default.parseArray(data.contents);
+    this.title_text = new Text(data.titleText);
+    this.contents = parser_default.parseArray(data.contents, [PlaylistPanelVideoWrapper_default, PlaylistPanelVideo_default, AutomixPreviewVideo_default]);
     this.playlist_id = data.playlistId;
     this.is_infinite = data.isInfinite;
-    this.continuation = ((_c = (_b = (_a5 = data.continuations) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.nextRadioContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || ((_f = (_e = (_d = data.continuations) === null || _d === void 0 ? void 0 : _d[0]) === null || _e === void 0 ? void 0 : _e.nextContinuationData) === null || _f === void 0 ? void 0 : _f.continuation);
+    this.continuation = ((_c = (_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.nextRadioContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || ((_f = (_e = (_d = data.continuations) === null || _d === void 0 ? void 0 : _d[0]) === null || _e === void 0 ? void 0 : _e.nextContinuationData) === null || _f === void 0 ? void 0 : _f.continuation);
     this.is_editable = data.isEditable;
     this.preview_description = data.previewDescription;
     this.num_items_to_show = data.numItemsToShow;
@@ -15046,23 +15539,23 @@ var MusicQueue_default = MusicQueue;
 // dist/src/parser/classes/MusicShelf.js
 var MusicShelf = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d;
+    var _a7, _b2, _c, _d;
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.contents = parser_default.parseArray(data.contents, MusicResponsiveListItem_default);
-    if (data.bottomEndpoint) {
+    if (Reflect.has(data, "bottomEndpoint")) {
       this.endpoint = new NavigationEndpoint_default(data.bottomEndpoint);
     }
-    if (data.continuations) {
-      this.continuation = ((_b = (_a5 = data.continuations) === null || _a5 === void 0 ? void 0 : _a5[0].nextContinuationData) === null || _b === void 0 ? void 0 : _b.continuation) || ((_d = (_c = data.continuations) === null || _c === void 0 ? void 0 : _c[0].reloadContinuationData) === null || _d === void 0 ? void 0 : _d.continuation);
+    if (Reflect.has(data, "continuations")) {
+      this.continuation = ((_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0].nextContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation) || ((_d = (_c = data.continuations) === null || _c === void 0 ? void 0 : _c[0].reloadContinuationData) === null || _d === void 0 ? void 0 : _d.continuation);
     }
-    if (data.bottomText) {
-      this.bottom_text = new Text_default(data.bottomText);
+    if (Reflect.has(data, "bottomText")) {
+      this.bottom_text = new Text(data.bottomText);
     }
-    if (data.bottomButton) {
-      this.bottom_button = parser_default.parseItem(data.bottomButton);
+    if (Reflect.has(data, "bottomButton")) {
+      this.bottom_button = parser_default.parseItem(data.bottomButton, Button_default);
     }
-    if (data.subheaders) {
+    if (Reflect.has(data, "subheaders")) {
       this.subheaders = parser_default.parseArray(data.subheaders);
     }
   }
@@ -15075,10 +15568,10 @@ var MusicShelf_default = MusicShelf;
 var MusicSideAlignedItem = class extends YTNode {
   constructor(data) {
     super();
-    if (data.startItems) {
+    if (Reflect.has(data, "startItems")) {
       this.start_items = parser_default.parseArray(data.startItems);
     }
-    if (data.endItems) {
+    if (Reflect.has(data, "endItems")) {
       this.end_items = parser_default.parseArray(data.endItems);
     }
   }
@@ -15090,10 +15583,11 @@ var MusicSideAlignedItem_default = MusicSideAlignedItem;
 // dist/src/parser/classes/MusicSortFilterButton.js
 var MusicSortFilterButton = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
-    this.title = new Text_default(data.title).text;
-    this.icon_type = ((_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.icon_type) || null;
+    this.title = new Text(data.title).toString();
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = data.icon.iconType;
+    }
     this.menu = parser_default.parseItem(data.menu, MusicMultiSelectMenu_default);
   }
 };
@@ -15101,15 +15595,41 @@ __name(MusicSortFilterButton, "MusicSortFilterButton");
 MusicSortFilterButton.type = "MusicSortFilterButton";
 var MusicSortFilterButton_default = MusicSortFilterButton;
 
+// dist/src/parser/classes/MusicTastebuilderShelfThumbnail.js
+var MusicTastebuilderShelfThumbnail = class extends YTNode {
+  constructor(data) {
+    super();
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+  }
+};
+__name(MusicTastebuilderShelfThumbnail, "MusicTastebuilderShelfThumbnail");
+MusicTastebuilderShelfThumbnail.type = "MusicTastebuilderShelfThumbnail";
+var MusicTastebuilderShelfThumbnail_default = MusicTastebuilderShelfThumbnail;
+
+// dist/src/parser/classes/MusicTastebuilderShelf.js
+var MusicTasteBuilderShelf = class extends YTNode {
+  constructor(data) {
+    super();
+    this.thumbnail = parser_default.parseItem(data.thumbnail, MusicTastebuilderShelfThumbnail_default);
+    this.primary_text = new Text(data.primaryText);
+    this.secondary_text = new Text(data.secondaryText);
+    this.action_button = parser_default.parseItem(data.actionButton, Button_default);
+    this.is_visible = data.isVisible;
+  }
+};
+__name(MusicTasteBuilderShelf, "MusicTasteBuilderShelf");
+MusicTasteBuilderShelf.type = "MusicTasteBuilderShelf";
+var MusicTastebuilderShelf_default = MusicTasteBuilderShelf;
+
 // dist/src/parser/classes/MusicVisualHeader.js
 var MusicVisualHeader = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
-    this.title = new Text_default(data.title);
-    this.thumbnails = data.thumbnail ? Thumbnail_default.fromResponse((_a5 = data.thumbnail.musicThumbnailRenderer) === null || _a5 === void 0 ? void 0 : _a5.thumbnail) : [];
+    this.title = new Text(data.title);
+    this.thumbnail = data.thumbnail ? Thumbnail.fromResponse((_a7 = data.thumbnail.musicThumbnailRenderer) === null || _a7 === void 0 ? void 0 : _a7.thumbnail) : [];
     this.menu = parser_default.parseItem(data.menu, Menu_default);
-    this.foreground_thumbnails = data.foregroundThumbnail ? Thumbnail_default.fromResponse((_b = data.foregroundThumbnail.musicThumbnailRenderer) === null || _b === void 0 ? void 0 : _b.thumbnail) : [];
+    this.foreground_thumbnail = data.foregroundThumbnail ? Thumbnail.fromResponse((_b2 = data.foregroundThumbnail.musicThumbnailRenderer) === null || _b2 === void 0 ? void 0 : _b2.thumbnail) : [];
   }
 };
 __name(MusicVisualHeader, "MusicVisualHeader");
@@ -15120,14 +15640,14 @@ var MusicVisualHeader_default = MusicVisualHeader;
 var Notification = class extends YTNode {
   constructor(data) {
     super();
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.video_thumbnails = Thumbnail_default.fromResponse(data.videoThumbnail);
-    this.short_message = new Text_default(data.shortMessage);
-    this.sent_time = new Text_default(data.sentTimeText);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.video_thumbnails = Thumbnail.fromResponse(data.videoThumbnail);
+    this.short_message = new Text(data.shortMessage);
+    this.sent_time = new Text(data.sentTimeText);
     this.notification_id = data.notificationId;
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.record_click_endpoint = new NavigationEndpoint_default(data.recordClickEndpoint);
-    this.menu = parser_default.parse(data.contextualMenu);
+    this.menu = parser_default.parseItem(data.contextualMenu);
     this.read = data.read;
   }
 };
@@ -15139,9 +15659,9 @@ var Notification_default = Notification;
 var PageIntroduction = class extends YTNode {
   constructor(data) {
     super();
-    this.header_text = new Text_default(data.headerText).toString();
-    this.body_text = new Text_default(data.bodyText).toString();
-    this.page_title = new Text_default(data.pageTitle).toString();
+    this.header_text = new Text(data.headerText).toString();
+    this.body_text = new Text(data.bodyText).toString();
+    this.page_title = new Text(data.pageTitle).toString();
     this.header_icon_type = data.headerIcon.iconType;
   }
 };
@@ -15149,67 +15669,17 @@ __name(PageIntroduction, "PageIntroduction");
 PageIntroduction.type = "PageIntroduction";
 var PageIntroduction_default = PageIntroduction;
 
-// dist/src/parser/classes/PlayerAnnotationsExpanded.js
-var PlayerAnnotationsExpanded = class extends YTNode {
-  constructor(data) {
-    super();
-    this.featured_channel = {
-      start_time_ms: data.featuredChannel.startTimeMs,
-      end_time_ms: data.featuredChannel.endTimeMs,
-      watermark: Thumbnail_default.fromResponse(data.featuredChannel.watermark),
-      channel_name: data.featuredChannel.channelName,
-      endpoint: new NavigationEndpoint_default(data.featuredChannel.navigationEndpoint),
-      subscribe_button: parser_default.parse(data.featuredChannel.subscribeButton)
-    };
-    this.allow_swipe_dismiss = data.allowSwipeDismiss;
-    this.annotation_id = data.annotationId;
-  }
-};
-__name(PlayerAnnotationsExpanded, "PlayerAnnotationsExpanded");
-PlayerAnnotationsExpanded.type = "PlayerAnnotationsExpanded";
-var PlayerAnnotationsExpanded_default = PlayerAnnotationsExpanded;
-
-// dist/src/parser/classes/PlayerCaptionsTracklist.js
-var PlayerCaptionsTracklist = class extends YTNode {
-  constructor(data) {
-    super();
-    this.caption_tracks = data.captionTracks.map((ct) => ({
-      base_url: ct.baseUrl,
-      name: new Text_default(ct.name),
-      vss_id: ct.vssId,
-      language_code: ct.languageCode,
-      kind: ct.kind,
-      is_translatable: ct.isTranslatable
-    }));
-    this.audio_tracks = data.audioTracks.map((at) => ({
-      audio_track_id: at.audioTrackId,
-      captions_initial_state: at.captionsInitialState,
-      default_caption_track_index: at.defaultCaptionTrackIndex,
-      has_default_track: at.hasDefaultTrack,
-      visibility: at.visibility,
-      caption_track_indices: at.captionTrackIndices
-    }));
-    this.default_audio_track_index = data.defaultAudioTrackIndex;
-    this.translation_languages = data.translationLanguages.map((tl) => ({
-      language_code: tl.languageCode,
-      language_name: new Text_default(tl.languageName)
-    }));
-  }
-};
-__name(PlayerCaptionsTracklist, "PlayerCaptionsTracklist");
-PlayerCaptionsTracklist.type = "PlayerCaptionsTracklist";
-var PlayerCaptionsTracklist_default = PlayerCaptionsTracklist;
-
 // dist/src/parser/classes/PlayerErrorMessage.js
 var PlayerErrorMessage = class extends YTNode {
   constructor(data) {
-    var _a5;
     super();
-    this.subreason = new Text_default(data.subreason);
-    this.reason = new Text_default(data.reason);
+    this.subreason = new Text(data.subreason);
+    this.reason = new Text(data.reason);
     this.proceed_button = parser_default.parseItem(data.proceedButton, Button_default);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.icon_type = ((_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType) || null;
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = data.icon.iconType;
+    }
   }
 };
 __name(PlayerErrorMessage, "PlayerErrorMessage");
@@ -15254,32 +15724,22 @@ var PlayerLegacyDesktopYpcTrailer = class extends YTNode {
     this.offer_id = data.offerId;
     this.offer_button_text = data.offerButtonText;
     this.video_message = data.fullVideoMessage;
-    this.trailer = Parser.parseItem(data.ypcTrailer, YpcTrailer_default);
+    this.trailer = parser_default2.parseItem(data.ypcTrailer, YpcTrailer_default);
   }
 };
 __name(PlayerLegacyDesktopYpcTrailer, "PlayerLegacyDesktopYpcTrailer");
 PlayerLegacyDesktopYpcTrailer.type = "PlayerLegacyDesktopYpcTrailer";
 var PlayerLegacyDesktopYpcTrailer_default = PlayerLegacyDesktopYpcTrailer;
 
-// dist/src/parser/classes/PlayerLiveStoryboardSpec.js
-var PlayerLiveStoryboardSpec = class extends YTNode {
-  constructor() {
-    super();
-  }
-};
-__name(PlayerLiveStoryboardSpec, "PlayerLiveStoryboardSpec");
-PlayerLiveStoryboardSpec.type = "PlayerLiveStoryboardSpec";
-var PlayerLiveStoryboardSpec_default = PlayerLiveStoryboardSpec;
-
 // dist/src/parser/classes/PlayerMicroformat.js
 var PlayerMicroformat = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
-    this.title = new Text_default(data.title);
-    this.description = new Text_default(data.description);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    if (data.embed) {
+    this.title = new Text(data.title);
+    this.description = new Text(data.description);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    if (Reflect.has(data, "embed")) {
       this.embed = {
         iframe_url: data.embed.iframeUrl,
         flash_url: data.embed.flashUrl,
@@ -15287,8 +15747,6 @@ var PlayerMicroformat = class extends YTNode {
         width: data.embed.width,
         height: data.embed.height
       };
-    } else {
-      this.embed = null;
     }
     this.length_seconds = parseInt(data.lengthSeconds);
     this.channel = {
@@ -15304,38 +15762,26 @@ var PlayerMicroformat = class extends YTNode {
     this.publish_date = data.publishDate;
     this.upload_date = data.uploadDate;
     this.available_countries = data.availableCountries;
-    this.start_timestamp = ((_a5 = data.liveBroadcastDetails) === null || _a5 === void 0 ? void 0 : _a5.startTimestamp) ? new Date(data.liveBroadcastDetails.startTimestamp) : null;
+    this.start_timestamp = ((_a7 = data.liveBroadcastDetails) === null || _a7 === void 0 ? void 0 : _a7.startTimestamp) ? new Date(data.liveBroadcastDetails.startTimestamp) : null;
   }
 };
 __name(PlayerMicroformat, "PlayerMicroformat");
 PlayerMicroformat.type = "PlayerMicroformat";
 var PlayerMicroformat_default = PlayerMicroformat;
 
-// dist/src/parser/classes/WatchNextEndScreen.js
-var WatchNextEndScreen = class extends YTNode {
-  constructor(data) {
-    super();
-    this.results = parser_default.parseArray(data.results, [EndScreenVideo_default, EndScreenPlaylist_default]);
-    this.title = new Text_default(data.title).toString();
-  }
-};
-__name(WatchNextEndScreen, "WatchNextEndScreen");
-WatchNextEndScreen.type = "WatchNextEndScreen";
-var WatchNextEndScreen_default = WatchNextEndScreen;
-
 // dist/src/parser/classes/PlayerOverlayAutoplay.js
 var PlayerOverlayAutoplay = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.video_id = data.videoId;
-    this.video_title = new Text_default(data.videoTitle);
-    this.short_view_count = new Text_default(data.shortViewCountText);
+    this.video_title = new Text(data.videoTitle);
+    this.short_view_count = new Text(data.shortViewCountText);
     this.prefer_immediate_redirect = data.preferImmediateRedirect;
     this.count_down_secs_for_fullscreen = data.countDownSecsForFullscreen;
-    this.published = new Text_default(data.publishedTimeText);
-    this.background = Thumbnail_default.fromResponse(data.background);
-    this.thumbnail_overlays = parser_default.parse(data.thumbnailOverlays);
+    this.published = new Text(data.publishedTimeText);
+    this.background = Thumbnail.fromResponse(data.background);
+    this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
     this.author = new Author_default(data.byline);
     this.cancel_button = parser_default.parseItem(data.cancelButton, Button_default);
     this.next_button = parser_default.parseItem(data.nextButton, Button_default);
@@ -15346,6 +15792,18 @@ __name(PlayerOverlayAutoplay, "PlayerOverlayAutoplay");
 PlayerOverlayAutoplay.type = "PlayerOverlayAutoplay";
 var PlayerOverlayAutoplay_default = PlayerOverlayAutoplay;
 
+// dist/src/parser/classes/WatchNextEndScreen.js
+var WatchNextEndScreen = class extends YTNode {
+  constructor(data) {
+    super();
+    this.results = parser_default.parseArray(data.results, [EndScreenVideo_default, EndScreenPlaylist_default]);
+    this.title = new Text(data.title).toString();
+  }
+};
+__name(WatchNextEndScreen, "WatchNextEndScreen");
+WatchNextEndScreen.type = "WatchNextEndScreen";
+var WatchNextEndScreen_default = WatchNextEndScreen;
+
 // dist/src/parser/classes/PlayerOverlay.js
 var PlayerOverlay = class extends YTNode {
   constructor(data) {
@@ -15354,48 +15812,21 @@ var PlayerOverlay = class extends YTNode {
     this.autoplay = parser_default.parseItem(data.autoplay, PlayerOverlayAutoplay_default);
     this.share_button = parser_default.parseItem(data.shareButton, Button_default);
     this.add_to_menu = parser_default.parseItem(data.addToMenu, Menu_default);
-    this.fullscreen_engagement = parser_default.parse(data.fullscreenEngagement);
+    this.fullscreen_engagement = parser_default.parseItem(data.fullscreenEngagement);
     this.actions = parser_default.parseArray(data.actions);
     this.browser_media_session = parser_default.parseItem(data.browserMediaSession);
-    this.decorated_player_bar = parser_default.parseItem(data.decoratedPlayerBarRenderer);
+    this.decorated_player_bar = parser_default.parseItem(data.decoratedPlayerBarRenderer, DecoratedPlayerBar_default);
   }
 };
 __name(PlayerOverlay, "PlayerOverlay");
 PlayerOverlay.type = "PlayerOverlay";
 var PlayerOverlay_default = PlayerOverlay;
 
-// dist/src/parser/classes/PlayerStoryboardSpec.js
-var PlayerStoryboardSpec = class extends YTNode {
-  constructor(data) {
-    super();
-    const parts = data.spec.split("|");
-    const url = new URL(parts.shift());
-    this.boards = parts.map((part, i) => {
-      const [thumbnail_width, thumbnail_height, thumbnail_count, columns, rows, interval, name, sigh] = part.split("#");
-      url.searchParams.set("sigh", sigh);
-      const storyboard_count = Math.ceil(parseInt(thumbnail_count, 10) / (parseInt(columns, 10) * parseInt(rows, 10)));
-      return {
-        template_url: url.toString().replace("$L", i).replace("$N", name),
-        thumbnail_width: parseInt(thumbnail_width, 10),
-        thumbnail_height: parseInt(thumbnail_height, 10),
-        thumbnail_count: parseInt(thumbnail_count, 10),
-        interval: parseInt(interval, 10),
-        columns: parseInt(columns, 10),
-        rows: parseInt(rows, 10),
-        storyboard_count
-      };
-    });
-  }
-};
-__name(PlayerStoryboardSpec, "PlayerStoryboardSpec");
-PlayerStoryboardSpec.type = "PlayerStoryboardSpec";
-var PlayerStoryboardSpec_default = PlayerStoryboardSpec;
-
 // dist/src/parser/classes/PlaylistCustomThumbnail.js
 var PlaylistCustomThumbnail = class extends YTNode {
   constructor(data) {
     super();
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
   }
 };
 __name(PlaylistCustomThumbnail, "PlaylistCustomThumbnail");
@@ -15407,20 +15838,20 @@ var PlaylistHeader = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.playlistId;
-    this.title = new Text_default(data.title);
-    this.stats = data.stats.map((stat) => new Text_default(stat));
-    this.brief_stats = data.briefStats.map((stat) => new Text_default(stat));
-    this.author = new PlaylistAuthor_default(Object.assign(Object.assign({}, data.ownerText), { navigationEndpoint: data.ownerEndpoint }), data.ownerBadges, null);
-    this.description = new Text_default(data.descriptionText);
-    this.num_videos = new Text_default(data.numVideosText);
-    this.view_count = new Text_default(data.viewCountText);
+    this.title = new Text(data.title);
+    this.stats = data.stats.map((stat) => new Text(stat));
+    this.brief_stats = data.briefStats.map((stat) => new Text(stat));
+    this.author = new Author_default(Object.assign(Object.assign({}, data.ownerText), { navigationEndpoint: data.ownerEndpoint }), data.ownerBadges, null);
+    this.description = new Text(data.descriptionText);
+    this.num_videos = new Text(data.numVideosText);
+    this.view_count = new Text(data.viewCountText);
     this.can_share = data.shareData.canShare;
     this.can_delete = data.editableDetails.canDelete;
     this.is_editable = data.isEditable;
     this.privacy = data.privacy;
-    this.save_button = parser_default.parse(data.saveButton);
-    this.shuffle_play_button = parser_default.parse(data.shufflePlayButton);
-    this.menu = parser_default.parse(data.moreActionsMenu);
+    this.save_button = parser_default.parseItem(data.saveButton);
+    this.shuffle_play_button = parser_default.parseItem(data.shufflePlayButton);
+    this.menu = parser_default.parseItem(data.moreActionsMenu);
     this.banner = parser_default.parseItem(data.playlistHeaderBanner);
   }
 };
@@ -15432,10 +15863,10 @@ var PlaylistHeader_default = PlaylistHeader;
 var PlaylistInfoCardContent = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.playlistTitle);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.video_count = new Text_default(data.playlistVideoCount);
-    this.channel_name = new Text_default(data.channelName);
+    this.title = new Text(data.playlistTitle);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.video_count = new Text(data.playlistVideoCount);
+    this.channel_name = new Text(data.channelName);
     this.endpoint = new NavigationEndpoint_default(data.action);
   }
 };
@@ -15455,74 +15886,11 @@ __name(PlaylistMetadata, "PlaylistMetadata");
 PlaylistMetadata.type = "PlaylistMetadata";
 var PlaylistMetadata_default = PlaylistMetadata;
 
-// dist/src/parser/classes/PlaylistPanelVideo.js
-var PlaylistPanelVideo = class extends YTNode {
-  constructor(data) {
-    var _a5, _b, _c, _d, _e;
-    super();
-    this.title = new Text_default(data.title);
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
-    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.selected = data.selected;
-    this.video_id = data.videoId;
-    this.duration = {
-      text: new Text_default(data.lengthText).toString(),
-      seconds: timeToSeconds(new Text_default(data.lengthText).toString())
-    };
-    const album = (_a5 = new Text_default(data.longBylineText).runs) === null || _a5 === void 0 ? void 0 : _a5.find((run) => {
-      var _a6, _b2, _c2;
-      return (_c2 = (_b2 = (_a6 = run.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("MPR");
-    });
-    const artists = (_b = new Text_default(data.longBylineText).runs) === null || _b === void 0 ? void 0 : _b.filter((run) => {
-      var _a6, _b2, _c2;
-      return (_c2 = (_b2 = (_a6 = run.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC");
-    });
-    this.author = new Text_default(data.shortBylineText).toString();
-    if (album) {
-      this.album = {
-        id: (_d = (_c = album.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.browseId,
-        name: album.text,
-        year: (_e = new Text_default(data.longBylineText).runs) === null || _e === void 0 ? void 0 : _e.slice(-1)[0].text,
-        endpoint: album.endpoint
-      };
-    }
-    if (artists) {
-      this.artists = artists.map((artist) => {
-        var _a6, _b2;
-        return {
-          name: artist.text,
-          channel_id: (_b2 = (_a6 = artist.endpoint) === null || _a6 === void 0 ? void 0 : _a6.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId,
-          endpoint: artist.endpoint
-        };
-      });
-    }
-    this.badges = parser_default.parseArray(data.badges);
-    this.menu = parser_default.parseItem(data.menu);
-    this.set_video_id = data.playlistSetVideoId;
-  }
-};
-__name(PlaylistPanelVideo, "PlaylistPanelVideo");
-PlaylistPanelVideo.type = "PlaylistPanelVideo";
-var PlaylistPanelVideo_default = PlaylistPanelVideo;
-
-// dist/src/parser/classes/PlaylistPanelVideoWrapper.js
-var PlaylistPanelVideoWrapper = class extends YTNode {
-  constructor(data) {
-    var _a5;
-    super();
-    this.primary = parser_default.parseItem(data.primaryRenderer);
-    this.counterpart = ((_a5 = data.counterpart) === null || _a5 === void 0 ? void 0 : _a5.map((item) => parser_default.parseItem(item.counterpartRenderer))) || [];
-  }
-};
-__name(PlaylistPanelVideoWrapper, "PlaylistPanelVideoWrapper");
-PlaylistPanelVideoWrapper.type = "PlaylistPanelVideoWrapper";
-var PlaylistPanelVideoWrapper_default = PlaylistPanelVideoWrapper;
-
 // dist/src/parser/classes/PlaylistSidebar.js
 var PlaylistSidebar = class extends YTNode {
   constructor(data) {
     super();
-    this.items = parser_default.parse(data.items);
+    this.items = parser_default.parseArray(data.items);
   }
   get contents() {
     return this.items;
@@ -15536,12 +15904,12 @@ var PlaylistSidebar_default = PlaylistSidebar;
 var PlaylistSidebarPrimaryInfo = class extends YTNode {
   constructor(data) {
     super();
-    this.stats = data.stats.map((stat) => new Text_default(stat));
-    this.thumbnail_renderer = parser_default.parse(data.thumbnailRenderer);
-    this.title = new Text_default(data.title);
+    this.stats = data.stats.map((stat) => new Text(stat));
+    this.thumbnail_renderer = parser_default.parseItem(data.thumbnailRenderer);
+    this.title = new Text(data.title);
     this.menu = parser_default.parseItem(data.menu);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.description = new Text_default(data.description);
+    this.description = new Text(data.description);
   }
 };
 __name(PlaylistSidebarPrimaryInfo, "PlaylistSidebarPrimaryInfo");
@@ -15552,56 +15920,46 @@ var PlaylistSidebarPrimaryInfo_default = PlaylistSidebarPrimaryInfo;
 var PlaylistSidebarSecondaryInfo = class extends YTNode {
   constructor(data) {
     super();
-    this.owner = parser_default.parse(data.videoOwner) || null;
-    this.button = parser_default.parse(data.button) || null;
+    this.owner = parser_default.parseItem(data.videoOwner);
+    this.button = parser_default.parseItem(data.button);
   }
 };
 __name(PlaylistSidebarSecondaryInfo, "PlaylistSidebarSecondaryInfo");
 PlaylistSidebarSecondaryInfo.type = "PlaylistSidebarSecondaryInfo";
 var PlaylistSidebarSecondaryInfo_default = PlaylistSidebarSecondaryInfo;
 
-// dist/src/parser/classes/ThumbnailOverlayTimeStatus.js
-var ThumbnailOverlayTimeStatus = class extends YTNode {
-  constructor(data) {
-    super();
-    this.text = new Text_default(data.text).toString();
-    this.style = data.style;
-  }
-};
-__name(ThumbnailOverlayTimeStatus, "ThumbnailOverlayTimeStatus");
-ThumbnailOverlayTimeStatus.type = "ThumbnailOverlayTimeStatus";
-var ThumbnailOverlayTimeStatus_default = ThumbnailOverlayTimeStatus;
-
 // dist/src/parser/classes/PlaylistVideo.js
 var PlaylistVideo = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.videoId;
-    this.index = new Text_default(data.index);
-    this.title = new Text_default(data.title);
-    this.author = new PlaylistAuthor_default(data.shortBylineText);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.index = new Text(data.index);
+    this.title = new Text(data.title);
+    this.author = new Author_default(data.shortBylineText);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
     this.set_video_id = data === null || data === void 0 ? void 0 : data.setVideoId;
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.is_playable = data.isPlayable;
-    this.menu = parser_default.parseItem(data.menu);
+    this.menu = parser_default.parseItem(data.menu, Menu_default);
+    this.video_info = new Text(data.videoInfo);
+    this.accessibility_label = data.title.accessibility.accessibilityData.label;
     const upcoming = data.upcomingEventData && Number(`${data.upcomingEventData.startTime}000`);
     if (upcoming) {
       this.upcoming = new Date(upcoming);
     }
     this.duration = {
-      text: new Text_default(data.lengthText).text,
+      text: new Text(data.lengthText).toString(),
       seconds: parseInt(data.lengthSeconds)
     };
   }
   get is_live() {
-    var _a5;
-    return ((_a5 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a5 === void 0 ? void 0 : _a5.style) === "LIVE";
+    var _a7;
+    return ((_a7 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a7 === void 0 ? void 0 : _a7.style) === "LIVE";
   }
   get is_upcoming() {
-    var _a5;
-    return ((_a5 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a5 === void 0 ? void 0 : _a5.style) === "UPCOMING";
+    var _a7;
+    return ((_a7 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a7 === void 0 ? void 0 : _a7.style) === "UPCOMING";
   }
 };
 __name(PlaylistVideo, "PlaylistVideo");
@@ -15615,7 +15973,7 @@ var PlaylistVideoList = class extends YTNode {
     this.id = data.playlistId;
     this.is_editable = data.isEditable;
     this.can_reorder = data.canReorder;
-    this.videos = parser_default.parse(data.contents);
+    this.videos = parser_default.parseArray(data.contents);
   }
 };
 __name(PlaylistVideoList, "PlaylistVideoList");
@@ -15626,7 +15984,7 @@ var PlaylistVideoList_default = PlaylistVideoList;
 var PlaylistVideoThumbnail = class extends YTNode {
   constructor(data) {
     super();
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
   }
 };
 __name(PlaylistVideoThumbnail, "PlaylistVideoThumbnail");
@@ -15638,20 +15996,20 @@ var Poll = class extends YTNode {
   constructor(data) {
     super();
     this.choices = data.choices.map((choice) => ({
-      text: new Text_default(choice.text),
+      text: new Text(choice.text),
       select_endpoint: choice.selectServiceEndpoint ? new NavigationEndpoint_default(choice.selectServiceEndpoint) : null,
       deselect_endpoint: choice.deselectServiceEndpoint ? new NavigationEndpoint_default(choice.deselectServiceEndpoint) : null,
       vote_ratio_if_selected: (choice === null || choice === void 0 ? void 0 : choice.voteRatioIfSelected) || null,
-      vote_percentage_if_selected: new Text_default(choice.votePercentageIfSelected),
+      vote_percentage_if_selected: new Text(choice.votePercentageIfSelected),
       vote_ratio_if_not_selected: (choice === null || choice === void 0 ? void 0 : choice.voteRatioIfSelected) || null,
-      vote_percentage_if_not_selected: new Text_default(choice.votePercentageIfSelected),
-      image: choice.image ? Thumbnail_default.fromResponse(choice.image) : null
+      vote_percentage_if_not_selected: new Text(choice.votePercentageIfSelected),
+      image: choice.image ? Thumbnail.fromResponse(choice.image) : null
     }));
-    if (data.type)
+    if (Reflect.has(data, "type"))
       this.poll_type = data.type;
-    if (data.totalVotes)
-      this.total_votes = new Text_default(data.totalVotes);
-    if (data.liveChatPollId)
+    if (Reflect.has(data, "totalVotes"))
+      this.total_votes = new Text(data.totalVotes);
+    if (Reflect.has(data, "liveChatPollId"))
       this.live_chat_poll_id = data.liveChatPollId;
   }
 };
@@ -15684,7 +16042,7 @@ var PostMultiImage_default = PostMultiImage;
 var ProfileColumn = class extends YTNode {
   constructor(data) {
     super();
-    this.items = parser_default.parse(data.items);
+    this.items = parser_default.parseArray(data.items);
   }
   get contents() {
     return this.items;
@@ -15712,8 +16070,8 @@ var ProfileColumnStats_default = ProfileColumnStats;
 var ProfileColumnStatsEntry = class extends YTNode {
   constructor(data) {
     super();
-    this.label = new Text_default(data.label);
-    this.value = new Text_default(data.value);
+    this.label = new Text(data.label);
+    this.value = new Text(data.value);
   }
 };
 __name(ProfileColumnStatsEntry, "ProfileColumnStatsEntry");
@@ -15724,8 +16082,8 @@ var ProfileColumnStatsEntry_default = ProfileColumnStatsEntry;
 var ProfileColumnUserInfo = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.title = new Text(data.title);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
   }
 };
 __name(ProfileColumnUserInfo, "ProfileColumnUserInfo");
@@ -15736,9 +16094,9 @@ var ProfileColumnUserInfo_default = ProfileColumnUserInfo;
 var RecognitionShelf = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.subtitle = new Text_default(data.subtitle);
-    this.avatars = data.avatars.map((avatar) => new Thumbnail_default(avatar));
+    this.title = new Text(data.title);
+    this.subtitle = new Text(data.subtitle);
+    this.avatars = data.avatars.map((avatar) => new Thumbnail(avatar));
     this.button = parser_default.parseItem(data.button, Button_default);
     this.surface = data.surface;
   }
@@ -15752,10 +16110,11 @@ var ReelItem = class extends YTNode {
   constructor(data) {
     super();
     this.id = data.videoId;
-    this.title = new Text_default(data.headline);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.views = new Text_default(data.viewCountText);
+    this.title = new Text(data.headline);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
+    this.views = new Text(data.viewCountText);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
+    this.accessibility_label = data.accessibility.accessibilityData.label;
   }
 };
 __name(ReelItem, "ReelItem");
@@ -15766,9 +16125,11 @@ var ReelItem_default = ReelItem;
 var ReelShelf = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.items = parser_default.parse(data.items);
-    this.endpoint = data.endpoint ? new NavigationEndpoint_default(data.endpoint) : null;
+    this.title = new Text(data.title);
+    this.items = parser_default.parseArray(data.items);
+    if (Reflect.has(data, "endpoint")) {
+      this.endpoint = new NavigationEndpoint_default(data.endpoint);
+    }
   }
   get contents() {
     return this.items;
@@ -15782,7 +16143,7 @@ var ReelShelf_default = ReelShelf;
 var RelatedChipCloud = class extends YTNode {
   constructor(data) {
     super();
-    this.content = parser_default.parse(data.content);
+    this.content = parser_default.parseItem(data.content);
   }
 };
 __name(RelatedChipCloud, "RelatedChipCloud");
@@ -15815,12 +16176,15 @@ var RichItem_default = RichItem;
 // dist/src/parser/classes/RichListHeader.js
 var RichListHeader = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
     super();
-    this.title = new Text_default(data.title);
-    this.subtitle = new Text_default(data.subtitle);
-    this.title_style = (_a5 = data === null || data === void 0 ? void 0 : data.titleStyle) === null || _a5 === void 0 ? void 0 : _a5.style;
-    this.icon_type = (_b = data === null || data === void 0 ? void 0 : data.icon) === null || _b === void 0 ? void 0 : _b.iconType;
+    this.title = new Text(data.title);
+    this.subtitle = new Text(data.subtitle);
+    if (Reflect.has(data, "titleStyle")) {
+      this.title_style = data.titleStyle.style;
+    }
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = data.icon.iconType;
+    }
   }
 };
 __name(RichListHeader, "RichListHeader");
@@ -15830,14 +16194,13 @@ var RichListHeader_default = RichListHeader;
 // dist/src/parser/classes/RichMetadata.js
 var RichMetadata = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
     super();
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
-    this.title = new Text_default(data.title);
-    this.subtitle = new Text_default(data.subtitle);
-    this.call_to_action = new Text_default(data.callToAction);
-    if ((_a5 = data.callToActionIcon) === null || _a5 === void 0 ? void 0 : _a5.iconType) {
-      this.icon_type = (_b = data.callToActionIcon) === null || _b === void 0 ? void 0 : _b.iconType;
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+    this.title = new Text(data.title);
+    this.subtitle = new Text(data.subtitle);
+    this.call_to_action = new Text(data.callToAction);
+    if (Reflect.has(data, "callToActionIcon")) {
+      this.icon_type = data.callToActionIcon.iconType;
     }
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
   }
@@ -15872,9 +16235,11 @@ var RichSection_default = RichSection;
 var RichShelf = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.contents = parser_default.parseArray(data.contents);
-    this.endpoint = data.endpoint ? new NavigationEndpoint_default(data.endpoint) : null;
+    if (Reflect.has(data, "endpoint")) {
+      this.endpoint = new NavigationEndpoint_default(data.endpoint);
+    }
   }
 };
 __name(RichShelf, "RichShelf");
@@ -15886,9 +16251,9 @@ var SearchBox = class extends YTNode {
   constructor(data) {
     super();
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
-    this.search_button = parser_default.parse(data.searchButton);
-    this.clear_button = parser_default.parse(data.clearButton);
-    this.placeholder_text = new Text_default(data.placeholderText);
+    this.search_button = parser_default.parseItem(data.searchButton, Button_default);
+    this.clear_button = parser_default.parseItem(data.clearButton, Button_default);
+    this.placeholder_text = new Text(data.placeholderText);
   }
 };
 __name(SearchBox, "SearchBox");
@@ -15899,10 +16264,10 @@ var SearchBox_default = SearchBox;
 var SearchFilter = class extends YTNode {
   constructor(data) {
     super();
-    this.label = new Text_default(data.label);
+    this.label = new Text(data.label);
     this.endpoint = new NavigationEndpoint_default(data.endpoint || data.navigationEndpoint);
     this.tooltip = data.tooltip;
-    if (data.status) {
+    if (Reflect.has(data, "status")) {
       this.status = data.status;
     }
   }
@@ -15921,59 +16286,19 @@ var SearchFilter_default = SearchFilter;
 var SearchFilterGroup = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.filters = Parser.parseArray(data.filters, SearchFilter_default);
+    this.title = new Text(data.title);
+    this.filters = parser_default2.parseArray(data.filters, SearchFilter_default);
   }
 };
 __name(SearchFilterGroup, "SearchFilterGroup");
 SearchFilterGroup.type = "SearchFilterGroup";
 var SearchFilterGroup_default = SearchFilterGroup;
 
-// dist/src/parser/classes/SearchRefinementCard.js
-var SearchRefinementCard = class extends YTNode {
-  constructor(data) {
-    super();
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.endpoint = new NavigationEndpoint_default(data.searchEndpoint);
-    this.query = new Text_default(data.query).toString();
-  }
-};
-__name(SearchRefinementCard, "SearchRefinementCard");
-SearchRefinementCard.type = "SearchRefinementCard";
-var SearchRefinementCard_default = SearchRefinementCard;
-
-// dist/src/parser/classes/ToggleButton.js
-var ToggleButton = class extends YTNode {
-  constructor(data) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h, _j, _k;
-    super();
-    this.text = new Text_default(data.defaultText);
-    this.toggled_text = new Text_default(data.toggledText);
-    this.tooltip = data.defaultTooltip;
-    this.toggled_tooltip = data.toggledTooltip;
-    this.is_toggled = data.isToggled;
-    this.is_disabled = data.isDisabled;
-    this.icon_type = data.defaultIcon.iconType;
-    const acc_label = ((_c = (_b = (_a5 = data === null || data === void 0 ? void 0 : data.defaultText) === null || _a5 === void 0 ? void 0 : _a5.accessibility) === null || _b === void 0 ? void 0 : _b.accessibilityData) === null || _c === void 0 ? void 0 : _c.label) || ((_e = (_d = data === null || data === void 0 ? void 0 : data.accessibilityData) === null || _d === void 0 ? void 0 : _d.accessibilityData) === null || _e === void 0 ? void 0 : _e.label) || ((_f = data === null || data === void 0 ? void 0 : data.accessibility) === null || _f === void 0 ? void 0 : _f.label);
-    if (this.icon_type == "LIKE") {
-      this.like_count = parseInt(acc_label.replace(/\D/g, ""));
-      this.short_like_count = new Text_default(data.defaultText).toString();
-    }
-    this.endpoint = ((_h = (_g = data.defaultServiceEndpoint) === null || _g === void 0 ? void 0 : _g.commandExecutorCommand) === null || _h === void 0 ? void 0 : _h.commands) ? new NavigationEndpoint_default(data.defaultServiceEndpoint.commandExecutorCommand.commands.pop()) : new NavigationEndpoint_default(data.defaultServiceEndpoint);
-    this.toggled_endpoint = new NavigationEndpoint_default(data.toggledServiceEndpoint);
-    this.button_id = ((_k = (_j = data.toggleButtonSupportedData) === null || _j === void 0 ? void 0 : _j.toggleButtonIdData) === null || _k === void 0 ? void 0 : _k.id) || null;
-    this.target_id = data.targetId || null;
-  }
-};
-__name(ToggleButton, "ToggleButton");
-ToggleButton.type = "ToggleButton";
-var ToggleButton_default = ToggleButton;
-
 // dist/src/parser/classes/SearchSubMenu.js
 var SearchSubMenu = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.groups = parser_default.parseArray(data.groups, SearchFilterGroup_default);
     this.button = parser_default.parseItem(data.button, ToggleButton_default);
   }
@@ -15986,7 +16311,7 @@ var SearchSubMenu_default = SearchSubMenu;
 var SearchSuggestionsSection = class extends YTNode {
   constructor(data) {
     super();
-    this.contents = parser_default.parse(data.contents);
+    this.contents = parser_default.parseArray(data.contents);
   }
 };
 __name(SearchSuggestionsSection, "SearchSuggestionsSection");
@@ -15997,7 +16322,7 @@ var SearchSuggestionsSection_default = SearchSuggestionsSection;
 var SecondarySearchContainer = class extends YTNode {
   constructor(data) {
     super();
-    this.contents = parser_default.parse(data.contents);
+    this.contents = parser_default.parseArray(data.contents);
   }
 };
 __name(SecondarySearchContainer, "SecondarySearchContainer");
@@ -16008,21 +16333,21 @@ var SecondarySearchContainer_default = SecondarySearchContainer;
 var SectionList = class extends YTNode {
   constructor(data) {
     super();
-    if (data.targetId) {
+    this.contents = parser_default.parseArray(data.contents);
+    if (Reflect.has(data, "targetId")) {
       this.target_id = data.targetId;
     }
-    this.contents = parser_default.parseArray(data.contents);
-    if (data.continuations) {
-      if (data.continuations[0].nextContinuationData) {
+    if (Reflect.has(data, "continuations")) {
+      if (Reflect.has(data.continuations[0], "nextContinuationData")) {
         this.continuation = data.continuations[0].nextContinuationData.continuation;
-      } else if (data.continuations[0].reloadContinuationData) {
+      } else if (Reflect.has(data.continuations[0], "reloadContinuationData")) {
         this.continuation = data.continuations[0].reloadContinuationData.continuation;
       }
     }
-    if (data.header) {
-      this.header = parser_default.parse(data.header);
+    if (Reflect.has(data, "header")) {
+      this.header = parser_default.parseItem(data.header);
     }
-    if (data.subMenu) {
+    if (Reflect.has(data, "subMenu")) {
       this.sub_menu = parser_default.parseItem(data.subMenu);
     }
   }
@@ -16047,16 +16372,16 @@ var SegmentedLikeDislikeButton_default = SegmentedLikeDislikeButton;
 var SettingBoolean = class extends YTNode {
   constructor(data) {
     super();
-    if (data.title) {
-      this.title = new Text_default(data.title);
+    if (Reflect.has(data, "title")) {
+      this.title = new Text(data.title);
     }
-    if (data.summary) {
-      this.summary = new Text_default(data.summary);
+    if (Reflect.has(data, "summary")) {
+      this.summary = new Text(data.summary);
     }
-    if (data.enableServiceEndpoint) {
+    if (Reflect.has(data, "enableServiceEndpoint")) {
       this.enable_endpoint = new NavigationEndpoint_default(data.enableServiceEndpoint);
     }
-    if (data.disableServiceEndpoint) {
+    if (Reflect.has(data, "disableServiceEndpoint")) {
       this.disable_endpoint = new NavigationEndpoint_default(data.disableServiceEndpoint);
     }
     this.item_id = data.itemId;
@@ -16070,8 +16395,8 @@ var SettingBoolean_default = SettingBoolean;
 var SettingsCheckbox = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.help_text = new Text_default(data.helpText);
+    this.title = new Text(data.title);
+    this.help_text = new Text(data.helpText);
     this.enabled = data.enabled;
     this.disabled = data.disabled;
     this.id = data.id;
@@ -16085,8 +16410,8 @@ var SettingsCheckbox_default = SettingsCheckbox;
 var SettingsSwitch = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.subtitle = new Text_default(data.subtitle);
+    this.title = new Text(data.title);
+    this.subtitle = new Text(data.subtitle);
     this.enabled = data.enabled;
     this.enable_endpoint = new NavigationEndpoint_default(data.enableServiceEndpoint);
     this.disable_endpoint = new NavigationEndpoint_default(data.disableServiceEndpoint);
@@ -16100,9 +16425,9 @@ var SettingsSwitch_default = SettingsSwitch;
 var SettingsOptions = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     if (Reflect.has(data, "text")) {
-      this.text = new Text_default(data.text).toString();
+      this.text = new Text(data.text).toString();
     }
     if (Reflect.has(data, "options")) {
       this.options = parser_default.parseArray(data.options, [
@@ -16123,7 +16448,7 @@ var SettingsOptions_default = SettingsOptions;
 var SettingsSidebar = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.items = parser_default.parseArray(data.items, CompactLink_default);
   }
   get contents() {
@@ -16138,14 +16463,14 @@ var SettingsSidebar_default = SettingsSidebar;
 var SharedPost = class extends YTNode {
   constructor(data) {
     super();
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
-    this.content = new Text_default(data.content);
-    this.published = new Text_default(data.publishedTimeText);
-    this.menu = Parser.parseItem(data.actionMenu, Menu_default);
-    this.original_post = Parser.parseItem(data.originalPost, BackstagePost_default);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+    this.content = new Text(data.content);
+    this.published = new Text(data.publishedTimeText);
+    this.menu = parser_default2.parseItem(data.actionMenu, Menu_default);
+    this.original_post = parser_default2.parseItem(data.originalPost, BackstagePost_default);
     this.id = data.postId;
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.expand_button = Parser.parseItem(data.expandButton, Button_default);
+    this.expand_button = parser_default2.parseItem(data.expandButton, Button_default);
     this.author = new Author_default(data.displayName, void 0);
   }
 };
@@ -16156,21 +16481,20 @@ var SharedPost_default = SharedPost;
 // dist/src/parser/classes/Shelf.js
 var Shelf = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
     super();
-    this.title = new Text_default(data.title);
-    if (data.endpoint) {
+    this.title = new Text(data.title);
+    if (Reflect.has(data, "endpoint")) {
       this.endpoint = new NavigationEndpoint_default(data.endpoint);
     }
-    this.content = parser_default.parseItem(data.content) || null;
-    if ((_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType) {
-      this.icon_type = (_b = data.icon) === null || _b === void 0 ? void 0 : _b.iconType;
+    this.content = parser_default.parseItem(data.content);
+    if (Reflect.has(data, "icon")) {
+      this.icon_type = data.icon.iconType;
     }
-    if (data.menu) {
+    if (Reflect.has(data, "menu")) {
       this.menu = parser_default.parseItem(data.menu);
     }
-    if (data.playAllButton) {
-      this.play_all_button = parser_default.parseItem(data.playAllButton);
+    if (Reflect.has(data, "playAllButton")) {
+      this.play_all_button = parser_default.parseItem(data.playAllButton, Button_default);
     }
   }
 };
@@ -16182,12 +16506,12 @@ var Shelf_default = Shelf;
 var ShowingResultsFor = class extends YTNode {
   constructor(data) {
     super();
-    this.corrected_query = new Text_default(data.correctedQuery);
-    this.endpoint = new NavigationEndpoint_default(data.correctedQueryEndpoint);
+    this.corrected_query = new Text(data.correctedQuery);
+    this.original_query = new Text(data.originalQuery);
+    this.corrected_query_endpoint = new NavigationEndpoint_default(data.correctedQueryEndpoint);
     this.original_query_endpoint = new NavigationEndpoint_default(data.originalQueryEndpoint);
-    this.original_query = new Text_default(data.originalQuery);
-    this.showing_results_for = new Text_default(data.showingResultsFor);
-    this.search_instead_for = new Text_default(data.searchInsteadFor);
+    this.search_instead_for = new Text(data.searchInsteadFor);
+    this.showing_results_for = new Text(data.showingResultsFor);
   }
 };
 __name(ShowingResultsFor, "ShowingResultsFor");
@@ -16198,11 +16522,11 @@ var ShowingResultsFor_default = ShowingResultsFor;
 var SimpleCardContent = class extends YTNode {
   constructor(data) {
     super();
-    this.image = Thumbnail_default.fromResponse(data.image);
-    this.title = new Text_default(data.title);
-    this.display_domain = new Text_default(data.displayDomain);
+    this.image = Thumbnail.fromResponse(data.image);
+    this.title = new Text(data.title);
+    this.display_domain = new Text(data.displayDomain);
     this.show_link_icon = data.showLinkIcon;
-    this.call_to_action = data.callToAction;
+    this.call_to_action = new Text(data.callToAction);
     this.endpoint = new NavigationEndpoint_default(data.command);
   }
 };
@@ -16214,7 +16538,7 @@ var SimpleCardContent_default = SimpleCardContent;
 var SimpleCardTeaser = class extends YTNode {
   constructor(data) {
     super();
-    this.message = new Text_default(data.message);
+    this.message = new Text(data.message);
     this.prominent = data.prominent;
   }
 };
@@ -16226,7 +16550,7 @@ var SimpleCardTeaser_default = SimpleCardTeaser;
 var SimpleTextSection = class extends YTNode {
   constructor(data) {
     super();
-    this.lines = data.lines.map((line) => new Text_default(line));
+    this.lines = data.lines.map((line) => new Text(line));
     this.style = data.layoutStyle;
   }
 };
@@ -16238,9 +16562,9 @@ var SimpleTextSection_default = SimpleTextSection;
 var SingleActionEmergencySupport = class extends YTNode {
   constructor(data) {
     super();
-    this.action_text = new Text_default(data.actionText);
-    this.nav_text = new Text_default(data.navigationText);
-    this.details = new Text_default(data.detailsText);
+    this.action_text = new Text(data.actionText);
+    this.nav_text = new Text(data.navigationText);
+    this.details = new Text(data.detailsText);
     this.icon_type = data.icon.iconType;
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
   }
@@ -16254,7 +16578,7 @@ var Tab = class extends YTNode {
   constructor(data) {
     super();
     this.title = data.title || "N/A";
-    this.selected = data.selected || false;
+    this.selected = !!data.selected;
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
     this.content = parser_default.parseItem(data.content, [SectionList_default, MusicQueue_default, RichGrid_default]);
   }
@@ -16289,7 +16613,7 @@ var SingleColumnMusicWatchNextResults_default = SingleColumnMusicWatchNextResult
 var SingleHeroImage = class extends YTNode {
   constructor(data) {
     super();
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
+    this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.style = data.style;
   }
 };
@@ -16301,8 +16625,8 @@ var SingleHeroImage_default = SingleHeroImage;
 var SlimOwner = class extends YTNode {
   constructor(data) {
     super();
-    this.thumbnail = Thumbnail_default.fromResponse(data.thumbnail);
-    this.title = new Text_default(data.title);
+    this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
+    this.title = new Text(data.title);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.subscribe_button = parser_default.parseItem(data.subscribeButton, SubscribeButton_default);
   }
@@ -16315,59 +16639,24 @@ var SlimOwner_default = SlimOwner;
 var SlimVideoMetadata = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.collapsed_subtitle = new Text_default(data.collapsedSubtitle);
-    this.expanded_subtitle = new Text_default(data.expandedSubtitle);
+    this.title = new Text(data.title);
+    this.collapsed_subtitle = new Text(data.collapsedSubtitle);
+    this.expanded_subtitle = new Text(data.expandedSubtitle);
     this.owner = parser_default.parseItem(data.owner);
-    this.description = new Text_default(data.description);
+    this.description = new Text(data.description);
     this.video_id = data.videoId;
-    this.date = new Text_default(data.dateText);
+    this.date = new Text(data.dateText);
   }
 };
 __name(SlimVideoMetadata, "SlimVideoMetadata");
 SlimVideoMetadata.type = "SlimVideoMetadata";
 var SlimVideoMetadata_default = SlimVideoMetadata;
 
-// dist/src/parser/classes/SortFilterSubMenu.js
-var SortFilterSubMenu = class extends YTNode {
-  constructor(data) {
-    var _a5, _b, _c;
-    super();
-    if (data.title) {
-      this.title = data.title;
-    }
-    if ((_a5 = data.icon) === null || _a5 === void 0 ? void 0 : _a5.iconType) {
-      this.icon_type = data.icon.iconType;
-    }
-    if ((_c = (_b = data.accessibility) === null || _b === void 0 ? void 0 : _b.accessibilityData) === null || _c === void 0 ? void 0 : _c.label) {
-      this.label = data.accessibility.accessibilityData.label;
-    }
-    if (data.tooltip) {
-      this.tooltip = data.tooltip;
-    }
-    if (data.subMenuItems) {
-      this.sub_menu_items = data.subMenuItems.map((item) => {
-        var _a6, _b2;
-        return {
-          title: item.title,
-          selected: item.selected,
-          continuation: (_b2 = (_a6 = item.continuation) === null || _a6 === void 0 ? void 0 : _a6.reloadContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation,
-          endpoint: new NavigationEndpoint_default(item.serviceEndpoint || item.navigationEndpoint),
-          subtitle: item.subtitle || null
-        };
-      });
-    }
-  }
-};
-__name(SortFilterSubMenu, "SortFilterSubMenu");
-SortFilterSubMenu.type = "SortFilterSubMenu";
-var SortFilterSubMenu_default = SortFilterSubMenu;
-
 // dist/src/parser/classes/SubFeedOption.js
 var SubFeedOption = class extends YTNode {
   constructor(data) {
     super();
-    this.name = new Text_default(data.name);
+    this.name = new Text(data.name);
     this.is_selected = data.isSelected;
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
   }
@@ -16380,8 +16669,8 @@ var SubFeedOption_default = SubFeedOption;
 var SubFeedSelector = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.options = parser_default.parse(data.options);
+    this.title = new Text(data.title);
+    this.options = parser_default.parseArray(data.options, SubFeedOption_default);
   }
 };
 __name(SubFeedSelector, "SubFeedSelector");
@@ -16414,7 +16703,7 @@ var TabbedSearchResults_default = TabbedSearchResults;
 var TextHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.style = data.style;
   }
 };
@@ -16426,30 +16715,19 @@ var TextHeader_default = TextHeader;
 var ThumbnailLandscapePortrait = class extends YTNode {
   constructor(data) {
     super();
-    this.landscape = Thumbnail_default.fromResponse(data.landscape);
-    this.portrait = Thumbnail_default.fromResponse(data.portrait);
+    this.landscape = Thumbnail.fromResponse(data.landscape);
+    this.portrait = Thumbnail.fromResponse(data.portrait);
   }
 };
 __name(ThumbnailLandscapePortrait, "ThumbnailLandscapePortrait");
 ThumbnailLandscapePortrait.type = "ThumbnailLandscapePortrait";
 var ThumbnailLandscapePortrait_default = ThumbnailLandscapePortrait;
 
-// dist/src/parser/classes/ThumbnailOverlayBottomPanel.js
-var ThumbnailOverlayBottomPanel = class extends YTNode {
-  constructor(data) {
-    super();
-    this.icon_type = data.icon.iconType;
-  }
-};
-__name(ThumbnailOverlayBottomPanel, "ThumbnailOverlayBottomPanel");
-ThumbnailOverlayBottomPanel.type = "ThumbnailOverlayBottomPanel";
-var ThumbnailOverlayBottomPanel_default = ThumbnailOverlayBottomPanel;
-
 // dist/src/parser/classes/ThumbnailOverlayEndorsement.js
 var ThumbnailOverlayEndorsement = class extends YTNode {
   constructor(data) {
     super();
-    this.text = new Text_default(data.text).toString();
+    this.text = new Text(data.text).toString();
   }
 };
 __name(ThumbnailOverlayEndorsement, "ThumbnailOverlayEndorsement");
@@ -16460,7 +16738,7 @@ var ThumbnailOverlayEndorsement_default = ThumbnailOverlayEndorsement;
 var ThumbnailOverlayHoverText = class extends YTNode {
   constructor(data) {
     super();
-    this.text = new Text_default(data.text);
+    this.text = new Text(data.text);
     this.icon_type = data.icon.iconType;
   }
 };
@@ -16472,7 +16750,7 @@ var ThumbnailOverlayHoverText_default = ThumbnailOverlayHoverText;
 var ThumbnailOverlayInlineUnplayable = class extends YTNode {
   constructor(data) {
     super();
-    this.text = new Text_default(data.text).toString();
+    this.text = new Text(data.text).toString();
     this.icon_type = data.icon.iconType;
   }
 };
@@ -16484,7 +16762,7 @@ var ThumbnailOverlayInlineUnplayable_default = ThumbnailOverlayInlineUnplayable;
 var ThumbnailOverlayLoadingPreview = class extends YTNode {
   constructor(data) {
     super();
-    this.text = new Text_default(data.text);
+    this.text = new Text(data.text);
   }
 };
 __name(ThumbnailOverlayLoadingPreview, "ThumbnailOverlayLoadingPreview");
@@ -16495,7 +16773,7 @@ var ThumbnailOverlayLoadingPreview_default = ThumbnailOverlayLoadingPreview;
 var ThumbnailOverlayNowPlaying = class extends YTNode {
   constructor(data) {
     super();
-    this.text = new Text_default(data.text).toString();
+    this.text = new Text(data.text).toString();
   }
 };
 __name(ThumbnailOverlayNowPlaying, "ThumbnailOverlayNowPlaying");
@@ -16517,7 +16795,7 @@ var ThumbnailOverlayPinking_default = ThumbnailOverlayPinking;
 var ThumbnailOverlayPlaybackStatus = class extends YTNode {
   constructor(data) {
     super();
-    this.text = data.texts.map((text) => new Text_default(text))[0].toString();
+    this.texts = data.texts.map((text) => new Text(text));
   }
 };
 __name(ThumbnailOverlayPlaybackStatus, "ThumbnailOverlayPlaybackStatus");
@@ -16539,7 +16817,7 @@ var ThumbnailOverlayResumePlayback_default = ThumbnailOverlayResumePlayback;
 var ThumbnailOverlaySidePanel = class extends YTNode {
   constructor(data) {
     super();
-    this.text = new Text_default(data.text);
+    this.text = new Text(data.text);
     this.icon_type = data.icon.iconType;
   }
 };
@@ -16551,7 +16829,9 @@ var ThumbnailOverlaySidePanel_default = ThumbnailOverlaySidePanel;
 var ThumbnailOverlayToggleButton = class extends YTNode {
   constructor(data) {
     super();
-    this.is_toggled = data.isToggled || null;
+    if (Reflect.has(data, "isToggled")) {
+      this.is_toggled = data.isToggled;
+    }
     this.icon_type = {
       toggled: data.toggledIcon.iconType,
       untoggled: data.untoggledIcon.iconType
@@ -16575,7 +16855,7 @@ var TimedMarkerDecoration = class extends YTNode {
     this.visible_time_range_start_millis = data.visibleTimeRangeStartMillis;
     this.visible_time_range_end_millis = data.visibleTimeRangeEndMillis;
     this.decoration_time_millis = data.decorationTimeMillis;
-    this.label = new Text_default(data.label);
+    this.label = new Text(data.label);
     this.icon = data.icon;
   }
 };
@@ -16587,7 +16867,7 @@ var TimedMarkerDecoration_default = TimedMarkerDecoration;
 var TitleAndButtonListHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
   }
 };
 __name(TitleAndButtonListHeader, "TitleAndButtonListHeader");
@@ -16598,11 +16878,12 @@ var TitleAndButtonListHeader_default = TitleAndButtonListHeader;
 var ToggleMenuServiceItem = class extends YTNode {
   constructor(data) {
     super();
-    this.text = new Text_default(data.defaultText);
-    this.toggled_text = new Text_default(data.toggledText);
+    this.text = new Text(data.defaultText);
+    this.toggled_text = new Text(data.toggledText);
     this.icon_type = data.defaultIcon.iconType;
     this.toggled_icon_type = data.toggledIcon.iconType;
-    this.endpoint = new NavigationEndpoint_default(data.toggledServiceEndpoint);
+    this.default_endpoint = new NavigationEndpoint_default(data.defaultServiceEndpoint);
+    this.toggled_endpoint = new NavigationEndpoint_default(data.toggledServiceEndpoint);
   }
 };
 __name(ToggleMenuServiceItem, "ToggleMenuServiceItem");
@@ -16620,7 +16901,7 @@ var Tooltip = class extends YTNode {
       dismiss: new NavigationEndpoint_default(data.promoConfig.dismissCommand)
     };
     this.target_id = data.targetId;
-    this.details = new Text_default(data.detailsText);
+    this.details = new Text(data.detailsText);
     this.suggested_position = data.suggestedPosition.type;
     this.dismiss_stratedy = data.dismissStrategy.type;
     this.dwell_time_ms = parseInt(data.dwellTimeMs);
@@ -16633,11 +16914,11 @@ var Tooltip_default = Tooltip;
 // dist/src/parser/classes/TopicChannelDetails.js
 var TopicChannelDetails = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
-    this.title = new Text_default(data.title);
-    this.avatar = Thumbnail_default.fromResponse((_a5 = data.thumbnail) !== null && _a5 !== void 0 ? _a5 : data.avatar);
-    this.subtitle = new Text_default(data.subtitle);
+    this.title = new Text(data.title);
+    this.avatar = Thumbnail.fromResponse((_a7 = data.thumbnail) !== null && _a7 !== void 0 ? _a7 : data.avatar);
+    this.subtitle = new Text(data.subtitle);
     this.subscribe_button = parser_default.parseItem(data.subscribeButton, SubscribeButton_default);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
   }
@@ -16671,42 +16952,35 @@ TwoColumnSearchResults.type = "TwoColumnSearchResults";
 var TwoColumnSearchResults_default = TwoColumnSearchResults;
 
 // dist/src/parser/classes/TwoColumnWatchNextResults.js
-var __classPrivateFieldGet9 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _TwoColumnWatchNextResults_instances;
 var _TwoColumnWatchNextResults_parseAutoplaySet;
 var TwoColumnWatchNextResults = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d, _e;
+    var _a7, _b2, _c, _d, _e;
     super();
     _TwoColumnWatchNextResults_instances.add(this);
-    this.results = parser_default.parseArray((_a5 = data.results) === null || _a5 === void 0 ? void 0 : _a5.results.contents);
-    this.secondary_results = parser_default.parseArray((_b = data.secondaryResults) === null || _b === void 0 ? void 0 : _b.secondaryResults.results);
+    this.results = parser_default.parseArray((_a7 = data.results) === null || _a7 === void 0 ? void 0 : _a7.results.contents);
+    this.secondary_results = parser_default.parseArray((_b2 = data.secondaryResults) === null || _b2 === void 0 ? void 0 : _b2.secondaryResults.results);
     this.conversation_bar = parser_default.parseItem(data === null || data === void 0 ? void 0 : data.conversationBar);
     const playlistData = (_c = data.playlist) === null || _c === void 0 ? void 0 : _c.playlist;
     if (playlistData) {
       this.playlist = {
         id: playlistData.playlistId,
         title: playlistData.title,
-        author: ((_d = playlistData.shortBylineText) === null || _d === void 0 ? void 0 : _d.simpleText) ? new Text_default(playlistData.shortBylineText) : new PlaylistAuthor_default(playlistData.longBylineText),
+        author: ((_d = playlistData.shortBylineText) === null || _d === void 0 ? void 0 : _d.simpleText) ? new Text(playlistData.shortBylineText) : new Author_default(playlistData.longBylineText),
         contents: parser_default.parseArray(playlistData.contents),
         current_index: playlistData.currentIndex,
         is_infinite: !!playlistData.isInfinite,
-        menu: parser_default.parseItem(playlistData.menu)
+        menu: parser_default.parseItem(playlistData.menu, Menu_default)
       };
     }
     const autoplayData = (_e = data.autoplay) === null || _e === void 0 ? void 0 : _e.autoplay;
     if (autoplayData) {
       this.autoplay = {
-        sets: autoplayData.sets.map((set) => __classPrivateFieldGet9(this, _TwoColumnWatchNextResults_instances, "m", _TwoColumnWatchNextResults_parseAutoplaySet).call(this, set))
+        sets: autoplayData.sets.map((set) => __classPrivateFieldGet(this, _TwoColumnWatchNextResults_instances, "m", _TwoColumnWatchNextResults_parseAutoplaySet).call(this, set))
       };
       if (autoplayData.modifiedSets) {
-        this.autoplay.modified_sets = autoplayData.modifiedSets.map((set) => __classPrivateFieldGet9(this, _TwoColumnWatchNextResults_instances, "m", _TwoColumnWatchNextResults_parseAutoplaySet).call(this, set));
+        this.autoplay.modified_sets = autoplayData.modifiedSets.map((set) => __classPrivateFieldGet(this, _TwoColumnWatchNextResults_instances, "m", _TwoColumnWatchNextResults_parseAutoplaySet).call(this, set));
       }
       if (autoplayData.countDownSecs) {
         this.autoplay.count_down_secs = autoplayData.countDownSecs;
@@ -16734,8 +17008,8 @@ var UniversalWatchCard = class extends YTNode {
     this.header = parser_default.parseItem(data.header);
     this.call_to_action = parser_default.parseItem(data.callToAction);
     this.sections = parser_default.parseArray(data.sections);
-    if (data.collapsedLabel) {
-      this.collapsed_label = new Text_default(data.collapsedLabel);
+    if (Reflect.has(data, "collapsedLabel")) {
+      this.collapsed_label = new Text(data.collapsedLabel);
     }
   }
 };
@@ -16747,10 +17021,10 @@ var UniversalWatchCard_default = UniversalWatchCard;
 var UpsellDialog = class extends YTNode {
   constructor(data) {
     super();
-    this.message_title = new Text_default(data.dialogMessageTitle);
-    this.message_text = new Text_default(data.dialogMessageText);
-    this.action_button = parser_default.parseItem(data.actionButton);
-    this.dismiss_button = parser_default.parseItem(data.dismissButton);
+    this.message_title = new Text(data.dialogMessageTitle);
+    this.message_text = new Text(data.dialogMessageText);
+    this.action_button = parser_default.parseItem(data.actionButton, Button_default);
+    this.dismiss_button = parser_default.parseItem(data.dismissButton, Button_default);
     this.is_visible = data.isVisible;
   }
 };
@@ -16762,9 +17036,9 @@ var UpsellDialog_default = UpsellDialog;
 var VerticalList = class extends YTNode {
   constructor(data) {
     super();
-    this.items = parser_default.parse(data.items);
+    this.items = parser_default.parseArray(data.items);
     this.collapsed_item_count = data.collapsedItemCount;
-    this.collapsed_state_button_text = new Text_default(data.collapsedStateButtonText);
+    this.collapsed_state_button_text = new Text(data.collapsedStateButtonText);
   }
   get contents() {
     return this.items;
@@ -16779,103 +17053,26 @@ var VerticalWatchCardList = class extends YTNode {
   constructor(data) {
     super();
     this.items = parser_default.parseArray(data.items);
-    this.contents = this.items;
-    this.view_all_text = new Text_default(data.viewAllText);
+    this.view_all_text = new Text(data.viewAllText);
     this.view_all_endpoint = new NavigationEndpoint_default(data.viewAllEndpoint);
+  }
+  get contents() {
+    return this.items;
   }
 };
 __name(VerticalWatchCardList, "VerticalWatchCardList");
 VerticalWatchCardList.type = "VerticalWatchCardList";
 var VerticalWatchCardList_default = VerticalWatchCardList;
 
-// dist/src/parser/classes/Video.js
-var Video = class extends YTNode {
-  constructor(data) {
-    var _a5, _b, _c, _d;
-    super();
-    const overlay_time_status = ((_a5 = data.thumbnailOverlays.find((overlay) => overlay.thumbnailOverlayTimeStatusRenderer)) === null || _a5 === void 0 ? void 0 : _a5.thumbnailOverlayTimeStatusRenderer.text) || "N/A";
-    this.id = data.videoId;
-    this.title = new Text_default(data.title);
-    this.description_snippet = data.descriptionSnippet ? new Text_default(data.descriptionSnippet) : null;
-    this.snippets = ((_b = data.detailedMetadataSnippets) === null || _b === void 0 ? void 0 : _b.map((snippet) => ({
-      text: new Text_default(snippet.snippetText),
-      hover_text: new Text_default(snippet.snippetHoverText)
-    }))) || [];
-    this.expandable_metadata = parser_default.parseItem(data.expandableMetadata);
-    this.thumbnails = Thumbnail_default.fromResponse(data.thumbnail);
-    this.thumbnail_overlays = parser_default.parseArray(data.thumbnailOverlays);
-    this.rich_thumbnail = data.richThumbnail ? parser_default.parseItem(data.richThumbnail) : null;
-    this.author = new Author_default(data.ownerText, data.ownerBadges, (_d = (_c = data.channelThumbnailSupportedRenderers) === null || _c === void 0 ? void 0 : _c.channelThumbnailWithLinkRenderer) === null || _d === void 0 ? void 0 : _d.thumbnail);
-    this.badges = parser_default.parseArray(data.badges, MetadataBadge_default);
-    this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.published = new Text_default(data.publishedTimeText);
-    this.view_count = new Text_default(data.viewCountText);
-    this.short_view_count = new Text_default(data.shortViewCountText);
-    const upcoming = data.upcomingEventData && Number(`${data.upcomingEventData.startTime}000`);
-    if (upcoming) {
-      this.upcoming = new Date(upcoming);
-    }
-    this.duration = {
-      text: data.lengthText ? new Text_default(data.lengthText).text : new Text_default(overlay_time_status).text,
-      seconds: timeToSeconds(data.lengthText ? new Text_default(data.lengthText).text : new Text_default(overlay_time_status).text)
-    };
-    this.show_action_menu = data.showActionMenu;
-    this.is_watched = data.isWatched || false;
-    this.menu = parser_default.parseItem(data.menu, Menu_default);
-    this.search_video_result_entity_key = data.searchVideoResultEntityKey;
-  }
-  get description() {
-    var _a5;
-    if (this.snippets.length > 0) {
-      return this.snippets.map((snip) => snip.text.toString()).join("");
-    }
-    return ((_a5 = this.description_snippet) === null || _a5 === void 0 ? void 0 : _a5.toString()) || "";
-  }
-  get is_live() {
-    return this.badges.some((badge) => {
-      if (badge.style === "BADGE_STYLE_TYPE_LIVE_NOW" || badge.label === "LIVE")
-        return true;
-    });
-  }
-  get is_upcoming() {
-    return this.upcoming && this.upcoming > new Date();
-  }
-  get is_premiere() {
-    return this.badges.some((badge) => badge.label === "PREMIERE");
-  }
-  get is_4k() {
-    return this.badges.some((badge) => badge.label === "4K");
-  }
-  get has_captions() {
-    return this.badges.some((badge) => badge.label === "CC");
-  }
-  get best_thumbnail() {
-    return this.thumbnails[0];
-  }
-};
-__name(Video, "Video");
-Video.type = "Video";
-var Video_default = Video;
-
-// dist/src/parser/classes/VideoCard.js
-var VideoCard = class extends Video_default {
-  constructor(data) {
-    super(data);
-  }
-};
-__name(VideoCard, "VideoCard");
-VideoCard.type = "VideoCard";
-var VideoCard_default = VideoCard;
-
 // dist/src/parser/classes/VideoInfoCardContent.js
 var VideoInfoCardContent = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.videoTitle);
-    this.channel_name = new Text_default(data.channelName);
-    this.view_count = new Text_default(data.viewCountText);
-    this.video_thumbnails = Thumbnail_default.fromResponse(data.videoThumbnail);
-    this.duration = new Text_default(data.lengthString);
+    this.title = new Text(data.videoTitle);
+    this.channel_name = new Text(data.channelName);
+    this.view_count = new Text(data.viewCountText);
+    this.video_thumbnails = Thumbnail.fromResponse(data.videoThumbnail);
+    this.duration = new Text(data.lengthString);
     this.endpoint = new NavigationEndpoint_default(data.action);
   }
 };
@@ -16887,8 +17084,8 @@ var VideoInfoCardContent_default = VideoInfoCardContent;
 var VideoOwner = class extends YTNode {
   constructor(data) {
     super();
-    this.subscription_button = data.subscriptionButton || null;
-    this.subscriber_count = new Text_default(data.subscriberCountText);
+    this.subscription_button = data.subscriptionButton;
+    this.subscriber_count = new Text(data.subscriberCountText);
     this.author = new Author_default(Object.assign(Object.assign({}, data.title), { navigationEndpoint: data.navigationEndpoint }), data.badges, data.thumbnail);
   }
 };
@@ -16899,15 +17096,17 @@ var VideoOwner_default = VideoOwner;
 // dist/src/parser/classes/VideoPrimaryInfo.js
 var VideoPrimaryInfo = class extends YTNode {
   constructor(data) {
-    var _a5, _b, _c, _d;
+    var _a7, _b2, _c, _d;
     super();
-    this.title = new Text_default(data.title);
-    this.super_title_link = new Text_default(data.superTitleLink);
-    this.view_count = new Text_default((_b = (_a5 = data.viewCount) === null || _a5 === void 0 ? void 0 : _a5.videoViewCountRenderer) === null || _b === void 0 ? void 0 : _b.viewCount);
-    this.short_view_count = new Text_default((_d = (_c = data.viewCount) === null || _c === void 0 ? void 0 : _c.videoViewCountRenderer) === null || _d === void 0 ? void 0 : _d.shortViewCount);
+    this.title = new Text(data.title);
+    if (Reflect.has(data, "superTitleLink")) {
+      this.super_title_link = new Text(data.superTitleLink);
+    }
+    this.view_count = new Text((_b2 = (_a7 = data.viewCount) === null || _a7 === void 0 ? void 0 : _a7.videoViewCountRenderer) === null || _b2 === void 0 ? void 0 : _b2.viewCount);
+    this.short_view_count = new Text((_d = (_c = data.viewCount) === null || _c === void 0 ? void 0 : _c.videoViewCountRenderer) === null || _d === void 0 ? void 0 : _d.shortViewCount);
     this.badges = parser_default.parseArray(data.badges, MetadataBadge_default);
-    this.published = new Text_default(data.dateText);
-    this.relative_date = new Text_default(data.relativeDateText);
+    this.published = new Text(data.dateText);
+    this.relative_date = new Text(data.relativeDateText);
     this.menu = parser_default.parseItem(data.videoActions, Menu_default);
   }
 };
@@ -16916,23 +17115,16 @@ VideoPrimaryInfo.type = "VideoPrimaryInfo";
 var VideoPrimaryInfo_default = VideoPrimaryInfo;
 
 // dist/src/parser/classes/VideoSecondaryInfo.js
-var __classPrivateFieldGet10 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _VideoSecondaryInfo_instances;
 var _VideoSecondaryInfo_convertAttributedDescriptionToRuns;
 var VideoSecondaryInfo = class extends YTNode {
   constructor(data) {
     super();
     _VideoSecondaryInfo_instances.add(this);
-    this.owner = parser_default.parseItem(data.owner);
-    this.description = new Text_default(data.description);
+    this.owner = parser_default.parseItem(data.owner, VideoOwner_default);
+    this.description = new Text(data.description);
     if (Reflect.has(data, "attributedDescription")) {
-      this.description = new Text_default(__classPrivateFieldGet10(this, _VideoSecondaryInfo_instances, "m", _VideoSecondaryInfo_convertAttributedDescriptionToRuns).call(this, data.attributedDescription));
+      this.description = new Text(__classPrivateFieldGet(this, _VideoSecondaryInfo_instances, "m", _VideoSecondaryInfo_convertAttributedDescriptionToRuns).call(this, data.attributedDescription));
     }
     this.subscribe_button = parser_default.parseItem(data.subscribeButton, [SubscribeButton_default, Button_default]);
     this.metadata = parser_default.parseItem(data.metadataRowContainer, MetadataRowContainer_default);
@@ -17002,10 +17194,10 @@ var VideoSecondaryInfo_default = VideoSecondaryInfo;
 var WatchCardCompactVideo = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
-    this.subtitle = new Text_default(data.subtitle);
+    this.title = new Text(data.title);
+    this.subtitle = new Text(data.subtitle);
     this.duration = {
-      text: new Text_default(data.lengthText).toString(),
+      text: new Text(data.lengthText).toString(),
       seconds: timeToSeconds(data.lengthText.simpleText)
     };
     this.style = data.style;
@@ -17018,12 +17210,12 @@ var WatchCardCompactVideo_default = WatchCardCompactVideo;
 // dist/src/parser/classes/WatchCardHeroVideo.js
 var WatchCardHeroVideo = class extends YTNode {
   constructor(data) {
-    var _a5;
+    var _a7;
     super();
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.call_to_action_button = parser_default.parseItem(data.callToActionButton);
     this.hero_image = parser_default.parseItem(data.heroImage);
-    this.label = ((_a5 = data.lengthText) === null || _a5 === void 0 ? void 0 : _a5.accessibility.accessibilityData.label) || "";
+    this.label = ((_a7 = data.lengthText) === null || _a7 === void 0 ? void 0 : _a7.accessibility.accessibilityData.label) || "";
   }
 };
 __name(WatchCardHeroVideo, "WatchCardHeroVideo");
@@ -17034,9 +17226,9 @@ var WatchCardHeroVideo_default = WatchCardHeroVideo;
 var WatchCardRichHeader = class extends YTNode {
   constructor(data) {
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.title_endpoint = new NavigationEndpoint_default(data.titleNavigationEndpoint);
-    this.subtitle = new Text_default(data.subtitle);
+    this.subtitle = new Text(data.subtitle);
     this.author = new Author_default(data, data.titleBadge ? [data.titleBadge] : null, data.avatar);
     this.author.name = this.title.toString();
     this.style = data.style;
@@ -17070,14 +17262,14 @@ var WatchNextTabbedResults_default = WatchNextTabbedResults;
 // dist/src/parser/classes/ytkids/AnchoredSection.js
 var AnchoredSection = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
     this.title = data.title;
-    this.content = parser_default.parseItem(data.content);
+    this.content = parser_default.parseItem(data.content, SectionList_default);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.category_assets = {
-      asset_key: (_a5 = data.categoryAssets) === null || _a5 === void 0 ? void 0 : _a5.assetKey,
-      background_color: (_b = data.categoryAssets) === null || _b === void 0 ? void 0 : _b.backgroundColor
+      asset_key: (_a7 = data.categoryAssets) === null || _a7 === void 0 ? void 0 : _a7.assetKey,
+      background_color: (_b2 = data.categoryAssets) === null || _b2 === void 0 ? void 0 : _b2.backgroundColor
     };
     this.category_type = data.categoryType;
   }
@@ -17086,27 +17278,15 @@ __name(AnchoredSection, "AnchoredSection");
 AnchoredSection.type = "AnchoredSection";
 var AnchoredSection_default = AnchoredSection;
 
-// dist/src/parser/classes/ytkids/KidsCategoriesHeader.js
-var KidsCategoriesHeader = class extends YTNode {
-  constructor(data) {
-    super();
-    this.category_tabs = parser_default.parseArray(data.categoryTabs);
-    this.privacy_button = parser_default.parseItem(data.privacyButtonRenderer);
-  }
-};
-__name(KidsCategoriesHeader, "KidsCategoriesHeader");
-KidsCategoriesHeader.type = "kidsCategoriesHeader";
-var KidsCategoriesHeader_default = KidsCategoriesHeader;
-
 // dist/src/parser/classes/ytkids/KidsCategoryTab.js
 var KidsCategoryTab = class extends YTNode {
   constructor(data) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
-    this.title = new Text_default(data.title);
+    this.title = new Text(data.title);
     this.category_assets = {
-      asset_key: (_a5 = data.categoryAssets) === null || _a5 === void 0 ? void 0 : _a5.assetKey,
-      background_color: (_b = data.categoryAssets) === null || _b === void 0 ? void 0 : _b.backgroundColor
+      asset_key: (_a7 = data.categoryAssets) === null || _a7 === void 0 ? void 0 : _a7.assetKey,
+      background_color: (_b2 = data.categoryAssets) === null || _b2 === void 0 ? void 0 : _b2.backgroundColor
     };
     this.category_type = data.categoryType;
     this.endpoint = new NavigationEndpoint_default(data.endpoint);
@@ -17116,400 +17296,544 @@ __name(KidsCategoryTab, "KidsCategoryTab");
 KidsCategoryTab.type = "KidsCategoryTab";
 var KidsCategoryTab_default = KidsCategoryTab;
 
+// dist/src/parser/classes/ytkids/KidsCategoriesHeader.js
+var KidsCategoriesHeader = class extends YTNode {
+  constructor(data) {
+    super();
+    this.category_tabs = parser_default.parseArray(data.categoryTabs, KidsCategoryTab_default);
+    this.privacy_button = parser_default.parseItem(data.privacyButtonRenderer, Button_default);
+  }
+};
+__name(KidsCategoriesHeader, "KidsCategoriesHeader");
+KidsCategoriesHeader.type = "kidsCategoriesHeader";
+var KidsCategoriesHeader_default = KidsCategoriesHeader;
+
 // dist/src/parser/classes/ytkids/KidsHomeScreen.js
 var KidsHomeScreen = class extends YTNode {
   constructor(data) {
     super();
-    this.anchors = parser_default.parseArray(data.anchors);
+    this.anchors = parser_default.parseArray(data.anchors, AnchoredSection_default);
   }
 };
 __name(KidsHomeScreen, "KidsHomeScreen");
 KidsHomeScreen.type = "kidsHomeScreen";
 var KidsHomeScreen_default = KidsHomeScreen;
 
-// dist/src/parser/map.js
-var map = {
-  AccountChannel: AccountChannel_default,
-  AccountItemSection: AccountItemSection_default,
-  AccountItemSectionHeader: AccountItemSectionHeader_default,
-  AccountSectionList: AccountSectionList_default,
-  AppendContinuationItemsAction: AppendContinuationItemsAction_default,
-  OpenPopupAction: OpenPopupAction_default,
-  Alert: Alert_default,
-  AnalyticsMainAppKeyMetrics: AnalyticsMainAppKeyMetrics_default,
-  AnalyticsRoot: AnalyticsRoot_default,
-  AnalyticsShortsCarouselCard: AnalyticsShortsCarouselCard_default,
-  AnalyticsVideo: AnalyticsVideo_default,
-  AnalyticsVodCarouselCard: AnalyticsVodCarouselCard_default,
-  CtaGoToCreatorStudio: CtaGoToCreatorStudio_default,
-  DataModelSection: DataModelSection_default,
-  StatRow: StatRow_default,
-  AudioOnlyPlayability: AudioOnlyPlayability_default,
-  AutomixPreviewVideo: AutomixPreviewVideo_default,
-  BackstageImage: BackstageImage_default,
-  BackstagePost: BackstagePost_default,
-  BackstagePostThread: BackstagePostThread_default,
-  BrowseFeedActions: BrowseFeedActions_default,
-  BrowserMediaSession: BrowserMediaSession_default,
-  Button: Button_default,
-  C4TabbedHeader: C4TabbedHeader_default,
-  CallToActionButton: CallToActionButton_default,
-  Card: Card_default,
-  CardCollection: CardCollection_default,
-  CarouselHeader: CarouselHeader_default,
-  CarouselItem: CarouselItem_default,
-  Channel: Channel_default,
-  ChannelAboutFullMetadata: ChannelAboutFullMetadata_default,
-  ChannelAgeGate: ChannelAgeGate_default,
-  ChannelFeaturedContent: ChannelFeaturedContent_default,
-  ChannelHeaderLinks: ChannelHeaderLinks_default,
-  ChannelMetadata: ChannelMetadata_default,
-  ChannelMobileHeader: ChannelMobileHeader_default,
-  ChannelOptions: ChannelOptions_default,
-  ChannelSubMenu: ChannelSubMenu_default,
-  ChannelThumbnailWithLink: ChannelThumbnailWithLink_default,
-  ChannelVideoPlayer: ChannelVideoPlayer_default,
-  Chapter: Chapter_default,
-  ChildVideo: ChildVideo_default,
-  ChipCloud: ChipCloud_default,
-  ChipCloudChip: ChipCloudChip_default,
-  CollaboratorInfoCardContent: CollaboratorInfoCardContent_default,
-  CollageHeroImage: CollageHeroImage_default,
-  AuthorCommentBadge: AuthorCommentBadge_default,
-  Comment: Comment_default,
-  CommentActionButtons: CommentActionButtons_default,
-  CommentDialog: CommentDialog_default,
-  CommentReplies: CommentReplies_default,
-  CommentReplyDialog: CommentReplyDialog_default,
-  CommentsEntryPointHeader: CommentsEntryPointHeader_default,
-  CommentsHeader: CommentsHeader_default,
-  CommentSimplebox: CommentSimplebox_default,
-  CommentThread: CommentThread_default,
-  CreatorHeart: CreatorHeart_default,
-  EmojiPicker: EmojiPicker_default,
-  PdgCommentChip: PdgCommentChip_default,
-  SponsorCommentBadge: SponsorCommentBadge_default,
-  CompactChannel: CompactChannel_default,
-  CompactLink: CompactLink_default,
-  CompactMix: CompactMix_default,
-  CompactPlaylist: CompactPlaylist_default,
-  CompactStation: CompactStation_default,
-  CompactVideo: CompactVideo_default,
-  ConfirmDialog: ConfirmDialog_default,
-  ContinuationItem: ContinuationItem_default,
-  ConversationBar: ConversationBar_default,
-  CopyLink: CopyLink_default,
-  CreatePlaylistDialog: CreatePlaylistDialog_default,
-  DecoratedPlayerBar: DecoratedPlayerBar_default,
-  DefaultPromoPanel: DefaultPromoPanel_default,
-  DidYouMean: DidYouMean_default,
-  DownloadButton: DownloadButton_default,
-  Dropdown: Dropdown_default,
-  DropdownItem: DropdownItem_default,
-  Element: Element_default,
-  EmergencyOnebox: EmergencyOnebox_default,
-  EmojiPickerCategory: EmojiPickerCategory_default,
-  EmojiPickerCategoryButton: EmojiPickerCategoryButton_default,
-  EmojiPickerUpsellCategory: EmojiPickerUpsellCategory_default,
-  Endscreen: Endscreen_default,
-  EndscreenElement: EndscreenElement_default,
-  EndScreenPlaylist: EndScreenPlaylist_default,
-  EndScreenVideo: EndScreenVideo_default,
-  ExpandableMetadata: ExpandableMetadata_default,
-  ExpandableTab: ExpandableTab_default,
-  ExpandedShelfContents: ExpandedShelfContents_default,
-  FeedFilterChipBar: FeedFilterChipBar_default,
-  FeedTabbedHeader: FeedTabbedHeader_default,
-  GameCard: GameCard_default,
-  GameDetails: GameDetails_default,
-  Grid: Grid_default,
-  GridChannel: GridChannel_default,
-  GridHeader: GridHeader_default,
-  GridMix: GridMix_default,
-  GridMovie: GridMovie_default,
-  GridPlaylist: GridPlaylist_default,
-  GridVideo: GridVideo_default,
-  GuideCollapsibleEntry: GuideCollapsibleEntry_default,
-  GuideCollapsibleSectionEntry: GuideCollapsibleSectionEntry_default,
-  GuideDownloadsEntry: GuideDownloadsEntry_default,
-  GuideEntry: GuideEntry_default,
-  GuideSection: GuideSection_default,
-  GuideSubscriptionsSection: GuideSubscriptionsSection_default,
-  HashtagHeader: HashtagHeader_default,
-  Heatmap: Heatmap_default,
-  HeatMarker: HeatMarker_default,
-  HeroPlaylistThumbnail: HeroPlaylistThumbnail_default,
-  HighlightsCarousel: HighlightsCarousel_default,
-  HistorySuggestion: HistorySuggestion_default,
-  HorizontalCardList: HorizontalCardList_default,
-  HorizontalList: HorizontalList_default,
-  HorizontalMovieList: HorizontalMovieList_default,
-  IconLink: IconLink_default,
-  InteractiveTabbedHeader: InteractiveTabbedHeader_default,
-  ItemSection: ItemSection_default,
-  ItemSectionHeader: ItemSectionHeader_default,
-  ItemSectionTab: ItemSectionTab_default,
-  ItemSectionTabbedHeader: ItemSectionTabbedHeader_default,
-  LikeButton: LikeButton_default,
-  LiveChat: LiveChat_default,
-  AddBannerToLiveChatCommand: AddBannerToLiveChatCommand_default,
-  AddChatItemAction: AddChatItemAction_default,
-  AddLiveChatTickerItemAction: AddLiveChatTickerItemAction_default,
-  DimChatItemAction: DimChatItemAction_default,
-  LiveChatAutoModMessage: LiveChatAutoModMessage_default,
-  LiveChatBanner: LiveChatBanner_default,
-  LiveChatBannerHeader: LiveChatBannerHeader_default,
-  LiveChatBannerPoll: LiveChatBannerPoll_default,
-  LiveChatMembershipItem: LiveChatMembershipItem_default,
-  LiveChatPaidMessage: LiveChatPaidMessage_default,
-  LiveChatPaidSticker: LiveChatPaidSticker_default,
-  LiveChatPlaceholderItem: LiveChatPlaceholderItem_default,
-  LiveChatProductItem: LiveChatProductItem_default,
-  LiveChatRestrictedParticipation: LiveChatRestrictedParticipation_default,
-  LiveChatTextMessage: LiveChatTextMessage_default,
-  LiveChatTickerPaidMessageItem: LiveChatTickerPaidMessageItem_default,
-  LiveChatTickerPaidStickerItem: LiveChatTickerPaidStickerItem_default,
-  LiveChatTickerSponsorItem: LiveChatTickerSponsorItem_default,
-  LiveChatViewerEngagementMessage: LiveChatViewerEngagementMessage_default,
-  PollHeader: PollHeader_default,
-  LiveChatActionPanel: LiveChatActionPanel_default,
-  MarkChatItemAsDeletedAction: MarkChatItemAsDeletedAction_default,
-  MarkChatItemsByAuthorAsDeletedAction: MarkChatItemsByAuthorAsDeletedAction_default,
-  RemoveBannerForLiveChatCommand: RemoveBannerForLiveChatCommand_default,
-  RemoveChatItemAction: RemoveChatItemAction_default,
-  RemoveChatItemByAuthorAction: RemoveChatItemByAuthorAction_default,
-  ReplaceChatItemAction: ReplaceChatItemAction_default,
-  ReplayChatItemAction: ReplayChatItemAction_default,
-  ShowLiveChatActionPanelAction: ShowLiveChatActionPanelAction_default,
-  ShowLiveChatDialogAction: ShowLiveChatDialogAction_default,
-  ShowLiveChatTooltipCommand: ShowLiveChatTooltipCommand_default,
-  UpdateDateTextAction: UpdateDateTextAction_default,
-  UpdateDescriptionAction: UpdateDescriptionAction_default,
-  UpdateLiveChatPollAction: UpdateLiveChatPollAction_default,
-  UpdateTitleAction: UpdateTitleAction_default,
-  UpdateToggleButtonTextAction: UpdateToggleButtonTextAction_default,
-  UpdateViewershipAction: UpdateViewershipAction_default,
-  LiveChatAuthorBadge: LiveChatAuthorBadge_default,
-  LiveChatDialog: LiveChatDialog_default,
-  LiveChatHeader: LiveChatHeader_default,
-  LiveChatItemList: LiveChatItemList_default,
-  LiveChatMessageInput: LiveChatMessageInput_default,
-  LiveChatParticipant: LiveChatParticipant_default,
-  LiveChatParticipantsList: LiveChatParticipantsList_default,
-  MacroMarkersListItem: MacroMarkersListItem_default,
-  Menu: Menu_default,
-  MenuNavigationItem: MenuNavigationItem_default,
-  MenuServiceItem: MenuServiceItem_default,
-  MenuServiceItemDownload: MenuServiceItemDownload_default,
-  MultiPageMenu: MultiPageMenu_default,
-  MultiPageMenuNotificationSection: MultiPageMenuNotificationSection_default,
-  MusicMenuItemDivider: MusicMenuItemDivider_default,
-  MusicMultiSelectMenu: MusicMultiSelectMenu_default,
-  MusicMultiSelectMenuItem: MusicMultiSelectMenuItem_default,
-  SimpleMenuHeader: SimpleMenuHeader_default,
-  MerchandiseItem: MerchandiseItem_default,
-  MerchandiseShelf: MerchandiseShelf_default,
-  Message: Message_default,
-  MetadataBadge: MetadataBadge_default,
-  MetadataRow: MetadataRow_default,
-  MetadataRowContainer: MetadataRowContainer_default,
-  MetadataRowHeader: MetadataRowHeader_default,
-  MetadataScreen: MetadataScreen_default,
-  MicroformatData: MicroformatData_default,
-  Mix: Mix_default,
-  Movie: Movie_default,
-  MovingThumbnail: MovingThumbnail_default,
-  MultiMarkersPlayerBar: MultiMarkersPlayerBar_default,
-  MusicCarouselShelf: MusicCarouselShelf_default,
-  MusicCarouselShelfBasicHeader: MusicCarouselShelfBasicHeader_default,
-  MusicDescriptionShelf: MusicDescriptionShelf_default,
-  MusicDetailHeader: MusicDetailHeader_default,
-  MusicDownloadStateBadge: MusicDownloadStateBadge_default,
-  MusicEditablePlaylistDetailHeader: MusicEditablePlaylistDetailHeader_default,
-  MusicElementHeader: MusicElementHeader_default,
-  MusicHeader: MusicHeader_default,
-  MusicImmersiveHeader: MusicImmersiveHeader_default,
-  MusicInlineBadge: MusicInlineBadge_default,
-  MusicItemThumbnailOverlay: MusicItemThumbnailOverlay_default,
-  MusicLargeCardItemCarousel: MusicLargeCardItemCarousel_default,
-  MusicNavigationButton: MusicNavigationButton_default,
-  MusicPlayButton: MusicPlayButton_default,
-  MusicPlaylistShelf: MusicPlaylistShelf_default,
-  MusicQueue: MusicQueue_default,
-  MusicResponsiveListItem: MusicResponsiveListItem_default,
-  MusicResponsiveListItemFixedColumn: MusicResponsiveListItemFixedColumn_default,
-  MusicResponsiveListItemFlexColumn: MusicResponsiveListItemFlexColumn_default,
-  MusicShelf: MusicShelf_default,
-  MusicSideAlignedItem: MusicSideAlignedItem_default,
-  MusicSortFilterButton: MusicSortFilterButton_default,
-  MusicThumbnail: MusicThumbnail_default,
-  MusicTwoRowItem: MusicTwoRowItem_default,
-  MusicVisualHeader: MusicVisualHeader_default,
-  NavigationEndpoint: NavigationEndpoint_default,
-  Notification: Notification_default,
-  PageIntroduction: PageIntroduction_default,
-  PlayerAnnotationsExpanded: PlayerAnnotationsExpanded_default,
-  PlayerCaptionsTracklist: PlayerCaptionsTracklist_default,
-  PlayerErrorMessage: PlayerErrorMessage_default,
-  PlayerLegacyDesktopYpcOffer: PlayerLegacyDesktopYpcOffer_default,
-  PlayerLegacyDesktopYpcTrailer: PlayerLegacyDesktopYpcTrailer_default,
-  PlayerLiveStoryboardSpec: PlayerLiveStoryboardSpec_default,
-  PlayerMicroformat: PlayerMicroformat_default,
-  PlayerOverlay: PlayerOverlay_default,
-  PlayerOverlayAutoplay: PlayerOverlayAutoplay_default,
-  PlayerStoryboardSpec: PlayerStoryboardSpec_default,
-  Playlist: Playlist_default,
-  PlaylistCustomThumbnail: PlaylistCustomThumbnail_default,
-  PlaylistHeader: PlaylistHeader_default,
-  PlaylistInfoCardContent: PlaylistInfoCardContent_default,
-  PlaylistMetadata: PlaylistMetadata_default,
-  PlaylistPanel: PlaylistPanel_default,
-  PlaylistPanelVideo: PlaylistPanelVideo_default,
-  PlaylistPanelVideoWrapper: PlaylistPanelVideoWrapper_default,
-  PlaylistSidebar: PlaylistSidebar_default,
-  PlaylistSidebarPrimaryInfo: PlaylistSidebarPrimaryInfo_default,
-  PlaylistSidebarSecondaryInfo: PlaylistSidebarSecondaryInfo_default,
-  PlaylistVideo: PlaylistVideo_default,
-  PlaylistVideoList: PlaylistVideoList_default,
-  PlaylistVideoThumbnail: PlaylistVideoThumbnail_default,
-  Poll: Poll_default,
-  Post: Post_default,
-  PostMultiImage: PostMultiImage_default,
-  ProfileColumn: ProfileColumn_default,
-  ProfileColumnStats: ProfileColumnStats_default,
-  ProfileColumnStatsEntry: ProfileColumnStatsEntry_default,
-  ProfileColumnUserInfo: ProfileColumnUserInfo_default,
-  RecognitionShelf: RecognitionShelf_default,
-  ReelItem: ReelItem_default,
-  ReelShelf: ReelShelf_default,
-  RelatedChipCloud: RelatedChipCloud_default,
-  RichGrid: RichGrid_default,
-  RichItem: RichItem_default,
-  RichListHeader: RichListHeader_default,
-  RichMetadata: RichMetadata_default,
-  RichMetadataRow: RichMetadataRow_default,
-  RichSection: RichSection_default,
-  RichShelf: RichShelf_default,
-  SearchBox: SearchBox_default,
-  SearchFilter: SearchFilter_default,
-  SearchFilterGroup: SearchFilterGroup_default,
-  SearchRefinementCard: SearchRefinementCard_default,
-  SearchSubMenu: SearchSubMenu_default,
-  SearchSuggestion: SearchSuggestion_default,
-  SearchSuggestionsSection: SearchSuggestionsSection_default,
-  SecondarySearchContainer: SecondarySearchContainer_default,
-  SectionList: SectionList_default,
-  SegmentedLikeDislikeButton: SegmentedLikeDislikeButton_default,
-  SettingBoolean: SettingBoolean_default,
-  SettingsCheckbox: SettingsCheckbox_default,
-  SettingsOptions: SettingsOptions_default,
-  SettingsSidebar: SettingsSidebar_default,
-  SettingsSwitch: SettingsSwitch_default,
-  SharedPost: SharedPost_default,
-  Shelf: Shelf_default,
-  ShowingResultsFor: ShowingResultsFor_default,
-  SimpleCardContent: SimpleCardContent_default,
-  SimpleCardTeaser: SimpleCardTeaser_default,
-  SimpleTextSection: SimpleTextSection_default,
-  SingleActionEmergencySupport: SingleActionEmergencySupport_default,
-  SingleColumnBrowseResults: SingleColumnBrowseResults_default,
-  SingleColumnMusicWatchNextResults: SingleColumnMusicWatchNextResults_default,
-  SingleHeroImage: SingleHeroImage_default,
-  SlimOwner: SlimOwner_default,
-  SlimVideoMetadata: SlimVideoMetadata_default,
-  SortFilterSubMenu: SortFilterSubMenu_default,
-  SubFeedOption: SubFeedOption_default,
-  SubFeedSelector: SubFeedSelector_default,
-  SubscribeButton: SubscribeButton_default,
-  SubscriptionNotificationToggleButton: SubscriptionNotificationToggleButton_default,
-  Tab: Tab_default,
-  Tabbed: Tabbed_default,
-  TabbedSearchResults: TabbedSearchResults_default,
-  TextHeader: TextHeader_default,
-  ThumbnailLandscapePortrait: ThumbnailLandscapePortrait_default,
-  ThumbnailOverlayBottomPanel: ThumbnailOverlayBottomPanel_default,
-  ThumbnailOverlayEndorsement: ThumbnailOverlayEndorsement_default,
-  ThumbnailOverlayHoverText: ThumbnailOverlayHoverText_default,
-  ThumbnailOverlayInlineUnplayable: ThumbnailOverlayInlineUnplayable_default,
-  ThumbnailOverlayLoadingPreview: ThumbnailOverlayLoadingPreview_default,
-  ThumbnailOverlayNowPlaying: ThumbnailOverlayNowPlaying_default,
-  ThumbnailOverlayPinking: ThumbnailOverlayPinking_default,
-  ThumbnailOverlayPlaybackStatus: ThumbnailOverlayPlaybackStatus_default,
-  ThumbnailOverlayResumePlayback: ThumbnailOverlayResumePlayback_default,
-  ThumbnailOverlaySidePanel: ThumbnailOverlaySidePanel_default,
-  ThumbnailOverlayTimeStatus: ThumbnailOverlayTimeStatus_default,
-  ThumbnailOverlayToggleButton: ThumbnailOverlayToggleButton_default,
-  TimedMarkerDecoration: TimedMarkerDecoration_default,
-  TitleAndButtonListHeader: TitleAndButtonListHeader_default,
-  ToggleButton: ToggleButton_default,
-  ToggleMenuServiceItem: ToggleMenuServiceItem_default,
-  Tooltip: Tooltip_default,
-  TopicChannelDetails: TopicChannelDetails_default,
-  TwoColumnBrowseResults: TwoColumnBrowseResults_default,
-  TwoColumnSearchResults: TwoColumnSearchResults_default,
-  TwoColumnWatchNextResults: TwoColumnWatchNextResults_default,
-  UniversalWatchCard: UniversalWatchCard_default,
-  UpsellDialog: UpsellDialog_default,
-  VerticalList: VerticalList_default,
-  VerticalWatchCardList: VerticalWatchCardList_default,
-  Video: Video_default,
-  VideoCard: VideoCard_default,
-  VideoInfoCardContent: VideoInfoCardContent_default,
-  VideoOwner: VideoOwner_default,
-  VideoPrimaryInfo: VideoPrimaryInfo_default,
-  VideoSecondaryInfo: VideoSecondaryInfo_default,
-  WatchCardCompactVideo: WatchCardCompactVideo_default,
-  WatchCardHeroVideo: WatchCardHeroVideo_default,
-  WatchCardRichHeader: WatchCardRichHeader_default,
-  WatchCardSectionSequence: WatchCardSectionSequence_default,
-  WatchNextEndScreen: WatchNextEndScreen_default,
-  WatchNextTabbedResults: WatchNextTabbedResults_default,
-  YpcTrailer: YpcTrailer_default,
-  AnchoredSection: AnchoredSection_default,
-  KidsCategoriesHeader: KidsCategoriesHeader_default,
-  KidsCategoryTab: KidsCategoryTab_default,
-  KidsHomeScreen: KidsHomeScreen_default
-};
-var Misc = {
-  Author: Author_default,
-  ChildElement: ChildElement_default,
-  EmojiRun: EmojiRun_default,
-  Format: Format_default,
-  NavigatableText: NavigatableText_default,
-  PlaylistAuthor: PlaylistAuthor_default,
-  Text: Text_default,
-  TextRun: TextRun_default,
-  Thumbnail: Thumbnail_default,
-  VideoDetails: VideoDetails_default
-};
-function GetParserByName(name) {
-  const ParserConstructor = map[name];
-  if (!ParserConstructor) {
-    const error = new Error(`Module not found: ${name}`);
-    error.code = "MODULE_NOT_FOUND";
-    throw error;
+// dist/src/parser/generator.js
+var generator_exports = {};
+__export(generator_exports, {
+  YTNodeGenerator: () => YTNodeGenerator
+});
+var _a;
+var _YTNodeGenerator_ignored_keys;
+var _YTNodeGenerator_renderers_examples;
+var _YTNodeGenerator_camelToSnake;
+var _YTNodeGenerator_logNewClass;
+var _YTNodeGenerator_logChangedKeys;
+var _YTNodeGenerator_accessDataFromKeyPath;
+var _YTNodeGenerator_hasDataFromKeyPath;
+var _YTNodeGenerator_passOne;
+var _YTNodeGenerator_passTwo;
+var _YTNodeGenerator_introspect;
+var YTNodeGenerator = class {
+  static isIgnoredKey(key) {
+    return typeof key === "string" && __classPrivateFieldGet(this, _a, "f", _YTNodeGenerator_ignored_keys).has(key);
   }
-  return ParserConstructor;
+  static mergeKeyInfo(key_info, new_key_info) {
+    const changed_keys = /* @__PURE__ */ new Map();
+    const current_keys = new Set(key_info.map(([key]) => key));
+    const new_keys = new Set(new_key_info.map(([key]) => key));
+    const added_keys = new_key_info.filter(([key]) => !current_keys.has(key));
+    const removed_keys = key_info.filter(([key]) => !new_keys.has(key));
+    const common_keys = key_info.filter(([key]) => new_keys.has(key));
+    const new_key_map = new Map(new_key_info);
+    for (const [key, type] of common_keys) {
+      const new_type = new_key_map.get(key);
+      if (!new_type)
+        continue;
+      if (type.type !== new_type.type) {
+        changed_keys.set(key, {
+          type: "unknown",
+          optional: true
+        });
+        continue;
+      }
+      switch (type.type) {
+        case "object":
+          {
+            if (new_type.type !== "object")
+              continue;
+            const { resolved_key_info: resolved_key_info2 } = this.mergeKeyInfo(type.keys, new_type.keys);
+            const resolved_key = {
+              type: "object",
+              keys: resolved_key_info2,
+              optional: type.optional || new_type.optional
+            };
+            const did_change = JSON.stringify(resolved_key) !== JSON.stringify(type);
+            if (did_change)
+              changed_keys.set(key, resolved_key);
+          }
+          break;
+        case "renderer":
+          {
+            if (new_type.type !== "renderer")
+              continue;
+            const union_map = Object.assign(Object.assign({}, type.renderers), new_type.renderers);
+            const either_optional = type.optional || new_type.optional;
+            const resolved_key = {
+              type: "renderer",
+              renderers: union_map,
+              optional: either_optional
+            };
+            const did_change = JSON.stringify(Object.assign(Object.assign({}, resolved_key), { renderers: Object.keys(resolved_key.renderers) })) !== JSON.stringify(Object.assign(Object.assign({}, type), { renderers: Object.keys(type.renderers) }));
+            if (did_change)
+              changed_keys.set(key, resolved_key);
+          }
+          break;
+        case "renderer_list":
+          {
+            if (new_type.type !== "renderer_list")
+              continue;
+            const union_map = Object.assign(Object.assign({}, type.renderers), new_type.renderers);
+            const either_optional = type.optional || new_type.optional;
+            const resolved_key = {
+              type: "renderer_list",
+              renderers: union_map,
+              optional: either_optional
+            };
+            const did_change = JSON.stringify(Object.assign(Object.assign({}, resolved_key), { renderers: Object.keys(resolved_key.renderers) })) !== JSON.stringify(Object.assign(Object.assign({}, type), { renderers: Object.keys(type.renderers) }));
+            if (did_change)
+              changed_keys.set(key, resolved_key);
+          }
+          break;
+        case "misc":
+          {
+            if (new_type.type !== "misc")
+              continue;
+            if (type.misc_type !== new_type.misc_type) {
+              changed_keys.set(key, {
+                type: "unknown",
+                optional: true
+              });
+            }
+            switch (type.misc_type) {
+              case "Author":
+                {
+                  if (new_type.misc_type !== "Author")
+                    break;
+                  const had_optional_param = type.params[1] || new_type.params[1];
+                  const either_optional = type.optional || new_type.optional;
+                  const resolved_key = {
+                    type: "misc",
+                    misc_type: "Author",
+                    optional: either_optional,
+                    params: [new_type.params[0], had_optional_param]
+                  };
+                  const did_change = JSON.stringify(resolved_key) !== JSON.stringify(type);
+                  if (did_change)
+                    changed_keys.set(key, resolved_key);
+                }
+                break;
+            }
+          }
+          break;
+        case "primative":
+          {
+            if (new_type.type !== "primative")
+              continue;
+            const resolved_key = {
+              type: "primative",
+              typeof: Array.from(/* @__PURE__ */ new Set([...new_type.typeof, ...type.typeof])),
+              optional: type.optional || new_type.optional
+            };
+            const did_change = JSON.stringify(resolved_key) !== JSON.stringify(type);
+            if (did_change)
+              changed_keys.set(key, resolved_key);
+          }
+          break;
+      }
+    }
+    for (const [key, type] of added_keys) {
+      changed_keys.set(key, Object.assign(Object.assign({}, type), { optional: true }));
+    }
+    for (const [key, type] of removed_keys) {
+      changed_keys.set(key, Object.assign(Object.assign({}, type), { optional: true }));
+    }
+    const unchanged_keys = key_info.filter(([key]) => !changed_keys.has(key));
+    const resolved_key_info_map = new Map([...unchanged_keys, ...changed_keys]);
+    const resolved_key_info = [...resolved_key_info_map.entries()];
+    return {
+      resolved_key_info,
+      changed_keys: [...changed_keys.entries()]
+    };
+  }
+  static createRuntimeClass(classname, key_info) {
+    var _b2, _key_info;
+    __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_logNewClass).call(this, classname, key_info);
+    const node = (_b2 = /* @__PURE__ */ __name(class extends YTNode {
+      static set key_info(key_info2) {
+        __classPrivateFieldSet(this, _b2, new Map(key_info2), "f", _key_info);
+      }
+      static get key_info() {
+        return [...__classPrivateFieldGet(this, _b2, "f", _key_info).entries()];
+      }
+      constructor(data) {
+        super();
+        const { key_info: key_info2, unimplemented_dependencies } = YTNodeGenerator.introspect(data);
+        const { resolved_key_info, changed_keys } = YTNodeGenerator.mergeKeyInfo(node.key_info, key_info2);
+        const did_change = changed_keys.length > 0;
+        if (did_change) {
+          node.key_info = resolved_key_info;
+          __classPrivateFieldGet(YTNodeGenerator, _a, "m", _YTNodeGenerator_logChangedKeys).call(YTNodeGenerator, classname, node.key_info, changed_keys);
+        }
+        for (const [name, data2] of unimplemented_dependencies)
+          YTNodeGenerator.generateRuntimeClass(name, data2);
+        for (const [key, value] of key_info2) {
+          let snake_key = __classPrivateFieldGet(YTNodeGenerator, _a, "m", _YTNodeGenerator_camelToSnake).call(YTNodeGenerator, key);
+          if (value.type === "misc" && value.misc_type === "NavigationEndpoint")
+            snake_key = "endpoint";
+          Reflect.set(this, snake_key, YTNodeGenerator.parse(key, value, data));
+        }
+      }
+    }, "_b"), __setFunctionName(_b2, "node"), _b2.type = classname, _key_info = { value: /* @__PURE__ */ new Map() }, _b2);
+    node.key_info = key_info;
+    Object.defineProperty(node, "name", { value: classname, writable: false });
+    return node;
+  }
+  static introspect(classdata) {
+    const key_info = __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_introspect).call(this, classdata);
+    const dependencies = /* @__PURE__ */ new Map();
+    for (const [, value] of key_info) {
+      if (value.type === "renderer" || value.type === "renderer_list")
+        for (const renderer of value.renderers) {
+          const example = __classPrivateFieldGet(this, _a, "f", _YTNodeGenerator_renderers_examples)[renderer];
+          if (example)
+            dependencies.set(renderer, example);
+        }
+    }
+    const unimplemented_dependencies = Array.from(dependencies).filter(([classname]) => !parser_default2.hasParser(classname));
+    return {
+      key_info,
+      unimplemented_dependencies
+    };
+  }
+  static generateRuntimeClass(classname, classdata) {
+    const { key_info, unimplemented_dependencies } = this.introspect(classdata);
+    const JITNode = this.createRuntimeClass(classname, key_info);
+    parser_default2.addRuntimeParser(classname, JITNode);
+    for (const [name, data] of unimplemented_dependencies)
+      this.generateRuntimeClass(name, data);
+    return JITNode;
+  }
+  static generateTypescriptClass(classname, key_info) {
+    const props = [];
+    const constructor_lines = [
+      "super();"
+    ];
+    for (const [key, value] of key_info) {
+      let snake_key = __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_camelToSnake).call(this, key);
+      if (value.type === "misc" && value.misc_type === "NavigationEndpoint")
+        snake_key = "endpoint";
+      props.push(`${snake_key}${value.optional ? "?" : ""}: ${this.toTypeDeclaration(value)};`);
+      constructor_lines.push(`this.${snake_key} = ${this.toParser(key, value)};`);
+    }
+    return `class ${classname} extends YTNode {
+  static type = '${classname}';
+
+  ${props.join("\n  ")}
+
+  constructor(data: RawNode) {
+    ${constructor_lines.join("\n    ")}
+  }
 }
-__name(GetParserByName, "GetParserByName");
+`;
+  }
+  static toTypeDeclaration(inference_type, indentation = 0) {
+    switch (inference_type.type) {
+      case "renderer": {
+        return `${inference_type.renderers.map((type) => `YTNodes.${type}`).join(" | ")} | null`;
+      }
+      case "renderer_list": {
+        return `ObservedArray<${inference_type.renderers.map((type) => `YTNodes.${type}`).join(" | ")}> | null`;
+      }
+      case "object": {
+        return `{
+${inference_type.keys.map(([key, value]) => `${" ".repeat((indentation + 2) * 2)}${__classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_camelToSnake).call(this, key)}${value.optional ? "?" : ""}: ${this.toTypeDeclaration(value, indentation + 1)}`).join(",\n")}
+${" ".repeat((indentation + 1) * 2)}}`;
+      }
+      case "misc":
+        switch (inference_type.misc_type) {
+          case "Thumbnail":
+            return "Thumbnail[]";
+          default:
+            return inference_type.misc_type;
+        }
+      case "primative":
+        return inference_type.typeof.join(" | ");
+      case "unknown":
+        return "/* TODO: determine correct type */ unknown";
+    }
+  }
+  static toParser(key, inference_type, key_path = ["data"], indentation = 1) {
+    let parser = "undefined";
+    switch (inference_type.type) {
+      case "renderer":
+        {
+          parser = `Parser.parseItem(${key_path.join(".")}.${key}, [ ${inference_type.renderers.map((type) => `YTNodes.${type}`).join(", ")} ])`;
+        }
+        break;
+      case "renderer_list":
+        {
+          parser = `Parser.parse(${key_path.join(".")}.${key}, true, [ ${inference_type.renderers.map((type) => `YTNodes.${type}`).join(", ")} ])`;
+        }
+        break;
+      case "object":
+        {
+          const new_keypath = [...key_path, key];
+          parser = `{
+${inference_type.keys.map(([key2, value]) => `${" ".repeat((indentation + 2) * 2)}${__classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_camelToSnake).call(this, key2)}: ${this.toParser(key2, value, new_keypath, indentation + 1)}`).join(",\n")}
+${" ".repeat((indentation + 1) * 2)}}`;
+        }
+        break;
+      case "misc":
+        switch (inference_type.misc_type) {
+          case "Thumbnail":
+            parser = `Thumbnail.fromResponse(${key_path.join(".")}.${key})`;
+            break;
+          case "Author": {
+            const author_parser = `new Author(${key_path.join(".")}.${inference_type.params[0]}, ${inference_type.params[1] ? `${key_path.join(".")}.${inference_type.params[1]}` : "undefined"})`;
+            if (inference_type.optional)
+              return `Reflect.has(${key_path.join(".")}, '${inference_type.params[0]}') ? ${author_parser} : undefined`;
+            return author_parser;
+          }
+          default:
+            parser = `new ${inference_type.misc_type}(${key_path.join(".")}.${key})`;
+            break;
+        }
+        if (parser === "undefined")
+          throw new Error("Unreachable code reached! Switch missing case!");
+        break;
+      case "primative":
+      case "unknown":
+        parser = `${key_path.join(".")}.${key}`;
+        break;
+    }
+    if (inference_type.optional)
+      return `Reflect.has(${key_path.join(".")}, '${key}') ? ${parser} : undefined`;
+    return parser;
+  }
+  static parse(key, inference_type, data, key_path = ["data"]) {
+    const should_optional = !inference_type.optional || __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_hasDataFromKeyPath).call(this, { data }, [...key_path, key]);
+    switch (inference_type.type) {
+      case "renderer": {
+        return should_optional ? parser_default2.parseItem(__classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_accessDataFromKeyPath).call(this, { data }, [...key_path, key]), inference_type.renderers.map((type) => parser_default2.getParserByName(type))) : void 0;
+      }
+      case "renderer_list": {
+        return should_optional ? parser_default2.parse(__classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_accessDataFromKeyPath).call(this, { data }, [...key_path, key]), true, inference_type.renderers.map((type) => parser_default2.getParserByName(type))) : void 0;
+      }
+      case "object": {
+        const obj = {};
+        const new_key_path = [...key_path, key];
+        for (const [key2, value] of inference_type.keys) {
+          obj[key2] = should_optional ? this.parse(key2, value, data, new_key_path) : void 0;
+        }
+        return obj;
+      }
+      case "misc":
+        switch (inference_type.misc_type) {
+          case "NavigationEndpoint":
+            return should_optional ? new NavigationEndpoint_default(__classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_accessDataFromKeyPath).call(this, { data }, [...key_path, key])) : void 0;
+          case "Text":
+            return should_optional ? new Text(__classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_accessDataFromKeyPath).call(this, { data }, [...key_path, key])) : void 0;
+          case "Thumbnail":
+            return should_optional ? Thumbnail.fromResponse(__classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_accessDataFromKeyPath).call(this, { data }, [...key_path, key])) : void 0;
+          case "Author": {
+            const author_should_optional = !inference_type.optional || __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_hasDataFromKeyPath).call(this, { data }, [...key_path, inference_type.params[0]]);
+            return author_should_optional ? new Author_default(__classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_accessDataFromKeyPath).call(this, { data }, [...key_path, inference_type.params[0]]), inference_type.params[1] ? __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_accessDataFromKeyPath).call(this, { data }, [...key_path, inference_type.params[1]]) : void 0) : void 0;
+          }
+        }
+        throw new Error("Unreachable code reached! Switch missing case!");
+      case "primative":
+      case "unknown":
+        return __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_accessDataFromKeyPath).call(this, { data }, [...key_path, key]);
+    }
+  }
+  static inferType(key, value) {
+    let return_value = false;
+    if (return_value = this.isRenderer(value)) {
+      __classPrivateFieldGet(this, _a, "f", _YTNodeGenerator_renderers_examples)[return_value] = value[Reflect.ownKeys(value)[0]];
+      return {
+        type: "renderer",
+        renderers: [return_value],
+        optional: false
+      };
+    }
+    if (return_value = this.isRendererList(value)) {
+      for (const [key2, value2] of Object.entries(return_value)) {
+        __classPrivateFieldGet(this, _a, "f", _YTNodeGenerator_renderers_examples)[key2] = value2;
+      }
+      return {
+        type: "renderer_list",
+        renderers: Object.keys(return_value),
+        optional: false
+      };
+    }
+    if (return_value = this.isMiscType(key, value)) {
+      return return_value;
+    }
+    const primative_type = typeof value;
+    if (primative_type === "object")
+      return {
+        type: "object",
+        keys: Object.entries(value).map(([key2, value2]) => [key2, this.inferType(key2, value2)]),
+        optional: false
+      };
+    return {
+      type: "primative",
+      typeof: [primative_type],
+      optional: false
+    };
+  }
+  static isRendererList(value) {
+    const arr = Array.isArray(value);
+    const is_list = arr && value.every((item) => this.isRenderer(item));
+    return is_list ? Object.fromEntries(value.map((item) => {
+      const key = Reflect.ownKeys(item)[0].toString();
+      return [parser_default2.sanitizeClassName(key), item[key]];
+    })) : false;
+  }
+  static isMiscType(key, value) {
+    if ((key.endsWith("Endpoint") || key.endsWith("Command") || key === "endpoint") && typeof value === "object") {
+      return {
+        type: "misc",
+        endpoint: new NavigationEndpoint_default(value),
+        optional: false,
+        misc_type: "NavigationEndpoint"
+      };
+    }
+    if (typeof value === "object" && (Reflect.has(value, "simpleText") || Reflect.has(value, "runs"))) {
+      const textNode = new Text(value);
+      return {
+        type: "misc",
+        misc_type: "Text",
+        optional: false,
+        endpoint: textNode.endpoint,
+        text: textNode.toString()
+      };
+    }
+    if (typeof value === "object" && Reflect.has(value, "thumbnails") && Array.isArray(value.thumbnails)) {
+      return {
+        type: "misc",
+        misc_type: "Thumbnail",
+        optional: false
+      };
+    }
+    return false;
+  }
+  static isRenderer(value) {
+    const is_object = typeof value === "object";
+    if (!is_object)
+      return false;
+    const keys = Reflect.ownKeys(value);
+    if (keys.length === 1 && keys[0].toString().includes("Renderer")) {
+      return parser_default2.sanitizeClassName(keys[0].toString());
+    }
+    return false;
+  }
+};
+__name(YTNodeGenerator, "YTNodeGenerator");
+_a = YTNodeGenerator, _YTNodeGenerator_camelToSnake = /* @__PURE__ */ __name(function _YTNodeGenerator_camelToSnake2(str) {
+  return str.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`);
+}, "_YTNodeGenerator_camelToSnake"), _YTNodeGenerator_logNewClass = /* @__PURE__ */ __name(function _YTNodeGenerator_logNewClass2(classname, key_info) {
+  console.warn(`${classname} not found!
+This is a bug, want to help us fix it? Follow the instructions at ${Platform.shim.info.repo_url}/blob/main/docs/updating-the-parser.md or report it at ${Platform.shim.info.bugs_url}!
+Introspected and JIT generated this class in the meantime:
+${this.generateTypescriptClass(classname, key_info)}`);
+}, "_YTNodeGenerator_logNewClass"), _YTNodeGenerator_logChangedKeys = /* @__PURE__ */ __name(function _YTNodeGenerator_logChangedKeys2(classname, key_info, changed_keys) {
+  console.warn(`${classname} changed!
+The following keys where altered: ${changed_keys.map(([key]) => __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_camelToSnake).call(this, key)).join(", ")}
+The class has changed to:
+${this.generateTypescriptClass(classname, key_info)}`);
+}, "_YTNodeGenerator_logChangedKeys"), _YTNodeGenerator_accessDataFromKeyPath = /* @__PURE__ */ __name(function _YTNodeGenerator_accessDataFromKeyPath2(root, key_path) {
+  let data = root;
+  for (const key of key_path)
+    data = data[key];
+  return data;
+}, "_YTNodeGenerator_accessDataFromKeyPath"), _YTNodeGenerator_hasDataFromKeyPath = /* @__PURE__ */ __name(function _YTNodeGenerator_hasDataFromKeyPath2(root, key_path) {
+  let data = root;
+  for (const key of key_path)
+    if (!Reflect.has(data, key))
+      return false;
+    else
+      data = data[key];
+  return true;
+}, "_YTNodeGenerator_hasDataFromKeyPath"), _YTNodeGenerator_passOne = /* @__PURE__ */ __name(function _YTNodeGenerator_passOne2(classdata) {
+  const keys = Reflect.ownKeys(classdata).filter((key) => !this.isIgnoredKey(key)).filter((key) => typeof key === "string");
+  const key_info = keys.map((key) => {
+    const value = classdata[key];
+    const inferred_type = this.inferType(key, value);
+    return [
+      key,
+      inferred_type
+    ];
+  });
+  return key_info;
+}, "_YTNodeGenerator_passOne"), _YTNodeGenerator_passTwo = /* @__PURE__ */ __name(function _YTNodeGenerator_passTwo2(key_info) {
+  var _b2;
+  const channel_nav = key_info.filter(([, value]) => {
+    var _b3;
+    if (value.type !== "misc")
+      return false;
+    if (!(value.misc_type === "NavigationEndpoint" || value.misc_type === "Text"))
+      return false;
+    return ((_b3 = value.endpoint) === null || _b3 === void 0 ? void 0 : _b3.metadata.page_type) === "WEB_PAGE_TYPE_CHANNEL";
+  });
+  const most_probable_match = channel_nav.sort(([, a], [, b]) => {
+    if (a.type !== "misc" || b.type !== "misc")
+      return 0;
+    if (a.misc_type !== "Text" || b.misc_type !== "Text")
+      return 0;
+    return b.text.length - a.text.length;
+  });
+  const excluded_keys = /* @__PURE__ */ new Set();
+  const cannonical_channel_nav = most_probable_match[0];
+  let author;
+  if (cannonical_channel_nav) {
+    excluded_keys.add(cannonical_channel_nav[0]);
+    const keys = key_info.map(([key]) => key);
+    const badges = keys.filter((key) => key.endsWith("Badges") || key === "badges");
+    const likely_badges = badges.filter((key) => key.startsWith("owner") || key.startsWith("author"));
+    const cannonical_badges = (_b2 = likely_badges[0]) !== null && _b2 !== void 0 ? _b2 : badges[0];
+    const badge_key_info = key_info.find(([key]) => key === cannonical_badges);
+    const is_badges = badge_key_info ? badge_key_info[1].type === "renderer_list" && Reflect.has(badge_key_info[1].renderers, "MetadataBadge") : false;
+    if (is_badges && cannonical_badges)
+      excluded_keys.add(cannonical_badges);
+    author = {
+      type: "misc",
+      misc_type: "Author",
+      optional: false,
+      params: [
+        cannonical_channel_nav[0],
+        is_badges ? cannonical_badges : void 0
+      ]
+    };
+  }
+  if (author) {
+    key_info.push(["author", author]);
+  }
+  return key_info.filter(([key]) => !excluded_keys.has(key));
+}, "_YTNodeGenerator_passTwo"), _YTNodeGenerator_introspect = /* @__PURE__ */ __name(function _YTNodeGenerator_introspect2(classdata) {
+  const key_info = __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_passOne).call(this, classdata);
+  return __classPrivateFieldGet(this, _a, "m", _YTNodeGenerator_passTwo).call(this, key_info);
+}, "_YTNodeGenerator_introspect");
+_YTNodeGenerator_ignored_keys = { value: /* @__PURE__ */ new Set([
+  "trackingParams",
+  "accessibility",
+  "accessibilityData"
+]) };
+_YTNodeGenerator_renderers_examples = { value: {} };
 
 // dist/src/parser/parser.js
-var __classPrivateFieldSet9 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet11 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _a2;
 var _Parser_errorHandler;
 var _Parser_memo;
@@ -17518,86 +17842,88 @@ var _Parser_createMemo;
 var _Parser_addToMemo;
 var _Parser_getMemo;
 var _Parser_printError;
+var _Parser_rt_nodes;
+var _Parser_dynamic_nodes;
 var Parser = class {
   static setParserErrorHandler(handler) {
-    __classPrivateFieldSet9(this, _a2, handler, "f", _Parser_errorHandler);
+    __classPrivateFieldSet(this, _a2, handler, "f", _Parser_errorHandler);
   }
   static parseResponse(data) {
-    var _b, _c, _d, _e;
+    var _b2, _c, _d, _e;
     const parsed_data = {};
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const contents = this.parse(data.contents);
-    const contents_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const contents_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (contents) {
       parsed_data.contents = contents;
       parsed_data.contents_memo = contents_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const on_response_received_actions = data.onResponseReceivedActions ? this.parseRR(data.onResponseReceivedActions) : null;
-    const on_response_received_actions_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const on_response_received_actions_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (on_response_received_actions) {
       parsed_data.on_response_received_actions = on_response_received_actions;
       parsed_data.on_response_received_actions_memo = on_response_received_actions_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const on_response_received_endpoints = data.onResponseReceivedEndpoints ? this.parseRR(data.onResponseReceivedEndpoints) : null;
-    const on_response_received_endpoints_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const on_response_received_endpoints_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (on_response_received_endpoints) {
       parsed_data.on_response_received_endpoints = on_response_received_endpoints;
       parsed_data.on_response_received_endpoints_memo = on_response_received_endpoints_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const on_response_received_commands = data.onResponseReceivedCommands ? this.parseRR(data.onResponseReceivedCommands) : null;
-    const on_response_received_commands_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const on_response_received_commands_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (on_response_received_commands) {
       parsed_data.on_response_received_commands = on_response_received_commands;
       parsed_data.on_response_received_commands_memo = on_response_received_commands_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const continuation_contents = data.continuationContents ? this.parseLC(data.continuationContents) : null;
-    const continuation_contents_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const continuation_contents_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (continuation_contents) {
       parsed_data.continuation_contents = continuation_contents;
       parsed_data.continuation_contents_memo = continuation_contents_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const actions = data.actions ? this.parseActions(data.actions) : null;
-    const actions_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const actions_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (actions) {
       parsed_data.actions = actions;
       parsed_data.actions_memo = actions_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const live_chat_item_context_menu_supported_renderers = data.liveChatItemContextMenuSupportedRenderers ? this.parseItem(data.liveChatItemContextMenuSupportedRenderers) : null;
-    const live_chat_item_context_menu_supported_renderers_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const live_chat_item_context_menu_supported_renderers_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (live_chat_item_context_menu_supported_renderers) {
       parsed_data.live_chat_item_context_menu_supported_renderers = live_chat_item_context_menu_supported_renderers;
       parsed_data.live_chat_item_context_menu_supported_renderers_memo = live_chat_item_context_menu_supported_renderers_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const header = data.header ? this.parse(data.header) : null;
-    const header_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const header_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (header) {
       parsed_data.header = header;
       parsed_data.header_memo = header_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const sidebar = data.sidebar ? this.parseItem(data.sidebar) : null;
-    const sidebar_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+    const sidebar_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     if (sidebar) {
       parsed_data.sidebar = sidebar;
       parsed_data.sidebar_memo = sidebar_memo;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
-    this.applyMutations(contents_memo, (_c = (_b = data.frameworkUpdates) === null || _b === void 0 ? void 0 : _b.entityBatchUpdate) === null || _c === void 0 ? void 0 : _c.mutations);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
+    this.applyMutations(contents_memo, (_c = (_b2 = data.frameworkUpdates) === null || _b2 === void 0 ? void 0 : _b2.entityBatchUpdate) === null || _c === void 0 ? void 0 : _c.mutations);
     this.applyMutations(continuation_contents_memo, (_e = (_d = data.frameworkUpdates) === null || _d === void 0 ? void 0 : _d.entityBatchUpdate) === null || _e === void 0 ? void 0 : _e.mutations);
     const continuation = data.continuation ? this.parseC(data.continuation) : null;
     if (continuation) {
@@ -17615,7 +17941,7 @@ var Parser = class {
     if (overlay) {
       parsed_data.overlay = overlay;
     }
-    const alerts = this.parseArray(data.alerts);
+    const alerts = this.parseArray(data.alerts, Alert_default);
     if (alerts.length) {
       parsed_data.alerts = alerts;
     }
@@ -17642,7 +17968,7 @@ var Parser = class {
       status: data.playabilityStatus.status,
       reason: data.playabilityStatus.reason || "",
       embeddable: !!data.playabilityStatus.playableInEmbed || false,
-      audio_only_playablility: this.parseItem(data.playabilityStatus.audioOnlyPlayability),
+      audio_only_playablility: this.parseItem(data.playabilityStatus.audioOnlyPlayability, AudioOnlyPlayability_default),
       error_screen: this.parseItem(data.playabilityStatus.errorScreen)
     } : null;
     if (playability_status) {
@@ -17666,37 +17992,37 @@ var Parser = class {
     if (endpoint) {
       parsed_data.endpoint = endpoint;
     }
-    const captions = this.parseItem(data.captions);
+    const captions = this.parseItem(data.captions, PlayerCaptionsTracklist_default);
     if (captions) {
       parsed_data.captions = captions;
     }
-    const video_details = data.videoDetails ? new VideoDetails_default(data.videoDetails) : null;
+    const video_details = data.videoDetails ? new VideoDetails(data.videoDetails) : null;
     if (video_details) {
       parsed_data.video_details = video_details;
     }
-    const annotations = this.parseArray(data.annotations);
+    const annotations = this.parseArray(data.annotations, PlayerAnnotationsExpanded_default);
     if (annotations.length) {
       parsed_data.annotations = annotations;
     }
-    const storyboards = this.parseItem(data.storyboards);
+    const storyboards = this.parseItem(data.storyboards, [PlayerStoryboardSpec_default, PlayerLiveStoryboardSpec_default]);
     if (storyboards) {
       parsed_data.storyboards = storyboards;
     }
-    const endscreen = this.parseItem(data.endscreen);
+    const endscreen = this.parseItem(data.endscreen, Endscreen_default);
     if (endscreen) {
       parsed_data.endscreen = endscreen;
     }
-    const cards = this.parseItem(data.cards);
+    const cards = this.parseItem(data.cards, CardCollection_default);
     if (cards) {
       parsed_data.cards = cards;
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_createMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_createMemo).call(this);
     const items = this.parse(data.items);
     if (items) {
       parsed_data.items = items;
-      parsed_data.items_memo = __classPrivateFieldGet11(this, _a2, "m", _Parser_getMemo).call(this);
+      parsed_data.items_memo = __classPrivateFieldGet(this, _a2, "m", _Parser_getMemo).call(this);
     }
-    __classPrivateFieldGet11(this, _a2, "m", _Parser_clearMemo).call(this);
+    __classPrivateFieldGet(this, _a2, "m", _Parser_clearMemo).call(this);
     return parsed_data;
   }
   static parseItem(data, validTypes) {
@@ -17708,7 +18034,8 @@ var Parser = class {
     const classname = this.sanitizeClassName(keys[0]);
     if (!this.shouldIgnore(classname)) {
       try {
-        const TargetClass = GetParserByName(classname);
+        const has_target_class = this.hasParser(classname);
+        const TargetClass = has_target_class ? this.getParserByName(classname) : YTNodeGenerator.generateRuntimeClass(classname, data[keys[0]]);
         if (validTypes) {
           if (Array.isArray(validTypes)) {
             if (!validTypes.some((type) => type.type === TargetClass.type))
@@ -17717,10 +18044,10 @@ var Parser = class {
             throw new ParsingError(`Type mismatch, got ${classname} but expected ${validTypes.type}`);
         }
         const result = new TargetClass(data[keys[0]]);
-        __classPrivateFieldGet11(this, _a2, "m", _Parser_addToMemo).call(this, classname, result);
+        __classPrivateFieldGet(this, _a2, "m", _Parser_addToMemo).call(this, classname, result);
         return result;
       } catch (err) {
-        __classPrivateFieldGet11(this, _a2, "f", _Parser_errorHandler).call(this, { classname, classdata: data[keys[0]], err });
+        __classPrivateFieldGet(this, _a2, "f", _Parser_errorHandler).call(this, { classname, classdata: data[keys[0]], err });
         return null;
       }
     }
@@ -17801,10 +18128,10 @@ var Parser = class {
     return new SuperParsedResult(this.parseItem(data));
   }
   static parseFormats(formats) {
-    return (formats === null || formats === void 0 ? void 0 : formats.map((format) => new Format_default(format))) || [];
+    return (formats === null || formats === void 0 ? void 0 : formats.map((format) => new Format(format))) || [];
   }
   static applyMutations(memo, mutations) {
-    var _b, _c;
+    var _b2, _c;
     const music_multi_select_menu_items = memo.getType(MusicMultiSelectMenuItem_default);
     if (music_multi_select_menu_items.length > 0 && !mutations) {
       console.warn(new InnertubeError(`Mutation data required for processing MusicMultiSelectMenuItems, but none found.
@@ -17813,8 +18140,8 @@ This is a bug, please report it at ${Platform.shim.info.bugs_url}`));
       const missing_or_invalid_mutations = [];
       for (const menu_item of music_multi_select_menu_items) {
         const mutation = mutations.find((mutation2) => {
-          var _b2, _c2;
-          return ((_c2 = (_b2 = mutation2.payload) === null || _b2 === void 0 ? void 0 : _b2.musicFormBooleanChoice) === null || _c2 === void 0 ? void 0 : _c2.id) === menu_item.form_item_entity_key;
+          var _b3, _c2;
+          return ((_c2 = (_b3 = mutation2.payload) === null || _b3 === void 0 ? void 0 : _b3.musicFormBooleanChoice) === null || _c2 === void 0 ? void 0 : _c2.id) === menu_item.form_item_entity_key;
         });
         const choice = mutation === null || mutation === void 0 ? void 0 : mutation.payload.musicFormBooleanChoice;
         if ((choice === null || choice === void 0 ? void 0 : choice.selected) !== void 0) {
@@ -17823,9 +18150,9 @@ This is a bug, please report it at ${Platform.shim.info.bugs_url}`));
           missing_or_invalid_mutations.push(`'${menu_item.title}'`);
         }
         if (choice === null || choice === void 0 ? void 0 : choice.opaqueToken) {
-          const command = (_c = (_b = menu_item.endpoint) === null || _b === void 0 ? void 0 : _b.payload.commands) === null || _c === void 0 ? void 0 : _c.find((c) => {
-            var _b2;
-            return (_b2 = c.musicBrowseFormBinderCommand) === null || _b2 === void 0 ? void 0 : _b2.browseEndpoint;
+          const command = (_c = (_b2 = menu_item.endpoint) === null || _b2 === void 0 ? void 0 : _b2.payload.commands) === null || _c === void 0 ? void 0 : _c.find((c) => {
+            var _b3;
+            return (_b3 = c.musicBrowseFormBinderCommand) === null || _b3 === void 0 ? void 0 : _b3.browseEndpoint;
           });
           if (command) {
             command.musicBrowseFormBinderCommand.browseEndpoint.formData = {
@@ -17846,23 +18173,42 @@ This is a bug, please report it at ${Platform.shim.info.bugs_url}`));
   static shouldIgnore(classname) {
     return this.ignore_list.has(classname);
   }
+  static getParserByName(classname) {
+    const ParserConstructor = __classPrivateFieldGet(this, _a2, "f", _Parser_rt_nodes).get(classname);
+    if (!ParserConstructor) {
+      const error = new Error(`Module not found: ${classname}`);
+      error.code = "MODULE_NOT_FOUND";
+      throw error;
+    }
+    return ParserConstructor;
+  }
+  static hasParser(classname) {
+    return __classPrivateFieldGet(this, _a2, "f", _Parser_rt_nodes).has(classname);
+  }
+  static addRuntimeParser(classname, ParserConstructor) {
+    __classPrivateFieldGet(this, _a2, "f", _Parser_rt_nodes).set(classname, ParserConstructor);
+    __classPrivateFieldGet(this, _a2, "f", _Parser_dynamic_nodes).set(classname, ParserConstructor);
+  }
+  static getDynamicParsers() {
+    return Object.fromEntries(__classPrivateFieldGet(this, _a2, "f", _Parser_dynamic_nodes));
+  }
 };
 __name(Parser, "Parser");
 _a2 = Parser, _Parser_clearMemo = /* @__PURE__ */ __name(function _Parser_clearMemo2() {
-  __classPrivateFieldSet9(Parser, _a2, null, "f", _Parser_memo);
+  __classPrivateFieldSet(Parser, _a2, null, "f", _Parser_memo);
 }, "_Parser_clearMemo"), _Parser_createMemo = /* @__PURE__ */ __name(function _Parser_createMemo2() {
-  __classPrivateFieldSet9(Parser, _a2, new Memo(), "f", _Parser_memo);
+  __classPrivateFieldSet(Parser, _a2, new Memo(), "f", _Parser_memo);
 }, "_Parser_createMemo"), _Parser_addToMemo = /* @__PURE__ */ __name(function _Parser_addToMemo2(classname, result) {
-  if (!__classPrivateFieldGet11(Parser, _a2, "f", _Parser_memo))
+  if (!__classPrivateFieldGet(Parser, _a2, "f", _Parser_memo))
     return;
-  const list = __classPrivateFieldGet11(Parser, _a2, "f", _Parser_memo).get(classname);
+  const list = __classPrivateFieldGet(Parser, _a2, "f", _Parser_memo).get(classname);
   if (!list)
-    return __classPrivateFieldGet11(Parser, _a2, "f", _Parser_memo).set(classname, [result]);
+    return __classPrivateFieldGet(Parser, _a2, "f", _Parser_memo).set(classname, [result]);
   list.push(result);
 }, "_Parser_addToMemo"), _Parser_getMemo = /* @__PURE__ */ __name(function _Parser_getMemo2() {
-  if (!__classPrivateFieldGet11(Parser, _a2, "f", _Parser_memo))
+  if (!__classPrivateFieldGet(Parser, _a2, "f", _Parser_memo))
     throw new Error("Parser#getMemo() called before Parser#createMemo()");
-  return __classPrivateFieldGet11(Parser, _a2, "f", _Parser_memo);
+  return __classPrivateFieldGet(Parser, _a2, "f", _Parser_memo);
 }, "_Parser_getMemo"), _Parser_printError = /* @__PURE__ */ __name(function _Parser_printError2({ classname, classdata, err }) {
   if (err.code == "MODULE_NOT_FOUND") {
     return console.warn(new InnertubeError(`${classname} not found!
@@ -17871,27 +18217,33 @@ This is a bug, want to help us fix it? Follow the instructions at ${Platform.shi
   console.warn(new InnertubeError(`Something went wrong at ${classname}!
 This is a bug, please report it at ${Platform.shim.info.bugs_url}`, { stack: err.stack }));
 }, "_Parser_printError");
-_Parser_errorHandler = { value: __classPrivateFieldGet11(Parser, _a2, "m", _Parser_printError) };
+_Parser_errorHandler = { value: __classPrivateFieldGet(Parser, _a2, "m", _Parser_printError) };
 _Parser_memo = { value: null };
 Parser.ignore_list = /* @__PURE__ */ new Set([
   "AdSlot",
   "DisplayAd",
   "SearchPyv",
   "MealbarPromo",
+  "PrimetimePromo",
   "BackgroundPromo",
   "PromotedSparklesWeb",
   "RunAttestationCommand",
   "CompactPromotedVideo",
+  "BrandVideoShelf",
+  "BrandVideoSingleton",
   "StatementBanner",
   "GuideSigninPromo"
 ]);
+_Parser_rt_nodes = { value: new Map(Object.entries(nodes_exports)) };
+_Parser_dynamic_nodes = { value: /* @__PURE__ */ new Map() };
+var parser_default2 = Parser;
 var ItemSectionContinuation = class extends YTNode {
   constructor(data) {
-    var _b, _c, _d;
+    var _b2, _c, _d;
     super();
     this.contents = Parser.parseArray(data.contents);
     if (Array.isArray(data.continuations)) {
-      this.continuation = (_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation;
+      this.continuation = (_d = (_c = (_b2 = data.continuations) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation;
     }
   }
 };
@@ -17908,7 +18260,7 @@ NavigateAction.type = "navigateAction";
 var AppendContinuationItemsAction2 = class extends YTNode {
   constructor(data) {
     super();
-    this.contents = Parser.parse(data.continuationItems, true);
+    this.contents = Parser.parseArray(data.continuationItems);
   }
 };
 __name(AppendContinuationItemsAction2, "AppendContinuationItemsAction");
@@ -17925,10 +18277,10 @@ __name(ReloadContinuationItemsCommand, "ReloadContinuationItemsCommand");
 ReloadContinuationItemsCommand.type = "reloadContinuationItemsCommand";
 var SectionListContinuation = class extends YTNode {
   constructor(data) {
-    var _b, _c, _d, _e, _f, _g;
+    var _b2, _c, _d, _e, _f, _g;
     super();
     this.contents = Parser.parse(data.contents, true);
-    this.continuation = ((_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation) || ((_g = (_f = (_e = data.continuations) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.reloadContinuationData) === null || _g === void 0 ? void 0 : _g.continuation) || null;
+    this.continuation = ((_d = (_c = (_b2 = data.continuations) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation) || ((_g = (_f = (_e = data.continuations) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.reloadContinuationData) === null || _g === void 0 ? void 0 : _g.continuation) || null;
     if (data.header) {
       this.header = Parser.parse(data.header);
     }
@@ -17938,30 +18290,30 @@ __name(SectionListContinuation, "SectionListContinuation");
 SectionListContinuation.type = "sectionListContinuation";
 var MusicPlaylistShelfContinuation = class extends YTNode {
   constructor(data) {
-    var _b;
+    var _b2;
     super();
     this.contents = Parser.parse(data.contents, true);
-    this.continuation = ((_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0].nextContinuationData.continuation) || null;
+    this.continuation = ((_b2 = data.continuations) === null || _b2 === void 0 ? void 0 : _b2[0].nextContinuationData.continuation) || null;
   }
 };
 __name(MusicPlaylistShelfContinuation, "MusicPlaylistShelfContinuation");
 MusicPlaylistShelfContinuation.type = "musicPlaylistShelfContinuation";
 var MusicShelfContinuation = class extends YTNode {
   constructor(data) {
-    var _b, _c, _d, _e;
+    var _b2, _c, _d, _e;
     super();
     this.contents = Parser.parseArray(data.contents);
-    this.continuation = ((_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0].nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || ((_e = (_d = data.continuations) === null || _d === void 0 ? void 0 : _d[0].reloadContinuationData) === null || _e === void 0 ? void 0 : _e.continuation) || null;
+    this.continuation = ((_c = (_b2 = data.continuations) === null || _b2 === void 0 ? void 0 : _b2[0].nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || ((_e = (_d = data.continuations) === null || _d === void 0 ? void 0 : _d[0].reloadContinuationData) === null || _e === void 0 ? void 0 : _e.continuation) || null;
   }
 };
 __name(MusicShelfContinuation, "MusicShelfContinuation");
 MusicShelfContinuation.type = "musicShelfContinuation";
 var GridContinuation = class extends YTNode {
   constructor(data) {
-    var _b;
+    var _b2;
     super();
     this.items = Parser.parse(data.items, true);
-    this.continuation = ((_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0].nextContinuationData.continuation) || null;
+    this.continuation = ((_b2 = data.continuations) === null || _b2 === void 0 ? void 0 : _b2[0].nextContinuationData.continuation) || null;
   }
   get contents() {
     return this.items;
@@ -17971,20 +18323,20 @@ __name(GridContinuation, "GridContinuation");
 GridContinuation.type = "gridContinuation";
 var PlaylistPanelContinuation = class extends YTNode {
   constructor(data) {
-    var _b, _c, _d, _e, _f, _g;
+    var _b2, _c, _d, _e, _f, _g;
     super();
     this.contents = Parser.parseArray(data.contents);
-    this.continuation = ((_d = (_c = (_b = data.continuations) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation) || ((_g = (_f = (_e = data.continuations) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.nextRadioContinuationData) === null || _g === void 0 ? void 0 : _g.continuation) || null;
+    this.continuation = ((_d = (_c = (_b2 = data.continuations) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.nextContinuationData) === null || _d === void 0 ? void 0 : _d.continuation) || ((_g = (_f = (_e = data.continuations) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.nextRadioContinuationData) === null || _g === void 0 ? void 0 : _g.continuation) || null;
   }
 };
 __name(PlaylistPanelContinuation, "PlaylistPanelContinuation");
 PlaylistPanelContinuation.type = "playlistPanelContinuation";
 var Continuation = class extends YTNode {
   constructor(data) {
-    var _b, _c, _d;
+    var _b2, _c, _d;
     super();
     this.continuation_type = data.type;
-    this.timeout_ms = (_b = data.continuation) === null || _b === void 0 ? void 0 : _b.timeoutMs;
+    this.timeout_ms = (_b2 = data.continuation) === null || _b2 === void 0 ? void 0 : _b2.timeoutMs;
     this.time_until_last_message_ms = (_c = data.continuation) === null || _c === void 0 ? void 0 : _c.timeUntilLastMessageMsec;
     this.token = (_d = data.continuation) === null || _d === void 0 ? void 0 : _d.continuation;
   }
@@ -17993,22 +18345,22 @@ __name(Continuation, "Continuation");
 Continuation.type = "continuation";
 var LiveChatContinuation = class extends YTNode {
   constructor(data) {
-    var _b, _c, _d, _e, _f, _g, _h, _j;
+    var _b2, _c, _d, _e, _f, _g, _h, _j;
     super();
-    this.actions = Parser.parse((_b = data.actions) === null || _b === void 0 ? void 0 : _b.map((action) => {
+    this.actions = Parser.parse((_b2 = data.actions) === null || _b2 === void 0 ? void 0 : _b2.map((action) => {
       delete action.clickTrackingParams;
       return action;
     }), true) || observe([]);
     this.action_panel = Parser.parseItem(data.actionPanel);
-    this.item_list = Parser.parseItem(data.itemList);
-    this.header = Parser.parseItem(data.header);
-    this.participants_list = Parser.parseItem(data.participantsList);
-    this.popout_message = Parser.parseItem(data.popoutMessage);
+    this.item_list = Parser.parseItem(data.itemList, LiveChatItemList_default);
+    this.header = Parser.parseItem(data.header, LiveChatHeader_default);
+    this.participants_list = Parser.parseItem(data.participantsList, LiveChatParticipantsList_default);
+    this.popout_message = Parser.parseItem(data.popoutMessage, Message_default);
     this.emojis = ((_c = data.emojis) === null || _c === void 0 ? void 0 : _c.map((emoji) => ({
       emoji_id: emoji.emojiId,
       shortcuts: emoji.shortcuts,
       search_terms: emoji.searchTerms,
-      image: Thumbnail_default.fromResponse(emoji.image),
+      image: Thumbnail.fromResponse(emoji.image),
       is_custom_emoji: emoji.isCustomEmoji
     }))) || [];
     let continuation, type;
@@ -18038,6 +18390,8 @@ __export(youtube_exports, {
   ChannelListContinuation: () => ChannelListContinuation,
   Comments: () => Comments_default,
   FilteredChannelList: () => FilteredChannelList,
+  Guide: () => Guide_default,
+  HashtagFeed: () => HashtagFeed,
   History: () => History_default,
   HomeFeed: () => HomeFeed,
   ItemMenu: () => ItemMenu_default,
@@ -18053,37 +18407,21 @@ __export(youtube_exports, {
 });
 
 // dist/src/parser/youtube/AccountInfo.js
-var __classPrivateFieldSet10 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet12 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _AccountInfo_page;
 var AccountInfo = class {
   constructor(response) {
     _AccountInfo_page.set(this, void 0);
-    __classPrivateFieldSet10(this, _AccountInfo_page, parser_default.parseResponse(response.data), "f");
-    if (!__classPrivateFieldGet12(this, _AccountInfo_page, "f").contents)
+    __classPrivateFieldSet(this, _AccountInfo_page, parser_default.parseResponse(response.data), "f");
+    if (!__classPrivateFieldGet(this, _AccountInfo_page, "f").contents)
       throw new InnertubeError("Page contents not found");
-    const account_section_list = __classPrivateFieldGet12(this, _AccountInfo_page, "f").contents.array().as(AccountSectionList_default).first();
+    const account_section_list = __classPrivateFieldGet(this, _AccountInfo_page, "f").contents.array().as(AccountSectionList_default).first();
     if (!account_section_list)
       throw new InnertubeError("Account section list not found");
     this.contents = account_section_list.contents;
     this.footers = account_section_list.footers;
   }
   get page() {
-    return __classPrivateFieldGet12(this, _AccountInfo_page, "f");
+    return __classPrivateFieldGet(this, _AccountInfo_page, "f");
   }
 };
 __name(AccountInfo, "AccountInfo");
@@ -18091,89 +18429,23 @@ _AccountInfo_page = /* @__PURE__ */ new WeakMap();
 var AccountInfo_default = AccountInfo;
 
 // dist/src/parser/youtube/Analytics.js
-var __classPrivateFieldSet11 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet13 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Analytics_page;
 var Analytics = class {
   constructor(response) {
-    var _a5;
+    var _a7;
     _Analytics_page.set(this, void 0);
-    __classPrivateFieldSet11(this, _Analytics_page, parser_default.parseResponse(response.data), "f");
-    this.sections = (_a5 = __classPrivateFieldGet13(this, _Analytics_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(Element_default).map((el) => {
-      var _a6;
-      return (_a6 = el.model) === null || _a6 === void 0 ? void 0 : _a6.item();
-    }).flatMap((el) => !el ? [] : el);
+    __classPrivateFieldSet(this, _Analytics_page, parser_default.parseResponse(response.data), "f");
+    this.sections = (_a7 = __classPrivateFieldGet(this, _Analytics_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Element_default).map((el) => el.model).flatMap((el) => !el ? [] : el);
   }
   get page() {
-    return __classPrivateFieldGet13(this, _Analytics_page, "f");
+    return __classPrivateFieldGet(this, _Analytics_page, "f");
   }
 };
 __name(Analytics, "Analytics");
 _Analytics_page = /* @__PURE__ */ new WeakMap();
 var Analytics_default = Analytics;
 
-// dist/src/core/Feed.js
-var __awaiter4 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldGet14 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __classPrivateFieldSet12 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
+// dist/src/core/mixins/Feed.js
 var _Feed_instances;
 var _Feed_page;
 var _Feed_continuation;
@@ -18187,102 +18459,94 @@ var Feed = class {
     _Feed_continuation.set(this, void 0);
     _Feed_actions.set(this, void 0);
     _Feed_memo.set(this, void 0);
-    if (__classPrivateFieldGet14(this, _Feed_instances, "m", _Feed_isParsed).call(this, response) || already_parsed) {
-      __classPrivateFieldSet12(this, _Feed_page, response, "f");
+    if (__classPrivateFieldGet(this, _Feed_instances, "m", _Feed_isParsed).call(this, response) || already_parsed) {
+      __classPrivateFieldSet(this, _Feed_page, response, "f");
     } else {
-      __classPrivateFieldSet12(this, _Feed_page, parser_default.parseResponse(response.data), "f");
+      __classPrivateFieldSet(this, _Feed_page, parser_default.parseResponse(response.data), "f");
     }
     const memo = concatMemos(...[
-      __classPrivateFieldGet14(this, _Feed_page, "f").contents_memo,
-      __classPrivateFieldGet14(this, _Feed_page, "f").continuation_contents_memo,
-      __classPrivateFieldGet14(this, _Feed_page, "f").on_response_received_commands_memo,
-      __classPrivateFieldGet14(this, _Feed_page, "f").on_response_received_endpoints_memo,
-      __classPrivateFieldGet14(this, _Feed_page, "f").on_response_received_actions_memo,
-      __classPrivateFieldGet14(this, _Feed_page, "f").sidebar_memo,
-      __classPrivateFieldGet14(this, _Feed_page, "f").header_memo
+      __classPrivateFieldGet(this, _Feed_page, "f").contents_memo,
+      __classPrivateFieldGet(this, _Feed_page, "f").continuation_contents_memo,
+      __classPrivateFieldGet(this, _Feed_page, "f").on_response_received_commands_memo,
+      __classPrivateFieldGet(this, _Feed_page, "f").on_response_received_endpoints_memo,
+      __classPrivateFieldGet(this, _Feed_page, "f").on_response_received_actions_memo,
+      __classPrivateFieldGet(this, _Feed_page, "f").sidebar_memo,
+      __classPrivateFieldGet(this, _Feed_page, "f").header_memo
     ]);
     if (!memo)
       throw new InnertubeError("No memo found in feed");
-    __classPrivateFieldSet12(this, _Feed_memo, memo, "f");
-    __classPrivateFieldSet12(this, _Feed_actions, actions, "f");
+    __classPrivateFieldSet(this, _Feed_memo, memo, "f");
+    __classPrivateFieldSet(this, _Feed_actions, actions, "f");
   }
   static getVideosFromMemo(memo) {
-    return memo.getType([
-      Video_default,
-      GridVideo_default,
-      ReelItem_default,
-      CompactVideo_default,
-      PlaylistVideo_default,
-      PlaylistPanelVideo_default,
-      WatchCardCompactVideo_default
-    ]);
+    return memo.getType(Video_default, GridVideo_default, ReelItem_default, CompactVideo_default, PlaylistVideo_default, PlaylistPanelVideo_default, WatchCardCompactVideo_default);
   }
   static getPlaylistsFromMemo(memo) {
-    return memo.getType([Playlist_default, GridPlaylist_default]);
+    return memo.getType(Playlist_default, GridPlaylist_default);
   }
   get videos() {
-    return Feed.getVideosFromMemo(__classPrivateFieldGet14(this, _Feed_memo, "f"));
+    return Feed.getVideosFromMemo(__classPrivateFieldGet(this, _Feed_memo, "f"));
   }
   get posts() {
-    return __classPrivateFieldGet14(this, _Feed_memo, "f").getType([BackstagePost_default, Post_default, SharedPost_default]);
+    return __classPrivateFieldGet(this, _Feed_memo, "f").getType(BackstagePost_default, Post_default, SharedPost_default);
   }
   get channels() {
-    return __classPrivateFieldGet14(this, _Feed_memo, "f").getType([Channel_default, GridChannel_default]);
+    return __classPrivateFieldGet(this, _Feed_memo, "f").getType(Channel_default, GridChannel_default);
   }
   get playlists() {
-    return Feed.getPlaylistsFromMemo(__classPrivateFieldGet14(this, _Feed_memo, "f"));
+    return Feed.getPlaylistsFromMemo(__classPrivateFieldGet(this, _Feed_memo, "f"));
   }
   get memo() {
-    return __classPrivateFieldGet14(this, _Feed_memo, "f");
+    return __classPrivateFieldGet(this, _Feed_memo, "f");
   }
   get page_contents() {
-    var _a5;
-    const tab_content = (_a5 = __classPrivateFieldGet14(this, _Feed_memo, "f").getType(Tab_default)) === null || _a5 === void 0 ? void 0 : _a5.first().content;
-    const reload_continuation_items = __classPrivateFieldGet14(this, _Feed_memo, "f").getType(ReloadContinuationItemsCommand).first();
-    const append_continuation_items = __classPrivateFieldGet14(this, _Feed_memo, "f").getType(AppendContinuationItemsAction_default).first();
+    var _a7;
+    const tab_content = (_a7 = __classPrivateFieldGet(this, _Feed_memo, "f").getType(Tab_default)) === null || _a7 === void 0 ? void 0 : _a7.first().content;
+    const reload_continuation_items = __classPrivateFieldGet(this, _Feed_memo, "f").getType(ReloadContinuationItemsCommand).first();
+    const append_continuation_items = __classPrivateFieldGet(this, _Feed_memo, "f").getType(AppendContinuationItemsAction_default).first();
     return tab_content || reload_continuation_items || append_continuation_items;
   }
   get shelves() {
-    return __classPrivateFieldGet14(this, _Feed_memo, "f").getType([Shelf_default, RichShelf_default, ReelShelf_default]);
+    return __classPrivateFieldGet(this, _Feed_memo, "f").getType(Shelf_default, RichShelf_default, ReelShelf_default);
   }
   getShelf(title) {
     return this.shelves.get({ title });
   }
   get secondary_contents() {
-    var _a5, _b;
-    if (!((_a5 = __classPrivateFieldGet14(this, _Feed_page, "f").contents) === null || _a5 === void 0 ? void 0 : _a5.is_node))
+    var _a7, _b2;
+    if (!((_a7 = __classPrivateFieldGet(this, _Feed_page, "f").contents) === null || _a7 === void 0 ? void 0 : _a7.is_node))
       return void 0;
-    const node = (_b = __classPrivateFieldGet14(this, _Feed_page, "f").contents) === null || _b === void 0 ? void 0 : _b.item();
+    const node = (_b2 = __classPrivateFieldGet(this, _Feed_page, "f").contents) === null || _b2 === void 0 ? void 0 : _b2.item();
     if (!node.is(TwoColumnBrowseResults_default, TwoColumnSearchResults_default))
       return void 0;
     return node.secondary_contents;
   }
   get actions() {
-    return __classPrivateFieldGet14(this, _Feed_actions, "f");
+    return __classPrivateFieldGet(this, _Feed_actions, "f");
   }
   get page() {
-    return __classPrivateFieldGet14(this, _Feed_page, "f");
+    return __classPrivateFieldGet(this, _Feed_page, "f");
   }
   get has_continuation() {
-    return (__classPrivateFieldGet14(this, _Feed_memo, "f").get("ContinuationItem") || []).length > 0;
+    return (__classPrivateFieldGet(this, _Feed_memo, "f").get("ContinuationItem") || []).length > 0;
   }
   getContinuationData() {
-    return __awaiter4(this, void 0, void 0, function* () {
-      if (__classPrivateFieldGet14(this, _Feed_continuation, "f")) {
-        if (__classPrivateFieldGet14(this, _Feed_continuation, "f").length > 1)
+    return __awaiter(this, void 0, void 0, function* () {
+      if (__classPrivateFieldGet(this, _Feed_continuation, "f")) {
+        if (__classPrivateFieldGet(this, _Feed_continuation, "f").length > 1)
           throw new InnertubeError("There are too many continuations, you'll need to find the correct one yourself in this.page");
-        if (__classPrivateFieldGet14(this, _Feed_continuation, "f").length === 0)
+        if (__classPrivateFieldGet(this, _Feed_continuation, "f").length === 0)
           throw new InnertubeError("There are no continuations");
-        const response = yield __classPrivateFieldGet14(this, _Feed_continuation, "f")[0].endpoint.call(__classPrivateFieldGet14(this, _Feed_actions, "f"), { parse: true });
+        const response = yield __classPrivateFieldGet(this, _Feed_continuation, "f")[0].endpoint.call(__classPrivateFieldGet(this, _Feed_actions, "f"), { parse: true });
         return response;
       }
-      __classPrivateFieldSet12(this, _Feed_continuation, __classPrivateFieldGet14(this, _Feed_memo, "f").getType(ContinuationItem_default), "f");
-      if (__classPrivateFieldGet14(this, _Feed_continuation, "f"))
+      __classPrivateFieldSet(this, _Feed_continuation, __classPrivateFieldGet(this, _Feed_memo, "f").getType(ContinuationItem_default), "f");
+      if (__classPrivateFieldGet(this, _Feed_continuation, "f"))
         return this.getContinuationData();
     });
   }
   getContinuation() {
-    return __awaiter4(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const continuation_data = yield this.getContinuationData();
       if (!continuation_data)
         throw new InnertubeError("Could not get continuation data");
@@ -18296,160 +18560,66 @@ _Feed_page = /* @__PURE__ */ new WeakMap(), _Feed_continuation = /* @__PURE__ */
 }, "_Feed_isParsed");
 var Feed_default = Feed;
 
-// dist/src/core/TabbedFeed.js
-var __awaiter5 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet13 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet15 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
+// dist/src/core/mixins/TabbedFeed.js
 var _TabbedFeed_tabs;
 var _TabbedFeed_actions;
 var TabbedFeed = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a5;
+    var _a7;
     super(actions, data, already_parsed);
     _TabbedFeed_tabs.set(this, void 0);
     _TabbedFeed_actions.set(this, void 0);
-    __classPrivateFieldSet13(this, _TabbedFeed_actions, actions, "f");
-    __classPrivateFieldSet13(this, _TabbedFeed_tabs, (_a5 = this.page.contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(Tab_default), "f");
+    __classPrivateFieldSet(this, _TabbedFeed_actions, actions, "f");
+    __classPrivateFieldSet(this, _TabbedFeed_tabs, (_a7 = this.page.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default), "f");
   }
   get tabs() {
-    var _a5, _b;
-    return (_b = (_a5 = __classPrivateFieldGet15(this, _TabbedFeed_tabs, "f")) === null || _a5 === void 0 ? void 0 : _a5.map((tab) => tab.title.toString())) !== null && _b !== void 0 ? _b : [];
+    var _a7, _b2;
+    return (_b2 = (_a7 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a7 === void 0 ? void 0 : _a7.map((tab) => tab.title.toString())) !== null && _b2 !== void 0 ? _b2 : [];
   }
   getTabByName(title) {
-    var _a5;
-    return __awaiter5(this, void 0, void 0, function* () {
-      const tab = (_a5 = __classPrivateFieldGet15(this, _TabbedFeed_tabs, "f")) === null || _a5 === void 0 ? void 0 : _a5.find((tab2) => tab2.title.toLowerCase() === title.toLowerCase());
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      const tab = (_a7 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a7 === void 0 ? void 0 : _a7.find((tab2) => tab2.title.toLowerCase() === title.toLowerCase());
       if (!tab)
         throw new InnertubeError(`Tab "${title}" not found`);
       if (tab.selected)
         return this;
-      const response = yield tab.endpoint.call(__classPrivateFieldGet15(this, _TabbedFeed_actions, "f"));
-      return new TabbedFeed(__classPrivateFieldGet15(this, _TabbedFeed_actions, "f"), response, false);
+      const response = yield tab.endpoint.call(__classPrivateFieldGet(this, _TabbedFeed_actions, "f"));
+      return new TabbedFeed(__classPrivateFieldGet(this, _TabbedFeed_actions, "f"), response, false);
     });
   }
   getTabByURL(url) {
-    var _a5;
-    return __awaiter5(this, void 0, void 0, function* () {
-      const tab = (_a5 = __classPrivateFieldGet15(this, _TabbedFeed_tabs, "f")) === null || _a5 === void 0 ? void 0 : _a5.find((tab2) => {
-        var _a6;
-        return ((_a6 = tab2.endpoint.metadata.url) === null || _a6 === void 0 ? void 0 : _a6.split("/").pop()) === url;
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      const tab = (_a7 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a7 === void 0 ? void 0 : _a7.find((tab2) => {
+        var _a8;
+        return ((_a8 = tab2.endpoint.metadata.url) === null || _a8 === void 0 ? void 0 : _a8.split("/").pop()) === url;
       });
       if (!tab)
         throw new InnertubeError(`Tab "${url}" not found`);
       if (tab.selected)
         return this;
-      const response = yield tab.endpoint.call(__classPrivateFieldGet15(this, _TabbedFeed_actions, "f"));
-      return new TabbedFeed(__classPrivateFieldGet15(this, _TabbedFeed_actions, "f"), response, false);
+      const response = yield tab.endpoint.call(__classPrivateFieldGet(this, _TabbedFeed_actions, "f"));
+      return new TabbedFeed(__classPrivateFieldGet(this, _TabbedFeed_actions, "f"), response, false);
     });
   }
   hasTabWithURL(url) {
-    var _a5, _b;
-    return (_b = (_a5 = __classPrivateFieldGet15(this, _TabbedFeed_tabs, "f")) === null || _a5 === void 0 ? void 0 : _a5.some((tab) => {
-      var _a6;
-      return ((_a6 = tab.endpoint.metadata.url) === null || _a6 === void 0 ? void 0 : _a6.split("/").pop()) === url;
-    })) !== null && _b !== void 0 ? _b : false;
+    var _a7, _b2;
+    return (_b2 = (_a7 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a7 === void 0 ? void 0 : _a7.some((tab) => {
+      var _a8;
+      return ((_a8 = tab.endpoint.metadata.url) === null || _a8 === void 0 ? void 0 : _a8.split("/").pop()) === url;
+    })) !== null && _b2 !== void 0 ? _b2 : false;
   }
   get title() {
-    var _a5, _b, _c;
-    return (_c = (_b = (_a5 = this.page.contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(Tab_default)) === null || _b === void 0 ? void 0 : _b.find((tab) => tab.selected)) === null || _c === void 0 ? void 0 : _c.title.toString();
+    var _a7, _b2, _c;
+    return (_c = (_b2 = (_a7 = this.page.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default)) === null || _b2 === void 0 ? void 0 : _b2.find((tab) => tab.selected)) === null || _c === void 0 ? void 0 : _c.title.toString();
   }
 };
 __name(TabbedFeed, "TabbedFeed");
 _TabbedFeed_tabs = /* @__PURE__ */ new WeakMap(), _TabbedFeed_actions = /* @__PURE__ */ new WeakMap();
 var TabbedFeed_default = TabbedFeed;
 
-// dist/src/core/FilterableFeed.js
-var __awaiter6 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldGet16 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __classPrivateFieldSet14 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
+// dist/src/core/mixins/FilterableFeed.js
 var _FilterableFeed_chips;
 var FilterableFeed = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
@@ -18457,22 +18627,22 @@ var FilterableFeed = class extends Feed_default {
     _FilterableFeed_chips.set(this, void 0);
   }
   get filter_chips() {
-    var _a5, _b;
-    if (__classPrivateFieldGet16(this, _FilterableFeed_chips, "f"))
-      return __classPrivateFieldGet16(this, _FilterableFeed_chips, "f") || [];
-    if (((_a5 = this.memo.getType(FeedFilterChipBar_default)) === null || _a5 === void 0 ? void 0 : _a5.length) > 1)
+    var _a7, _b2;
+    if (__classPrivateFieldGet(this, _FilterableFeed_chips, "f"))
+      return __classPrivateFieldGet(this, _FilterableFeed_chips, "f") || [];
+    if (((_a7 = this.memo.getType(FeedFilterChipBar_default)) === null || _a7 === void 0 ? void 0 : _a7.length) > 1)
       throw new InnertubeError("There are too many feed filter chipbars, you'll need to find the correct one yourself in this.page");
-    if (((_b = this.memo.getType(FeedFilterChipBar_default)) === null || _b === void 0 ? void 0 : _b.length) === 0)
+    if (((_b2 = this.memo.getType(FeedFilterChipBar_default)) === null || _b2 === void 0 ? void 0 : _b2.length) === 0)
       throw new InnertubeError("There are no feed filter chipbars");
-    __classPrivateFieldSet14(this, _FilterableFeed_chips, this.memo.getType(ChipCloudChip_default), "f");
-    return __classPrivateFieldGet16(this, _FilterableFeed_chips, "f") || [];
+    __classPrivateFieldSet(this, _FilterableFeed_chips, this.memo.getType(ChipCloudChip_default), "f");
+    return __classPrivateFieldGet(this, _FilterableFeed_chips, "f") || [];
   }
   get filters() {
     return this.filter_chips.map((chip) => chip.text.toString()) || [];
   }
   getFilteredFeed(filter) {
-    var _a5;
-    return __awaiter6(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       let target_filter;
       if (typeof filter === "string") {
         if (!this.filters.includes(filter))
@@ -18487,7 +18657,7 @@ var FilterableFeed = class extends Feed_default {
         throw new InnertubeError("Filter not found");
       if (target_filter.is_selected)
         return this;
-      const response = yield (_a5 = target_filter.endpoint) === null || _a5 === void 0 ? void 0 : _a5.call(this.actions, { parse: true });
+      const response = yield (_a7 = target_filter.endpoint) === null || _a7 === void 0 ? void 0 : _a7.call(this.actions, { parse: true });
       if (!response)
         throw new InnertubeError("Failed to get filtered feed");
       return new Feed_default(this.actions, response, true);
@@ -18499,42 +18669,11 @@ _FilterableFeed_chips = /* @__PURE__ */ new WeakMap();
 var FilterableFeed_default = FilterableFeed;
 
 // dist/src/parser/youtube/Channel.js
-var __awaiter7 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
 var Channel2 = class extends TabbedFeed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a5, _b, _c, _d, _e, _f;
+    var _a7, _b2, _c, _d, _e, _f;
     super(actions, data, already_parsed);
-    this.header = (_b = (_a5 = this.page.header) === null || _a5 === void 0 ? void 0 : _a5.item()) === null || _b === void 0 ? void 0 : _b.as(C4TabbedHeader_default, CarouselHeader_default, InteractiveTabbedHeader_default);
+    this.header = (_b2 = (_a7 = this.page.header) === null || _a7 === void 0 ? void 0 : _a7.item()) === null || _b2 === void 0 ? void 0 : _b2.as(C4TabbedHeader_default, CarouselHeader_default, InteractiveTabbedHeader_default);
     const metadata = (_c = this.page.metadata) === null || _c === void 0 ? void 0 : _c.item().as(ChannelMetadata_default);
     const microformat = (_d = this.page.microformat) === null || _d === void 0 ? void 0 : _d.as(MicroformatData_default);
     if (this.page.alerts) {
@@ -18550,8 +18689,8 @@ var Channel2 = class extends TabbedFeed_default {
     this.current_tab = (_f = this.page.contents) === null || _f === void 0 ? void 0 : _f.item().key("tabs").parsed().array().filterType(Tab_default, ExpandableTab_default).get({ selected: true });
   }
   applyFilter(filter) {
-    var _a5;
-    return __awaiter7(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       let target_filter;
       const filter_chipbar = this.memo.getType(FeedFilterChipBar_default).first();
       if (typeof filter === "string") {
@@ -18563,31 +18702,31 @@ var Channel2 = class extends TabbedFeed_default {
       }
       if (!target_filter)
         throw new InnertubeError("Invalid filter", filter);
-      const page = yield (_a5 = target_filter.endpoint) === null || _a5 === void 0 ? void 0 : _a5.call(this.actions, { parse: true });
+      const page = yield (_a7 = target_filter.endpoint) === null || _a7 === void 0 ? void 0 : _a7.call(this.actions, { parse: true });
       if (!page)
         throw new InnertubeError("No page returned", { filter: target_filter });
       return new FilteredChannelList(this.actions, page, true);
     });
   }
   applySort(sort) {
-    var _a5, _b;
-    return __awaiter7(this, void 0, void 0, function* () {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
       const sort_filter_sub_menu = this.memo.getType(SortFilterSubMenu_default).first();
       if (!sort_filter_sub_menu)
         throw new InnertubeError("No sort filter sub menu found");
-      const target_sort = (_a5 = sort_filter_sub_menu === null || sort_filter_sub_menu === void 0 ? void 0 : sort_filter_sub_menu.sub_menu_items) === null || _a5 === void 0 ? void 0 : _a5.find((item) => item.title === sort);
+      const target_sort = (_a7 = sort_filter_sub_menu === null || sort_filter_sub_menu === void 0 ? void 0 : sort_filter_sub_menu.sub_menu_items) === null || _a7 === void 0 ? void 0 : _a7.find((item) => item.title === sort);
       if (!target_sort)
         throw new InnertubeError(`Sort filter ${sort} not found`, { available_sort_filters: this.sort_filters });
       if (target_sort.selected)
         return this;
-      const page = yield (_b = target_sort.endpoint) === null || _b === void 0 ? void 0 : _b.call(this.actions, { parse: true });
+      const page = yield (_b2 = target_sort.endpoint) === null || _b2 === void 0 ? void 0 : _b2.call(this.actions, { parse: true });
       return new Channel2(this.actions, page, true);
     });
   }
   applyContentTypeFilter(content_type_filter) {
-    var _a5, _b, _c, _d;
-    return __awaiter7(this, void 0, void 0, function* () {
-      const sub_menu = (_c = (_b = (_a5 = this.current_tab) === null || _a5 === void 0 ? void 0 : _a5.content) === null || _b === void 0 ? void 0 : _b.as(SectionList_default).sub_menu) === null || _c === void 0 ? void 0 : _c.as(ChannelSubMenu_default);
+    var _a7, _b2, _c, _d;
+    return __awaiter(this, void 0, void 0, function* () {
+      const sub_menu = (_c = (_b2 = (_a7 = this.current_tab) === null || _a7 === void 0 ? void 0 : _a7.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default).sub_menu) === null || _c === void 0 ? void 0 : _c.as(ChannelSubMenu_default);
       if (!sub_menu)
         throw new InnertubeError("Sub menu not found");
       const item = sub_menu.content_type_sub_menu_items.find((item2) => item2.title === content_type_filter);
@@ -18600,75 +18739,75 @@ var Channel2 = class extends TabbedFeed_default {
     });
   }
   get filters() {
-    var _a5, _b;
-    return ((_b = (_a5 = this.memo.getType(FeedFilterChipBar_default)) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.contents.filterType(ChipCloudChip_default).map((chip) => chip.text)) || [];
+    var _a7, _b2;
+    return ((_b2 = (_a7 = this.memo.getType(FeedFilterChipBar_default)) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.contents.filterType(ChipCloudChip_default).map((chip) => chip.text)) || [];
   }
   get sort_filters() {
-    var _a5;
+    var _a7;
     const sort_filter_sub_menu = this.memo.getType(SortFilterSubMenu_default).first();
-    return ((_a5 = sort_filter_sub_menu === null || sort_filter_sub_menu === void 0 ? void 0 : sort_filter_sub_menu.sub_menu_items) === null || _a5 === void 0 ? void 0 : _a5.map((item) => item.title)) || [];
+    return ((_a7 = sort_filter_sub_menu === null || sort_filter_sub_menu === void 0 ? void 0 : sort_filter_sub_menu.sub_menu_items) === null || _a7 === void 0 ? void 0 : _a7.map((item) => item.title)) || [];
   }
   get content_type_filters() {
-    var _a5, _b, _c;
-    const sub_menu = (_c = (_b = (_a5 = this.current_tab) === null || _a5 === void 0 ? void 0 : _a5.content) === null || _b === void 0 ? void 0 : _b.as(SectionList_default).sub_menu) === null || _c === void 0 ? void 0 : _c.as(ChannelSubMenu_default);
+    var _a7, _b2, _c;
+    const sub_menu = (_c = (_b2 = (_a7 = this.current_tab) === null || _a7 === void 0 ? void 0 : _a7.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default).sub_menu) === null || _c === void 0 ? void 0 : _c.as(ChannelSubMenu_default);
     return (sub_menu === null || sub_menu === void 0 ? void 0 : sub_menu.content_type_sub_menu_items.map((item) => item.title)) || [];
   }
   getHome() {
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("featured");
       return new Channel2(this.actions, tab.page, true);
     });
   }
   getVideos() {
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("videos");
       return new Channel2(this.actions, tab.page, true);
     });
   }
   getShorts() {
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("shorts");
       return new Channel2(this.actions, tab.page, true);
     });
   }
   getLiveStreams() {
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("streams");
       return new Channel2(this.actions, tab.page, true);
     });
   }
   getPlaylists() {
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("playlists");
       return new Channel2(this.actions, tab.page, true);
     });
   }
   getCommunity() {
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("community");
       return new Channel2(this.actions, tab.page, true);
     });
   }
   getChannels() {
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("channels");
       return new Channel2(this.actions, tab.page, true);
     });
   }
   getAbout() {
-    var _a5;
-    return __awaiter7(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("about");
-      return (_a5 = tab.memo.getType(ChannelAboutFullMetadata_default)) === null || _a5 === void 0 ? void 0 : _a5[0];
+      return (_a7 = tab.memo.getType(ChannelAboutFullMetadata_default)) === null || _a7 === void 0 ? void 0 : _a7[0];
     });
   }
   search(query) {
-    var _a5, _b;
-    return __awaiter7(this, void 0, void 0, function* () {
-      const tab = (_a5 = this.memo.getType(ExpandableTab_default)) === null || _a5 === void 0 ? void 0 : _a5[0];
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
+      const tab = (_a7 = this.memo.getType(ExpandableTab_default)) === null || _a7 === void 0 ? void 0 : _a7[0];
       if (!tab)
         throw new InnertubeError("Search tab not found", this);
-      const page = yield (_b = tab.endpoint) === null || _b === void 0 ? void 0 : _b.call(this.actions, { query, parse: true });
+      const page = yield (_b2 = tab.endpoint) === null || _b2 === void 0 ? void 0 : _b2.call(this.actions, { query, parse: true });
       return new Channel2(this.actions, page, true);
     });
   }
@@ -18697,14 +18836,14 @@ var Channel2 = class extends TabbedFeed_default {
     return this.hasTabWithURL("about");
   }
   get has_search() {
-    var _a5;
-    return ((_a5 = this.memo.getType(ExpandableTab_default)) === null || _a5 === void 0 ? void 0 : _a5.length) > 0;
+    var _a7;
+    return ((_a7 = this.memo.getType(ExpandableTab_default)) === null || _a7 === void 0 ? void 0 : _a7.length) > 0;
   }
   getContinuation() {
     const _super = Object.create(null, {
       getContinuationData: { get: () => super.getContinuationData }
     });
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const page = yield _super.getContinuationData.call(this);
       if (!page)
         throw new InnertubeError("Could not get continuation data");
@@ -18715,15 +18854,15 @@ var Channel2 = class extends TabbedFeed_default {
 __name(Channel2, "Channel");
 var ChannelListContinuation = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a5, _b;
+    var _a7, _b2;
     super(actions, data, already_parsed);
-    this.contents = ((_a5 = this.page.on_response_received_actions) === null || _a5 === void 0 ? void 0 : _a5.first()) || ((_b = this.page.on_response_received_endpoints) === null || _b === void 0 ? void 0 : _b.first());
+    this.contents = ((_a7 = this.page.on_response_received_actions) === null || _a7 === void 0 ? void 0 : _a7.first()) || ((_b2 = this.page.on_response_received_endpoints) === null || _b2 === void 0 ? void 0 : _b2.first());
   }
   getContinuation() {
     const _super = Object.create(null, {
       getContinuationData: { get: () => super.getContinuationData }
     });
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const page = yield _super.getContinuationData.call(this);
       if (!page)
         throw new InnertubeError("Could not get continuation data");
@@ -18745,7 +18884,7 @@ var FilteredChannelList = class extends FilterableFeed_default {
     const _super = Object.create(null, {
       getFilteredFeed: { get: () => super.getFilteredFeed }
     });
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const feed = yield _super.getFilteredFeed.call(this, filter);
       return new FilteredChannelList(this.actions, feed.page, true);
     });
@@ -18754,7 +18893,7 @@ var FilteredChannelList = class extends FilterableFeed_default {
     const _super = Object.create(null, {
       getContinuationData: { get: () => super.getContinuationData }
     });
-    return __awaiter7(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const page = yield _super.getContinuationData.call(this);
       if (!(page === null || page === void 0 ? void 0 : page.on_response_received_actions_memo))
         throw new InnertubeError("Unexpected continuation data", page);
@@ -18767,87 +18906,40 @@ var FilteredChannelList = class extends FilterableFeed_default {
 __name(FilteredChannelList, "FilteredChannelList");
 
 // dist/src/parser/youtube/Comments.js
-var __awaiter8 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet15 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet17 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Comments_page;
 var _Comments_actions;
 var _Comments_continuation;
 var Comments = class {
   constructor(actions, data, already_parsed = false) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     _Comments_page.set(this, void 0);
     _Comments_actions.set(this, void 0);
     _Comments_continuation.set(this, void 0);
-    __classPrivateFieldSet15(this, _Comments_page, already_parsed ? data : parser_default.parseResponse(data), "f");
-    __classPrivateFieldSet15(this, _Comments_actions, actions, "f");
-    const contents = __classPrivateFieldGet17(this, _Comments_page, "f").on_response_received_endpoints;
+    __classPrivateFieldSet(this, _Comments_page, already_parsed ? data : parser_default.parseResponse(data), "f");
+    __classPrivateFieldSet(this, _Comments_actions, actions, "f");
+    const contents = __classPrivateFieldGet(this, _Comments_page, "f").on_response_received_endpoints;
     if (!contents)
       throw new InnertubeError("Comments page did not have any content.");
     const header_node = contents.at(0);
     const body_node = contents.at(1);
-    this.header = (_a5 = header_node === null || header_node === void 0 ? void 0 : header_node.contents) === null || _a5 === void 0 ? void 0 : _a5.firstOfType(CommentsHeader_default);
-    const threads = ((_b = body_node === null || body_node === void 0 ? void 0 : body_node.contents) === null || _b === void 0 ? void 0 : _b.filterType(CommentThread_default)) || [];
+    this.header = (_a7 = header_node === null || header_node === void 0 ? void 0 : header_node.contents) === null || _a7 === void 0 ? void 0 : _a7.firstOfType(CommentsHeader_default);
+    const threads = ((_b2 = body_node === null || body_node === void 0 ? void 0 : body_node.contents) === null || _b2 === void 0 ? void 0 : _b2.filterType(CommentThread_default)) || [];
     this.contents = observe(threads.map((thread) => {
-      var _a6;
-      (_a6 = thread.comment) === null || _a6 === void 0 ? void 0 : _a6.setActions(__classPrivateFieldGet17(this, _Comments_actions, "f"));
-      thread.setActions(__classPrivateFieldGet17(this, _Comments_actions, "f"));
+      var _a8;
+      (_a8 = thread.comment) === null || _a8 === void 0 ? void 0 : _a8.setActions(__classPrivateFieldGet(this, _Comments_actions, "f"));
+      thread.setActions(__classPrivateFieldGet(this, _Comments_actions, "f"));
       return thread;
     }));
-    __classPrivateFieldSet15(this, _Comments_continuation, (_c = body_node === null || body_node === void 0 ? void 0 : body_node.contents) === null || _c === void 0 ? void 0 : _c.firstOfType(ContinuationItem_default), "f");
+    __classPrivateFieldSet(this, _Comments_continuation, (_c = body_node === null || body_node === void 0 ? void 0 : body_node.contents) === null || _c === void 0 ? void 0 : _c.firstOfType(ContinuationItem_default), "f");
   }
   applySort(sort) {
-    var _a5, _b, _c, _d;
-    return __awaiter8(this, void 0, void 0, function* () {
+    var _a7, _b2, _c, _d;
+    return __awaiter(this, void 0, void 0, function* () {
       if (!this.header)
         throw new InnertubeError("Page header is missing. Cannot apply sort option.");
       let button;
       if (sort === "TOP_COMMENTS") {
-        button = (_b = (_a5 = this.header.sort_menu) === null || _a5 === void 0 ? void 0 : _a5.sub_menu_items) === null || _b === void 0 ? void 0 : _b.at(0);
+        button = (_b2 = (_a7 = this.header.sort_menu) === null || _a7 === void 0 ? void 0 : _a7.sub_menu_items) === null || _b2 === void 0 ? void 0 : _b2.at(0);
       } else if (sort === "NEWEST_FIRST") {
         button = (_d = (_c = this.header.sort_menu) === null || _c === void 0 ? void 0 : _c.sub_menu_items) === null || _d === void 0 ? void 0 : _d.at(1);
       }
@@ -18855,80 +18947,65 @@ var Comments = class {
         throw new InnertubeError("Could not find target button.");
       if (button.selected)
         return this;
-      const response = yield button.endpoint.call(__classPrivateFieldGet17(this, _Comments_actions, "f"), { parse: true });
-      return new Comments(__classPrivateFieldGet17(this, _Comments_actions, "f"), response, true);
+      const response = yield button.endpoint.call(__classPrivateFieldGet(this, _Comments_actions, "f"), { parse: true });
+      return new Comments(__classPrivateFieldGet(this, _Comments_actions, "f"), response, true);
     });
   }
   createComment(text) {
-    var _a5;
-    return __awaiter8(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       if (!this.header)
         throw new InnertubeError("Page header is missing. Cannot create comment.");
-      const button = (_a5 = this.header.create_renderer) === null || _a5 === void 0 ? void 0 : _a5.as(CommentSimplebox_default).submit_button;
+      const button = (_a7 = this.header.create_renderer) === null || _a7 === void 0 ? void 0 : _a7.as(CommentSimplebox_default).submit_button;
       if (!button)
         throw new InnertubeError("Could not find target button. You are probably not logged in.");
       if (!button.endpoint)
         throw new InnertubeError("Button does not have an endpoint.");
-      const response = yield button.endpoint.call(__classPrivateFieldGet17(this, _Comments_actions, "f"), { commentText: text });
+      const response = yield button.endpoint.call(__classPrivateFieldGet(this, _Comments_actions, "f"), { commentText: text });
       return response;
     });
   }
   getContinuation() {
-    return __awaiter8(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet17(this, _Comments_continuation, "f"))
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Comments_continuation, "f"))
         throw new InnertubeError("Continuation not found");
-      const data = yield __classPrivateFieldGet17(this, _Comments_continuation, "f").endpoint.call(__classPrivateFieldGet17(this, _Comments_actions, "f"), { parse: true });
-      const page = Object.assign({}, __classPrivateFieldGet17(this, _Comments_page, "f"));
+      const data = yield __classPrivateFieldGet(this, _Comments_continuation, "f").endpoint.call(__classPrivateFieldGet(this, _Comments_actions, "f"), { parse: true });
+      const page = Object.assign({}, __classPrivateFieldGet(this, _Comments_page, "f"));
       if (!page.on_response_received_endpoints || !data.on_response_received_endpoints)
         throw new InnertubeError("Invalid reponse format, missing on_response_received_endpoints.");
       page.on_response_received_endpoints.pop();
       page.on_response_received_endpoints.push(data.on_response_received_endpoints[0]);
-      return new Comments(__classPrivateFieldGet17(this, _Comments_actions, "f"), page, true);
+      return new Comments(__classPrivateFieldGet(this, _Comments_actions, "f"), page, true);
     });
   }
   get has_continuation() {
-    return !!__classPrivateFieldGet17(this, _Comments_continuation, "f");
+    return !!__classPrivateFieldGet(this, _Comments_continuation, "f");
   }
   get page() {
-    return __classPrivateFieldGet17(this, _Comments_page, "f");
+    return __classPrivateFieldGet(this, _Comments_page, "f");
   }
 };
 __name(Comments, "Comments");
 _Comments_page = /* @__PURE__ */ new WeakMap(), _Comments_actions = /* @__PURE__ */ new WeakMap(), _Comments_continuation = /* @__PURE__ */ new WeakMap();
 var Comments_default = Comments;
 
-// dist/src/parser/youtube/History.js
-var __awaiter9 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
+// dist/src/parser/youtube/Guide.js
+var _Guide_page;
+var Guide = class {
+  constructor(data) {
+    _Guide_page.set(this, void 0);
+    __classPrivateFieldSet(this, _Guide_page, parser_default2.parseResponse(data), "f");
+    this.contents = __classPrivateFieldGet(this, _Guide_page, "f").items.array().as(GuideSection_default, GuideSubscriptionsSection_default);
   }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
+  get page() {
+    return __classPrivateFieldGet(this, _Guide_page, "f");
+  }
 };
+__name(Guide, "Guide");
+_Guide_page = /* @__PURE__ */ new WeakMap();
+var Guide_default = Guide;
+
+// dist/src/parser/youtube/History.js
 var History = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
     super(actions, data, already_parsed);
@@ -18936,7 +19013,7 @@ var History = class extends Feed_default {
     this.feed_actions = this.memo.getType(BrowseFeedActions_default).first();
   }
   getContinuation() {
-    return __awaiter9(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const response = yield this.getContinuationData();
       if (!response)
         throw new Error("No continuation data found");
@@ -18948,37 +19025,6 @@ __name(History, "History");
 var History_default = History;
 
 // dist/src/parser/youtube/HomeFeed.js
-var __awaiter10 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
 var HomeFeed = class extends FilterableFeed_default {
   constructor(actions, data, already_parsed = false) {
     super(actions, data, already_parsed);
@@ -18989,7 +19035,7 @@ var HomeFeed = class extends FilterableFeed_default {
     const _super = Object.create(null, {
       getFilteredFeed: { get: () => super.getFilteredFeed }
     });
-    return __awaiter10(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const feed = yield _super.getFilteredFeed.call(this, filter);
       return new HomeFeed(this.actions, feed.page, true);
     });
@@ -18998,65 +19044,44 @@ var HomeFeed = class extends FilterableFeed_default {
     const _super = Object.create(null, {
       getContinuation: { get: () => super.getContinuation }
     });
-    var _a5;
-    return __awaiter10(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       const feed = yield _super.getContinuation.call(this);
       feed.page.header = this.page.header;
-      (_a5 = feed.page.header_memo) === null || _a5 === void 0 ? void 0 : _a5.set(this.header.type, [this.header]);
+      (_a7 = feed.page.header_memo) === null || _a7 === void 0 ? void 0 : _a7.set(this.header.type, [this.header]);
       return new HomeFeed(this.actions, feed.page, true);
     });
   }
 };
 __name(HomeFeed, "HomeFeed");
 
-// dist/src/parser/youtube/ItemMenu.js
-var __awaiter11 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
+// dist/src/parser/youtube/HashtagFeed.js
+var HashtagFeed = class extends FilterableFeed_default {
+  constructor(actions, response) {
+    super(actions, response);
+    if (!this.page.contents_memo)
+      throw new InnertubeError("Unexpected response", this.page);
+    const tab = this.page.contents_memo.getType(Tab_default).first();
+    if (!tab.content)
+      throw new InnertubeError("Content tab has no content", tab);
+    if (this.page.header) {
+      this.header = this.page.header.item().as(HashtagHeader_default);
+    }
+    this.contents = tab.content.as(RichGrid_default);
+  }
+  applyFilter(filter) {
+    const _super = Object.create(null, {
+      getFilteredFeed: { get: () => super.getFilteredFeed }
+    });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield _super.getFilteredFeed.call(this, filter);
+      return new HashtagFeed(this.actions, response.page);
     });
   }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
 };
-var __classPrivateFieldSet16 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet18 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
+__name(HashtagFeed, "HashtagFeed");
+
+// dist/src/parser/youtube/ItemMenu.js
 var _ItemMenu_page;
 var _ItemMenu_actions;
 var _ItemMenu_items;
@@ -19065,22 +19090,22 @@ var ItemMenu = class {
     _ItemMenu_page.set(this, void 0);
     _ItemMenu_actions.set(this, void 0);
     _ItemMenu_items.set(this, void 0);
-    __classPrivateFieldSet16(this, _ItemMenu_page, data, "f");
-    __classPrivateFieldSet16(this, _ItemMenu_actions, actions, "f");
+    __classPrivateFieldSet(this, _ItemMenu_page, data, "f");
+    __classPrivateFieldSet(this, _ItemMenu_actions, actions, "f");
     const menu = data === null || data === void 0 ? void 0 : data.live_chat_item_context_menu_supported_renderers;
     if (!menu || !menu.is(Menu_default))
       throw new InnertubeError('Response did not have a "live_chat_item_context_menu_supported_renderers" property. The call may have failed.');
-    __classPrivateFieldSet16(this, _ItemMenu_items, menu.as(Menu_default).items, "f");
+    __classPrivateFieldSet(this, _ItemMenu_items, menu.as(Menu_default).items, "f");
   }
   selectItem(item) {
-    return __awaiter11(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       let endpoint;
       if (item instanceof Button_default) {
         if (!item.endpoint)
           throw new InnertubeError("Item does not have an endpoint.");
         endpoint = item.endpoint;
       } else {
-        const button = __classPrivateFieldGet18(this, _ItemMenu_items, "f").find((button2) => {
+        const button = __classPrivateFieldGet(this, _ItemMenu_items, "f").find((button2) => {
           if (!button2.is(MenuServiceItem_default)) {
             return false;
           }
@@ -19093,15 +19118,15 @@ var ItemMenu = class {
       }
       if (!endpoint)
         throw new InnertubeError("Target button does not have an endpoint.");
-      const response = yield endpoint.call(__classPrivateFieldGet18(this, _ItemMenu_actions, "f"), { parse: true });
+      const response = yield endpoint.call(__classPrivateFieldGet(this, _ItemMenu_actions, "f"), { parse: true });
       return response;
     });
   }
   items() {
-    return __classPrivateFieldGet18(this, _ItemMenu_items, "f");
+    return __classPrivateFieldGet(this, _ItemMenu_items, "f");
   }
   page() {
-    return __classPrivateFieldGet18(this, _ItemMenu_page, "f");
+    return __classPrivateFieldGet(this, _ItemMenu_page, "f");
   }
 };
 __name(ItemMenu, "ItemMenu");
@@ -19109,49 +19134,11 @@ _ItemMenu_page = /* @__PURE__ */ new WeakMap(), _ItemMenu_actions = /* @__PURE__
 var ItemMenu_default = ItemMenu;
 
 // dist/src/parser/youtube/Playlist.js
-var __awaiter12 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldGet19 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Playlist_instances;
 var _Playlist_getStat;
 var Playlist2 = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a5, _b;
+    var _a7, _b2, _c, _d;
     super(actions, data, already_parsed);
     _Playlist_instances.add(this);
     const header = this.memo.getType(PlaylistHeader_default).first();
@@ -19159,12 +19146,12 @@ var Playlist2 = class extends Feed_default {
     const secondary_info = this.memo.getType(PlaylistSidebarSecondaryInfo_default).first();
     if (!primary_info && !secondary_info)
       throw new InnertubeError("This playlist does not exist");
-    this.info = Object.assign(Object.assign({}, (_a5 = this.page.metadata) === null || _a5 === void 0 ? void 0 : _a5.item().as(PlaylistMetadata_default)), {
-      author: (_b = secondary_info === null || secondary_info === void 0 ? void 0 : secondary_info.owner.item().as(VideoOwner_default).author) !== null && _b !== void 0 ? _b : header === null || header === void 0 ? void 0 : header.author,
-      thumbnails: primary_info === null || primary_info === void 0 ? void 0 : primary_info.thumbnail_renderer.item().as(PlaylistVideoThumbnail_default, PlaylistCustomThumbnail_default).thumbnail,
-      total_items: __classPrivateFieldGet19(this, _Playlist_instances, "m", _Playlist_getStat).call(this, 0, primary_info),
-      views: __classPrivateFieldGet19(this, _Playlist_instances, "m", _Playlist_getStat).call(this, 1, primary_info),
-      last_updated: __classPrivateFieldGet19(this, _Playlist_instances, "m", _Playlist_getStat).call(this, 2, primary_info),
+    this.info = Object.assign(Object.assign({}, (_a7 = this.page.metadata) === null || _a7 === void 0 ? void 0 : _a7.item().as(PlaylistMetadata_default)), {
+      author: (_c = (_b2 = secondary_info === null || secondary_info === void 0 ? void 0 : secondary_info.owner) === null || _b2 === void 0 ? void 0 : _b2.as(VideoOwner_default).author) !== null && _c !== void 0 ? _c : header === null || header === void 0 ? void 0 : header.author,
+      thumbnails: (_d = primary_info === null || primary_info === void 0 ? void 0 : primary_info.thumbnail_renderer) === null || _d === void 0 ? void 0 : _d.as(PlaylistVideoThumbnail_default, PlaylistCustomThumbnail_default).thumbnail,
+      total_items: __classPrivateFieldGet(this, _Playlist_instances, "m", _Playlist_getStat).call(this, 0, primary_info),
+      views: __classPrivateFieldGet(this, _Playlist_instances, "m", _Playlist_getStat).call(this, 1, primary_info),
+      last_updated: __classPrivateFieldGet(this, _Playlist_instances, "m", _Playlist_getStat).call(this, 2, primary_info),
       can_share: header === null || header === void 0 ? void 0 : header.can_share,
       can_delete: header === null || header === void 0 ? void 0 : header.can_delete,
       is_editable: header === null || header === void 0 ? void 0 : header.is_editable,
@@ -19178,7 +19165,7 @@ var Playlist2 = class extends Feed_default {
     return this.videos;
   }
   getContinuation() {
-    return __awaiter12(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const page = yield this.getContinuationData();
       if (!page)
         throw new InnertubeError("Could not get continuation data");
@@ -19188,72 +19175,33 @@ var Playlist2 = class extends Feed_default {
 };
 __name(Playlist2, "Playlist");
 _Playlist_instances = /* @__PURE__ */ new WeakSet(), _Playlist_getStat = /* @__PURE__ */ __name(function _Playlist_getStat2(index, primary_info) {
-  var _a5;
+  var _a7;
   if (!primary_info || !primary_info.stats)
     return "N/A";
-  return ((_a5 = primary_info.stats[index]) === null || _a5 === void 0 ? void 0 : _a5.toString()) || "N/A";
+  return ((_a7 = primary_info.stats[index]) === null || _a7 === void 0 ? void 0 : _a7.toString()) || "N/A";
 }, "_Playlist_getStat");
 var Playlist_default2 = Playlist2;
 
 // dist/src/parser/youtube/Library.js
-var __awaiter13 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldGet20 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Library_instances;
 var _Library_getAll;
 var Library = class extends Feed_default {
   constructor(actions, data) {
-    var _a5, _b;
     super(actions, data);
     _Library_instances.add(this);
     if (!this.page.contents_memo)
       throw new InnertubeError("Page contents not found");
-    const stats = (_a5 = this.page.contents_memo.getType(ProfileColumnStats_default)) === null || _a5 === void 0 ? void 0 : _a5[0];
-    const user_info = (_b = this.page.contents_memo.getType(ProfileColumnUserInfo_default)) === null || _b === void 0 ? void 0 : _b[0];
+    const stats = this.page.contents_memo.getType(ProfileColumnStats_default).first();
+    const user_info = this.page.contents_memo.getType(ProfileColumnUserInfo_default).first();
     this.profile = { stats, user_info };
     const shelves = this.page.contents_memo.getType(Shelf_default);
     this.sections = shelves.map((shelf) => {
-      var _a6;
+      var _a7;
       return {
         type: shelf.icon_type,
         title: shelf.title,
-        contents: ((_a6 = shelf.content) === null || _a6 === void 0 ? void 0 : _a6.key("items").array()) || [],
-        getAll: () => __classPrivateFieldGet20(this, _Library_instances, "m", _Library_getAll).call(this, shelf)
+        contents: ((_a7 = shelf.content) === null || _a7 === void 0 ? void 0 : _a7.key("items").array()) || [],
+        getAll: () => __classPrivateFieldGet(this, _Library_instances, "m", _Library_getAll).call(this, shelf)
       };
     });
   }
@@ -19275,9 +19223,9 @@ var Library = class extends Feed_default {
 };
 __name(Library, "Library");
 _Library_instances = /* @__PURE__ */ new WeakSet(), _Library_getAll = /* @__PURE__ */ __name(function _Library_getAll2(shelf) {
-  var _a5;
-  return __awaiter13(this, void 0, void 0, function* () {
-    if (!((_a5 = shelf.menu) === null || _a5 === void 0 ? void 0 : _a5.as(Menu_default).hasKey("top_level_buttons")))
+  var _a7;
+  return __awaiter(this, void 0, void 0, function* () {
+    if (!((_a7 = shelf.menu) === null || _a7 === void 0 ? void 0 : _a7.as(Menu_default).hasKey("top_level_buttons")))
       throw new InnertubeError(`The ${shelf.title.text} shelf doesn't have more items`);
     const button = shelf.menu.as(Menu_default).top_level_buttons.firstOfType(Button_default);
     if (!button)
@@ -19298,23 +19246,54 @@ _Library_instances = /* @__PURE__ */ new WeakSet(), _Library_getAll = /* @__PURE
 }, "_Library_getAll");
 var Library_default = Library;
 
+// dist/src/utils/EventEmitterLike.js
+var _EventEmitterLike_legacy_listeners;
+require_event_target_polyfill();
+var EventEmitterLike = class extends EventTarget {
+  constructor() {
+    super();
+    _EventEmitterLike_legacy_listeners.set(this, /* @__PURE__ */ new Map());
+  }
+  emit(type, ...args) {
+    const event = new Platform.shim.CustomEvent(type, { detail: args });
+    this.dispatchEvent(event);
+  }
+  on(type, listener) {
+    const wrapper = /* @__PURE__ */ __name((ev) => {
+      if (ev instanceof Platform.shim.CustomEvent) {
+        listener(...ev.detail);
+      } else {
+        listener(ev);
+      }
+    }, "wrapper");
+    __classPrivateFieldGet(this, _EventEmitterLike_legacy_listeners, "f").set(listener, wrapper);
+    this.addEventListener(type, wrapper);
+  }
+  once(type, listener) {
+    const wrapper = /* @__PURE__ */ __name((ev) => {
+      if (ev instanceof Platform.shim.CustomEvent) {
+        listener(...ev.detail);
+      } else {
+        listener(ev);
+      }
+      this.off(type, listener);
+    }, "wrapper");
+    __classPrivateFieldGet(this, _EventEmitterLike_legacy_listeners, "f").set(listener, wrapper);
+    this.addEventListener(type, wrapper);
+  }
+  off(type, listener) {
+    const wrapper = __classPrivateFieldGet(this, _EventEmitterLike_legacy_listeners, "f").get(listener);
+    if (wrapper) {
+      this.removeEventListener(type, wrapper);
+      __classPrivateFieldGet(this, _EventEmitterLike_legacy_listeners, "f").delete(listener);
+    }
+  }
+};
+__name(EventEmitterLike, "EventEmitterLike");
+_EventEmitterLike_legacy_listeners = /* @__PURE__ */ new WeakMap();
+var EventEmitterLike_default = EventEmitterLike;
+
 // dist/src/parser/youtube/SmoothedQueue.js
-var __classPrivateFieldSet17 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet21 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _SmoothedQueue_last_update_time;
 var _SmoothedQueue_estimated_update_interval;
 var _SmoothedQueue_callback;
@@ -19360,78 +19339,78 @@ var SmoothedQueue = class {
     _SmoothedQueue_action_queue.set(this, void 0);
     _SmoothedQueue_next_update_id.set(this, void 0);
     _SmoothedQueue_poll_response_delay_queue.set(this, void 0);
-    __classPrivateFieldSet17(this, _SmoothedQueue_last_update_time, null, "f");
-    __classPrivateFieldSet17(this, _SmoothedQueue_estimated_update_interval, null, "f");
-    __classPrivateFieldSet17(this, _SmoothedQueue_callback, null, "f");
-    __classPrivateFieldSet17(this, _SmoothedQueue_action_queue, [], "f");
-    __classPrivateFieldSet17(this, _SmoothedQueue_next_update_id, null, "f");
-    __classPrivateFieldSet17(this, _SmoothedQueue_poll_response_delay_queue, new DelayQueue(), "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_last_update_time, null, "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_estimated_update_interval, null, "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_callback, null, "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_action_queue, [], "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_next_update_id, null, "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_poll_response_delay_queue, new DelayQueue(), "f");
   }
   enqueueActionGroup(group) {
-    if (__classPrivateFieldGet21(this, _SmoothedQueue_last_update_time, "f") !== null) {
-      const delay = Date.now() - __classPrivateFieldGet21(this, _SmoothedQueue_last_update_time, "f");
-      __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").back.push(delay);
-      if (5 < __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").front.length + __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").back.length) {
-        if (!__classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").front.length) {
-          __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").front = __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").back;
-          __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").front.reverse();
-          __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").back = [];
+    if (__classPrivateFieldGet(this, _SmoothedQueue_last_update_time, "f") !== null) {
+      const delay = Date.now() - __classPrivateFieldGet(this, _SmoothedQueue_last_update_time, "f");
+      __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").back.push(delay);
+      if (5 < __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").front.length + __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").back.length) {
+        if (!__classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").front.length) {
+          __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").front = __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").back;
+          __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").front.reverse();
+          __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").back = [];
         }
-        __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").front.pop();
+        __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").front.pop();
       }
-      __classPrivateFieldSet17(this, _SmoothedQueue_estimated_update_interval, Math.max(...__classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f").getValues()), "f");
+      __classPrivateFieldSet(this, _SmoothedQueue_estimated_update_interval, Math.max(...__classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f").getValues()), "f");
     }
-    __classPrivateFieldSet17(this, _SmoothedQueue_last_update_time, Date.now(), "f");
-    __classPrivateFieldGet21(this, _SmoothedQueue_action_queue, "f").push(group);
-    if (__classPrivateFieldGet21(this, _SmoothedQueue_next_update_id, "f") === null) {
-      __classPrivateFieldSet17(this, _SmoothedQueue_next_update_id, setTimeout(this.emitSmoothedActions.bind(this)), "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_last_update_time, Date.now(), "f");
+    __classPrivateFieldGet(this, _SmoothedQueue_action_queue, "f").push(group);
+    if (__classPrivateFieldGet(this, _SmoothedQueue_next_update_id, "f") === null) {
+      __classPrivateFieldSet(this, _SmoothedQueue_next_update_id, setTimeout(this.emitSmoothedActions.bind(this)), "f");
     }
   }
   emitSmoothedActions() {
-    __classPrivateFieldSet17(this, _SmoothedQueue_next_update_id, null, "f");
-    if (__classPrivateFieldGet21(this, _SmoothedQueue_action_queue, "f").length) {
+    __classPrivateFieldSet(this, _SmoothedQueue_next_update_id, null, "f");
+    if (__classPrivateFieldGet(this, _SmoothedQueue_action_queue, "f").length) {
       let delay = 1e4;
-      if (__classPrivateFieldGet21(this, _SmoothedQueue_estimated_update_interval, "f") !== null && __classPrivateFieldGet21(this, _SmoothedQueue_last_update_time, "f") !== null) {
-        delay = __classPrivateFieldGet21(this, _SmoothedQueue_estimated_update_interval, "f") - Date.now() + __classPrivateFieldGet21(this, _SmoothedQueue_last_update_time, "f");
+      if (__classPrivateFieldGet(this, _SmoothedQueue_estimated_update_interval, "f") !== null && __classPrivateFieldGet(this, _SmoothedQueue_last_update_time, "f") !== null) {
+        delay = __classPrivateFieldGet(this, _SmoothedQueue_estimated_update_interval, "f") - Date.now() + __classPrivateFieldGet(this, _SmoothedQueue_last_update_time, "f");
       }
-      delay = __classPrivateFieldGet21(this, _SmoothedQueue_action_queue, "f").length < delay / 80 ? 1 : Math.ceil(__classPrivateFieldGet21(this, _SmoothedQueue_action_queue, "f").length / (delay / 80));
-      const actions = flattenQueue(__classPrivateFieldGet21(this, _SmoothedQueue_action_queue, "f").splice(0, delay));
-      if (__classPrivateFieldGet21(this, _SmoothedQueue_callback, "f")) {
-        __classPrivateFieldGet21(this, _SmoothedQueue_callback, "f").call(this, actions);
+      delay = __classPrivateFieldGet(this, _SmoothedQueue_action_queue, "f").length < delay / 80 ? 1 : Math.ceil(__classPrivateFieldGet(this, _SmoothedQueue_action_queue, "f").length / (delay / 80));
+      const actions = flattenQueue(__classPrivateFieldGet(this, _SmoothedQueue_action_queue, "f").splice(0, delay));
+      if (__classPrivateFieldGet(this, _SmoothedQueue_callback, "f")) {
+        __classPrivateFieldGet(this, _SmoothedQueue_callback, "f").call(this, actions);
       }
-      if (__classPrivateFieldGet21(this, _SmoothedQueue_action_queue, "f") !== null) {
-        delay == 1 ? (delay = __classPrivateFieldGet21(this, _SmoothedQueue_estimated_update_interval, "f") / __classPrivateFieldGet21(this, _SmoothedQueue_action_queue, "f").length, delay *= Math.random() + 0.5, delay = Math.min(1e3, delay), delay = Math.max(80, delay)) : delay = 80;
-        __classPrivateFieldSet17(this, _SmoothedQueue_next_update_id, setTimeout(this.emitSmoothedActions.bind(this), delay), "f");
+      if (__classPrivateFieldGet(this, _SmoothedQueue_action_queue, "f") !== null) {
+        delay == 1 ? (delay = __classPrivateFieldGet(this, _SmoothedQueue_estimated_update_interval, "f") / __classPrivateFieldGet(this, _SmoothedQueue_action_queue, "f").length, delay *= Math.random() + 0.5, delay = Math.min(1e3, delay), delay = Math.max(80, delay)) : delay = 80;
+        __classPrivateFieldSet(this, _SmoothedQueue_next_update_id, setTimeout(this.emitSmoothedActions.bind(this), delay), "f");
       }
     }
   }
   clear() {
-    if (__classPrivateFieldGet21(this, _SmoothedQueue_next_update_id, "f") !== null) {
-      clearTimeout(__classPrivateFieldGet21(this, _SmoothedQueue_next_update_id, "f"));
-      __classPrivateFieldSet17(this, _SmoothedQueue_next_update_id, null, "f");
+    if (__classPrivateFieldGet(this, _SmoothedQueue_next_update_id, "f") !== null) {
+      clearTimeout(__classPrivateFieldGet(this, _SmoothedQueue_next_update_id, "f"));
+      __classPrivateFieldSet(this, _SmoothedQueue_next_update_id, null, "f");
     }
-    __classPrivateFieldSet17(this, _SmoothedQueue_action_queue, [], "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_action_queue, [], "f");
   }
   set callback(cb) {
-    __classPrivateFieldSet17(this, _SmoothedQueue_callback, cb, "f");
+    __classPrivateFieldSet(this, _SmoothedQueue_callback, cb, "f");
   }
   get callback() {
-    return __classPrivateFieldGet21(this, _SmoothedQueue_callback, "f");
+    return __classPrivateFieldGet(this, _SmoothedQueue_callback, "f");
   }
   get action_queue() {
-    return __classPrivateFieldGet21(this, _SmoothedQueue_action_queue, "f");
+    return __classPrivateFieldGet(this, _SmoothedQueue_action_queue, "f");
   }
   get estimated_update_interval() {
-    return __classPrivateFieldGet21(this, _SmoothedQueue_estimated_update_interval, "f");
+    return __classPrivateFieldGet(this, _SmoothedQueue_estimated_update_interval, "f");
   }
   get last_update_time() {
-    return __classPrivateFieldGet21(this, _SmoothedQueue_last_update_time, "f");
+    return __classPrivateFieldGet(this, _SmoothedQueue_last_update_time, "f");
   }
   get next_update_id() {
-    return __classPrivateFieldGet21(this, _SmoothedQueue_next_update_id, "f");
+    return __classPrivateFieldGet(this, _SmoothedQueue_next_update_id, "f");
   }
   get poll_response_delay_queue() {
-    return __classPrivateFieldGet21(this, _SmoothedQueue_poll_response_delay_queue, "f");
+    return __classPrivateFieldGet(this, _SmoothedQueue_poll_response_delay_queue, "f");
   }
 };
 __name(SmoothedQueue, "SmoothedQueue");
@@ -19439,53 +19418,6 @@ _SmoothedQueue_last_update_time = /* @__PURE__ */ new WeakMap(), _SmoothedQueue_
 var SmoothedQueue_default = SmoothedQueue;
 
 // dist/src/parser/youtube/LiveChat.js
-var __awaiter14 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet18 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet22 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _LiveChat_instances;
 var _LiveChat_actions;
 var _LiveChat_video_id;
@@ -19497,9 +19429,9 @@ var _LiveChat_pollLivechat;
 var _LiveChat_emitSmoothedActions;
 var _LiveChat_pollMetadata;
 var _LiveChat_wait;
-var LiveChat2 = class extends EventEmitterLike {
+var LiveChat2 = class extends EventEmitterLike_default {
   constructor(video_info) {
-    var _a5, _b;
+    var _a7, _b2;
     super();
     _LiveChat_instances.add(this);
     _LiveChat_actions.set(this, void 0);
@@ -19510,25 +19442,25 @@ var LiveChat2 = class extends EventEmitterLike {
     _LiveChat_retry_count.set(this, 0);
     this.running = false;
     this.is_replay = false;
-    __classPrivateFieldSet18(this, _LiveChat_video_id, video_info.basic_info.id, "f");
-    __classPrivateFieldSet18(this, _LiveChat_channel_id, video_info.basic_info.channel_id, "f");
-    __classPrivateFieldSet18(this, _LiveChat_actions, video_info.actions, "f");
-    __classPrivateFieldSet18(this, _LiveChat_continuation, (_a5 = video_info.livechat) === null || _a5 === void 0 ? void 0 : _a5.continuation, "f");
-    this.is_replay = ((_b = video_info.livechat) === null || _b === void 0 ? void 0 : _b.is_replay) || false;
+    __classPrivateFieldSet(this, _LiveChat_video_id, video_info.basic_info.id, "f");
+    __classPrivateFieldSet(this, _LiveChat_channel_id, video_info.basic_info.channel_id, "f");
+    __classPrivateFieldSet(this, _LiveChat_actions, video_info.actions, "f");
+    __classPrivateFieldSet(this, _LiveChat_continuation, (_a7 = video_info.livechat) === null || _a7 === void 0 ? void 0 : _a7.continuation, "f");
+    this.is_replay = ((_b2 = video_info.livechat) === null || _b2 === void 0 ? void 0 : _b2.is_replay) || false;
     this.smoothed_queue = new SmoothedQueue_default();
-    this.smoothed_queue.callback = (actions) => __awaiter14(this, void 0, void 0, function* () {
+    this.smoothed_queue.callback = (actions) => __awaiter(this, void 0, void 0, function* () {
       if (!actions.length) {
-        yield __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
+        yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
       } else if (actions.length < 10) {
-        yield __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
+        yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
       } else if (this.is_replay) {
-        __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
-        yield __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
+        __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
+        yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
       } else {
-        __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
+        __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_emitSmoothedActions).call(this, actions);
       }
       if (this.running) {
-        __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
+        __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
       }
     });
   }
@@ -19541,8 +19473,8 @@ var LiveChat2 = class extends EventEmitterLike {
   start() {
     if (!this.running) {
       this.running = true;
-      __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
-      __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_pollMetadata).call(this);
+      __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat).call(this);
+      __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollMetadata).call(this);
     }
   }
   stop() {
@@ -19550,9 +19482,9 @@ var LiveChat2 = class extends EventEmitterLike {
     this.running = false;
   }
   sendMessage(text) {
-    return __awaiter14(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet22(this, _LiveChat_actions, "f").execute("/live_chat/send_message", {
-        params: proto_default.encodeMessageParams(__classPrivateFieldGet22(this, _LiveChat_channel_id, "f"), __classPrivateFieldGet22(this, _LiveChat_video_id, "f")),
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").execute("/live_chat/send_message", {
+        params: proto_default.encodeMessageParams(__classPrivateFieldGet(this, _LiveChat_channel_id, "f"), __classPrivateFieldGet(this, _LiveChat_video_id, "f")),
         richMessage: { textSegments: [{ text }] },
         clientMessageId: Platform.shim.uuidv4(),
         client: "ANDROID",
@@ -19564,43 +19496,43 @@ var LiveChat2 = class extends EventEmitterLike {
     });
   }
   applyFilter(filter) {
-    var _a5, _b, _c, _d, _e, _f, _g;
+    var _a7, _b2, _c, _d, _e, _f, _g;
     if (!this.initial_info)
       throw new InnertubeError("Cannot apply filter before initial info is retrieved.");
-    const menu_items = (_c = (_b = (_a5 = this.initial_info) === null || _a5 === void 0 ? void 0 : _a5.header) === null || _b === void 0 ? void 0 : _b.view_selector) === null || _c === void 0 ? void 0 : _c.sub_menu_items;
+    const menu_items = (_c = (_b2 = (_a7 = this.initial_info) === null || _a7 === void 0 ? void 0 : _a7.header) === null || _b2 === void 0 ? void 0 : _b2.view_selector) === null || _c === void 0 ? void 0 : _c.sub_menu_items;
     if (filter === "TOP_CHAT") {
       if ((_d = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(0)) === null || _d === void 0 ? void 0 : _d.selected)
         return;
-      __classPrivateFieldSet18(this, _LiveChat_continuation, (_e = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(0)) === null || _e === void 0 ? void 0 : _e.continuation, "f");
+      __classPrivateFieldSet(this, _LiveChat_continuation, (_e = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(0)) === null || _e === void 0 ? void 0 : _e.continuation, "f");
     } else {
       if ((_f = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(1)) === null || _f === void 0 ? void 0 : _f.selected)
         return;
-      __classPrivateFieldSet18(this, _LiveChat_continuation, (_g = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(1)) === null || _g === void 0 ? void 0 : _g.continuation, "f");
+      __classPrivateFieldSet(this, _LiveChat_continuation, (_g = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(1)) === null || _g === void 0 ? void 0 : _g.continuation, "f");
     }
   }
   getItemMenu(item) {
-    return __awaiter14(this, void 0, void 0, function* () {
-      if (!item.menu_endpoint)
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!item.hasKey("menu_endpoint") || !item.key("menu_endpoint").isInstanceof(NavigationEndpoint_default))
         throw new InnertubeError("This item does not have a menu.", item);
-      const response = yield item.menu_endpoint.call(__classPrivateFieldGet22(this, _LiveChat_actions, "f"), { parse: true });
+      const response = yield item.key("menu_endpoint").instanceof(NavigationEndpoint_default).call(__classPrivateFieldGet(this, _LiveChat_actions, "f"), { parse: true });
       if (!response)
         throw new InnertubeError("Could not retrieve item menu.", item);
-      return new ItemMenu_default(response, __classPrivateFieldGet22(this, _LiveChat_actions, "f"));
+      return new ItemMenu_default(response, __classPrivateFieldGet(this, _LiveChat_actions, "f"));
     });
   }
   selectButton(button) {
-    return __awaiter14(this, void 0, void 0, function* () {
-      const response = yield button.endpoint.call(__classPrivateFieldGet22(this, _LiveChat_actions, "f"), { parse: true });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield button.endpoint.call(__classPrivateFieldGet(this, _LiveChat_actions, "f"), { parse: true });
       return response;
     });
   }
 };
 __name(LiveChat2, "LiveChat");
 _LiveChat_actions = /* @__PURE__ */ new WeakMap(), _LiveChat_video_id = /* @__PURE__ */ new WeakMap(), _LiveChat_channel_id = /* @__PURE__ */ new WeakMap(), _LiveChat_continuation = /* @__PURE__ */ new WeakMap(), _LiveChat_mcontinuation = /* @__PURE__ */ new WeakMap(), _LiveChat_retry_count = /* @__PURE__ */ new WeakMap(), _LiveChat_instances = /* @__PURE__ */ new WeakSet(), _LiveChat_pollLivechat = /* @__PURE__ */ __name(function _LiveChat_pollLivechat2() {
-  (() => __awaiter14(this, void 0, void 0, function* () {
-    var _a5, _b;
+  (() => __awaiter(this, void 0, void 0, function* () {
+    var _a7, _b2;
     try {
-      const response = yield __classPrivateFieldGet22(this, _LiveChat_actions, "f").execute(this.is_replay ? "live_chat/get_live_chat_replay" : "live_chat/get_live_chat", { continuation: __classPrivateFieldGet22(this, _LiveChat_continuation, "f"), parse: true });
+      const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").execute(this.is_replay ? "live_chat/get_live_chat_replay" : "live_chat/get_live_chat", { continuation: __classPrivateFieldGet(this, _LiveChat_continuation, "f"), parse: true });
       const contents = response.continuation_contents;
       if (!contents) {
         this.emit("error", new InnertubeError("Unexpected live chat incremental continuation response", response));
@@ -19612,21 +19544,21 @@ _LiveChat_actions = /* @__PURE__ */ new WeakMap(), _LiveChat_video_id = /* @__PU
         this.emit("end");
         return;
       }
-      __classPrivateFieldSet18(this, _LiveChat_continuation, contents.continuation.token, "f");
+      __classPrivateFieldSet(this, _LiveChat_continuation, contents.continuation.token, "f");
       if (contents.header) {
         this.initial_info = contents;
         this.emit("start", contents);
         if (this.running)
-          __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_pollLivechat2).call(this);
+          __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat2).call(this);
       } else {
         this.smoothed_queue.enqueueActionGroup(contents.actions);
       }
-      __classPrivateFieldSet18(this, _LiveChat_retry_count, 0, "f");
+      __classPrivateFieldSet(this, _LiveChat_retry_count, 0, "f");
     } catch (err) {
       this.emit("error", err);
-      if ((__classPrivateFieldSet18(this, _LiveChat_retry_count, (_b = __classPrivateFieldGet22(this, _LiveChat_retry_count, "f"), _a5 = _b++, _b), "f"), _a5) < 10) {
-        yield __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
-        __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_pollLivechat2).call(this);
+      if ((__classPrivateFieldSet(this, _LiveChat_retry_count, (_b2 = __classPrivateFieldGet(this, _LiveChat_retry_count, "f"), _a7 = _b2++, _b2), "f"), _a7) < 10) {
+        yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
+        __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat2).call(this);
       } else {
         this.emit("error", new InnertubeError("Reached retry limit for incremental continuation requests", err));
         this.emit("end");
@@ -19635,120 +19567,73 @@ _LiveChat_actions = /* @__PURE__ */ new WeakMap(), _LiveChat_video_id = /* @__PU
     }
   }))();
 }, "_LiveChat_pollLivechat"), _LiveChat_emitSmoothedActions = /* @__PURE__ */ __name(function _LiveChat_emitSmoothedActions2(action_queue) {
-  return __awaiter14(this, void 0, void 0, function* () {
+  return __awaiter(this, void 0, void 0, function* () {
     const base = 1e4;
     let delay = action_queue.length < base / 80 ? 1 : Math.ceil(action_queue.length / (base / 80));
     const emit_delay_ms = delay == 1 ? (delay = base / action_queue.length, delay *= Math.random() + 0.5, delay = Math.min(1e3, delay), delay = Math.max(80, delay)) : delay = 80;
     for (const action of action_queue) {
-      yield __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, emit_delay_ms);
+      yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, emit_delay_ms);
       this.emit("chat-update", action);
     }
   });
 }, "_LiveChat_emitSmoothedActions"), _LiveChat_pollMetadata = /* @__PURE__ */ __name(function _LiveChat_pollMetadata2() {
-  (() => __awaiter14(this, void 0, void 0, function* () {
-    var _a5, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+  (() => __awaiter(this, void 0, void 0, function* () {
+    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     try {
-      const payload = { videoId: __classPrivateFieldGet22(this, _LiveChat_video_id, "f") };
-      if (__classPrivateFieldGet22(this, _LiveChat_mcontinuation, "f")) {
-        payload.continuation = __classPrivateFieldGet22(this, _LiveChat_mcontinuation, "f");
+      const payload = { videoId: __classPrivateFieldGet(this, _LiveChat_video_id, "f") };
+      if (__classPrivateFieldGet(this, _LiveChat_mcontinuation, "f")) {
+        payload.continuation = __classPrivateFieldGet(this, _LiveChat_mcontinuation, "f");
       }
-      const response = yield __classPrivateFieldGet22(this, _LiveChat_actions, "f").execute("/updated_metadata", payload);
+      const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").execute("/updated_metadata", payload);
       const data = parser_default.parseResponse(response.data);
-      __classPrivateFieldSet18(this, _LiveChat_mcontinuation, (_a5 = data.continuation) === null || _a5 === void 0 ? void 0 : _a5.token, "f");
+      __classPrivateFieldSet(this, _LiveChat_mcontinuation, (_a7 = data.continuation) === null || _a7 === void 0 ? void 0 : _a7.token, "f");
       this.metadata = {
-        title: ((_b = data.actions) === null || _b === void 0 ? void 0 : _b.array().firstOfType(UpdateTitleAction_default)) || ((_c = this.metadata) === null || _c === void 0 ? void 0 : _c.title),
+        title: ((_b2 = data.actions) === null || _b2 === void 0 ? void 0 : _b2.array().firstOfType(UpdateTitleAction_default)) || ((_c = this.metadata) === null || _c === void 0 ? void 0 : _c.title),
         description: ((_d = data.actions) === null || _d === void 0 ? void 0 : _d.array().firstOfType(UpdateDescriptionAction_default)) || ((_e = this.metadata) === null || _e === void 0 ? void 0 : _e.description),
         views: ((_f = data.actions) === null || _f === void 0 ? void 0 : _f.array().firstOfType(UpdateViewershipAction_default)) || ((_g = this.metadata) === null || _g === void 0 ? void 0 : _g.views),
         likes: ((_h = data.actions) === null || _h === void 0 ? void 0 : _h.array().firstOfType(UpdateToggleButtonTextAction_default)) || ((_j = this.metadata) === null || _j === void 0 ? void 0 : _j.likes),
         date: ((_k = data.actions) === null || _k === void 0 ? void 0 : _k.array().firstOfType(UpdateDateTextAction_default)) || ((_l = this.metadata) === null || _l === void 0 ? void 0 : _l.date)
       };
       this.emit("metadata-update", this.metadata);
-      yield __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 5e3);
+      yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 5e3);
       if (this.running)
-        __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_pollMetadata2).call(this);
+        __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollMetadata2).call(this);
     } catch (err) {
-      yield __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
+      yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
       if (this.running)
-        __classPrivateFieldGet22(this, _LiveChat_instances, "m", _LiveChat_pollMetadata2).call(this);
+        __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollMetadata2).call(this);
     }
   }))();
 }, "_LiveChat_pollMetadata"), _LiveChat_wait = /* @__PURE__ */ __name(function _LiveChat_wait2(ms) {
-  return __awaiter14(this, void 0, void 0, function* () {
+  return __awaiter(this, void 0, void 0, function* () {
     return new Promise((resolve) => setTimeout(() => resolve(), ms));
   });
 }, "_LiveChat_wait");
 var LiveChat_default2 = LiveChat2;
 
 // dist/src/parser/youtube/NotificationsMenu.js
-var __awaiter15 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet19 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet23 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _NotificationsMenu_page;
 var _NotificationsMenu_actions;
 var NotificationsMenu = class {
   constructor(actions, response) {
     _NotificationsMenu_page.set(this, void 0);
     _NotificationsMenu_actions.set(this, void 0);
-    __classPrivateFieldSet19(this, _NotificationsMenu_actions, actions, "f");
-    __classPrivateFieldSet19(this, _NotificationsMenu_page, parser_default.parseResponse(response.data), "f");
-    this.header = __classPrivateFieldGet23(this, _NotificationsMenu_page, "f").actions_memo.getType(SimpleMenuHeader_default).first();
-    this.contents = __classPrivateFieldGet23(this, _NotificationsMenu_page, "f").actions_memo.getType(Notification_default);
+    __classPrivateFieldSet(this, _NotificationsMenu_actions, actions, "f");
+    __classPrivateFieldSet(this, _NotificationsMenu_page, parser_default.parseResponse(response.data), "f");
+    this.header = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.getType(SimpleMenuHeader_default).first();
+    this.contents = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.getType(Notification_default);
   }
   getContinuation() {
-    return __awaiter15(this, void 0, void 0, function* () {
-      const continuation = __classPrivateFieldGet23(this, _NotificationsMenu_page, "f").actions_memo.getType(ContinuationItem_default).first();
+    return __awaiter(this, void 0, void 0, function* () {
+      const continuation = __classPrivateFieldGet(this, _NotificationsMenu_page, "f").actions_memo.getType(ContinuationItem_default).first();
       if (!continuation)
         throw new InnertubeError("Continuation not found");
-      const response = yield continuation.endpoint.call(__classPrivateFieldGet23(this, _NotificationsMenu_actions, "f"), { parse: false });
-      return new NotificationsMenu(__classPrivateFieldGet23(this, _NotificationsMenu_actions, "f"), response);
+      const response = yield continuation.endpoint.call(__classPrivateFieldGet(this, _NotificationsMenu_actions, "f"), { parse: false });
+      return new NotificationsMenu(__classPrivateFieldGet(this, _NotificationsMenu_actions, "f"), response);
     });
   }
   get page() {
-    return __classPrivateFieldGet23(this, _NotificationsMenu_page, "f");
+    return __classPrivateFieldGet(this, _NotificationsMenu_page, "f");
   }
 };
 __name(NotificationsMenu, "NotificationsMenu");
@@ -19756,45 +19641,14 @@ _NotificationsMenu_page = /* @__PURE__ */ new WeakMap(), _NotificationsMenu_acti
 var NotificationsMenu_default = NotificationsMenu;
 
 // dist/src/parser/youtube/Search.js
-var __awaiter16 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
 var Search = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a5, _b, _c, _d, _e, _f;
+    var _a7, _b2, _c, _d, _e, _f;
     super(actions, data, already_parsed);
-    const contents = ((_a5 = this.page.contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(SectionList_default).first().contents) || ((_b = this.page.on_response_received_commands) === null || _b === void 0 ? void 0 : _b.first().contents);
+    const contents = ((_a7 = this.page.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(SectionList_default).first().contents) || ((_b2 = this.page.on_response_received_commands) === null || _b2 === void 0 ? void 0 : _b2.first().contents);
     if (!contents)
       throw new InnertubeError("No contents found in search response");
-    this.results = (_c = contents.firstOfType(ItemSection_default)) === null || _c === void 0 ? void 0 : _c.contents;
+    this.results = (_c = contents.find((content) => content.is(ItemSection_default) && content.contents && content.contents.length > 0)) === null || _c === void 0 ? void 0 : _c.as(ItemSection_default).contents;
     this.refinements = this.page.refinements || [];
     this.estimated_results = this.page.estimated_results;
     this.sub_menu = (_d = this.page.contents_memo) === null || _d === void 0 ? void 0 : _d.getType(SearchSubMenu_default).first();
@@ -19802,13 +19656,13 @@ var Search = class extends Feed_default {
     this.refinement_cards = (_f = this.results) === null || _f === void 0 ? void 0 : _f.firstOfType(HorizontalCardList_default);
   }
   selectRefinementCard(card) {
-    var _a5, _b;
-    return __awaiter16(this, void 0, void 0, function* () {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
       let target_card;
       if (typeof card === "string") {
         if (!this.refinement_cards)
           throw new InnertubeError("No refinement cards found.");
-        target_card = (_b = (_a5 = this.refinement_cards) === null || _a5 === void 0 ? void 0 : _a5.cards.get({ query: card })) === null || _b === void 0 ? void 0 : _b.as(SearchRefinementCard_default);
+        target_card = (_b2 = (_a7 = this.refinement_cards) === null || _a7 === void 0 ? void 0 : _a7.cards.get({ query: card })) === null || _b2 === void 0 ? void 0 : _b2.as(SearchRefinementCard_default);
         if (!target_card)
           throw new InnertubeError(`Refinement card "${card}" not found`, { available_cards: this.refinement_card_queries });
       } else if (card.type === "SearchRefinementCard") {
@@ -19821,11 +19675,11 @@ var Search = class extends Feed_default {
     });
   }
   get refinement_card_queries() {
-    var _a5;
-    return ((_a5 = this.refinement_cards) === null || _a5 === void 0 ? void 0 : _a5.cards.as(SearchRefinementCard_default).map((card) => card.query)) || [];
+    var _a7;
+    return ((_a7 = this.refinement_cards) === null || _a7 === void 0 ? void 0 : _a7.cards.as(SearchRefinementCard_default).map((card) => card.query)) || [];
   }
   getContinuation() {
-    return __awaiter16(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const response = yield this.getContinuationData();
       if (!response)
         throw new InnertubeError("Could not get continuation data");
@@ -19837,80 +19691,33 @@ __name(Search, "Search");
 var Search_default = Search;
 
 // dist/src/parser/youtube/Settings.js
-var __awaiter17 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet20 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet24 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Settings_page;
 var _Settings_actions;
 var Settings = class {
   constructor(actions, response) {
-    var _a5, _b, _c, _d;
+    var _a7, _b2, _c, _d;
     _Settings_page.set(this, void 0);
     _Settings_actions.set(this, void 0);
-    __classPrivateFieldSet20(this, _Settings_actions, actions, "f");
-    __classPrivateFieldSet20(this, _Settings_page, parser_default.parseResponse(response.data), "f");
-    this.sidebar = (_a5 = __classPrivateFieldGet24(this, _Settings_page, "f").sidebar) === null || _a5 === void 0 ? void 0 : _a5.as(SettingsSidebar_default);
-    if (!__classPrivateFieldGet24(this, _Settings_page, "f").contents)
+    __classPrivateFieldSet(this, _Settings_actions, actions, "f");
+    __classPrivateFieldSet(this, _Settings_page, parser_default.parseResponse(response.data), "f");
+    this.sidebar = (_a7 = __classPrivateFieldGet(this, _Settings_page, "f").sidebar) === null || _a7 === void 0 ? void 0 : _a7.as(SettingsSidebar_default);
+    if (!__classPrivateFieldGet(this, _Settings_page, "f").contents)
       throw new InnertubeError("Page contents not found");
-    const tab = __classPrivateFieldGet24(this, _Settings_page, "f").contents.item().as(TwoColumnBrowseResults_default).tabs.array().as(Tab_default).get({ selected: true });
+    const tab = __classPrivateFieldGet(this, _Settings_page, "f").contents.item().as(TwoColumnBrowseResults_default).tabs.array().as(Tab_default).get({ selected: true });
     if (!tab)
       throw new InnertubeError("Target tab not found");
-    const contents = (_b = tab.content) === null || _b === void 0 ? void 0 : _b.as(SectionList_default).contents.as(ItemSection_default);
+    const contents = (_b2 = tab.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default).contents.as(ItemSection_default);
     this.introduction = (_d = (_c = contents === null || contents === void 0 ? void 0 : contents.shift()) === null || _c === void 0 ? void 0 : _c.contents) === null || _d === void 0 ? void 0 : _d.firstOfType(PageIntroduction_default);
     this.sections = contents === null || contents === void 0 ? void 0 : contents.map((el) => {
-      var _a6;
+      var _a8;
       return {
-        title: ((_a6 = el.header) === null || _a6 === void 0 ? void 0 : _a6.title.toString()) || null,
+        title: ((_a8 = el.header) === null || _a8 === void 0 ? void 0 : _a8.title.toString()) || null,
         contents: el.contents
       };
     });
   }
   selectSidebarItem(target_item) {
-    return __awaiter17(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       if (!this.sidebar)
         throw new InnertubeError("Sidebar not available");
       let item;
@@ -19923,12 +19730,12 @@ var Settings = class {
       } else {
         throw new InnertubeError("Invalid item", { target_item });
       }
-      const response = yield item.endpoint.call(__classPrivateFieldGet24(this, _Settings_actions, "f"), { parse: false });
-      return new Settings(__classPrivateFieldGet24(this, _Settings_actions, "f"), response);
+      const response = yield item.endpoint.call(__classPrivateFieldGet(this, _Settings_actions, "f"), { parse: false });
+      return new Settings(__classPrivateFieldGet(this, _Settings_actions, "f"), response);
     });
   }
   getSettingOption(name) {
-    var _a5;
+    var _a7;
     if (!this.sections)
       throw new InnertubeError("Sections not available");
     for (const section of this.sections) {
@@ -19938,7 +19745,7 @@ var Settings = class {
         const options = el.as(SettingsOptions_default).options;
         if (options) {
           for (const option of options) {
-            if (option.is(SettingsSwitch_default) && ((_a5 = option.title) === null || _a5 === void 0 ? void 0 : _a5.toString()) === name)
+            if (option.is(SettingsSwitch_default) && ((_a7 = option.title) === null || _a7 === void 0 ? void 0 : _a7.toString()) === name)
               return option;
           }
         }
@@ -19959,8 +19766,8 @@ var Settings = class {
       }
     }
     return options.map((opt) => {
-      var _a5;
-      return (_a5 = opt.title) === null || _a5 === void 0 ? void 0 : _a5.toString();
+      var _a7;
+      return (_a7 = opt.title) === null || _a7 === void 0 ? void 0 : _a7.toString();
     }).filter((el) => el);
   }
   get sidebar_items() {
@@ -19969,7 +19776,7 @@ var Settings = class {
     return this.sidebar.items.map((item) => item.title.toString());
   }
   get page() {
-    return __classPrivateFieldGet24(this, _Settings_page, "f");
+    return __classPrivateFieldGet(this, _Settings_page, "f");
   }
 };
 __name(Settings, "Settings");
@@ -19977,358 +19784,47 @@ _Settings_page = /* @__PURE__ */ new WeakMap(), _Settings_actions = /* @__PURE__
 var Settings_default = Settings;
 
 // dist/src/parser/youtube/TimeWatched.js
-var __classPrivateFieldSet21 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet25 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _TimeWatched_page;
 var TimeWatched = class {
   constructor(response) {
-    var _a5;
+    var _a7;
     _TimeWatched_page.set(this, void 0);
-    __classPrivateFieldSet21(this, _TimeWatched_page, parser_default.parseResponse(response.data), "f");
-    if (!__classPrivateFieldGet25(this, _TimeWatched_page, "f").contents)
+    __classPrivateFieldSet(this, _TimeWatched_page, parser_default.parseResponse(response.data), "f");
+    if (!__classPrivateFieldGet(this, _TimeWatched_page, "f").contents)
       throw new InnertubeError("Page contents not found");
-    const tab = __classPrivateFieldGet25(this, _TimeWatched_page, "f").contents.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
+    const tab = __classPrivateFieldGet(this, _TimeWatched_page, "f").contents.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
     if (!tab)
       throw new InnertubeError("Could not find target tab.");
-    this.contents = (_a5 = tab.content) === null || _a5 === void 0 ? void 0 : _a5.as(SectionList_default).contents.as(ItemSection_default);
+    this.contents = (_a7 = tab.content) === null || _a7 === void 0 ? void 0 : _a7.as(SectionList_default).contents.as(ItemSection_default);
   }
   get page() {
-    return __classPrivateFieldGet25(this, _TimeWatched_page, "f");
+    return __classPrivateFieldGet(this, _TimeWatched_page, "f");
   }
 };
 __name(TimeWatched, "TimeWatched");
 _TimeWatched_page = /* @__PURE__ */ new WeakMap();
 var TimeWatched_default = TimeWatched;
 
-// dist/src/utils/Cache.js
-var __classPrivateFieldSet22 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet26 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _UniversalCache_cache;
-var UniversalCache = class {
-  constructor(persistent, persistent_directory) {
-    _UniversalCache_cache.set(this, void 0);
-    __classPrivateFieldSet22(this, _UniversalCache_cache, new Platform.shim.Cache(persistent, persistent_directory), "f");
-  }
-  get cache_dir() {
-    return __classPrivateFieldGet26(this, _UniversalCache_cache, "f").cache_dir;
-  }
-  get(key) {
-    return __classPrivateFieldGet26(this, _UniversalCache_cache, "f").get(key);
-  }
-  set(key, value) {
-    return __classPrivateFieldGet26(this, _UniversalCache_cache, "f").set(key, value);
-  }
-  remove(key) {
-    return __classPrivateFieldGet26(this, _UniversalCache_cache, "f").remove(key);
-  }
-};
-__name(UniversalCache, "UniversalCache");
-_UniversalCache_cache = /* @__PURE__ */ new WeakMap();
-
-// dist/src/utils/HTTPClient.js
-var __awaiter18 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet23 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet27 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _HTTPClient_instances;
-var _HTTPClient_session;
-var _HTTPClient_cookie;
-var _HTTPClient_fetch;
-var _HTTPClient_adjustContext;
-var HTTPClient = class {
-  constructor(session, cookie, fetch) {
-    _HTTPClient_instances.add(this);
-    _HTTPClient_session.set(this, void 0);
-    _HTTPClient_cookie.set(this, void 0);
-    _HTTPClient_fetch.set(this, void 0);
-    __classPrivateFieldSet23(this, _HTTPClient_session, session, "f");
-    __classPrivateFieldSet23(this, _HTTPClient_cookie, cookie, "f");
-    __classPrivateFieldSet23(this, _HTTPClient_fetch, fetch || Platform.shim.fetch, "f");
-  }
-  get fetch_function() {
-    return __classPrivateFieldGet27(this, _HTTPClient_fetch, "f");
-  }
-  fetch(input, init) {
-    return __awaiter18(this, void 0, void 0, function* () {
-      const innertube_url = Constants_default.URLS.API.PRODUCTION_1 + __classPrivateFieldGet27(this, _HTTPClient_session, "f").api_version;
-      const baseURL = (init === null || init === void 0 ? void 0 : init.baseURL) || innertube_url;
-      const request_url = typeof input === "string" ? !baseURL.endsWith("/") && !input.startsWith("/") ? new URL(`${baseURL}/${input}`) : new URL(baseURL + input) : input instanceof URL ? input : new URL(input.url, baseURL);
-      const headers = (init === null || init === void 0 ? void 0 : init.headers) || (input instanceof Platform.shim.Request ? input.headers : new Platform.shim.Headers()) || new Platform.shim.Headers();
-      const body = (init === null || init === void 0 ? void 0 : init.body) || (input instanceof Platform.shim.Request ? input.body : void 0);
-      const request_headers = new Platform.shim.Headers(headers);
-      request_headers.set("Accept", "*/*");
-      request_headers.set("Accept-Language", "*");
-      request_headers.set("x-goog-visitor-id", __classPrivateFieldGet27(this, _HTTPClient_session, "f").context.client.visitorData || "");
-      request_headers.set("x-origin", request_url.origin);
-      request_headers.set("x-youtube-client-version", __classPrivateFieldGet27(this, _HTTPClient_session, "f").context.client.clientVersion || "");
-      if (Platform.shim.server) {
-        request_headers.set("User-Agent", getRandomUserAgent("desktop"));
-        request_headers.set("origin", request_url.origin);
-      }
-      request_url.searchParams.set("key", __classPrivateFieldGet27(this, _HTTPClient_session, "f").key);
-      request_url.searchParams.set("prettyPrint", "false");
-      request_url.searchParams.set("alt", "json");
-      const content_type = request_headers.get("Content-Type");
-      let request_body = body;
-      let is_web_kids = false;
-      const is_innertube_req = baseURL === innertube_url || baseURL === Constants_default.URLS.YT_UPLOAD;
-      if (content_type === "application/json" && is_innertube_req && typeof body === "string") {
-        const json = JSON.parse(body);
-        const n_body = Object.assign(Object.assign({}, json), {
-          context: JSON.parse(JSON.stringify(__classPrivateFieldGet27(this, _HTTPClient_session, "f").context))
-        });
-        __classPrivateFieldGet27(this, _HTTPClient_instances, "m", _HTTPClient_adjustContext).call(this, n_body.context, n_body.client);
-        request_headers.set("x-youtube-client-version", n_body.context.client.clientVersion);
-        delete n_body.client;
-        if (Platform.shim.server) {
-          if (n_body.context.client.clientName === "ANDROID" || n_body.context.client.clientName === "ANDROID_MUSIC") {
-            request_headers.set("User-Agent", Constants_default.CLIENTS.ANDROID.USER_AGENT);
-          }
-        }
-        is_web_kids = n_body.context.client.clientName === "WEB_KIDS";
-        request_body = JSON.stringify(n_body);
-      }
-      if (__classPrivateFieldGet27(this, _HTTPClient_session, "f").logged_in && is_innertube_req && !is_web_kids) {
-        const oauth = __classPrivateFieldGet27(this, _HTTPClient_session, "f").oauth;
-        if (oauth.validateCredentials()) {
-          yield oauth.refreshIfRequired();
-          request_headers.set("authorization", `Bearer ${oauth.credentials.access_token}`);
-          request_url.searchParams.delete("key");
-        }
-        if (__classPrivateFieldGet27(this, _HTTPClient_cookie, "f")) {
-          const papisid = getStringBetweenStrings(__classPrivateFieldGet27(this, _HTTPClient_cookie, "f"), "PAPISID=", ";");
-          if (papisid) {
-            request_headers.set("authorization", yield generateSidAuth(papisid));
-            request_headers.set("x-goog-authuser", __classPrivateFieldGet27(this, _HTTPClient_session, "f").account_index.toString());
-          }
-          request_headers.set("cookie", __classPrivateFieldGet27(this, _HTTPClient_cookie, "f"));
-        }
-      }
-      const request = new Platform.shim.Request(request_url, input instanceof Platform.shim.Request ? input : init);
-      const response = yield __classPrivateFieldGet27(this, _HTTPClient_fetch, "f").call(this, request, {
-        body: request_body,
-        headers: request_headers,
-        credentials: "include",
-        redirect: input instanceof Platform.shim.Request ? input.redirect : (init === null || init === void 0 ? void 0 : init.redirect) || "follow"
-      });
-      if (response.ok) {
-        return response;
-      }
-      throw new InnertubeError(`Request to ${response.url} failed with status ${response.status}`, yield response.text());
-    });
-  }
-};
-__name(HTTPClient, "HTTPClient");
-_HTTPClient_session = /* @__PURE__ */ new WeakMap(), _HTTPClient_cookie = /* @__PURE__ */ new WeakMap(), _HTTPClient_fetch = /* @__PURE__ */ new WeakMap(), _HTTPClient_instances = /* @__PURE__ */ new WeakSet(), _HTTPClient_adjustContext = /* @__PURE__ */ __name(function _HTTPClient_adjustContext2(ctx, client) {
-  switch (client) {
-    case "YTMUSIC":
-      ctx.client.clientVersion = Constants_default.CLIENTS.YTMUSIC.VERSION;
-      ctx.client.clientName = Constants_default.CLIENTS.YTMUSIC.NAME;
-      break;
-    case "ANDROID":
-      ctx.client.clientVersion = Constants_default.CLIENTS.ANDROID.VERSION;
-      ctx.client.clientFormFactor = "SMALL_FORM_FACTOR";
-      ctx.client.clientName = Constants_default.CLIENTS.ANDROID.NAME;
-      ctx.client.androidSdkVersion = Constants_default.CLIENTS.ANDROID.SDK_VERSION;
-      ctx.client.platform = "MOBILE";
-      break;
-    case "YTMUSIC_ANDROID":
-      ctx.client.clientVersion = Constants_default.CLIENTS.YTMUSIC_ANDROID.VERSION;
-      ctx.client.clientFormFactor = "SMALL_FORM_FACTOR";
-      ctx.client.clientName = Constants_default.CLIENTS.YTMUSIC_ANDROID.NAME;
-      ctx.client.androidSdkVersion = Constants_default.CLIENTS.ANDROID.SDK_VERSION;
-      ctx.client.platform = "MOBILE";
-      break;
-    case "YTSTUDIO_ANDROID":
-      ctx.client.clientVersion = Constants_default.CLIENTS.YTSTUDIO_ANDROID.VERSION;
-      ctx.client.clientFormFactor = "SMALL_FORM_FACTOR";
-      ctx.client.clientName = Constants_default.CLIENTS.YTSTUDIO_ANDROID.NAME;
-      ctx.client.androidSdkVersion = Constants_default.CLIENTS.ANDROID.SDK_VERSION;
-      break;
-    case "TV_EMBEDDED":
-      ctx.client.clientVersion = Constants_default.CLIENTS.TV_EMBEDDED.VERSION;
-      ctx.client.clientScreen = "EMBED";
-      ctx.thirdParty = { embedUrl: Constants_default.URLS.YT_BASE };
-      break;
-    case "YTKIDS":
-      ctx.client.clientVersion = Constants_default.CLIENTS.WEB_KIDS.VERSION;
-      ctx.client.clientName = Constants_default.CLIENTS.WEB_KIDS.NAME;
-      ctx.client.kidsAppInfo = {
-        categorySettings: {
-          enabledCategories: [
-            "approved_for_you",
-            "black_joy",
-            "camp",
-            "collections",
-            "earth",
-            "explore",
-            "favorites",
-            "gaming",
-            "halloween",
-            "hero",
-            "learning",
-            "move",
-            "music",
-            "reading",
-            "shared_by_parents",
-            "shows",
-            "soccer",
-            "sports",
-            "spotlight",
-            "winter"
-          ]
-        },
-        contentSettings: {
-          corpusPreference: "KIDS_CORPUS_PREFERENCE_YOUNGER",
-          kidsNoSearchMode: "YT_KIDS_NO_SEARCH_MODE_OFF"
-        }
-      };
-      break;
-    default:
-      break;
-  }
-}, "_HTTPClient_adjustContext");
+// dist/src/core/mixins/index.js
+var mixins_exports = {};
+__export(mixins_exports, {
+  Feed: () => Feed_default,
+  FilterableFeed: () => FilterableFeed_default,
+  MediaInfo: () => MediaInfo_default,
+  TabbedFeed: () => TabbedFeed_default
+});
 
 // dist/src/utils/FormatUtils.js
-var __awaiter19 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldGet28 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var __asyncValues = function(o) {
-  if (!Symbol.asyncIterator)
-    throw new TypeError("Symbol.asyncIterator is not defined.");
-  var m = o[Symbol.asyncIterator], i;
-  return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function() {
-    return this;
-  }, i);
-  function verb(n) {
-    i[n] = o[n] && function(v) {
-      return new Promise(function(resolve, reject) {
-        v = o[n](v), settle(resolve, reject, v.done, v.value);
-      });
-    };
-  }
-  __name(verb, "verb");
-  function settle(resolve, reject, d, v) {
-    Promise.resolve(v).then(function(v2) {
-      resolve({ value: v2, done: d });
-    }, reject);
-  }
-  __name(settle, "settle");
-};
 var _a3;
 var _FormatUtils_el;
 var _FormatUtils_generateAdaptationSet;
 var _FormatUtils_generateRepresentationVideo;
 var _FormatUtils_generateRepresentationAudio;
+var _FormatUtils_generateSegmentInformation;
+var _FormatUtils_getOTFSegmentInformation;
 var FormatUtils = class {
   static download(options, actions, playability_status, streaming_data, player, cpn) {
-    return __awaiter19(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       if ((playability_status === null || playability_status === void 0 ? void 0 : playability_status.status) === "UNPLAYABLE")
         throw new InnertubeError("Video is unplayable", { error_type: "UNPLAYABLE" });
       if ((playability_status === null || playability_status === void 0 ? void 0 : playability_status.status) === "LOGIN_REQUIRED")
@@ -20341,7 +19837,7 @@ var FormatUtils = class {
       if (opts.type === "video+audio" && !options.range) {
         const response = yield actions.session.http.fetch_function(`${format_url}&cpn=${cpn}`, {
           method: "GET",
-          headers: Constants_exports.STREAM_HEADERS,
+          headers: STREAM_HEADERS,
           redirect: "follow"
         });
         if (!response.ok)
@@ -20359,23 +19855,23 @@ var FormatUtils = class {
       const readable_stream = new Platform.shim.ReadableStream({
         start() {
         },
-        pull: (controller) => __awaiter19(this, void 0, void 0, function* () {
+        pull: (controller) => __awaiter(this, void 0, void 0, function* () {
           if (must_end) {
             controller.close();
             return;
           }
-          if (chunk_end >= format.content_length || options.range) {
+          if (chunk_end >= (format.content_length ? format.content_length : 0) || options.range) {
             must_end = true;
           }
-          return new Promise((resolve, reject) => __awaiter19(this, void 0, void 0, function* () {
-            var _b, e_1, _c, _d;
+          return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+            var _b2, e_1, _c, _d;
             try {
               cancel = new AbortController();
               const response = yield actions.session.http.fetch_function(`${format_url}&cpn=${cpn}&range=${chunk_start}-${chunk_end || ""}`, {
                 method: "GET",
                 headers: Object.assign(
                   {},
-                  Constants_exports.STREAM_HEADERS
+                  STREAM_HEADERS
                 ),
                 signal: cancel.signal
               });
@@ -20383,21 +19879,17 @@ var FormatUtils = class {
               if (!body)
                 throw new InnertubeError("Could not get ReadableStream from fetch Response.", { video: this, error_type: "FETCH_FAILED", response });
               try {
-                for (var _e = true, _f = __asyncValues(streamToIterable(body)), _g; _g = yield _f.next(), _b = _g.done, !_b; ) {
+                for (var _e = true, _f = __asyncValues(streamToIterable(body)), _g; _g = yield _f.next(), _b2 = _g.done, !_b2; _e = true) {
                   _d = _g.value;
                   _e = false;
-                  try {
-                    const chunk = _d;
-                    controller.enqueue(chunk);
-                  } finally {
-                    _e = true;
-                  }
+                  const chunk = _d;
+                  controller.enqueue(chunk);
                 }
               } catch (e_1_1) {
                 e_1 = { error: e_1_1 };
               } finally {
                 try {
-                  if (!_e && !_b && (_c = _f.return))
+                  if (!_e && !_b2 && (_c = _f.return))
                     yield _c.call(_f);
                 } finally {
                   if (e_1)
@@ -20414,7 +19906,7 @@ var FormatUtils = class {
           }));
         }),
         cancel(reason) {
-          return __awaiter19(this, void 0, void 0, function* () {
+          return __awaiter(this, void 0, void 0, function* () {
             cancel.abort(reason);
           });
         }
@@ -20476,41 +19968,36 @@ var FormatUtils = class {
     }
     return candidates[0];
   }
-  static toDash(streaming_data, url_transformer = (url) => url, format_filter, cpn, player) {
-    if (!streaming_data)
-      throw new InnertubeError("Streaming data not available");
-    let filtered_streaming_data;
-    if (format_filter) {
-      filtered_streaming_data = {
-        formats: streaming_data.formats.filter((fmt) => !format_filter(fmt)),
-        adaptive_formats: streaming_data.adaptive_formats.filter((fmt) => !format_filter(fmt)),
-        expires: streaming_data.expires,
-        dash_manifest_url: streaming_data.dash_manifest_url,
-        hls_manifest_url: streaming_data.hls_manifest_url
-      };
-    } else {
-      filtered_streaming_data = streaming_data;
-    }
-    const { adaptive_formats } = filtered_streaming_data;
-    if (!adaptive_formats.length)
-      throw new InnertubeError("No adaptive formats found");
-    const length = adaptive_formats[0].approx_duration_ms / 1e3;
-    const document = new Platform.shim.DOMParser().parseFromString('<?xml version="1.0" encoding="utf-8"?><MPD />', "application/xml");
-    const mpd = document.querySelector("MPD");
-    const period = document.createElement("Period");
-    mpd.replaceWith(__classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "MPD", {
-      xmlns: "urn:mpeg:dash:schema:mpd:2011",
-      minBufferTime: "PT1.500S",
-      profiles: "urn:mpeg:dash:profile:isoff-main:2011",
-      type: "static",
-      mediaPresentationDuration: `PT${length}S`,
-      "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-      "xsi:schemaLocation": "urn:mpeg:dash:schema:mpd:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd"
-    }, [
-      period
-    ]));
-    __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_generateAdaptationSet).call(this, document, period, adaptive_formats, url_transformer, cpn, player);
-    return Platform.shim.serializeDOM(document);
+  static toDash(streaming_data, url_transformer = (url) => url, format_filter, cpn, player, actions) {
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!streaming_data)
+        throw new InnertubeError("Streaming data not available");
+      let adaptive_formats;
+      if (format_filter) {
+        adaptive_formats = streaming_data.adaptive_formats.filter((fmt) => !format_filter(fmt));
+      } else {
+        adaptive_formats = streaming_data.adaptive_formats;
+      }
+      if (!adaptive_formats.length)
+        throw new InnertubeError("No adaptive formats found");
+      const length = adaptive_formats[0].approx_duration_ms / 1e3;
+      const document = new Platform.shim.DOMParser().parseFromString('<?xml version="1.0" encoding="utf-8"?><MPD />', "application/xml");
+      const mpd = document.querySelector("MPD");
+      const period = document.createElement("Period");
+      mpd.replaceWith(__classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "MPD", {
+        xmlns: "urn:mpeg:dash:schema:mpd:2011",
+        minBufferTime: "PT1.500S",
+        profiles: "urn:mpeg:dash:profile:isoff-main:2011",
+        type: "static",
+        mediaPresentationDuration: `PT${length}S`,
+        "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+        "xsi:schemaLocation": "urn:mpeg:dash:schema:mpd:2011 http://standards.iso.org/ittf/PubliclyAvailableStandards/MPEG-DASH_schema_files/DASH-MPD.xsd"
+      }, [
+        period
+      ]));
+      yield __classPrivateFieldGet(this, _a3, "m", _FormatUtils_generateAdaptationSet).call(this, document, period, adaptive_formats, url_transformer, cpn, player, actions);
+      return Platform.shim.serializeDOM(document);
+    });
   }
 };
 __name(FormatUtils, "FormatUtils");
@@ -20525,282 +20012,359 @@ _a3 = FormatUtils, _FormatUtils_el = /* @__PURE__ */ __name(function _FormatUtil
     el.appendChild(child);
   }
   return el;
-}, "_FormatUtils_el"), _FormatUtils_generateAdaptationSet = /* @__PURE__ */ __name(function _FormatUtils_generateAdaptationSet2(document, period, formats, url_transformer, cpn, player) {
-  var _b;
-  const mime_types = [];
-  const mime_objects = [[]];
-  formats.forEach((video_format) => {
-    if (!video_format.index_range || !video_format.init_range) {
-      return;
-    }
-    const mime_type = video_format.mime_type;
-    const mime_type_index = mime_types.indexOf(mime_type);
-    if (mime_type_index > -1) {
-      mime_objects[mime_type_index].push(video_format);
-    } else {
-      mime_types.push(mime_type);
-      mime_objects.push([]);
-      mime_objects[mime_types.length - 1].push(video_format);
-    }
-  });
-  let set_id = 0;
-  for (let i = 0; i < mime_types.length; i++) {
-    if (mime_objects[i][0].has_audio && mime_objects[i][0].audio_track) {
-      const track_ids = [];
-      const track_objects = [[]];
-      mime_objects[i].forEach((format) => {
-        var _b2, _c;
-        const id_index = track_ids.indexOf((_b2 = format.audio_track) === null || _b2 === void 0 ? void 0 : _b2.id);
-        if (id_index > -1) {
-          track_objects[id_index].push(format);
-        } else {
-          track_ids.push((_c = format.audio_track) === null || _c === void 0 ? void 0 : _c.id);
-          track_objects.push([]);
-          track_objects[track_ids.length - 1].push(format);
+}, "_FormatUtils_el"), _FormatUtils_generateAdaptationSet = /* @__PURE__ */ __name(function _FormatUtils_generateAdaptationSet2(document, period, formats, url_transformer, cpn, player, actions) {
+  var _b2, _c, _d;
+  return __awaiter(this, void 0, void 0, function* () {
+    const mime_types = [];
+    const mime_objects = [[]];
+    formats.forEach((video_format) => {
+      if ((!video_format.index_range || !video_format.init_range) && !video_format.is_type_otf) {
+        return;
+      }
+      const mime_type = video_format.mime_type;
+      const mime_type_index = mime_types.indexOf(mime_type);
+      if (mime_type_index > -1) {
+        mime_objects[mime_type_index].push(video_format);
+      } else {
+        mime_types.push(mime_type);
+        mime_objects.push([]);
+        mime_objects[mime_types.length - 1].push(video_format);
+      }
+    });
+    let set_id = 0;
+    for (let i = 0; i < mime_types.length; i++) {
+      if (mime_objects[i][0].has_audio && mime_objects[i][0].audio_track) {
+        const track_ids = [];
+        const track_objects = [[]];
+        mime_objects[i].forEach((format) => {
+          var _b3, _c2;
+          const id_index = track_ids.indexOf((_b3 = format.audio_track) === null || _b3 === void 0 ? void 0 : _b3.id);
+          if (id_index > -1) {
+            track_objects[id_index].push(format);
+          } else {
+            track_ids.push((_c2 = format.audio_track) === null || _c2 === void 0 ? void 0 : _c2.id);
+            track_objects.push([]);
+            track_objects[track_ids.length - 1].push(format);
+          }
+        });
+        for (let j = 0; j < track_ids.length; j++) {
+          const first_format = track_objects[j][0];
+          const children = [];
+          let role;
+          if ((_b2 = first_format.audio_track) === null || _b2 === void 0 ? void 0 : _b2.audio_is_default) {
+            role = "main";
+          } else if (first_format.is_dubbed) {
+            role = "dub";
+          } else if (first_format.is_descriptive) {
+            role = "description";
+          } else {
+            role = "alternate";
+          }
+          children.push(__classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "Role", {
+            schemeIdUri: "urn:mpeg:dash:role:2011",
+            value: role
+          }), __classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "Label", {
+            id: set_id.toString()
+          }, [
+            document.createTextNode((_c = first_format.audio_track) === null || _c === void 0 ? void 0 : _c.display_name)
+          ]));
+          const set = __classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "AdaptationSet", {
+            id: `${set_id++}`,
+            mimeType: mime_types[i].split(";")[0],
+            startWithSAP: "1",
+            subsegmentAlignment: "true",
+            lang: first_format.language,
+            label: (_d = first_format.audio_track) === null || _d === void 0 ? void 0 : _d.display_name
+          }, children);
+          period.appendChild(set);
+          for (const format of track_objects[j]) {
+            yield __classPrivateFieldGet(this, _a3, "m", _FormatUtils_generateRepresentationAudio).call(this, document, set, format, url_transformer, cpn, player, actions);
+          }
         }
-      });
-      for (let j = 0; j < track_ids.length; j++) {
-        const first_format = track_objects[j][0];
-        const children = [];
-        let role;
-        if ((_b = first_format.audio_track) === null || _b === void 0 ? void 0 : _b.audio_is_default) {
-          role = "main";
-        } else if (first_format.is_dubbed) {
-          role = "dub";
-        } else if (first_format.is_descriptive) {
-          role = "description";
-        } else {
-          role = "alternate";
-        }
-        children.push(__classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "Role", {
-          schemeIdUri: "urn:mpeg:dash:role:2011",
-          value: role
-        }));
-        const set = __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "AdaptationSet", {
+      } else {
+        const set = __classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "AdaptationSet", {
           id: `${set_id++}`,
           mimeType: mime_types[i].split(";")[0],
           startWithSAP: "1",
-          subsegmentAlignment: "true",
-          lang: first_format.language
-        }, children);
-        period.appendChild(set);
-        track_objects[j].forEach((format) => {
-          __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_generateRepresentationAudio).call(this, document, set, format, url_transformer, cpn, player);
+          subsegmentAlignment: "true"
         });
-      }
-    } else {
-      const set = __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "AdaptationSet", {
-        id: `${set_id++}`,
-        mimeType: mime_types[i].split(";")[0],
-        startWithSAP: "1",
-        subsegmentAlignment: "true"
-      });
-      period.appendChild(set);
-      mime_objects[i].forEach((format) => {
-        if (format.has_video) {
-          __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_generateRepresentationVideo).call(this, document, set, format, url_transformer, cpn, player);
-        } else {
-          __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_generateRepresentationAudio).call(this, document, set, format, url_transformer, cpn, player);
+        period.appendChild(set);
+        for (const format of mime_objects[i]) {
+          if (format.has_video) {
+            yield __classPrivateFieldGet(this, _a3, "m", _FormatUtils_generateRepresentationVideo).call(this, document, set, format, url_transformer, cpn, player, actions);
+          } else {
+            yield __classPrivateFieldGet(this, _a3, "m", _FormatUtils_generateRepresentationAudio).call(this, document, set, format, url_transformer, cpn, player, actions);
+          }
         }
-      });
+      }
     }
-  }
-}, "_FormatUtils_generateAdaptationSet"), _FormatUtils_generateRepresentationVideo = /* @__PURE__ */ __name(function _FormatUtils_generateRepresentationVideo2(document, set, format, url_transformer, cpn, player) {
-  var _b, _c, _d, _e, _f, _g;
-  const codecs = getStringBetweenStrings(format.mime_type, 'codecs="', '"');
-  if (!format.index_range || !format.init_range)
-    throw new InnertubeError("Index and init ranges not available", { format });
-  const url = new URL(format.decipher(player));
-  url.searchParams.set("cpn", cpn || "");
-  set.appendChild(__classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "Representation", {
-    id: (_b = format.itag) === null || _b === void 0 ? void 0 : _b.toString(),
-    codecs,
-    bandwidth: (_c = format.bitrate) === null || _c === void 0 ? void 0 : _c.toString(),
-    width: (_d = format.width) === null || _d === void 0 ? void 0 : _d.toString(),
-    height: (_e = format.height) === null || _e === void 0 ? void 0 : _e.toString(),
-    maxPlayoutRate: "1",
-    frameRate: (_f = format.fps) === null || _f === void 0 ? void 0 : _f.toString()
-  }, [
-    __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "BaseURL", {}, [
-      document.createTextNode((_g = url_transformer(url)) === null || _g === void 0 ? void 0 : _g.toString())
-    ]),
-    __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "SegmentBase", {
-      indexRange: `${format.index_range.start}-${format.index_range.end}`
-    }, [
-      __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "Initialization", {
-        range: `${format.init_range.start}-${format.init_range.end}`
-      })
-    ])
-  ]));
-}, "_FormatUtils_generateRepresentationVideo"), _FormatUtils_generateRepresentationAudio = /* @__PURE__ */ __name(function _FormatUtils_generateRepresentationAudio2(document, set, format, url_transformer, cpn, player) {
-  var _b, _c, _d, _e, _f;
-  return __awaiter19(this, void 0, void 0, function* () {
+  });
+}, "_FormatUtils_generateAdaptationSet"), _FormatUtils_generateRepresentationVideo = /* @__PURE__ */ __name(function _FormatUtils_generateRepresentationVideo2(document, set, format, url_transformer, cpn, player, actions) {
+  var _b2, _c, _d, _e, _f, _g;
+  return __awaiter(this, void 0, void 0, function* () {
     const codecs = getStringBetweenStrings(format.mime_type, 'codecs="', '"');
-    if (!format.index_range || !format.init_range)
-      throw new InnertubeError("Index and init ranges not available", { format });
     const url = new URL(format.decipher(player));
     url.searchParams.set("cpn", cpn || "");
-    set.appendChild(__classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "Representation", {
-      id: (_b = format.itag) === null || _b === void 0 ? void 0 : _b.toString(),
+    const representation = __classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "Representation", {
+      id: (_b2 = format.itag) === null || _b2 === void 0 ? void 0 : _b2.toString(),
       codecs,
       bandwidth: (_c = format.bitrate) === null || _c === void 0 ? void 0 : _c.toString(),
-      audioSamplingRate: (_d = format.audio_sample_rate) === null || _d === void 0 ? void 0 : _d.toString()
+      width: (_d = format.width) === null || _d === void 0 ? void 0 : _d.toString(),
+      height: (_e = format.height) === null || _e === void 0 ? void 0 : _e.toString(),
+      maxPlayoutRate: "1",
+      frameRate: (_f = format.fps) === null || _f === void 0 ? void 0 : _f.toString()
+    });
+    set.appendChild(representation);
+    yield __classPrivateFieldGet(this, _a3, "m", _FormatUtils_generateSegmentInformation).call(this, document, representation, format, (_g = url_transformer(url)) === null || _g === void 0 ? void 0 : _g.toString(), actions);
+  });
+}, "_FormatUtils_generateRepresentationVideo"), _FormatUtils_generateRepresentationAudio = /* @__PURE__ */ __name(function _FormatUtils_generateRepresentationAudio2(document, set, format, url_transformer, cpn, player, actions) {
+  var _b2, _c, _d, _e, _f, _g;
+  return __awaiter(this, void 0, void 0, function* () {
+    const codecs = getStringBetweenStrings(format.mime_type, 'codecs="', '"');
+    const url = new URL(format.decipher(player));
+    url.searchParams.set("cpn", cpn || "");
+    let id;
+    if (format.audio_track) {
+      id = `${(_b2 = format.itag) === null || _b2 === void 0 ? void 0 : _b2.toString()}-${format.audio_track.id}`;
+    } else {
+      id = (_c = format.itag) === null || _c === void 0 ? void 0 : _c.toString();
+    }
+    const representation = __classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "Representation", {
+      id,
+      codecs,
+      bandwidth: (_d = format.bitrate) === null || _d === void 0 ? void 0 : _d.toString(),
+      audioSamplingRate: (_e = format.audio_sample_rate) === null || _e === void 0 ? void 0 : _e.toString()
     }, [
-      __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "AudioChannelConfiguration", {
+      __classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "AudioChannelConfiguration", {
         schemeIdUri: "urn:mpeg:dash:23003:3:audio_channel_configuration:2011",
-        value: ((_e = format.audio_channels) === null || _e === void 0 ? void 0 : _e.toString()) || "2"
-      }),
-      __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "BaseURL", {}, [
-        document.createTextNode((_f = url_transformer(url)) === null || _f === void 0 ? void 0 : _f.toString())
-      ]),
-      __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "SegmentBase", {
+        value: ((_f = format.audio_channels) === null || _f === void 0 ? void 0 : _f.toString()) || "2"
+      })
+    ]);
+    set.appendChild(representation);
+    yield __classPrivateFieldGet(this, _a3, "m", _FormatUtils_generateSegmentInformation).call(this, document, representation, format, (_g = url_transformer(url)) === null || _g === void 0 ? void 0 : _g.toString(), actions);
+  });
+}, "_FormatUtils_generateRepresentationAudio"), _FormatUtils_generateSegmentInformation = /* @__PURE__ */ __name(function _FormatUtils_generateSegmentInformation2(document, representation, format, url, actions) {
+  return __awaiter(this, void 0, void 0, function* () {
+    if (format.is_type_otf) {
+      if (!actions) {
+        throw new InnertubeError("Unable to get segment durations for this OTF stream without an Actions instance", { format });
+      }
+      const { resolved_url, segment_durations } = yield __classPrivateFieldGet(this, _a3, "m", _FormatUtils_getOTFSegmentInformation).call(this, url, actions);
+      const segment_elements = [];
+      for (const segment_duration of segment_durations) {
+        let attributes;
+        if (typeof segment_duration.repeat_count === "undefined") {
+          attributes = {
+            d: segment_duration.duration.toString()
+          };
+        } else {
+          attributes = {
+            d: segment_duration.duration.toString(),
+            r: segment_duration.repeat_count.toString()
+          };
+        }
+        segment_elements.push(__classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "S", attributes));
+      }
+      representation.appendChild(__classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "SegmentTemplate", {
+        startNumber: "1",
+        timescale: "1000",
+        initialization: `${resolved_url}&sq=0`,
+        media: `${resolved_url}&sq=$Number$`
+      }, [
+        __classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "SegmentTimeline", {}, segment_elements)
+      ]));
+    } else {
+      if (!format.index_range || !format.init_range)
+        throw new InnertubeError("Index and init ranges not available", { format });
+      representation.appendChild(__classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "BaseURL", {}, [
+        document.createTextNode(url)
+      ]));
+      representation.appendChild(__classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "SegmentBase", {
         indexRange: `${format.index_range.start}-${format.index_range.end}`
       }, [
-        __classPrivateFieldGet28(this, _a3, "m", _FormatUtils_el).call(this, document, "Initialization", {
+        __classPrivateFieldGet(this, _a3, "m", _FormatUtils_el).call(this, document, "Initialization", {
           range: `${format.init_range.start}-${format.init_range.end}`
         })
-      ])
-    ]));
+      ]));
+    }
   });
-}, "_FormatUtils_generateRepresentationAudio");
+}, "_FormatUtils_generateSegmentInformation"), _FormatUtils_getOTFSegmentInformation = /* @__PURE__ */ __name(function _FormatUtils_getOTFSegmentInformation2(url, actions) {
+  var _b2;
+  return __awaiter(this, void 0, void 0, function* () {
+    const response = yield actions.session.http.fetch_function(`${url}&rn=0&sq=0`, {
+      method: "GET",
+      headers: STREAM_HEADERS,
+      redirect: "follow"
+    });
+    const resolved_url = response.url.replace("&rn=0", "").replace("&sq=0", "");
+    const response_text = yield response.text();
+    const segment_duration_strings = (_b2 = getStringBetweenStrings(response_text, "Segment-Durations-Ms:", "\r\n")) === null || _b2 === void 0 ? void 0 : _b2.split(",");
+    if (!segment_duration_strings) {
+      throw new InnertubeError("Failed to extract the segment durations from this OTF stream", { url });
+    }
+    const segment_durations = [];
+    for (const segment_duration_string of segment_duration_strings) {
+      const trimmed_segment_duration = segment_duration_string.trim();
+      if (trimmed_segment_duration.length === 0) {
+        continue;
+      }
+      let repeat_count;
+      const repeat_count_string = getStringBetweenStrings(trimmed_segment_duration, "(r=", ")");
+      if (repeat_count_string) {
+        repeat_count = parseInt(repeat_count_string);
+      }
+      segment_durations.push({
+        duration: parseInt(trimmed_segment_duration),
+        repeat_count
+      });
+    }
+    return {
+      resolved_url,
+      segment_durations
+    };
+  });
+}, "_FormatUtils_getOTFSegmentInformation");
 var FormatUtils_default = FormatUtils;
 
-// dist/src/parser/youtube/VideoInfo.js
-var __awaiter20 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet24 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet29 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _VideoInfo_page;
-var _VideoInfo_actions;
-var _VideoInfo_player;
-var _VideoInfo_cpn;
-var _VideoInfo_watch_next_continuation;
-var _VideoInfo_playback_tracking;
-var VideoInfo = class {
-  constructor(data, actions, player, cpn) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14;
-    _VideoInfo_page.set(this, void 0);
-    _VideoInfo_actions.set(this, void 0);
-    _VideoInfo_player.set(this, void 0);
-    _VideoInfo_cpn.set(this, void 0);
-    _VideoInfo_watch_next_continuation.set(this, void 0);
-    _VideoInfo_playback_tracking.set(this, void 0);
-    __classPrivateFieldSet24(this, _VideoInfo_actions, actions, "f");
-    __classPrivateFieldSet24(this, _VideoInfo_player, player, "f");
-    __classPrivateFieldSet24(this, _VideoInfo_cpn, cpn, "f");
+// dist/src/core/mixins/MediaInfo.js
+var _MediaInfo_page;
+var _MediaInfo_actions;
+var _MediaInfo_cpn;
+var _MediaInfo_playback_tracking;
+var MediaInfo = class {
+  constructor(data, actions, cpn) {
+    var _a7, _b2;
+    _MediaInfo_page.set(this, void 0);
+    _MediaInfo_actions.set(this, void 0);
+    _MediaInfo_cpn.set(this, void 0);
+    _MediaInfo_playback_tracking.set(this, void 0);
+    __classPrivateFieldSet(this, _MediaInfo_actions, actions, "f");
     const info = parser_default.parseResponse(data[0].data);
-    const next = ((_a5 = data === null || data === void 0 ? void 0 : data[1]) === null || _a5 === void 0 ? void 0 : _a5.data) ? parser_default.parseResponse(data[1].data) : void 0;
-    __classPrivateFieldSet24(this, _VideoInfo_page, [info, next], "f");
-    if (((_b = info.playability_status) === null || _b === void 0 ? void 0 : _b.status) === "ERROR")
+    const next = ((_a7 = data === null || data === void 0 ? void 0 : data[1]) === null || _a7 === void 0 ? void 0 : _a7.data) ? parser_default.parseResponse(data[1].data) : void 0;
+    __classPrivateFieldSet(this, _MediaInfo_page, [info, next], "f");
+    __classPrivateFieldSet(this, _MediaInfo_cpn, cpn, "f");
+    if (((_b2 = info.playability_status) === null || _b2 === void 0 ? void 0 : _b2.status) === "ERROR")
       throw new InnertubeError("This video is unavailable", info.playability_status);
-    if (info.microformat && !((_c = info.microformat) === null || _c === void 0 ? void 0 : _c.is(PlayerMicroformat_default, MicroformatData_default)))
-      throw new InnertubeError("Invalid microformat", info.microformat);
-    this.basic_info = Object.assign(Object.assign(Object.assign({}, info.video_details), {
-      embed: ((_d = info.microformat) === null || _d === void 0 ? void 0 : _d.is(PlayerMicroformat_default)) ? (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.embed : null,
-      channel: ((_f = info.microformat) === null || _f === void 0 ? void 0 : _f.is(PlayerMicroformat_default)) ? (_g = info.microformat) === null || _g === void 0 ? void 0 : _g.channel : null,
-      is_unlisted: (_h = info.microformat) === null || _h === void 0 ? void 0 : _h.is_unlisted,
-      is_family_safe: (_j = info.microformat) === null || _j === void 0 ? void 0 : _j.is_family_safe,
-      category: ((_k = info.microformat) === null || _k === void 0 ? void 0 : _k.is(PlayerMicroformat_default)) ? (_l = info.microformat) === null || _l === void 0 ? void 0 : _l.category : null,
-      has_ypc_metadata: ((_m = info.microformat) === null || _m === void 0 ? void 0 : _m.is(PlayerMicroformat_default)) ? (_o = info.microformat) === null || _o === void 0 ? void 0 : _o.has_ypc_metadata : null,
-      start_timestamp: ((_p = info.microformat) === null || _p === void 0 ? void 0 : _p.is(PlayerMicroformat_default)) ? info.microformat.start_timestamp : null
-    }), { like_count: void 0, is_liked: void 0, is_disliked: void 0 });
     this.streaming_data = info.streaming_data;
     this.playability_status = info.playability_status;
+    __classPrivateFieldSet(this, _MediaInfo_playback_tracking, info.playback_tracking, "f");
+  }
+  toDash(url_transformer, format_filter) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return FormatUtils_default.toDash(this.streaming_data, url_transformer, format_filter, __classPrivateFieldGet(this, _MediaInfo_cpn, "f"), __classPrivateFieldGet(this, _MediaInfo_actions, "f").session.player, __classPrivateFieldGet(this, _MediaInfo_actions, "f"));
+    });
+  }
+  chooseFormat(options) {
+    return FormatUtils_default.chooseFormat(options, this.streaming_data);
+  }
+  download(options = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+      return FormatUtils_default.download(options, __classPrivateFieldGet(this, _MediaInfo_actions, "f"), this.playability_status, this.streaming_data, __classPrivateFieldGet(this, _MediaInfo_actions, "f").session.player, this.cpn);
+    });
+  }
+  addToWatchHistory(client_name = CLIENTS.WEB.NAME, client_version = CLIENTS.WEB.VERSION, replacement = "https://www.") {
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _MediaInfo_playback_tracking, "f"))
+        throw new InnertubeError("Playback tracking not available");
+      const url_params = {
+        cpn: __classPrivateFieldGet(this, _MediaInfo_cpn, "f"),
+        fmt: 251,
+        rtn: 0,
+        rt: 0
+      };
+      const url = __classPrivateFieldGet(this, _MediaInfo_playback_tracking, "f").videostats_playback_url.replace("https://s.", replacement);
+      const response = yield __classPrivateFieldGet(this, _MediaInfo_actions, "f").stats(url, {
+        client_name,
+        client_version
+      }, url_params);
+      return response;
+    });
+  }
+  get actions() {
+    return __classPrivateFieldGet(this, _MediaInfo_actions, "f");
+  }
+  get cpn() {
+    return __classPrivateFieldGet(this, _MediaInfo_cpn, "f");
+  }
+  get page() {
+    return __classPrivateFieldGet(this, _MediaInfo_page, "f");
+  }
+};
+__name(MediaInfo, "MediaInfo");
+_MediaInfo_page = /* @__PURE__ */ new WeakMap(), _MediaInfo_actions = /* @__PURE__ */ new WeakMap(), _MediaInfo_cpn = /* @__PURE__ */ new WeakMap(), _MediaInfo_playback_tracking = /* @__PURE__ */ new WeakMap();
+var MediaInfo_default = MediaInfo;
+
+// dist/src/parser/youtube/VideoInfo.js
+var _VideoInfo_watch_next_continuation;
+var VideoInfo = class extends MediaInfo_default {
+  constructor(data, actions, cpn) {
+    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15;
+    super(data, actions, cpn);
+    _VideoInfo_watch_next_continuation.set(this, void 0);
+    const [info, next] = this.page;
+    if (info.microformat && !((_a7 = info.microformat) === null || _a7 === void 0 ? void 0 : _a7.is(PlayerMicroformat_default, MicroformatData_default)))
+      throw new InnertubeError("Invalid microformat", info.microformat);
+    this.basic_info = Object.assign(Object.assign(Object.assign({}, info.video_details), {
+      embed: ((_b2 = info.microformat) === null || _b2 === void 0 ? void 0 : _b2.is(PlayerMicroformat_default)) ? (_c = info.microformat) === null || _c === void 0 ? void 0 : _c.embed : null,
+      channel: ((_d = info.microformat) === null || _d === void 0 ? void 0 : _d.is(PlayerMicroformat_default)) ? (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.channel : null,
+      is_unlisted: (_f = info.microformat) === null || _f === void 0 ? void 0 : _f.is_unlisted,
+      is_family_safe: (_g = info.microformat) === null || _g === void 0 ? void 0 : _g.is_family_safe,
+      category: ((_h = info.microformat) === null || _h === void 0 ? void 0 : _h.is(PlayerMicroformat_default)) ? (_j = info.microformat) === null || _j === void 0 ? void 0 : _j.category : null,
+      has_ypc_metadata: ((_k = info.microformat) === null || _k === void 0 ? void 0 : _k.is(PlayerMicroformat_default)) ? (_l = info.microformat) === null || _l === void 0 ? void 0 : _l.has_ypc_metadata : null,
+      start_timestamp: ((_m = info.microformat) === null || _m === void 0 ? void 0 : _m.is(PlayerMicroformat_default)) ? info.microformat.start_timestamp : null,
+      view_count: ((_o = info.microformat) === null || _o === void 0 ? void 0 : _o.is(PlayerMicroformat_default)) && isNaN((_p = info.video_details) === null || _p === void 0 ? void 0 : _p.view_count) ? info.microformat.view_count : (_q = info.video_details) === null || _q === void 0 ? void 0 : _q.view_count
+    }), { like_count: void 0, is_liked: void 0, is_disliked: void 0 });
     this.annotations = info.annotations;
     this.storyboards = info.storyboards;
     this.endscreen = info.endscreen;
     this.captions = info.captions;
     this.cards = info.cards;
-    __classPrivateFieldSet24(this, _VideoInfo_playback_tracking, info.playback_tracking, "f");
-    const two_col = (_q = next === null || next === void 0 ? void 0 : next.contents) === null || _q === void 0 ? void 0 : _q.item().as(TwoColumnWatchNextResults_default);
+    const two_col = (_r = next === null || next === void 0 ? void 0 : next.contents) === null || _r === void 0 ? void 0 : _r.item().as(TwoColumnWatchNextResults_default);
     const results = two_col === null || two_col === void 0 ? void 0 : two_col.results;
     const secondary_results = two_col === null || two_col === void 0 ? void 0 : two_col.secondary_results;
     if (results && secondary_results) {
-      if (((_r = info.microformat) === null || _r === void 0 ? void 0 : _r.is(PlayerMicroformat_default)) && ((_s = info.microformat) === null || _s === void 0 ? void 0 : _s.category) === "Gaming") {
-        const row = (_v = (_u = (_t = results.firstOfType(VideoSecondaryInfo_default)) === null || _t === void 0 ? void 0 : _t.metadata) === null || _u === void 0 ? void 0 : _u.rows) === null || _v === void 0 ? void 0 : _v.firstOfType(RichMetadataRow_default);
+      if (((_s = info.microformat) === null || _s === void 0 ? void 0 : _s.is(PlayerMicroformat_default)) && ((_t = info.microformat) === null || _t === void 0 ? void 0 : _t.category) === "Gaming") {
+        const row = (_w = (_v = (_u = results.firstOfType(VideoSecondaryInfo_default)) === null || _u === void 0 ? void 0 : _u.metadata) === null || _v === void 0 ? void 0 : _v.rows) === null || _w === void 0 ? void 0 : _w.firstOfType(RichMetadataRow_default);
         if (row === null || row === void 0 ? void 0 : row.is(RichMetadataRow_default)) {
           this.game_info = {
-            title: (_x = (_w = row === null || row === void 0 ? void 0 : row.contents) === null || _w === void 0 ? void 0 : _w.firstOfType(RichMetadata_default)) === null || _x === void 0 ? void 0 : _x.title,
-            release_year: (_z = (_y = row === null || row === void 0 ? void 0 : row.contents) === null || _y === void 0 ? void 0 : _y.firstOfType(RichMetadata_default)) === null || _z === void 0 ? void 0 : _z.subtitle
+            title: (_y = (_x = row === null || row === void 0 ? void 0 : row.contents) === null || _x === void 0 ? void 0 : _x.firstOfType(RichMetadata_default)) === null || _y === void 0 ? void 0 : _y.title,
+            release_year: (_0 = (_z = row === null || row === void 0 ? void 0 : row.contents) === null || _z === void 0 ? void 0 : _z.firstOfType(RichMetadata_default)) === null || _0 === void 0 ? void 0 : _0.subtitle
           };
         }
       }
       this.primary_info = results.firstOfType(VideoPrimaryInfo_default);
       this.secondary_info = results.firstOfType(VideoSecondaryInfo_default);
       this.merchandise = results.firstOfType(MerchandiseShelf_default);
-      this.related_chip_cloud = (_0 = secondary_results.firstOfType(RelatedChipCloud_default)) === null || _0 === void 0 ? void 0 : _0.content.item().as(ChipCloud_default);
+      this.related_chip_cloud = (_1 = secondary_results.firstOfType(RelatedChipCloud_default)) === null || _1 === void 0 ? void 0 : _1.content.as(ChipCloud_default);
       if (two_col === null || two_col === void 0 ? void 0 : two_col.playlist) {
         this.playlist = two_col.playlist;
       }
-      this.watch_next_feed = ((_1 = secondary_results.firstOfType(ItemSection_default)) === null || _1 === void 0 ? void 0 : _1.contents) || secondary_results;
-      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_2 = this.watch_next_feed[this.watch_next_feed.length - 1]) === null || _2 === void 0 ? void 0 : _2.is(ContinuationItem_default)))
-        __classPrivateFieldSet24(this, _VideoInfo_watch_next_continuation, (_3 = this.watch_next_feed.pop()) === null || _3 === void 0 ? void 0 : _3.as(ContinuationItem_default), "f");
-      this.player_overlays = (_4 = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _4 === void 0 ? void 0 : _4.item().as(PlayerOverlay_default);
+      this.watch_next_feed = ((_2 = secondary_results.firstOfType(ItemSection_default)) === null || _2 === void 0 ? void 0 : _2.contents) || secondary_results;
+      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_3 = this.watch_next_feed[this.watch_next_feed.length - 1]) === null || _3 === void 0 ? void 0 : _3.is(ContinuationItem_default)))
+        __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_4 = this.watch_next_feed.pop()) === null || _4 === void 0 ? void 0 : _4.as(ContinuationItem_default), "f");
+      this.player_overlays = (_5 = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _5 === void 0 ? void 0 : _5.item().as(PlayerOverlay_default);
       if (two_col === null || two_col === void 0 ? void 0 : two_col.autoplay) {
         this.autoplay = two_col.autoplay;
       }
-      const segmented_like_dislike_button = (_6 = (_5 = this.primary_info) === null || _5 === void 0 ? void 0 : _5.menu) === null || _6 === void 0 ? void 0 : _6.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
-      if (((_7 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _7 === void 0 ? void 0 : _7.is(ToggleButton_default)) && ((_8 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _8 === void 0 ? void 0 : _8.is(ToggleButton_default))) {
-        this.basic_info.like_count = (_9 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _9 === void 0 ? void 0 : _9.like_count;
-        this.basic_info.is_liked = (_10 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _10 === void 0 ? void 0 : _10.is_toggled;
-        this.basic_info.is_disliked = (_11 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _11 === void 0 ? void 0 : _11.is_toggled;
+      const segmented_like_dislike_button = (_7 = (_6 = this.primary_info) === null || _6 === void 0 ? void 0 : _6.menu) === null || _7 === void 0 ? void 0 : _7.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
+      if (((_8 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _8 === void 0 ? void 0 : _8.is(ToggleButton_default)) && ((_9 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _9 === void 0 ? void 0 : _9.is(ToggleButton_default))) {
+        this.basic_info.like_count = (_10 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _10 === void 0 ? void 0 : _10.like_count;
+        this.basic_info.is_liked = (_11 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _11 === void 0 ? void 0 : _11.is_toggled;
+        this.basic_info.is_disliked = (_12 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _12 === void 0 ? void 0 : _12.is_toggled;
       }
-      const comments_entry_point = (_12 = results.get({ target_id: "comments-entry-point" })) === null || _12 === void 0 ? void 0 : _12.as(ItemSection_default);
-      this.comments_entry_point_header = (_13 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _13 === void 0 ? void 0 : _13.firstOfType(CommentsEntryPointHeader_default);
-      this.livechat = (_14 = next === null || next === void 0 ? void 0 : next.contents_memo) === null || _14 === void 0 ? void 0 : _14.getType(LiveChat_default).first();
+      const comments_entry_point = (_13 = results.get({ target_id: "comments-entry-point" })) === null || _13 === void 0 ? void 0 : _13.as(ItemSection_default);
+      this.comments_entry_point_header = (_14 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _14 === void 0 ? void 0 : _14.firstOfType(CommentsEntryPointHeader_default);
+      this.livechat = (_15 = next === null || next === void 0 ? void 0 : next.contents_memo) === null || _15 === void 0 ? void 0 : _15.getType(LiveChat_default).first();
     }
   }
   selectFilter(target_filter) {
-    var _a5, _b, _c, _d;
-    return __awaiter20(this, void 0, void 0, function* () {
+    var _a7, _b2, _c, _d;
+    return __awaiter(this, void 0, void 0, function* () {
       if (!this.related_chip_cloud)
         throw new InnertubeError("Chip cloud not found, cannot apply filter");
       let cloud_chip;
       if (typeof target_filter === "string") {
-        const filter = (_b = (_a5 = this.related_chip_cloud) === null || _a5 === void 0 ? void 0 : _a5.chips) === null || _b === void 0 ? void 0 : _b.get({ text: target_filter });
+        const filter = (_b2 = (_a7 = this.related_chip_cloud) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.get({ text: target_filter });
         if (!filter)
           throw new InnertubeError("Invalid filter", { available_filters: this.filters });
         cloud_chip = filter;
@@ -20811,52 +20375,42 @@ var VideoInfo = class {
       }
       if (cloud_chip.is_selected)
         return this;
-      const response = yield (_c = cloud_chip.endpoint) === null || _c === void 0 ? void 0 : _c.call(__classPrivateFieldGet29(this, _VideoInfo_actions, "f"), { parse: true });
+      const response = yield (_c = cloud_chip.endpoint) === null || _c === void 0 ? void 0 : _c.call(this.actions, { parse: true });
       const data = (_d = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _d === void 0 ? void 0 : _d.get({ target_id: "watch-next-feed" });
       this.watch_next_feed = data === null || data === void 0 ? void 0 : data.contents;
       return this;
     });
   }
   addToWatchHistory() {
-    return __awaiter20(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet29(this, _VideoInfo_playback_tracking, "f"))
-        throw new InnertubeError("Playback tracking not available");
-      const url_params = {
-        cpn: __classPrivateFieldGet29(this, _VideoInfo_cpn, "f"),
-        fmt: 251,
-        rtn: 0,
-        rt: 0
-      };
-      const url = __classPrivateFieldGet29(this, _VideoInfo_playback_tracking, "f").videostats_playback_url.replace("https://s.", "https://www.");
-      const response = yield __classPrivateFieldGet29(this, _VideoInfo_actions, "f").stats(url, {
-        client_name: Constants_default.CLIENTS.WEB.NAME,
-        client_version: Constants_default.CLIENTS.WEB.VERSION
-      }, url_params);
-      return response;
+    const _super = Object.create(null, {
+      addToWatchHistory: { get: () => super.addToWatchHistory }
+    });
+    return __awaiter(this, void 0, void 0, function* () {
+      return _super.addToWatchHistory.call(this);
     });
   }
   getWatchNextContinuation() {
-    var _a5, _b, _c, _d, _e;
-    return __awaiter20(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet29(this, _VideoInfo_watch_next_continuation, "f"))
+    var _a7, _b2, _c, _d, _e;
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f"))
         throw new InnertubeError("Watch next feed continuation not found");
-      const response = yield (_a5 = __classPrivateFieldGet29(this, _VideoInfo_watch_next_continuation, "f")) === null || _a5 === void 0 ? void 0 : _a5.endpoint.call(__classPrivateFieldGet29(this, _VideoInfo_actions, "f"), { parse: true });
-      const data = (_b = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _b === void 0 ? void 0 : _b.get({ type: "appendContinuationItemsAction" });
+      const response = yield (_a7 = __classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f")) === null || _a7 === void 0 ? void 0 : _a7.endpoint.call(this.actions, { parse: true });
+      const data = (_b2 = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _b2 === void 0 ? void 0 : _b2.get({ type: "appendContinuationItemsAction" });
       if (!data)
         throw new InnertubeError("AppendContinuationItemsAction not found");
       this.watch_next_feed = data === null || data === void 0 ? void 0 : data.contents;
       if ((_d = (_c = this.watch_next_feed) === null || _c === void 0 ? void 0 : _c[this.watch_next_feed.length - 1]) === null || _d === void 0 ? void 0 : _d.is(ContinuationItem_default)) {
-        __classPrivateFieldSet24(this, _VideoInfo_watch_next_continuation, (_e = this.watch_next_feed.pop()) === null || _e === void 0 ? void 0 : _e.as(ContinuationItem_default), "f");
+        __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_e = this.watch_next_feed.pop()) === null || _e === void 0 ? void 0 : _e.as(ContinuationItem_default), "f");
       } else {
-        __classPrivateFieldSet24(this, _VideoInfo_watch_next_continuation, void 0, "f");
+        __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, void 0, "f");
       }
       return this;
     });
   }
   like() {
-    var _a5, _b;
-    return __awaiter20(this, void 0, void 0, function* () {
-      const segmented_like_dislike_button = (_b = (_a5 = this.primary_info) === null || _a5 === void 0 ? void 0 : _a5.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
+      const segmented_like_dislike_button = (_b2 = (_a7 = this.primary_info) === null || _a7 === void 0 ? void 0 : _a7.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
       const button = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button;
       if (!button)
         throw new InnertubeError("Like button not found", { video_id: this.basic_info.id });
@@ -20864,14 +20418,14 @@ var VideoInfo = class {
         throw new InnertubeError("Like button is not a toggle button. This action is likely disabled for this video.", { video_id: this.basic_info.id });
       if (button.is_toggled)
         throw new InnertubeError("This video is already liked", { video_id: this.basic_info.id });
-      const response = yield button.endpoint.call(__classPrivateFieldGet29(this, _VideoInfo_actions, "f"));
+      const response = yield button.endpoint.call(this.actions);
       return response;
     });
   }
   dislike() {
-    var _a5, _b;
-    return __awaiter20(this, void 0, void 0, function* () {
-      const segmented_like_dislike_button = (_b = (_a5 = this.primary_info) === null || _a5 === void 0 ? void 0 : _a5.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
+      const segmented_like_dislike_button = (_b2 = (_a7 = this.primary_info) === null || _a7 === void 0 ? void 0 : _a7.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
       const button = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button;
       if (!button)
         throw new InnertubeError("Dislike button not found", { video_id: this.basic_info.id });
@@ -20879,15 +20433,15 @@ var VideoInfo = class {
         throw new InnertubeError("Dislike button is not a toggle button. This action is likely disabled for this video.", { video_id: this.basic_info.id });
       if (button.is_toggled)
         throw new InnertubeError("This video is already disliked", { video_id: this.basic_info.id });
-      const response = yield button.endpoint.call(__classPrivateFieldGet29(this, _VideoInfo_actions, "f"));
+      const response = yield button.endpoint.call(this.actions);
       return response;
     });
   }
   removeRating() {
-    var _a5, _b;
-    return __awaiter20(this, void 0, void 0, function* () {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
       let button;
-      const segmented_like_dislike_button = (_b = (_a5 = this.primary_info) === null || _a5 === void 0 ? void 0 : _a5.menu) === null || _b === void 0 ? void 0 : _b.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
+      const segmented_like_dislike_button = (_b2 = (_a7 = this.primary_info) === null || _a7 === void 0 ? void 0 : _a7.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
       const like_button = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button;
       const dislike_button = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button;
       if (!(like_button === null || like_button === void 0 ? void 0 : like_button.is(ToggleButton_default)) || !(dislike_button === null || dislike_button === void 0 ? void 0 : dislike_button.is(ToggleButton_default)))
@@ -20899,7 +20453,7 @@ var VideoInfo = class {
       }
       if (!button)
         throw new InnertubeError("This video is not liked/disliked", { video_id: this.basic_info.id });
-      const response = yield button.toggled_endpoint.call(__classPrivateFieldGet29(this, _VideoInfo_actions, "f"));
+      const response = yield button.toggled_endpoint.call(this.actions);
       return response;
     });
   }
@@ -20909,59 +20463,39 @@ var VideoInfo = class {
     return new LiveChat_default2(this);
   }
   getTrailerInfo() {
-    var _a5, _b;
+    var _a7, _b2;
     if (this.has_trailer) {
-      const player_response = (_b = (_a5 = this.playability_status.error_screen) === null || _a5 === void 0 ? void 0 : _a5.as(PlayerLegacyDesktopYpcTrailer_default).trailer) === null || _b === void 0 ? void 0 : _b.player_response;
+      const player_response = (_b2 = (_a7 = this.playability_status.error_screen) === null || _a7 === void 0 ? void 0 : _a7.as(PlayerLegacyDesktopYpcTrailer_default).trailer) === null || _b2 === void 0 ? void 0 : _b2.player_response;
       if (player_response) {
-        return new VideoInfo([{ data: player_response }], __classPrivateFieldGet29(this, _VideoInfo_actions, "f"), __classPrivateFieldGet29(this, _VideoInfo_player, "f"), __classPrivateFieldGet29(this, _VideoInfo_cpn, "f"));
+        return new VideoInfo([{ data: player_response }], this.actions, this.cpn);
       }
     }
     return null;
   }
-  chooseFormat(options) {
-    return FormatUtils_default.chooseFormat(options, this.streaming_data);
-  }
-  toDash(url_transformer, format_filter) {
-    return FormatUtils_default.toDash(this.streaming_data, url_transformer, format_filter, __classPrivateFieldGet29(this, _VideoInfo_cpn, "f"), __classPrivateFieldGet29(this, _VideoInfo_player, "f"));
-  }
-  download(options = {}) {
-    return __awaiter20(this, void 0, void 0, function* () {
-      return FormatUtils_default.download(options, __classPrivateFieldGet29(this, _VideoInfo_actions, "f"), this.playability_status, this.streaming_data, __classPrivateFieldGet29(this, _VideoInfo_actions, "f").session.player, this.cpn);
-    });
-  }
   get filters() {
-    var _a5, _b;
-    return ((_b = (_a5 = this.related_chip_cloud) === null || _a5 === void 0 ? void 0 : _a5.chips) === null || _b === void 0 ? void 0 : _b.map((chip) => {
-      var _a6;
-      return (_a6 = chip.text) === null || _a6 === void 0 ? void 0 : _a6.toString();
+    var _a7, _b2;
+    return ((_b2 = (_a7 = this.related_chip_cloud) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.map((chip) => {
+      var _a8;
+      return (_a8 = chip.text) === null || _a8 === void 0 ? void 0 : _a8.toString();
     })) || [];
   }
-  get actions() {
-    return __classPrivateFieldGet29(this, _VideoInfo_actions, "f");
-  }
-  get cpn() {
-    return __classPrivateFieldGet29(this, _VideoInfo_cpn, "f");
-  }
   get wn_has_continuation() {
-    return !!__classPrivateFieldGet29(this, _VideoInfo_watch_next_continuation, "f");
+    return !!__classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f");
   }
   get autoplay_video_endpoint() {
-    var _a5, _b, _c;
-    return ((_c = (_b = (_a5 = this.autoplay) === null || _a5 === void 0 ? void 0 : _a5.sets) === null || _b === void 0 ? void 0 : _b[0]) === null || _c === void 0 ? void 0 : _c.autoplay_video) || null;
+    var _a7, _b2, _c;
+    return ((_c = (_b2 = (_a7 = this.autoplay) === null || _a7 === void 0 ? void 0 : _a7.sets) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.autoplay_video) || null;
   }
   get has_trailer() {
-    var _a5;
-    return !!((_a5 = this.playability_status.error_screen) === null || _a5 === void 0 ? void 0 : _a5.is(PlayerLegacyDesktopYpcTrailer_default));
+    var _a7;
+    return !!((_a7 = this.playability_status.error_screen) === null || _a7 === void 0 ? void 0 : _a7.is(PlayerLegacyDesktopYpcTrailer_default));
   }
   get music_tracks() {
     return [];
   }
-  get page() {
-    return __classPrivateFieldGet29(this, _VideoInfo_page, "f");
-  }
 };
 __name(VideoInfo, "VideoInfo");
-_VideoInfo_page = /* @__PURE__ */ new WeakMap(), _VideoInfo_actions = /* @__PURE__ */ new WeakMap(), _VideoInfo_player = /* @__PURE__ */ new WeakMap(), _VideoInfo_cpn = /* @__PURE__ */ new WeakMap(), _VideoInfo_watch_next_continuation = /* @__PURE__ */ new WeakMap(), _VideoInfo_playback_tracking = /* @__PURE__ */ new WeakMap();
+_VideoInfo_watch_next_continuation = /* @__PURE__ */ new WeakMap();
 var VideoInfo_default = VideoInfo;
 
 // dist/src/parser/ytmusic/index.js
@@ -20980,37 +20514,21 @@ __export(ytmusic_exports, {
 });
 
 // dist/src/parser/ytmusic/Album.js
-var __classPrivateFieldSet25 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet30 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Album_page;
 var Album = class {
   constructor(response) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     _Album_page.set(this, void 0);
-    __classPrivateFieldSet25(this, _Album_page, parser_default.parseResponse(response.data), "f");
-    this.header = (_a5 = __classPrivateFieldGet30(this, _Album_page, "f").header) === null || _a5 === void 0 ? void 0 : _a5.item().as(MusicDetailHeader_default);
-    this.url = ((_b = __classPrivateFieldGet30(this, _Album_page, "f").microformat) === null || _b === void 0 ? void 0 : _b.as(MicroformatData_default).url_canonical) || null;
-    if (!__classPrivateFieldGet30(this, _Album_page, "f").contents_memo)
+    __classPrivateFieldSet(this, _Album_page, parser_default.parseResponse(response.data), "f");
+    this.header = (_a7 = __classPrivateFieldGet(this, _Album_page, "f").header) === null || _a7 === void 0 ? void 0 : _a7.item().as(MusicDetailHeader_default);
+    this.url = ((_b2 = __classPrivateFieldGet(this, _Album_page, "f").microformat) === null || _b2 === void 0 ? void 0 : _b2.as(MicroformatData_default).url_canonical) || null;
+    if (!__classPrivateFieldGet(this, _Album_page, "f").contents_memo)
       throw new Error("No contents found in the response");
-    this.contents = (_c = __classPrivateFieldGet30(this, _Album_page, "f").contents_memo.getType(MusicShelf_default)) === null || _c === void 0 ? void 0 : _c.first().contents;
-    this.sections = __classPrivateFieldGet30(this, _Album_page, "f").contents_memo.getType(MusicCarouselShelf_default) || [];
+    this.contents = (_c = __classPrivateFieldGet(this, _Album_page, "f").contents_memo.getType(MusicShelf_default)) === null || _c === void 0 ? void 0 : _c.first().contents;
+    this.sections = __classPrivateFieldGet(this, _Album_page, "f").contents_memo.getType(MusicCarouselShelf_default) || [];
   }
   get page() {
-    return __classPrivateFieldGet30(this, _Album_page, "f");
+    return __classPrivateFieldGet(this, _Album_page, "f");
   }
 };
 __name(Album, "Album");
@@ -21018,70 +20536,23 @@ _Album_page = /* @__PURE__ */ new WeakMap();
 var Album_default = Album;
 
 // dist/src/parser/ytmusic/Artist.js
-var __awaiter21 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet26 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet31 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Artist_page;
 var _Artist_actions;
 var Artist = class {
   constructor(response, actions) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     _Artist_page.set(this, void 0);
     _Artist_actions.set(this, void 0);
-    __classPrivateFieldSet26(this, _Artist_page, parser_default.parseResponse(response.data), "f");
-    __classPrivateFieldSet26(this, _Artist_actions, actions, "f");
-    this.header = (_a5 = this.page.header) === null || _a5 === void 0 ? void 0 : _a5.item().as(MusicImmersiveHeader_default, MusicVisualHeader_default, MusicHeader_default);
-    const music_shelf = ((_b = __classPrivateFieldGet31(this, _Artist_page, "f").contents_memo) === null || _b === void 0 ? void 0 : _b.getType(MusicShelf_default)) || [];
-    const music_carousel_shelf = ((_c = __classPrivateFieldGet31(this, _Artist_page, "f").contents_memo) === null || _c === void 0 ? void 0 : _c.getType(MusicCarouselShelf_default)) || [];
+    __classPrivateFieldSet(this, _Artist_page, parser_default.parseResponse(response.data), "f");
+    __classPrivateFieldSet(this, _Artist_actions, actions, "f");
+    this.header = (_a7 = this.page.header) === null || _a7 === void 0 ? void 0 : _a7.item().as(MusicImmersiveHeader_default, MusicVisualHeader_default, MusicHeader_default);
+    const music_shelf = ((_b2 = __classPrivateFieldGet(this, _Artist_page, "f").contents_memo) === null || _b2 === void 0 ? void 0 : _b2.getType(MusicShelf_default)) || [];
+    const music_carousel_shelf = ((_c = __classPrivateFieldGet(this, _Artist_page, "f").contents_memo) === null || _c === void 0 ? void 0 : _c.getType(MusicCarouselShelf_default)) || [];
     this.sections = [...music_shelf, ...music_carousel_shelf];
   }
   getAllSongs() {
-    var _a5, _b;
-    return __awaiter21(this, void 0, void 0, function* () {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
       const music_shelves = this.sections.filter((section) => section.type === "MusicShelf");
       if (!music_shelves.length)
         throw new InnertubeError("Could not find any node of type MusicShelf.");
@@ -21090,13 +20561,13 @@ var Artist = class {
         throw new InnertubeError("Could not find target shelf (Songs).");
       if (!shelf.endpoint)
         throw new InnertubeError("Target shelf (Songs) did not have an endpoint.");
-      const page = yield shelf.endpoint.call(__classPrivateFieldGet31(this, _Artist_actions, "f"), { client: "YTMUSIC", parse: true });
-      const contents = (_b = (_a5 = page.contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(MusicPlaylistShelf_default)) === null || _b === void 0 ? void 0 : _b.first();
+      const page = yield shelf.endpoint.call(__classPrivateFieldGet(this, _Artist_actions, "f"), { client: "YTMUSIC", parse: true });
+      const contents = (_b2 = (_a7 = page.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(MusicPlaylistShelf_default)) === null || _b2 === void 0 ? void 0 : _b2.first();
       return contents;
     });
   }
   get page() {
-    return __classPrivateFieldGet31(this, _Artist_page, "f");
+    return __classPrivateFieldGet(this, _Artist_page, "f");
   }
 };
 __name(Artist, "Artist");
@@ -21104,39 +20575,23 @@ _Artist_page = /* @__PURE__ */ new WeakMap(), _Artist_actions = /* @__PURE__ */ 
 var Artist_default = Artist;
 
 // dist/src/parser/ytmusic/Explore.js
-var __classPrivateFieldSet27 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet32 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Explore_page;
 var Explore = class {
   constructor(response) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     _Explore_page.set(this, void 0);
-    __classPrivateFieldSet27(this, _Explore_page, parser_default.parseResponse(response.data), "f");
-    const tab = (_a5 = __classPrivateFieldGet32(this, _Explore_page, "f").contents) === null || _a5 === void 0 ? void 0 : _a5.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
+    __classPrivateFieldSet(this, _Explore_page, parser_default.parseResponse(response.data), "f");
+    const tab = (_a7 = __classPrivateFieldGet(this, _Explore_page, "f").contents) === null || _a7 === void 0 ? void 0 : _a7.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
     if (!tab)
       throw new InnertubeError("Could not find target tab.");
-    const section_list = (_b = tab.content) === null || _b === void 0 ? void 0 : _b.as(SectionList_default);
+    const section_list = (_b2 = tab.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default);
     if (!section_list)
       throw new InnertubeError("Target tab did not have any content.");
     this.top_buttons = ((_c = section_list.contents.firstOfType(Grid_default)) === null || _c === void 0 ? void 0 : _c.items.as(MusicNavigationButton_default)) || [];
     this.sections = section_list.contents.filterType(MusicCarouselShelf_default);
   }
   get page() {
-    return __classPrivateFieldGet32(this, _Explore_page, "f");
+    return __classPrivateFieldGet(this, _Explore_page, "f");
   }
 };
 __name(Explore, "Explore");
@@ -21144,93 +20599,72 @@ _Explore_page = /* @__PURE__ */ new WeakMap();
 var Explore_default = Explore;
 
 // dist/src/parser/ytmusic/HomeFeed.js
-var __awaiter22 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet28 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet33 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _HomeFeed_page;
 var _HomeFeed_actions;
 var _HomeFeed_continuation;
 var HomeFeed2 = class {
   constructor(response, actions) {
-    var _a5, _b, _c, _d;
+    var _a7, _b2, _c, _d, _e, _f;
     _HomeFeed_page.set(this, void 0);
     _HomeFeed_actions.set(this, void 0);
     _HomeFeed_continuation.set(this, void 0);
-    __classPrivateFieldSet28(this, _HomeFeed_actions, actions, "f");
-    __classPrivateFieldSet28(this, _HomeFeed_page, parser_default.parseResponse(response.data), "f");
-    const tab = (_a5 = __classPrivateFieldGet33(this, _HomeFeed_page, "f").contents) === null || _a5 === void 0 ? void 0 : _a5.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
+    __classPrivateFieldSet(this, _HomeFeed_actions, actions, "f");
+    __classPrivateFieldSet(this, _HomeFeed_page, parser_default.parseResponse(response.data), "f");
+    const tab = (_a7 = __classPrivateFieldGet(this, _HomeFeed_page, "f").contents) === null || _a7 === void 0 ? void 0 : _a7.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
     if (!tab)
       throw new InnertubeError("Could not find Home tab.");
     if (tab.key("content").isNull()) {
-      if (!__classPrivateFieldGet33(this, _HomeFeed_page, "f").continuation_contents)
+      if (!__classPrivateFieldGet(this, _HomeFeed_page, "f").continuation_contents)
         throw new InnertubeError("Continuation did not have any content.");
-      __classPrivateFieldSet28(this, _HomeFeed_continuation, __classPrivateFieldGet33(this, _HomeFeed_page, "f").continuation_contents.as(SectionListContinuation).continuation, "f");
-      this.sections = (_b = __classPrivateFieldGet33(this, _HomeFeed_page, "f").continuation_contents.as(SectionListContinuation).contents) === null || _b === void 0 ? void 0 : _b.as(MusicCarouselShelf_default);
+      __classPrivateFieldSet(this, _HomeFeed_continuation, __classPrivateFieldGet(this, _HomeFeed_page, "f").continuation_contents.as(SectionListContinuation).continuation, "f");
+      this.sections = (_b2 = __classPrivateFieldGet(this, _HomeFeed_page, "f").continuation_contents.as(SectionListContinuation).contents) === null || _b2 === void 0 ? void 0 : _b2.as(MusicCarouselShelf_default);
       return;
     }
-    __classPrivateFieldSet28(this, _HomeFeed_continuation, (_c = tab.content) === null || _c === void 0 ? void 0 : _c.as(SectionList_default).continuation, "f");
-    this.sections = (_d = tab.content) === null || _d === void 0 ? void 0 : _d.as(SectionList_default).contents.as(MusicCarouselShelf_default);
+    this.header = (_d = (_c = tab.content) === null || _c === void 0 ? void 0 : _c.as(SectionList_default).header) === null || _d === void 0 ? void 0 : _d.as(ChipCloud_default);
+    __classPrivateFieldSet(this, _HomeFeed_continuation, (_e = tab.content) === null || _e === void 0 ? void 0 : _e.as(SectionList_default).continuation, "f");
+    this.sections = (_f = tab.content) === null || _f === void 0 ? void 0 : _f.as(SectionList_default).contents.as(MusicCarouselShelf_default, MusicTastebuilderShelf_default);
   }
   getContinuation() {
-    return __awaiter22(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet33(this, _HomeFeed_continuation, "f"))
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _HomeFeed_continuation, "f"))
         throw new InnertubeError("Continuation not found.");
-      const response = yield __classPrivateFieldGet33(this, _HomeFeed_actions, "f").execute("/browse", {
+      const response = yield __classPrivateFieldGet(this, _HomeFeed_actions, "f").execute("/browse", {
         client: "YTMUSIC",
-        continuation: __classPrivateFieldGet33(this, _HomeFeed_continuation, "f")
+        continuation: __classPrivateFieldGet(this, _HomeFeed_continuation, "f")
       });
-      return new HomeFeed2(response, __classPrivateFieldGet33(this, _HomeFeed_actions, "f"));
+      return new HomeFeed2(response, __classPrivateFieldGet(this, _HomeFeed_actions, "f"));
     });
   }
+  applyFilter(target_filter) {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
+      let cloud_chip;
+      if (typeof target_filter === "string") {
+        cloud_chip = (_b2 = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).get({ text: target_filter });
+        if (!cloud_chip)
+          throw new InnertubeError("Could not find filter with given name.", { available_filters: this.filters });
+      } else if (target_filter === null || target_filter === void 0 ? void 0 : target_filter.is(ChipCloudChip_default)) {
+        cloud_chip = target_filter;
+      }
+      if (!cloud_chip)
+        throw new InnertubeError("Invalid filter", { available_filters: this.filters });
+      if (cloud_chip === null || cloud_chip === void 0 ? void 0 : cloud_chip.is_selected)
+        return this;
+      if (!cloud_chip.endpoint)
+        throw new InnertubeError("Selected filter does not have an endpoint.");
+      const response = yield cloud_chip.endpoint.call(__classPrivateFieldGet(this, _HomeFeed_actions, "f"), { client: "YTMUSIC" });
+      return new HomeFeed2(response, __classPrivateFieldGet(this, _HomeFeed_actions, "f"));
+    });
+  }
+  get filters() {
+    var _a7, _b2;
+    return ((_b2 = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).map((chip) => chip.text)) || [];
+  }
   get has_continuation() {
-    return !!__classPrivateFieldGet33(this, _HomeFeed_continuation, "f");
+    return !!__classPrivateFieldGet(this, _HomeFeed_continuation, "f");
   }
   get page() {
-    return __classPrivateFieldGet33(this, _HomeFeed_page, "f");
+    return __classPrivateFieldGet(this, _HomeFeed_page, "f");
   }
 };
 __name(HomeFeed2, "HomeFeed");
@@ -21238,53 +20672,6 @@ _HomeFeed_page = /* @__PURE__ */ new WeakMap(), _HomeFeed_actions = /* @__PURE__
 var HomeFeed_default = HomeFeed2;
 
 // dist/src/parser/ytmusic/Library.js
-var __awaiter23 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet29 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet34 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Library_page;
 var _Library_actions;
 var _Library_continuation;
@@ -21293,24 +20680,24 @@ var _LibraryContinuation_actions;
 var _LibraryContinuation_continuation;
 var Library2 = class {
   constructor(response, actions) {
-    var _a5, _b, _c, _d, _e;
+    var _a7, _b2, _c, _d, _e;
     _Library_page.set(this, void 0);
     _Library_actions.set(this, void 0);
     _Library_continuation.set(this, void 0);
-    __classPrivateFieldSet29(this, _Library_page, parser_default.parseResponse(response.data), "f");
-    __classPrivateFieldSet29(this, _Library_actions, actions, "f");
-    const section_list = (_a5 = __classPrivateFieldGet34(this, _Library_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(SectionList_default).first();
-    this.header = (_b = section_list === null || section_list === void 0 ? void 0 : section_list.header) === null || _b === void 0 ? void 0 : _b.item().as(MusicSideAlignedItem_default);
+    __classPrivateFieldSet(this, _Library_page, parser_default.parseResponse(response.data), "f");
+    __classPrivateFieldSet(this, _Library_actions, actions, "f");
+    const section_list = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(SectionList_default).first();
+    this.header = (_b2 = section_list === null || section_list === void 0 ? void 0 : section_list.header) === null || _b2 === void 0 ? void 0 : _b2.as(MusicSideAlignedItem_default);
     this.contents = (_c = section_list === null || section_list === void 0 ? void 0 : section_list.contents) === null || _c === void 0 ? void 0 : _c.as(Grid_default, MusicShelf_default);
-    __classPrivateFieldSet29(this, _Library_continuation, (_e = (_d = this.contents) === null || _d === void 0 ? void 0 : _d.find((list) => list.continuation)) === null || _e === void 0 ? void 0 : _e.continuation, "f");
+    __classPrivateFieldSet(this, _Library_continuation, (_e = (_d = this.contents) === null || _d === void 0 ? void 0 : _d.find((list) => list.continuation)) === null || _e === void 0 ? void 0 : _e.continuation, "f");
   }
   applySort(sort_by) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h, _j, _k;
-    return __awaiter23(this, void 0, void 0, function* () {
+    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k;
+    return __awaiter(this, void 0, void 0, function* () {
       let target_item;
       if (typeof sort_by === "string") {
-        const button = (_a5 = __classPrivateFieldGet34(this, _Library_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(MusicSortFilterButton_default).first();
-        const options = (_b = button === null || button === void 0 ? void 0 : button.menu) === null || _b === void 0 ? void 0 : _b.options.filter((item) => item instanceof MusicMultiSelectMenuItem_default);
+        const button = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(MusicSortFilterButton_default).first();
+        const options = (_b2 = button === null || button === void 0 ? void 0 : button.menu) === null || _b2 === void 0 ? void 0 : _b2.options.filter((item) => item instanceof MusicMultiSelectMenuItem_default);
         target_item = options === null || options === void 0 ? void 0 : options.find((item) => item.title === sort_by);
         if (!target_item)
           throw new InnertubeError(`Sort option "${sort_by}" not found`, { available_filters: options.map((item) => item.title) });
@@ -21324,12 +20711,12 @@ var Library2 = class {
       const cmd = (_f = (_e = (_d = (_c = target_item.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.commands) === null || _e === void 0 ? void 0 : _e.find((cmd2) => cmd2.browseSectionListReloadEndpoint)) === null || _f === void 0 ? void 0 : _f.browseSectionListReloadEndpoint;
       if (!cmd)
         throw new InnertubeError("Failed to find sort option command");
-      const response = yield __classPrivateFieldGet34(this, _Library_actions, "f").execute("/browse", {
+      const response = yield __classPrivateFieldGet(this, _Library_actions, "f").execute("/browse", {
         client: "YTMUSIC",
         continuation: cmd.continuation.reloadContinuationData.continuation,
         parse: true
       });
-      const previously_selected_item = (_h = (_g = __classPrivateFieldGet34(this, _Library_page, "f").contents_memo) === null || _g === void 0 ? void 0 : _g.getType(MusicMultiSelectMenuItem_default)) === null || _h === void 0 ? void 0 : _h.find((item) => item.selected);
+      const previously_selected_item = (_h = (_g = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _g === void 0 ? void 0 : _g.getType(MusicMultiSelectMenuItem_default)) === null || _h === void 0 ? void 0 : _h.find((item) => item.selected);
       if (previously_selected_item)
         previously_selected_item.selected = false;
       target_item.selected = true;
@@ -21338,10 +20725,10 @@ var Library2 = class {
     });
   }
   applyFilter(filter) {
-    var _a5, _b, _c, _d;
-    return __awaiter23(this, void 0, void 0, function* () {
+    var _a7, _b2, _c, _d;
+    return __awaiter(this, void 0, void 0, function* () {
       let target_chip;
-      const chip_cloud = (_a5 = __classPrivateFieldGet34(this, _Library_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(ChipCloud_default).first();
+      const chip_cloud = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(ChipCloud_default).first();
       if (typeof filter === "string") {
         target_chip = chip_cloud === null || chip_cloud === void 0 ? void 0 : chip_cloud.chips.get({ text: filter });
         if (!target_chip)
@@ -21351,70 +20738,70 @@ var Library2 = class {
       }
       if (!target_chip)
         throw new InnertubeError("Invalid filter", filter);
-      const target_cmd = new NavigationEndpoint_default((_d = (_c = (_b = target_chip.endpoint) === null || _b === void 0 ? void 0 : _b.payload) === null || _c === void 0 ? void 0 : _c.commands) === null || _d === void 0 ? void 0 : _d[0]);
-      const response = yield target_cmd.call(__classPrivateFieldGet34(this, _Library_actions, "f"), { client: "YTMUSIC" });
-      return new Library2(response, __classPrivateFieldGet34(this, _Library_actions, "f"));
+      const target_cmd = new NavigationEndpoint_default((_d = (_c = (_b2 = target_chip.endpoint) === null || _b2 === void 0 ? void 0 : _b2.payload) === null || _c === void 0 ? void 0 : _c.commands) === null || _d === void 0 ? void 0 : _d[0]);
+      const response = yield target_cmd.call(__classPrivateFieldGet(this, _Library_actions, "f"), { client: "YTMUSIC" });
+      return new Library2(response, __classPrivateFieldGet(this, _Library_actions, "f"));
     });
   }
   getContinuation() {
-    return __awaiter23(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet34(this, _Library_continuation, "f"))
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Library_continuation, "f"))
         throw new InnertubeError("No continuation available");
-      const page = yield __classPrivateFieldGet34(this, _Library_actions, "f").execute("/browse", {
+      const page = yield __classPrivateFieldGet(this, _Library_actions, "f").execute("/browse", {
         client: "YTMUSIC",
-        continuation: __classPrivateFieldGet34(this, _Library_continuation, "f")
+        continuation: __classPrivateFieldGet(this, _Library_continuation, "f")
       });
-      return new LibraryContinuation(page, __classPrivateFieldGet34(this, _Library_actions, "f"));
+      return new LibraryContinuation(page, __classPrivateFieldGet(this, _Library_actions, "f"));
     });
   }
   get has_continuation() {
-    return !!__classPrivateFieldGet34(this, _Library_continuation, "f");
+    return !!__classPrivateFieldGet(this, _Library_continuation, "f");
   }
   get sort_options() {
-    var _a5, _b;
-    const button = (_a5 = __classPrivateFieldGet34(this, _Library_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(MusicSortFilterButton_default).first();
-    const options = (_b = button === null || button === void 0 ? void 0 : button.menu) === null || _b === void 0 ? void 0 : _b.options.filter((item) => item instanceof MusicMultiSelectMenuItem_default);
+    var _a7, _b2;
+    const button = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(MusicSortFilterButton_default).first();
+    const options = (_b2 = button === null || button === void 0 ? void 0 : button.menu) === null || _b2 === void 0 ? void 0 : _b2.options.filter((item) => item instanceof MusicMultiSelectMenuItem_default);
     return options.map((item) => item.title);
   }
   get filters() {
-    var _a5, _b;
-    return ((_b = (_a5 = __classPrivateFieldGet34(this, _Library_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(ChipCloud_default)) === null || _b === void 0 ? void 0 : _b.first().chips.map((chip) => chip.text)) || [];
+    var _a7, _b2;
+    return ((_b2 = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(ChipCloud_default)) === null || _b2 === void 0 ? void 0 : _b2.first().chips.map((chip) => chip.text)) || [];
   }
   get page() {
-    return __classPrivateFieldGet34(this, _Library_page, "f");
+    return __classPrivateFieldGet(this, _Library_page, "f");
   }
 };
 __name(Library2, "Library");
 _Library_page = /* @__PURE__ */ new WeakMap(), _Library_actions = /* @__PURE__ */ new WeakMap(), _Library_continuation = /* @__PURE__ */ new WeakMap();
 var LibraryContinuation = class {
   constructor(response, actions) {
-    var _a5, _b;
+    var _a7, _b2;
     _LibraryContinuation_page.set(this, void 0);
     _LibraryContinuation_actions.set(this, void 0);
     _LibraryContinuation_continuation.set(this, void 0);
-    __classPrivateFieldSet29(this, _LibraryContinuation_page, parser_default.parseResponse(response.data), "f");
-    __classPrivateFieldSet29(this, _LibraryContinuation_actions, actions, "f");
-    if (!__classPrivateFieldGet34(this, _LibraryContinuation_page, "f").continuation_contents)
+    __classPrivateFieldSet(this, _LibraryContinuation_page, parser_default.parseResponse(response.data), "f");
+    __classPrivateFieldSet(this, _LibraryContinuation_actions, actions, "f");
+    if (!__classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents)
       throw new InnertubeError("No continuation contents found");
-    this.contents = __classPrivateFieldGet34(this, _LibraryContinuation_page, "f").continuation_contents.as(MusicShelfContinuation, GridContinuation);
-    __classPrivateFieldSet29(this, _LibraryContinuation_continuation, ((_a5 = __classPrivateFieldGet34(this, _LibraryContinuation_page, "f").continuation_contents) === null || _a5 === void 0 ? void 0 : _a5.key("continuation").isNull()) ? null : (_b = __classPrivateFieldGet34(this, _LibraryContinuation_page, "f").continuation_contents) === null || _b === void 0 ? void 0 : _b.key("continuation").string(), "f");
+    this.contents = __classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents.as(MusicShelfContinuation, GridContinuation);
+    __classPrivateFieldSet(this, _LibraryContinuation_continuation, ((_a7 = __classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents) === null || _a7 === void 0 ? void 0 : _a7.key("continuation").isNull()) ? null : (_b2 = __classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents) === null || _b2 === void 0 ? void 0 : _b2.key("continuation").string(), "f");
   }
   getContinuation() {
-    return __awaiter23(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet34(this, _LibraryContinuation_continuation, "f"))
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _LibraryContinuation_continuation, "f"))
         throw new InnertubeError("No continuation available");
-      const response = yield __classPrivateFieldGet34(this, _LibraryContinuation_actions, "f").execute("/browse", {
+      const response = yield __classPrivateFieldGet(this, _LibraryContinuation_actions, "f").execute("/browse", {
         client: "YTMUSIC",
-        continuation: __classPrivateFieldGet34(this, _LibraryContinuation_continuation, "f")
+        continuation: __classPrivateFieldGet(this, _LibraryContinuation_continuation, "f")
       });
-      return new LibraryContinuation(response, __classPrivateFieldGet34(this, _LibraryContinuation_actions, "f"));
+      return new LibraryContinuation(response, __classPrivateFieldGet(this, _LibraryContinuation_actions, "f"));
     });
   }
   get has_continuation() {
-    return !!__classPrivateFieldGet34(this, _LibraryContinuation_continuation, "f");
+    return !!__classPrivateFieldGet(this, _LibraryContinuation_continuation, "f");
   }
   get page() {
-    return __classPrivateFieldGet34(this, _LibraryContinuation_page, "f");
+    return __classPrivateFieldGet(this, _LibraryContinuation_page, "f");
   }
 };
 __name(LibraryContinuation, "LibraryContinuation");
@@ -21422,53 +20809,6 @@ _LibraryContinuation_page = /* @__PURE__ */ new WeakMap(), _LibraryContinuation_
 var Library_default2 = Library2;
 
 // dist/src/parser/ytmusic/Playlist.js
-var __awaiter24 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet30 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet35 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Playlist_instances2;
 var _Playlist_page;
 var _Playlist_actions;
@@ -21478,48 +20818,48 @@ var _Playlist_suggestions_continuation;
 var _Playlist_fetchSuggestions;
 var Playlist3 = class {
   constructor(response, actions) {
-    var _a5, _b, _c, _d, _e, _f;
+    var _a7, _b2, _c, _d, _e, _f, _g;
     _Playlist_instances2.add(this);
     _Playlist_page.set(this, void 0);
     _Playlist_actions.set(this, void 0);
     _Playlist_continuation.set(this, void 0);
     _Playlist_last_fetched_suggestions.set(this, void 0);
     _Playlist_suggestions_continuation.set(this, void 0);
-    __classPrivateFieldSet30(this, _Playlist_actions, actions, "f");
-    __classPrivateFieldSet30(this, _Playlist_page, parser_default.parseResponse(response.data), "f");
-    __classPrivateFieldSet30(this, _Playlist_last_fetched_suggestions, null, "f");
-    __classPrivateFieldSet30(this, _Playlist_suggestions_continuation, null, "f");
-    if (__classPrivateFieldGet35(this, _Playlist_page, "f").continuation_contents) {
-      const data = (_a5 = __classPrivateFieldGet35(this, _Playlist_page, "f").continuation_contents) === null || _a5 === void 0 ? void 0 : _a5.as(MusicPlaylistShelfContinuation);
+    __classPrivateFieldSet(this, _Playlist_actions, actions, "f");
+    __classPrivateFieldSet(this, _Playlist_page, parser_default.parseResponse(response.data), "f");
+    __classPrivateFieldSet(this, _Playlist_last_fetched_suggestions, null, "f");
+    __classPrivateFieldSet(this, _Playlist_suggestions_continuation, null, "f");
+    if (__classPrivateFieldGet(this, _Playlist_page, "f").continuation_contents) {
+      const data = (_a7 = __classPrivateFieldGet(this, _Playlist_page, "f").continuation_contents) === null || _a7 === void 0 ? void 0 : _a7.as(MusicPlaylistShelfContinuation);
       this.items = data.contents;
-      __classPrivateFieldSet30(this, _Playlist_continuation, data.continuation, "f");
+      __classPrivateFieldSet(this, _Playlist_continuation, data.continuation, "f");
     } else {
-      if (((_b = __classPrivateFieldGet35(this, _Playlist_page, "f").header) === null || _b === void 0 ? void 0 : _b.item().type) === "MusicEditablePlaylistDetailHeader") {
-        this.header = (_c = __classPrivateFieldGet35(this, _Playlist_page, "f").header) === null || _c === void 0 ? void 0 : _c.item().as(MusicEditablePlaylistDetailHeader_default).header.item().as(MusicDetailHeader_default);
+      if (((_b2 = __classPrivateFieldGet(this, _Playlist_page, "f").header) === null || _b2 === void 0 ? void 0 : _b2.item().type) === "MusicEditablePlaylistDetailHeader") {
+        this.header = (_d = (_c = __classPrivateFieldGet(this, _Playlist_page, "f").header) === null || _c === void 0 ? void 0 : _c.item().as(MusicEditablePlaylistDetailHeader_default).header) === null || _d === void 0 ? void 0 : _d.as(MusicDetailHeader_default);
       } else {
-        this.header = (_d = __classPrivateFieldGet35(this, _Playlist_page, "f").header) === null || _d === void 0 ? void 0 : _d.item().as(MusicDetailHeader_default);
+        this.header = (_e = __classPrivateFieldGet(this, _Playlist_page, "f").header) === null || _e === void 0 ? void 0 : _e.item().as(MusicDetailHeader_default);
       }
-      this.items = ((_e = __classPrivateFieldGet35(this, _Playlist_page, "f").contents_memo) === null || _e === void 0 ? void 0 : _e.getType(MusicPlaylistShelf_default).first().contents) || null;
-      __classPrivateFieldSet30(this, _Playlist_continuation, ((_f = __classPrivateFieldGet35(this, _Playlist_page, "f").contents_memo) === null || _f === void 0 ? void 0 : _f.getType(MusicPlaylistShelf_default).first().continuation) || null, "f");
+      this.items = ((_f = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo) === null || _f === void 0 ? void 0 : _f.getType(MusicPlaylistShelf_default).first().contents) || null;
+      __classPrivateFieldSet(this, _Playlist_continuation, ((_g = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo) === null || _g === void 0 ? void 0 : _g.getType(MusicPlaylistShelf_default).first().continuation) || null, "f");
     }
   }
   getContinuation() {
-    return __awaiter24(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet35(this, _Playlist_continuation, "f"))
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Playlist_continuation, "f"))
         throw new InnertubeError("Continuation not found.");
-      const response = yield __classPrivateFieldGet35(this, _Playlist_actions, "f").execute("/browse", {
+      const response = yield __classPrivateFieldGet(this, _Playlist_actions, "f").execute("/browse", {
         client: "YTMUSIC",
-        continuation: __classPrivateFieldGet35(this, _Playlist_continuation, "f")
+        continuation: __classPrivateFieldGet(this, _Playlist_continuation, "f")
       });
-      return new Playlist3(response, __classPrivateFieldGet35(this, _Playlist_actions, "f"));
+      return new Playlist3(response, __classPrivateFieldGet(this, _Playlist_actions, "f"));
     });
   }
   getRelated() {
-    var _a5, _b, _c, _d, _e;
-    return __awaiter24(this, void 0, void 0, function* () {
-      let section_continuation = (_b = (_a5 = __classPrivateFieldGet35(this, _Playlist_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(SectionList_default)) === null || _b === void 0 ? void 0 : _b[0].continuation;
+    var _a7, _b2, _c, _d, _e;
+    return __awaiter(this, void 0, void 0, function* () {
+      let section_continuation = (_b2 = (_a7 = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(SectionList_default)) === null || _b2 === void 0 ? void 0 : _b2[0].continuation;
       while (section_continuation) {
-        const data = yield __classPrivateFieldGet35(this, _Playlist_actions, "f").execute("/browse", {
+        const data = yield __classPrivateFieldGet(this, _Playlist_actions, "f").execute("/browse", {
           client: "YTMUSIC",
           continuation: section_continuation,
           parse: true
@@ -21535,31 +20875,31 @@ var Playlist3 = class {
     });
   }
   getSuggestions(refresh = true) {
-    return __awaiter24(this, void 0, void 0, function* () {
-      const require_fetch = refresh || !__classPrivateFieldGet35(this, _Playlist_last_fetched_suggestions, "f");
-      const fetch_promise = require_fetch ? __classPrivateFieldGet35(this, _Playlist_instances2, "m", _Playlist_fetchSuggestions).call(this) : Promise.resolve(null);
+    return __awaiter(this, void 0, void 0, function* () {
+      const require_fetch = refresh || !__classPrivateFieldGet(this, _Playlist_last_fetched_suggestions, "f");
+      const fetch_promise = require_fetch ? __classPrivateFieldGet(this, _Playlist_instances2, "m", _Playlist_fetchSuggestions).call(this) : Promise.resolve(null);
       const fetch_result = yield fetch_promise;
       if (fetch_result) {
-        __classPrivateFieldSet30(this, _Playlist_last_fetched_suggestions, fetch_result.items, "f");
-        __classPrivateFieldSet30(this, _Playlist_suggestions_continuation, fetch_result.continuation, "f");
+        __classPrivateFieldSet(this, _Playlist_last_fetched_suggestions, fetch_result.items, "f");
+        __classPrivateFieldSet(this, _Playlist_suggestions_continuation, fetch_result.continuation, "f");
       }
-      return (fetch_result === null || fetch_result === void 0 ? void 0 : fetch_result.items) || __classPrivateFieldGet35(this, _Playlist_last_fetched_suggestions, "f");
+      return (fetch_result === null || fetch_result === void 0 ? void 0 : fetch_result.items) || __classPrivateFieldGet(this, _Playlist_last_fetched_suggestions, "f");
     });
   }
   get page() {
-    return __classPrivateFieldGet35(this, _Playlist_page, "f");
+    return __classPrivateFieldGet(this, _Playlist_page, "f");
   }
   get has_continuation() {
-    return !!__classPrivateFieldGet35(this, _Playlist_continuation, "f");
+    return !!__classPrivateFieldGet(this, _Playlist_continuation, "f");
   }
 };
 __name(Playlist3, "Playlist");
 _Playlist_page = /* @__PURE__ */ new WeakMap(), _Playlist_actions = /* @__PURE__ */ new WeakMap(), _Playlist_continuation = /* @__PURE__ */ new WeakMap(), _Playlist_last_fetched_suggestions = /* @__PURE__ */ new WeakMap(), _Playlist_suggestions_continuation = /* @__PURE__ */ new WeakMap(), _Playlist_instances2 = /* @__PURE__ */ new WeakSet(), _Playlist_fetchSuggestions = /* @__PURE__ */ __name(function _Playlist_fetchSuggestions2() {
-  var _a5, _b, _c, _d, _e;
-  return __awaiter24(this, void 0, void 0, function* () {
-    const continuation = __classPrivateFieldGet35(this, _Playlist_suggestions_continuation, "f") || ((_b = (_a5 = __classPrivateFieldGet35(this, _Playlist_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.get("SectionList")) === null || _b === void 0 ? void 0 : _b[0].as(SectionList_default).continuation);
+  var _a7, _b2, _c, _d, _e;
+  return __awaiter(this, void 0, void 0, function* () {
+    const continuation = __classPrivateFieldGet(this, _Playlist_suggestions_continuation, "f") || ((_b2 = (_a7 = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.get("SectionList")) === null || _b2 === void 0 ? void 0 : _b2[0].as(SectionList_default).continuation);
     if (continuation) {
-      const page = yield __classPrivateFieldGet35(this, _Playlist_actions, "f").execute("/browse", {
+      const page = yield __classPrivateFieldGet(this, _Playlist_actions, "f").execute("/browse", {
         client: "YTMUSIC",
         continuation,
         parse: true
@@ -21581,82 +20921,35 @@ _Playlist_page = /* @__PURE__ */ new WeakMap(), _Playlist_actions = /* @__PURE__
 var Playlist_default3 = Playlist3;
 
 // dist/src/parser/ytmusic/Recap.js
-var __awaiter25 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet31 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet36 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Recap_page;
 var _Recap_actions;
 var Recap = class {
   constructor(response, actions) {
-    var _a5, _b, _c, _d, _e, _f, _g;
+    var _a7, _b2, _c, _d, _e, _f, _g;
     _Recap_page.set(this, void 0);
     _Recap_actions.set(this, void 0);
-    __classPrivateFieldSet31(this, _Recap_page, parser_default.parseResponse(response.data), "f");
-    __classPrivateFieldSet31(this, _Recap_actions, actions, "f");
-    const header = (_a5 = __classPrivateFieldGet36(this, _Recap_page, "f").header) === null || _a5 === void 0 ? void 0 : _a5.item();
-    this.header = (header === null || header === void 0 ? void 0 : header.is(MusicElementHeader_default)) ? (_d = (_c = (_b = __classPrivateFieldGet36(this, _Recap_page, "f").header) === null || _b === void 0 ? void 0 : _b.item().as(MusicElementHeader_default).element) === null || _c === void 0 ? void 0 : _c.model) === null || _d === void 0 ? void 0 : _d.item().as(HighlightsCarousel_default) : (_e = __classPrivateFieldGet36(this, _Recap_page, "f").header) === null || _e === void 0 ? void 0 : _e.item().as(MusicHeader_default);
-    const tab = (_f = __classPrivateFieldGet36(this, _Recap_page, "f").contents) === null || _f === void 0 ? void 0 : _f.item().as(SingleColumnBrowseResults_default).tabs.firstOfType(Tab_default);
+    __classPrivateFieldSet(this, _Recap_page, parser_default.parseResponse(response.data), "f");
+    __classPrivateFieldSet(this, _Recap_actions, actions, "f");
+    const header = (_a7 = __classPrivateFieldGet(this, _Recap_page, "f").header) === null || _a7 === void 0 ? void 0 : _a7.item();
+    this.header = (header === null || header === void 0 ? void 0 : header.is(MusicElementHeader_default)) ? (_d = (_c = (_b2 = __classPrivateFieldGet(this, _Recap_page, "f").header) === null || _b2 === void 0 ? void 0 : _b2.item().as(MusicElementHeader_default).element) === null || _c === void 0 ? void 0 : _c.model) === null || _d === void 0 ? void 0 : _d.as(HighlightsCarousel_default) : (_e = __classPrivateFieldGet(this, _Recap_page, "f").header) === null || _e === void 0 ? void 0 : _e.item().as(MusicHeader_default);
+    const tab = (_f = __classPrivateFieldGet(this, _Recap_page, "f").contents) === null || _f === void 0 ? void 0 : _f.item().as(SingleColumnBrowseResults_default).tabs.firstOfType(Tab_default);
     if (!tab)
       throw new InnertubeError("Target tab not found");
     this.sections = (_g = tab.content) === null || _g === void 0 ? void 0 : _g.as(SectionList_default).contents.as(ItemSection_default, MusicCarouselShelf_default, Message_default);
   }
   getPlaylist() {
-    return __awaiter25(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       if (!this.header)
         throw new InnertubeError("Header not found");
       if (!this.header.is(HighlightsCarousel_default))
         throw new InnertubeError("Recap playlist not available, check back later.");
       const endpoint = this.header.panels[0].text_on_tap_endpoint;
-      const response = yield endpoint.call(__classPrivateFieldGet36(this, _Recap_actions, "f"), { client: "YTMUSIC" });
-      return new Playlist_default3(response, __classPrivateFieldGet36(this, _Recap_actions, "f"));
+      const response = yield endpoint.call(__classPrivateFieldGet(this, _Recap_actions, "f"), { client: "YTMUSIC" });
+      return new Playlist_default3(response, __classPrivateFieldGet(this, _Recap_actions, "f"));
     });
   }
   get page() {
-    return __classPrivateFieldGet36(this, _Recap_page, "f");
+    return __classPrivateFieldGet(this, _Recap_page, "f");
   }
 };
 __name(Recap, "Recap");
@@ -21664,53 +20957,6 @@ _Recap_page = /* @__PURE__ */ new WeakMap(), _Recap_actions = /* @__PURE__ */ ne
 var Recap_default = Recap;
 
 // dist/src/parser/ytmusic/Search.js
-var __awaiter26 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet32 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet37 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Search_page;
 var _Search_actions;
 var _Search_continuation;
@@ -21718,53 +20964,53 @@ var _SearchContinuation_actions;
 var _SearchContinuation_page;
 var Search2 = class {
   constructor(response, actions, is_filtered) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     _Search_page.set(this, void 0);
     _Search_actions.set(this, void 0);
     _Search_continuation.set(this, void 0);
-    __classPrivateFieldSet32(this, _Search_actions, actions, "f");
-    __classPrivateFieldSet32(this, _Search_page, parser_default.parseResponse(response.data), "f");
-    if (!__classPrivateFieldGet37(this, _Search_page, "f").contents || !__classPrivateFieldGet37(this, _Search_page, "f").contents_memo)
+    __classPrivateFieldSet(this, _Search_actions, actions, "f");
+    __classPrivateFieldSet(this, _Search_page, parser_default.parseResponse(response.data), "f");
+    if (!__classPrivateFieldGet(this, _Search_page, "f").contents || !__classPrivateFieldGet(this, _Search_page, "f").contents_memo)
       throw new InnertubeError("Response did not contain any contents.");
-    const tab = __classPrivateFieldGet37(this, _Search_page, "f").contents.item().as(TabbedSearchResults_default).tabs.get({ selected: true });
+    const tab = __classPrivateFieldGet(this, _Search_page, "f").contents.item().as(TabbedSearchResults_default).tabs.get({ selected: true });
     if (!tab)
       throw new InnertubeError("Could not find target tab.");
-    const tab_content = (_a5 = tab.content) === null || _a5 === void 0 ? void 0 : _a5.as(SectionList_default);
+    const tab_content = (_a7 = tab.content) === null || _a7 === void 0 ? void 0 : _a7.as(SectionList_default);
     if (!tab_content)
       throw new InnertubeError("Target tab did not have any content.");
-    this.header = (_b = tab_content.header) === null || _b === void 0 ? void 0 : _b.item().as(ChipCloud_default);
-    this.contents = tab_content.contents.as(MusicShelf_default, ItemSection_default);
+    this.header = (_b2 = tab_content.header) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloud_default);
+    this.contents = tab_content.contents.as(MusicShelf_default, MusicCardShelf_default, ItemSection_default);
     if (is_filtered) {
-      __classPrivateFieldSet32(this, _Search_continuation, (_c = this.contents.firstOfType(MusicShelf_default)) === null || _c === void 0 ? void 0 : _c.continuation, "f");
+      __classPrivateFieldSet(this, _Search_continuation, (_c = this.contents.firstOfType(MusicShelf_default)) === null || _c === void 0 ? void 0 : _c.continuation, "f");
     }
   }
   getMore(shelf) {
-    return __awaiter26(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       if (!shelf || !shelf.endpoint)
         throw new InnertubeError("Cannot retrieve more items for this shelf because it does not have an endpoint.");
-      const response = yield shelf.endpoint.call(__classPrivateFieldGet37(this, _Search_actions, "f"), { client: "YTMUSIC" });
+      const response = yield shelf.endpoint.call(__classPrivateFieldGet(this, _Search_actions, "f"), { client: "YTMUSIC" });
       if (!response)
         throw new InnertubeError("Endpoint did not return any data");
-      return new Search2(response, __classPrivateFieldGet37(this, _Search_actions, "f"), true);
+      return new Search2(response, __classPrivateFieldGet(this, _Search_actions, "f"), true);
     });
   }
   getContinuation() {
-    return __awaiter26(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet37(this, _Search_continuation, "f"))
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Search_continuation, "f"))
         throw new InnertubeError("Continuation not found.");
-      const response = yield __classPrivateFieldGet37(this, _Search_actions, "f").execute("/search", {
-        continuation: __classPrivateFieldGet37(this, _Search_continuation, "f"),
+      const response = yield __classPrivateFieldGet(this, _Search_actions, "f").execute("/search", {
+        continuation: __classPrivateFieldGet(this, _Search_continuation, "f"),
         client: "YTMUSIC"
       });
-      return new SearchContinuation(__classPrivateFieldGet37(this, _Search_actions, "f"), response);
+      return new SearchContinuation(__classPrivateFieldGet(this, _Search_actions, "f"), response);
     });
   }
   applyFilter(target_filter) {
-    var _a5, _b;
-    return __awaiter26(this, void 0, void 0, function* () {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
       let cloud_chip;
       if (typeof target_filter === "string") {
-        cloud_chip = (_b = (_a5 = this.header) === null || _a5 === void 0 ? void 0 : _a5.chips) === null || _b === void 0 ? void 0 : _b.as(ChipCloudChip_default).get({ text: target_filter });
+        cloud_chip = (_b2 = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).get({ text: target_filter });
         if (!cloud_chip)
           throw new InnertubeError("Could not find filter with given name.", { available_filters: this.filters });
       } else if (target_filter === null || target_filter === void 0 ? void 0 : target_filter.is(ChipCloudChip_default)) {
@@ -21776,59 +21022,59 @@ var Search2 = class {
         return this;
       if (!cloud_chip.endpoint)
         throw new InnertubeError("Selected filter does not have an endpoint.");
-      const response = yield cloud_chip.endpoint.call(__classPrivateFieldGet37(this, _Search_actions, "f"), { client: "YTMUSIC" });
-      return new Search2(response, __classPrivateFieldGet37(this, _Search_actions, "f"), true);
+      const response = yield cloud_chip.endpoint.call(__classPrivateFieldGet(this, _Search_actions, "f"), { client: "YTMUSIC" });
+      return new Search2(response, __classPrivateFieldGet(this, _Search_actions, "f"), true);
     });
   }
   get filters() {
-    var _a5, _b;
-    return ((_b = (_a5 = this.header) === null || _a5 === void 0 ? void 0 : _a5.chips) === null || _b === void 0 ? void 0 : _b.as(ChipCloudChip_default).map((chip) => chip.text)) || [];
+    var _a7, _b2;
+    return ((_b2 = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).map((chip) => chip.text)) || [];
   }
   get has_continuation() {
-    return !!__classPrivateFieldGet37(this, _Search_continuation, "f");
+    return !!__classPrivateFieldGet(this, _Search_continuation, "f");
   }
   get did_you_mean() {
-    var _a5;
-    return (_a5 = __classPrivateFieldGet37(this, _Search_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(DidYouMean_default).first();
+    var _a7;
+    return (_a7 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(DidYouMean_default).first();
   }
   get showing_results_for() {
-    var _a5;
-    return (_a5 = __classPrivateFieldGet37(this, _Search_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(ShowingResultsFor_default).first();
+    var _a7;
+    return (_a7 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(ShowingResultsFor_default).first();
   }
   get message() {
-    var _a5;
-    return (_a5 = __classPrivateFieldGet37(this, _Search_page, "f").contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(Message_default).first();
+    var _a7;
+    return (_a7 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Message_default).first();
   }
   get songs() {
-    var _a5;
-    return (_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.filterType(MusicShelf_default).find((section) => section.title.toString() === "Songs");
+    var _a7;
+    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Songs");
   }
   get videos() {
-    var _a5;
-    return (_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.filterType(MusicShelf_default).find((section) => section.title.toString() === "Videos");
+    var _a7;
+    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Videos");
   }
   get albums() {
-    var _a5;
-    return (_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.filterType(MusicShelf_default).find((section) => section.title.toString() === "Albums");
+    var _a7;
+    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Albums");
   }
   get artists() {
-    var _a5;
-    return (_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.filterType(MusicShelf_default).find((section) => section.title.toString() === "Artists");
+    var _a7;
+    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Artists");
   }
   get playlists() {
-    var _a5;
-    return (_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.filterType(MusicShelf_default).find((section) => section.title.toString() === "Community playlists");
+    var _a7;
+    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Community playlists");
   }
   get results() {
-    var _a5, _b;
-    return (_b = (_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.firstOfType(MusicShelf_default)) === null || _b === void 0 ? void 0 : _b.contents;
+    var _a7, _b2;
+    return (_b2 = (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.firstOfType(MusicShelf_default)) === null || _b2 === void 0 ? void 0 : _b2.contents;
   }
   get sections() {
-    var _a5;
-    return (_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.filterType(MusicShelf_default);
+    var _a7;
+    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default);
   }
   get page() {
-    return __classPrivateFieldGet37(this, _Search_page, "f");
+    return __classPrivateFieldGet(this, _Search_page, "f");
   }
 };
 __name(Search2, "Search");
@@ -21836,150 +21082,76 @@ _Search_page = /* @__PURE__ */ new WeakMap(), _Search_actions = /* @__PURE__ */ 
 var Search_default2 = Search2;
 var SearchContinuation = class {
   constructor(actions, response) {
-    var _a5, _b;
+    var _a7, _b2;
     _SearchContinuation_actions.set(this, void 0);
     _SearchContinuation_page.set(this, void 0);
-    __classPrivateFieldSet32(this, _SearchContinuation_actions, actions, "f");
-    __classPrivateFieldSet32(this, _SearchContinuation_page, parser_default.parseResponse(response.data), "f");
-    this.header = (_a5 = __classPrivateFieldGet37(this, _SearchContinuation_page, "f").header) === null || _a5 === void 0 ? void 0 : _a5.item().as(MusicHeader_default);
-    this.contents = (_b = __classPrivateFieldGet37(this, _SearchContinuation_page, "f").continuation_contents) === null || _b === void 0 ? void 0 : _b.as(MusicShelfContinuation);
+    __classPrivateFieldSet(this, _SearchContinuation_actions, actions, "f");
+    __classPrivateFieldSet(this, _SearchContinuation_page, parser_default.parseResponse(response.data), "f");
+    this.header = (_a7 = __classPrivateFieldGet(this, _SearchContinuation_page, "f").header) === null || _a7 === void 0 ? void 0 : _a7.item().as(MusicHeader_default);
+    this.contents = (_b2 = __classPrivateFieldGet(this, _SearchContinuation_page, "f").continuation_contents) === null || _b2 === void 0 ? void 0 : _b2.as(MusicShelfContinuation);
   }
   getContinuation() {
-    var _a5;
-    return __awaiter26(this, void 0, void 0, function* () {
-      if (!((_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.continuation))
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!((_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.continuation))
         throw new InnertubeError("Continuation not found.");
-      const response = yield __classPrivateFieldGet37(this, _SearchContinuation_actions, "f").execute("/search", {
+      const response = yield __classPrivateFieldGet(this, _SearchContinuation_actions, "f").execute("/search", {
         continuation: this.contents.continuation,
         client: "YTMUSIC"
       });
-      return new SearchContinuation(__classPrivateFieldGet37(this, _SearchContinuation_actions, "f"), response);
+      return new SearchContinuation(__classPrivateFieldGet(this, _SearchContinuation_actions, "f"), response);
     });
   }
   get has_continuation() {
-    var _a5;
-    return !!((_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.continuation);
+    var _a7;
+    return !!((_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.continuation);
   }
   get page() {
-    return __classPrivateFieldGet37(this, _SearchContinuation_page, "f");
+    return __classPrivateFieldGet(this, _SearchContinuation_page, "f");
   }
 };
 __name(SearchContinuation, "SearchContinuation");
 _SearchContinuation_actions = /* @__PURE__ */ new WeakMap(), _SearchContinuation_page = /* @__PURE__ */ new WeakMap();
 
 // dist/src/parser/ytmusic/TrackInfo.js
-var __awaiter27 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet33 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet38 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _TrackInfo_page;
-var _TrackInfo_actions;
-var _TrackInfo_cpn;
-var _TrackInfo_playback_tracking;
-var TrackInfo = class {
+var TrackInfo = class extends MediaInfo_default {
   constructor(data, actions, cpn) {
-    var _a5, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
-    _TrackInfo_page.set(this, void 0);
-    _TrackInfo_actions.set(this, void 0);
-    _TrackInfo_cpn.set(this, void 0);
-    _TrackInfo_playback_tracking.set(this, void 0);
-    __classPrivateFieldSet33(this, _TrackInfo_actions, actions, "f");
-    const info = parser_default.parseResponse(data[0].data);
-    const next = ((_a5 = data === null || data === void 0 ? void 0 : data[1]) === null || _a5 === void 0 ? void 0 : _a5.data) ? parser_default.parseResponse(data[1].data) : void 0;
-    __classPrivateFieldSet33(this, _TrackInfo_page, [info, next], "f");
-    __classPrivateFieldSet33(this, _TrackInfo_cpn, cpn, "f");
-    if (((_b = info.playability_status) === null || _b === void 0 ? void 0 : _b.status) === "ERROR")
-      throw new InnertubeError("This video is unavailable", info.playability_status);
-    if (!((_c = info.microformat) === null || _c === void 0 ? void 0 : _c.is(MicroformatData_default)))
+    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j;
+    super(data, actions, cpn);
+    const [info, next] = this.page;
+    if (!((_a7 = info.microformat) === null || _a7 === void 0 ? void 0 : _a7.is(MicroformatData_default)))
       throw new InnertubeError("Invalid microformat", info.microformat);
     this.basic_info = Object.assign(Object.assign({}, info.video_details), {
-      description: (_d = info.microformat) === null || _d === void 0 ? void 0 : _d.description,
-      is_unlisted: (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.is_unlisted,
-      is_family_safe: (_f = info.microformat) === null || _f === void 0 ? void 0 : _f.is_family_safe,
-      url_canonical: (_g = info.microformat) === null || _g === void 0 ? void 0 : _g.url_canonical,
-      tags: (_h = info.microformat) === null || _h === void 0 ? void 0 : _h.tags
+      description: (_b2 = info.microformat) === null || _b2 === void 0 ? void 0 : _b2.description,
+      is_unlisted: (_c = info.microformat) === null || _c === void 0 ? void 0 : _c.is_unlisted,
+      is_family_safe: (_d = info.microformat) === null || _d === void 0 ? void 0 : _d.is_family_safe,
+      url_canonical: (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.url_canonical,
+      tags: (_f = info.microformat) === null || _f === void 0 ? void 0 : _f.tags
     });
-    this.streaming_data = info.streaming_data;
-    this.playability_status = info.playability_status;
     this.storyboards = info.storyboards;
     this.endscreen = info.endscreen;
-    __classPrivateFieldSet33(this, _TrackInfo_playback_tracking, info.playback_tracking, "f");
     if (next) {
-      const tabbed_results = (_k = (_j = next.contents_memo) === null || _j === void 0 ? void 0 : _j.getType(WatchNextTabbedResults_default)) === null || _k === void 0 ? void 0 : _k[0];
+      const tabbed_results = (_h = (_g = next.contents_memo) === null || _g === void 0 ? void 0 : _g.getType(WatchNextTabbedResults_default)) === null || _h === void 0 ? void 0 : _h[0];
       this.tabs = tabbed_results === null || tabbed_results === void 0 ? void 0 : tabbed_results.tabs.array().as(Tab_default);
       this.current_video_endpoint = next.current_video_endpoint;
-      this.player_overlays = (_l = next.player_overlays) === null || _l === void 0 ? void 0 : _l.item().as(PlayerOverlay_default);
+      this.player_overlays = (_j = next.player_overlays) === null || _j === void 0 ? void 0 : _j.item().as(PlayerOverlay_default);
     }
   }
-  toDash(url_transformer, format_filter) {
-    return FormatUtils_default.toDash(this.streaming_data, url_transformer, format_filter, __classPrivateFieldGet38(this, _TrackInfo_cpn, "f"), __classPrivateFieldGet38(this, _TrackInfo_actions, "f").session.player);
-  }
-  chooseFormat(options) {
-    return FormatUtils_default.chooseFormat(options, this.streaming_data);
-  }
-  download(options = {}) {
-    return __awaiter27(this, void 0, void 0, function* () {
-      return FormatUtils_default.download(options, __classPrivateFieldGet38(this, _TrackInfo_actions, "f"), this.playability_status, this.streaming_data, __classPrivateFieldGet38(this, _TrackInfo_actions, "f").session.player);
-    });
-  }
   getTab(title_or_page_type) {
-    var _a5, _b;
-    return __awaiter27(this, void 0, void 0, function* () {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
       if (!this.tabs)
         throw new InnertubeError("Could not find any tab");
       const target_tab = this.tabs.get({ title: title_or_page_type }) || this.tabs.matchCondition((tab) => {
-        var _a6, _b2;
-        return ((_b2 = (_a6 = tab.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a6 === void 0 ? void 0 : _a6.browseEndpointContextMusicConfig) === null || _b2 === void 0 ? void 0 : _b2.pageType) === title_or_page_type;
-      }) || ((_a5 = this.tabs) === null || _a5 === void 0 ? void 0 : _a5[0]);
+        var _a8, _b3;
+        return ((_b3 = (_a8 = tab.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a8 === void 0 ? void 0 : _a8.browseEndpointContextMusicConfig) === null || _b3 === void 0 ? void 0 : _b3.pageType) === title_or_page_type;
+      }) || ((_a7 = this.tabs) === null || _a7 === void 0 ? void 0 : _a7[0]);
       if (!target_tab)
         throw new InnertubeError(`Tab "${title_or_page_type}" not found`, { available_tabs: this.available_tabs });
       if (target_tab.content)
         return target_tab.content;
-      const page = yield target_tab.endpoint.call(__classPrivateFieldGet38(this, _TrackInfo_actions, "f"), { client: "YTMUSIC", parse: true });
-      if (((_b = page.contents) === null || _b === void 0 ? void 0 : _b.item().key("type").string()) === "Message")
+      const page = yield target_tab.endpoint.call(this.actions, { client: "YTMUSIC", parse: true });
+      if (((_b2 = page.contents) === null || _b2 === void 0 ? void 0 : _b2.item().key("type").string()) === "Message")
         return page.contents.item().as(Message_default);
       if (!page.contents)
         throw new InnertubeError("Page contents was empty", page);
@@ -21987,8 +21159,8 @@ var TrackInfo = class {
     });
   }
   getUpNext(automix = true) {
-    var _a5, _b;
-    return __awaiter27(this, void 0, void 0, function* () {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
       const music_queue = yield this.getTab("Up next");
       if (!music_queue || !music_queue.content)
         throw new InnertubeError("Music queue was empty, the video id is probably invalid.", music_queue);
@@ -21997,57 +21169,43 @@ var TrackInfo = class {
         const automix_preview_video = playlist_panel.contents.firstOfType(AutomixPreviewVideo_default);
         if (!automix_preview_video)
           throw new InnertubeError("Automix item not found");
-        const page = yield (_a5 = automix_preview_video.playlist_video) === null || _a5 === void 0 ? void 0 : _a5.endpoint.call(__classPrivateFieldGet38(this, _TrackInfo_actions, "f"), {
+        const page = yield (_a7 = automix_preview_video.playlist_video) === null || _a7 === void 0 ? void 0 : _a7.endpoint.call(this.actions, {
           videoId: this.basic_info.id,
           client: "YTMUSIC",
           parse: true
         });
         if (!page || !page.contents_memo)
           throw new InnertubeError("Could not fetch automix");
-        return (_b = page.contents_memo.getType(PlaylistPanel_default)) === null || _b === void 0 ? void 0 : _b[0];
+        return (_b2 = page.contents_memo.getType(PlaylistPanel_default)) === null || _b2 === void 0 ? void 0 : _b2[0];
       }
       return playlist_panel;
     });
   }
   getRelated() {
-    return __awaiter27(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTab("MUSIC_PAGE_TYPE_TRACK_RELATED");
       return tab;
     });
   }
   getLyrics() {
-    return __awaiter27(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTab("MUSIC_PAGE_TYPE_TRACK_LYRICS");
       return tab.firstOfType(MusicDescriptionShelf_default);
     });
   }
   addToWatchHistory() {
-    return __awaiter27(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet38(this, _TrackInfo_playback_tracking, "f"))
-        throw new InnertubeError("Playback tracking not available");
-      const url_params = {
-        cpn: __classPrivateFieldGet38(this, _TrackInfo_cpn, "f"),
-        fmt: 251,
-        rtn: 0,
-        rt: 0
-      };
-      const url = __classPrivateFieldGet38(this, _TrackInfo_playback_tracking, "f").videostats_playback_url.replace("https://s.", "https://music.");
-      const response = yield __classPrivateFieldGet38(this, _TrackInfo_actions, "f").stats(url, {
-        client_name: Constants_default.CLIENTS.YTMUSIC.NAME,
-        client_version: Constants_default.CLIENTS.YTMUSIC.VERSION
-      }, url_params);
-      return response;
+    const _super = Object.create(null, {
+      addToWatchHistory: { get: () => super.addToWatchHistory }
+    });
+    return __awaiter(this, void 0, void 0, function* () {
+      return _super.addToWatchHistory.call(this, CLIENTS.YTMUSIC.NAME, CLIENTS.YTMUSIC.VERSION, "https://music.");
     });
   }
   get available_tabs() {
     return this.tabs ? this.tabs.map((tab) => tab.title) : [];
   }
-  get page() {
-    return __classPrivateFieldGet38(this, _TrackInfo_page, "f");
-  }
 };
 __name(TrackInfo, "TrackInfo");
-_TrackInfo_page = /* @__PURE__ */ new WeakMap(), _TrackInfo_actions = /* @__PURE__ */ new WeakMap(), _TrackInfo_cpn = /* @__PURE__ */ new WeakMap(), _TrackInfo_playback_tracking = /* @__PURE__ */ new WeakMap();
 var TrackInfo_default = TrackInfo;
 
 // dist/src/parser/ytkids/index.js
@@ -22060,107 +21218,45 @@ __export(ytkids_exports, {
 });
 
 // dist/src/parser/ytkids/Channel.js
-var __awaiter28 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
 var Channel3 = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a5, _b;
+    var _a7, _b2;
     super(actions, data, already_parsed);
-    this.header = (_a5 = this.page.header) === null || _a5 === void 0 ? void 0 : _a5.item().as(C4TabbedHeader_default);
-    this.contents = this.memo.getType(ItemSection_default).first() || ((_b = this.page.continuation_contents) === null || _b === void 0 ? void 0 : _b.as(ItemSectionContinuation));
+    this.header = (_a7 = this.page.header) === null || _a7 === void 0 ? void 0 : _a7.item().as(C4TabbedHeader_default);
+    this.contents = this.memo.getType(ItemSection_default).first() || ((_b2 = this.page.continuation_contents) === null || _b2 === void 0 ? void 0 : _b2.as(ItemSectionContinuation));
   }
   getContinuation() {
-    var _a5;
-    return __awaiter28(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       const response = yield this.actions.execute("/browse", {
-        continuation: (_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.continuation,
+        continuation: (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.continuation,
         client: "YTKIDS"
       });
       return new Channel3(this.actions, response);
     });
   }
   get has_continuation() {
-    var _a5;
-    return !!((_a5 = this.contents) === null || _a5 === void 0 ? void 0 : _a5.continuation);
+    var _a7;
+    return !!((_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.continuation);
   }
 };
 __name(Channel3, "Channel");
 var Channel_default2 = Channel3;
 
 // dist/src/parser/ytkids/HomeFeed.js
-var __awaiter29 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
 var HomeFeed3 = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a5, _b;
+    var _a7, _b2;
     super(actions, data, already_parsed);
-    this.header = (_a5 = this.page.header) === null || _a5 === void 0 ? void 0 : _a5.item().as(KidsCategoriesHeader_default);
-    this.contents = (_b = this.page.contents) === null || _b === void 0 ? void 0 : _b.item().as(KidsHomeScreen_default);
+    this.header = (_a7 = this.page.header) === null || _a7 === void 0 ? void 0 : _a7.item().as(KidsCategoriesHeader_default);
+    this.contents = (_b2 = this.page.contents) === null || _b2 === void 0 ? void 0 : _b2.item().as(KidsHomeScreen_default);
   }
   selectCategoryTab(tab) {
-    var _a5;
-    return __awaiter29(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       let target_tab;
       if (typeof tab === "string") {
-        target_tab = (_a5 = this.header) === null || _a5 === void 0 ? void 0 : _a5.category_tabs.find((t) => t.title.toString() === tab);
+        target_tab = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.category_tabs.find((t) => t.title.toString() === tab);
       } else if (tab === null || tab === void 0 ? void 0 : tab.is(KidsCategoryTab_default)) {
         target_tab = tab;
       }
@@ -22173,8 +21269,8 @@ var HomeFeed3 = class extends Feed_default {
     });
   }
   get categories() {
-    var _a5;
-    return ((_a5 = this.header) === null || _a5 === void 0 ? void 0 : _a5.category_tabs.map((tab) => tab.title.toString())) || [];
+    var _a7;
+    return ((_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.category_tabs.map((tab) => tab.title.toString())) || [];
   }
 };
 __name(HomeFeed3, "HomeFeed");
@@ -22195,180 +21291,345 @@ __name(Search3, "Search");
 var Search_default3 = Search3;
 
 // dist/src/parser/ytkids/VideoInfo.js
-var __awaiter30 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet34 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet39 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _VideoInfo_page2;
-var _VideoInfo_actions2;
-var _VideoInfo_cpn2;
-var _VideoInfo_playback_tracking2;
-var VideoInfo2 = class {
+var VideoInfo2 = class extends MediaInfo_default {
   constructor(data, actions, cpn) {
-    var _a5, _b, _c, _d, _e, _f, _g;
-    _VideoInfo_page2.set(this, void 0);
-    _VideoInfo_actions2.set(this, void 0);
-    _VideoInfo_cpn2.set(this, void 0);
-    _VideoInfo_playback_tracking2.set(this, void 0);
-    __classPrivateFieldSet34(this, _VideoInfo_actions2, actions, "f");
-    const info = parser_default.parseResponse(data[0].data);
-    const next = ((_a5 = data === null || data === void 0 ? void 0 : data[1]) === null || _a5 === void 0 ? void 0 : _a5.data) ? parser_default.parseResponse(data[1].data) : void 0;
-    __classPrivateFieldSet34(this, _VideoInfo_page2, [info, next], "f");
-    __classPrivateFieldSet34(this, _VideoInfo_cpn2, cpn, "f");
-    if (((_b = info.playability_status) === null || _b === void 0 ? void 0 : _b.status) === "ERROR")
-      throw new InnertubeError("This video is unavailable", info.playability_status);
+    var _a7, _b2, _c, _d, _e;
+    super(data, actions, cpn);
+    const [info, next] = this.page;
     this.basic_info = info.video_details;
-    this.streaming_data = info.streaming_data;
-    this.playability_status = info.playability_status;
     this.captions = info.captions;
-    __classPrivateFieldSet34(this, _VideoInfo_playback_tracking2, info.playback_tracking, "f");
-    const two_col = (_c = next === null || next === void 0 ? void 0 : next.contents) === null || _c === void 0 ? void 0 : _c.item().as(TwoColumnWatchNextResults_default);
+    const two_col = (_a7 = next === null || next === void 0 ? void 0 : next.contents) === null || _a7 === void 0 ? void 0 : _a7.item().as(TwoColumnWatchNextResults_default);
     const results = two_col === null || two_col === void 0 ? void 0 : two_col.results;
     const secondary_results = two_col === null || two_col === void 0 ? void 0 : two_col.secondary_results;
     if (results && secondary_results) {
-      this.slim_video_metadata = (_e = (_d = results.firstOfType(ItemSection_default)) === null || _d === void 0 ? void 0 : _d.contents) === null || _e === void 0 ? void 0 : _e.firstOfType(SlimVideoMetadata_default);
-      this.watch_next_feed = ((_f = secondary_results.firstOfType(ItemSection_default)) === null || _f === void 0 ? void 0 : _f.contents) || secondary_results;
+      this.slim_video_metadata = (_c = (_b2 = results.firstOfType(ItemSection_default)) === null || _b2 === void 0 ? void 0 : _b2.contents) === null || _c === void 0 ? void 0 : _c.firstOfType(SlimVideoMetadata_default);
+      this.watch_next_feed = ((_d = secondary_results.firstOfType(ItemSection_default)) === null || _d === void 0 ? void 0 : _d.contents) || secondary_results;
       this.current_video_endpoint = next === null || next === void 0 ? void 0 : next.current_video_endpoint;
-      this.player_overlays = (_g = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _g === void 0 ? void 0 : _g.item().as(PlayerOverlay_default);
+      this.player_overlays = (_e = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _e === void 0 ? void 0 : _e.item().as(PlayerOverlay_default);
     }
   }
-  toDash(url_transformer, format_filter) {
-    return FormatUtils_default.toDash(this.streaming_data, url_transformer, format_filter, __classPrivateFieldGet39(this, _VideoInfo_cpn2, "f"), __classPrivateFieldGet39(this, _VideoInfo_actions2, "f").session.player);
-  }
-  chooseFormat(options) {
-    return FormatUtils_default.chooseFormat(options, this.streaming_data);
-  }
-  download(options = {}) {
-    return __awaiter30(this, void 0, void 0, function* () {
-      return FormatUtils_default.download(options, __classPrivateFieldGet39(this, _VideoInfo_actions2, "f"), this.playability_status, this.streaming_data, __classPrivateFieldGet39(this, _VideoInfo_actions2, "f").session.player, this.cpn);
-    });
-  }
   addToWatchHistory() {
-    return __awaiter30(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet39(this, _VideoInfo_playback_tracking2, "f"))
-        throw new InnertubeError("Playback tracking not available");
-      const url_params = {
-        cpn: __classPrivateFieldGet39(this, _VideoInfo_cpn2, "f"),
-        fmt: 251,
-        rtn: 0,
-        rt: 0
-      };
-      const url = __classPrivateFieldGet39(this, _VideoInfo_playback_tracking2, "f").videostats_playback_url.replace("https://s.", "https://www.");
-      const response = yield __classPrivateFieldGet39(this, _VideoInfo_actions2, "f").stats(url, {
-        client_name: Constants_exports.CLIENTS.WEB.NAME,
-        client_version: Constants_exports.CLIENTS.WEB.VERSION
-      }, url_params);
-      return response;
+    const _super = Object.create(null, {
+      addToWatchHistory: { get: () => super.addToWatchHistory }
     });
-  }
-  get actions() {
-    return __classPrivateFieldGet39(this, _VideoInfo_actions2, "f");
-  }
-  get cpn() {
-    return __classPrivateFieldGet39(this, _VideoInfo_cpn2, "f");
-  }
-  get page() {
-    return __classPrivateFieldGet39(this, _VideoInfo_page2, "f");
+    return __awaiter(this, void 0, void 0, function* () {
+      return _super.addToWatchHistory.call(this);
+    });
   }
 };
 __name(VideoInfo2, "VideoInfo");
-_VideoInfo_page2 = /* @__PURE__ */ new WeakMap(), _VideoInfo_actions2 = /* @__PURE__ */ new WeakMap(), _VideoInfo_cpn2 = /* @__PURE__ */ new WeakMap(), _VideoInfo_playback_tracking2 = /* @__PURE__ */ new WeakMap();
 var VideoInfo_default2 = VideoInfo2;
 
 // dist/src/parser/index.js
-var parser_default = Parser;
+var parser_default = parser_default2;
+
+// dist/src/parser/classes/misc/Author.js
+var _Author_nav_text;
+var Author = class {
+  constructor(item, badges, thumbs, id) {
+    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12;
+    _Author_nav_text.set(this, void 0);
+    __classPrivateFieldSet(this, _Author_nav_text, new Text(item), "f");
+    this.id = id || ((_e = (_d = (_c = (_b2 = (_a7 = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _a7 === void 0 ? void 0 : _a7.runs) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.endpoint) === null || _d === void 0 ? void 0 : _d.payload) === null || _e === void 0 ? void 0 : _e.browseId) || ((_h = (_g = (_f = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _f === void 0 ? void 0 : _f.endpoint) === null || _g === void 0 ? void 0 : _g.payload) === null || _h === void 0 ? void 0 : _h.browseId) || "N/A";
+    this.name = ((_j = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _j === void 0 ? void 0 : _j.text) || "N/A";
+    this.thumbnails = thumbs ? Thumbnail.fromResponse(thumbs) : [];
+    this.endpoint = ((_m = (_l = (_k = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _k === void 0 ? void 0 : _k.runs) === null || _l === void 0 ? void 0 : _l[0]) === null || _m === void 0 ? void 0 : _m.endpoint) || ((_o = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _o === void 0 ? void 0 : _o.endpoint);
+    this.badges = Array.isArray(badges) ? parser_default.parseArray(badges) : observe([]);
+    this.is_moderator = (_p = this.badges) === null || _p === void 0 ? void 0 : _p.some((badge) => badge.icon_type == "MODERATOR");
+    this.is_verified = (_q = this.badges) === null || _q === void 0 ? void 0 : _q.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED");
+    this.is_verified_artist = (_r = this.badges) === null || _r === void 0 ? void 0 : _r.some((badge) => badge.style == "BADGE_STYLE_TYPE_VERIFIED_ARTIST");
+    this.url = ((_w = (_v = (_u = (_t = (_s = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _s === void 0 ? void 0 : _s.runs) === null || _t === void 0 ? void 0 : _t[0]) === null || _u === void 0 ? void 0 : _u.endpoint) === null || _v === void 0 ? void 0 : _v.metadata) === null || _w === void 0 ? void 0 : _w.api_url) === "/browse" && `${URLS.YT_BASE}${((_1 = (_0 = (_z = (_y = (_x = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _x === void 0 ? void 0 : _x.runs) === null || _y === void 0 ? void 0 : _y[0]) === null || _z === void 0 ? void 0 : _z.endpoint) === null || _0 === void 0 ? void 0 : _0.payload) === null || _1 === void 0 ? void 0 : _1.canonicalBaseUrl) || `/u/${(_6 = (_5 = (_4 = (_3 = (_2 = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _2 === void 0 ? void 0 : _2.runs) === null || _3 === void 0 ? void 0 : _3[0]) === null || _4 === void 0 ? void 0 : _4.endpoint) === null || _5 === void 0 ? void 0 : _5.payload) === null || _6 === void 0 ? void 0 : _6.browseId}`}` || `${URLS.YT_BASE}${((_9 = (_8 = (_7 = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _7 === void 0 ? void 0 : _7.endpoint) === null || _8 === void 0 ? void 0 : _8.payload) === null || _9 === void 0 ? void 0 : _9.canonicalBaseUrl) || `/u/${(_12 = (_11 = (_10 = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _10 === void 0 ? void 0 : _10.endpoint) === null || _11 === void 0 ? void 0 : _11.payload) === null || _12 === void 0 ? void 0 : _12.browseId}`}`;
+  }
+  get best_thumbnail() {
+    return this.thumbnails[0];
+  }
+};
+__name(Author, "Author");
+_Author_nav_text = /* @__PURE__ */ new WeakMap();
+var Author_default = Author;
+
+// dist/src/utils/user-agents.js
+var user_agents_default = {
+  "desktop": [
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36 Edg/109.0.1518.61",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Safari/605.1.15",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+  ],
+  "mobile": [
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 12; SM-G990U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 13; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/108.1  Mobile/15E148 Safari/605.1.15",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15G77 ChannelId(73) NebulaSDK/1.8.100112 Nebula PSDType(1) AlipayDefined(nt:4G,ws:320|504|2.0) AliApp(AP/10.1.30.300) AlipayClient/10.1.30.300 Alipay Language/zh-Hans",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 13; SM-N981U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (Linux; Android 13; SM-A515F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 12; M2010J19SG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 15_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.1 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/109.0.5414.83 Mobile/15E148 Safari/604.1",
+    "Mozilla/5.0 (Linux; Android 11; M2102J20SG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Mobile Safari/537.36",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.2 Mobile/15E148 Safari/604.1"
+  ]
+};
+
+// dist/src/utils/Utils.js
+var _a4;
+var _Platform_shim;
+var Platform = class {
+  static load(platform) {
+    __classPrivateFieldSet(Platform, _a4, platform, "f", _Platform_shim);
+  }
+  static get shim() {
+    if (!__classPrivateFieldGet(Platform, _a4, "f", _Platform_shim)) {
+      throw new Error("Platform is not loaded");
+    }
+    return __classPrivateFieldGet(Platform, _a4, "f", _Platform_shim);
+  }
+};
+__name(Platform, "Platform");
+_a4 = Platform;
+_Platform_shim = { value: void 0 };
+var InnertubeError = class extends Error {
+  constructor(message, info) {
+    super(message);
+    if (info) {
+      this.info = info;
+    }
+    this.date = new Date();
+    this.version = Platform.shim.info.version;
+  }
+};
+__name(InnertubeError, "InnertubeError");
+var ParsingError = class extends InnertubeError {
+};
+__name(ParsingError, "ParsingError");
+var MissingParamError = class extends InnertubeError {
+};
+__name(MissingParamError, "MissingParamError");
+var OAuthError = class extends InnertubeError {
+};
+__name(OAuthError, "OAuthError");
+var PlayerError = class extends Error {
+};
+__name(PlayerError, "PlayerError");
+var SessionError = class extends Error {
+};
+__name(SessionError, "SessionError");
+var ChannelError = class extends Error {
+};
+__name(ChannelError, "ChannelError");
+function deepCompare(obj1, obj2) {
+  const keys = Reflect.ownKeys(obj1);
+  return keys.some((key) => {
+    const is_text = obj2[key] instanceof Text;
+    if (!is_text && typeof obj2[key] === "object") {
+      return JSON.stringify(obj1[key]) === JSON.stringify(obj2[key]);
+    }
+    return obj1[key] === (is_text ? obj2[key].toString() : obj2[key]);
+  });
+}
+__name(deepCompare, "deepCompare");
+function getStringBetweenStrings(data, start_string, end_string) {
+  const regex = new RegExp(`${escapeStringRegexp(start_string)}(.*?)${escapeStringRegexp(end_string)}`, "s");
+  const match = data.match(regex);
+  return match ? match[1] : void 0;
+}
+__name(getStringBetweenStrings, "getStringBetweenStrings");
+function escapeStringRegexp(input) {
+  return input.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+}
+__name(escapeStringRegexp, "escapeStringRegexp");
+function getRandomUserAgent(type) {
+  const available_agents = user_agents_default[type];
+  const random_index = Math.floor(Math.random() * available_agents.length);
+  return available_agents[random_index];
+}
+__name(getRandomUserAgent, "getRandomUserAgent");
+function generateSidAuth(sid) {
+  return __awaiter(this, void 0, void 0, function* () {
+    const youtube = "https://www.youtube.com";
+    const timestamp = Math.floor(new Date().getTime() / 1e3);
+    const input = [timestamp, sid, youtube].join(" ");
+    const gen_hash = yield Platform.shim.sha1Hash(input);
+    return ["SAPISIDHASH", [timestamp, gen_hash].join("_")].join(" ");
+  });
+}
+__name(generateSidAuth, "generateSidAuth");
+function generateRandomString(length) {
+  const result = [];
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+  for (let i = 0; i < length; i++) {
+    result.push(alphabet.charAt(Math.floor(Math.random() * alphabet.length)));
+  }
+  return result.join("");
+}
+__name(generateRandomString, "generateRandomString");
+function timeToSeconds(time) {
+  const params = time.split(":").map((param) => parseInt(param.replace(/\D/g, "")));
+  switch (params.length) {
+    case 1:
+      return params[0];
+    case 2:
+      return params[0] * 60 + params[1];
+    case 3:
+      return params[0] * 3600 + params[1] * 60 + params[2];
+    default:
+      throw new Error("Invalid time string");
+  }
+}
+__name(timeToSeconds, "timeToSeconds");
+function concatMemos(...iterables) {
+  const memo = new Memo();
+  for (const iterable of iterables) {
+    if (!iterable)
+      continue;
+    for (const item of iterable) {
+      memo.set(...item);
+    }
+  }
+  return memo;
+}
+__name(concatMemos, "concatMemos");
+function throwIfMissing(params) {
+  for (const [key, value] of Object.entries(params)) {
+    if (!value)
+      throw new MissingParamError(`${key} is missing`);
+  }
+}
+__name(throwIfMissing, "throwIfMissing");
+function hasKeys(params, ...keys) {
+  for (const key of keys) {
+    if (!Reflect.has(params, key) || params[key] === void 0)
+      return false;
+  }
+  return true;
+}
+__name(hasKeys, "hasKeys");
+function streamToIterable(stream) {
+  return __asyncGenerator(this, arguments, /* @__PURE__ */ __name(function* streamToIterable_1() {
+    const reader = stream.getReader();
+    try {
+      while (true) {
+        const { done, value } = yield __await(reader.read());
+        if (done) {
+          return yield __await(void 0);
+        }
+        yield yield __await(value);
+      }
+    } finally {
+      reader.releaseLock();
+    }
+  }, "streamToIterable_1"));
+}
+__name(streamToIterable, "streamToIterable");
+var debugFetch = /* @__PURE__ */ __name((input, init) => {
+  const url = typeof input === "string" ? new URL(input) : input instanceof URL ? input : new URL(input.url);
+  const headers = (init === null || init === void 0 ? void 0 : init.headers) ? new Headers(init.headers) : input instanceof Request ? input.headers : new Headers();
+  const arr_headers = [...headers];
+  const body_contents = (init === null || init === void 0 ? void 0 : init.body) ? typeof init.body === "string" ? headers.get("content-type") === "application/json" ? JSON.stringify(JSON.parse(init.body), null, 2) : init.body : "    <binary>" : "    (none)";
+  const headers_serialized = arr_headers.length > 0 ? `${arr_headers.map(([key, value]) => `    ${key}: ${value}`).join("\n")}` : "    (none)";
+  console.log(`YouTube.js Fetch:
+  url: ${url.toString()}
+  method: ${(init === null || init === void 0 ? void 0 : init.method) || "GET"}
+  headers:
+${headers_serialized}
+' + 
+    '  body:
+${body_contents}`);
+  return Platform.shim.fetch(input, init);
+}, "debugFetch");
+function u8ToBase64(u8) {
+  return btoa(String.fromCharCode.apply(null, Array.from(u8)));
+}
+__name(u8ToBase64, "u8ToBase64");
+function base64ToU8(base64) {
+  return new Uint8Array(atob(base64).split("").map((char) => char.charCodeAt(0)));
+}
+__name(base64ToU8, "base64ToU8");
+function isTextRun(run) {
+  return !("emoji" in run);
+}
+__name(isTextRun, "isTextRun");
+
+// dist/src/platform/node.js
+var import_crypto = __toESM(require("crypto"), 1);
+var import_path = __toESM(require("path"), 1);
+var import_os = __toESM(require("os"), 1);
+var import_promises = __toESM(require("fs/promises"), 1);
+var import_fs = require("fs");
+
+// dist/src/platform/polyfills/server-dom.js
+var import_linkedom = require("linkedom");
+var server_dom_default = import_linkedom.DOMParser;
+
+// dist/src/platform/polyfills/node-custom-event.js
+var _CustomEvent_detail;
+var CustomEvent = class extends Event {
+  constructor(type, options) {
+    var _a7;
+    super(type, options);
+    _CustomEvent_detail.set(this, void 0);
+    __classPrivateFieldSet(this, _CustomEvent_detail, (_a7 = options === null || options === void 0 ? void 0 : options.detail) !== null && _a7 !== void 0 ? _a7 : null, "f");
+  }
+  get detail() {
+    return __classPrivateFieldGet(this, _CustomEvent_detail, "f");
+  }
+};
+__name(CustomEvent, "CustomEvent");
+_CustomEvent_detail = /* @__PURE__ */ new WeakMap();
+var node_custom_event_default = CustomEvent;
+
+// dist/src/platform/node.js
+var import_url = require("url");
+
+// dist/src/platform/jsruntime/jinter.js
+var import_jintr = require("jintr");
+function evaluate(code, env) {
+  const runtime = new import_jintr.Jinter(code);
+  for (const [key, value] of Object.entries(env)) {
+    runtime.scope.set(key, value);
+  }
+  return runtime.interpret();
+}
+__name(evaluate, "evaluate");
 
 // dist/src/core/Actions.js
-var __awaiter31 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet35 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet40 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Actions_instances;
 var _Actions_session;
 var _Actions_wrap;
@@ -22378,54 +21639,13 @@ var Actions = class {
   constructor(session) {
     _Actions_instances.add(this);
     _Actions_session.set(this, void 0);
-    __classPrivateFieldSet35(this, _Actions_session, session, "f");
+    __classPrivateFieldSet(this, _Actions_session, session, "f");
   }
   get session() {
-    return __classPrivateFieldGet40(this, _Actions_session, "f");
-  }
-  getVideoInfo(id, cpn, client, playlist_id) {
-    var _a5;
-    return __awaiter31(this, void 0, void 0, function* () {
-      const data = {
-        playbackContext: {
-          contentPlaybackContext: {
-            vis: 0,
-            splay: false,
-            referer: "https://www.youtube.com",
-            currentUrl: `/watch?v=${id}`,
-            autonavState: "STATE_NONE",
-            signatureTimestamp: ((_a5 = __classPrivateFieldGet40(this, _Actions_session, "f").player) === null || _a5 === void 0 ? void 0 : _a5.sts) || 0,
-            autoCaptionsDefaultOn: false,
-            html5Preference: "HTML5_PREF_WANTS",
-            lactMilliseconds: "-1"
-          }
-        },
-        attestationRequest: {
-          omitBotguardData: true
-        },
-        videoId: id
-      };
-      if (client) {
-        data.client = client;
-      }
-      if (cpn) {
-        data.cpn = cpn;
-      }
-      if (playlist_id) {
-        data.playlistId = playlist_id;
-      }
-      const response = yield __classPrivateFieldGet40(this, _Actions_session, "f").http.fetch("/player", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      });
-      return __classPrivateFieldGet40(this, _Actions_instances, "m", _Actions_wrap).call(this, response);
-    });
+    return __classPrivateFieldGet(this, _Actions_session, "f");
   }
   stats(url, client, params) {
-    return __awaiter31(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const s_url = new URL(url);
       s_url.searchParams.set("ver", "2");
       s_url.searchParams.set("c", client.client_name.toLowerCase());
@@ -22434,18 +21654,18 @@ var Actions = class {
       for (const key of Object.keys(params)) {
         s_url.searchParams.set(key, params[key]);
       }
-      const response = yield __classPrivateFieldGet40(this, _Actions_session, "f").http.fetch(s_url);
+      const response = yield __classPrivateFieldGet(this, _Actions_session, "f").http.fetch(s_url);
       return response;
     });
   }
   execute(endpoint, args) {
-    var _a5, _b;
-    return __awaiter31(this, void 0, void 0, function* () {
+    var _a7, _b2;
+    return __awaiter(this, void 0, void 0, function* () {
       let data;
       if (args && !args.protobuf) {
         data = Object.assign({}, args);
         if (Reflect.has(data, "browseId")) {
-          if (__classPrivateFieldGet40(this, _Actions_instances, "m", _Actions_needsLogin).call(this, data.browseId) && !__classPrivateFieldGet40(this, _Actions_session, "f").logged_in)
+          if (__classPrivateFieldGet(this, _Actions_instances, "m", _Actions_needsLogin).call(this, data.browseId) && !__classPrivateFieldGet(this, _Actions_session, "f").logged_in)
             throw new InnertubeError("You must be signed in to perform this operation.");
         }
         if (Reflect.has(data, "override_endpoint"))
@@ -22477,7 +21697,7 @@ var Actions = class {
         data = args.serialized_data;
       }
       const target_endpoint = Reflect.has(args || {}, "override_endpoint") ? args === null || args === void 0 ? void 0 : args.override_endpoint : endpoint;
-      const response = yield __classPrivateFieldGet40(this, _Actions_session, "f").http.fetch(target_endpoint, {
+      const response = yield __classPrivateFieldGet(this, _Actions_session, "f").http.fetch(target_endpoint, {
         method: "POST",
         body: (args === null || args === void 0 ? void 0 : args.protobuf) ? data : JSON.stringify(data || {}),
         headers: {
@@ -22486,7 +21706,7 @@ var Actions = class {
       });
       if (args === null || args === void 0 ? void 0 : args.parse) {
         let parsed_response = parser_default.parseResponse(yield response.json());
-        if (__classPrivateFieldGet40(this, _Actions_instances, "m", _Actions_isBrowse).call(this, parsed_response) && ((_b = (_a5 = parsed_response.on_response_received_actions) === null || _a5 === void 0 ? void 0 : _a5.first()) === null || _b === void 0 ? void 0 : _b.type) === "navigateAction") {
+        if (__classPrivateFieldGet(this, _Actions_instances, "m", _Actions_isBrowse).call(this, parsed_response) && ((_b2 = (_a7 = parsed_response.on_response_received_actions) === null || _a7 === void 0 ? void 0 : _a7.first()) === null || _b2 === void 0 ? void 0 : _b2.type) === "navigateAction") {
           const navigate_action = parsed_response.on_response_received_actions.firstOfType(NavigateAction);
           if (navigate_action) {
             parsed_response = yield navigate_action.endpoint.call(this, { parse: true });
@@ -22494,13 +21714,13 @@ var Actions = class {
         }
         return parsed_response;
       }
-      return __classPrivateFieldGet40(this, _Actions_instances, "m", _Actions_wrap).call(this, response);
+      return __classPrivateFieldGet(this, _Actions_instances, "m", _Actions_wrap).call(this, response);
     });
   }
 };
 __name(Actions, "Actions");
 _Actions_session = /* @__PURE__ */ new WeakMap(), _Actions_instances = /* @__PURE__ */ new WeakSet(), _Actions_wrap = /* @__PURE__ */ __name(function _Actions_wrap2(response) {
-  return __awaiter31(this, void 0, void 0, function* () {
+  return __awaiter(this, void 0, void 0, function* () {
     return {
       success: response.ok,
       status_code: response.status,
@@ -22525,53 +21745,6 @@ _Actions_session = /* @__PURE__ */ new WeakMap(), _Actions_instances = /* @__PUR
 var Actions_default = Actions;
 
 // dist/src/core/Player.js
-var __awaiter32 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet36 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet41 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Player_nsig_sc;
 var _Player_sig_sc;
 var _Player_sig_sc_timestamp;
@@ -22582,14 +21755,14 @@ var Player = class {
     _Player_sig_sc.set(this, void 0);
     _Player_sig_sc_timestamp.set(this, void 0);
     _Player_player_id.set(this, void 0);
-    __classPrivateFieldSet36(this, _Player_nsig_sc, nsig_sc, "f");
-    __classPrivateFieldSet36(this, _Player_sig_sc, sig_sc, "f");
-    __classPrivateFieldSet36(this, _Player_sig_sc_timestamp, signature_timestamp, "f");
-    __classPrivateFieldSet36(this, _Player_player_id, player_id, "f");
+    __classPrivateFieldSet(this, _Player_nsig_sc, nsig_sc, "f");
+    __classPrivateFieldSet(this, _Player_sig_sc, sig_sc, "f");
+    __classPrivateFieldSet(this, _Player_sig_sc_timestamp, signature_timestamp, "f");
+    __classPrivateFieldSet(this, _Player_player_id, player_id, "f");
   }
   static create(cache, fetch = Platform.shim.fetch) {
-    return __awaiter32(this, void 0, void 0, function* () {
-      const url = new URL("/iframe_api", Constants_default.URLS.YT_BASE);
+    return __awaiter(this, void 0, void 0, function* () {
+      const url = new URL("/iframe_api", URLS.YT_BASE);
       const res = yield fetch(url);
       if (res.status !== 200)
         throw new PlayerError("Failed to request player id");
@@ -22602,7 +21775,7 @@ var Player = class {
         if (cached_player)
           return cached_player;
       }
-      const player_url = new URL(`/s/player/${player_id}/player_ias.vflset/en_US/base.js`, Constants_default.URLS.YT_BASE);
+      const player_url = new URL(`/s/player/${player_id}/player_ias.vflset/en_US/base.js`, URLS.YT_BASE);
       const player_res = yield fetch(player_url, {
         headers: {
           "user-agent": getRandomUserAgent("desktop")
@@ -22625,7 +21798,7 @@ var Player = class {
     const args = new URLSearchParams(url);
     const url_components = new URL(args.get("url") || url);
     if (signature_cipher || cipher) {
-      const signature = Platform.shim.eval(__classPrivateFieldGet41(this, _Player_sig_sc, "f"), {
+      const signature = Platform.shim.eval(__classPrivateFieldGet(this, _Player_sig_sc, "f"), {
         sig: args.get("s")
       });
       if (typeof signature !== "string")
@@ -22635,7 +21808,7 @@ var Player = class {
     }
     const n = url_components.searchParams.get("n");
     if (n) {
-      const nsig = Platform.shim.eval(__classPrivateFieldGet41(this, _Player_nsig_sc, "f"), {
+      const nsig = Platform.shim.eval(__classPrivateFieldGet(this, _Player_nsig_sc, "f"), {
         nsig: n
       });
       if (typeof nsig !== "string")
@@ -22645,10 +21818,31 @@ var Player = class {
       }
       url_components.searchParams.set("n", nsig);
     }
+    const client = url_components.searchParams.get("c");
+    switch (client) {
+      case "WEB":
+        url_components.searchParams.set("cver", CLIENTS.WEB.VERSION);
+        break;
+      case "WEB_REMIX":
+        url_components.searchParams.set("cver", CLIENTS.YTMUSIC.VERSION);
+        break;
+      case "WEB_KIDS":
+        url_components.searchParams.set("cver", CLIENTS.WEB_KIDS.VERSION);
+        break;
+      case "ANDROID":
+        url_components.searchParams.set("cver", CLIENTS.ANDROID.VERSION);
+        break;
+      case "ANDROID_MUSIC":
+        url_components.searchParams.set("cver", CLIENTS.YTMUSIC_ANDROID.VERSION);
+        break;
+      case "TVHTML5_SIMPLY_EMBEDDED_PLAYER":
+        url_components.searchParams.set("cver", CLIENTS.TV_EMBEDDED.VERSION);
+        break;
+    }
     return url_components.toString();
   }
   static fromCache(cache, player_id) {
-    return __awaiter32(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const buffer = yield cache.get(player_id);
       if (!buffer)
         return null;
@@ -22667,36 +21861,36 @@ var Player = class {
     });
   }
   static fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id) {
-    return __awaiter32(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const player = new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
       yield player.cache(cache);
       return player;
     });
   }
   cache(cache) {
-    return __awaiter32(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       if (!cache)
         return;
       const encoder = new TextEncoder();
-      const sig_buf = encoder.encode(__classPrivateFieldGet41(this, _Player_sig_sc, "f"));
-      const nsig_buf = encoder.encode(__classPrivateFieldGet41(this, _Player_nsig_sc, "f"));
+      const sig_buf = encoder.encode(__classPrivateFieldGet(this, _Player_sig_sc, "f"));
+      const nsig_buf = encoder.encode(__classPrivateFieldGet(this, _Player_nsig_sc, "f"));
       const buffer = new ArrayBuffer(12 + sig_buf.byteLength + nsig_buf.byteLength);
       const view = new DataView(buffer);
       view.setUint32(0, Player.LIBRARY_VERSION, true);
-      view.setUint32(4, __classPrivateFieldGet41(this, _Player_sig_sc_timestamp, "f"), true);
+      view.setUint32(4, __classPrivateFieldGet(this, _Player_sig_sc_timestamp, "f"), true);
       view.setUint32(8, sig_buf.byteLength, true);
       new Uint8Array(buffer).set(sig_buf, 12);
       new Uint8Array(buffer).set(nsig_buf, 12 + sig_buf.byteLength);
-      yield cache.set(__classPrivateFieldGet41(this, _Player_player_id, "f"), new Uint8Array(buffer));
+      yield cache.set(__classPrivateFieldGet(this, _Player_player_id, "f"), new Uint8Array(buffer));
     });
   }
   static extractSigTimestamp(data) {
     return parseInt(getStringBetweenStrings(data, "signatureTimestamp:", ",") || "0");
   }
   static extractSigSourceCode(data) {
-    var _a5, _b, _c;
+    var _a7, _b2, _c;
     const calls = getStringBetweenStrings(data, 'function(a){a=a.split("")', 'return a.join("")}');
-    const obj_name = (_c = (_b = (_a5 = calls === null || calls === void 0 ? void 0 : calls.split(/\.|\[/)) === null || _a5 === void 0 ? void 0 : _a5[0]) === null || _b === void 0 ? void 0 : _b.replace(";", "")) === null || _c === void 0 ? void 0 : _c.trim();
+    const obj_name = (_c = (_b2 = (_a7 = calls === null || calls === void 0 ? void 0 : calls.split(/\.|\[/)) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.replace(";", "")) === null || _c === void 0 ? void 0 : _c.trim();
     const functions = getStringBetweenStrings(data, `var ${obj_name}={`, "};");
     if (!functions || !calls)
       console.warn(new PlayerError("Failed to extract signature decipher algorithm"));
@@ -22709,16 +21903,16 @@ var Player = class {
     return sc;
   }
   get url() {
-    return new URL(`/s/player/${__classPrivateFieldGet41(this, _Player_player_id, "f")}/player_ias.vflset/en_US/base.js`, Constants_default.URLS.YT_BASE).toString();
+    return new URL(`/s/player/${__classPrivateFieldGet(this, _Player_player_id, "f")}/player_ias.vflset/en_US/base.js`, URLS.YT_BASE).toString();
   }
   get sts() {
-    return __classPrivateFieldGet41(this, _Player_sig_sc_timestamp, "f");
+    return __classPrivateFieldGet(this, _Player_sig_sc_timestamp, "f");
   }
   get nsig_sc() {
-    return __classPrivateFieldGet41(this, _Player_nsig_sc, "f");
+    return __classPrivateFieldGet(this, _Player_nsig_sc, "f");
   }
   get sig_sc() {
-    return __classPrivateFieldGet41(this, _Player_sig_sc, "f");
+    return __classPrivateFieldGet(this, _Player_sig_sc, "f");
   }
   static get LIBRARY_VERSION() {
     return 2;
@@ -22726,55 +21920,173 @@ var Player = class {
 };
 __name(Player, "Player");
 _Player_nsig_sc = /* @__PURE__ */ new WeakMap(), _Player_sig_sc = /* @__PURE__ */ new WeakMap(), _Player_sig_sc_timestamp = /* @__PURE__ */ new WeakMap(), _Player_player_id = /* @__PURE__ */ new WeakMap();
+var Player_default = Player;
 
-// dist/src/core/OAuth.js
-var __awaiter33 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
+// dist/src/utils/HTTPClient.js
+var _HTTPClient_instances;
+var _HTTPClient_session;
+var _HTTPClient_cookie;
+var _HTTPClient_fetch;
+var _HTTPClient_adjustContext;
+var HTTPClient = class {
+  constructor(session, cookie, fetch) {
+    _HTTPClient_instances.add(this);
+    _HTTPClient_session.set(this, void 0);
+    _HTTPClient_cookie.set(this, void 0);
+    _HTTPClient_fetch.set(this, void 0);
+    __classPrivateFieldSet(this, _HTTPClient_session, session, "f");
+    __classPrivateFieldSet(this, _HTTPClient_cookie, cookie, "f");
+    __classPrivateFieldSet(this, _HTTPClient_fetch, fetch || Platform.shim.fetch, "f");
+  }
+  get fetch_function() {
+    return __classPrivateFieldGet(this, _HTTPClient_fetch, "f");
+  }
+  fetch(input, init) {
+    return __awaiter(this, void 0, void 0, function* () {
+      const innertube_url = URLS.API.PRODUCTION_1 + __classPrivateFieldGet(this, _HTTPClient_session, "f").api_version;
+      const baseURL = (init === null || init === void 0 ? void 0 : init.baseURL) || innertube_url;
+      const request_url = typeof input === "string" ? !baseURL.endsWith("/") && !input.startsWith("/") ? new URL(`${baseURL}/${input}`) : new URL(baseURL + input) : input instanceof URL ? input : new URL(input.url, baseURL);
+      const headers = (init === null || init === void 0 ? void 0 : init.headers) || (input instanceof Platform.shim.Request ? input.headers : new Platform.shim.Headers()) || new Platform.shim.Headers();
+      const body = (init === null || init === void 0 ? void 0 : init.body) || (input instanceof Platform.shim.Request ? input.body : void 0);
+      const request_headers = new Platform.shim.Headers(headers);
+      request_headers.set("Accept", "*/*");
+      request_headers.set("Accept-Language", "*");
+      request_headers.set("X-Goog-Visitor-Id", __classPrivateFieldGet(this, _HTTPClient_session, "f").context.client.visitorData || "");
+      request_headers.set("X-Origin", request_url.origin);
+      request_headers.set("X-Youtube-Client-Version", __classPrivateFieldGet(this, _HTTPClient_session, "f").context.client.clientVersion || "");
+      if (Platform.shim.server) {
+        request_headers.set("User-Agent", getRandomUserAgent("desktop"));
+        request_headers.set("origin", request_url.origin);
+      }
+      request_url.searchParams.set("key", __classPrivateFieldGet(this, _HTTPClient_session, "f").key);
+      request_url.searchParams.set("prettyPrint", "false");
+      request_url.searchParams.set("alt", "json");
+      const content_type = request_headers.get("Content-Type");
+      let request_body = body;
+      let is_web_kids = false;
+      const is_innertube_req = baseURL === innertube_url || baseURL === URLS.YT_UPLOAD;
+      if (content_type === "application/json" && is_innertube_req && typeof body === "string") {
+        const json = JSON.parse(body);
+        const n_body = Object.assign(Object.assign({}, json), {
+          context: JSON.parse(JSON.stringify(__classPrivateFieldGet(this, _HTTPClient_session, "f").context))
+        });
+        __classPrivateFieldGet(this, _HTTPClient_instances, "m", _HTTPClient_adjustContext).call(this, n_body.context, n_body.client);
+        request_headers.set("x-youtube-client-version", n_body.context.client.clientVersion);
+        delete n_body.client;
+        if (Platform.shim.server) {
+          if (n_body.context.client.clientName === "ANDROID" || n_body.context.client.clientName === "ANDROID_MUSIC") {
+            request_headers.set("User-Agent", CLIENTS.ANDROID.USER_AGENT);
+          }
+        }
+        is_web_kids = n_body.context.client.clientName === "WEB_KIDS";
+        request_body = JSON.stringify(n_body);
+      }
+      if (__classPrivateFieldGet(this, _HTTPClient_session, "f").logged_in && is_innertube_req && !is_web_kids) {
+        const oauth = __classPrivateFieldGet(this, _HTTPClient_session, "f").oauth;
+        if (oauth.validateCredentials()) {
+          yield oauth.refreshIfRequired();
+          request_headers.set("authorization", `Bearer ${oauth.credentials.access_token}`);
+          request_url.searchParams.delete("key");
+        }
+        if (__classPrivateFieldGet(this, _HTTPClient_cookie, "f")) {
+          const papisid = getStringBetweenStrings(__classPrivateFieldGet(this, _HTTPClient_cookie, "f"), "PAPISID=", ";");
+          if (papisid) {
+            request_headers.set("authorization", yield generateSidAuth(papisid));
+            request_headers.set("x-goog-authuser", __classPrivateFieldGet(this, _HTTPClient_session, "f").account_index.toString());
+          }
+          request_headers.set("cookie", __classPrivateFieldGet(this, _HTTPClient_cookie, "f"));
+        }
+      }
+      const request = new Platform.shim.Request(request_url, input instanceof Platform.shim.Request ? input : init);
+      const response = yield __classPrivateFieldGet(this, _HTTPClient_fetch, "f").call(this, request, {
+        body: request_body,
+        headers: request_headers,
+        credentials: "include",
+        redirect: input instanceof Platform.shim.Request ? input.redirect : (init === null || init === void 0 ? void 0 : init.redirect) || "follow"
+      });
+      if (response.ok) {
+        return response;
+      }
+      throw new InnertubeError(`Request to ${response.url} failed with status ${response.status}`, yield response.text());
     });
   }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
 };
-var __classPrivateFieldSet37 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet42 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
+__name(HTTPClient, "HTTPClient");
+_HTTPClient_session = /* @__PURE__ */ new WeakMap(), _HTTPClient_cookie = /* @__PURE__ */ new WeakMap(), _HTTPClient_fetch = /* @__PURE__ */ new WeakMap(), _HTTPClient_instances = /* @__PURE__ */ new WeakSet(), _HTTPClient_adjustContext = /* @__PURE__ */ __name(function _HTTPClient_adjustContext2(ctx, client) {
+  if (client === "ANDROID" || client === "YTMUSIC_ANDROID" || client === "YTMUSIC_ANDROID" || client === "YTSTUDIO_ANDROID") {
+    ctx.client.androidSdkVersion = CLIENTS.ANDROID.SDK_VERSION;
+    ctx.client.userAgent = CLIENTS.ANDROID.USER_AGENT;
+    ctx.client.osName = "Android";
+    ctx.client.osVersion = "10";
+    ctx.client.platform = "MOBILE";
+  }
+  switch (client) {
+    case "YTMUSIC":
+      ctx.client.clientVersion = CLIENTS.YTMUSIC.VERSION;
+      ctx.client.clientName = CLIENTS.YTMUSIC.NAME;
+      break;
+    case "ANDROID":
+      ctx.client.clientVersion = CLIENTS.ANDROID.VERSION;
+      ctx.client.clientFormFactor = "SMALL_FORM_FACTOR";
+      ctx.client.clientName = CLIENTS.ANDROID.NAME;
+      break;
+    case "YTMUSIC_ANDROID":
+      ctx.client.clientVersion = CLIENTS.YTMUSIC_ANDROID.VERSION;
+      ctx.client.clientFormFactor = "SMALL_FORM_FACTOR";
+      ctx.client.clientName = CLIENTS.YTMUSIC_ANDROID.NAME;
+      break;
+    case "YTSTUDIO_ANDROID":
+      ctx.client.clientVersion = CLIENTS.YTSTUDIO_ANDROID.VERSION;
+      ctx.client.clientFormFactor = "SMALL_FORM_FACTOR";
+      ctx.client.clientName = CLIENTS.YTSTUDIO_ANDROID.NAME;
+      break;
+    case "TV_EMBEDDED":
+      ctx.client.clientName = CLIENTS.TV_EMBEDDED.NAME;
+      ctx.client.clientVersion = CLIENTS.TV_EMBEDDED.VERSION;
+      ctx.client.clientScreen = "EMBED";
+      ctx.thirdParty = { embedUrl: URLS.YT_BASE };
+      break;
+    case "YTKIDS":
+      ctx.client.clientVersion = CLIENTS.WEB_KIDS.VERSION;
+      ctx.client.clientName = CLIENTS.WEB_KIDS.NAME;
+      ctx.client.kidsAppInfo = {
+        categorySettings: {
+          enabledCategories: [
+            "approved_for_you",
+            "black_joy",
+            "camp",
+            "collections",
+            "earth",
+            "explore",
+            "favorites",
+            "gaming",
+            "halloween",
+            "hero",
+            "learning",
+            "move",
+            "music",
+            "reading",
+            "shared_by_parents",
+            "shows",
+            "soccer",
+            "sports",
+            "spotlight",
+            "winter"
+          ]
+        },
+        contentSettings: {
+          corpusPreference: "KIDS_CORPUS_PREFERENCE_YOUNGER",
+          kidsNoSearchMode: "YT_KIDS_NO_SEARCH_MODE_OFF"
+        }
+      };
+      break;
+    default:
+      break;
+  }
+}, "_HTTPClient_adjustContext");
+var HTTPClient_default = HTTPClient;
+
+// dist/src/core/OAuth.js
 var _OAuth_instances;
 var _OAuth_identity;
 var _OAuth_session;
@@ -22792,94 +22104,94 @@ var OAuth = class {
     _OAuth_session.set(this, void 0);
     _OAuth_credentials.set(this, void 0);
     _OAuth_polling_interval.set(this, 5);
-    __classPrivateFieldSet37(this, _OAuth_session, session, "f");
+    __classPrivateFieldSet(this, _OAuth_session, session, "f");
   }
   init(credentials) {
-    return __awaiter33(this, void 0, void 0, function* () {
-      __classPrivateFieldSet37(this, _OAuth_credentials, credentials, "f");
+    return __awaiter(this, void 0, void 0, function* () {
+      __classPrivateFieldSet(this, _OAuth_credentials, credentials, "f");
       if (this.validateCredentials()) {
         if (!this.has_access_token_expired)
-          __classPrivateFieldGet42(this, _OAuth_session, "f").emit("auth", {
-            credentials: __classPrivateFieldGet42(this, _OAuth_credentials, "f"),
+          __classPrivateFieldGet(this, _OAuth_session, "f").emit("auth", {
+            credentials: __classPrivateFieldGet(this, _OAuth_credentials, "f"),
             status: "SUCCESS"
           });
-      } else if (!(yield __classPrivateFieldGet42(this, _OAuth_instances, "m", _OAuth_loadCachedCredentials).call(this))) {
-        yield __classPrivateFieldGet42(this, _OAuth_instances, "m", _OAuth_getUserCode).call(this);
+      } else if (!(yield __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_loadCachedCredentials).call(this))) {
+        yield __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_getUserCode).call(this);
       }
     });
   }
   cacheCredentials() {
-    var _a5;
-    return __awaiter33(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       const encoder = new TextEncoder();
-      const data = encoder.encode(JSON.stringify(__classPrivateFieldGet42(this, _OAuth_credentials, "f")));
-      yield (_a5 = __classPrivateFieldGet42(this, _OAuth_session, "f").cache) === null || _a5 === void 0 ? void 0 : _a5.set("youtubei_oauth_credentials", data.buffer);
+      const data = encoder.encode(JSON.stringify(__classPrivateFieldGet(this, _OAuth_credentials, "f")));
+      yield (_a7 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a7 === void 0 ? void 0 : _a7.set("youtubei_oauth_credentials", data.buffer);
     });
   }
   removeCache() {
-    var _a5;
-    return __awaiter33(this, void 0, void 0, function* () {
-      yield (_a5 = __classPrivateFieldGet42(this, _OAuth_session, "f").cache) === null || _a5 === void 0 ? void 0 : _a5.remove("youtubei_oauth_credentials");
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      yield (_a7 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a7 === void 0 ? void 0 : _a7.remove("youtubei_oauth_credentials");
     });
   }
   refreshIfRequired() {
-    return __awaiter33(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       if (this.has_access_token_expired) {
-        yield __classPrivateFieldGet42(this, _OAuth_instances, "m", _OAuth_refreshAccessToken).call(this);
+        yield __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_refreshAccessToken).call(this);
       }
     });
   }
   revokeCredentials() {
-    return __awaiter33(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet42(this, _OAuth_credentials, "f"))
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _OAuth_credentials, "f"))
         return;
       yield this.removeCache();
-      return __classPrivateFieldGet42(this, _OAuth_session, "f").http.fetch_function(new URL(`/o/oauth2/revoke?token=${encodeURIComponent(__classPrivateFieldGet42(this, _OAuth_credentials, "f").access_token)}`, Constants_default.URLS.YT_BASE), {
+      return __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL(`/o/oauth2/revoke?token=${encodeURIComponent(__classPrivateFieldGet(this, _OAuth_credentials, "f").access_token)}`, URLS.YT_BASE), {
         method: "post"
       });
     });
   }
   get credentials() {
-    return __classPrivateFieldGet42(this, _OAuth_credentials, "f");
+    return __classPrivateFieldGet(this, _OAuth_credentials, "f");
   }
   get has_access_token_expired() {
-    const timestamp = __classPrivateFieldGet42(this, _OAuth_credentials, "f") ? new Date(__classPrivateFieldGet42(this, _OAuth_credentials, "f").expires).getTime() : -Infinity;
+    const timestamp = __classPrivateFieldGet(this, _OAuth_credentials, "f") ? new Date(__classPrivateFieldGet(this, _OAuth_credentials, "f").expires).getTime() : -Infinity;
     return new Date().getTime() > timestamp;
   }
   validateCredentials() {
-    return __classPrivateFieldGet42(this, _OAuth_credentials, "f") && Reflect.has(__classPrivateFieldGet42(this, _OAuth_credentials, "f"), "access_token") && Reflect.has(__classPrivateFieldGet42(this, _OAuth_credentials, "f"), "refresh_token") && Reflect.has(__classPrivateFieldGet42(this, _OAuth_credentials, "f"), "expires") || false;
+    return __classPrivateFieldGet(this, _OAuth_credentials, "f") && Reflect.has(__classPrivateFieldGet(this, _OAuth_credentials, "f"), "access_token") && Reflect.has(__classPrivateFieldGet(this, _OAuth_credentials, "f"), "refresh_token") && Reflect.has(__classPrivateFieldGet(this, _OAuth_credentials, "f"), "expires") || false;
   }
 };
 __name(OAuth, "OAuth");
 _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ */ new WeakMap(), _OAuth_credentials = /* @__PURE__ */ new WeakMap(), _OAuth_polling_interval = /* @__PURE__ */ new WeakMap(), _OAuth_instances = /* @__PURE__ */ new WeakSet(), _OAuth_loadCachedCredentials = /* @__PURE__ */ __name(function _OAuth_loadCachedCredentials2() {
-  var _a5;
-  return __awaiter33(this, void 0, void 0, function* () {
-    const data = yield (_a5 = __classPrivateFieldGet42(this, _OAuth_session, "f").cache) === null || _a5 === void 0 ? void 0 : _a5.get("youtubei_oauth_credentials");
+  var _a7;
+  return __awaiter(this, void 0, void 0, function* () {
+    const data = yield (_a7 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a7 === void 0 ? void 0 : _a7.get("youtubei_oauth_credentials");
     if (!data)
       return false;
     const decoder = new TextDecoder();
     const credentials = JSON.parse(decoder.decode(data));
-    __classPrivateFieldSet37(this, _OAuth_credentials, {
+    __classPrivateFieldSet(this, _OAuth_credentials, {
       access_token: credentials.access_token,
       refresh_token: credentials.refresh_token,
       expires: new Date(credentials.expires)
     }, "f");
-    __classPrivateFieldGet42(this, _OAuth_session, "f").emit("auth", {
-      credentials: __classPrivateFieldGet42(this, _OAuth_credentials, "f"),
+    __classPrivateFieldGet(this, _OAuth_session, "f").emit("auth", {
+      credentials: __classPrivateFieldGet(this, _OAuth_credentials, "f"),
       status: "SUCCESS"
     });
     return true;
   });
 }, "_OAuth_loadCachedCredentials"), _OAuth_getUserCode = /* @__PURE__ */ __name(function _OAuth_getUserCode2() {
-  return __awaiter33(this, void 0, void 0, function* () {
-    __classPrivateFieldSet37(this, _OAuth_identity, yield __classPrivateFieldGet42(this, _OAuth_instances, "m", _OAuth_getClientIdentity).call(this), "f");
+  return __awaiter(this, void 0, void 0, function* () {
+    __classPrivateFieldSet(this, _OAuth_identity, yield __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_getClientIdentity).call(this), "f");
     const data = {
-      client_id: __classPrivateFieldGet42(this, _OAuth_identity, "f").client_id,
-      scope: Constants_default.OAUTH.SCOPE,
+      client_id: __classPrivateFieldGet(this, _OAuth_identity, "f").client_id,
+      scope: OAUTH.SCOPE,
       device_id: Platform.shim.uuidv4(),
-      model_name: Constants_default.OAUTH.MODEL_NAME
+      model_name: OAUTH.MODEL_NAME
     };
-    const response = yield __classPrivateFieldGet42(this, _OAuth_session, "f").http.fetch_function(new URL("/o/oauth2/device/code", Constants_default.URLS.YT_BASE), {
+    const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL("/o/oauth2/device/code", URLS.YT_BASE), {
       body: JSON.stringify(data),
       method: "POST",
       headers: {
@@ -22887,15 +22199,15 @@ _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ *
       }
     });
     const response_data = yield response.json();
-    __classPrivateFieldGet42(this, _OAuth_session, "f").emit("auth-pending", response_data);
-    __classPrivateFieldSet37(this, _OAuth_polling_interval, response_data.interval, "f");
-    __classPrivateFieldGet42(this, _OAuth_instances, "m", _OAuth_startPolling).call(this, response_data.device_code);
+    __classPrivateFieldGet(this, _OAuth_session, "f").emit("auth-pending", response_data);
+    __classPrivateFieldSet(this, _OAuth_polling_interval, response_data.interval, "f");
+    __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_startPolling).call(this, response_data.device_code);
   });
 }, "_OAuth_getUserCode"), _OAuth_startPolling = /* @__PURE__ */ __name(function _OAuth_startPolling2(device_code) {
-  const poller = setInterval(() => __awaiter33(this, void 0, void 0, function* () {
-    const data = Object.assign(Object.assign({}, __classPrivateFieldGet42(this, _OAuth_identity, "f")), { code: device_code, grant_type: Constants_default.OAUTH.GRANT_TYPE });
+  const poller = setInterval(() => __awaiter(this, void 0, void 0, function* () {
+    const data = Object.assign(Object.assign({}, __classPrivateFieldGet(this, _OAuth_identity, "f")), { code: device_code, grant_type: OAUTH.GRANT_TYPE });
     try {
-      const response = yield __classPrivateFieldGet42(this, _OAuth_session, "f").http.fetch_function(new URL("/o/oauth2/token", Constants_default.URLS.YT_BASE), {
+      const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL("/o/oauth2/token", URLS.YT_BASE), {
         body: JSON.stringify(data),
         method: "POST",
         headers: {
@@ -22906,12 +22218,12 @@ _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ *
       if (response_data.error) {
         switch (response_data.error) {
           case "access_denied":
-            __classPrivateFieldGet42(this, _OAuth_session, "f").emit("auth-error", new OAuthError("Access was denied.", { status: "ACCESS_DENIED" }));
+            __classPrivateFieldGet(this, _OAuth_session, "f").emit("auth-error", new OAuthError("Access was denied.", { status: "ACCESS_DENIED" }));
             break;
           case "expired_token":
-            __classPrivateFieldGet42(this, _OAuth_session, "f").emit("auth-error", new OAuthError("The device code has expired, restarting auth flow.", { status: "DEVICE_CODE_EXPIRED" }));
+            __classPrivateFieldGet(this, _OAuth_session, "f").emit("auth-error", new OAuthError("The device code has expired, restarting auth flow.", { status: "DEVICE_CODE_EXPIRED" }));
             clearInterval(poller);
-            __classPrivateFieldGet42(this, _OAuth_instances, "m", _OAuth_getUserCode).call(this);
+            __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_getUserCode).call(this);
             break;
           default:
             break;
@@ -22919,28 +22231,28 @@ _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ *
         return;
       }
       const expiration_date = new Date(new Date().getTime() + response_data.expires_in * 1e3);
-      __classPrivateFieldSet37(this, _OAuth_credentials, {
+      __classPrivateFieldSet(this, _OAuth_credentials, {
         access_token: response_data.access_token,
         refresh_token: response_data.refresh_token,
         expires: expiration_date
       }, "f");
-      __classPrivateFieldGet42(this, _OAuth_session, "f").emit("auth", {
-        credentials: __classPrivateFieldGet42(this, _OAuth_credentials, "f"),
+      __classPrivateFieldGet(this, _OAuth_session, "f").emit("auth", {
+        credentials: __classPrivateFieldGet(this, _OAuth_credentials, "f"),
         status: "SUCCESS"
       });
       clearInterval(poller);
     } catch (err) {
       clearInterval(poller);
-      return __classPrivateFieldGet42(this, _OAuth_session, "f").emit("auth-error", new OAuthError("Could not obtain user code.", { status: "FAILED", error: err }));
+      return __classPrivateFieldGet(this, _OAuth_session, "f").emit("auth-error", new OAuthError("Could not obtain user code.", { status: "FAILED", error: err }));
     }
-  }), __classPrivateFieldGet42(this, _OAuth_polling_interval, "f") * 1e3);
+  }), __classPrivateFieldGet(this, _OAuth_polling_interval, "f") * 1e3);
 }, "_OAuth_startPolling"), _OAuth_refreshAccessToken = /* @__PURE__ */ __name(function _OAuth_refreshAccessToken2() {
-  return __awaiter33(this, void 0, void 0, function* () {
-    if (!__classPrivateFieldGet42(this, _OAuth_credentials, "f"))
+  return __awaiter(this, void 0, void 0, function* () {
+    if (!__classPrivateFieldGet(this, _OAuth_credentials, "f"))
       return;
-    __classPrivateFieldSet37(this, _OAuth_identity, yield __classPrivateFieldGet42(this, _OAuth_instances, "m", _OAuth_getClientIdentity).call(this), "f");
-    const data = Object.assign(Object.assign({}, __classPrivateFieldGet42(this, _OAuth_identity, "f")), { refresh_token: __classPrivateFieldGet42(this, _OAuth_credentials, "f").refresh_token, grant_type: "refresh_token" });
-    const response = yield __classPrivateFieldGet42(this, _OAuth_session, "f").http.fetch_function(new URL("/o/oauth2/token", Constants_default.URLS.YT_BASE), {
+    __classPrivateFieldSet(this, _OAuth_identity, yield __classPrivateFieldGet(this, _OAuth_instances, "m", _OAuth_getClientIdentity).call(this), "f");
+    const data = Object.assign(Object.assign({}, __classPrivateFieldGet(this, _OAuth_identity, "f")), { refresh_token: __classPrivateFieldGet(this, _OAuth_credentials, "f").refresh_token, grant_type: "refresh_token" });
+    const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL("/o/oauth2/token", URLS.YT_BASE), {
       body: JSON.stringify(data),
       method: "POST",
       headers: {
@@ -22949,26 +22261,26 @@ _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ *
     });
     const response_data = yield response.json();
     const expiration_date = new Date(new Date().getTime() + response_data.expires_in * 1e3);
-    __classPrivateFieldSet37(this, _OAuth_credentials, {
+    __classPrivateFieldSet(this, _OAuth_credentials, {
       access_token: response_data.access_token,
-      refresh_token: response_data.refresh_token || __classPrivateFieldGet42(this, _OAuth_credentials, "f").refresh_token,
+      refresh_token: response_data.refresh_token || __classPrivateFieldGet(this, _OAuth_credentials, "f").refresh_token,
       expires: expiration_date
     }, "f");
-    __classPrivateFieldGet42(this, _OAuth_session, "f").emit("update-credentials", {
-      credentials: __classPrivateFieldGet42(this, _OAuth_credentials, "f"),
+    __classPrivateFieldGet(this, _OAuth_session, "f").emit("update-credentials", {
+      credentials: __classPrivateFieldGet(this, _OAuth_credentials, "f"),
       status: "SUCCESS"
     });
   });
 }, "_OAuth_refreshAccessToken"), _OAuth_getClientIdentity = /* @__PURE__ */ __name(function _OAuth_getClientIdentity2() {
-  var _a5;
-  return __awaiter33(this, void 0, void 0, function* () {
-    const response = yield __classPrivateFieldGet42(this, _OAuth_session, "f").http.fetch_function(new URL("/tv", Constants_default.URLS.YT_BASE), { headers: Constants_default.OAUTH.HEADERS });
+  var _a7;
+  return __awaiter(this, void 0, void 0, function* () {
+    const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL("/tv", URLS.YT_BASE), { headers: OAUTH.HEADERS });
     const response_data = yield response.text();
-    const url_body = (_a5 = Constants_default.OAUTH.REGEX.AUTH_SCRIPT.exec(response_data)) === null || _a5 === void 0 ? void 0 : _a5[1];
+    const url_body = (_a7 = OAUTH.REGEX.AUTH_SCRIPT.exec(response_data)) === null || _a7 === void 0 ? void 0 : _a7[1];
     if (!url_body)
       throw new OAuthError("Could not obtain script url.", { status: "FAILED" });
-    const script = yield __classPrivateFieldGet42(this, _OAuth_session, "f").http.fetch(url_body, { baseURL: Constants_default.URLS.YT_BASE });
-    const client_identity = (yield script.text()).replace(/\n/g, "").match(Constants_default.OAUTH.REGEX.CLIENT_IDENTITY);
+    const script = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch(url_body, { baseURL: URLS.YT_BASE });
+    const client_identity = (yield script.text()).replace(/\n/g, "").match(OAUTH.REGEX.CLIENT_IDENTITY);
     const groups = client_identity === null || client_identity === void 0 ? void 0 : client_identity.groups;
     if (!groups)
       throw new OAuthError("Could not obtain client identity.", { status: "FAILED" });
@@ -22978,54 +22290,7 @@ _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ *
 var OAuth_default = OAuth;
 
 // dist/src/core/Session.js
-var __awaiter34 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet38 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet43 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _a4;
+var _a5;
 var _Session_api_version;
 var _Session_key;
 var _Session_context;
@@ -23042,8 +22307,8 @@ var ClientType;
   ClientType2["ANDROID_MUSIC"] = "ANDROID_MUSIC";
   ClientType2["ANDROID_CREATOR"] = "ANDROID_CREATOR";
   ClientType2["TV_EMBEDDED"] = "TVHTML5_SIMPLY_EMBEDDED_PLAYER";
-})(ClientType = ClientType || (ClientType = {}));
-var Session = class extends EventEmitterLike {
+})(ClientType || (ClientType = {}));
+var Session = class extends EventEmitterLike_default {
   constructor(context, api_key, api_version, account_index, player, cookie, fetch, cache) {
     super();
     _Session_api_version.set(this, void 0);
@@ -23051,12 +22316,12 @@ var Session = class extends EventEmitterLike {
     _Session_context.set(this, void 0);
     _Session_account_index.set(this, void 0);
     _Session_player.set(this, void 0);
-    __classPrivateFieldSet38(this, _Session_context, context, "f");
-    __classPrivateFieldSet38(this, _Session_account_index, account_index, "f");
-    __classPrivateFieldSet38(this, _Session_key, api_key, "f");
-    __classPrivateFieldSet38(this, _Session_api_version, api_version, "f");
-    __classPrivateFieldSet38(this, _Session_player, player, "f");
-    this.http = new HTTPClient(this, cookie, fetch);
+    __classPrivateFieldSet(this, _Session_context, context, "f");
+    __classPrivateFieldSet(this, _Session_account_index, account_index, "f");
+    __classPrivateFieldSet(this, _Session_key, api_key, "f");
+    __classPrivateFieldSet(this, _Session_api_version, api_version, "f");
+    __classPrivateFieldSet(this, _Session_player, player, "f");
+    this.http = new HTTPClient_default(this, cookie, fetch);
     this.actions = new Actions_default(this);
     this.oauth = new OAuth_default(this);
     this.logged_in = !!cookie;
@@ -23069,25 +22334,25 @@ var Session = class extends EventEmitterLike {
     super.once(type, listener);
   }
   static create(options = {}) {
-    return __awaiter34(this, void 0, void 0, function* () {
-      const { context, api_key, api_version, account_index } = yield Session.getSessionData(options.lang, options.location, options.account_index, options.enable_safety_mode, options.generate_session_locally, options.device_category, options.client_type, options.timezone, options.fetch);
-      return new Session(context, api_key, api_version, account_index, options.retrieve_player === false ? void 0 : yield Player.create(options.cache, options.fetch), options.cookie, options.fetch, options.cache);
+    return __awaiter(this, void 0, void 0, function* () {
+      const { context, api_key, api_version, account_index } = yield Session.getSessionData(options.lang, options.location, options.account_index, options.visitor_data, options.enable_safety_mode, options.generate_session_locally, options.device_category, options.client_type, options.timezone, options.fetch);
+      return new Session(context, api_key, api_version, account_index, options.retrieve_player === false ? void 0 : yield Player_default.create(options.cache, options.fetch), options.cookie, options.fetch, options.cache);
     });
   }
-  static getSessionData(lang = "", location = "", account_index = 0, enable_safety_mode = false, generate_session_locally = false, device_category = "desktop", client_name = ClientType.WEB, tz = Intl.DateTimeFormat().resolvedOptions().timeZone, fetch = Platform.shim.fetch) {
-    return __awaiter34(this, void 0, void 0, function* () {
+  static getSessionData(lang = "", location = "", account_index = 0, visitor_data = "", enable_safety_mode = false, generate_session_locally = false, device_category = "desktop", client_name = ClientType.WEB, tz = Intl.DateTimeFormat().resolvedOptions().timeZone, fetch = Platform.shim.fetch) {
+    return __awaiter(this, void 0, void 0, function* () {
       let session_data;
       if (generate_session_locally) {
-        session_data = __classPrivateFieldGet43(this, _a4, "m", _Session_generateSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode });
+        session_data = __classPrivateFieldGet(this, _a5, "m", _Session_generateSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data });
       } else {
-        session_data = yield __classPrivateFieldGet43(this, _a4, "m", _Session_retrieveSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode }, fetch);
+        session_data = yield __classPrivateFieldGet(this, _a5, "m", _Session_retrieveSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data }, fetch);
       }
       return Object.assign(Object.assign({}, session_data), { account_index });
     });
   }
   signIn(credentials) {
-    return __awaiter34(this, void 0, void 0, function* () {
-      return new Promise((resolve, reject) => __awaiter34(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
+      return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
         const error_handler = /* @__PURE__ */ __name((err) => reject(err), "error_handler");
         this.once("auth", (data) => {
           this.off("auth-error", error_handler);
@@ -23112,7 +22377,7 @@ var Session = class extends EventEmitterLike {
     });
   }
   signOut() {
-    return __awaiter34(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       if (!this.logged_in)
         throw new InnertubeError("You must be signed in to perform this operation.");
       const response = yield this.oauth.revokeCredentials();
@@ -23121,41 +22386,46 @@ var Session = class extends EventEmitterLike {
     });
   }
   get key() {
-    return __classPrivateFieldGet43(this, _Session_key, "f");
+    return __classPrivateFieldGet(this, _Session_key, "f");
   }
   get api_version() {
-    return __classPrivateFieldGet43(this, _Session_api_version, "f");
+    return __classPrivateFieldGet(this, _Session_api_version, "f");
   }
   get client_version() {
-    return __classPrivateFieldGet43(this, _Session_context, "f").client.clientVersion;
+    return __classPrivateFieldGet(this, _Session_context, "f").client.clientVersion;
   }
   get client_name() {
-    return __classPrivateFieldGet43(this, _Session_context, "f").client.clientName;
+    return __classPrivateFieldGet(this, _Session_context, "f").client.clientName;
   }
   get account_index() {
-    return __classPrivateFieldGet43(this, _Session_account_index, "f");
+    return __classPrivateFieldGet(this, _Session_account_index, "f");
   }
   get context() {
-    return __classPrivateFieldGet43(this, _Session_context, "f");
+    return __classPrivateFieldGet(this, _Session_context, "f");
   }
   get player() {
-    return __classPrivateFieldGet43(this, _Session_player, "f");
+    return __classPrivateFieldGet(this, _Session_player, "f");
   }
   get lang() {
-    return __classPrivateFieldGet43(this, _Session_context, "f").client.hl;
+    return __classPrivateFieldGet(this, _Session_context, "f").client.hl;
   }
 };
 __name(Session, "Session");
-_a4 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_key = /* @__PURE__ */ new WeakMap(), _Session_context = /* @__PURE__ */ new WeakMap(), _Session_account_index = /* @__PURE__ */ new WeakMap(), _Session_player = /* @__PURE__ */ new WeakMap(), _Session_retrieveSessionData = /* @__PURE__ */ __name(function _Session_retrieveSessionData2(options, fetch = Platform.shim.fetch) {
-  return __awaiter34(this, void 0, void 0, function* () {
-    const url = new URL("/sw.js_data", Constants_default.URLS.YT_BASE);
+_a5 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_key = /* @__PURE__ */ new WeakMap(), _Session_context = /* @__PURE__ */ new WeakMap(), _Session_account_index = /* @__PURE__ */ new WeakMap(), _Session_player = /* @__PURE__ */ new WeakMap(), _Session_retrieveSessionData = /* @__PURE__ */ __name(function _Session_retrieveSessionData2(options, fetch = Platform.shim.fetch) {
+  return __awaiter(this, void 0, void 0, function* () {
+    const url = new URL("/sw.js_data", URLS.YT_BASE);
+    let visitor_id = generateRandomString(11);
+    if (options.visitor_data) {
+      const decoded_visitor_data = proto_default.decodeVisitorData(options.visitor_data);
+      visitor_id = decoded_visitor_data.id;
+    }
     const res = yield fetch(url, {
       headers: {
         "accept-language": options.lang || "en-US",
         "user-agent": getRandomUserAgent("desktop"),
         "accept": "*/*",
         "referer": "https://www.youtube.com/sw.js",
-        "cookie": `PREF=tz=${options.time_zone.replace("/", ".")};VISITOR_INFO1_LIVE=${Constants_default.CLIENTS.WEB.STATIC_VISITOR_ID};`
+        "cookie": `PREF=tz=${options.time_zone.replace("/", ".")};VISITOR_INFO1_LIVE=${visitor_id};`
       }
     });
     if (!res.ok)
@@ -23175,7 +22445,6 @@ _a4 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_ke
         screenPixelDensity: 1,
         screenWidthPoints: 1920,
         visitorData: device_info[13],
-        userAgent: device_info[14],
         clientName: options.client_name,
         clientVersion: device_info[16],
         osName: device_info[17],
@@ -23186,24 +22455,24 @@ _a4 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_ke
         timeZone: device_info[79] || options.time_zone,
         browserName: device_info[86],
         browserVersion: device_info[87],
-        originalUrl: Constants_default.URLS.YT_BASE,
+        originalUrl: URLS.YT_BASE,
         deviceMake: device_info[11],
         deviceModel: device_info[12],
-        utcOffsetMinutes: new Date().getTimezoneOffset()
+        utcOffsetMinutes: -new Date().getTimezoneOffset()
       },
       user: {
         enableSafetyMode: options.enable_safety_mode,
         lockedSafetyMode: false
-      },
-      request: {
-        useSsl: true
       }
     };
     return { context, api_key, api_version };
   });
 }, "_Session_retrieveSessionData"), _Session_generateSessionData = /* @__PURE__ */ __name(function _Session_generateSessionData2(options) {
-  const id = Constants_default.CLIENTS.WEB.STATIC_VISITOR_ID;
-  const timestamp = Math.floor(Date.now() / 1e3);
+  let visitor_id = generateRandomString(11);
+  if (options.visitor_data) {
+    const decoded_visitor_data = proto_default.decodeVisitorData(options.visitor_data);
+    visitor_id = decoded_visitor_data.id;
+  }
   const context = {
     client: {
       hl: options.lang || "en",
@@ -23212,8 +22481,7 @@ _a4 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_ke
       screenHeightPoints: 1080,
       screenPixelDensity: 1,
       screenWidthPoints: 1920,
-      visitorData: proto_default.encodeVisitorData(id, timestamp),
-      userAgent: getRandomUserAgent("desktop"),
+      visitorData: proto_default.encodeVisitorData(visitor_id, Math.floor(Date.now() / 1e3)),
       clientName: options.client_name,
       clientVersion: CLIENTS.WEB.VERSION,
       osName: "Windows",
@@ -23222,460 +22490,541 @@ _a4 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_ke
       clientFormFactor: "UNKNOWN_FORM_FACTOR",
       userInterfaceTheme: "USER_INTERFACE_THEME_LIGHT",
       timeZone: options.time_zone,
-      originalUrl: Constants_default.URLS.YT_BASE,
+      originalUrl: URLS.YT_BASE,
       deviceMake: "",
       deviceModel: "",
-      utcOffsetMinutes: new Date().getTimezoneOffset()
+      utcOffsetMinutes: -new Date().getTimezoneOffset()
     },
     user: {
       enableSafetyMode: options.enable_safety_mode,
       lockedSafetyMode: false
-    },
-    request: {
-      useSsl: true
     }
   };
   return { context, api_key: CLIENTS.WEB.API_KEY, api_version: CLIENTS.WEB.API_VERSION };
 }, "_Session_generateSessionData");
+var Session_default = Session;
 
-// dist/src/parser/youtube/HashtagFeed.js
-var __awaiter35 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var HashtagFeed = class extends FilterableFeed_default {
-  constructor(actions, response) {
-    super(actions, response);
-    if (!this.page.contents_memo)
-      throw new InnertubeError("Unexpected response", this.page);
-    const tab = this.page.contents_memo.getType(Tab_default).first();
-    if (!tab.content)
-      throw new InnertubeError("Content tab has no content", tab);
-    if (this.page.header) {
-      this.header = this.page.header.item().as(HashtagHeader_default);
-    }
-    this.contents = tab.content.as(RichGrid_default);
-  }
-  applyFilter(filter) {
-    const _super = Object.create(null, {
-      getFilteredFeed: { get: () => super.getFilteredFeed }
-    });
-    return __awaiter35(this, void 0, void 0, function* () {
-      const response = yield _super.getFilteredFeed.call(this, filter);
-      return new HashtagFeed(this.actions, response.page);
-    });
-  }
-};
-__name(HashtagFeed, "HashtagFeed");
+// dist/src/core/clients/index.js
+var clients_exports = {};
+__export(clients_exports, {
+  Kids: () => Kids_default,
+  Music: () => Music_default,
+  Studio: () => Studio_default
+});
 
-// dist/src/core/AccountManager.js
-var __awaiter36 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet39 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet44 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _AccountManager_actions;
-var AccountManager = class {
-  constructor(actions) {
-    _AccountManager_actions.set(this, void 0);
-    __classPrivateFieldSet39(this, _AccountManager_actions, actions, "f");
-    this.channel = {
-      editName: (new_name) => {
-        if (!__classPrivateFieldGet44(this, _AccountManager_actions, "f").session.logged_in)
-          throw new InnertubeError("You must be signed in to perform this operation.");
-        return __classPrivateFieldGet44(this, _AccountManager_actions, "f").execute("/channel/edit_name", {
-          givenName: new_name,
-          client: "ANDROID"
-        });
-      },
-      editDescription: (new_description) => {
-        if (!__classPrivateFieldGet44(this, _AccountManager_actions, "f").session.logged_in)
-          throw new InnertubeError("You must be signed in to perform this operation.");
-        return __classPrivateFieldGet44(this, _AccountManager_actions, "f").execute("/channel/edit_description", {
-          givenDescription: new_description,
-          client: "ANDROID"
-        });
-      },
-      getBasicAnalytics: () => this.getAnalytics()
-    };
-  }
-  getInfo() {
-    return __awaiter36(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet44(this, _AccountManager_actions, "f").session.logged_in)
-        throw new InnertubeError("You must be signed in to perform this operation.");
-      const response = yield __classPrivateFieldGet44(this, _AccountManager_actions, "f").execute("/account/accounts_list", { client: "ANDROID" });
-      return new AccountInfo_default(response);
-    });
-  }
-  getTimeWatched() {
-    return __awaiter36(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet44(this, _AccountManager_actions, "f").execute("/browse", {
-        browseId: "SPtime_watched",
-        client: "ANDROID"
-      });
-      return new TimeWatched_default(response);
-    });
-  }
-  getSettings() {
-    return __awaiter36(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet44(this, _AccountManager_actions, "f").execute("/browse", {
-        browseId: "SPaccount_overview"
-      });
-      return new Settings_default(__classPrivateFieldGet44(this, _AccountManager_actions, "f"), response);
-    });
-  }
-  getAnalytics() {
-    var _a5;
-    return __awaiter36(this, void 0, void 0, function* () {
-      const info = yield this.getInfo();
-      const params = proto_default.encodeChannelAnalyticsParams((_a5 = info.footers) === null || _a5 === void 0 ? void 0 : _a5.endpoint.payload.browseId);
-      const response = yield __classPrivateFieldGet44(this, _AccountManager_actions, "f").execute("/browse", {
-        browseId: "FEanalytics_screen",
-        client: "ANDROID",
-        params
-      });
-      return new Analytics_default(response);
-    });
-  }
-};
-__name(AccountManager, "AccountManager");
-_AccountManager_actions = /* @__PURE__ */ new WeakMap();
-var AccountManager_default = AccountManager;
+// dist/src/core/endpoints/index.js
+var endpoints_exports = {};
+__export(endpoints_exports, {
+  Account: () => account_exports,
+  Browse: () => browse_exports,
+  BrowseEndpoint: () => BrowseEndpoint_exports,
+  Channel: () => channel_exports,
+  Comment: () => comment_exports,
+  GetNotificationMenuEndpoint: () => GetNotificationMenuEndpoint_exports,
+  GuideEndpoint: () => GuideEndpoint_exports,
+  Like: () => like_exports,
+  Music: () => music_exports,
+  NextEndpoint: () => NextEndpoint_exports,
+  Notification: () => notification_exports,
+  PlayerEndpoint: () => PlayerEndpoint_exports,
+  Playlist: () => playlist_exports,
+  ResolveURLEndpoint: () => ResolveURLEndpoint_exports,
+  SearchEndpoint: () => SearchEndpoint_exports,
+  Subscription: () => subscription_exports,
+  Upload: () => upload_exports
+});
 
-// dist/src/core/InteractionManager.js
-var __awaiter37 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
+// dist/src/core/endpoints/BrowseEndpoint.js
+var BrowseEndpoint_exports = {};
+__export(BrowseEndpoint_exports, {
+  PATH: () => PATH,
+  build: () => build
+});
+var PATH = "/browse";
+function build(opts) {
+  return Object.assign({
+    browseId: opts.browse_id,
+    params: opts.params,
+    continuation: opts.continuation,
+    client: opts.client
   });
-};
-var __classPrivateFieldSet40 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet45 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _InteractionManager_actions;
-var InteractionManager = class {
-  constructor(actions) {
-    _InteractionManager_actions.set(this, void 0);
-    __classPrivateFieldSet40(this, _InteractionManager_actions, actions, "f");
-  }
-  like(video_id) {
-    return __awaiter37(this, void 0, void 0, function* () {
-      throwIfMissing({ video_id });
-      if (!__classPrivateFieldGet45(this, _InteractionManager_actions, "f").session.logged_in)
-        throw new Error("You must be signed in to perform this operation.");
-      const action = yield __classPrivateFieldGet45(this, _InteractionManager_actions, "f").execute("/like/like", {
-        client: "ANDROID",
-        target: {
-          videoId: video_id
-        }
-      });
-      return action;
-    });
-  }
-  dislike(video_id) {
-    return __awaiter37(this, void 0, void 0, function* () {
-      throwIfMissing({ video_id });
-      if (!__classPrivateFieldGet45(this, _InteractionManager_actions, "f").session.logged_in)
-        throw new Error("You must be signed in to perform this operation.");
-      const action = yield __classPrivateFieldGet45(this, _InteractionManager_actions, "f").execute("/like/dislike", {
-        client: "ANDROID",
-        target: {
-          videoId: video_id
-        }
-      });
-      return action;
-    });
-  }
-  removeRating(video_id) {
-    return __awaiter37(this, void 0, void 0, function* () {
-      throwIfMissing({ video_id });
-      if (!__classPrivateFieldGet45(this, _InteractionManager_actions, "f").session.logged_in)
-        throw new Error("You must be signed in to perform this operation.");
-      const action = yield __classPrivateFieldGet45(this, _InteractionManager_actions, "f").execute("/like/removelike", {
-        client: "ANDROID",
-        target: {
-          videoId: video_id
-        }
-      });
-      return action;
-    });
-  }
-  subscribe(channel_id) {
-    return __awaiter37(this, void 0, void 0, function* () {
-      throwIfMissing({ channel_id });
-      if (!__classPrivateFieldGet45(this, _InteractionManager_actions, "f").session.logged_in)
-        throw new Error("You must be signed in to perform this operation.");
-      const action = yield __classPrivateFieldGet45(this, _InteractionManager_actions, "f").execute("/subscription/subscribe", {
-        client: "ANDROID",
-        channelIds: [channel_id],
-        params: "EgIIAhgA"
-      });
-      return action;
-    });
-  }
-  unsubscribe(channel_id) {
-    return __awaiter37(this, void 0, void 0, function* () {
-      throwIfMissing({ channel_id });
-      if (!__classPrivateFieldGet45(this, _InteractionManager_actions, "f").session.logged_in)
-        throw new Error("You must be signed in to perform this operation.");
-      const action = yield __classPrivateFieldGet45(this, _InteractionManager_actions, "f").execute("/subscription/unsubscribe", {
-        client: "ANDROID",
-        channelIds: [channel_id],
-        params: "CgIIAhgA"
-      });
-      return action;
-    });
-  }
-  comment(video_id, text) {
-    return __awaiter37(this, void 0, void 0, function* () {
-      throwIfMissing({ video_id, text });
-      if (!__classPrivateFieldGet45(this, _InteractionManager_actions, "f").session.logged_in)
-        throw new Error("You must be signed in to perform this operation.");
-      const action = yield __classPrivateFieldGet45(this, _InteractionManager_actions, "f").execute("/comment/create_comment", {
-        client: "ANDROID",
-        commentText: text,
-        createCommentParams: proto_default.encodeCommentParams(video_id)
-      });
-      return action;
-    });
-  }
-  translate(text, target_language, args = {}) {
-    return __awaiter37(this, void 0, void 0, function* () {
-      throwIfMissing({ text, target_language });
-      const target_action = proto_default.encodeCommentActionParams(22, Object.assign({ text, target_language }, args));
-      const response = yield __classPrivateFieldGet45(this, _InteractionManager_actions, "f").execute("/comment/perform_comment_action", {
-        client: "ANDROID",
-        actions: [target_action]
-      });
-      const mutation = response.data.frameworkUpdates.entityBatchUpdate.mutations[0].payload.commentEntityPayload;
-      return {
-        success: response.success,
-        status_code: response.status_code,
-        translated_content: mutation.translatedContent.content,
-        data: response.data
-      };
-    });
-  }
-  setNotificationPreferences(channel_id, type) {
-    return __awaiter37(this, void 0, void 0, function* () {
-      throwIfMissing({ channel_id, type });
-      if (!__classPrivateFieldGet45(this, _InteractionManager_actions, "f").session.logged_in)
-        throw new Error("You must be signed in to perform this operation.");
-      const pref_types = {
-        PERSONALIZED: 1,
-        ALL: 2,
-        NONE: 3
-      };
-      if (!Object.keys(pref_types).includes(type.toUpperCase()))
-        throw new Error(`Invalid notification preference type: ${type}`);
-      const action = yield __classPrivateFieldGet45(this, _InteractionManager_actions, "f").execute("/notification/modify_channel_preference", {
-        client: "WEB",
-        params: proto_default.encodeNotificationPref(channel_id, pref_types[type.toUpperCase()])
-      });
-      return action;
-    });
-  }
-};
-__name(InteractionManager, "InteractionManager");
-_InteractionManager_actions = /* @__PURE__ */ new WeakMap();
-var InteractionManager_default = InteractionManager;
+}
+__name(build, "build");
 
-// dist/src/core/Kids.js
-var __awaiter38 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
+// dist/src/core/endpoints/GetNotificationMenuEndpoint.js
+var GetNotificationMenuEndpoint_exports = {};
+__export(GetNotificationMenuEndpoint_exports, {
+  PATH: () => PATH2,
+  build: () => build2
+});
+var PATH2 = "/notification/get_notification_menu";
+function build2(opts) {
+  return Object.assign({
+    notificationsMenuRequestType: opts.notifications_menu_request_type
   });
-};
-var __classPrivateFieldSet41 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet46 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
+}
+__name(build2, "build");
+
+// dist/src/core/endpoints/GuideEndpoint.js
+var GuideEndpoint_exports = {};
+__export(GuideEndpoint_exports, {
+  PATH: () => PATH3
+});
+var PATH3 = "/guide";
+
+// dist/src/core/endpoints/NextEndpoint.js
+var NextEndpoint_exports = {};
+__export(NextEndpoint_exports, {
+  PATH: () => PATH4,
+  build: () => build3
+});
+var PATH4 = "/next";
+function build3(opts) {
+  return Object.assign({
+    videoId: opts.video_id,
+    playlistId: opts.playlist_id,
+    params: opts.params,
+    playlistIndex: opts.playlist_index,
+    client: opts.client,
+    continuation: opts.continuation
+  });
+}
+__name(build3, "build");
+
+// dist/src/core/endpoints/PlayerEndpoint.js
+var PlayerEndpoint_exports = {};
+__export(PlayerEndpoint_exports, {
+  PATH: () => PATH5,
+  build: () => build4
+});
+var PATH5 = "/player";
+function build4(opts) {
+  return Object.assign({ playbackContext: {
+    contentPlaybackContext: Object.assign({ vis: 0, splay: false, referer: opts.playlist_id ? `https://www.youtube.com/watch?v=${opts.video_id}&list=${opts.playlist_id}` : `https://www.youtube.com/watch?v=${opts.video_id}`, currentUrl: opts.playlist_id ? `/watch?v=${opts.video_id}&list=${opts.playlist_id}` : `/watch?v=${opts.video_id}`, autonavState: "STATE_ON", autoCaptionsDefaultOn: false, html5Preference: "HTML5_PREF_WANTS", lactMilliseconds: "-1" }, {
+      signatureTimestamp: opts.sts
+    })
+  }, attestationRequest: {
+    omitBotguardData: true
+  }, racyCheckOk: true, contentCheckOk: true, videoId: opts.video_id }, {
+    client: opts.client,
+    playlistId: opts.playlist_id,
+    params: "8AEB"
+  });
+}
+__name(build4, "build");
+
+// dist/src/core/endpoints/ResolveURLEndpoint.js
+var ResolveURLEndpoint_exports = {};
+__export(ResolveURLEndpoint_exports, {
+  PATH: () => PATH6,
+  build: () => build5
+});
+var PATH6 = "/navigation/resolve_url";
+function build5(opts) {
+  return Object.assign({
+    url: opts.url
+  });
+}
+__name(build5, "build");
+
+// dist/src/core/endpoints/SearchEndpoint.js
+var SearchEndpoint_exports = {};
+__export(SearchEndpoint_exports, {
+  PATH: () => PATH7,
+  build: () => build6
+});
+var PATH7 = "/search";
+function build6(opts) {
+  return Object.assign({
+    query: opts.query,
+    params: opts.params,
+    continuation: opts.continuation,
+    client: opts.client
+  });
+}
+__name(build6, "build");
+
+// dist/src/core/endpoints/account/index.js
+var account_exports = {};
+__export(account_exports, {
+  AccountListEndpoint: () => AccountListEndpoint_exports
+});
+
+// dist/src/core/endpoints/account/AccountListEndpoint.js
+var AccountListEndpoint_exports = {};
+__export(AccountListEndpoint_exports, {
+  PATH: () => PATH8,
+  build: () => build7
+});
+var PATH8 = "/account/accounts_list";
+function build7() {
+  return {
+    client: "ANDROID"
+  };
+}
+__name(build7, "build");
+
+// dist/src/core/endpoints/browse/index.js
+var browse_exports = {};
+__export(browse_exports, {
+  EditPlaylistEndpoint: () => EditPlaylistEndpoint_exports
+});
+
+// dist/src/core/endpoints/browse/EditPlaylistEndpoint.js
+var EditPlaylistEndpoint_exports = {};
+__export(EditPlaylistEndpoint_exports, {
+  PATH: () => PATH9,
+  build: () => build8
+});
+var PATH9 = "/browse/edit_playlist";
+function build8(opts) {
+  return {
+    playlistId: opts.playlist_id,
+    actions: opts.actions.map((action) => Object.assign({ action: action.action }, {
+      addedVideoId: action.added_video_id,
+      setVideoId: action.set_video_id,
+      movedSetVideoIdPredecessor: action.moved_set_video_id_predecessor
+    }))
+  };
+}
+__name(build8, "build");
+
+// dist/src/core/endpoints/channel/index.js
+var channel_exports = {};
+__export(channel_exports, {
+  EditDescriptionEndpoint: () => EditDescriptionEndpoint_exports,
+  EditNameEndpoint: () => EditNameEndpoint_exports
+});
+
+// dist/src/core/endpoints/channel/EditNameEndpoint.js
+var EditNameEndpoint_exports = {};
+__export(EditNameEndpoint_exports, {
+  PATH: () => PATH10,
+  build: () => build9
+});
+var PATH10 = "/channel/edit_name";
+function build9(options) {
+  return {
+    givenName: options.given_name,
+    client: "ANDROID"
+  };
+}
+__name(build9, "build");
+
+// dist/src/core/endpoints/channel/EditDescriptionEndpoint.js
+var EditDescriptionEndpoint_exports = {};
+__export(EditDescriptionEndpoint_exports, {
+  PATH: () => PATH11,
+  build: () => build10
+});
+var PATH11 = "/channel/edit_description";
+function build10(options) {
+  return {
+    givenDescription: options.given_description,
+    client: "ANDROID"
+  };
+}
+__name(build10, "build");
+
+// dist/src/core/endpoints/comment/index.js
+var comment_exports = {};
+__export(comment_exports, {
+  CreateCommentEndpoint: () => CreateCommentEndpoint_exports,
+  PerformCommentActionEndpoint: () => PerformCommentActionEndpoint_exports
+});
+
+// dist/src/core/endpoints/comment/PerformCommentActionEndpoint.js
+var PerformCommentActionEndpoint_exports = {};
+__export(PerformCommentActionEndpoint_exports, {
+  PATH: () => PATH12,
+  build: () => build11
+});
+var PATH12 = "/comment/perform_comment_action";
+function build11(options) {
+  return Object.assign({ actions: options.actions }, {
+    client: options.client
+  });
+}
+__name(build11, "build");
+
+// dist/src/core/endpoints/comment/CreateCommentEndpoint.js
+var CreateCommentEndpoint_exports = {};
+__export(CreateCommentEndpoint_exports, {
+  PATH: () => PATH13,
+  build: () => build12
+});
+var PATH13 = "/comment/create_comment";
+function build12(options) {
+  return Object.assign({ commentText: options.comment_text, createCommentParams: options.create_comment_params }, {
+    client: options.client
+  });
+}
+__name(build12, "build");
+
+// dist/src/core/endpoints/like/index.js
+var like_exports = {};
+__export(like_exports, {
+  DislikeEndpoint: () => DislikeEndpoint_exports,
+  LikeEndpoint: () => LikeEndpoint_exports,
+  RemoveLikeEndpoint: () => RemoveLikeEndpoint_exports
+});
+
+// dist/src/core/endpoints/like/LikeEndpoint.js
+var LikeEndpoint_exports = {};
+__export(LikeEndpoint_exports, {
+  PATH: () => PATH14,
+  build: () => build13
+});
+var PATH14 = "/like/like";
+function build13(options) {
+  return Object.assign({ target: {
+    videoId: options.target.video_id
+  } }, {
+    client: options.client
+  });
+}
+__name(build13, "build");
+
+// dist/src/core/endpoints/like/DislikeEndpoint.js
+var DislikeEndpoint_exports = {};
+__export(DislikeEndpoint_exports, {
+  PATH: () => PATH15,
+  build: () => build14
+});
+var PATH15 = "/like/dislike";
+function build14(options) {
+  return Object.assign({ target: {
+    videoId: options.target.video_id
+  } }, {
+    client: options.client
+  });
+}
+__name(build14, "build");
+
+// dist/src/core/endpoints/like/RemoveLikeEndpoint.js
+var RemoveLikeEndpoint_exports = {};
+__export(RemoveLikeEndpoint_exports, {
+  PATH: () => PATH16,
+  build: () => build15
+});
+var PATH16 = "/like/removelike";
+function build15(options) {
+  return Object.assign({ target: {
+    videoId: options.target.video_id
+  } }, {
+    client: options.client
+  });
+}
+__name(build15, "build");
+
+// dist/src/core/endpoints/music/index.js
+var music_exports = {};
+__export(music_exports, {
+  GetSearchSuggestionsEndpoint: () => GetSearchSuggestionsEndpoint_exports
+});
+
+// dist/src/core/endpoints/music/GetSearchSuggestionsEndpoint.js
+var GetSearchSuggestionsEndpoint_exports = {};
+__export(GetSearchSuggestionsEndpoint_exports, {
+  PATH: () => PATH17,
+  build: () => build16
+});
+var PATH17 = "/music/get_search_suggestions";
+function build16(opts) {
+  return {
+    input: opts.input,
+    client: "YTMUSIC"
+  };
+}
+__name(build16, "build");
+
+// dist/src/core/endpoints/notification/index.js
+var notification_exports = {};
+__export(notification_exports, {
+  GetUnseenCountEndpoint: () => GetUnseenCountEndpoint_exports,
+  ModifyChannelPreferenceEndpoint: () => ModifyChannelPreferenceEndpoint_exports
+});
+
+// dist/src/core/endpoints/notification/GetUnseenCountEndpoint.js
+var GetUnseenCountEndpoint_exports = {};
+__export(GetUnseenCountEndpoint_exports, {
+  PATH: () => PATH18
+});
+var PATH18 = "/notification/get_unseen_count";
+
+// dist/src/core/endpoints/notification/ModifyChannelPreferenceEndpoint.js
+var ModifyChannelPreferenceEndpoint_exports = {};
+__export(ModifyChannelPreferenceEndpoint_exports, {
+  PATH: () => PATH19,
+  build: () => build17
+});
+var PATH19 = "/notification/modify_channel_preference";
+function build17(options) {
+  return Object.assign({ params: options.params }, {
+    client: options.client
+  });
+}
+__name(build17, "build");
+
+// dist/src/core/endpoints/playlist/index.js
+var playlist_exports = {};
+__export(playlist_exports, {
+  CreateEndpoint: () => CreateEndpoint_exports,
+  DeleteEndpoint: () => DeleteEndpoint_exports
+});
+
+// dist/src/core/endpoints/playlist/CreateEndpoint.js
+var CreateEndpoint_exports = {};
+__export(CreateEndpoint_exports, {
+  PATH: () => PATH20,
+  build: () => build18
+});
+var PATH20 = "/playlist/create";
+function build18(opts) {
+  return {
+    title: opts.title,
+    ids: opts.ids
+  };
+}
+__name(build18, "build");
+
+// dist/src/core/endpoints/playlist/DeleteEndpoint.js
+var DeleteEndpoint_exports = {};
+__export(DeleteEndpoint_exports, {
+  PATH: () => PATH21,
+  build: () => build19
+});
+var PATH21 = "/playlist/delete";
+function build19(opts) {
+  return {
+    playlistId: opts.playlist_id
+  };
+}
+__name(build19, "build");
+
+// dist/src/core/endpoints/subscription/index.js
+var subscription_exports = {};
+__export(subscription_exports, {
+  SubscribeEndpoint: () => SubscribeEndpoint_exports,
+  UnsubscribeEndpoint: () => UnsubscribeEndpoint_exports
+});
+
+// dist/src/core/endpoints/subscription/SubscribeEndpoint.js
+var SubscribeEndpoint_exports = {};
+__export(SubscribeEndpoint_exports, {
+  PATH: () => PATH22,
+  build: () => build20
+});
+var PATH22 = "/subscription/subscribe";
+function build20(options) {
+  return Object.assign({ channelIds: options.channel_ids }, {
+    client: options.client,
+    params: options.params
+  });
+}
+__name(build20, "build");
+
+// dist/src/core/endpoints/subscription/UnsubscribeEndpoint.js
+var UnsubscribeEndpoint_exports = {};
+__export(UnsubscribeEndpoint_exports, {
+  PATH: () => PATH23,
+  build: () => build21
+});
+var PATH23 = "/subscription/unsubscribe";
+function build21(options) {
+  return Object.assign({ channelIds: options.channel_ids }, {
+    client: options.client,
+    params: options.params
+  });
+}
+__name(build21, "build");
+
+// dist/src/core/endpoints/upload/index.js
+var upload_exports = {};
+__export(upload_exports, {
+  CreateVideoEndpoint: () => CreateVideoEndpoint_exports
+});
+
+// dist/src/core/endpoints/upload/CreateVideoEndpoint.js
+var CreateVideoEndpoint_exports = {};
+__export(CreateVideoEndpoint_exports, {
+  PATH: () => PATH24,
+  build: () => build22
+});
+var PATH24 = "/upload/createvideo";
+function build22(opts) {
+  return Object.assign({ resourceId: {
+    scottyResourceId: {
+      id: opts.resource_id.scotty_resource_id.id
+    }
+  }, frontendUploadId: opts.frontend_upload_id, initialMetadata: {
+    title: {
+      newTitle: opts.initial_metadata.title.new_title
+    },
+    description: {
+      newDescription: opts.initial_metadata.description.new_description,
+      shouldSegment: opts.initial_metadata.description.should_segment
+    },
+    privacy: {
+      newPrivacy: opts.initial_metadata.privacy.new_privacy
+    },
+    draftState: {
+      isDraft: !!opts.initial_metadata.draft_state.is_draft
+    }
+  } }, {
+    client: opts.client
+  });
+}
+__name(build22, "build");
+
+// dist/src/core/clients/Kids.js
 var _Kids_session;
 var Kids = class {
   constructor(session) {
     _Kids_session.set(this, void 0);
-    __classPrivateFieldSet41(this, _Kids_session, session, "f");
+    __classPrivateFieldSet(this, _Kids_session, session, "f");
   }
   search(query) {
-    return __awaiter38(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet46(this, _Kids_session, "f").actions.execute("/search", { query, client: "YTKIDS" });
-      return new Search_default3(__classPrivateFieldGet46(this, _Kids_session, "f").actions, response);
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _Kids_session, "f").actions.execute(SearchEndpoint_exports.PATH, SearchEndpoint_exports.build({ client: "YTKIDS", query }));
+      return new Search_default3(__classPrivateFieldGet(this, _Kids_session, "f").actions, response);
     });
   }
   getInfo(video_id) {
-    var _a5;
-    return __awaiter38(this, void 0, void 0, function* () {
-      const cpn = generateRandomString(16);
-      const initial_info = __classPrivateFieldGet46(this, _Kids_session, "f").actions.execute("/player", {
-        cpn,
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      const player_payload = PlayerEndpoint_exports.build({
+        sts: (_a7 = __classPrivateFieldGet(this, _Kids_session, "f").player) === null || _a7 === void 0 ? void 0 : _a7.sts,
         client: "YTKIDS",
-        videoId: video_id,
-        playbackContext: {
-          contentPlaybackContext: {
-            signatureTimestamp: ((_a5 = __classPrivateFieldGet46(this, _Kids_session, "f").player) === null || _a5 === void 0 ? void 0 : _a5.sts) || 0
-          }
-        }
+        video_id
       });
-      const continuation = __classPrivateFieldGet46(this, _Kids_session, "f").actions.execute("/next", { videoId: video_id, client: "YTKIDS" });
-      const response = yield Promise.all([initial_info, continuation]);
-      return new VideoInfo_default2(response, __classPrivateFieldGet46(this, _Kids_session, "f").actions, cpn);
+      const next_payload = NextEndpoint_exports.build({
+        video_id,
+        client: "YTKIDS"
+      });
+      const player_response = __classPrivateFieldGet(this, _Kids_session, "f").actions.execute(PlayerEndpoint_exports.PATH, player_payload);
+      const next_response = __classPrivateFieldGet(this, _Kids_session, "f").actions.execute(NextEndpoint_exports.PATH, next_payload);
+      const response = yield Promise.all([player_response, next_response]);
+      const cpn = generateRandomString(16);
+      return new VideoInfo_default2(response, __classPrivateFieldGet(this, _Kids_session, "f").actions, cpn);
     });
   }
   getChannel(channel_id) {
-    return __awaiter38(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet46(this, _Kids_session, "f").actions.execute("/browse", { browseId: channel_id, client: "YTKIDS" });
-      return new Channel_default2(__classPrivateFieldGet46(this, _Kids_session, "f").actions, response);
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _Kids_session, "f").actions.execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
+        browse_id: channel_id,
+        client: "YTKIDS"
+      }));
+      return new Channel_default2(__classPrivateFieldGet(this, _Kids_session, "f").actions, response);
     });
   }
   getHomeFeed() {
-    return __awaiter38(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet46(this, _Kids_session, "f").actions.execute("/browse", { browseId: "FEkids_home", client: "YTKIDS" });
-      return new HomeFeed_default2(__classPrivateFieldGet46(this, _Kids_session, "f").actions, response);
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _Kids_session, "f").actions.execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
+        browse_id: "FEkids_home",
+        client: "YTKIDS"
+      }));
+      return new HomeFeed_default2(__classPrivateFieldGet(this, _Kids_session, "f").actions, response);
     });
   }
 };
@@ -23683,54 +23032,7 @@ __name(Kids, "Kids");
 _Kids_session = /* @__PURE__ */ new WeakMap();
 var Kids_default = Kids;
 
-// dist/src/core/Music.js
-var __awaiter39 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet42 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet47 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
+// dist/src/core/clients/Music.js
 var _Music_instances;
 var _Music_session;
 var _Music_actions;
@@ -23741,106 +23043,102 @@ var Music = class {
     _Music_instances.add(this);
     _Music_session.set(this, void 0);
     _Music_actions.set(this, void 0);
-    __classPrivateFieldSet42(this, _Music_session, session, "f");
-    __classPrivateFieldSet42(this, _Music_actions, session.actions, "f");
+    __classPrivateFieldSet(this, _Music_session, session, "f");
+    __classPrivateFieldSet(this, _Music_actions, session.actions, "f");
   }
   getInfo(target) {
     if (target instanceof MusicTwoRowItem_default) {
-      return __classPrivateFieldGet47(this, _Music_instances, "m", _Music_fetchInfoFromListItem).call(this, target);
+      return __classPrivateFieldGet(this, _Music_instances, "m", _Music_fetchInfoFromListItem).call(this, target);
     } else if (typeof target === "string") {
-      return __classPrivateFieldGet47(this, _Music_instances, "m", _Music_fetchInfoFromVideoId).call(this, target);
+      return __classPrivateFieldGet(this, _Music_instances, "m", _Music_fetchInfoFromVideoId).call(this, target);
     }
     throw new InnertubeError("Invalid target, expected either a video id or a valid MusicTwoRowItem", target);
   }
   search(query, filters = {}) {
-    return __awaiter39(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ query });
-      const payload = { query, client: "YTMUSIC" };
-      if (filters.type && filters.type !== "all") {
-        payload.params = proto_default.encodeMusicSearchFilters(filters);
-      }
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/search", payload);
-      return new Search_default2(response, __classPrivateFieldGet47(this, _Music_actions, "f"), Reflect.has(filters, "type") && filters.type !== "all");
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(SearchEndpoint_exports.PATH, SearchEndpoint_exports.build({
+        query,
+        client: "YTMUSIC",
+        params: filters.type && filters.type !== "all" ? proto_default.encodeMusicSearchFilters(filters) : void 0
+      }));
+      return new Search_default2(response, __classPrivateFieldGet(this, _Music_actions, "f"), Reflect.has(filters, "type") && filters.type !== "all");
     });
   }
   getHomeFeed() {
-    return __awaiter39(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/browse", {
-        client: "YTMUSIC",
-        browseId: "FEmusic_home"
-      });
-      return new HomeFeed_default(response, __classPrivateFieldGet47(this, _Music_actions, "f"));
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
+        browse_id: "FEmusic_home",
+        client: "YTMUSIC"
+      }));
+      return new HomeFeed_default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
     });
   }
   getExplore() {
-    return __awaiter39(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/browse", {
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
         client: "YTMUSIC",
-        browseId: "FEmusic_explore"
-      });
+        browse_id: "FEmusic_explore"
+      }));
       return new Explore_default(response);
     });
   }
   getLibrary() {
-    return __awaiter39(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/browse", {
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
         client: "YTMUSIC",
-        browseId: "FEmusic_library_landing"
-      });
-      return new Library_default2(response, __classPrivateFieldGet47(this, _Music_actions, "f"));
+        browse_id: "FEmusic_library_landing"
+      }));
+      return new Library_default2(response, __classPrivateFieldGet(this, _Music_actions, "f"));
     });
   }
   getArtist(artist_id) {
-    return __awaiter39(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ artist_id });
       if (!artist_id.startsWith("UC") && !artist_id.startsWith("FEmusic_library_privately_owned_artist"))
         throw new InnertubeError("Invalid artist id", artist_id);
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/browse", {
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
         client: "YTMUSIC",
-        browseId: artist_id
-      });
-      return new Artist_default(response, __classPrivateFieldGet47(this, _Music_actions, "f"));
+        browse_id: artist_id
+      }));
+      return new Artist_default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
     });
   }
   getAlbum(album_id) {
-    return __awaiter39(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ album_id });
       if (!album_id.startsWith("MPR") && !album_id.startsWith("FEmusic_library_privately_owned_release"))
         throw new InnertubeError("Invalid album id", album_id);
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/browse", {
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
         client: "YTMUSIC",
-        browseId: album_id
-      });
+        browse_id: album_id
+      }));
       return new Album_default(response);
     });
   }
   getPlaylist(playlist_id) {
-    return __awaiter39(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ playlist_id });
       if (!playlist_id.startsWith("VL")) {
         playlist_id = `VL${playlist_id}`;
       }
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/browse", {
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
         client: "YTMUSIC",
-        browseId: playlist_id
-      });
-      return new Playlist_default3(response, __classPrivateFieldGet47(this, _Music_actions, "f"));
+        browse_id: playlist_id
+      }));
+      return new Playlist_default3(response, __classPrivateFieldGet(this, _Music_actions, "f"));
     });
   }
   getUpNext(video_id, automix = true) {
-    var _a5, _b, _c;
-    return __awaiter39(this, void 0, void 0, function* () {
+    var _a7, _b2, _c;
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
-      const data = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/next", {
-        videoId: video_id,
-        client: "YTMUSIC",
-        parse: true
-      });
-      const tabs = (_a5 = data.contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(Tab_default);
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(NextEndpoint_exports.PATH, Object.assign(Object.assign({}, NextEndpoint_exports.build({ video_id, client: "YTMUSIC" })), { parse: true }));
+      const tabs = (_a7 = response.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default);
       const tab = tabs === null || tabs === void 0 ? void 0 : tabs.first();
       if (!tab)
         throw new InnertubeError("Could not find target tab.");
-      const music_queue = (_b = tab.content) === null || _b === void 0 ? void 0 : _b.as(MusicQueue_default);
+      const music_queue = (_b2 = tab.content) === null || _b2 === void 0 ? void 0 : _b2.as(MusicQueue_default);
       if (!music_queue || !music_queue.content)
         throw new InnertubeError("Music queue was empty, the given id is probably invalid.", music_queue);
       const playlist_panel = music_queue.content.as(PlaylistPanel_default);
@@ -23848,7 +23146,7 @@ var Music = class {
         const automix_preview_video = playlist_panel.contents.firstOfType(AutomixPreviewVideo_default);
         if (!automix_preview_video)
           throw new InnertubeError("Automix item not found");
-        const page = yield (_c = automix_preview_video.playlist_video) === null || _c === void 0 ? void 0 : _c.endpoint.call(__classPrivateFieldGet47(this, _Music_actions, "f"), {
+        const page = yield (_c = automix_preview_video.playlist_video) === null || _c === void 0 ? void 0 : _c.endpoint.call(__classPrivateFieldGet(this, _Music_actions, "f"), {
           videoId: video_id,
           client: "YTMUSIC",
           parse: true
@@ -23861,22 +23159,18 @@ var Music = class {
     });
   }
   getRelated(video_id) {
-    var _a5;
-    return __awaiter39(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
-      const data = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/next", {
-        videoId: video_id,
-        client: "YTMUSIC",
-        parse: true
-      });
-      const tabs = (_a5 = data.contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(Tab_default);
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(NextEndpoint_exports.PATH, Object.assign(Object.assign({}, NextEndpoint_exports.build({ video_id, client: "YTMUSIC" })), { parse: true }));
+      const tabs = (_a7 = response.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default);
       const tab = tabs === null || tabs === void 0 ? void 0 : tabs.matchCondition((tab2) => {
-        var _a6, _b;
-        return ((_b = (_a6 = tab2.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a6 === void 0 ? void 0 : _a6.browseEndpointContextMusicConfig) === null || _b === void 0 ? void 0 : _b.pageType) === "MUSIC_PAGE_TYPE_TRACK_RELATED";
+        var _a8, _b2;
+        return ((_b2 = (_a8 = tab2.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a8 === void 0 ? void 0 : _a8.browseEndpointContextMusicConfig) === null || _b2 === void 0 ? void 0 : _b2.pageType) === "MUSIC_PAGE_TYPE_TRACK_RELATED";
       });
       if (!tab)
         throw new InnertubeError("Could not find target tab.");
-      const page = yield tab.endpoint.call(__classPrivateFieldGet47(this, _Music_actions, "f"), { client: "YTMUSIC", parse: true });
+      const page = yield tab.endpoint.call(__classPrivateFieldGet(this, _Music_actions, "f"), { client: "YTMUSIC", parse: true });
       if (!page.contents)
         throw new InnertubeError("Unexpected response", page);
       const shelves = page.contents.item().as(SectionList_default).contents.as(MusicCarouselShelf_default, MusicDescriptionShelf_default);
@@ -23884,339 +23178,92 @@ var Music = class {
     });
   }
   getLyrics(video_id) {
-    var _a5;
-    return __awaiter39(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
-      const data = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/next", {
-        videoId: video_id,
-        client: "YTMUSIC",
-        parse: true
-      });
-      const tabs = (_a5 = data.contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(Tab_default);
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(NextEndpoint_exports.PATH, Object.assign(Object.assign({}, NextEndpoint_exports.build({ video_id, client: "YTMUSIC" })), { parse: true }));
+      const tabs = (_a7 = response.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default);
       const tab = tabs === null || tabs === void 0 ? void 0 : tabs.matchCondition((tab2) => {
-        var _a6, _b;
-        return ((_b = (_a6 = tab2.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a6 === void 0 ? void 0 : _a6.browseEndpointContextMusicConfig) === null || _b === void 0 ? void 0 : _b.pageType) === "MUSIC_PAGE_TYPE_TRACK_LYRICS";
+        var _a8, _b2;
+        return ((_b2 = (_a8 = tab2.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a8 === void 0 ? void 0 : _a8.browseEndpointContextMusicConfig) === null || _b2 === void 0 ? void 0 : _b2.pageType) === "MUSIC_PAGE_TYPE_TRACK_LYRICS";
       });
       if (!tab)
         throw new InnertubeError("Could not find target tab.");
-      const page = yield tab.endpoint.call(__classPrivateFieldGet47(this, _Music_actions, "f"), { client: "YTMUSIC", parse: true });
+      const page = yield tab.endpoint.call(__classPrivateFieldGet(this, _Music_actions, "f"), { client: "YTMUSIC", parse: true });
       if (!page.contents)
         throw new InnertubeError("Unexpected response", page);
       if (page.contents.item().key("type").string() === "Message")
-        throw new InnertubeError(page.contents.item().as(Message_default).text, video_id);
+        throw new InnertubeError(page.contents.item().as(Message_default).text.toString(), video_id);
       const section_list = page.contents.item().as(SectionList_default).contents;
       return section_list.firstOfType(MusicDescriptionShelf_default);
     });
   }
   getRecap() {
-    return __awaiter39(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/browse", {
-        browseId: "FEmusic_listening_review",
-        client: "YTMUSIC_ANDROID"
-      });
-      return new Recap_default(response, __classPrivateFieldGet47(this, _Music_actions, "f"));
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
+        client: "YTMUSIC_ANDROID",
+        browse_id: "FEmusic_listening_review"
+      }));
+      return new Recap_default(response, __classPrivateFieldGet(this, _Music_actions, "f"));
     });
   }
   getSearchSuggestions(query) {
-    var _a5, _b;
-    return __awaiter39(this, void 0, void 0, function* () {
-      const response = yield __classPrivateFieldGet47(this, _Music_actions, "f").execute("/music/get_search_suggestions", {
-        parse: true,
-        input: query,
-        client: "YTMUSIC"
-      });
-      const search_suggestions_section = (_b = (_a5 = response.contents_memo) === null || _a5 === void 0 ? void 0 : _a5.getType(SearchSuggestionsSection_default)) === null || _b === void 0 ? void 0 : _b[0];
-      if (!(search_suggestions_section === null || search_suggestions_section === void 0 ? void 0 : search_suggestions_section.contents.is_array))
-        return observe([]);
-      return search_suggestions_section === null || search_suggestions_section === void 0 ? void 0 : search_suggestions_section.contents.array();
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(GetSearchSuggestionsEndpoint_exports.PATH, Object.assign(Object.assign({}, GetSearchSuggestionsEndpoint_exports.build({ input: query })), { parse: true }));
+      if (!response.contents_memo)
+        throw new InnertubeError("Unexpected response", response);
+      const search_suggestions_section = response.contents_memo.getType(SearchSuggestionsSection_default).first();
+      return search_suggestions_section.contents;
     });
   }
 };
 __name(Music, "Music");
 _Music_session = /* @__PURE__ */ new WeakMap(), _Music_actions = /* @__PURE__ */ new WeakMap(), _Music_instances = /* @__PURE__ */ new WeakSet(), _Music_fetchInfoFromVideoId = /* @__PURE__ */ __name(function _Music_fetchInfoFromVideoId2(video_id) {
-  var _a5;
-  return __awaiter39(this, void 0, void 0, function* () {
+  var _a7;
+  return __awaiter(this, void 0, void 0, function* () {
+    const player_payload = PlayerEndpoint_exports.build({
+      video_id,
+      sts: (_a7 = __classPrivateFieldGet(this, _Music_session, "f").player) === null || _a7 === void 0 ? void 0 : _a7.sts,
+      client: "YTMUSIC"
+    });
+    const next_payload = NextEndpoint_exports.build({
+      video_id,
+      client: "YTMUSIC"
+    });
+    const player_response = __classPrivateFieldGet(this, _Music_actions, "f").execute(PlayerEndpoint_exports.PATH, player_payload);
+    const next_response = __classPrivateFieldGet(this, _Music_actions, "f").execute(NextEndpoint_exports.PATH, next_payload);
+    const response = yield Promise.all([player_response, next_response]);
     const cpn = generateRandomString(16);
-    const initial_info = __classPrivateFieldGet47(this, _Music_actions, "f").execute("/player", {
-      cpn,
-      client: "YTMUSIC",
-      videoId: video_id,
-      playbackContext: {
-        contentPlaybackContext: {
-          signatureTimestamp: ((_a5 = __classPrivateFieldGet47(this, _Music_session, "f").player) === null || _a5 === void 0 ? void 0 : _a5.sts) || 0
-        }
-      }
-    });
-    const continuation = __classPrivateFieldGet47(this, _Music_actions, "f").execute("/next", {
-      client: "YTMUSIC",
-      videoId: video_id
-    });
-    const response = yield Promise.all([initial_info, continuation]);
-    return new TrackInfo_default(response, __classPrivateFieldGet47(this, _Music_actions, "f"), cpn);
+    return new TrackInfo_default(response, __classPrivateFieldGet(this, _Music_actions, "f"), cpn);
   });
 }, "_Music_fetchInfoFromVideoId"), _Music_fetchInfoFromListItem = /* @__PURE__ */ __name(function _Music_fetchInfoFromListItem2(list_item) {
-  var _a5;
-  return __awaiter39(this, void 0, void 0, function* () {
+  var _a7;
+  return __awaiter(this, void 0, void 0, function* () {
     if (!list_item)
       throw new InnertubeError("List item cannot be undefined");
     if (!list_item.endpoint)
       throw new Error("This item does not have an endpoint.");
-    const cpn = generateRandomString(16);
-    const initial_info = list_item.endpoint.call(__classPrivateFieldGet47(this, _Music_actions, "f"), {
-      cpn,
+    const player_response = list_item.endpoint.call(__classPrivateFieldGet(this, _Music_actions, "f"), {
       client: "YTMUSIC",
       playbackContext: {
-        contentPlaybackContext: {
-          signatureTimestamp: ((_a5 = __classPrivateFieldGet47(this, _Music_session, "f").player) === null || _a5 === void 0 ? void 0 : _a5.sts) || 0
-        }
+        contentPlaybackContext: Object.assign({
+          signatureTimestamp: (_a7 = __classPrivateFieldGet(this, _Music_session, "f").player) === null || _a7 === void 0 ? void 0 : _a7.sts
+        })
       }
     });
-    const continuation = list_item.endpoint.call(__classPrivateFieldGet47(this, _Music_actions, "f"), {
+    const next_response = list_item.endpoint.call(__classPrivateFieldGet(this, _Music_actions, "f"), {
       client: "YTMUSIC",
       enablePersistentPlaylistPanel: true,
       override_endpoint: "/next"
     });
-    const response = yield Promise.all([initial_info, continuation]);
-    return new TrackInfo_default(response, __classPrivateFieldGet47(this, _Music_actions, "f"), cpn);
+    const cpn = generateRandomString(16);
+    const response = yield Promise.all([player_response, next_response]);
+    return new TrackInfo_default(response, __classPrivateFieldGet(this, _Music_actions, "f"), cpn);
   });
 }, "_Music_fetchInfoFromListItem");
 var Music_default = Music;
 
-// dist/src/core/PlaylistManager.js
-var __awaiter40 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet43 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet48 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _PlaylistManager_actions;
-var PlaylistManager = class {
-  constructor(actions) {
-    _PlaylistManager_actions.set(this, void 0);
-    __classPrivateFieldSet43(this, _PlaylistManager_actions, actions, "f");
-  }
-  create(title, video_ids) {
-    return __awaiter40(this, void 0, void 0, function* () {
-      throwIfMissing({ title, video_ids });
-      if (!__classPrivateFieldGet48(this, _PlaylistManager_actions, "f").session.logged_in)
-        throw new InnertubeError("You must be signed in to perform this operation.");
-      const response = yield __classPrivateFieldGet48(this, _PlaylistManager_actions, "f").execute("/playlist/create", {
-        title,
-        ids: video_ids,
-        parse: false
-      });
-      return {
-        success: response.success,
-        status_code: response.status_code,
-        playlist_id: response.data.playlistId,
-        data: response.data
-      };
-    });
-  }
-  delete(playlist_id) {
-    return __awaiter40(this, void 0, void 0, function* () {
-      throwIfMissing({ playlist_id });
-      if (!__classPrivateFieldGet48(this, _PlaylistManager_actions, "f").session.logged_in)
-        throw new InnertubeError("You must be signed in to perform this operation.");
-      const response = yield __classPrivateFieldGet48(this, _PlaylistManager_actions, "f").execute("playlist/delete", { playlistId: playlist_id });
-      return {
-        playlist_id,
-        success: response.success,
-        status_code: response.status_code,
-        data: response.data
-      };
-    });
-  }
-  addVideos(playlist_id, video_ids) {
-    return __awaiter40(this, void 0, void 0, function* () {
-      throwIfMissing({ playlist_id, video_ids });
-      if (!__classPrivateFieldGet48(this, _PlaylistManager_actions, "f").session.logged_in)
-        throw new InnertubeError("You must be signed in to perform this operation.");
-      const response = yield __classPrivateFieldGet48(this, _PlaylistManager_actions, "f").execute("/browse/edit_playlist", {
-        playlistId: playlist_id,
-        actions: video_ids.map((id) => ({
-          action: "ACTION_ADD_VIDEO",
-          addedVideoId: id
-        })),
-        parse: false
-      });
-      return {
-        playlist_id,
-        action_result: response.data.actions
-      };
-    });
-  }
-  removeVideos(playlist_id, video_ids) {
-    return __awaiter40(this, void 0, void 0, function* () {
-      throwIfMissing({ playlist_id, video_ids });
-      if (!__classPrivateFieldGet48(this, _PlaylistManager_actions, "f").session.logged_in)
-        throw new InnertubeError("You must be signed in to perform this operation.");
-      const info = yield __classPrivateFieldGet48(this, _PlaylistManager_actions, "f").execute("/browse", {
-        browseId: `VL${playlist_id}`,
-        parse: true
-      });
-      const playlist = new Playlist_default2(__classPrivateFieldGet48(this, _PlaylistManager_actions, "f"), info, true);
-      if (!playlist.info.is_editable)
-        throw new InnertubeError("This playlist cannot be edited.", playlist_id);
-      const payload = {
-        playlistId: playlist_id,
-        actions: []
-      };
-      const getSetVideoIds = /* @__PURE__ */ __name((pl) => __awaiter40(this, void 0, void 0, function* () {
-        const videos = pl.videos.filter((video) => video_ids.includes(video.key("id").string()));
-        videos.forEach((video) => payload.actions.push({
-          action: "ACTION_REMOVE_VIDEO",
-          setVideoId: video.key("set_video_id").string()
-        }));
-        if (payload.actions.length < video_ids.length) {
-          const next = yield pl.getContinuation();
-          return getSetVideoIds(next);
-        }
-      }), "getSetVideoIds");
-      yield getSetVideoIds(playlist);
-      if (!payload.actions.length)
-        throw new InnertubeError("Given video ids were not found in this playlist.", video_ids);
-      const response = yield __classPrivateFieldGet48(this, _PlaylistManager_actions, "f").execute("/browse/edit_playlist", Object.assign(Object.assign({}, payload), { parse: false }));
-      return {
-        playlist_id,
-        action_result: response.data.actions
-      };
-    });
-  }
-  moveVideo(playlist_id, moved_video_id, predecessor_video_id) {
-    return __awaiter40(this, void 0, void 0, function* () {
-      throwIfMissing({ playlist_id, moved_video_id, predecessor_video_id });
-      if (!__classPrivateFieldGet48(this, _PlaylistManager_actions, "f").session.logged_in)
-        throw new InnertubeError("You must be signed in to perform this operation.");
-      const info = yield __classPrivateFieldGet48(this, _PlaylistManager_actions, "f").execute("/browse", {
-        browseId: `VL${playlist_id}`,
-        parse: true
-      });
-      const playlist = new Playlist_default2(__classPrivateFieldGet48(this, _PlaylistManager_actions, "f"), info, true);
-      if (!playlist.info.is_editable)
-        throw new InnertubeError("This playlist cannot be edited.", playlist_id);
-      const payload = {
-        playlistId: playlist_id,
-        actions: []
-      };
-      let set_video_id_0, set_video_id_1;
-      const getSetVideoIds = /* @__PURE__ */ __name((pl) => __awaiter40(this, void 0, void 0, function* () {
-        const video_0 = pl.videos.find((video) => moved_video_id === video.key("id").string());
-        const video_1 = pl.videos.find((video) => predecessor_video_id === video.key("id").string());
-        set_video_id_0 = set_video_id_0 || (video_0 === null || video_0 === void 0 ? void 0 : video_0.key("set_video_id").string());
-        set_video_id_1 = set_video_id_1 || (video_1 === null || video_1 === void 0 ? void 0 : video_1.key("set_video_id").string());
-        if (!set_video_id_0 || !set_video_id_1) {
-          const next = yield pl.getContinuation();
-          return getSetVideoIds(next);
-        }
-      }), "getSetVideoIds");
-      yield getSetVideoIds(playlist);
-      payload.actions.push({
-        action: "ACTION_MOVE_VIDEO_AFTER",
-        setVideoId: set_video_id_0,
-        movedSetVideoIdPredecessor: set_video_id_1
-      });
-      const response = yield __classPrivateFieldGet48(this, _PlaylistManager_actions, "f").execute("/browse/edit_playlist", Object.assign(Object.assign({}, payload), { parse: false }));
-      return {
-        playlist_id,
-        action_result: response.data.actions
-      };
-    });
-  }
-};
-__name(PlaylistManager, "PlaylistManager");
-_PlaylistManager_actions = /* @__PURE__ */ new WeakMap();
-var PlaylistManager_default = PlaylistManager;
-
-// dist/src/core/Studio.js
-var __awaiter41 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet44 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet49 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
+// dist/src/core/clients/Studio.js
 var _Studio_instances;
 var _Studio_session;
 var _Studio_getInitialUploadData;
@@ -24226,16 +23273,16 @@ var Studio = class {
   constructor(session) {
     _Studio_instances.add(this);
     _Studio_session.set(this, void 0);
-    __classPrivateFieldSet44(this, _Studio_session, session, "f");
+    __classPrivateFieldSet(this, _Studio_session, session, "f");
   }
   setThumbnail(video_id, buffer) {
-    return __awaiter41(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet49(this, _Studio_session, "f").logged_in)
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Studio_session, "f").logged_in)
         throw new InnertubeError("You must be signed in to perform this operation.");
       if (!video_id || !buffer)
         throw new MissingParamError("One or more parameters are missing.");
       const payload = proto_default.encodeCustomThumbnailPayload(video_id, buffer);
-      const response = yield __classPrivateFieldGet49(this, _Studio_session, "f").actions.execute("/video_manager/metadata_update", {
+      const response = yield __classPrivateFieldGet(this, _Studio_session, "f").actions.execute("/video_manager/metadata_update", {
         protobuf: true,
         serialized_data: payload
       });
@@ -24243,11 +23290,11 @@ var Studio = class {
     });
   }
   updateVideoMetadata(video_id, metadata) {
-    return __awaiter41(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet49(this, _Studio_session, "f").logged_in)
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Studio_session, "f").logged_in)
         throw new InnertubeError("You must be signed in to perform this operation.");
       const payload = proto_default.encodeVideoMetadataPayload(video_id, metadata);
-      const response = yield __classPrivateFieldGet49(this, _Studio_session, "f").actions.execute("/video_manager/metadata_update", {
+      const response = yield __classPrivateFieldGet(this, _Studio_session, "f").actions.execute("/video_manager/metadata_update", {
         protobuf: true,
         serialized_data: payload
       });
@@ -24255,21 +23302,21 @@ var Studio = class {
     });
   }
   upload(file, metadata = {}) {
-    return __awaiter41(this, void 0, void 0, function* () {
-      if (!__classPrivateFieldGet49(this, _Studio_session, "f").logged_in)
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _Studio_session, "f").logged_in)
         throw new InnertubeError("You must be signed in to perform this operation.");
-      const initial_data = yield __classPrivateFieldGet49(this, _Studio_instances, "m", _Studio_getInitialUploadData).call(this);
-      const upload_result = yield __classPrivateFieldGet49(this, _Studio_instances, "m", _Studio_uploadVideo).call(this, initial_data.upload_url, file);
+      const initial_data = yield __classPrivateFieldGet(this, _Studio_instances, "m", _Studio_getInitialUploadData).call(this);
+      const upload_result = yield __classPrivateFieldGet(this, _Studio_instances, "m", _Studio_uploadVideo).call(this, initial_data.upload_url, file);
       if (upload_result.status !== "STATUS_SUCCESS")
         throw new InnertubeError("Could not process video.");
-      const response = yield __classPrivateFieldGet49(this, _Studio_instances, "m", _Studio_setVideoMetadata).call(this, initial_data, upload_result, metadata);
+      const response = yield __classPrivateFieldGet(this, _Studio_instances, "m", _Studio_setVideoMetadata).call(this, initial_data, upload_result, metadata);
       return response;
     });
   }
 };
 __name(Studio, "Studio");
 _Studio_session = /* @__PURE__ */ new WeakMap(), _Studio_instances = /* @__PURE__ */ new WeakSet(), _Studio_getInitialUploadData = /* @__PURE__ */ __name(function _Studio_getInitialUploadData2() {
-  return __awaiter41(this, void 0, void 0, function* () {
+  return __awaiter(this, void 0, void 0, function* () {
     const frontend_upload_id = `innertube_android:${Platform.shim.uuidv4()}:0:v=3,api=1,cf=3`;
     const payload = {
       frontendUploadId: frontend_upload_id,
@@ -24279,8 +23326,8 @@ _Studio_session = /* @__PURE__ */ new WeakMap(), _Studio_instances = /* @__PURE_
       transcodeResult: "DISABLED",
       connectionType: "WIFI"
     };
-    const response = yield __classPrivateFieldGet49(this, _Studio_session, "f").http.fetch("/upload/youtubei", {
-      baseURL: Constants_exports.URLS.YT_UPLOAD,
+    const response = yield __classPrivateFieldGet(this, _Studio_session, "f").http.fetch("/upload/youtubei", {
+      baseURL: URLS.YT_UPLOAD,
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -24300,8 +23347,8 @@ _Studio_session = /* @__PURE__ */ new WeakMap(), _Studio_instances = /* @__PURE_
     };
   });
 }, "_Studio_getInitialUploadData"), _Studio_uploadVideo = /* @__PURE__ */ __name(function _Studio_uploadVideo2(upload_url, file) {
-  return __awaiter41(this, void 0, void 0, function* () {
-    const response = yield __classPrivateFieldGet49(this, _Studio_session, "f").http.fetch_function(upload_url, {
+  return __awaiter(this, void 0, void 0, function* () {
+    const response = yield __classPrivateFieldGet(this, _Studio_session, "f").http.fetch_function(upload_url, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -24317,181 +23364,442 @@ _Studio_session = /* @__PURE__ */ new WeakMap(), _Studio_instances = /* @__PURE_
     return data;
   });
 }, "_Studio_uploadVideo"), _Studio_setVideoMetadata = /* @__PURE__ */ __name(function _Studio_setVideoMetadata2(initial_data, upload_result, metadata) {
-  return __awaiter41(this, void 0, void 0, function* () {
-    const metadata_payload = {
-      resourceId: {
-        scottyResourceId: {
+  return __awaiter(this, void 0, void 0, function* () {
+    const response = yield __classPrivateFieldGet(this, _Studio_session, "f").actions.execute(CreateVideoEndpoint_exports.PATH, CreateVideoEndpoint_exports.build({
+      resource_id: {
+        scotty_resource_id: {
           id: upload_result.scottyResourceId
         }
       },
-      frontendUploadId: initial_data.frontend_upload_id,
-      initialMetadata: {
+      frontend_upload_id: initial_data.frontend_upload_id,
+      initial_metadata: {
         title: {
-          newTitle: metadata.title || new Date().toDateString()
+          new_title: metadata.title || new Date().toDateString()
         },
         description: {
-          newDescription: metadata.description || "",
-          shouldSegment: true
+          new_description: metadata.description || "",
+          should_segment: true
         },
         privacy: {
-          newPrivacy: metadata.privacy || "PRIVATE"
+          new_privacy: metadata.privacy || "PRIVATE"
         },
-        draftState: {
-          isDraft: metadata.is_draft || false
+        draft_state: {
+          is_draft: metadata.is_draft
         }
-      }
-    };
-    const response = yield __classPrivateFieldGet49(this, _Studio_session, "f").actions.execute("/upload/createvideo", Object.assign({ client: "ANDROID" }, metadata_payload));
+      },
+      client: "ANDROID"
+    }));
     return response;
   });
 }, "_Studio_setVideoMetadata");
 var Studio_default = Studio;
 
-// dist/src/parser/youtube/Guide.js
-var __classPrivateFieldSet45 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet50 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _Guide_page;
-var Guide = class {
-  constructor(data) {
-    _Guide_page.set(this, void 0);
-    __classPrivateFieldSet45(this, _Guide_page, Parser.parseResponse(data), "f");
-    this.contents = __classPrivateFieldGet50(this, _Guide_page, "f").items.array().as(GuideSection_default, GuideSubscriptionsSection_default);
-  }
-  get page() {
-    return __classPrivateFieldGet50(this, _Guide_page, "f");
-  }
-};
-__name(Guide, "Guide");
-_Guide_page = /* @__PURE__ */ new WeakMap();
+// dist/src/core/managers/index.js
+var managers_exports = {};
+__export(managers_exports, {
+  AccountManager: () => AccountManager_default,
+  InteractionManager: () => InteractionManager_default,
+  PlaylistManager: () => PlaylistManager_default
+});
 
-// dist/src/Innertube.js
-var __awaiter42 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
+// dist/src/core/managers/AccountManager.js
+var _AccountManager_actions;
+var AccountManager = class {
+  constructor(actions) {
+    _AccountManager_actions.set(this, void 0);
+    __classPrivateFieldSet(this, _AccountManager_actions, actions, "f");
+    this.channel = {
+      editName: (new_name) => {
+        if (!__classPrivateFieldGet(this, _AccountManager_actions, "f").session.logged_in)
+          throw new InnertubeError("You must be signed in to perform this operation.");
+        return __classPrivateFieldGet(this, _AccountManager_actions, "f").execute(channel_exports.EditNameEndpoint.PATH, channel_exports.EditNameEndpoint.build({
+          given_name: new_name
+        }));
+      },
+      editDescription: (new_description) => {
+        if (!__classPrivateFieldGet(this, _AccountManager_actions, "f").session.logged_in)
+          throw new InnertubeError("You must be signed in to perform this operation.");
+        return __classPrivateFieldGet(this, _AccountManager_actions, "f").execute(channel_exports.EditDescriptionEndpoint.PATH, channel_exports.EditDescriptionEndpoint.build({
+          given_description: new_description
+        }));
+      },
+      getBasicAnalytics: () => this.getAnalytics()
+    };
+  }
+  getInfo() {
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!__classPrivateFieldGet(this, _AccountManager_actions, "f").session.logged_in)
+        throw new InnertubeError("You must be signed in to perform this operation.");
+      const response = yield __classPrivateFieldGet(this, _AccountManager_actions, "f").execute(account_exports.AccountListEndpoint.PATH, account_exports.AccountListEndpoint.build());
+      return new AccountInfo_default(response);
     });
   }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
+  getTimeWatched() {
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _AccountManager_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
+        browse_id: "SPtime_watched",
+        client: "ANDROID"
+      }));
+      return new TimeWatched_default(response);
+    });
+  }
+  getSettings() {
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield __classPrivateFieldGet(this, _AccountManager_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
+        browse_id: "SPaccount_overview"
+      }));
+      return new Settings_default(__classPrivateFieldGet(this, _AccountManager_actions, "f"), response);
+    });
+  }
+  getAnalytics() {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
+      const info = yield this.getInfo();
+      const response = yield __classPrivateFieldGet(this, _AccountManager_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
+        browse_id: "FEanalytics_screen",
+        params: proto_default.encodeChannelAnalyticsParams((_a7 = info.footers) === null || _a7 === void 0 ? void 0 : _a7.endpoint.payload.browseId),
+        client: "ANDROID"
+      }));
+      return new Analytics_default(response);
+    });
+  }
 };
+__name(AccountManager, "AccountManager");
+_AccountManager_actions = /* @__PURE__ */ new WeakMap();
+var AccountManager_default = AccountManager;
+
+// dist/src/core/managers/PlaylistManager.js
+var _PlaylistManager_actions;
+var PlaylistManager = class {
+  constructor(actions) {
+    _PlaylistManager_actions.set(this, void 0);
+    __classPrivateFieldSet(this, _PlaylistManager_actions, actions, "f");
+  }
+  create(title, video_ids) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ title, video_ids });
+      if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+        throw new InnertubeError("You must be signed in to perform this operation.");
+      const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute(CreateEndpoint_exports.PATH, CreateEndpoint_exports.build({
+        ids: video_ids,
+        title
+      }));
+      return {
+        success: response.success,
+        status_code: response.status_code,
+        playlist_id: response.data.playlistId,
+        data: response.data
+      };
+    });
+  }
+  delete(playlist_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ playlist_id });
+      if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+        throw new InnertubeError("You must be signed in to perform this operation.");
+      const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute(DeleteEndpoint_exports.PATH, DeleteEndpoint_exports.build({
+        playlist_id
+      }));
+      return {
+        playlist_id,
+        success: response.success,
+        status_code: response.status_code,
+        data: response.data
+      };
+    });
+  }
+  addVideos(playlist_id, video_ids) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ playlist_id, video_ids });
+      if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+        throw new InnertubeError("You must be signed in to perform this operation.");
+      const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute(EditPlaylistEndpoint_exports.PATH, EditPlaylistEndpoint_exports.build({
+        actions: video_ids.map((id) => ({
+          action: "ACTION_ADD_VIDEO",
+          added_video_id: id
+        })),
+        playlist_id
+      }));
+      return {
+        playlist_id,
+        action_result: response.data.actions
+      };
+    });
+  }
+  removeVideos(playlist_id, video_ids) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ playlist_id, video_ids });
+      if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+        throw new InnertubeError("You must be signed in to perform this operation.");
+      const info = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute(BrowseEndpoint_exports.PATH, Object.assign(Object.assign({}, BrowseEndpoint_exports.build({ browse_id: `VL${playlist_id}` })), { parse: true }));
+      const playlist = new Playlist_default2(__classPrivateFieldGet(this, _PlaylistManager_actions, "f"), info, true);
+      if (!playlist.info.is_editable)
+        throw new InnertubeError("This playlist cannot be edited.", playlist_id);
+      const payload = { playlist_id, actions: [] };
+      const getSetVideoIds = /* @__PURE__ */ __name((pl) => __awaiter(this, void 0, void 0, function* () {
+        const videos = pl.videos.filter((video) => video_ids.includes(video.key("id").string()));
+        videos.forEach((video) => payload.actions.push({
+          action: "ACTION_REMOVE_VIDEO",
+          set_video_id: video.key("set_video_id").string()
+        }));
+        if (payload.actions.length < video_ids.length) {
+          const next = yield pl.getContinuation();
+          return getSetVideoIds(next);
+        }
+      }), "getSetVideoIds");
+      yield getSetVideoIds(playlist);
+      if (!payload.actions.length)
+        throw new InnertubeError("Given video ids were not found in this playlist.", video_ids);
+      const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute(EditPlaylistEndpoint_exports.PATH, EditPlaylistEndpoint_exports.build(payload));
+      return {
+        playlist_id,
+        action_result: response.data.actions
+      };
+    });
+  }
+  moveVideo(playlist_id, moved_video_id, predecessor_video_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ playlist_id, moved_video_id, predecessor_video_id });
+      if (!__classPrivateFieldGet(this, _PlaylistManager_actions, "f").session.logged_in)
+        throw new InnertubeError("You must be signed in to perform this operation.");
+      const info = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute(BrowseEndpoint_exports.PATH, Object.assign(Object.assign({}, BrowseEndpoint_exports.build({ browse_id: `VL${playlist_id}` })), { parse: true }));
+      const playlist = new Playlist_default2(__classPrivateFieldGet(this, _PlaylistManager_actions, "f"), info, true);
+      if (!playlist.info.is_editable)
+        throw new InnertubeError("This playlist cannot be edited.", playlist_id);
+      const payload = { playlist_id, actions: [] };
+      let set_video_id_0, set_video_id_1;
+      const getSetVideoIds = /* @__PURE__ */ __name((pl) => __awaiter(this, void 0, void 0, function* () {
+        const video_0 = pl.videos.find((video) => moved_video_id === video.key("id").string());
+        const video_1 = pl.videos.find((video) => predecessor_video_id === video.key("id").string());
+        set_video_id_0 = set_video_id_0 || (video_0 === null || video_0 === void 0 ? void 0 : video_0.key("set_video_id").string());
+        set_video_id_1 = set_video_id_1 || (video_1 === null || video_1 === void 0 ? void 0 : video_1.key("set_video_id").string());
+        if (!set_video_id_0 || !set_video_id_1) {
+          const next = yield pl.getContinuation();
+          return getSetVideoIds(next);
+        }
+      }), "getSetVideoIds");
+      yield getSetVideoIds(playlist);
+      payload.actions.push({
+        action: "ACTION_MOVE_VIDEO_AFTER",
+        set_video_id: set_video_id_0,
+        moved_set_video_id_predecessor: set_video_id_1
+      });
+      const response = yield __classPrivateFieldGet(this, _PlaylistManager_actions, "f").execute(EditPlaylistEndpoint_exports.PATH, EditPlaylistEndpoint_exports.build(payload));
+      return {
+        playlist_id,
+        action_result: response.data.actions
+      };
+    });
+  }
+};
+__name(PlaylistManager, "PlaylistManager");
+_PlaylistManager_actions = /* @__PURE__ */ new WeakMap();
+var PlaylistManager_default = PlaylistManager;
+
+// dist/src/core/managers/InteractionManager.js
+var _InteractionManager_actions;
+var InteractionManager = class {
+  constructor(actions) {
+    _InteractionManager_actions.set(this, void 0);
+    __classPrivateFieldSet(this, _InteractionManager_actions, actions, "f");
+  }
+  like(video_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ video_id });
+      if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+        throw new Error("You must be signed in to perform this operation.");
+      const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute(LikeEndpoint_exports.PATH, LikeEndpoint_exports.build({
+        client: "ANDROID",
+        target: { video_id }
+      }));
+      return action;
+    });
+  }
+  dislike(video_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ video_id });
+      if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+        throw new Error("You must be signed in to perform this operation.");
+      const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute(DislikeEndpoint_exports.PATH, DislikeEndpoint_exports.build({
+        client: "ANDROID",
+        target: { video_id }
+      }));
+      return action;
+    });
+  }
+  removeRating(video_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ video_id });
+      if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+        throw new Error("You must be signed in to perform this operation.");
+      const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute(RemoveLikeEndpoint_exports.PATH, RemoveLikeEndpoint_exports.build({
+        client: "ANDROID",
+        target: { video_id }
+      }));
+      return action;
+    });
+  }
+  subscribe(channel_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ channel_id });
+      if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+        throw new Error("You must be signed in to perform this operation.");
+      const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute(SubscribeEndpoint_exports.PATH, SubscribeEndpoint_exports.build({
+        client: "ANDROID",
+        channel_ids: [channel_id],
+        params: "EgIIAhgA"
+      }));
+      return action;
+    });
+  }
+  unsubscribe(channel_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ channel_id });
+      if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+        throw new Error("You must be signed in to perform this operation.");
+      const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute(UnsubscribeEndpoint_exports.PATH, UnsubscribeEndpoint_exports.build({
+        client: "ANDROID",
+        channel_ids: [channel_id],
+        params: "CgIIAhgA"
+      }));
+      return action;
+    });
+  }
+  comment(video_id, text) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ video_id, text });
+      if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+        throw new Error("You must be signed in to perform this operation.");
+      const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute(CreateCommentEndpoint_exports.PATH, CreateCommentEndpoint_exports.build({
+        comment_text: text,
+        create_comment_params: proto_default.encodeCommentParams(video_id),
+        client: "ANDROID"
+      }));
+      return action;
+    });
+  }
+  translate(text, target_language, args = {}) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ text, target_language });
+      const target_action = proto_default.encodeCommentActionParams(22, Object.assign({ text, target_language }, args));
+      const response = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute(PerformCommentActionEndpoint_exports.PATH, PerformCommentActionEndpoint_exports.build({
+        client: "ANDROID",
+        actions: [target_action]
+      }));
+      const mutation = response.data.frameworkUpdates.entityBatchUpdate.mutations[0].payload.commentEntityPayload;
+      return {
+        success: response.success,
+        status_code: response.status_code,
+        translated_content: mutation.translatedContent.content,
+        data: response.data
+      };
+    });
+  }
+  setNotificationPreferences(channel_id, type) {
+    return __awaiter(this, void 0, void 0, function* () {
+      throwIfMissing({ channel_id, type });
+      if (!__classPrivateFieldGet(this, _InteractionManager_actions, "f").session.logged_in)
+        throw new Error("You must be signed in to perform this operation.");
+      const pref_types = {
+        PERSONALIZED: 1,
+        ALL: 2,
+        NONE: 3
+      };
+      if (!Object.keys(pref_types).includes(type.toUpperCase()))
+        throw new Error(`Invalid notification preference type: ${type}`);
+      const action = yield __classPrivateFieldGet(this, _InteractionManager_actions, "f").execute(ModifyChannelPreferenceEndpoint_exports.PATH, ModifyChannelPreferenceEndpoint_exports.build({
+        client: "WEB",
+        params: proto_default.encodeNotificationPref(channel_id, pref_types[type.toUpperCase()])
+      }));
+      return action;
+    });
+  }
+};
+__name(InteractionManager, "InteractionManager");
+_InteractionManager_actions = /* @__PURE__ */ new WeakMap();
+var InteractionManager_default = InteractionManager;
+
+// dist/src/Innertube.js
+var _Innertube_session;
 var Innertube = class {
   constructor(session) {
-    this.session = session;
-    this.account = new AccountManager_default(this.session.actions);
-    this.playlist = new PlaylistManager_default(this.session.actions);
-    this.interact = new InteractionManager_default(this.session.actions);
-    this.music = new Music_default(this.session);
-    this.studio = new Studio_default(this.session);
-    this.kids = new Kids_default(this.session);
-    this.actions = this.session.actions;
+    _Innertube_session.set(this, void 0);
+    __classPrivateFieldSet(this, _Innertube_session, session, "f");
   }
   static create(config = {}) {
-    return __awaiter42(this, void 0, void 0, function* () {
-      return new Innertube(yield Session.create(config));
+    return __awaiter(this, void 0, void 0, function* () {
+      return new Innertube(yield Session_default.create(config));
     });
   }
   getInfo(target, client) {
-    var _a5;
-    return __awaiter42(this, void 0, void 0, function* () {
+    var _a7, _b2, _c, _d, _e;
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ target });
-      let payload;
+      let next_payload;
       if (target instanceof NavigationEndpoint_default) {
-        const video_id = (_a5 = target.payload) === null || _a5 === void 0 ? void 0 : _a5.videoId;
-        if (!video_id) {
-          throw new InnertubeError("Missing video id in endpoint payload.", target);
-        }
-        payload = {
-          videoId: video_id
-        };
-        if (target.payload.playlistId) {
-          payload.playlistId = target.payload.playlistId;
-        }
-        if (target.payload.params) {
-          payload.params = target.payload.params;
-        }
-        if (target.payload.index) {
-          payload.playlistIndex = target.payload.index;
-        }
+        next_payload = NextEndpoint_exports.build({
+          video_id: (_a7 = target.payload) === null || _a7 === void 0 ? void 0 : _a7.videoId,
+          playlist_id: (_b2 = target.payload) === null || _b2 === void 0 ? void 0 : _b2.playlistId,
+          params: (_c = target.payload) === null || _c === void 0 ? void 0 : _c.params,
+          playlist_index: (_d = target.payload) === null || _d === void 0 ? void 0 : _d.index
+        });
       } else if (typeof target === "string") {
-        payload = {
-          videoId: target
-        };
+        next_payload = NextEndpoint_exports.build({
+          video_id: target
+        });
       } else {
         throw new InnertubeError("Invalid target, expected either a video id or a valid NavigationEndpoint", target);
       }
+      if (!next_payload.videoId)
+        throw new InnertubeError("Video id cannot be empty", next_payload);
+      const player_payload = PlayerEndpoint_exports.build({
+        video_id: next_payload.videoId,
+        playlist_id: next_payload === null || next_payload === void 0 ? void 0 : next_payload.playlistId,
+        client,
+        sts: (_e = __classPrivateFieldGet(this, _Innertube_session, "f").player) === null || _e === void 0 ? void 0 : _e.sts
+      });
+      const player_response = this.actions.execute(PlayerEndpoint_exports.PATH, player_payload);
+      const next_response = this.actions.execute(NextEndpoint_exports.PATH, next_payload);
+      const response = yield Promise.all([player_response, next_response]);
       const cpn = generateRandomString(16);
-      const initial_info = this.actions.getVideoInfo(payload.videoId, cpn, client);
-      const continuation = this.actions.execute("/next", payload);
-      const response = yield Promise.all([initial_info, continuation]);
-      return new VideoInfo_default(response, this.actions, this.session.player, cpn);
+      return new VideoInfo_default(response, this.actions, cpn);
     });
   }
   getBasicInfo(video_id, client) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    var _a7;
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
+      const response = yield this.actions.execute(PlayerEndpoint_exports.PATH, PlayerEndpoint_exports.build({
+        video_id,
+        client,
+        sts: (_a7 = __classPrivateFieldGet(this, _Innertube_session, "f").player) === null || _a7 === void 0 ? void 0 : _a7.sts
+      }));
       const cpn = generateRandomString(16);
-      const response = yield this.actions.getVideoInfo(video_id, cpn, client);
-      return new VideoInfo_default([response], this.actions, this.session.player, cpn);
+      return new VideoInfo_default([response], this.actions, cpn);
     });
   }
   search(query, filters = {}) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ query });
-      const args = Object.assign({ query }, {
+      const response = yield this.actions.execute(SearchEndpoint_exports.PATH, SearchEndpoint_exports.build({
+        query,
         params: filters ? proto_default.encodeSearchFilters(filters) : void 0
-      });
-      const response = yield this.actions.execute("/search", args);
+      }));
       return new Search_default(this.actions, response);
     });
   }
   getSearchSuggestions(query) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ query });
-      const url = new URL(`${Constants_default.URLS.YT_SUGGESTIONS}search`);
+      const url = new URL(`${URLS.YT_SUGGESTIONS}search`);
       url.searchParams.set("q", query);
-      url.searchParams.set("hl", this.session.context.client.hl);
-      url.searchParams.set("gl", this.session.context.client.gl);
+      url.searchParams.set("hl", __classPrivateFieldGet(this, _Innertube_session, "f").context.client.hl);
+      url.searchParams.set("gl", __classPrivateFieldGet(this, _Innertube_session, "f").context.client.gl);
       url.searchParams.set("ds", "yt");
       url.searchParams.set("client", "youtube");
       url.searchParams.set("xssi", "t");
       url.searchParams.set("oe", "UTF");
-      const response = yield this.session.http.fetch(url);
+      const response = yield __classPrivateFieldGet(this, _Innertube_session, "f").http.fetch(url);
       const response_data = yield response.text();
       const data = JSON.parse(response_data.replace(")]}'", ""));
       const suggestions = data[1].map((suggestion) => suggestion[0]);
@@ -24499,169 +23807,178 @@ var Innertube = class {
     });
   }
   getComments(video_id, sort_by) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
-      const payload = proto_default.encodeCommentsSectionParams(video_id, {
-        sort_by: sort_by || "TOP_COMMENTS"
-      });
-      const response = yield this.actions.execute("/next", { continuation: payload });
+      const response = yield this.actions.execute(NextEndpoint_exports.PATH, NextEndpoint_exports.build({
+        continuation: proto_default.encodeCommentsSectionParams(video_id, {
+          sort_by: sort_by || "TOP_COMMENTS"
+        })
+      }));
       return new Comments_default(this.actions, response.data);
     });
   }
   getHomeFeed() {
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/browse", { browseId: "FEwhat_to_watch" });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({ browse_id: "FEwhat_to_watch" }));
       return new HomeFeed(this.actions, response);
     });
   }
   getGuide() {
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/guide");
-      return new Guide(response.data);
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(GuideEndpoint_exports.PATH);
+      return new Guide_default(response.data);
     });
   }
   getLibrary() {
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/browse", { browseId: "FElibrary" });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({ browse_id: "FElibrary" }));
       return new Library_default(this.actions, response);
     });
   }
   getHistory() {
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/browse", { browseId: "FEhistory" });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({ browse_id: "FEhistory" }));
       return new History_default(this.actions, response);
     });
   }
   getTrending() {
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/browse", { browseId: "FEtrending", parse: true });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(BrowseEndpoint_exports.PATH, Object.assign(Object.assign({}, BrowseEndpoint_exports.build({ browse_id: "FEtrending" })), { parse: true }));
       return new TabbedFeed_default(this.actions, response);
     });
   }
   getSubscriptionsFeed() {
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/browse", { browseId: "FEsubscriptions", parse: true });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(BrowseEndpoint_exports.PATH, Object.assign(Object.assign({}, BrowseEndpoint_exports.build({ browse_id: "FEsubscriptions" })), { parse: true }));
       return new Feed_default(this.actions, response);
     });
   }
   getChannel(id) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ id });
-      const response = yield this.actions.execute("/browse", { browseId: id });
+      const response = yield this.actions.execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({ browse_id: id }));
       return new Channel2(this.actions, response);
     });
   }
   getNotifications() {
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/notification/get_notification_menu", { notificationsMenuRequestType: "NOTIFICATIONS_MENU_REQUEST_TYPE_INBOX" });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(GetNotificationMenuEndpoint_exports.PATH, GetNotificationMenuEndpoint_exports.build({
+        notifications_menu_request_type: "NOTIFICATIONS_MENU_REQUEST_TYPE_INBOX"
+      }));
       return new NotificationsMenu_default(this.actions, response);
     });
   }
   getUnseenNotificationsCount() {
-    var _a5, _b, _c, _d;
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/notification/get_unseen_count");
-      return ((_a5 = response.data) === null || _a5 === void 0 ? void 0 : _a5.unseenCount) || ((_d = (_c = (_b = response.data) === null || _b === void 0 ? void 0 : _b.actions) === null || _c === void 0 ? void 0 : _c[0].updateNotificationsUnseenCountAction) === null || _d === void 0 ? void 0 : _d.unseenCount) || 0;
+    var _a7, _b2, _c, _d;
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(GetUnseenCountEndpoint_exports.PATH);
+      return ((_a7 = response.data) === null || _a7 === void 0 ? void 0 : _a7.unseenCount) || ((_d = (_c = (_b2 = response.data) === null || _b2 === void 0 ? void 0 : _b2.actions) === null || _c === void 0 ? void 0 : _c[0].updateNotificationsUnseenCountAction) === null || _d === void 0 ? void 0 : _d.unseenCount) || 0;
     });
   }
   getPlaylist(id) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ id });
       if (!id.startsWith("VL")) {
         id = `VL${id}`;
       }
-      const response = yield this.actions.execute("/browse", { browseId: id });
+      const response = yield this.actions.execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({ browse_id: id }));
       return new Playlist_default2(this.actions, response);
     });
   }
   getHashtag(hashtag) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ hashtag });
-      const params = proto_default.encodeHashtag(hashtag);
-      const response = yield this.actions.execute("/browse", { browseId: "FEhashtag", params });
+      const response = yield this.actions.execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
+        browse_id: "FEhashtag",
+        params: proto_default.encodeHashtag(hashtag)
+      }));
       return new HashtagFeed(this.actions, response);
     });
   }
   getStreamingData(video_id, options = {}) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const info = yield this.getBasicInfo(video_id);
       return info.chooseFormat(options);
     });
   }
   download(video_id, options) {
-    return __awaiter42(this, void 0, void 0, function* () {
+    return __awaiter(this, void 0, void 0, function* () {
       const info = yield this.getBasicInfo(video_id, options === null || options === void 0 ? void 0 : options.client);
       return info.download(options);
     });
   }
   resolveURL(url) {
-    return __awaiter42(this, void 0, void 0, function* () {
-      const response = yield this.actions.execute("/navigation/resolve_url", { url, parse: true });
+    return __awaiter(this, void 0, void 0, function* () {
+      const response = yield this.actions.execute(ResolveURLEndpoint_exports.PATH, Object.assign(Object.assign({}, ResolveURLEndpoint_exports.build({ url })), { parse: true }));
       return response.endpoint;
     });
   }
   call(endpoint, args) {
     return endpoint.call(this.actions, args);
   }
+  get music() {
+    return new Music_default(__classPrivateFieldGet(this, _Innertube_session, "f"));
+  }
+  get studio() {
+    return new Studio_default(__classPrivateFieldGet(this, _Innertube_session, "f"));
+  }
+  get kids() {
+    return new Kids_default(__classPrivateFieldGet(this, _Innertube_session, "f"));
+  }
+  get account() {
+    return new AccountManager_default(__classPrivateFieldGet(this, _Innertube_session, "f").actions);
+  }
+  get playlist() {
+    return new PlaylistManager_default(__classPrivateFieldGet(this, _Innertube_session, "f").actions);
+  }
+  get interact() {
+    return new InteractionManager_default(__classPrivateFieldGet(this, _Innertube_session, "f").actions);
+  }
+  get actions() {
+    return __classPrivateFieldGet(this, _Innertube_session, "f").actions;
+  }
+  get session() {
+    return __classPrivateFieldGet(this, _Innertube_session, "f");
+  }
 };
 __name(Innertube, "Innertube");
+_Innertube_session = /* @__PURE__ */ new WeakMap();
 var Innertube_default = Innertube;
 
 // dist/src/types/index.js
 var types_exports = {};
+
+// dist/src/utils/Cache.js
+var _UniversalCache_cache;
+var UniversalCache = class {
+  constructor(persistent, persistent_directory) {
+    _UniversalCache_cache.set(this, void 0);
+    __classPrivateFieldSet(this, _UniversalCache_cache, new Platform.shim.Cache(persistent, persistent_directory), "f");
+  }
+  get cache_dir() {
+    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").cache_dir;
+  }
+  get(key) {
+    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").get(key);
+  }
+  set(key, value) {
+    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").set(key, value);
+  }
+  remove(key) {
+    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").remove(key);
+  }
+};
+__name(UniversalCache, "UniversalCache");
+_UniversalCache_cache = /* @__PURE__ */ new WeakMap();
+var Cache_default = UniversalCache;
 
 // dist/src/platform/lib.js
 var lib_default = Innertube_default;
 
 // dist/src/platform/node.js
 var import_meta = {};
-var __awaiter43 = function(thisArg, _arguments, P, generator) {
-  function adopt(value) {
-    return value instanceof P ? value : new P(function(resolve) {
-      resolve(value);
-    });
-  }
-  __name(adopt, "adopt");
-  return new (P || (P = Promise))(function(resolve, reject) {
-    function fulfilled(value) {
-      try {
-        step(generator.next(value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(fulfilled, "fulfilled");
-    function rejected(value) {
-      try {
-        step(generator["throw"](value));
-      } catch (e) {
-        reject(e);
-      }
-    }
-    __name(rejected, "rejected");
-    function step(result) {
-      result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected);
-    }
-    __name(step, "step");
-    step((generator = generator.apply(thisArg, _arguments || [])).next());
-  });
-};
-var __classPrivateFieldSet46 = function(receiver, state, value, kind, f) {
-  if (kind === "m")
-    throw new TypeError("Private method is not writable");
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a setter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot write private member to an object whose class did not declare it");
-  return kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value), value;
-};
-var __classPrivateFieldGet51 = function(receiver, state, kind, f) {
-  if (kind === "a" && !f)
-    throw new TypeError("Private accessor was defined without a getter");
-  if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver))
-    throw new TypeError("Cannot read private member from an object whose class did not declare it");
-  return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
+var _a6;
+var _b;
 var _Cache_instances;
 var _Cache_persistent_directory;
 var _Cache_persistent;
@@ -24678,13 +23995,14 @@ var meta_url = import_meta.url;
 var is_cjs = !meta_url;
 var __dirname__ = is_cjs ? __dirname : import_path.default.dirname((0, import_url.fileURLToPath)(meta_url));
 var package_json = JSON.parse((0, import_fs.readFileSync)(import_path.default.resolve(__dirname__, is_cjs ? "../package.json" : "../../package.json"), "utf-8"));
+var repo_url = (_a6 = package_json.homepage) === null || _a6 === void 0 ? void 0 : _a6.split("#")[0];
 var Cache = class {
   constructor(persistent = false, persistent_directory) {
     _Cache_instances.add(this);
     _Cache_persistent_directory.set(this, void 0);
     _Cache_persistent.set(this, void 0);
-    __classPrivateFieldSet46(this, _Cache_persistent_directory, persistent_directory || Cache.default_persistent_directory, "f");
-    __classPrivateFieldSet46(this, _Cache_persistent, persistent, "f");
+    __classPrivateFieldSet(this, _Cache_persistent_directory, persistent_directory || Cache.default_persistent_directory, "f");
+    __classPrivateFieldSet(this, _Cache_persistent, persistent, "f");
   }
   static get temp_directory() {
     return `${import_os.default.tmpdir()}/youtubei.js`;
@@ -24693,11 +24011,11 @@ var Cache = class {
     return import_path.default.resolve(__dirname__, "..", "..", ".cache", "youtubei.js");
   }
   get cache_dir() {
-    return __classPrivateFieldGet51(this, _Cache_persistent, "f") ? __classPrivateFieldGet51(this, _Cache_persistent_directory, "f") : Cache.temp_directory;
+    return __classPrivateFieldGet(this, _Cache_persistent, "f") ? __classPrivateFieldGet(this, _Cache_persistent_directory, "f") : Cache.temp_directory;
   }
   get(key) {
-    return __awaiter43(this, void 0, void 0, function* () {
-      yield __classPrivateFieldGet51(this, _Cache_instances, "m", _Cache_createCache).call(this);
+    return __awaiter(this, void 0, void 0, function* () {
+      yield __classPrivateFieldGet(this, _Cache_instances, "m", _Cache_createCache).call(this);
       const file = import_path.default.resolve(this.cache_dir, key);
       try {
         const stat = yield import_promises.default.stat(file);
@@ -24714,15 +24032,15 @@ var Cache = class {
     });
   }
   set(key, value) {
-    return __awaiter43(this, void 0, void 0, function* () {
-      yield __classPrivateFieldGet51(this, _Cache_instances, "m", _Cache_createCache).call(this);
+    return __awaiter(this, void 0, void 0, function* () {
+      yield __classPrivateFieldGet(this, _Cache_instances, "m", _Cache_createCache).call(this);
       const file = import_path.default.resolve(this.cache_dir, key);
       yield import_promises.default.writeFile(file, new Uint8Array(value));
     });
   }
   remove(key) {
-    return __awaiter43(this, void 0, void 0, function* () {
-      yield __classPrivateFieldGet51(this, _Cache_instances, "m", _Cache_createCache).call(this);
+    return __awaiter(this, void 0, void 0, function* () {
+      yield __classPrivateFieldGet(this, _Cache_instances, "m", _Cache_createCache).call(this);
       const file = import_path.default.resolve(this.cache_dir, key);
       try {
         yield import_promises.default.unlink(file);
@@ -24736,7 +24054,7 @@ var Cache = class {
 };
 __name(Cache, "Cache");
 _Cache_persistent_directory = /* @__PURE__ */ new WeakMap(), _Cache_persistent = /* @__PURE__ */ new WeakMap(), _Cache_instances = /* @__PURE__ */ new WeakSet(), _Cache_createCache = /* @__PURE__ */ __name(function _Cache_createCache2() {
-  return __awaiter43(this, void 0, void 0, function* () {
+  return __awaiter(this, void 0, void 0, function* () {
     const dir = this.cache_dir;
     try {
       const cwd = yield import_promises.default.stat(dir);
@@ -24754,12 +24072,12 @@ Platform.load({
   runtime: "node",
   info: {
     version: package_json.version,
-    bugs_url: package_json.bugs.url,
-    repo_url: package_json.homepage.split("#")[0]
+    bugs_url: ((_b = package_json.bugs) === null || _b === void 0 ? void 0 : _b.url) || `${repo_url}/issues`,
+    repo_url
   },
   server: true,
   Cache,
-  sha1Hash: (data) => __awaiter43(void 0, void 0, void 0, function* () {
+  sha1Hash: (data) => __awaiter(void 0, void 0, void 0, function* () {
     return import_crypto.default.createHash("sha1").update(data).digest("hex");
   }),
   uuidv4() {
@@ -24776,31 +24094,31 @@ Platform.load({
   Headers: Headers2,
   FormData,
   File,
-  ReadableStream: import_web_streams_polyfill.ReadableStream
+  ReadableStream: import_web_streams_polyfill.ReadableStream,
+  CustomEvent: node_custom_event_default
 });
 var node_default = lib_default;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
-  AccountManager,
   Actions,
   AppendContinuationItemsAction,
   ClientType,
+  Clients,
   Constants,
   Continuation,
+  Endpoints,
   EventEmitter,
-  Feed,
-  FilterableFeed,
   FormatUtils,
+  Generator,
   GridContinuation,
   HTTPClient,
   Helpers,
   Innertube,
-  InteractionManager,
   ItemSectionContinuation,
-  Kids,
   LiveChatContinuation,
+  Managers,
   Misc,
-  Music,
+  Mixins,
   MusicPlaylistShelfContinuation,
   MusicShelfContinuation,
   NavigateAction,
@@ -24808,14 +24126,11 @@ var node_default = lib_default;
   Parser,
   Platform,
   Player,
-  PlaylistManager,
   PlaylistPanelContinuation,
   Proto,
   ReloadContinuationItemsCommand,
   SectionListContinuation,
   Session,
-  Studio,
-  TabbedFeed,
   Types,
   UniversalCache,
   Utils,

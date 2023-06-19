@@ -8,7 +8,7 @@ class HorizontalMovieList extends YTNode {
         this.previous_button = Parser.parseItem(data.previousButton, Button);
         this.next_button = Parser.parseItem(data.nextButton, Button);
     }
-    // XXX: alias for consistency
+    // XXX: Alias for consistency.
     get contents() {
         return this.items;
     }

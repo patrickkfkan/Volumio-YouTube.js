@@ -1,9 +1,10 @@
+import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Menu from './menus/Menu.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import type Menu from './menus/Menu.js';
-import { YTNode } from '../helpers.js';
-declare class CompactChannel extends YTNode {
+export default class CompactChannel extends YTNode {
     static type: string;
     title: Text;
     channel_id: string;
@@ -14,6 +15,5 @@ declare class CompactChannel extends YTNode {
     endpoint: NavigationEndpoint;
     tv_banner: Thumbnail[];
     menu: Menu | null;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default CompactChannel;

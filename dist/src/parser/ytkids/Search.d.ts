@@ -1,4 +1,4 @@
-import Feed from '../../core/Feed.js';
+import Feed from '../../core/mixins/Feed.js';
 import type Actions from '../../core/Actions.js';
 import type { ObservedArray, YTNode } from '../helpers.js';
 import type { ISearchResponse } from '../types/ParsedResponse.js';

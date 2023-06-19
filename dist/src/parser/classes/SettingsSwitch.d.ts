@@ -1,13 +1,13 @@
-import Text from './misc/Text.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class SettingsSwitch extends YTNode {
+import type { RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+export default class SettingsSwitch extends YTNode {
     static type: string;
     title: Text;
     subtitle: Text;
     enabled: boolean;
     enable_endpoint: NavigationEndpoint;
     disable_endpoint: NavigationEndpoint;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SettingsSwitch;

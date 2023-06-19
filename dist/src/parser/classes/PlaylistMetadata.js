@@ -4,7 +4,7 @@ class PlaylistMetadata extends YTNode {
         super();
         this.title = data.title;
         this.description = data.description || null;
-        // XXX: Appindexing should be in microformat
+        // XXX: Appindexing should be in microformat.
     }
 }
 PlaylistMetadata.type = 'PlaylistMetadata';

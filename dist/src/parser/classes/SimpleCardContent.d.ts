@@ -1,8 +1,9 @@
+import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-declare class SimpleCardContent extends YTNode {
+export default class SimpleCardContent extends YTNode {
     static type: string;
     image: Thumbnail[];
     title: Text;
@@ -10,6 +11,5 @@ declare class SimpleCardContent extends YTNode {
     show_link_icon: boolean;
     call_to_action: Text;
     endpoint: NavigationEndpoint;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SimpleCardContent;

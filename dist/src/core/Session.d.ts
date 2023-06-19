@@ -1,11 +1,12 @@
 import EventEmitterLike from '../utils/EventEmitterLike.js';
 import Actions from './Actions.js';
 import Player from './Player.js';
+import type { ICache } from '../types/Cache.js';
+import type { FetchFunction } from '../types/PlatformShim.js';
 import HTTPClient from '../utils/HTTPClient.js';
-import { DeviceCategory } from '../utils/Utils.js';
-import OAuth, { Credentials, OAuthAuthErrorEventHandler, OAuthAuthEventHandler, OAuthAuthPendingEventHandler } from './OAuth.js';
-import { ICache } from '../types/Cache.js';
-import { FetchFunction } from '../types/PlatformShim.js';
+import type { DeviceCategory } from '../utils/Utils.js';
+import type { Credentials, OAuthAuthErrorEventHandler, OAuthAuthEventHandler, OAuthAuthPendingEventHandler } from './OAuth.js';
+import OAuth from './OAuth.js';
 export declare enum ClientType {
     WEB = "WEB",
     KIDS = "WEB_KIDS",
@@ -25,7 +26,6 @@ export interface Context {
         screenPixelDensity: number;
         screenWidthPoints: number;
         visitorData: string;
-        userAgent: string;
         clientName: string;
         clientVersion: string;
         clientScreen?: string;
@@ -36,6 +36,7 @@ export interface Context {
         clientFormFactor: string;
         userInterfaceTheme: string;
         timeZone: string;
+        userAgent?: string;
         browserName?: string;
         browserVersion?: string;
         originalUrl: string;
@@ -58,9 +59,6 @@ export interface Context {
     };
     thirdParty?: {
         embedUrl: string;
-    };
-    request: {
-        useSsl: true;
     };
 }
 export interface SessionOptions {
@@ -113,6 +111,11 @@ export interface SessionOptions {
      */
     cookie?: string;
     /**
+     * Setting this to a valid and persistent visitor data string will allow YouTube to give this session tailored content even when not logged in.
+     * A good way to get a valid one is by either grabbing it from a browser or calling InnerTube's `/visitor_id` endpoint.
+     */
+    visitor_data?: string;
+    /**
      * Fetch function to use.
      */
     fetch?: FetchFunction;
@@ -122,6 +125,9 @@ export interface SessionData {
     api_key: string;
     api_version: string;
 }
+/**
+ * Represents an InnerTube session. This holds all the data needed to make requests to YouTube.
+ */
 export default class Session extends EventEmitterLike {
     #private;
     oauth: OAuth;
@@ -138,7 +144,7 @@ export default class Session extends EventEmitterLike {
     once(type: 'auth-pending', listener: OAuthAuthPendingEventHandler): void;
     once(type: 'auth-error', listener: OAuthAuthErrorEventHandler): void;
     static create(options?: SessionOptions): Promise<Session>;
-    static getSessionData(lang?: string, location?: string, account_index?: number, enable_safety_mode?: boolean, generate_session_locally?: boolean, device_category?: DeviceCategory, client_name?: ClientType, tz?: string, fetch?: FetchFunction): Promise<{
+    static getSessionData(lang?: string, location?: string, account_index?: number, visitor_data?: string, enable_safety_mode?: boolean, generate_session_locally?: boolean, device_category?: DeviceCategory, client_name?: ClientType, tz?: string, fetch?: FetchFunction): Promise<{
         account_index: number;
         context: Context;
         api_key: string;

@@ -1,18 +1,18 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import MetadataBadge from './MetadataBadge.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-import MetadataBadge from './MetadataBadge.js';
-declare class GridMovie extends YTNode {
+export default class GridMovie extends YTNode {
     static type: string;
     id: string;
     title: Text;
     thumbnails: Thumbnail[];
     duration: Text | null;
     endpoint: NavigationEndpoint;
-    badges: MetadataBadge[];
+    badges: ObservedArray<MetadataBadge>;
     metadata: Text;
-    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
-    constructor(data: any);
+    thumbnail_overlays: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default GridMovie;

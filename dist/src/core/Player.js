@@ -1,27 +1,11 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _Player_nsig_sc, _Player_sig_sc, _Player_sig_sc_timestamp, _Player_player_id;
+import { __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
 import { Platform, getRandomUserAgent, getStringBetweenStrings, PlayerError } from '../utils/Utils.js';
-import Constants from '../utils/Constants.js';
-export default class Player {
+import * as Constants from '../utils/Constants.js';
+/**
+ * Represents YouTube's player script. This is required to decipher signatures.
+ */
+class Player {
     constructor(signature_timestamp, sig_sc, nsig_sc, player_id) {
         _Player_nsig_sc.set(this, void 0);
         _Player_sig_sc.set(this, void 0);
@@ -92,6 +76,27 @@ export default class Player {
                 console.warn('Warning:\nCould not transform nsig, download may be throttled.\nChanging the InnerTube client to "ANDROID" might help!');
             }
             url_components.searchParams.set('n', nsig);
+        }
+        const client = url_components.searchParams.get('c');
+        switch (client) {
+            case 'WEB':
+                url_components.searchParams.set('cver', Constants.CLIENTS.WEB.VERSION);
+                break;
+            case 'WEB_REMIX':
+                url_components.searchParams.set('cver', Constants.CLIENTS.YTMUSIC.VERSION);
+                break;
+            case 'WEB_KIDS':
+                url_components.searchParams.set('cver', Constants.CLIENTS.WEB_KIDS.VERSION);
+                break;
+            case 'ANDROID':
+                url_components.searchParams.set('cver', Constants.CLIENTS.ANDROID.VERSION);
+                break;
+            case 'ANDROID_MUSIC':
+                url_components.searchParams.set('cver', Constants.CLIENTS.YTMUSIC_ANDROID.VERSION);
+                break;
+            case 'TVHTML5_SIMPLY_EMBEDDED_PLAYER':
+                url_components.searchParams.set('cver', Constants.CLIENTS.TV_EMBEDDED.VERSION);
+                break;
         }
         return url_components.toString();
     }
@@ -173,4 +178,5 @@ export default class Player {
     }
 }
 _Player_nsig_sc = new WeakMap(), _Player_sig_sc = new WeakMap(), _Player_sig_sc_timestamp = new WeakMap(), _Player_player_id = new WeakMap();
+export default Player;
 //# sourceMappingURL=Player.js.map

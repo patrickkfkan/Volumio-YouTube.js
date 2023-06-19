@@ -1,4 +1,4 @@
-import { ICacheConstructor } from './Cache.js';
+import type { ICacheConstructor } from './Cache.js';
 
 export type Runtime = 'deno' | 'node' | 'browser' | 'unknown';
 
@@ -27,6 +27,7 @@ interface PlatformShim {
     FormData: typeof FormData;
     File: typeof File;
     ReadableStream: typeof ReadableStream;
+    CustomEvent: typeof CustomEvent;
 }
 
 export default PlatformShim;

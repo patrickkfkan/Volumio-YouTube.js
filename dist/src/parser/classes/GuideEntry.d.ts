@@ -1,8 +1,9 @@
-import Text from './misc/Text.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-declare class GuideEntry extends YTNode {
+import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
+export default class GuideEntry extends YTNode {
     static type: string;
     title: Text;
     endpoint: NavigationEndpoint;
@@ -10,6 +11,5 @@ declare class GuideEntry extends YTNode {
     thumbnails?: Thumbnail[];
     badges?: any;
     is_primary: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default GuideEntry;

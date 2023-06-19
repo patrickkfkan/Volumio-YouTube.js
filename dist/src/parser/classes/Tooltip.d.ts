@@ -1,7 +1,8 @@
 import Text from './misc/Text.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class Tooltip extends YTNode {
+import type { RawNode } from '../index.js';
+export default class Tooltip extends YTNode {
     static type: string;
     promo_config: {
         promo_id: string;
@@ -14,6 +15,5 @@ declare class Tooltip extends YTNode {
     suggested_position: string;
     dismiss_stratedy: string;
     dwell_time_ms: number;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default Tooltip;

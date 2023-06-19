@@ -1,10 +1,10 @@
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
 import { YTNode } from '../helpers.js';
-declare class ProfileColumnUserInfo extends YTNode {
+import type { RawNode } from '../index.js';
+export default class ProfileColumnUserInfo extends YTNode {
     static type: string;
     title: Text;
     thumbnails: Thumbnail[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ProfileColumnUserInfo;

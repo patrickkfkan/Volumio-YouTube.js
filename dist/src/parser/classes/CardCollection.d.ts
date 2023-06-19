@@ -1,10 +1,10 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import Text from './misc/Text.js';
-import { YTNode } from '../helpers.js';
-declare class CardCollection extends YTNode {
+export default class CardCollection extends YTNode {
     static type: string;
-    cards: import("../helpers.js").ObservedArray<YTNode>;
+    cards: ObservedArray<YTNode>;
     header: Text;
     allow_teaser_dismiss: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default CardCollection;

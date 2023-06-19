@@ -1,6 +1,6 @@
 {
     "name": "volumio-youtubei.js",
-    "version": "0.2.1-b.2",
+    "version": "0.3.0",
     "description": "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
     "type": "module",
     "types": "./dist/src/platform/lib.d.ts",
@@ -73,7 +73,7 @@
         "build:esm": "npx tsc",
         "build:deno": "npx cpy ./src ./deno && npx cpy ./package.json ./deno && npx replace \".js';\" \".ts';\" ./deno -r && npx replace '.js\";' '.ts\";' ./deno -r && npx replace \"'linkedom';\" \"'https://esm.sh/linkedom';\" ./deno -r && npx replace \"'jintr';\" \"'https://esm.sh/jintr';\" ./deno -r && npx replace \"new Jinter.default\" \"new Jinter\" ./deno -r",
         "bundle:node": "npx esbuild ./dist/src/platform/node.js --bundle --target=node10 --keep-names --format=cjs --platform=node --outfile=./bundle/node.cjs --external:jintr --external:undici --external:linkedom --sourcemap --banner:js=\"/* eslint-disable */\"",
-        "bundle:browser": "npx esbuild ./dist/src/platform/web.js --banner:js=\"/* eslint-disable */\" --bundle --target=chrome58 --keep-names --format=esm --sourcemap --define:global=globalThis --outfile=./bundle/browser.js --platform=browser",
+        "bundle:browser": "npx esbuild ./dist/src/platform/web.js --banner:js=\"/* eslint-disable */\" --bundle --target=chrome58 --keep-names --format=esm --sourcemap --define:global=globalThis --conditions=module --outfile=./bundle/browser.js --platform=browser",
         "bundle:browser:prod": "npm run bundle:browser -- --outfile=./bundle/browser.min.js --minify",
         "watch": "npx tsc --watch"
     },
@@ -84,11 +84,12 @@
     "license": "MIT",
     "dependencies": {
         "event-target-polyfill": "0.0.3",
-        "jintr": "^0.4.1",
+        "jintr": "^1.0.0",
         "linkedom": "^0.14.12",
         "node-fetch": "^2.6.7",
         "uuid": "^9.0.0",
-        "web-streams-polyfill": "^3.2.1"
+        "web-streams-polyfill": "^3.2.1",
+        "tslib": "^2.5.0"
     },
     "devDependencies": {
         "@types/jest": "^28.1.7",
@@ -104,7 +105,7 @@
         "pbkit": "^0.0.59",
         "replace": "^1.2.2",
         "ts-jest": "^28.0.8",
-        "typescript": "^4.9.5"
+        "typescript": "^5.0.0"
     },
     "bugs": {
         "url": "https://github.com/patrickkfkan/Volumio-YouTube.js/issues"

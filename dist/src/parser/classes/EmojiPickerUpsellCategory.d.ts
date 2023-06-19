@@ -1,7 +1,8 @@
 import Text from './misc/Text.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class EmojiPickerUpsellCategory extends YTNode {
+import type { RawNode } from '../index.js';
+export default class EmojiPickerUpsellCategory extends YTNode {
     static type: string;
     category_id: string;
     title: Text;
@@ -9,6 +10,5 @@ declare class EmojiPickerUpsellCategory extends YTNode {
     emoji_tooltip: string;
     endpoint: NavigationEndpoint;
     emoji_ids: string[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default EmojiPickerUpsellCategory;

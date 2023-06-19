@@ -1,25 +1,7 @@
 // Node.js Platform Support
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
+var _a, _b;
 var _Cache_instances, _Cache_persistent_directory, _Cache_persistent, _Cache_createCache;
+import { __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
 /*** Volumio-YouTube.js ***/
 /*import {
   fetch as defaultFetch,
@@ -46,12 +28,14 @@ import os from 'os';
 import fs from 'fs/promises';
 import { readFileSync } from 'fs';
 import DOMParser from './polyfills/server-dom.js';
+import CustomEvent from './polyfills/node-custom-event.js';
 import { fileURLToPath } from 'url';
 import evaluate from './jsruntime/jinter.js';
 const meta_url = import.meta.url;
 const is_cjs = !meta_url;
 const __dirname__ = is_cjs ? __dirname : path.dirname(fileURLToPath(meta_url));
 const package_json = JSON.parse(readFileSync(path.resolve(__dirname__, is_cjs ? '../package.json' : '../../package.json'), 'utf-8'));
+const repo_url = (_a = package_json.homepage) === null || _a === void 0 ? void 0 : _a.split('#')[0];
 class Cache {
     constructor(persistent = false, persistent_directory) {
         _Cache_instances.add(this);
@@ -130,8 +114,8 @@ Platform.load({
     runtime: 'node',
     info: {
         version: package_json.version,
-        bugs_url: package_json.bugs.url,
-        repo_url: package_json.homepage.split('#')[0]
+        bugs_url: ((_b = package_json.bugs) === null || _b === void 0 ? void 0 : _b.url) || `${repo_url}/issues`,
+        repo_url
     },
     server: true,
     Cache: Cache,
@@ -156,7 +140,8 @@ Platform.load({
     Headers: Headers,
     FormData: FormData,
     File: File,
-    ReadableStream: ReadableStream
+    ReadableStream: ReadableStream,
+    CustomEvent: CustomEvent
 });
 export * from './lib.js';
 import Innertube from './lib.js';

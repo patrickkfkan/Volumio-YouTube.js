@@ -1,8 +1,8 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class TitleAndButtonListHeader extends YTNode {
+import type { RawNode } from '../index.js';
+export default class TitleAndButtonListHeader extends YTNode {
     static type: string;
     title: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default TitleAndButtonListHeader;

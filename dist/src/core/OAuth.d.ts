@@ -21,7 +21,7 @@ export type OAuthAuthEventHandler = (data: {
 }) => any;
 export type OAuthAuthPendingEventHandler = (data: OAuthAuthPendingData) => any;
 export type OAuthAuthErrorEventHandler = (err: OAuthError) => any;
-declare class OAuth {
+export default class OAuth {
     #private;
     constructor(session: Session);
     /**
@@ -41,4 +41,3 @@ declare class OAuth {
         credentials: Credentials;
     };
 }
-export default OAuth;

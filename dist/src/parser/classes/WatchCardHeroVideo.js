@@ -1,6 +1,6 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
 class WatchCardHeroVideo extends YTNode {
     constructor(data) {
         var _a;

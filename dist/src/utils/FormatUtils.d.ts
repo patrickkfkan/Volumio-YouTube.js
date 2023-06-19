@@ -1,5 +1,5 @@
-import Player from '../core/Player.js';
-import Actions from '../core/Actions.js';
+import type Player from '../core/Player.js';
+import type Actions from '../core/Actions.js';
 import type Format from '../parser/classes/misc/Format.js';
 import type AudioOnlyPlayability from '../parser/classes/AudioOnlyPlayability.js';
 import type { YTNode } from '../parser/helpers.js';
@@ -69,6 +69,6 @@ declare class FormatUtils {
         adaptive_formats: Format[];
         dash_manifest_url: string | null;
         hls_manifest_url: string | null;
-    }, url_transformer?: URLTransformer, format_filter?: FormatFilter, cpn?: string, player?: Player): string;
+    }, url_transformer?: URLTransformer, format_filter?: FormatFilter, cpn?: string, player?: Player, actions?: Actions): Promise<string>;
 }
 export default FormatUtils;

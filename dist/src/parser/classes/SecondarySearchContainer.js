@@ -3,7 +3,7 @@ import { YTNode } from '../helpers.js';
 class SecondarySearchContainer extends YTNode {
     constructor(data) {
         super();
-        this.contents = Parser.parse(data.contents);
+        this.contents = Parser.parseArray(data.contents);
     }
 }
 SecondarySearchContainer.type = 'SecondarySearchContainer';

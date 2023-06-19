@@ -1,10 +1,11 @@
-import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class EmergencyOnebox extends YTNode {
+import { type RawNode } from '../index.js';
+import Menu from './menus/Menu.js';
+import Text from './misc/Text.js';
+export default class EmergencyOnebox extends YTNode {
     static type: string;
     title: Text;
-    first_option: import("../helpers.js").SuperParsedResult<YTNode>;
-    menu: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    first_option: YTNode;
+    menu: Menu | null;
+    constructor(data: RawNode);
 }
-export default EmergencyOnebox;

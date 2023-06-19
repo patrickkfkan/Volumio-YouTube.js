@@ -1,4 +1,4 @@
-class Thumbnail {
+export default class Thumbnail {
     constructor(data) {
         this.url = data.url;
         this.width = data.width;
@@ -13,5 +13,4 @@ class Thumbnail {
         return data.thumbnails.map((x) => new Thumbnail(x)).sort((a, b) => b.width - a.width);
     }
 }
-export default Thumbnail;
 //# sourceMappingURL=Thumbnail.js.map

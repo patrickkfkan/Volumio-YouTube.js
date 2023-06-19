@@ -1,7 +1,7 @@
 import { YTNode } from '../helpers.js';
-import { RawNode } from '../index.js';
+import { type RawNode } from '../index.js';
 import YpcTrailer from './YpcTrailer.js';
-declare class PlayerLegacyDesktopYpcTrailer extends YTNode {
+export default class PlayerLegacyDesktopYpcTrailer extends YTNode {
     static type: string;
     video_id: string;
     title: string;
@@ -14,4 +14,3 @@ declare class PlayerLegacyDesktopYpcTrailer extends YTNode {
     trailer: YpcTrailer | null;
     constructor(data: RawNode);
 }
-export default PlayerLegacyDesktopYpcTrailer;

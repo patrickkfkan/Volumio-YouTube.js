@@ -1,8 +1,8 @@
 import { YTNode } from '../helpers.js';
-declare class PlaylistSidebarSecondaryInfo extends YTNode {
+import { type RawNode } from '../index.js';
+export default class PlaylistSidebarSecondaryInfo extends YTNode {
     static type: string;
-    owner: import("../helpers.js").SuperParsedResult<YTNode>;
-    button: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    owner: YTNode;
+    button: YTNode;
+    constructor(data: RawNode);
 }
-export default PlaylistSidebarSecondaryInfo;

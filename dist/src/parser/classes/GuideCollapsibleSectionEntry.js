@@ -1,5 +1,5 @@
-import { YTNode } from '../helpers.js';
 import Parser from '../parser.js';
+import { YTNode } from '../helpers.js';
 class GuideCollapsibleSectionEntry extends YTNode {
     constructor(data) {
         super();

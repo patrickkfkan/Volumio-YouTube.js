@@ -1,5 +1,5 @@
 import Thumbnail from './Thumbnail.js';
-class VideoDetails {
+export default class VideoDetails {
     constructor(data) {
         this.id = data.videoId;
         this.channel_id = data.channelId;
@@ -16,8 +16,8 @@ class VideoDetails {
         this.is_live = !!data.isLive;
         this.is_live_content = !!data.isLiveContent;
         this.is_upcoming = !!data.isUpcoming;
+        this.is_post_live_dvr = !!data.isPostLiveDvr;
         this.is_crawlable = !!data.isCrawlable;
     }
 }
-export default VideoDetails;
 //# sourceMappingURL=VideoDetails.js.map

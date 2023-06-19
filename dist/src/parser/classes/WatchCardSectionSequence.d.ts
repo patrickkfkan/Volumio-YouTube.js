@@ -1,7 +1,8 @@
+import type { ObservedArray } from '../helpers.js';
 import { YTNode } from '../helpers.js';
-declare class WatchCardSectionSequence extends YTNode {
+import { type RawNode } from '../index.js';
+export default class WatchCardSectionSequence extends YTNode {
     static type: string;
-    lists: import("../helpers.js").ObservedArray<YTNode>;
-    constructor(data: any);
+    lists: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default WatchCardSectionSequence;

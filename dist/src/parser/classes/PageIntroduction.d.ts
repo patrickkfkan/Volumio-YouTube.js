@@ -1,10 +1,10 @@
 import { YTNode } from '../helpers.js';
-declare class PageIntroduction extends YTNode {
+import type { RawNode } from '../index.js';
+export default class PageIntroduction extends YTNode {
     static type: string;
     header_text: string;
     body_text: string;
     page_title: string;
     header_icon_type: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default PageIntroduction;

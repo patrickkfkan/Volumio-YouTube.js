@@ -4,7 +4,7 @@ import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
 import MusicDetailHeader from '../classes/MusicDetailHeader.js';
 import MusicEditablePlaylistDetailHeader from '../classes/MusicEditablePlaylistDetailHeader.js';
 import MusicPlaylistShelf from '../classes/MusicPlaylistShelf.js';
-import MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
+import type MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
 import MusicShelf from '../classes/MusicShelf.js';
 import SectionList from '../classes/SectionList.js';
 
@@ -37,7 +37,7 @@ class Playlist {
       this.#continuation = data.continuation;
     } else {
       if (this.#page.header?.item().type === 'MusicEditablePlaylistDetailHeader') {
-        this.header = this.#page.header?.item().as(MusicEditablePlaylistDetailHeader).header.item().as(MusicDetailHeader);
+        this.header = this.#page.header?.item().as(MusicEditablePlaylistDetailHeader).header?.as(MusicDetailHeader);
       } else {
         this.header = this.#page.header?.item().as(MusicDetailHeader);
       }

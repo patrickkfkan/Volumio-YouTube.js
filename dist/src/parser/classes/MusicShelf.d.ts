@@ -1,17 +1,17 @@
-import Text from './misc/Text.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import MusicResponsiveListItem from './MusicResponsiveListItem.js';
-import { YTNode } from '../helpers.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import Button from './Button.js';
-declare class MusicShelf extends YTNode {
+import MusicResponsiveListItem from './MusicResponsiveListItem.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+export default class MusicShelf extends YTNode {
     static type: string;
     title: Text;
-    contents: import("../helpers.js").ObservedArray<MusicResponsiveListItem>;
+    contents: ObservedArray<MusicResponsiveListItem>;
     endpoint?: NavigationEndpoint;
     continuation?: string;
     bottom_text?: Text;
     bottom_button?: Button | null;
-    subheaders?: Array<any>;
-    constructor(data: any);
+    subheaders?: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default MusicShelf;

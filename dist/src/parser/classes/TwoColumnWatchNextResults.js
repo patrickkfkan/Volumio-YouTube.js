@@ -1,14 +1,11 @@
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _TwoColumnWatchNextResults_instances, _TwoColumnWatchNextResults_parseAutoplaySet;
-import Parser from '../index.js';
+import { __classPrivateFieldGet } from "tslib";
 import { YTNode } from '../helpers.js';
-import Text from './misc/Text.js';
-import PlaylistAuthor from './misc/PlaylistAuthor.js';
+import Parser from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
+import Menu from './menus/Menu.js';
+import Author from './misc/Author.js';
+import Text from './misc/Text.js';
 class TwoColumnWatchNextResults extends YTNode {
     constructor(data) {
         var _a, _b, _c, _d, _e;
@@ -24,11 +21,11 @@ class TwoColumnWatchNextResults extends YTNode {
                 title: playlistData.title,
                 author: ((_d = playlistData.shortBylineText) === null || _d === void 0 ? void 0 : _d.simpleText) ?
                     new Text(playlistData.shortBylineText) :
-                    new PlaylistAuthor(playlistData.longBylineText),
+                    new Author(playlistData.longBylineText),
                 contents: Parser.parseArray(playlistData.contents),
                 current_index: playlistData.currentIndex,
                 is_infinite: !!playlistData.isInfinite,
-                menu: Parser.parseItem(playlistData.menu)
+                menu: Parser.parseItem(playlistData.menu, Menu)
             };
         }
         const autoplayData = (_e = data.autoplay) === null || _e === void 0 ? void 0 : _e.autoplay;

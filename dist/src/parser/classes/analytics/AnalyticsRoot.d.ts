@@ -1,6 +1,6 @@
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class AnalyticsRoot extends YTNode {
+export default class AnalyticsRoot extends YTNode {
     static type: string;
     title: string;
     selected_card_index_key: string;
@@ -18,4 +18,3 @@ declare class AnalyticsRoot extends YTNode {
     }[];
     constructor(data: RawNode);
 }
-export default AnalyticsRoot;

@@ -1,9 +1,9 @@
-import Parser from '../index.js';
-import Text from './misc/Text.js';
-import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { timeToSeconds } from '../../utils/Utils.js';
 import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+import Thumbnail from './misc/Thumbnail.js';
 class PlaylistPanelVideo extends YTNode {
     constructor(data) {
         var _a, _b, _c, _d, _e;

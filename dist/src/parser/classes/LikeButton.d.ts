@@ -1,6 +1,7 @@
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class LikeButton extends YTNode {
+import type { RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+export default class LikeButton extends YTNode {
     static type: string;
     target: {
         video_id: string;
@@ -8,6 +9,5 @@ declare class LikeButton extends YTNode {
     like_status: string;
     likes_allowed: string;
     endpoints?: NavigationEndpoint[];
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default LikeButton;

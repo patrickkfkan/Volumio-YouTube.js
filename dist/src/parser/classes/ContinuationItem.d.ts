@@ -1,10 +1,11 @@
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class ContinuationItem extends YTNode {
+import { type RawNode } from '../index.js';
+import Button from './Button.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+export default class ContinuationItem extends YTNode {
     static type: string;
     trigger: string;
-    button?: YTNode | null | undefined;
+    button?: Button | null;
     endpoint: NavigationEndpoint;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ContinuationItem;

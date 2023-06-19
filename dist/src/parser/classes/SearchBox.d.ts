@@ -1,12 +1,13 @@
-import Text from './misc/Text.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class SearchBox extends YTNode {
+import { type RawNode } from '../index.js';
+import Button from './Button.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+export default class SearchBox extends YTNode {
     static type: string;
     endpoint: NavigationEndpoint;
-    search_button: import("../helpers.js").SuperParsedResult<YTNode>;
-    clear_button: import("../helpers.js").SuperParsedResult<YTNode>;
+    search_button: Button | null;
+    clear_button: Button | null;
     placeholder_text: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SearchBox;

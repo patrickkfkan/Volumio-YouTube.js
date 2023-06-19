@@ -1,5 +1,140 @@
 # Changelog
 
+## [5.1.0](https://github.com/LuanRT/YouTube.js/compare/v5.0.4...v5.1.0) (2023-05-14)
+
+
+### Features
+
+* **ReelItem:** Add accessibility label ([#401](https://github.com/LuanRT/YouTube.js/issues/401)) ([046103a](https://github.com/LuanRT/YouTube.js/commit/046103a4d8af09fafefab6e9f971184eeca75c2e))
+* **toDash:** Add audio track labels to the manifest when available ([#402](https://github.com/LuanRT/YouTube.js/issues/402)) ([84b4f1e](https://github.com/LuanRT/YouTube.js/commit/84b4f1efd111321e4f3e5a87844790c4ec9b0b52))
+
+## [5.0.4](https://github.com/LuanRT/YouTube.js/compare/v5.0.3...v5.0.4) (2023-05-10)
+
+
+### Bug Fixes
+
+* **bundles:** Use ESM tslib build for the browser bundles ([#397](https://github.com/LuanRT/YouTube.js/issues/397)) ([2673419](https://github.com/LuanRT/YouTube.js/commit/26734194ab0bc5a9f57e1c509d7646ce8903d0c6))
+* **Utils:** Circular dependency introduced in 38a83c3c2aa814150d1d9b8ed99fca915c1d67fe ([#400](https://github.com/LuanRT/YouTube.js/issues/400)) ([66b026b](https://github.com/LuanRT/YouTube.js/commit/66b026bf493d71a39e12825938fe54dc63aefd16))
+* **Utils:** Use instanceof in deepCompare instead of the constructor name ([#398](https://github.com/LuanRT/YouTube.js/issues/398)) ([38a83c3](https://github.com/LuanRT/YouTube.js/commit/38a83c3c2aa814150d1d9b8ed99fca915c1d67fe))
+
+## [5.0.3](https://github.com/LuanRT/YouTube.js/compare/v5.0.2...v5.0.3) (2023-05-03)
+
+
+### Bug Fixes
+
+* **Video:** typo causing node parsing to fail ([3b0498b](https://github.com/LuanRT/YouTube.js/commit/3b0498b68b5378e63283e792bd45571c0b919e0b))
+
+## [5.0.2](https://github.com/LuanRT/YouTube.js/compare/v5.0.1...v5.0.2) (2023-04-30)
+
+
+### Bug Fixes
+
+* **VideoInfo:** Use microformat view_count when videoDetails view_count is NaN ([#393](https://github.com/LuanRT/YouTube.js/issues/393)) ([7c0abfc](https://github.com/LuanRT/YouTube.js/commit/7c0abfccd78a6c291d898f898d73a4f16170e2a9))
+
+## [5.0.1](https://github.com/LuanRT/YouTube.js/compare/v5.0.0...v5.0.1) (2023-04-30)
+
+
+### Bug Fixes
+
+* **web:** slow downloads due to visitor data ([#391](https://github.com/LuanRT/YouTube.js/issues/391)) ([4f7ec07](https://github.com/LuanRT/YouTube.js/commit/4f7ec07c3f689219b07e8291877c23b6fbf45fb1))
+
+## [5.0.0](https://github.com/LuanRT/YouTube.js/compare/v4.3.0...v5.0.0) (2023-04-29)
+
+
+### ⚠ BREAKING CHANGES
+
+* overhaul core classes and remove redundant code ([#388](https://github.com/LuanRT/YouTube.js/issues/388))
+
+### Features
+
+* **NavigationEndpoint:** parse `content` prop ([dd21f8c](https://github.com/LuanRT/YouTube.js/commit/dd21f8c75ae1d76180faab4f0ef9ee40920966e3))
+
+
+### Bug Fixes
+
+* **android:** workaround streaming URLs returning 403 ([#390](https://github.com/LuanRT/YouTube.js/issues/390)) ([75ea09d](https://github.com/LuanRT/YouTube.js/commit/75ea09dde86b1bdf13b197d6e02701899300a371))
+
+
+### Code Refactoring
+
+* overhaul core classes and remove redundant code ([#388](https://github.com/LuanRT/YouTube.js/issues/388)) ([95e0294](https://github.com/LuanRT/YouTube.js/commit/95e0294eabfdb20bbee2a4bfb751fd101402c5d6))
+
+## [4.3.0](https://github.com/LuanRT/YouTube.js/compare/v4.2.0...v4.3.0) (2023-04-13)
+
+
+### Features
+
+* **GridVideo:** add `upcoming`, `upcoming_text`, `is_reminder_set` and `buttons` ([05de3ec](https://github.com/LuanRT/YouTube.js/commit/05de3ec97a1fea92543b5e5f84933b86a07ab830)), closes [#380](https://github.com/LuanRT/YouTube.js/issues/380)
+* **MusicResponsiveListItem:** make flex/fixed cols public ([#382](https://github.com/LuanRT/YouTube.js/issues/382)) ([096bf36](https://github.com/LuanRT/YouTube.js/commit/096bf362c9bd46a510ecb0d01623c70841e26e26))
+* **ToggleMenuServiceItem:** parse default nav endpoint ([a056696](https://github.com/LuanRT/YouTube.js/commit/a0566969ba436f31ca3722d09442a0c6302235d7))
+* **ytmusic:** add taste builder nodes ([#383](https://github.com/LuanRT/YouTube.js/issues/383)) ([a9cad49](https://github.com/LuanRT/YouTube.js/commit/a9cad49333aa85c98bbb96e5f2d5b57d9beeb0c7))
+
+## [4.2.0](https://github.com/LuanRT/YouTube.js/compare/v4.1.1...v4.2.0) (2023-04-09)
+
+
+### Features
+
+* Enable importHelpers in tsconfig to reduce output size ([#378](https://github.com/LuanRT/YouTube.js/issues/378)) ([0b301de](https://github.com/LuanRT/YouTube.js/commit/0b301de6a1e1352a64881c1751a84360922a77cd))
+* **parser:** ignore PrimetimePromo node ([ce9d9c5](https://github.com/LuanRT/YouTube.js/commit/ce9d9c56b4f45c0139d74edc95c295ecfd1ee4b1))
+* **PlaylistVideo:** Extract video_info and accessibility_label texts ([#376](https://github.com/LuanRT/YouTube.js/issues/376)) ([c9135e6](https://github.com/LuanRT/YouTube.js/commit/c9135e66d3c9c72b8d063eedcf3cc2123800946d))
+
+## [4.1.1](https://github.com/LuanRT/YouTube.js/compare/v4.1.0...v4.1.1) (2023-03-29)
+
+
+### Bug Fixes
+
+* **PlayerCaptionsTracklist:** parse props only if they exist in the node ([470d8d9](https://github.com/LuanRT/YouTube.js/commit/470d8d94063f0159cd005c9eb15fd1a4a175bea0)), closes [#372](https://github.com/LuanRT/YouTube.js/issues/372)
+* **Search:** Return search results even if there are ads ([#373](https://github.com/LuanRT/YouTube.js/issues/373)) ([2c5907f](https://github.com/LuanRT/YouTube.js/commit/2c5907f80fd76452afe87d1722fe35a4f45a22e0))
+
+## [4.1.0](https://github.com/LuanRT/YouTube.js/compare/v4.0.1...v4.1.0) (2023-03-24)
+
+
+### Features
+
+* **Session:** allow setting a custom visitor data token ([#371](https://github.com/LuanRT/YouTube.js/issues/371)) ([13ebf0a](https://github.com/LuanRT/YouTube.js/commit/13ebf0a03973e7ba7b65e9f72c4333927e4254f6))
+* **ShowingResultsFor:** parse all props ([1d9587e](https://github.com/LuanRT/YouTube.js/commit/1d9587e8c1ee0b11bb0e444c3d1e98162e9e1059))
+
+
+### Bug Fixes
+
+* **http:** android tv http client missing `clientName` ([#370](https://github.com/LuanRT/YouTube.js/issues/370)) ([cb8fafe](https://github.com/LuanRT/YouTube.js/commit/cb8fafe94b8ab330ae58211a892923321d65d890))
+* **node:** Electron apps crashing ([#367](https://github.com/LuanRT/YouTube.js/issues/367)) ([e7eacd9](https://github.com/LuanRT/YouTube.js/commit/e7eacd974211c90e7fbddfbf8019388cda3dfa5a))
+* **parser:** Make Video.is_live work on channel pages ([#368](https://github.com/LuanRT/YouTube.js/issues/368)) ([bd35faa](https://github.com/LuanRT/YouTube.js/commit/bd35faa5978f0b822e98d019523be1303374ddc0))
+* **toDash:** Generate unique Representation ids ([#366](https://github.com/LuanRT/YouTube.js/issues/366)) ([a8b507e](https://github.com/LuanRT/YouTube.js/commit/a8b507ee65ccd8edc9aea2aef8a908fa272bb23c))
+* **Utils:** Properly parse timestamps with thousands separators ([#363](https://github.com/LuanRT/YouTube.js/issues/363)) ([1c72a41](https://github.com/LuanRT/YouTube.js/commit/1c72a41675e47f711bd61ebb898bca5527406a79))
+
+## [4.0.1](https://github.com/LuanRT/YouTube.js/compare/v4.0.0...v4.0.1) (2023-03-16)
+
+
+### Bug Fixes
+
+* **Channel:** type mismatch in `subscribe_button` prop ([573c864](https://github.com/LuanRT/YouTube.js/commit/573c8643aae16ec7b6be5b333619a5d8c91ca5c1))
+
+## [4.0.0](https://github.com/LuanRT/YouTube.js/compare/v3.3.0...v4.0.0) (2023-03-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **Parser:** general refactoring of parsers ([#344](https://github.com/LuanRT/YouTube.js/issues/344))
+* The `toDash` functions are now asynchronous, they now return a `Promise<string>` instead of a `string`, as we need to fetch the first sequence of the OTF format streams while building the manifest.
+
+### Features
+
+* Add support for OTF format streams ([3e4d41b](https://github.com/LuanRT/YouTube.js/commit/3e4d41bf06ba16232979977c705444f2032bcde6))
+* **parser:** add `GridMix` ([#356](https://github.com/LuanRT/YouTube.js/issues/356)) ([a8e7e64](https://github.com/LuanRT/YouTube.js/commit/a8e7e644ec6df3b3c98a313f0321da27b4ca456e))
+* **parser:** add `GridShow` and `ShowCustomThumbnail` ([8ef4b42](https://github.com/LuanRT/YouTube.js/commit/8ef4b42d444c4fbe5cd65a55c0e0e7aa31738755)), closes [#459](https://github.com/LuanRT/YouTube.js/issues/459)
+* **parser:** add `MusicCardShelf` ([#358](https://github.com/LuanRT/YouTube.js/issues/358)) ([9b005d6](https://github.com/LuanRT/YouTube.js/commit/9b005d62d6590a2ddf6848dabfa33fce36e8df9c))
+* **parser:** Add `play_all_button` to `Shelf` ([#345](https://github.com/LuanRT/YouTube.js/issues/345)) ([427db5b](https://github.com/LuanRT/YouTube.js/commit/427db5bbc2bf3e8ec60371d504c2ab1cdae6e918))
+* **parser:** add `view_playlist` to `Playlist` ([#348](https://github.com/LuanRT/YouTube.js/issues/348)) ([9cb4530](https://github.com/LuanRT/YouTube.js/commit/9cb45302997771d909487b1ecba6f38655abef48))
+* **parser:** add InfoPanelContent and InfoPanelContainer nodes ([4784dfa](https://github.com/LuanRT/YouTube.js/commit/4784dfa563a4dbeaee31811824d5aa37a67f5557)), closes [#326](https://github.com/LuanRT/YouTube.js/issues/326)
+* **Parser:** just-in-time YTNode generation ([#310](https://github.com/LuanRT/YouTube.js/issues/310)) ([2cee590](https://github.com/LuanRT/YouTube.js/commit/2cee59024c730c34aa06052849ed6fb3f862ef33))
+* **yt:** add support for movie items and trailers ([#349](https://github.com/LuanRT/YouTube.js/issues/349)) ([9f1c31d](https://github.com/LuanRT/YouTube.js/commit/9f1c31d7a09532e80a187b14acceff31c22579bf))
+
+
+### Code Refactoring
+
+* **Parser:** general refactoring of parsers ([#344](https://github.com/LuanRT/YouTube.js/issues/344)) ([b13bf6e](https://github.com/LuanRT/YouTube.js/commit/b13bf6e9926c19a1939e0f4b69cbd53d1af0f7c8))
+
 ## [3.3.0](https://github.com/LuanRT/YouTube.js/compare/v3.2.0...v3.3.0) (2023-03-09)
 
 

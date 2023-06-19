@@ -1,8 +1,14 @@
 import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
 class ThumbnailOverlayBottomPanel extends YTNode {
     constructor(data) {
         super();
-        this.icon_type = data.icon.iconType;
+        if (Reflect.has(data, 'text')) {
+            this.text = new Text(data.text);
+        }
+        if (Reflect.has(data, 'icon') && Reflect.has(data.icon, 'iconType')) {
+            this.icon_type = data.icon.iconType;
+        }
     }
 }
 ThumbnailOverlayBottomPanel.type = 'ThumbnailOverlayBottomPanel';

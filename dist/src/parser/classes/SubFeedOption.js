@@ -1,6 +1,6 @@
-import Text from './misc/Text.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
 class SubFeedOption extends YTNode {
     constructor(data) {
         super();

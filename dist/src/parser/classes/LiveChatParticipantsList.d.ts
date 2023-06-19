@@ -1,10 +1,10 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import LiveChatParticipant from './LiveChatParticipant.js';
 import Text from './misc/Text.js';
-import { ObservedArray, YTNode } from '../helpers.js';
-import type LiveChatParticipant from './LiveChatParticipant.js';
-declare class LiveChatParticipantsList extends YTNode {
+export default class LiveChatParticipantsList extends YTNode {
     static type: string;
     title: Text;
     participants: ObservedArray<LiveChatParticipant>;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default LiveChatParticipantsList;

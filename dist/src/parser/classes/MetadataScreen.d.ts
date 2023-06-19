@@ -1,7 +1,7 @@
+import { type RawNode } from '../index.js';
 import { YTNode } from '../helpers.js';
-declare class MetadataScreen extends YTNode {
+export default class MetadataScreen extends YTNode {
     static type: string;
-    section_list: YTNode | null;
-    constructor(data: any);
+    section_list: YTNode;
+    constructor(data: RawNode);
 }
-export default MetadataScreen;

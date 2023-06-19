@@ -1,7 +1,8 @@
 import { YTNode } from '../helpers.js';
-declare class ThumbnailOverlayPlaybackStatus extends YTNode {
+import { type RawNode } from '../index.js';
+import Text from './misc/Text.js';
+export default class ThumbnailOverlayPlaybackStatus extends YTNode {
     static type: string;
-    text: string;
-    constructor(data: any);
+    texts: Text[];
+    constructor(data: RawNode);
 }
-export default ThumbnailOverlayPlaybackStatus;

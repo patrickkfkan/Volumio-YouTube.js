@@ -1,24 +1,25 @@
 import Parser from '../../index.js';
 
+import Author from '../misc/Author.js';
 import Text from '../misc/Text.js';
 import Thumbnail from '../misc/Thumbnail.js';
-import CommentReplyDialog from './CommentReplyDialog.js';
-import AuthorCommentBadge from './AuthorCommentBadge.js';
-import Author from '../misc/Author.js';
 
-import type Menu from '../menus/Menu.js';
-import type CommentActionButtons from './CommentActionButtons.js';
-import type SponsorCommentBadge from './SponsorCommentBadge.js';
-import type PdgCommentChip from './PdgCommentChip.js';
-import type { ApiResponse } from '../../../core/Actions.js';
-import type Actions from '../../../core/Actions.js';
+import Menu from '../menus/Menu.js';
+import AuthorCommentBadge from './AuthorCommentBadge.js';
+import CommentActionButtons from './CommentActionButtons.js';
+import CommentReplyDialog from './CommentReplyDialog.js';
+import PdgCommentChip from './PdgCommentChip.js';
+import SponsorCommentBadge from './SponsorCommentBadge.js';
 
 import Proto from '../../../proto/index.js';
 import { InnertubeError } from '../../../utils/Utils.js';
-import { YTNode, SuperParsedResult } from '../../helpers.js';
+import { YTNode } from '../../helpers.js';
+
+import type Actions from '../../../core/Actions.js';
+import type { ApiResponse } from '../../../core/Actions.js';
 import type { RawNode } from '../../index.js';
 
-class Comment extends YTNode {
+export default class Comment extends YTNode {
   static type = 'Comment';
 
   #actions?: Actions;
@@ -35,9 +36,7 @@ class Comment extends YTNode {
   action_buttons: CommentActionButtons | null;
   comment_id: string;
   vote_status: string;
-
   vote_count: string;
-
   reply_count: number;
   is_liked: boolean;
   is_disliked: boolean;
@@ -51,9 +50,9 @@ class Comment extends YTNode {
     this.published = new Text(data.publishedTimeText);
     this.author_is_channel_owner = data.authorIsChannelOwner;
     this.current_user_reply_thumbnail = Thumbnail.fromResponse(data.currentUserReplyThumbnail);
-    this.sponsor_comment_badge = Parser.parseItem<SponsorCommentBadge>(data.sponsorCommentBadge);
-    this.paid_comment_chip = Parser.parseItem<PdgCommentChip>(data.paidCommentChipRenderer);
-    this.author_badge = Parser.parseItem<AuthorCommentBadge>(data.authorCommentBadge, AuthorCommentBadge);
+    this.sponsor_comment_badge = Parser.parseItem(data.sponsorCommentBadge, SponsorCommentBadge);
+    this.paid_comment_chip = Parser.parseItem(data.paidCommentChipRenderer, PdgCommentChip);
+    this.author_badge = Parser.parseItem(data.authorCommentBadge, AuthorCommentBadge);
 
     this.author = new Author({
       ...data.authorText,
@@ -62,8 +61,8 @@ class Comment extends YTNode {
       metadataBadgeRenderer: this.author_badge?.orig_badge
     } ] : null, data.authorThumbnail);
 
-    this.action_menu = Parser.parseItem<Menu>(data.actionMenu);
-    this.action_buttons = Parser.parseItem<CommentActionButtons>(data.actionButtons);
+    this.action_menu = Parser.parseItem(data.actionMenu, Menu);
+    this.action_buttons = Parser.parseItem(data.actionButtons, CommentActionButtons);
     this.comment_id = data.commentId;
     this.vote_status = data.voteStatus;
 
@@ -131,8 +130,8 @@ class Comment extends YTNode {
     if (!button.endpoint?.dialog)
       throw new InnertubeError('Reply button endpoint did not have a dialog.');
 
-    const dialog = button.endpoint.dialog as SuperParsedResult<YTNode>;
-    const dialog_button = dialog.item().as(CommentReplyDialog).reply_button;
+    const dialog = button.endpoint.dialog.as(CommentReplyDialog);
+    const dialog_button = dialog.reply_button;
 
     if (!dialog_button)
       throw new InnertubeError('Reply button was not found in the dialog.', { comment_id: this.comment_id });
@@ -146,7 +145,7 @@ class Comment extends YTNode {
   }
 
   /**
-   * Translates the comment to the given language.
+   * Translates the comment to a given language.
    * @param target_language - Ex; en, ja
    */
   async translate(target_language: string): Promise<{
@@ -170,7 +169,7 @@ class Comment extends YTNode {
     const action = Proto.encodeCommentActionParams(22, payload);
     const response = await this.#actions.execute('comment/perform_comment_action', { action, client: 'ANDROID' });
 
-    // TODO: maybe add these to Parser#parseResponse?
+    // XXX: Should move this to Parser#parseResponse
     const mutations = response.data.frameworkUpdates?.entityBatchUpdate?.mutations;
     const content = mutations?.[0]?.payload?.commentEntityPayload?.translatedContent?.content;
 
@@ -181,5 +180,3 @@ class Comment extends YTNode {
     this.#actions = actions;
   }
 }
-
-export default Comment;

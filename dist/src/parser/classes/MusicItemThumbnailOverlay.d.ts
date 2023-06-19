@@ -1,10 +1,10 @@
+import { type RawNode } from '../index.js';
 import MusicPlayButton from './MusicPlayButton.js';
 import { YTNode } from '../helpers.js';
-declare class MusicItemThumbnailOverlay extends YTNode {
+export default class MusicItemThumbnailOverlay extends YTNode {
     static type: string;
     content: MusicPlayButton | null;
-    content_position: any;
+    content_position: string;
     display_style: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MusicItemThumbnailOverlay;

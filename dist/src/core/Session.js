@@ -1,32 +1,13 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
 var _a, _Session_api_version, _Session_key, _Session_context, _Session_account_index, _Session_player, _Session_retrieveSessionData, _Session_generateSessionData;
-import Constants, { CLIENTS } from '../utils/Constants.js';
+import { __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
+import * as Constants from '../utils/Constants.js';
 import EventEmitterLike from '../utils/EventEmitterLike.js';
 import Actions from './Actions.js';
 import Player from './Player.js';
-import HTTPClient from '../utils/HTTPClient.js';
-import { Platform, getRandomUserAgent, InnertubeError, SessionError } from '../utils/Utils.js';
-import OAuth from './OAuth.js';
 import Proto from '../proto/index.js';
+import HTTPClient from '../utils/HTTPClient.js';
+import { generateRandomString, getRandomUserAgent, InnertubeError, Platform, SessionError } from '../utils/Utils.js';
+import OAuth from './OAuth.js';
 export var ClientType;
 (function (ClientType) {
     ClientType["WEB"] = "WEB";
@@ -36,8 +17,11 @@ export var ClientType;
     ClientType["ANDROID_MUSIC"] = "ANDROID_MUSIC";
     ClientType["ANDROID_CREATOR"] = "ANDROID_CREATOR";
     ClientType["TV_EMBEDDED"] = "TVHTML5_SIMPLY_EMBEDDED_PLAYER";
-})(ClientType = ClientType || (ClientType = {}));
-export default class Session extends EventEmitterLike {
+})(ClientType || (ClientType = {}));
+/**
+ * Represents an InnerTube session. This holds all the data needed to make requests to YouTube.
+ */
+class Session extends EventEmitterLike {
     constructor(context, api_key, api_version, account_index, player, cookie, fetch, cache) {
         super();
         _Session_api_version.set(this, void 0);
@@ -64,18 +48,18 @@ export default class Session extends EventEmitterLike {
     }
     static create(options = {}) {
         return __awaiter(this, void 0, void 0, function* () {
-            const { context, api_key, api_version, account_index } = yield Session.getSessionData(options.lang, options.location, options.account_index, options.enable_safety_mode, options.generate_session_locally, options.device_category, options.client_type, options.timezone, options.fetch);
+            const { context, api_key, api_version, account_index } = yield Session.getSessionData(options.lang, options.location, options.account_index, options.visitor_data, options.enable_safety_mode, options.generate_session_locally, options.device_category, options.client_type, options.timezone, options.fetch);
             return new Session(context, api_key, api_version, account_index, options.retrieve_player === false ? undefined : yield Player.create(options.cache, options.fetch), options.cookie, options.fetch, options.cache);
         });
     }
-    static getSessionData(lang = '', location = '', account_index = 0, enable_safety_mode = false, generate_session_locally = false, device_category = 'desktop', client_name = ClientType.WEB, tz = Intl.DateTimeFormat().resolvedOptions().timeZone, fetch = Platform.shim.fetch) {
+    static getSessionData(lang = '', location = '', account_index = 0, visitor_data = '', enable_safety_mode = false, generate_session_locally = false, device_category = 'desktop', client_name = ClientType.WEB, tz = Intl.DateTimeFormat().resolvedOptions().timeZone, fetch = Platform.shim.fetch) {
         return __awaiter(this, void 0, void 0, function* () {
             let session_data;
             if (generate_session_locally) {
-                session_data = __classPrivateFieldGet(this, _a, "m", _Session_generateSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode });
+                session_data = __classPrivateFieldGet(this, _a, "m", _Session_generateSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data });
             }
             else {
-                session_data = yield __classPrivateFieldGet(this, _a, "m", _Session_retrieveSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode }, fetch);
+                session_data = yield __classPrivateFieldGet(this, _a, "m", _Session_retrieveSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data }, fetch);
             }
             return Object.assign(Object.assign({}, session_data), { account_index });
         });
@@ -153,13 +137,18 @@ export default class Session extends EventEmitterLike {
 _a = Session, _Session_api_version = new WeakMap(), _Session_key = new WeakMap(), _Session_context = new WeakMap(), _Session_account_index = new WeakMap(), _Session_player = new WeakMap(), _Session_retrieveSessionData = function _Session_retrieveSessionData(options, fetch = Platform.shim.fetch) {
     return __awaiter(this, void 0, void 0, function* () {
         const url = new URL('/sw.js_data', Constants.URLS.YT_BASE);
+        let visitor_id = generateRandomString(11);
+        if (options.visitor_data) {
+            const decoded_visitor_data = Proto.decodeVisitorData(options.visitor_data);
+            visitor_id = decoded_visitor_data.id;
+        }
         const res = yield fetch(url, {
             headers: {
                 'accept-language': options.lang || 'en-US',
                 'user-agent': getRandomUserAgent('desktop'),
                 'accept': '*/*',
                 'referer': 'https://www.youtube.com/sw.js',
-                'cookie': `PREF=tz=${options.time_zone.replace('/', '.')};VISITOR_INFO1_LIVE=${Constants.CLIENTS.WEB.STATIC_VISITOR_ID};`
+                'cookie': `PREF=tz=${options.time_zone.replace('/', '.')};VISITOR_INFO1_LIVE=${visitor_id};`
             }
         });
         if (!res.ok)
@@ -179,7 +168,6 @@ _a = Session, _Session_api_version = new WeakMap(), _Session_key = new WeakMap()
                 screenPixelDensity: 1,
                 screenWidthPoints: 1920,
                 visitorData: device_info[13],
-                userAgent: device_info[14],
                 clientName: options.client_name,
                 clientVersion: device_info[16],
                 osName: device_info[17],
@@ -193,21 +181,21 @@ _a = Session, _Session_api_version = new WeakMap(), _Session_key = new WeakMap()
                 originalUrl: Constants.URLS.YT_BASE,
                 deviceMake: device_info[11],
                 deviceModel: device_info[12],
-                utcOffsetMinutes: new Date().getTimezoneOffset()
+                utcOffsetMinutes: -new Date().getTimezoneOffset()
             },
             user: {
                 enableSafetyMode: options.enable_safety_mode,
                 lockedSafetyMode: false
-            },
-            request: {
-                useSsl: true
             }
         };
         return { context, api_key, api_version };
     });
 }, _Session_generateSessionData = function _Session_generateSessionData(options) {
-    const id = Constants.CLIENTS.WEB.STATIC_VISITOR_ID;
-    const timestamp = Math.floor(Date.now() / 1000);
+    let visitor_id = generateRandomString(11);
+    if (options.visitor_data) {
+        const decoded_visitor_data = Proto.decodeVisitorData(options.visitor_data);
+        visitor_id = decoded_visitor_data.id;
+    }
     const context = {
         client: {
             hl: options.lang || 'en',
@@ -216,10 +204,9 @@ _a = Session, _Session_api_version = new WeakMap(), _Session_key = new WeakMap()
             screenHeightPoints: 1080,
             screenPixelDensity: 1,
             screenWidthPoints: 1920,
-            visitorData: Proto.encodeVisitorData(id, timestamp),
-            userAgent: getRandomUserAgent('desktop'),
+            visitorData: Proto.encodeVisitorData(visitor_id, Math.floor(Date.now() / 1000)),
             clientName: options.client_name,
-            clientVersion: CLIENTS.WEB.VERSION,
+            clientVersion: Constants.CLIENTS.WEB.VERSION,
             osName: 'Windows',
             osVersion: '10.0',
             platform: options.device_category.toUpperCase(),
@@ -229,16 +216,14 @@ _a = Session, _Session_api_version = new WeakMap(), _Session_key = new WeakMap()
             originalUrl: Constants.URLS.YT_BASE,
             deviceMake: '',
             deviceModel: '',
-            utcOffsetMinutes: new Date().getTimezoneOffset()
+            utcOffsetMinutes: -new Date().getTimezoneOffset()
         },
         user: {
             enableSafetyMode: options.enable_safety_mode,
             lockedSafetyMode: false
-        },
-        request: {
-            useSsl: true
         }
     };
-    return { context, api_key: CLIENTS.WEB.API_KEY, api_version: CLIENTS.WEB.API_VERSION };
+    return { context, api_key: Constants.CLIENTS.WEB.API_KEY, api_version: Constants.CLIENTS.WEB.API_VERSION };
 };
+export default Session;
 //# sourceMappingURL=Session.js.map

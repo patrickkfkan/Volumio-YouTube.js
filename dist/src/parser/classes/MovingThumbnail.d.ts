@@ -1,6 +1,6 @@
 import { YTNode } from '../helpers.js';
-declare class MovingThumbnail extends YTNode {
+import type { RawNode } from '../index.js';
+export default class MovingThumbnail extends YTNode {
     static type: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MovingThumbnail;

@@ -1,15 +1,17 @@
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _a, _Parser_errorHandler, _Parser_memo, _Parser_clearMemo, _Parser_createMemo, _Parser_addToMemo, _Parser_getMemo, _Parser_printError;
+var _a, _Parser_errorHandler, _Parser_memo, _Parser_clearMemo, _Parser_createMemo, _Parser_addToMemo, _Parser_getMemo, _Parser_printError, _Parser_rt_nodes, _Parser_dynamic_nodes;
+import { __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
+import AudioOnlyPlayability from './classes/AudioOnlyPlayability.js';
+import CardCollection from './classes/CardCollection.js';
+import Endscreen from './classes/Endscreen.js';
+import PlayerAnnotationsExpanded from './classes/PlayerAnnotationsExpanded.js';
+import PlayerCaptionsTracklist from './classes/PlayerCaptionsTracklist.js';
+import PlayerLiveStoryboardSpec from './classes/PlayerLiveStoryboardSpec.js';
+import PlayerStoryboardSpec from './classes/PlayerStoryboardSpec.js';
+import Message from './classes/Message.js';
+import LiveChatParticipantsList from './classes/LiveChatParticipantsList.js';
+import LiveChatHeader from './classes/LiveChatHeader.js';
+import LiveChatItemList from './classes/LiveChatItemList.js';
+import Alert from './classes/Alert.js';
 import MusicMultiSelectMenuItem from './classes/menus/MusicMultiSelectMenuItem.js';
 import Format from './classes/misc/Format.js';
 import VideoDetails from './classes/misc/VideoDetails.js';
@@ -17,8 +19,9 @@ import NavigationEndpoint from './classes/NavigationEndpoint.js';
 import Thumbnail from './classes/misc/Thumbnail.js';
 import { InnertubeError, ParsingError, Platform } from '../utils/Utils.js';
 import { Memo, observe, SuperParsedResult, YTNode } from './helpers.js';
-import GetParserByName from './map.js';
-export default class Parser {
+import * as YTNodes from './nodes.js';
+import { YTNodeGenerator } from './generator.js';
+class Parser {
     static setParserErrorHandler(handler) {
         __classPrivateFieldSet(this, _a, handler, "f", _Parser_errorHandler);
     }
@@ -121,7 +124,7 @@ export default class Parser {
         if (overlay) {
             parsed_data.overlay = overlay;
         }
-        const alerts = this.parseArray(data.alerts);
+        const alerts = this.parseArray(data.alerts, Alert);
         if (alerts.length) {
             parsed_data.alerts = alerts;
         }
@@ -148,7 +151,7 @@ export default class Parser {
             status: data.playabilityStatus.status,
             reason: data.playabilityStatus.reason || '',
             embeddable: !!data.playabilityStatus.playableInEmbed || false,
-            audio_only_playablility: this.parseItem(data.playabilityStatus.audioOnlyPlayability),
+            audio_only_playablility: this.parseItem(data.playabilityStatus.audioOnlyPlayability, AudioOnlyPlayability),
             error_screen: this.parseItem(data.playabilityStatus.errorScreen)
         } : null;
         if (playability_status) {
@@ -172,7 +175,7 @@ export default class Parser {
         if (endpoint) {
             parsed_data.endpoint = endpoint;
         }
-        const captions = this.parseItem(data.captions);
+        const captions = this.parseItem(data.captions, PlayerCaptionsTracklist);
         if (captions) {
             parsed_data.captions = captions;
         }
@@ -180,19 +183,19 @@ export default class Parser {
         if (video_details) {
             parsed_data.video_details = video_details;
         }
-        const annotations = this.parseArray(data.annotations);
+        const annotations = this.parseArray(data.annotations, PlayerAnnotationsExpanded);
         if (annotations.length) {
             parsed_data.annotations = annotations;
         }
-        const storyboards = this.parseItem(data.storyboards);
+        const storyboards = this.parseItem(data.storyboards, [PlayerStoryboardSpec, PlayerLiveStoryboardSpec]);
         if (storyboards) {
             parsed_data.storyboards = storyboards;
         }
-        const endscreen = this.parseItem(data.endscreen);
+        const endscreen = this.parseItem(data.endscreen, Endscreen);
         if (endscreen) {
             parsed_data.endscreen = endscreen;
         }
-        const cards = this.parseItem(data.cards);
+        const cards = this.parseItem(data.cards, CardCollection);
         if (cards) {
             parsed_data.cards = cards;
         }
@@ -205,11 +208,6 @@ export default class Parser {
         __classPrivateFieldGet(this, _a, "m", _Parser_clearMemo).call(this);
         return parsed_data;
     }
-    /**
-     * Parses a single item.
-     * @param data - The data to parse.
-     * @param validTypes - YTNode types that are allowed to be parsed.
-     */
     static parseItem(data, validTypes) {
         if (!data)
             return null;
@@ -219,7 +217,8 @@ export default class Parser {
         const classname = this.sanitizeClassName(keys[0]);
         if (!this.shouldIgnore(classname)) {
             try {
-                const TargetClass = GetParserByName(classname);
+                const has_target_class = this.hasParser(classname);
+                const TargetClass = has_target_class ? this.getParserByName(classname) : YTNodeGenerator.generateRuntimeClass(classname, data[keys[0]]);
                 if (validTypes) {
                     if (Array.isArray(validTypes)) {
                         if (!validTypes.some((type) => type.type === TargetClass.type))
@@ -239,11 +238,6 @@ export default class Parser {
         }
         return null;
     }
-    /**
-     * Parses an array of items.
-     * @param data - The data to parse.
-     * @param validTypes - YTNode types that are allowed to be parsed.
-     */
     static parseArray(data, validTypes) {
         if (Array.isArray(data)) {
             const results = [];
@@ -374,6 +368,25 @@ export default class Parser {
     static shouldIgnore(classname) {
         return this.ignore_list.has(classname);
     }
+    static getParserByName(classname) {
+        const ParserConstructor = __classPrivateFieldGet(this, _a, "f", _Parser_rt_nodes).get(classname);
+        if (!ParserConstructor) {
+            const error = new Error(`Module not found: ${classname}`);
+            error.code = 'MODULE_NOT_FOUND';
+            throw error;
+        }
+        return ParserConstructor;
+    }
+    static hasParser(classname) {
+        return __classPrivateFieldGet(this, _a, "f", _Parser_rt_nodes).has(classname);
+    }
+    static addRuntimeParser(classname, ParserConstructor) {
+        __classPrivateFieldGet(this, _a, "f", _Parser_rt_nodes).set(classname, ParserConstructor);
+        __classPrivateFieldGet(this, _a, "f", _Parser_dynamic_nodes).set(classname, ParserConstructor);
+    }
+    static getDynamicParsers() {
+        return Object.fromEntries(__classPrivateFieldGet(this, _a, "f", _Parser_dynamic_nodes));
+    }
 }
 _a = Parser, _Parser_clearMemo = function _Parser_clearMemo() {
     __classPrivateFieldSet(Parser, _a, null, "f", _Parser_memo);
@@ -405,13 +418,19 @@ Parser.ignore_list = new Set([
     'DisplayAd',
     'SearchPyv',
     'MealbarPromo',
+    'PrimetimePromo',
     'BackgroundPromo',
     'PromotedSparklesWeb',
     'RunAttestationCommand',
     'CompactPromotedVideo',
+    'BrandVideoShelf',
+    'BrandVideoSingleton',
     'StatementBanner',
     'GuideSigninPromo'
 ]);
+_Parser_rt_nodes = { value: new Map(Object.entries(YTNodes)) };
+_Parser_dynamic_nodes = { value: new Map() };
+export default Parser;
 // Continuation
 export class ItemSectionContinuation extends YTNode {
     constructor(data) {
@@ -436,7 +455,7 @@ NavigateAction.type = 'navigateAction';
 export class AppendContinuationItemsAction extends YTNode {
     constructor(data) {
         super();
-        this.contents = Parser.parse(data.continuationItems, true);
+        this.contents = Parser.parseArray(data.continuationItems);
     }
 }
 AppendContinuationItemsAction.type = 'appendContinuationItemsAction';
@@ -526,10 +545,10 @@ export class LiveChatContinuation extends YTNode {
             return action;
         }), true) || observe([]);
         this.action_panel = Parser.parseItem(data.actionPanel);
-        this.item_list = Parser.parseItem(data.itemList);
-        this.header = Parser.parseItem(data.header);
-        this.participants_list = Parser.parseItem(data.participantsList);
-        this.popout_message = Parser.parseItem(data.popoutMessage);
+        this.item_list = Parser.parseItem(data.itemList, LiveChatItemList);
+        this.header = Parser.parseItem(data.header, LiveChatHeader);
+        this.participants_list = Parser.parseItem(data.participantsList, LiveChatParticipantsList);
+        this.popout_message = Parser.parseItem(data.popoutMessage, Message);
         this.emojis = ((_c = data.emojis) === null || _c === void 0 ? void 0 : _c.map((emoji) => ({
             emoji_id: emoji.emojiId,
             shortcuts: emoji.shortcuts,

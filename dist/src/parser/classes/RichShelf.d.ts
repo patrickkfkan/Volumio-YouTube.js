@@ -1,11 +1,11 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
-import { YTNode } from '../helpers.js';
-declare class RichShelf extends YTNode {
+export default class RichShelf extends YTNode {
     static type: string;
     title: Text;
-    contents: import("../helpers.js").ObservedArray<YTNode>;
-    endpoint: NavigationEndpoint | null;
-    constructor(data: any);
+    contents: ObservedArray<YTNode>;
+    endpoint?: NavigationEndpoint;
+    constructor(data: RawNode);
 }
-export default RichShelf;

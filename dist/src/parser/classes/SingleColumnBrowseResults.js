@@ -1,6 +1,6 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
 import Tab from './Tab.js';
-import { YTNode } from '../helpers.js';
 class SingleColumnBrowseResults extends YTNode {
     constructor(data) {
         super();

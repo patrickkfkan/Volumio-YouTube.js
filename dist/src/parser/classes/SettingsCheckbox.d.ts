@@ -1,12 +1,12 @@
 import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class SettingsCheckbox extends YTNode {
+import type { RawNode } from '../index.js';
+export default class SettingsCheckbox extends YTNode {
     static type: string;
     title: Text;
     help_text: Text;
     enabled: boolean;
     disabled: boolean;
     id: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SettingsCheckbox;

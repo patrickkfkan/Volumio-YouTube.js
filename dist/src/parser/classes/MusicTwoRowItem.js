@@ -1,11 +1,11 @@
-// TODO: refactor this
+// TODO: Refactor this.
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
+import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Menu from './menus/Menu.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
-import Menu from './menus/Menu.js';
-import { YTNode } from '../helpers.js';
 class MusicTwoRowItem extends YTNode {
     constructor(data) {
         var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;

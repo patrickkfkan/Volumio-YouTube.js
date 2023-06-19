@@ -3,24 +3,24 @@ import Text from './misc/Text.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 class DropdownItem extends YTNode {
     constructor(data) {
-        var _a, _b, _c;
+        var _a;
         super();
         this.label = new Text(data.label).toString();
         this.selected = !!data.isSelected;
-        if (data.int32Value) {
+        if (Reflect.has(data, 'int32Value')) {
             this.value = data.int32Value;
         }
         else if (data.stringValue) {
             this.value = data.stringValue;
         }
-        if ((_a = data.onSelectCommand) === null || _a === void 0 ? void 0 : _a.browseEndpoint) {
+        if (Reflect.has(data, 'onSelectCommand')) {
             this.endpoint = new NavigationEndpoint(data.onSelectCommand);
         }
-        if ((_b = data.icon) === null || _b === void 0 ? void 0 : _b.iconType) {
-            this.icon_type = (_c = data.icon) === null || _c === void 0 ? void 0 : _c.iconType;
+        if (Reflect.has(data, 'icon')) {
+            this.icon_type = (_a = data.icon) === null || _a === void 0 ? void 0 : _a.iconType;
         }
-        if (data.descriptionText) {
-            this.description = new Text(data.descriptionText).toString();
+        if (Reflect.has(data, 'descriptionText')) {
+            this.description = new Text(data.descriptionText);
         }
     }
 }

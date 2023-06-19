@@ -1,20 +1,19 @@
 import Parser from '../../../index.js';
-import LiveChatTextMessage from './LiveChatTextMessage.js';
+import { LiveChatMessageBase } from './LiveChatTextMessage.js';
 import type { RawNode } from '../../../index.js';
+import type { YTNode } from '../../../helpers.js';
 
-class LiveChatViewerEngagementMessage extends LiveChatTextMessage {
+export default class LiveChatViewerEngagementMessage extends LiveChatMessageBase {
   static type = 'LiveChatViewerEngagementMessage';
 
-  icon_type: string;
-  action_button;
+  icon_type?: string;
+  action_button: YTNode;
 
   constructor(data: RawNode) {
     super(data);
-    delete this.author;
-    delete this.menu_endpoint;
-    this.icon_type = data.icon.iconType;
+    if (Reflect.has(data, 'icon') && Reflect.has(data.icon, 'iconType')) {
+      this.icon_type = data.icon.iconType;
+    }
     this.action_button = Parser.parseItem(data.actionButton);
   }
 }
-
-export default LiveChatViewerEngagementMessage;

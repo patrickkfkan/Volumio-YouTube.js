@@ -1,10 +1,10 @@
-import Text from '../misc/Text.js';
+import type { SuperParsedResult } from '../../helpers.js';
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class SimpleMenuHeader extends YTNode {
+import Text from '../misc/Text.js';
+export default class SimpleMenuHeader extends YTNode {
     static type: string;
     title: Text;
-    buttons: import("../../helpers.js").SuperParsedResult<YTNode>;
+    buttons: SuperParsedResult<YTNode>;
     constructor(data: RawNode);
 }
-export default SimpleMenuHeader;

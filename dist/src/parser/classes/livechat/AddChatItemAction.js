@@ -4,7 +4,9 @@ class AddChatItemAction extends YTNode {
     constructor(data) {
         super();
         this.item = Parser.parseItem(data.item);
-        this.client_id = data.clientId || null;
+        if (Reflect.has(data, 'clientId')) {
+            this.client_id = data.clientId;
+        }
     }
 }
 AddChatItemAction.type = 'AddChatItemAction';

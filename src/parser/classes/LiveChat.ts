@@ -1,11 +1,11 @@
-import Parser from '../index.js';
-import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
+import Parser, { type RawNode } from '../index.js';
+import Text from './misc/Text.js';
 
-class LiveChat extends YTNode {
+export default class LiveChat extends YTNode {
   static type = 'LiveChat';
 
-  header;
+  header: YTNode;
   initial_display_state: string;
   continuation: string;
 
@@ -19,9 +19,9 @@ class LiveChat extends YTNode {
 
   is_replay: boolean;
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
-    this.header = Parser.parse(data.header);
+    this.header = Parser.parseItem(data.header);
     this.initial_display_state = data.initialDisplayState;
     this.continuation = data.continuations[0]?.reloadContinuationData?.continuation;
 
@@ -33,8 +33,6 @@ class LiveChat extends YTNode {
       generic_error: new Text(data.clientMessages.genericError)
     };
 
-    this.is_replay = data.isReplay || false;
+    this.is_replay = !!data.isReplay;
   }
 }
-
-export default LiveChat;

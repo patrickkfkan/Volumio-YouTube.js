@@ -1,11 +1,11 @@
-import Text from '../misc/Text.js';
-import { YTNode } from '../../helpers.js';
+import { type ObservedArray, YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class EmojiPicker extends YTNode {
+import Text from '../misc/Text.js';
+export default class EmojiPicker extends YTNode {
     static type: string;
     id: string;
-    categories: any[];
-    category_buttons: any[];
+    categories: ObservedArray<YTNode>;
+    category_buttons: ObservedArray<YTNode>;
     search_placeholder: Text;
     search_no_results: Text;
     pick_skin_tone: Text;
@@ -18,4 +18,3 @@ declare class EmojiPicker extends YTNode {
     skin_tone_dark_label: string;
     constructor(data: RawNode);
 }
-export default EmojiPicker;

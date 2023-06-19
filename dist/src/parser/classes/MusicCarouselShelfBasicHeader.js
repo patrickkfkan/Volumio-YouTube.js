@@ -1,25 +1,23 @@
-import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-import MusicThumbnail from './MusicThumbnail.js';
 import Parser from '../index.js';
 import Button from './Button.js';
 import IconLink from './IconLink.js';
+import MusicThumbnail from './MusicThumbnail.js';
+import Text from './misc/Text.js';
 class MusicCarouselShelfBasicHeader extends YTNode {
     constructor(data) {
         super();
-        if (data.strapline) {
+        this.title = new Text(data.title);
+        if (Reflect.has(data, 'strapline')) {
             this.strapline = new Text(data.strapline);
         }
-        this.title = new Text(data.title);
-        // This.label = data.accessibilityData.accessibilityData.label;
-        // ^^ redundant?
-        if (data.thumbnail) {
+        if (Reflect.has(data, 'thumbnail')) {
             this.thumbnail = Parser.parseItem(data.thumbnail, MusicThumbnail);
         }
-        if (data.moreContentButton) {
+        if (Reflect.has(data, 'moreContentButton')) {
             this.more_content = Parser.parseItem(data.moreContentButton, Button);
         }
-        if (data.endIcons) {
+        if (Reflect.has(data, 'endIcons')) {
             this.end_icons = Parser.parseArray(data.endIcons, IconLink);
         }
     }

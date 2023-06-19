@@ -1,13 +1,5 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-import Feed from '../../core/Feed.js';
+import { __awaiter } from "tslib";
+import Feed from '../../core/mixins/Feed.js';
 import { InnertubeError } from '../../utils/Utils.js';
 import HorizontalCardList from '../classes/HorizontalCardList.js';
 import ItemSection from '../classes/ItemSection.js';
@@ -23,7 +15,7 @@ class Search extends Feed {
             ((_b = this.page.on_response_received_commands) === null || _b === void 0 ? void 0 : _b.first().contents);
         if (!contents)
             throw new InnertubeError('No contents found in search response');
-        this.results = (_c = contents.firstOfType(ItemSection)) === null || _c === void 0 ? void 0 : _c.contents;
+        this.results = (_c = contents.find((content) => content.is(ItemSection) && content.contents && content.contents.length > 0)) === null || _c === void 0 ? void 0 : _c.as(ItemSection).contents;
         this.refinements = this.page.refinements || [];
         this.estimated_results = this.page.estimated_results;
         this.sub_menu = (_d = this.page.contents_memo) === null || _d === void 0 ? void 0 : _d.getType(SearchSubMenu).first();

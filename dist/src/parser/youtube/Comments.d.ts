@@ -1,6 +1,6 @@
 import type Actions from '../../core/Actions.js';
 import type { ApiResponse } from '../../core/Actions.js';
-import { ObservedArray } from '../helpers.js';
+import type { ObservedArray } from '../helpers.js';
 import type { INextResponse } from '../types/ParsedResponse.js';
 import CommentsHeader from '../classes/comments/CommentsHeader.js';
 import CommentThread from '../classes/comments/CommentThread.js';

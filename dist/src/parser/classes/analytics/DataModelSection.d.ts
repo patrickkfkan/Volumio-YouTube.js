@@ -1,6 +1,6 @@
 import { YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class DataModelSection extends YTNode {
+export default class DataModelSection extends YTNode {
     static type: string;
     title: string;
     subtitle: string;
@@ -34,4 +34,3 @@ declare class DataModelSection extends YTNode {
     };
     constructor(data: RawNode);
 }
-export default DataModelSection;

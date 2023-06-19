@@ -1,11 +1,11 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
-import Text from './misc/Text.js';
-import Dropdown from './Dropdown.js';
-import SettingsSwitch from './SettingsSwitch.js';
-import SettingsCheckbox from './SettingsCheckbox.js';
 import ChannelOptions from './ChannelOptions.js';
 import CopyLink from './CopyLink.js';
-import { YTNode } from '../helpers.js';
+import Dropdown from './Dropdown.js';
+import SettingsCheckbox from './SettingsCheckbox.js';
+import SettingsSwitch from './SettingsSwitch.js';
+import Text from './misc/Text.js';
 class SettingsOptions extends YTNode {
     constructor(data) {
         super();

@@ -6,7 +6,7 @@ class MicroformatData extends YTNode {
         this.url_canonical = data.urlCanonical;
         this.title = data.title;
         this.description = data.description;
-        this.thumbnail = data.thumbnail ? Thumbnail.fromResponse(data.thumbnail) : null;
+        this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
         this.site_name = data.siteName;
         this.app_name = data.appName;
         this.android_package = data.androidPackage;

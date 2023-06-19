@@ -1,5 +1,7 @@
 import { Memo } from '../parser/helpers.js';
-import PlatformShim, { FetchFunction } from '../types/PlatformShim.js';
+import type { EmojiRun, TextRun } from '../parser/misc.js';
+import type { FetchFunction } from '../types/PlatformShim.js';
+import type PlatformShim from '../types/PlatformShim.js';
 export declare class Platform {
     #private;
     static load(platform: PlatformShim): void;
@@ -43,7 +45,7 @@ export type DeviceCategory = 'mobile' | 'desktop';
  */
 export declare function getRandomUserAgent(type: DeviceCategory): string;
 /**
- * Generates an authentication token from a cookies' sid..js
+ * Generates an authentication token from a cookies' sid.
  * @param sid - Sid extracted from cookies
  */
 export declare function generateSidAuth(sid: string): Promise<string>;
@@ -63,3 +65,5 @@ export declare function hasKeys<T extends object, R extends (keyof T)[]>(params:
 export declare function streamToIterable(stream: ReadableStream<Uint8Array>): AsyncGenerator<Uint8Array, void, unknown>;
 export declare const debugFetch: FetchFunction;
 export declare function u8ToBase64(u8: Uint8Array): string;
+export declare function base64ToU8(base64: string): Uint8Array;
+export declare function isTextRun(run: TextRun | EmojiRun): run is TextRun;

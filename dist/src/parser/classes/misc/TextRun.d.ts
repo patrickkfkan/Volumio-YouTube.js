@@ -1,9 +1,9 @@
 import NavigationEndpoint from '../NavigationEndpoint.js';
-import { Run } from './Text.js';
+import { type Run } from './Text.js';
 import type { RawNode } from '../../index.js';
-declare class TextRun implements Run {
+export default class TextRun implements Run {
     text: string;
-    endpoint: NavigationEndpoint | undefined;
+    endpoint?: NavigationEndpoint;
     bold: boolean;
     italics: boolean;
     strikethrough: boolean;
@@ -12,4 +12,3 @@ declare class TextRun implements Run {
     toString(): string;
     toHTML(): string;
 }
-export default TextRun;

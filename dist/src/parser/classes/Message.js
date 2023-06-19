@@ -3,7 +3,7 @@ import { YTNode } from '../helpers.js';
 class Message extends YTNode {
     constructor(data) {
         super();
-        this.text = new Text(data.text).toString();
+        this.text = new Text(data.text);
     }
 }
 Message.type = 'Message';

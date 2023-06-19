@@ -1,5 +1,8 @@
 import { Memo } from '../parser/helpers.js';
-import PlatformShim, { FetchFunction } from '../types/PlatformShim.js';
+import type { EmojiRun, TextRun } from '../parser/misc.js';
+import { Text } from '../parser/misc.js';
+import type { FetchFunction } from '../types/PlatformShim.js';
+import type PlatformShim from '../types/PlatformShim.js';
 import userAgents from './user-agents.js';
 
 export class Platform {
@@ -45,7 +48,7 @@ export class ChannelError extends Error { }
 export function deepCompare(obj1: any, obj2: any): boolean {
   const keys = Reflect.ownKeys(obj1);
   return keys.some((key) => {
-    const is_text = obj2[key]?.constructor.name === 'Text';
+    const is_text = obj2[key] instanceof Text;
     if (!is_text && typeof obj2[key] === 'object') {
       return JSON.stringify(obj1[key]) === JSON.stringify(obj2[key]);
     }
@@ -82,7 +85,7 @@ export function getRandomUserAgent(type: DeviceCategory): string {
 }
 
 /**
- * Generates an authentication token from a cookies' sid..js
+ * Generates an authentication token from a cookies' sid.
  * @param sid - Sid extracted from cookies
  */
 export async function generateSidAuth(sid: string): Promise<string> {
@@ -116,7 +119,7 @@ export function generateRandomString(length: number): string {
  * @returns seconds
  */
 export function timeToSeconds(time: string): number {
-  const params = time.split(':').map((param) => parseInt(param));
+  const params = time.split(':').map((param) => parseInt(param.replace(/\D/g, '')));
   switch (params.length) {
     case 1:
       return params[0];
@@ -217,4 +220,12 @@ export const debugFetch: FetchFunction = (input, init) => {
 
 export function u8ToBase64(u8: Uint8Array): string {
   return btoa(String.fromCharCode.apply(null, Array.from(u8)));
+}
+
+export function base64ToU8(base64: string): Uint8Array {
+  return new Uint8Array(atob(base64).split('').map((char) => char.charCodeAt(0)));
+}
+
+export function isTextRun(run: TextRun | EmojiRun): run is TextRun {
+  return !('emoji' in run);
 }

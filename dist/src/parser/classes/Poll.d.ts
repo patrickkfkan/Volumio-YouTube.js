@@ -1,8 +1,9 @@
+import { YTNode } from '../helpers.js';
+import type { RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-declare class Poll extends YTNode {
+export default class Poll extends YTNode {
     static type: string;
     choices: {
         text: Text;
@@ -17,6 +18,5 @@ declare class Poll extends YTNode {
     poll_type?: string;
     total_votes?: Text;
     live_chat_poll_id?: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default Poll;

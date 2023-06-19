@@ -1,15 +1,19 @@
+import { YTNode, observe } from '../helpers.js';
 import Parser from '../index.js';
-import { observe, YTNode } from '../helpers.js';
-class Marker extends YTNode {
+import Chapter from './Chapter.js';
+import Heatmap from './Heatmap.js';
+export class Marker extends YTNode {
     constructor(data) {
         super();
         this.marker_key = data.key;
         this.value = {};
-        if (data.value.heatmap) {
-            this.value.heatmap = Parser.parseItem(data.value.heatmap);
-        }
-        if (data.value.chapters) {
-            this.value.chapters = Parser.parseArray(data.value.chapters);
+        if (Reflect.has(data, 'value')) {
+            if (Reflect.has(data.value, 'heatmap')) {
+                this.value.heatmap = Parser.parseItem(data.value.heatmap, Heatmap);
+            }
+            if (Reflect.has(data.value, 'chapters')) {
+                this.value.chapters = Parser.parseArray(data.value.chapters, Chapter);
+            }
         }
     }
 }
@@ -22,6 +26,5 @@ class MultiMarkersPlayerBar extends YTNode {
     }
 }
 MultiMarkersPlayerBar.type = 'MultiMarkersPlayerBar';
-export { Marker };
 export default MultiMarkersPlayerBar;
 //# sourceMappingURL=MultiMarkersPlayerBar.js.map

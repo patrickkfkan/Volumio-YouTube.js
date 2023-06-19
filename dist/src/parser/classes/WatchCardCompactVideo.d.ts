@@ -1,6 +1,7 @@
-import Text from './misc/Text.js';
 import { YTNode } from '../helpers.js';
-declare class WatchCardCompactVideo extends YTNode {
+import type { RawNode } from '../index.js';
+import Text from './misc/Text.js';
+export default class WatchCardCompactVideo extends YTNode {
     static type: string;
     title: Text;
     subtitle: Text;
@@ -9,6 +10,5 @@ declare class WatchCardCompactVideo extends YTNode {
         seconds: number;
     };
     style: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default WatchCardCompactVideo;

@@ -1,11 +1,11 @@
 import Parser from '../../../index.js';
-import LiveChatTextMessage from './LiveChatTextMessage.js';
-class LiveChatViewerEngagementMessage extends LiveChatTextMessage {
+import { LiveChatMessageBase } from './LiveChatTextMessage.js';
+class LiveChatViewerEngagementMessage extends LiveChatMessageBase {
     constructor(data) {
         super(data);
-        delete this.author;
-        delete this.menu_endpoint;
-        this.icon_type = data.icon.iconType;
+        if (Reflect.has(data, 'icon') && Reflect.has(data.icon, 'iconType')) {
+            this.icon_type = data.icon.iconType;
+        }
         this.action_button = Parser.parseItem(data.actionButton);
     }
 }

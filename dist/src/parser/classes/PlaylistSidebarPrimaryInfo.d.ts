@@ -1,14 +1,14 @@
-import Text from './misc/Text.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class PlaylistSidebarPrimaryInfo extends YTNode {
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Text from './misc/Text.js';
+export default class PlaylistSidebarPrimaryInfo extends YTNode {
     static type: string;
     stats: Text[];
-    thumbnail_renderer: import("../helpers.js").SuperParsedResult<YTNode>;
+    thumbnail_renderer: YTNode;
     title: Text;
-    menu: YTNode | null;
+    menu: YTNode;
     endpoint: NavigationEndpoint;
     description: Text;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default PlaylistSidebarPrimaryInfo;

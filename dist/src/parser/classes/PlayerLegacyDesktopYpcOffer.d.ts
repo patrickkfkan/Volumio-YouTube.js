@@ -1,6 +1,6 @@
 import { YTNode } from '../helpers.js';
 import type { RawNode } from '../index.js';
-declare class PlayerLegacyDesktopYpcOffer extends YTNode {
+export default class PlayerLegacyDesktopYpcOffer extends YTNode {
     static type: string;
     title: string;
     thumbnail: string;
@@ -8,4 +8,3 @@ declare class PlayerLegacyDesktopYpcOffer extends YTNode {
     offer_id: string;
     constructor(data: RawNode);
 }
-export default PlayerLegacyDesktopYpcOffer;

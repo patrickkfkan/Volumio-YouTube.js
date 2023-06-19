@@ -1,17 +1,20 @@
-import Parser from '../index.js';
-import Text from './misc/Text.js';
-import Author from './misc/Author.js';
 import { timeToSeconds } from '../../utils/Utils.js';
+import { YTNode } from '../helpers.js';
+import Parser from '../index.js';
+import Menu from './menus/Menu.js';
+import MetadataBadge from './MetadataBadge.js';
+import Author from './misc/Author.js';
+import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
-import MetadataBadge from './MetadataBadge.js';
-import { YTNode } from '../helpers.js';
 class CompactVideo extends YTNode {
     constructor(data) {
         super();
         this.id = data.videoId;
         this.thumbnails = Thumbnail.fromResponse(data.thumbnail) || null;
-        this.rich_thumbnail = data.richThumbnail && Parser.parse(data.richThumbnail);
+        if (Reflect.has(data, 'richThumbnail')) {
+            this.rich_thumbnail = Parser.parse(data.richThumbnail);
+        }
         this.title = new Text(data.title);
         this.author = new Author(data.longBylineText, data.ownerBadges, data.channelThumbnail);
         this.view_count = new Text(data.viewCountText);
@@ -24,7 +27,7 @@ class CompactVideo extends YTNode {
         };
         this.thumbnail_overlays = Parser.parseArray(data.thumbnailOverlays);
         this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
-        this.menu = Parser.parseItem(data.menu);
+        this.menu = Parser.parseItem(data.menu, Menu);
     }
     get best_thumbnail() {
         return this.thumbnails[0];

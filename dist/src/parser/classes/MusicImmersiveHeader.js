@@ -1,7 +1,7 @@
-import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
 import MusicThumbnail from './MusicThumbnail.js';
-import { YTNode } from '../helpers.js';
+import Text from './misc/Text.js';
 /*** Volumio-YouTube.js ***/
 import Button from './Button.js';
 class MusicImmersiveHeader extends YTNode {

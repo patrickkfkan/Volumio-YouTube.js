@@ -1,7 +1,7 @@
-import { YTNode } from '../helpers.js';
-declare class SecondarySearchContainer extends YTNode {
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
+export default class SecondarySearchContainer extends YTNode {
     static type: string;
-    contents: import("../helpers.js").SuperParsedResult<YTNode>;
-    constructor(data: any);
+    contents: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default SecondarySearchContainer;

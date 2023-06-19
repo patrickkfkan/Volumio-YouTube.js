@@ -1,13 +1,13 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import ItemSectionHeader from './ItemSectionHeader.js';
-import { YTNode } from '../helpers.js';
 import ItemSectionTabbedHeader from './ItemSectionTabbedHeader.js';
 import CommentsHeader from './comments/CommentsHeader.js';
-declare class ItemSection extends YTNode {
+export default class ItemSection extends YTNode {
     static type: string;
     header: CommentsHeader | ItemSectionHeader | ItemSectionTabbedHeader | null;
-    contents: import("../helpers.js").ObservedArray<YTNode> | null;
+    contents: ObservedArray<YTNode>;
     target_id?: string;
     continuation?: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default ItemSection;

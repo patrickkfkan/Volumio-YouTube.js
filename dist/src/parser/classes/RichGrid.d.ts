@@ -1,8 +1,8 @@
-import { YTNode } from '../helpers.js';
-declare class RichGrid extends YTNode {
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
+export default class RichGrid extends YTNode {
     static type: string;
-    header: YTNode | null;
-    contents: import("../helpers.js").ObservedArray<YTNode>;
-    constructor(data: any);
+    header: YTNode;
+    contents: ObservedArray<YTNode>;
+    constructor(data: RawNode);
 }
-export default RichGrid;

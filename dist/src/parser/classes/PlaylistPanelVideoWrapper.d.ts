@@ -1,9 +1,9 @@
-import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import { type ObservedArray, YTNode } from '../helpers.js';
 import PlaylistPanelVideo from './PlaylistPanelVideo.js';
-declare class PlaylistPanelVideoWrapper extends YTNode {
+export default class PlaylistPanelVideoWrapper extends YTNode {
     static type: string;
     primary: PlaylistPanelVideo | null;
-    counterpart: Array<PlaylistPanelVideo | null>;
-    constructor(data: any);
+    counterpart?: ObservedArray<PlaylistPanelVideo>;
+    constructor(data: RawNode);
 }
-export default PlaylistPanelVideoWrapper;

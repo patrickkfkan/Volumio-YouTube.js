@@ -1,11 +1,11 @@
-import NavigationEndpoint from './NavigationEndpoint.js';
 import { YTNode } from '../helpers.js';
-declare class ExpandableTab extends YTNode {
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+export default class ExpandableTab extends YTNode {
     static type: string;
     title: string;
     endpoint: NavigationEndpoint;
     selected: boolean;
-    content: YTNode | null;
-    constructor(data: any);
+    content: YTNode;
+    constructor(data: RawNode);
 }
-export default ExpandableTab;

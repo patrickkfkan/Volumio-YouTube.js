@@ -1,11 +1,11 @@
 import { CLIENTS } from '../utils/Constants.js';
-import { u8ToBase64 } from '../utils/Utils.js';
-import { VideoMetadata } from '../core/Studio.js';
+import { base64ToU8, u8ToBase64 } from '../utils/Utils.js';
+import type { UpdateVideoMetadataOptions } from '../types/index.js';
 
 import * as VisitorData from './generated/messages/youtube/VisitorData.js';
 import * as ChannelAnalytics from './generated/messages/youtube/ChannelAnalytics.js';
 import * as SearchFilter from './generated/messages/youtube/SearchFilter.js';
-import * as SearchFilter_Filters from './generated/messages/youtube/(SearchFilter)/Filters.js';
+import type * as SearchFilter_Filters from './generated/messages/youtube/(SearchFilter)/Filters.js';
 import * as MusicSearchFilter from './generated/messages/youtube/MusicSearchFilter.js';
 import * as LiveMessageParams from './generated/messages/youtube/LiveMessageParams.js';
 import * as GetCommentsSectionParams from './generated/messages/youtube/GetCommentsSectionParams.js';
@@ -19,6 +19,11 @@ class Proto {
   static encodeVisitorData(id: string, timestamp: number): string {
     const buf = VisitorData.encodeBinary({ id, timestamp });
     return encodeURIComponent(u8ToBase64(buf).replace(/\+/g, '-').replace(/\//g, '_'));
+  }
+
+  static decodeVisitorData(visitor_data: string): VisitorData.Type {
+    const data = VisitorData.decodeBinary(base64ToU8(decodeURIComponent(visitor_data)));
+    return data;
   }
 
   static encodeChannelAnalyticsParams(channel_id: string): string {
@@ -230,7 +235,7 @@ class Proto {
     return encodeURIComponent(u8ToBase64(buf));
   }
 
-  static encodeVideoMetadataPayload(video_id: string, metadata: VideoMetadata): Uint8Array {
+  static encodeVideoMetadataPayload(video_id: string, metadata: UpdateVideoMetadataOptions): Uint8Array {
     const data: InnertubePayload.Type = {
       context: {
         client: {

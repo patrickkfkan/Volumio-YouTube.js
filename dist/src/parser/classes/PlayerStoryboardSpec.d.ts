@@ -1,5 +1,6 @@
 import { YTNode } from '../helpers.js';
-declare class PlayerStoryboardSpec extends YTNode {
+import type { RawNode } from '../index.js';
+export default class PlayerStoryboardSpec extends YTNode {
     static type: string;
     boards: {
         template_url: string;
@@ -11,6 +12,5 @@ declare class PlayerStoryboardSpec extends YTNode {
         rows: number;
         storyboard_count: number;
     };
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default PlayerStoryboardSpec;

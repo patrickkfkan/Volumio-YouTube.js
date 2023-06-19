@@ -1,26 +1,5 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __classPrivateFieldSet = (this && this.__classPrivateFieldSet) || function (receiver, state, value, kind, f) {
-    if (kind === "m") throw new TypeError("Private method is not writable");
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a setter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot write private member to an object whose class did not declare it");
-    return (kind === "a" ? f.call(receiver, value) : f ? f.value = value : state.set(receiver, value)), value;
-};
-var __classPrivateFieldGet = (this && this.__classPrivateFieldGet) || function (receiver, state, kind, f) {
-    if (kind === "a" && !f) throw new TypeError("Private accessor was defined without a getter");
-    if (typeof state === "function" ? receiver !== state || !f : !state.has(receiver)) throw new TypeError("Cannot read private member from an object whose class did not declare it");
-    return kind === "m" ? f : kind === "a" ? f.call(receiver) : f ? f.value : state.get(receiver);
-};
-var _VideoInfo_page, _VideoInfo_actions, _VideoInfo_player, _VideoInfo_cpn, _VideoInfo_watch_next_continuation, _VideoInfo_playback_tracking;
-import Constants from '../../utils/Constants.js';
-import Parser from '../index.js';
+var _VideoInfo_watch_next_continuation;
+import { __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib";
 import ChipCloud from '../classes/ChipCloud.js';
 import ChipCloudChip from '../classes/ChipCloudChip.js';
 import CommentsEntryPointHeader from '../classes/comments/CommentsEntryPointHeader.js';
@@ -41,88 +20,75 @@ import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
 import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
 import LiveChatWrap from './LiveChat.js';
 import PlayerLegacyDesktopYpcTrailer from '../classes/PlayerLegacyDesktopYpcTrailer.js';
-import FormatUtils from '../../utils/FormatUtils.js';
 import { InnertubeError } from '../../utils/Utils.js';
-class VideoInfo {
+import { MediaInfo } from '../../core/mixins/index.js';
+class VideoInfo extends MediaInfo {
     /**
      * @param data - API response.
      * @param actions - Actions instance.
      * @param player - Player instance.
      * @param cpn - Client Playback Nonce.
      */
-    constructor(data, actions, player, cpn) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14;
-        _VideoInfo_page.set(this, void 0);
-        _VideoInfo_actions.set(this, void 0);
-        _VideoInfo_player.set(this, void 0);
-        _VideoInfo_cpn.set(this, void 0);
+    constructor(data, actions, cpn) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15;
+        super(data, actions, cpn);
         _VideoInfo_watch_next_continuation.set(this, void 0);
-        _VideoInfo_playback_tracking.set(this, void 0);
-        __classPrivateFieldSet(this, _VideoInfo_actions, actions, "f");
-        __classPrivateFieldSet(this, _VideoInfo_player, player, "f");
-        __classPrivateFieldSet(this, _VideoInfo_cpn, cpn, "f");
-        const info = Parser.parseResponse(data[0].data);
-        const next = ((_a = data === null || data === void 0 ? void 0 : data[1]) === null || _a === void 0 ? void 0 : _a.data) ? Parser.parseResponse(data[1].data) : undefined;
-        __classPrivateFieldSet(this, _VideoInfo_page, [info, next], "f");
-        if (((_b = info.playability_status) === null || _b === void 0 ? void 0 : _b.status) === 'ERROR')
-            throw new InnertubeError('This video is unavailable', info.playability_status);
-        if (info.microformat && !((_c = info.microformat) === null || _c === void 0 ? void 0 : _c.is(PlayerMicroformat, MicroformatData)))
+        const [info, next] = this.page;
+        if (info.microformat && !((_a = info.microformat) === null || _a === void 0 ? void 0 : _a.is(PlayerMicroformat, MicroformatData)))
             throw new InnertubeError('Invalid microformat', info.microformat);
         this.basic_info = Object.assign(Object.assign(Object.assign({}, info.video_details), {
-            embed: ((_d = info.microformat) === null || _d === void 0 ? void 0 : _d.is(PlayerMicroformat)) ? (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.embed : null,
-            channel: ((_f = info.microformat) === null || _f === void 0 ? void 0 : _f.is(PlayerMicroformat)) ? (_g = info.microformat) === null || _g === void 0 ? void 0 : _g.channel : null,
-            is_unlisted: (_h = info.microformat) === null || _h === void 0 ? void 0 : _h.is_unlisted,
-            is_family_safe: (_j = info.microformat) === null || _j === void 0 ? void 0 : _j.is_family_safe,
-            category: ((_k = info.microformat) === null || _k === void 0 ? void 0 : _k.is(PlayerMicroformat)) ? (_l = info.microformat) === null || _l === void 0 ? void 0 : _l.category : null,
-            has_ypc_metadata: ((_m = info.microformat) === null || _m === void 0 ? void 0 : _m.is(PlayerMicroformat)) ? (_o = info.microformat) === null || _o === void 0 ? void 0 : _o.has_ypc_metadata : null,
-            start_timestamp: ((_p = info.microformat) === null || _p === void 0 ? void 0 : _p.is(PlayerMicroformat)) ? info.microformat.start_timestamp : null
+            embed: ((_b = info.microformat) === null || _b === void 0 ? void 0 : _b.is(PlayerMicroformat)) ? (_c = info.microformat) === null || _c === void 0 ? void 0 : _c.embed : null,
+            channel: ((_d = info.microformat) === null || _d === void 0 ? void 0 : _d.is(PlayerMicroformat)) ? (_e = info.microformat) === null || _e === void 0 ? void 0 : _e.channel : null,
+            is_unlisted: (_f = info.microformat) === null || _f === void 0 ? void 0 : _f.is_unlisted,
+            is_family_safe: (_g = info.microformat) === null || _g === void 0 ? void 0 : _g.is_family_safe,
+            category: ((_h = info.microformat) === null || _h === void 0 ? void 0 : _h.is(PlayerMicroformat)) ? (_j = info.microformat) === null || _j === void 0 ? void 0 : _j.category : null,
+            has_ypc_metadata: ((_k = info.microformat) === null || _k === void 0 ? void 0 : _k.is(PlayerMicroformat)) ? (_l = info.microformat) === null || _l === void 0 ? void 0 : _l.has_ypc_metadata : null,
+            start_timestamp: ((_m = info.microformat) === null || _m === void 0 ? void 0 : _m.is(PlayerMicroformat)) ? info.microformat.start_timestamp : null,
+            view_count: ((_o = info.microformat) === null || _o === void 0 ? void 0 : _o.is(PlayerMicroformat)) && isNaN((_p = info.video_details) === null || _p === void 0 ? void 0 : _p.view_count) ? info.microformat.view_count : (_q = info.video_details) === null || _q === void 0 ? void 0 : _q.view_count
         }), { like_count: undefined, is_liked: undefined, is_disliked: undefined });
-        this.streaming_data = info.streaming_data;
-        this.playability_status = info.playability_status;
         this.annotations = info.annotations;
         this.storyboards = info.storyboards;
         this.endscreen = info.endscreen;
         this.captions = info.captions;
         this.cards = info.cards;
-        __classPrivateFieldSet(this, _VideoInfo_playback_tracking, info.playback_tracking, "f");
-        const two_col = (_q = next === null || next === void 0 ? void 0 : next.contents) === null || _q === void 0 ? void 0 : _q.item().as(TwoColumnWatchNextResults);
+        const two_col = (_r = next === null || next === void 0 ? void 0 : next.contents) === null || _r === void 0 ? void 0 : _r.item().as(TwoColumnWatchNextResults);
         const results = two_col === null || two_col === void 0 ? void 0 : two_col.results;
         const secondary_results = two_col === null || two_col === void 0 ? void 0 : two_col.secondary_results;
         if (results && secondary_results) {
-            if (((_r = info.microformat) === null || _r === void 0 ? void 0 : _r.is(PlayerMicroformat)) && ((_s = info.microformat) === null || _s === void 0 ? void 0 : _s.category) === 'Gaming') {
-                const row = (_v = (_u = (_t = results.firstOfType(VideoSecondaryInfo)) === null || _t === void 0 ? void 0 : _t.metadata) === null || _u === void 0 ? void 0 : _u.rows) === null || _v === void 0 ? void 0 : _v.firstOfType(RichMetadataRow);
+            if (((_s = info.microformat) === null || _s === void 0 ? void 0 : _s.is(PlayerMicroformat)) && ((_t = info.microformat) === null || _t === void 0 ? void 0 : _t.category) === 'Gaming') {
+                const row = (_w = (_v = (_u = results.firstOfType(VideoSecondaryInfo)) === null || _u === void 0 ? void 0 : _u.metadata) === null || _v === void 0 ? void 0 : _v.rows) === null || _w === void 0 ? void 0 : _w.firstOfType(RichMetadataRow);
                 if (row === null || row === void 0 ? void 0 : row.is(RichMetadataRow)) {
                     this.game_info = {
-                        title: (_x = (_w = row === null || row === void 0 ? void 0 : row.contents) === null || _w === void 0 ? void 0 : _w.firstOfType(RichMetadata)) === null || _x === void 0 ? void 0 : _x.title,
-                        release_year: (_z = (_y = row === null || row === void 0 ? void 0 : row.contents) === null || _y === void 0 ? void 0 : _y.firstOfType(RichMetadata)) === null || _z === void 0 ? void 0 : _z.subtitle
+                        title: (_y = (_x = row === null || row === void 0 ? void 0 : row.contents) === null || _x === void 0 ? void 0 : _x.firstOfType(RichMetadata)) === null || _y === void 0 ? void 0 : _y.title,
+                        release_year: (_0 = (_z = row === null || row === void 0 ? void 0 : row.contents) === null || _z === void 0 ? void 0 : _z.firstOfType(RichMetadata)) === null || _0 === void 0 ? void 0 : _0.subtitle
                     };
                 }
             }
             this.primary_info = results.firstOfType(VideoPrimaryInfo);
             this.secondary_info = results.firstOfType(VideoSecondaryInfo);
             this.merchandise = results.firstOfType(MerchandiseShelf);
-            this.related_chip_cloud = (_0 = secondary_results.firstOfType(RelatedChipCloud)) === null || _0 === void 0 ? void 0 : _0.content.item().as(ChipCloud);
+            this.related_chip_cloud = (_1 = secondary_results.firstOfType(RelatedChipCloud)) === null || _1 === void 0 ? void 0 : _1.content.as(ChipCloud);
             if (two_col === null || two_col === void 0 ? void 0 : two_col.playlist) {
                 this.playlist = two_col.playlist;
             }
-            this.watch_next_feed = ((_1 = secondary_results.firstOfType(ItemSection)) === null || _1 === void 0 ? void 0 : _1.contents) || secondary_results;
+            this.watch_next_feed = ((_2 = secondary_results.firstOfType(ItemSection)) === null || _2 === void 0 ? void 0 : _2.contents) || secondary_results;
             /*** Volumio-YouTube.js ***/
-            if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_2 = this.watch_next_feed[this.watch_next_feed.length - 1]) === null || _2 === void 0 ? void 0 : _2.is(ContinuationItem)))
+            if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && ((_3 = this.watch_next_feed[this.watch_next_feed.length - 1]) === null || _3 === void 0 ? void 0 : _3.is(ContinuationItem)))
                 //if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && this.watch_next_feed.at(-1)?.is(ContinuationItem))
-                __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_3 = this.watch_next_feed.pop()) === null || _3 === void 0 ? void 0 : _3.as(ContinuationItem), "f");
-            this.player_overlays = (_4 = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _4 === void 0 ? void 0 : _4.item().as(PlayerOverlay);
+                __classPrivateFieldSet(this, _VideoInfo_watch_next_continuation, (_4 = this.watch_next_feed.pop()) === null || _4 === void 0 ? void 0 : _4.as(ContinuationItem), "f");
+            this.player_overlays = (_5 = next === null || next === void 0 ? void 0 : next.player_overlays) === null || _5 === void 0 ? void 0 : _5.item().as(PlayerOverlay);
             if (two_col === null || two_col === void 0 ? void 0 : two_col.autoplay) {
                 this.autoplay = two_col.autoplay;
             }
-            const segmented_like_dislike_button = (_6 = (_5 = this.primary_info) === null || _5 === void 0 ? void 0 : _5.menu) === null || _6 === void 0 ? void 0 : _6.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
-            if (((_7 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _7 === void 0 ? void 0 : _7.is(ToggleButton)) && ((_8 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _8 === void 0 ? void 0 : _8.is(ToggleButton))) {
-                this.basic_info.like_count = (_9 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _9 === void 0 ? void 0 : _9.like_count;
-                this.basic_info.is_liked = (_10 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _10 === void 0 ? void 0 : _10.is_toggled;
-                this.basic_info.is_disliked = (_11 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _11 === void 0 ? void 0 : _11.is_toggled;
+            const segmented_like_dislike_button = (_7 = (_6 = this.primary_info) === null || _6 === void 0 ? void 0 : _6.menu) === null || _7 === void 0 ? void 0 : _7.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
+            if (((_8 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _8 === void 0 ? void 0 : _8.is(ToggleButton)) && ((_9 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _9 === void 0 ? void 0 : _9.is(ToggleButton))) {
+                this.basic_info.like_count = (_10 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _10 === void 0 ? void 0 : _10.like_count;
+                this.basic_info.is_liked = (_11 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button) === null || _11 === void 0 ? void 0 : _11.is_toggled;
+                this.basic_info.is_disliked = (_12 = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button) === null || _12 === void 0 ? void 0 : _12.is_toggled;
             }
-            const comments_entry_point = (_12 = results.get({ target_id: 'comments-entry-point' })) === null || _12 === void 0 ? void 0 : _12.as(ItemSection);
-            this.comments_entry_point_header = (_13 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _13 === void 0 ? void 0 : _13.firstOfType(CommentsEntryPointHeader);
-            this.livechat = (_14 = next === null || next === void 0 ? void 0 : next.contents_memo) === null || _14 === void 0 ? void 0 : _14.getType(LiveChat).first();
+            const comments_entry_point = (_13 = results.get({ target_id: 'comments-entry-point' })) === null || _13 === void 0 ? void 0 : _13.as(ItemSection);
+            this.comments_entry_point_header = (_14 = comments_entry_point === null || comments_entry_point === void 0 ? void 0 : comments_entry_point.contents) === null || _14 === void 0 ? void 0 : _14.firstOfType(CommentsEntryPointHeader);
+            this.livechat = (_15 = next === null || next === void 0 ? void 0 : next.contents_memo) === null || _15 === void 0 ? void 0 : _15.getType(LiveChat).first();
         }
     }
     /**
@@ -149,7 +115,7 @@ class VideoInfo {
             }
             if (cloud_chip.is_selected)
                 return this;
-            const response = yield ((_c = cloud_chip.endpoint) === null || _c === void 0 ? void 0 : _c.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"), { parse: true }));
+            const response = yield ((_c = cloud_chip.endpoint) === null || _c === void 0 ? void 0 : _c.call(this.actions, { parse: true }));
             const data = (_d = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _d === void 0 ? void 0 : _d.get({ target_id: 'watch-next-feed' });
             this.watch_next_feed = data === null || data === void 0 ? void 0 : data.contents;
             return this;
@@ -159,21 +125,11 @@ class VideoInfo {
      * Adds video to the watch history.
      */
     addToWatchHistory() {
+        const _super = Object.create(null, {
+            addToWatchHistory: { get: () => super.addToWatchHistory }
+        });
         return __awaiter(this, void 0, void 0, function* () {
-            if (!__classPrivateFieldGet(this, _VideoInfo_playback_tracking, "f"))
-                throw new InnertubeError('Playback tracking not available');
-            const url_params = {
-                cpn: __classPrivateFieldGet(this, _VideoInfo_cpn, "f"),
-                fmt: 251,
-                rtn: 0,
-                rt: 0
-            };
-            const url = __classPrivateFieldGet(this, _VideoInfo_playback_tracking, "f").videostats_playback_url.replace('https://s.', 'https://www.');
-            const response = yield __classPrivateFieldGet(this, _VideoInfo_actions, "f").stats(url, {
-                client_name: Constants.CLIENTS.WEB.NAME,
-                client_version: Constants.CLIENTS.WEB.VERSION
-            }, url_params);
-            return response;
+            return _super.addToWatchHistory.call(this);
         });
     }
     /**
@@ -184,7 +140,7 @@ class VideoInfo {
         return __awaiter(this, void 0, void 0, function* () {
             if (!__classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f"))
                 throw new InnertubeError('Watch next feed continuation not found');
-            const response = yield ((_a = __classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f")) === null || _a === void 0 ? void 0 : _a.endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"), { parse: true }));
+            const response = yield ((_a = __classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f")) === null || _a === void 0 ? void 0 : _a.endpoint.call(this.actions, { parse: true }));
             const data = (_b = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _b === void 0 ? void 0 : _b.get({ type: 'appendContinuationItemsAction' });
             if (!data)
                 throw new InnertubeError('AppendContinuationItemsAction not found');
@@ -214,7 +170,7 @@ class VideoInfo {
                 throw new InnertubeError('Like button is not a toggle button. This action is likely disabled for this video.', { video_id: this.basic_info.id });
             if (button.is_toggled)
                 throw new InnertubeError('This video is already liked', { video_id: this.basic_info.id });
-            const response = yield button.endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"));
+            const response = yield button.endpoint.call(this.actions);
             return response;
         });
     }
@@ -232,7 +188,7 @@ class VideoInfo {
                 throw new InnertubeError('Dislike button is not a toggle button. This action is likely disabled for this video.', { video_id: this.basic_info.id });
             if (button.is_toggled)
                 throw new InnertubeError('This video is already disliked', { video_id: this.basic_info.id });
-            const response = yield button.endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"));
+            const response = yield button.endpoint.call(this.actions);
             return response;
         });
     }
@@ -256,7 +212,7 @@ class VideoInfo {
             }
             if (!button)
                 throw new InnertubeError('This video is not liked/disliked', { video_id: this.basic_info.id });
-            const response = yield button.toggled_endpoint.call(__classPrivateFieldGet(this, _VideoInfo_actions, "f"));
+            const response = yield button.toggled_endpoint.call(this.actions);
             return response;
         });
     }
@@ -277,35 +233,10 @@ class VideoInfo {
         if (this.has_trailer) {
             const player_response = (_b = (_a = this.playability_status.error_screen) === null || _a === void 0 ? void 0 : _a.as(PlayerLegacyDesktopYpcTrailer).trailer) === null || _b === void 0 ? void 0 : _b.player_response;
             if (player_response) {
-                return new VideoInfo([{ data: player_response }], __classPrivateFieldGet(this, _VideoInfo_actions, "f"), __classPrivateFieldGet(this, _VideoInfo_player, "f"), __classPrivateFieldGet(this, _VideoInfo_cpn, "f"));
+                return new VideoInfo([{ data: player_response }], this.actions, this.cpn);
             }
         }
         return null;
-    }
-    /**
-     * Selects the format that best matches the given options.
-     * @param options - Options
-     */
-    chooseFormat(options) {
-        return FormatUtils.chooseFormat(options, this.streaming_data);
-    }
-    /**
-     * Generates a DASH manifest from the streaming data.
-     * @param url_transformer - Function to transform the URLs.
-     * @param format_filter - Function to filter the formats.
-     * @returns DASH manifest
-     */
-    toDash(url_transformer, format_filter) {
-        return FormatUtils.toDash(this.streaming_data, url_transformer, format_filter, __classPrivateFieldGet(this, _VideoInfo_cpn, "f"), __classPrivateFieldGet(this, _VideoInfo_player, "f"));
-    }
-    /**
-     * Downloads the video.
-     * @param options - Download options.
-     */
-    download(options = {}) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return FormatUtils.download(options, __classPrivateFieldGet(this, _VideoInfo_actions, "f"), this.playability_status, this.streaming_data, __classPrivateFieldGet(this, _VideoInfo_actions, "f").session.player, this.cpn);
-        });
     }
     /**
      * Watch next feed filters.
@@ -313,18 +244,6 @@ class VideoInfo {
     get filters() {
         var _a, _b;
         return ((_b = (_a = this.related_chip_cloud) === null || _a === void 0 ? void 0 : _a.chips) === null || _b === void 0 ? void 0 : _b.map((chip) => { var _a; return (_a = chip.text) === null || _a === void 0 ? void 0 : _a.toString(); })) || [];
-    }
-    /**
-     * Actions instance.
-     */
-    get actions() {
-        return __classPrivateFieldGet(this, _VideoInfo_actions, "f");
-    }
-    /**
-     * Content Playback Nonce.
-     */
-    get cpn() {
-        return __classPrivateFieldGet(this, _VideoInfo_cpn, "f");
     }
     /**
      * Checks if continuation is available for the watch next feed.
@@ -384,13 +303,7 @@ class VideoInfo {
             */
         return [];
     }
-    /**
-     * Original parsed InnerTube response.
-     */
-    get page() {
-        return __classPrivateFieldGet(this, _VideoInfo_page, "f");
-    }
 }
-_VideoInfo_page = new WeakMap(), _VideoInfo_actions = new WeakMap(), _VideoInfo_player = new WeakMap(), _VideoInfo_cpn = new WeakMap(), _VideoInfo_watch_next_continuation = new WeakMap(), _VideoInfo_playback_tracking = new WeakMap();
+_VideoInfo_watch_next_continuation = new WeakMap();
 export default VideoInfo;
 //# sourceMappingURL=VideoInfo.js.map

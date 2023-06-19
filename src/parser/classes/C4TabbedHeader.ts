@@ -1,15 +1,13 @@
-import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+import Parser, { type RawNode } from '../index.js';
+import Button from './Button.js';
+import ChannelHeaderLinks from './ChannelHeaderLinks.js';
+import SubscribeButton from './SubscribeButton.js';
 import Author from './misc/Author.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
 
-import type Button from './Button.js';
-import type ChannelHeaderLinks from './ChannelHeaderLinks.js';
-import type SubscribeButton from './SubscribeButton.js';
-
-import { YTNode } from '../helpers.js';
-
-class C4TabbedHeader extends YTNode {
+export default class C4TabbedHeader extends YTNode {
   static type = 'C4TabbedHeader';
 
   author: Author;
@@ -19,58 +17,56 @@ class C4TabbedHeader extends YTNode {
   subscribers?: Text;
   videos_count?: Text;
   sponsor_button?: Button | null;
-  subscribe_button?: SubscribeButton | null;
+  subscribe_button?: SubscribeButton | Button | null;
   header_links?: ChannelHeaderLinks | null;
   channel_handle?: Text;
   channel_id?: string;
 
-  constructor(data: any) {
+  constructor(data: RawNode) {
     super();
     this.author = new Author({
       simpleText: data.title,
       navigationEndpoint: data.navigationEndpoint
     }, data.badges, data.avatar);
 
-    if (data.banner) {
+    if (Reflect.has(data, 'banner')) {
       this.banner = Thumbnail.fromResponse(data.banner);
     }
 
-    if (data.tv_banner) {
+    if (Reflect.has(data, 'tv_banner')) {
       this.tv_banner = Thumbnail.fromResponse(data.tvBanner);
     }
 
-    if (data.mobile_banner) {
+    if (Reflect.has(data, 'mobile_banner')) {
       this.mobile_banner = Thumbnail.fromResponse(data.mobileBanner);
     }
 
-    if (data.subscriberCountText) {
+    if (Reflect.has(data, 'subscriberCountText')) {
       this.subscribers = new Text(data.subscriberCountText);
     }
 
-    if (data.videosCountText) {
+    if (Reflect.has(data, 'videosCountText')) {
       this.videos_count = new Text(data.videosCountText);
     }
 
-    if (data.sponsorButton) {
-      this.sponsor_button = Parser.parseItem<Button>(data.sponsorButton);
+    if (Reflect.has(data, 'sponsorButton')) {
+      this.sponsor_button = Parser.parseItem(data.sponsorButton, Button);
     }
 
-    if (data.subscribeButton) {
-      this.subscribe_button = Parser.parseItem<SubscribeButton>(data.subscribeButton);
+    if (Reflect.has(data, 'subscribeButton')) {
+      this.subscribe_button = Parser.parseItem(data.subscribeButton, [ SubscribeButton, Button ]);
     }
 
-    if (data.headerLinks) {
-      this.header_links = Parser.parseItem<ChannelHeaderLinks>(data.headerLinks);
+    if (Reflect.has(data, 'headerLinks')) {
+      this.header_links = Parser.parseItem(data.headerLinks, ChannelHeaderLinks);
     }
 
-    if (data.channelHandleText) {
+    if (Reflect.has(data, 'channelHandleText')) {
       this.channel_handle = new Text(data.channelHandleText);
     }
 
-    if (data.channelId) {
+    if (Reflect.has(data, 'channelId')) {
       this.channel_id = data.channelId;
     }
   }
 }
-
-export default C4TabbedHeader;

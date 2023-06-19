@@ -1,24 +1,23 @@
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
+import Author from './misc/Author.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import PlaylistAuthor from './misc/PlaylistAuthor.js';
-import { YTNode } from '../helpers.js';
-import NavigatableText from './misc/NavigatableText.js';
-declare class Playlist extends YTNode {
+export default class Playlist extends YTNode {
     static type: string;
     id: string;
     title: Text;
-    author: Text | PlaylistAuthor;
+    author: Text | Author;
     thumbnails: Thumbnail[];
     video_count: Text;
     video_count_short: Text;
-    first_videos: import("../helpers.js").ObservedArray<YTNode>;
+    first_videos: ObservedArray<YTNode>;
     share_url: string | null;
-    menu: YTNode | null;
-    badges: import("../helpers.js").ObservedArray<YTNode>;
+    menu: YTNode;
+    badges: ObservedArray<YTNode>;
     endpoint: NavigationEndpoint;
-    thumbnail_overlays: import("../helpers.js").ObservedArray<YTNode>;
-    view_playlist?: NavigatableText;
-    constructor(data: any);
+    thumbnail_overlays: ObservedArray<YTNode>;
+    view_playlist?: Text;
+    constructor(data: RawNode);
 }
-export default Playlist;

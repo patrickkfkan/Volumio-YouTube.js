@@ -8,7 +8,8 @@ class ToggleMenuServiceItem extends YTNode {
         this.toggled_text = new Text(data.toggledText);
         this.icon_type = data.defaultIcon.iconType;
         this.toggled_icon_type = data.toggledIcon.iconType;
-        this.endpoint = new NavigationEndpoint(data.toggledServiceEndpoint);
+        this.default_endpoint = new NavigationEndpoint(data.defaultServiceEndpoint);
+        this.toggled_endpoint = new NavigationEndpoint(data.toggledServiceEndpoint);
     }
 }
 ToggleMenuServiceItem.type = 'ToggleMenuServiceItem';

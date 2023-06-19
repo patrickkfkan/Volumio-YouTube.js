@@ -1,8 +1,9 @@
 import { YTNode } from '../../helpers.js';
 class MusicMenuItemDivider extends YTNode {
     // eslint-disable-next-line
-    constructor(data) {
+    constructor(_data) {
         super();
+        // XXX: Should check if this ever has any data.
     }
 }
 MusicMenuItemDivider.type = 'MusicMenuItemDivider';

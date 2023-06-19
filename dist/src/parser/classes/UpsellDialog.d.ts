@@ -1,13 +1,13 @@
 import { YTNode } from '../helpers.js';
-import type Button from './Button.js';
+import { type RawNode } from '../index.js';
+import Button from './Button.js';
 import Text from './misc/Text.js';
-declare class UpsellDialog extends YTNode {
+export default class UpsellDialog extends YTNode {
     static type: string;
     message_title: Text;
     message_text: Text;
     action_button: Button | null;
     dismiss_button: Button | null;
     is_visible: boolean;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default UpsellDialog;

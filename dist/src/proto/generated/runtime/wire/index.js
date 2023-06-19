@@ -6,5 +6,5 @@ export var WireType;
     WireType[WireType["StartGroup"] = 3] = "StartGroup";
     WireType[WireType["EndGroup"] = 4] = "EndGroup";
     WireType[WireType["Fixed32"] = 5] = "Fixed32";
-})(WireType = WireType || (WireType = {}));
+})(WireType || (WireType = {}));
 //# sourceMappingURL=index.js.map

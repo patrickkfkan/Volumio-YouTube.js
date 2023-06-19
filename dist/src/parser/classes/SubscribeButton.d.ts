@@ -1,8 +1,9 @@
-import Text from './misc/Text.js';
+import { YTNode } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import SubscriptionNotificationToggleButton from './SubscriptionNotificationToggleButton.js';
-import { YTNode } from '../helpers.js';
-declare class SubscribeButton extends YTNode {
+import Text from './misc/Text.js';
+export default class SubscribeButton extends YTNode {
     static type: string;
     title: Text;
     subscribed: boolean;
@@ -14,6 +15,5 @@ declare class SubscribeButton extends YTNode {
     unsubscribed_text: Text;
     notification_preference_button: SubscriptionNotificationToggleButton | null;
     endpoint: NavigationEndpoint;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default SubscribeButton;

@@ -1,9 +1,9 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
+import MetadataBadge from './MetadataBadge.js';
+import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import Thumbnail from './misc/Thumbnail.js';
-import NavigationEndpoint from './NavigationEndpoint.js';
-import { YTNode } from '../helpers.js';
-import MetadataBadge from './MetadataBadge.js';
 class GridMovie extends YTNode {
     constructor(data) {
         var _a;

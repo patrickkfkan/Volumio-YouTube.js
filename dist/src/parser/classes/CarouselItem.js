@@ -10,6 +10,10 @@ class CarouselItem extends YTNode {
         this.pagination_thumbnails = Thumbnail.fromResponse(data.paginationThumbnails);
         this.paginator_alignment = data.paginatorAlignment;
     }
+    // XXX: For consistency.
+    get contents() {
+        return this.items;
+    }
 }
 CarouselItem.type = 'CarouselItem';
 export default CarouselItem;

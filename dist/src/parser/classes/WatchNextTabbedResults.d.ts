@@ -1,6 +1,6 @@
+import type { RawNode } from '../index.js';
 import TwoColumnBrowseResults from './TwoColumnBrowseResults.js';
-declare class WatchNextTabbedResults extends TwoColumnBrowseResults {
+export default class WatchNextTabbedResults extends TwoColumnBrowseResults {
     static type: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default WatchNextTabbedResults;

@@ -1,10 +1,10 @@
-import EndScreenVideo from './EndScreenVideo.js';
+import { YTNode, type ObservedArray } from '../helpers.js';
+import { type RawNode } from '../index.js';
 import EndScreenPlaylist from './EndScreenPlaylist.js';
-import { YTNode } from '../helpers.js';
-declare class WatchNextEndScreen extends YTNode {
+import EndScreenVideo from './EndScreenVideo.js';
+export default class WatchNextEndScreen extends YTNode {
     static type: string;
-    results: import("../helpers.js").ObservedArray<EndScreenPlaylist | EndScreenVideo>;
+    results: ObservedArray<EndScreenVideo | EndScreenPlaylist>;
     title: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default WatchNextEndScreen;

@@ -1,8 +1,8 @@
 import { YTNode } from '../helpers.js';
-declare class MusicInlineBadge extends YTNode {
+import type { RawNode } from '../index.js';
+export default class MusicInlineBadge extends YTNode {
     static type: string;
     icon_type: string;
     label: string;
-    constructor(data: any);
+    constructor(data: RawNode);
 }
-export default MusicInlineBadge;

@@ -3,8 +3,8 @@ import { YTNode } from '../helpers.js';
 class RichGrid extends YTNode {
     constructor(data) {
         super();
-        // XXX: we don't parse the masthead since it is usually an advertisement
-        // XXX: reflowOptions aren't parsed, I think its only used internally for layout
+        // (Daniel Wykerd) XXX: we don't parse the masthead since it is usually an advertisement
+        // (Daniel Wykerd) XXX: reflowOptions aren't parsed, I think its only used internally for layout
         this.header = Parser.parseItem(data.header);
         this.contents = Parser.parseArray(data.contents);
     }

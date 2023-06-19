@@ -1,6 +1,6 @@
+import { YTNode } from '../helpers.js';
 import Parser from '../index.js';
 import Button from './Button.js';
-import { YTNode } from '../helpers.js';
 class CopyLink extends YTNode {
     constructor(data) {
         super();

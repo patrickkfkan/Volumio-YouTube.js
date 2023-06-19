@@ -1,9 +1,8 @@
-import { YTNode } from '../../helpers.js';
+import { type SuperParsedResult, YTNode } from '../../helpers.js';
 import type { RawNode } from '../../index.js';
-declare class MultiPageMenuNotificationSection extends YTNode {
+export default class MultiPageMenuNotificationSection extends YTNode {
     static type: string;
-    items: import("../../helpers.js").SuperParsedResult<YTNode>;
+    items: SuperParsedResult<YTNode>;
     constructor(data: RawNode);
-    get contents(): import("../../helpers.js").SuperParsedResult<YTNode>;
+    get contents(): SuperParsedResult<YTNode>;
 }
-export default MultiPageMenuNotificationSection;
