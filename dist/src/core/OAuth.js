@@ -103,7 +103,7 @@ _OAuth_identity = new WeakMap(), _OAuth_session = new WeakMap(), _OAuth_credenti
             client_id: __classPrivateFieldGet(this, _OAuth_identity, "f").client_id,
             scope: Constants.OAUTH.SCOPE,
             device_id: Platform.shim.uuidv4(),
-            model_name: Constants.OAUTH.MODEL_NAME
+            device_model: Constants.OAUTH.MODEL_NAME
         };
         const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL('/o/oauth2/device/code', Constants.URLS.YT_BASE), {
             body: JSON.stringify(data),

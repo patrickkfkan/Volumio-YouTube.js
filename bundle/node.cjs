@@ -8851,7 +8851,7 @@ var OAUTH = Object.freeze({
   }),
   REGEX: Object.freeze({
     AUTH_SCRIPT: /<script id="base-js" src="(.*?)" nonce=".*?"><\/script>/,
-    CLIENT_IDENTITY: /.+?={};var .+?={clientId:"(?<client_id>.+?)",.+?:"(?<client_secret>.+?)"},/
+    CLIENT_IDENTITY: /var .+?={clientId:"(?<client_id>.+?)",.+?:"(?<client_secret>.+?)".+?}/
   })
 });
 var CLIENTS = Object.freeze({
@@ -22189,7 +22189,7 @@ _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ *
       client_id: __classPrivateFieldGet(this, _OAuth_identity, "f").client_id,
       scope: OAUTH.SCOPE,
       device_id: Platform.shim.uuidv4(),
-      model_name: OAUTH.MODEL_NAME
+      device_model: OAUTH.MODEL_NAME
     };
     const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL("/o/oauth2/device/code", URLS.YT_BASE), {
       body: JSON.stringify(data),
