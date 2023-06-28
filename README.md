@@ -1,4 +1,4 @@
-Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music](https://github.com/patrickkfkan/volumio-ytmusic) and [YouTube3](https://github.com/patrickkfkan/volumio-youtube3)* plugins.
+Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music](https://github.com/patrickkfkan/volumio-ytmusic) and [YouTube2](https://github.com/patrickkfkan/volumio-youtube2)* plugins.
 
 <i>*Starting from v0.2.1-b.1.</i>
 
@@ -16,6 +16,9 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 
 ## Changelog:
+
+0.3.1:
+- OAuth: fix parsing of client identity.
 
 0.3.0:
 - Migrate to YouTube.js v5.1.0 (commit [a11e596](https://github.com/LuanRT/YouTube.js/commit/a11e5962c6eb73b14623a9de1e6c8c2534146b1e)).
