@@ -2458,6 +2458,9 @@ var ChipCloudChip = class extends YTNode {
     if (Reflect.has(data2, "navigationEndpoint")) {
       this.endpoint = new NavigationEndpoint_default(data2.navigationEndpoint);
     }
+    if (Reflect.has(data2, "onDeselectedCommand")) {
+      this.deselect_endpoint = new NavigationEndpoint_default(data2.onDeselectedCommand);
+    }
     this.text = new Text(data2.text).toString();
   }
 };
@@ -13639,7 +13642,7 @@ __name(sha1Hash, "sha1Hash");
 // dist/package.json
 var package_default = {
   name: "volumio-youtubei.js",
-  version: "0.3.0",
+  version: "0.3.1",
   description: "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   type: "module",
   types: "./dist/src/platform/lib.d.ts",

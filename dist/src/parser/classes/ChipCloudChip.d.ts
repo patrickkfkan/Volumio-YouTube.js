@@ -6,5 +6,7 @@ export default class ChipCloudChip extends YTNode {
     is_selected: boolean;
     endpoint?: NavigationEndpoint;
     text: string;
+    /*** Volumio-YouTube.js ***/
+    deselect_endpoint?: NavigationEndpoint;
     constructor(data: RawNode);
 }

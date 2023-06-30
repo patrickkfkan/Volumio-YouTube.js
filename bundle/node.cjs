@@ -10683,6 +10683,9 @@ var ChipCloudChip = class extends YTNode {
     if (Reflect.has(data, "navigationEndpoint")) {
       this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     }
+    if (Reflect.has(data, "onDeselectedCommand")) {
+      this.deselect_endpoint = new NavigationEndpoint_default(data.onDeselectedCommand);
+    }
     this.text = new Text(data.text).toString();
   }
 };
