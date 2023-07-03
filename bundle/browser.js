@@ -6715,6 +6715,9 @@ var MusicNavigationButton = class extends YTNode {
     super();
     this.button_text = new Text(data2.buttonText).toString();
     this.endpoint = new NavigationEndpoint_default(data2.clickCommand);
+    if (Reflect.has(data2, "iconStyle") && Reflect.has(data2.iconStyle, "icon") && Reflect.has(data2.iconStyle.icon, "iconType")) {
+      this.icon_type = data2.iconStyle.icon.iconType;
+    }
   }
 };
 __name(MusicNavigationButton, "MusicNavigationButton");

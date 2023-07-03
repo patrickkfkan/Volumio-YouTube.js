@@ -5,5 +5,7 @@ export default class MusicNavigationButton extends YTNode {
     static type: string;
     button_text: string;
     endpoint: NavigationEndpoint;
+    /*** Volumio-YouTube.js ***/
+    icon_type?: string;
     constructor(data: RawNode);
 }
