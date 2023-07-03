@@ -10,6 +10,9 @@ export default class SectionList extends YTNode {
   header?: YTNode;
   sub_menu?: YTNode;
 
+  /*** Volumio-YouTube.js ***/
+  continuationType?: 'next' | 'reload';
+
   constructor(data: RawNode) {
     super();
     this.contents = Parser.parseArray(data.contents);
@@ -21,8 +24,10 @@ export default class SectionList extends YTNode {
     if (Reflect.has(data, 'continuations')) {
       if (Reflect.has(data.continuations[0], 'nextContinuationData')) {
         this.continuation = data.continuations[0].nextContinuationData.continuation;
+        this.continuationType = 'next'
       } else if (Reflect.has(data.continuations[0], 'reloadContinuationData')) {
         this.continuation = data.continuations[0].reloadContinuationData.continuation;
+        this.continuationType = 'reload';
       }
     }
 
