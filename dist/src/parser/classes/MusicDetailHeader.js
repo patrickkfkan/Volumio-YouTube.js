@@ -15,7 +15,13 @@ class MusicDetailHeader extends YTNode {
         this.total_duration = ((_f = (_e = this.second_subtitle.runs) === null || _e === void 0 ? void 0 : _e[2]) === null || _f === void 0 ? void 0 : _f.text) || '';
         this.thumbnails = Thumbnail.fromResponse(data.thumbnail.croppedSquareThumbnailRenderer.thumbnail);
         this.badges = Parser.parseArray(data.subtitleBadges);
-        const author = (_g = this.subtitle.runs) === null || _g === void 0 ? void 0 : _g.find((run) => { var _a, _b; return (_b = (_a = run === null || run === void 0 ? void 0 : run.endpoint) === null || _a === void 0 ? void 0 : _a.payload) === null || _b === void 0 ? void 0 : _b.browseId.startsWith('UC'); });
+        /*** Volumio-YouTube.js ***/
+        // TODO: Push to YouTube.js repo
+        const author = (_g = this.subtitle.runs) === null || _g === void 0 ? void 0 : _g.find((run) => {
+            var _a, _b, _c, _d;
+            return ((_b = (_a = run === null || run === void 0 ? void 0 : run.endpoint) === null || _a === void 0 ? void 0 : _a.payload) === null || _b === void 0 ? void 0 : _b.browseId.startsWith('UC')) ||
+                ((_d = (_c = run === null || run === void 0 ? void 0 : run.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.browseId.startsWith('FEmusic_library_privately_owned_artist'));
+        });
         if (author) {
             this.author = {
                 name: author.text,

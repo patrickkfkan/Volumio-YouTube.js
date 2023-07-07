@@ -8,6 +8,6 @@ export default class SectionList extends YTNode {
     header?: YTNode;
     sub_menu?: YTNode;
     /*** Volumio-YouTube.js ***/
-    continuationType?: 'next' | 'reload';
+    continuation_type?: 'next' | 'reload';
     constructor(data: RawNode);
 }

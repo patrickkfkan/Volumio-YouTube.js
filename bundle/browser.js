@@ -7091,8 +7091,8 @@ var MusicDetailHeader = class extends YTNode {
     this.thumbnails = Thumbnail.fromResponse(data2.thumbnail.croppedSquareThumbnailRenderer.thumbnail);
     this.badges = parser_default.parseArray(data2.subtitleBadges);
     const author = (_g = this.subtitle.runs) === null || _g === void 0 ? void 0 : _g.find((run) => {
-      var _a7, _b2;
-      return (_b2 = (_a7 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC");
+      var _a7, _b2, _c2, _d2;
+      return ((_b2 = (_a7 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId.startsWith("UC")) || ((_d2 = (_c2 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _c2 === void 0 ? void 0 : _c2.payload) === null || _d2 === void 0 ? void 0 : _d2.browseId.startsWith("FEmusic_library_privately_owned_artist"));
     });
     if (author) {
       this.author = {
@@ -8122,10 +8122,10 @@ var SectionList = class extends YTNode {
     if (Reflect.has(data2, "continuations")) {
       if (Reflect.has(data2.continuations[0], "nextContinuationData")) {
         this.continuation = data2.continuations[0].nextContinuationData.continuation;
-        this.continuationType = "next";
+        this.continuation_type = "next";
       } else if (Reflect.has(data2.continuations[0], "reloadContinuationData")) {
         this.continuation = data2.continuations[0].reloadContinuationData.continuation;
-        this.continuationType = "reload";
+        this.continuation_type = "reload";
       }
     }
     if (Reflect.has(data2, "header")) {
