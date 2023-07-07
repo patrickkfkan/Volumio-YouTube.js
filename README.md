@@ -17,6 +17,13 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 ## Changelog:
 
+0.3.2:
+- Add fields to Parser classes for use by YouTube Music plugin
+  - `ChipCloudChip`: `deselect_endpoint`
+  - `MusicNavigationButton`: `icon_type`
+  - `SectionList`: `continuation_type`
+- Fix private artist and album information not returned in `MusicDetailHeader`, `MusicResponsiveListItem` and `PlaylistPanelVideo`
+
 0.3.1:
 - OAuth: fix parsing of client identity.
 
