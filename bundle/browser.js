@@ -6845,9 +6845,9 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
     };
   }
   const album_run = ((_j = (_h = this.flex_columns[1]) === null || _h === void 0 ? void 0 : _h.key("title").instanceof(Text).runs) === null || _j === void 0 ? void 0 : _j.find(
-    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("MPR")
+    (run) => isTextRun(run) && run.endpoint && (run.endpoint.payload.browseId.startsWith("MPR") || run.endpoint.payload.browseId.startsWith("FEmusic_library_privately_owned_release"))
   )) || ((_l = (_k = this.flex_columns[2]) === null || _k === void 0 ? void 0 : _k.key("title").instanceof(Text).runs) === null || _l === void 0 ? void 0 : _l.find(
-    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("MPR")
+    (run) => isTextRun(run) && run.endpoint && (run.endpoint.payload.browseId.startsWith("MPR") || run.endpoint.payload.browseId.startsWith("FEmusic_library_privately_owned_release"))
   ));
   if (album_run && isTextRun(album_run)) {
     this.album = {
@@ -6857,7 +6857,7 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
     };
   }
   const artist_runs = (_q = (_p = this.flex_columns[1]) === null || _p === void 0 ? void 0 : _p.key("title").instanceof(Text).runs) === null || _q === void 0 ? void 0 : _q.filter(
-    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("UC")
+    (run) => isTextRun(run) && run.endpoint && (run.endpoint.payload.browseId.startsWith("UC") || run.endpoint.payload.browseId.startsWith("FEmusic_library_privately_owned_artist"))
   );
   if (artist_runs) {
     this.artists = artist_runs.map((run) => {
@@ -6876,7 +6876,7 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
   this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
   this.views = (_c = (_b = (_a6 = this.flex_columns[1]) === null || _a6 === void 0 ? void 0 : _a6.key("title").instanceof(Text).runs) === null || _b === void 0 ? void 0 : _b.find((run) => run.text.match(/(.*?) views/))) === null || _c === void 0 ? void 0 : _c.toString();
   const author_runs = (_e = (_d = this.flex_columns[1]) === null || _d === void 0 ? void 0 : _d.key("title").instanceof(Text).runs) === null || _e === void 0 ? void 0 : _e.filter(
-    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("UC")
+    (run) => isTextRun(run) && run.endpoint && (run.endpoint.payload.browseId.startsWith("UC") || run.endpoint.payload.browseId.startsWith("FEmusic_library_privately_owned_artist"))
   );
   if (author_runs) {
     this.authors = author_runs.map((run) => {
@@ -6912,7 +6912,7 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
   this.title = this.flex_columns.first().title.toString();
   this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
   const author_run = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find(
-    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("UC")
+    (run) => isTextRun(run) && run.endpoint && (run.endpoint.payload.browseId.startsWith("UC") || run.endpoint.payload.browseId.startsWith("FEmusic_library_privately_owned_artist"))
   );
   if (author_run && isTextRun(author_run)) {
     this.author = {
@@ -6932,7 +6932,7 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
   const item_count_run = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find((run) => run.text.match(/\d+ (song|songs)/));
   this.item_count = item_count_run ? item_count_run.text : void 0;
   const author_run = (_f = (_e = this.flex_columns[1]) === null || _e === void 0 ? void 0 : _e.key("title").instanceof(Text).runs) === null || _f === void 0 ? void 0 : _f.find(
-    (run) => isTextRun(run) && run.endpoint && run.endpoint.payload.browseId.startsWith("UC")
+    (run) => isTextRun(run) && run.endpoint && (run.endpoint.payload.browseId.startsWith("UC") || run.endpoint.payload.browseId.startsWith("FEmusic_library_privately_owned_artist"))
   );
   if (author_run && isTextRun(author_run)) {
     this.author = {
@@ -7237,12 +7237,12 @@ var PlaylistPanelVideo = class extends YTNode {
       seconds: timeToSeconds(new Text(data2.lengthText).toString())
     };
     const album = (_a6 = new Text(data2.longBylineText).runs) === null || _a6 === void 0 ? void 0 : _a6.find((run) => {
-      var _a7, _b2, _c2;
-      return (_c2 = (_b2 = (_a7 = run.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("MPR");
+      var _a7, _b2, _c2, _d2, _e2, _f;
+      return ((_c2 = (_b2 = (_a7 = run.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("MPR")) || ((_f = (_e2 = (_d2 = run.endpoint) === null || _d2 === void 0 ? void 0 : _d2.payload) === null || _e2 === void 0 ? void 0 : _e2.browseId) === null || _f === void 0 ? void 0 : _f.startsWith("FEmusic_library_privately_owned_release"));
     });
     const artists = (_b = new Text(data2.longBylineText).runs) === null || _b === void 0 ? void 0 : _b.filter((run) => {
-      var _a7, _b2, _c2;
-      return (_c2 = (_b2 = (_a7 = run.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC");
+      var _a7, _b2, _c2, _d2, _e2, _f;
+      return ((_c2 = (_b2 = (_a7 = run.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC")) || ((_f = (_e2 = (_d2 = run.endpoint) === null || _d2 === void 0 ? void 0 : _d2.payload) === null || _e2 === void 0 ? void 0 : _e2.browseId) === null || _f === void 0 ? void 0 : _f.startsWith("FEmusic_library_privately_owned_artist"));
     });
     this.author = new Text(data2.shortBylineText).toString();
     if (album) {
@@ -7266,6 +7266,7 @@ var PlaylistPanelVideo = class extends YTNode {
     this.badges = parser_default.parseArray(data2.badges);
     this.menu = parser_default.parseItem(data2.menu);
     this.set_video_id = data2.playlistSetVideoId;
+    this.long_by_line_text = new Text(data2.longBylineText);
   }
 };
 __name(PlaylistPanelVideo, "PlaylistPanelVideo");

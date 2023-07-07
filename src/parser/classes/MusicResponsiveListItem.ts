@@ -167,18 +167,21 @@ export default class MusicResponsiveListItem extends YTNode {
 
     const album_run =
       /*** Volumio-YouTube.js ***/
+      // TODO: Push to YouTube.js repo ('private' matching part')
       this.flex_columns[1]?.key('title').instanceof(Text).runs?.find(
       //this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
         (run) =>
-          (isTextRun(run) && run.endpoint) &&
-          run.endpoint.payload.browseId.startsWith('MPR')
+          (isTextRun(run) && run.endpoint) && (
+          run.endpoint.payload.browseId.startsWith('MPR') ||
+          run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_release'))
       ) ||
       /*** Volumio-YouTube.js ***/
       this.flex_columns[2]?.key('title').instanceof(Text).runs?.find(
       //this.flex_columns.at(2)?.key('title').instanceof(Text).runs?.find(
         (run) =>
-          (isTextRun(run) && run.endpoint) &&
-          run.endpoint.payload.browseId.startsWith('MPR')
+          (isTextRun(run) && run.endpoint) && (
+          run.endpoint.payload.browseId.startsWith('MPR') ||
+          run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_release'))
       );
 
     if (album_run && isTextRun(album_run)) {
@@ -190,9 +193,12 @@ export default class MusicResponsiveListItem extends YTNode {
     }
 
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part')
     const artist_runs = this.flex_columns[1]?.key('title').instanceof(Text).runs?.filter(
     //const artist_runs = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.filter(
-      (run) => (isTextRun(run) && run.endpoint) && run.endpoint.payload.browseId.startsWith('UC')
+      (run) => (isTextRun(run) && run.endpoint) && (
+        run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
     );
 
     if (artist_runs) {
@@ -216,11 +222,13 @@ export default class MusicResponsiveListItem extends YTNode {
     //this.views = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find((run) => run.text.match(/(.*?) views/))?.toString();
 
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part)
     const author_runs = this.flex_columns[1]?.key('title').instanceof(Text).runs?.filter(
     //const author_runs = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.filter(
       (run) =>
-        (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC')
+        (isTextRun(run) && run.endpoint) && (
+        run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
     );
 
     if (author_runs) {
@@ -269,11 +277,13 @@ export default class MusicResponsiveListItem extends YTNode {
     this.subtitle = this.flex_columns[1].key('title').instanceof(Text);
 
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part')
     const author_run = this.flex_columns[1]?.key('title').instanceof(Text).runs?.find(
     //const author_run = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
       (run) =>
-        (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC')
+        (isTextRun(run) && run.endpoint) && (
+        run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
     );
 
     if (author_run && isTextRun(author_run)) {
@@ -307,11 +317,13 @@ export default class MusicResponsiveListItem extends YTNode {
     this.item_count = item_count_run ? item_count_run.text : undefined;
 
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part')
     const author_run = this.flex_columns[1]?.key('title').instanceof(Text).runs?.find(
     //const author_run = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
       (run) =>
-        (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC')
+        (isTextRun(run) && run.endpoint) && (
+        run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
     );
 
     if (author_run && isTextRun(author_run)) {

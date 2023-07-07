@@ -104,16 +104,17 @@ _MusicResponsiveListItem_playlist_item_data = new WeakMap(), _MusicResponsiveLis
     }
     const album_run = 
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part')
     ((_j = (_h = this.flex_columns[1]) === null || _h === void 0 ? void 0 : _h.key('title').instanceof(Text).runs) === null || _j === void 0 ? void 0 : _j.find(
     //this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
-    (run) => (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('MPR'))) ||
+    (run) => (isTextRun(run) && run.endpoint) && (run.endpoint.payload.browseId.startsWith('MPR') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_release')))) ||
         (
         /*** Volumio-YouTube.js ***/
         (_l = (_k = this.flex_columns[2]) === null || _k === void 0 ? void 0 : _k.key('title').instanceof(Text).runs) === null || _l === void 0 ? void 0 : _l.find(
         //this.flex_columns.at(2)?.key('title').instanceof(Text).runs?.find(
-        (run) => (isTextRun(run) && run.endpoint) &&
-            run.endpoint.payload.browseId.startsWith('MPR')));
+        (run) => (isTextRun(run) && run.endpoint) && (run.endpoint.payload.browseId.startsWith('MPR') ||
+            run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_release'))));
     if (album_run && isTextRun(album_run)) {
         this.album = {
             id: (_o = (_m = album_run.endpoint) === null || _m === void 0 ? void 0 : _m.payload) === null || _o === void 0 ? void 0 : _o.browseId,
@@ -122,9 +123,11 @@ _MusicResponsiveListItem_playlist_item_data = new WeakMap(), _MusicResponsiveLis
         };
     }
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part')
     const artist_runs = (_q = (_p = this.flex_columns[1]) === null || _p === void 0 ? void 0 : _p.key('title').instanceof(Text).runs) === null || _q === void 0 ? void 0 : _q.filter(
     //const artist_runs = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.filter(
-    (run) => (isTextRun(run) && run.endpoint) && run.endpoint.payload.browseId.startsWith('UC'));
+    (run) => (isTextRun(run) && run.endpoint) && (run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist')));
     if (artist_runs) {
         this.artists = artist_runs.map((run) => {
             var _a, _b;
@@ -145,10 +148,11 @@ _MusicResponsiveListItem_playlist_item_data = new WeakMap(), _MusicResponsiveLis
     this.views = (_c = (_b = (_a = this.flex_columns[1]) === null || _a === void 0 ? void 0 : _a.key('title').instanceof(Text).runs) === null || _b === void 0 ? void 0 : _b.find((run) => run.text.match(/(.*?) views/))) === null || _c === void 0 ? void 0 : _c.toString();
     //this.views = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find((run) => run.text.match(/(.*?) views/))?.toString();
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part)
     const author_runs = (_e = (_d = this.flex_columns[1]) === null || _d === void 0 ? void 0 : _d.key('title').instanceof(Text).runs) === null || _e === void 0 ? void 0 : _e.filter(
     //const author_runs = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.filter(
-    (run) => (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC'));
+    (run) => (isTextRun(run) && run.endpoint) && (run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist')));
     if (author_runs) {
         this.authors = author_runs.map((run) => {
             var _a, _b;
@@ -188,10 +192,11 @@ _MusicResponsiveListItem_playlist_item_data = new WeakMap(), _MusicResponsiveLis
     /*** Volumio-YouTube.js ***/
     this.subtitle = this.flex_columns[1].key('title').instanceof(Text);
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part')
     const author_run = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key('title').instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find(
     //const author_run = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
-    (run) => (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC'));
+    (run) => (isTextRun(run) && run.endpoint) && (run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist')));
     if (author_run && isTextRun(author_run)) {
         this.author = {
             name: author_run.text,
@@ -215,10 +220,11 @@ _MusicResponsiveListItem_playlist_item_data = new WeakMap(), _MusicResponsiveLis
       .instanceof(Text).runs?.find((run) => run.text.match(/\d+ (song|songs)/));*/
     this.item_count = item_count_run ? item_count_run.text : undefined;
     /*** Volumio-YouTube.js ***/
+    // TODO: Push to YouTube.js repo ('private' matching part')
     const author_run = (_f = (_e = this.flex_columns[1]) === null || _e === void 0 ? void 0 : _e.key('title').instanceof(Text).runs) === null || _f === void 0 ? void 0 : _f.find(
     //const author_run = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
-    (run) => (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC'));
+    (run) => (isTextRun(run) && run.endpoint) && (run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist')));
     if (author_run && isTextRun(author_run)) {
         this.author = {
             name: author_run.text,

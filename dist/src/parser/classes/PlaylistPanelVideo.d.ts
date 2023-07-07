@@ -29,5 +29,7 @@ export default class PlaylistPanelVideo extends YTNode {
     badges: ObservedArray<YTNode>;
     menu: YTNode;
     set_video_id?: string;
+    /*** Volumio-YouTube.js ***/
+    long_by_line_text: Text;
     constructor(data: RawNode);
 }
