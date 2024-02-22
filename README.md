@@ -10,12 +10,15 @@ Achieved through polyfills and using [node-fetch](https://github.com/node-fetch/
 
 ### Multilanguage support
 
-The YouTube Music and YouTube3 plugins support languages other than English. This is done by directly setting the `session.context.client.hl` property of the `InnerTube` instance created by the library.
+The YouTube Music and YouTube2 plugins support languages other than English. This is done by directly setting the `session.context.client.hl` property of the `InnerTube` instance created by the library.
 
 Note that there is no `setLanguage()` function, because multilanguage support is not actually achievable in YouTube.js. The library extracts certain pieces of information by string-matching. An example would be getting an artist's subscriber count by matching the corresponding item's subtitle against the pattern '[decimal digit] subscribers'. If the subtitle is not in English, then the subscriber count could not be obtained. Fortunately, this is fine for the most part as the plugins do not utilize language-dependent data.
 
 
 ## Changelog:
+
+0.3.3:
+- "Fix" invalid API version obtained from YT session data - "fix" in double-quotes as it simply sets API version to `v1` (as opposed to processing session data). Meant to be temporary until YouTube.js releases a full fix.
 
 0.3.2:
 - Add fields to Parser classes for use by YouTube Music plugin
