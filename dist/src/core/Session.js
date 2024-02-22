@@ -156,7 +156,7 @@ _a = Session, _Session_api_version = new WeakMap(), _Session_key = new WeakMap()
         const text = yield res.text();
         const data = JSON.parse(text.replace(/^\)\]\}'/, ''));
         const ytcfg = data[0][2];
-        const api_version = `v${ytcfg[0][0][6]}`;
+        const api_version = `v1`;
         const [[device_info], api_key] = ytcfg;
         const context = {
             client: {

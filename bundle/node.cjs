@@ -22442,7 +22442,7 @@ _a5 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_ke
     const text = yield res.text();
     const data = JSON.parse(text.replace(/^\)\]\}'/, ""));
     const ytcfg = data[0][2];
-    const api_version = `v${ytcfg[0][0][6]}`;
+    const api_version = `v1`;
     const [[device_info], api_key] = ytcfg;
     const context = {
       client: {
