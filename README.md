@@ -17,6 +17,9 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 ## Changelog:
 
+0.3.4:
+- Add `MusicResponsiveHeader` parser class (backported from YouTube.js v10.0.0)
+
 0.3.3:
 - "Fix" invalid API version obtained from YT session data - "fix" in double-quotes as it simply sets API version to `v1` (as opposed to processing session data). Meant to be temporary until YouTube.js releases a full fix.
 
