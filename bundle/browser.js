@@ -1507,6 +1507,7 @@ __export(nodes_exports, {
   MusicPlayButton: () => MusicPlayButton_default,
   MusicPlaylistShelf: () => MusicPlaylistShelf_default,
   MusicQueue: () => MusicQueue_default,
+  MusicResponsiveHeader: () => MusicResponsiveHeader_default,
   MusicResponsiveListItem: () => MusicResponsiveListItem_default,
   MusicResponsiveListItemFixedColumn: () => MusicResponsiveListItemFixedColumn_default,
   MusicResponsiveListItemFlexColumn: () => MusicResponsiveListItemFlexColumn_default,
@@ -7317,6 +7318,29 @@ var MusicQueue = class extends YTNode {
 __name(MusicQueue, "MusicQueue");
 MusicQueue.type = "MusicQueue";
 var MusicQueue_default = MusicQueue;
+
+// dist/src/parser/classes/MusicResponsiveHeader.js
+var MusicResponsiveHeader = class extends YTNode {
+  constructor(data2) {
+    super();
+    this.thumbnail = parser_default2.parseItem(data2.thumbnail, MusicThumbnail_default);
+    this.buttons = parser_default2.parseArray(data2.buttons, [DownloadButton_default, ToggleButton_default, MusicPlayButton_default, Button_default, Menu_default]);
+    this.title = new Text(data2.title);
+    this.subtitle = new Text(data2.subtitle);
+    this.strapline_text_one = new Text(data2.straplineTextOne);
+    this.strapline_thumbnail = parser_default2.parseItem(data2.straplineThumbnail, MusicThumbnail_default);
+    this.second_subtitle = new Text(data2.secondSubtitle);
+    if (Reflect.has(data2, "subtitleBadge")) {
+      this.subtitle_badge = parser_default2.parseArray(data2.subtitleBadge, MusicInlineBadge_default);
+    }
+    if (Reflect.has(data2, "description")) {
+      this.description = parser_default2.parseItem(data2.description, MusicDescriptionShelf_default);
+    }
+  }
+};
+__name(MusicResponsiveHeader, "MusicResponsiveHeader");
+MusicResponsiveHeader.type = "MusicResponsiveHeader";
+var MusicResponsiveHeader_default = MusicResponsiveHeader;
 
 // dist/src/parser/classes/MusicShelf.js
 var MusicShelf = class extends YTNode {
@@ -13648,7 +13672,7 @@ __name(sha1Hash, "sha1Hash");
 // dist/package.json
 var package_default = {
   name: "volumio-youtubei.js",
-  version: "0.3.2",
+  version: "0.3.4",
   description: "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   type: "module",
   types: "./dist/src/platform/lib.d.ts",
@@ -13735,13 +13759,15 @@ var package_default = {
     jintr: "^1.0.0",
     linkedom: "^0.14.12",
     "node-fetch": "^2.6.7",
+    tslib: "^2.5.0",
     uuid: "^9.0.0",
-    "web-streams-polyfill": "^3.2.1",
-    tslib: "^2.5.0"
+    "web-streams-polyfill": "^3.2.1"
   },
   devDependencies: {
     "@types/jest": "^28.1.7",
     "@types/node": "^17.0.45",
+    "@types/node-fetch": "^2.6.11",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "cpy-cli": "^4.2.0",

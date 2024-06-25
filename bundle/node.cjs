@@ -4759,104 +4759,6 @@ var require_polyfill = __commonJS({
   }
 });
 
-// node_modules/event-target-polyfill/index.js
-var require_event_target_polyfill = __commonJS({
-  "node_modules/event-target-polyfill/index.js"() {
-    var root = typeof globalThis !== "undefined" && globalThis || typeof self !== "undefined" && self || typeof global !== "undefined" && global;
-    function isConstructor(fn) {
-      try {
-        new fn();
-      } catch (error) {
-        return false;
-      }
-      return true;
-    }
-    __name(isConstructor, "isConstructor");
-    if (typeof root.Event !== "function" || !isConstructor(root.Event)) {
-      root.Event = function() {
-        function Event2(type, options) {
-          this.bubbles = !!options && !!options.bubbles;
-          this.cancelable = !!options && !!options.cancelable;
-          this.composed = !!options && !!options.composed;
-          this.type = type;
-        }
-        __name(Event2, "Event");
-        return Event2;
-      }();
-    }
-    if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event)) {
-      root.EventTarget = function() {
-        function EventTarget2() {
-          this.__listeners = /* @__PURE__ */ new Map();
-        }
-        __name(EventTarget2, "EventTarget");
-        EventTarget2.prototype = Object.create(Object.prototype);
-        EventTarget2.prototype.addEventListener = function(type, listener, options) {
-          if (arguments.length < 2) {
-            throw new TypeError(
-              `TypeError: Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only ${arguments.length} present.`
-            );
-          }
-          const __listeners = this.__listeners;
-          const actualType = type.toString();
-          if (!__listeners.has(actualType)) {
-            __listeners.set(actualType, /* @__PURE__ */ new Map());
-          }
-          const listenersForType = __listeners.get(actualType);
-          if (!listenersForType.has(listener)) {
-            listenersForType.set(listener, options);
-          }
-        };
-        EventTarget2.prototype.removeEventListener = function(type, listener, _options) {
-          if (arguments.length < 2) {
-            throw new TypeError(
-              `TypeError: Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only ${arguments.length} present.`
-            );
-          }
-          const __listeners = this.__listeners;
-          const actualType = type.toString();
-          if (__listeners.has(actualType)) {
-            const listenersForType = __listeners.get(actualType);
-            if (listenersForType.has(listener)) {
-              listenersForType.delete(listener);
-            }
-          }
-        };
-        EventTarget2.prototype.dispatchEvent = function(event) {
-          if (!(event instanceof Event)) {
-            throw new TypeError(
-              `Failed to execute 'dispatchEvent' on 'EventTarget': parameter 1 is not of type 'Event'.`
-            );
-          }
-          const type = event.type;
-          const __listeners = this.__listeners;
-          const listenersForType = __listeners.get(type);
-          if (listenersForType) {
-            for (const [listener, options] of listenersForType.entries()) {
-              try {
-                if (typeof listener === "function") {
-                  listener.call(this, event);
-                } else if (listener && typeof listener.handleEvent === "function") {
-                  listener.handleEvent(event);
-                }
-              } catch (err) {
-                setTimeout(() => {
-                  throw err;
-                });
-              }
-              if (options && options.once) {
-                listenersForType.delete(listener);
-              }
-            }
-          }
-          return true;
-        };
-        return EventTarget2;
-      }();
-    }
-  }
-});
-
 // node_modules/uuid/dist/rng.js
 var require_rng = __commonJS({
   "node_modules/uuid/dist/rng.js"(exports) {
@@ -4909,11 +4811,11 @@ var require_validate = __commonJS({
       return obj && obj.__esModule ? obj : { default: obj };
     }
     __name(_interopRequireDefault, "_interopRequireDefault");
-    function validate(uuid2) {
+    function validate2(uuid2) {
       return typeof uuid2 === "string" && _regex.default.test(uuid2);
     }
-    __name(validate, "validate");
-    var _default = validate;
+    __name(validate2, "validate");
+    var _default = validate2;
     exports.default = _default;
   }
 });
@@ -4940,15 +4842,15 @@ var require_stringify = __commonJS({
       return (byteToHex[arr[offset + 0]] + byteToHex[arr[offset + 1]] + byteToHex[arr[offset + 2]] + byteToHex[arr[offset + 3]] + "-" + byteToHex[arr[offset + 4]] + byteToHex[arr[offset + 5]] + "-" + byteToHex[arr[offset + 6]] + byteToHex[arr[offset + 7]] + "-" + byteToHex[arr[offset + 8]] + byteToHex[arr[offset + 9]] + "-" + byteToHex[arr[offset + 10]] + byteToHex[arr[offset + 11]] + byteToHex[arr[offset + 12]] + byteToHex[arr[offset + 13]] + byteToHex[arr[offset + 14]] + byteToHex[arr[offset + 15]]).toLowerCase();
     }
     __name(unsafeStringify, "unsafeStringify");
-    function stringify(arr, offset = 0) {
+    function stringify2(arr, offset = 0) {
       const uuid2 = unsafeStringify(arr, offset);
       if (!(0, _validate.default)(uuid2)) {
         throw TypeError("Stringified UUID is invalid");
       }
       return uuid2;
     }
-    __name(stringify, "stringify");
-    var _default = stringify;
+    __name(stringify2, "stringify");
+    var _default = stringify2;
     exports.default = _default;
   }
 });
@@ -4971,7 +4873,7 @@ var require_v1 = __commonJS({
     var _clockseq;
     var _lastMSecs = 0;
     var _lastNSecs = 0;
-    function v1(options, buf, offset) {
+    function v12(options, buf, offset) {
       let i = buf && offset || 0;
       const b = buf || new Array(16);
       options = options || {};
@@ -5019,8 +4921,8 @@ var require_v1 = __commonJS({
       }
       return buf || (0, _stringify.unsafeStringify)(b);
     }
-    __name(v1, "v1");
-    var _default = v1;
+    __name(v12, "v1");
+    var _default = v12;
     exports.default = _default;
   }
 });
@@ -5038,7 +4940,7 @@ var require_parse = __commonJS({
       return obj && obj.__esModule ? obj : { default: obj };
     }
     __name(_interopRequireDefault, "_interopRequireDefault");
-    function parse(uuid2) {
+    function parse2(uuid2) {
       if (!(0, _validate.default)(uuid2)) {
         throw TypeError("Invalid UUID");
       }
@@ -5062,8 +4964,8 @@ var require_parse = __commonJS({
       arr[15] = v & 255;
       return arr;
     }
-    __name(parse, "parse");
-    var _default = parse;
+    __name(parse2, "parse");
+    var _default = parse2;
     exports.default = _default;
   }
 });
@@ -5096,7 +4998,7 @@ var require_v35 = __commonJS({
     exports.DNS = DNS;
     var URL2 = "6ba7b811-9dad-11d1-80b4-00c04fd430c8";
     exports.URL = URL2;
-    function v35(name, version, hashfunc) {
+    function v35(name, version2, hashfunc) {
       function generateUUID(value, namespace, buf, offset) {
         var _namespace;
         if (typeof value === "string") {
@@ -5112,7 +5014,7 @@ var require_v35 = __commonJS({
         bytes.set(namespace);
         bytes.set(value, namespace.length);
         bytes = hashfunc(bytes);
-        bytes[6] = bytes[6] & 15 | version;
+        bytes[6] = bytes[6] & 15 | version2;
         bytes[8] = bytes[8] & 63 | 128;
         if (buf) {
           offset = offset || 0;
@@ -5177,8 +5079,8 @@ var require_v3 = __commonJS({
       return obj && obj.__esModule ? obj : { default: obj };
     }
     __name(_interopRequireDefault, "_interopRequireDefault");
-    var v3 = (0, _v.default)("v3", 48, _md.default);
-    var _default = v3;
+    var v32 = (0, _v.default)("v3", 48, _md.default);
+    var _default = v32;
     exports.default = _default;
   }
 });
@@ -5218,7 +5120,7 @@ var require_v4 = __commonJS({
       return obj && obj.__esModule ? obj : { default: obj };
     }
     __name(_interopRequireDefault, "_interopRequireDefault");
-    function v4(options, buf, offset) {
+    function v42(options, buf, offset) {
       if (_native.default.randomUUID && !buf && !options) {
         return _native.default.randomUUID();
       }
@@ -5235,8 +5137,8 @@ var require_v4 = __commonJS({
       }
       return (0, _stringify.unsafeStringify)(rnds);
     }
-    __name(v4, "v4");
-    var _default = v4;
+    __name(v42, "v4");
+    var _default = v42;
     exports.default = _default;
   }
 });
@@ -5282,8 +5184,8 @@ var require_v5 = __commonJS({
       return obj && obj.__esModule ? obj : { default: obj };
     }
     __name(_interopRequireDefault, "_interopRequireDefault");
-    var v5 = (0, _v.default)("v5", 80, _sha.default);
-    var _default = v5;
+    var v52 = (0, _v.default)("v5", 80, _sha.default);
+    var _default = v52;
     exports.default = _default;
   }
 });
@@ -5314,14 +5216,14 @@ var require_version = __commonJS({
       return obj && obj.__esModule ? obj : { default: obj };
     }
     __name(_interopRequireDefault, "_interopRequireDefault");
-    function version(uuid2) {
+    function version2(uuid2) {
       if (!(0, _validate.default)(uuid2)) {
         throw TypeError("Invalid UUID");
       }
       return parseInt(uuid2.slice(14, 15), 16);
     }
-    __name(version, "version");
-    var _default = version;
+    __name(version2, "version");
+    var _default = version2;
     exports.default = _default;
   }
 });
@@ -8394,6 +8296,104 @@ var require_lib2 = __commonJS({
   }
 });
 
+// node_modules/event-target-polyfill/index.js
+var require_event_target_polyfill = __commonJS({
+  "node_modules/event-target-polyfill/index.js"() {
+    var root = typeof globalThis !== "undefined" && globalThis || typeof self !== "undefined" && self || typeof global !== "undefined" && global;
+    function isConstructor(fn) {
+      try {
+        new fn();
+      } catch (error) {
+        return false;
+      }
+      return true;
+    }
+    __name(isConstructor, "isConstructor");
+    if (typeof root.Event !== "function" || !isConstructor(root.Event)) {
+      root.Event = function() {
+        function Event2(type, options) {
+          this.bubbles = !!options && !!options.bubbles;
+          this.cancelable = !!options && !!options.cancelable;
+          this.composed = !!options && !!options.composed;
+          this.type = type;
+        }
+        __name(Event2, "Event");
+        return Event2;
+      }();
+    }
+    if (typeof root.EventTarget === "undefined" || !isConstructor(root.Event)) {
+      root.EventTarget = function() {
+        function EventTarget2() {
+          this.__listeners = /* @__PURE__ */ new Map();
+        }
+        __name(EventTarget2, "EventTarget");
+        EventTarget2.prototype = Object.create(Object.prototype);
+        EventTarget2.prototype.addEventListener = function(type, listener, options) {
+          if (arguments.length < 2) {
+            throw new TypeError(
+              `TypeError: Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only ${arguments.length} present.`
+            );
+          }
+          const __listeners = this.__listeners;
+          const actualType = type.toString();
+          if (!__listeners.has(actualType)) {
+            __listeners.set(actualType, /* @__PURE__ */ new Map());
+          }
+          const listenersForType = __listeners.get(actualType);
+          if (!listenersForType.has(listener)) {
+            listenersForType.set(listener, options);
+          }
+        };
+        EventTarget2.prototype.removeEventListener = function(type, listener, _options) {
+          if (arguments.length < 2) {
+            throw new TypeError(
+              `TypeError: Failed to execute 'addEventListener' on 'EventTarget': 2 arguments required, but only ${arguments.length} present.`
+            );
+          }
+          const __listeners = this.__listeners;
+          const actualType = type.toString();
+          if (__listeners.has(actualType)) {
+            const listenersForType = __listeners.get(actualType);
+            if (listenersForType.has(listener)) {
+              listenersForType.delete(listener);
+            }
+          }
+        };
+        EventTarget2.prototype.dispatchEvent = function(event) {
+          if (!(event instanceof Event)) {
+            throw new TypeError(
+              `Failed to execute 'dispatchEvent' on 'EventTarget': parameter 1 is not of type 'Event'.`
+            );
+          }
+          const type = event.type;
+          const __listeners = this.__listeners;
+          const listenersForType = __listeners.get(type);
+          if (listenersForType) {
+            for (const [listener, options] of listenersForType.entries()) {
+              try {
+                if (typeof listener === "function") {
+                  listener.call(this, event);
+                } else if (listener && typeof listener.handleEvent === "function") {
+                  listener.handleEvent(event);
+                }
+              } catch (err) {
+                setTimeout(() => {
+                  throw err;
+                });
+              }
+              if (options && options.once) {
+                listenersForType.delete(listener);
+              }
+            }
+          }
+          return true;
+        };
+        return EventTarget2;
+      }();
+    }
+  }
+});
+
 // dist/src/platform/node.js
 var node_exports = {};
 __export(node_exports, {
@@ -8475,6 +8475,21 @@ var {
 
 // dist/src/platform/node.js
 var import_web_streams_polyfill = __toESM(require_polyfill(), 1);
+
+// node_modules/uuid/wrapper.mjs
+var import_dist = __toESM(require_dist(), 1);
+var v1 = import_dist.default.v1;
+var v3 = import_dist.default.v3;
+var v4 = import_dist.default.v4;
+var v5 = import_dist.default.v5;
+var NIL = import_dist.default.NIL;
+var version = import_dist.default.version;
+var validate = import_dist.default.validate;
+var stringify = import_dist.default.stringify;
+var parse = import_dist.default.parse;
+
+// dist/src/platform/node.js
+var import_node_fetch = __toESM(require_lib2(), 1);
 
 // dist/src/utils/Utils.js
 var Utils_exports = {};
@@ -9732,6 +9747,7 @@ __export(nodes_exports, {
   MusicPlayButton: () => MusicPlayButton_default,
   MusicPlaylistShelf: () => MusicPlaylistShelf_default,
   MusicQueue: () => MusicQueue_default,
+  MusicResponsiveHeader: () => MusicResponsiveHeader_default,
   MusicResponsiveListItem: () => MusicResponsiveListItem_default,
   MusicResponsiveListItemFixedColumn: () => MusicResponsiveListItemFixedColumn_default,
   MusicResponsiveListItemFlexColumn: () => MusicResponsiveListItemFlexColumn_default,
@@ -15542,6 +15558,29 @@ var MusicQueue = class extends YTNode {
 __name(MusicQueue, "MusicQueue");
 MusicQueue.type = "MusicQueue";
 var MusicQueue_default = MusicQueue;
+
+// dist/src/parser/classes/MusicResponsiveHeader.js
+var MusicResponsiveHeader = class extends YTNode {
+  constructor(data) {
+    super();
+    this.thumbnail = parser_default2.parseItem(data.thumbnail, MusicThumbnail_default);
+    this.buttons = parser_default2.parseArray(data.buttons, [DownloadButton_default, ToggleButton_default, MusicPlayButton_default, Button_default, Menu_default]);
+    this.title = new Text(data.title);
+    this.subtitle = new Text(data.subtitle);
+    this.strapline_text_one = new Text(data.straplineTextOne);
+    this.strapline_thumbnail = parser_default2.parseItem(data.straplineThumbnail, MusicThumbnail_default);
+    this.second_subtitle = new Text(data.secondSubtitle);
+    if (Reflect.has(data, "subtitleBadge")) {
+      this.subtitle_badge = parser_default2.parseArray(data.subtitleBadge, MusicInlineBadge_default);
+    }
+    if (Reflect.has(data, "description")) {
+      this.description = parser_default2.parseItem(data.description, MusicDescriptionShelf_default);
+    }
+  }
+};
+__name(MusicResponsiveHeader, "MusicResponsiveHeader");
+MusicResponsiveHeader.type = "MusicResponsiveHeader";
+var MusicResponsiveHeader_default = MusicResponsiveHeader;
 
 // dist/src/parser/classes/MusicShelf.js
 var MusicShelf = class extends YTNode {
@@ -21856,8 +21895,8 @@ var Player = class {
       if (!buffer)
         return null;
       const view = new DataView(buffer);
-      const version = view.getUint32(0, true);
-      if (version !== Player.LIBRARY_VERSION)
+      const version2 = view.getUint32(0, true);
+      if (version2 !== Player.LIBRARY_VERSION)
         return null;
       const sig_timestamp = view.getUint32(4, true);
       const sig_len = view.getUint32(8, true);
@@ -23992,12 +24031,10 @@ var _Cache_instances;
 var _Cache_persistent_directory;
 var _Cache_persistent;
 var _Cache_createCache;
-var uuid = require_dist();
-var nodeFetch = require_lib2();
-var defaultFetch = nodeFetch.default;
-var Headers2 = nodeFetch.Headers;
-var Request2 = nodeFetch.Request;
-var Response = nodeFetch.Response;
+var defaultFetch = import_node_fetch.default.default;
+var Headers2 = import_node_fetch.default.Headers;
+var Request2 = import_node_fetch.default.Request;
+var Response = import_node_fetch.default.Response;
 var FormData = null;
 var File = null;
 var meta_url = import_meta.url;
@@ -24090,7 +24127,7 @@ Platform.load({
     return import_crypto.default.createHash("sha1").update(data).digest("hex");
   }),
   uuidv4() {
-    return uuid.v4();
+    return v4();
   },
   serializeDOM(document) {
     return document.toString();

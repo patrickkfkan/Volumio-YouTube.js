@@ -13,8 +13,8 @@ import { __awaiter, __classPrivateFieldGet, __classPrivateFieldSet } from "tslib
 } from 'undici';*/
 // eslint-disable-next-line
 import { ReadableStream } from 'web-streams-polyfill';
-const uuid = require('uuid');
-const nodeFetch = require('node-fetch');
+import { v4 as uuidv4 } from 'uuid';
+import nodeFetch from 'node-fetch';
 const defaultFetch = nodeFetch.default;
 const Headers = nodeFetch.Headers;
 const Request = nodeFetch.Request;
@@ -127,7 +127,7 @@ Platform.load({
         // crypto.randomUUID() available since Node v14.17.0.
         // OK for Volumio on x86, but not rPi which runs a lower version.
         //return crypto.randomUUID();
-        return uuid.v4();
+        return uuidv4();
     },
     serializeDOM(document) {
         return document.toString();

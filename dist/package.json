@@ -1,6 +1,6 @@
 {
     "name": "volumio-youtubei.js",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "description": "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
     "type": "module",
     "types": "./dist/src/platform/lib.d.ts",
@@ -87,13 +87,15 @@
         "jintr": "^1.0.0",
         "linkedom": "^0.14.12",
         "node-fetch": "^2.6.7",
+        "tslib": "^2.5.0",
         "uuid": "^9.0.0",
-        "web-streams-polyfill": "^3.2.1",
-        "tslib": "^2.5.0"
+        "web-streams-polyfill": "^3.2.1"
     },
     "devDependencies": {
         "@types/jest": "^28.1.7",
         "@types/node": "^17.0.45",
+        "@types/node-fetch": "^2.6.11",
+        "@types/uuid": "^10.0.0",
         "@typescript-eslint/eslint-plugin": "^5.30.6",
         "@typescript-eslint/parser": "^5.30.6",
         "cpy-cli": "^4.2.0",
