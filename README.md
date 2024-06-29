@@ -17,6 +17,9 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 ## Changelog:
 
+0.3.5
+- Bump YT Music Android client version to v7 (originally v5 which does not support synced lyrics)
+
 0.3.4:
 - Add `MusicResponsiveHeader` parser class (backported from YouTube.js v10.0.0)
 
