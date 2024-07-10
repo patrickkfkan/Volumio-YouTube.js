@@ -17,6 +17,9 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 ## Changelog:
 
+0.3.6
+- Backport from [fix(Player): Fix extracting the n-token decipher algorithm](https://github.com/LuanRT/YouTube.js/pull/682)
+
 0.3.5
 - Bump YT Music Android client version to v7 (originally v5 which does not support synced lyrics)
 
