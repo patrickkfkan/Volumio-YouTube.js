@@ -7,4 +7,6 @@ export { default as HTTPClient } from './HTTPClient.js';
 export * from './HTTPClient.js';
 export { Platform } from './Utils.js';
 export * as Utils from './Utils.js';
+export { default as Log } from './Log.js';
+export * as LZW from './LZW.js';
 //# sourceMappingURL=index.js.map

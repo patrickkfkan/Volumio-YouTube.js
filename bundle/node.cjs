@@ -1029,12 +1029,12 @@ var require_polyfill = __commonJS({
         return new TypeError("ReadableStreamDefaultReader.prototype." + name + " can only be used on a ReadableStreamDefaultReader");
       }
       __name(defaultReaderBrandCheckException, "defaultReaderBrandCheckException");
-      var _a7;
+      var _a8;
       var AsyncIteratorPrototype;
       if (typeof SymbolPolyfill.asyncIterator === "symbol") {
-        AsyncIteratorPrototype = (_a7 = {}, _a7[SymbolPolyfill.asyncIterator] = function() {
+        AsyncIteratorPrototype = (_a8 = {}, _a8[SymbolPolyfill.asyncIterator] = function() {
           return this;
-        }, _a7);
+        }, _a8);
         Object.defineProperty(AsyncIteratorPrototype, SymbolPolyfill.asyncIterator, { enumerable: false });
       }
       var ReadableStreamAsyncIteratorImpl = function() {
@@ -1153,7 +1153,7 @@ var require_polyfill = __commonJS({
         }
         try {
           return x._asyncIteratorImpl instanceof ReadableStreamAsyncIteratorImpl;
-        } catch (_a8) {
+        } catch (_a9) {
           return false;
         }
       }
@@ -2130,7 +2130,7 @@ var require_polyfill = __commonJS({
         }
         try {
           return typeof value.aborted === "boolean";
-        } catch (_a8) {
+        } catch (_a9) {
           return false;
         }
       }
@@ -2273,12 +2273,12 @@ var require_polyfill = __commonJS({
       }
       __name(IsWritableStreamLocked, "IsWritableStreamLocked");
       function WritableStreamAbort(stream, reason) {
-        var _a8;
+        var _a9;
         if (stream._state === "closed" || stream._state === "errored") {
           return promiseResolvedWith(void 0);
         }
         stream._writableStreamController._abortReason = reason;
-        (_a8 = stream._writableStreamController._abortController) === null || _a8 === void 0 ? void 0 : _a8.abort();
+        (_a9 = stream._writableStreamController._abortController) === null || _a9 === void 0 ? void 0 : _a9.abort();
         var state = stream._state;
         if (state === "closed" || state === "errored") {
           return promiseResolvedWith(void 0);
@@ -3058,7 +3058,7 @@ var require_polyfill = __commonJS({
         try {
           new ctor();
           return true;
-        } catch (_a8) {
+        } catch (_a9) {
           return false;
         }
       }
@@ -4230,7 +4230,7 @@ var require_polyfill = __commonJS({
           value: "size",
           configurable: true
         });
-      } catch (_a8) {
+      } catch (_a9) {
       }
       var ByteLengthQueuingStrategy = function() {
         function ByteLengthQueuingStrategy2(options) {
@@ -4293,7 +4293,7 @@ var require_polyfill = __commonJS({
           value: "size",
           configurable: true
         });
-      } catch (_a8) {
+      } catch (_a9) {
       }
       var CountQueuingStrategy = function() {
         function CountQueuingStrategy2(options) {
@@ -5871,7 +5871,7 @@ var require_url_state_machine = __commonJS({
     function parseIPv6(input) {
       const address = [0, 0, 0, 0, 0, 0, 0, 0];
       let pieceIndex = 0;
-      let compress = null;
+      let compress2 = null;
       let pointer = 0;
       input = punycode.ucs2.decode(input);
       if (input[pointer] === 58) {
@@ -5880,19 +5880,19 @@ var require_url_state_machine = __commonJS({
         }
         pointer += 2;
         ++pieceIndex;
-        compress = pieceIndex;
+        compress2 = pieceIndex;
       }
       while (pointer < input.length) {
         if (pieceIndex === 8) {
           return failure;
         }
         if (input[pointer] === 58) {
-          if (compress !== null) {
+          if (compress2 !== null) {
             return failure;
           }
           ++pointer;
           ++pieceIndex;
-          compress = pieceIndex;
+          compress2 = pieceIndex;
           continue;
         }
         let value = 0;
@@ -5958,17 +5958,17 @@ var require_url_state_machine = __commonJS({
         address[pieceIndex] = value;
         ++pieceIndex;
       }
-      if (compress !== null) {
-        let swaps = pieceIndex - compress;
+      if (compress2 !== null) {
+        let swaps = pieceIndex - compress2;
         pieceIndex = 7;
         while (pieceIndex !== 0 && swaps > 0) {
-          const temp = address[compress + swaps - 1];
-          address[compress + swaps - 1] = address[pieceIndex];
+          const temp = address[compress2 + swaps - 1];
+          address[compress2 + swaps - 1] = address[pieceIndex];
           address[pieceIndex] = temp;
           --pieceIndex;
           --swaps;
         }
-      } else if (compress === null && pieceIndex !== 8) {
+      } else if (compress2 === null && pieceIndex !== 8) {
         return failure;
       }
       return address;
@@ -5977,7 +5977,7 @@ var require_url_state_machine = __commonJS({
     function serializeIPv6(address) {
       let output = "";
       const seqResult = findLongestZeroSequence(address);
-      const compress = seqResult.idx;
+      const compress2 = seqResult.idx;
       let ignore0 = false;
       for (let pieceIndex = 0; pieceIndex <= 7; ++pieceIndex) {
         if (ignore0 && address[pieceIndex] === 0) {
@@ -5985,7 +5985,7 @@ var require_url_state_machine = __commonJS({
         } else if (ignore0) {
           ignore0 = false;
         }
-        if (compress === pieceIndex) {
+        if (compress2 === pieceIndex) {
           const separator = pieceIndex === 0 ? "::" : ":";
           output += separator;
           ignore0 = true;
@@ -8412,7 +8412,9 @@ __export(node_exports, {
   Helpers: () => helpers_exports,
   Innertube: () => Innertube_default,
   ItemSectionContinuation: () => ItemSectionContinuation,
+  LZW: () => LZW_exports,
   LiveChatContinuation: () => LiveChatContinuation,
+  Log: () => Log_default,
   Managers: () => managers_exports,
   Misc: () => misc_exports,
   Mixins: () => mixins_exports,
@@ -8422,7 +8424,7 @@ __export(node_exports, {
   OAuth: () => OAuth_default,
   Parser: () => parser_default,
   Platform: () => Platform,
-  Player: () => Player_default,
+  Player: () => Player,
   PlaylistPanelContinuation: () => PlaylistPanelContinuation,
   Proto: () => proto_default,
   ReloadContinuationItemsCommand: () => ReloadContinuationItemsCommand,
@@ -8672,8 +8674,8 @@ var Maybe = class {
     return __classPrivateFieldGet(this, _Maybe_value, "f");
   }
   isObserved() {
-    var _a7;
-    return (_a7 = __classPrivateFieldGet(this, _Maybe_value, "f")) === null || _a7 === void 0 ? void 0 : _a7[isObserved];
+    var _a8;
+    return (_a8 = __classPrivateFieldGet(this, _Maybe_value, "f")) === null || _a8 === void 0 ? void 0 : _a8[isObserved];
   }
   parsed() {
     if (!(__classPrivateFieldGet(this, _Maybe_value, "f") instanceof SuperParsedResult)) {
@@ -8956,7 +8958,7 @@ var Button_default = Button;
 // dist/src/parser/classes/DropdownItem.js
 var DropdownItem = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     this.label = new Text(data.label).toString();
     this.selected = !!data.isSelected;
@@ -8969,7 +8971,7 @@ var DropdownItem = class extends YTNode {
       this.endpoint = new NavigationEndpoint_default(data.onSelectCommand);
     }
     if (Reflect.has(data, "icon")) {
-      this.icon_type = (_a7 = data.icon) === null || _a7 === void 0 ? void 0 : _a7.iconType;
+      this.icon_type = (_a8 = data.icon) === null || _a8 === void 0 ? void 0 : _a8.iconType;
     }
     if (Reflect.has(data, "descriptionText")) {
       this.description = new Text(data.descriptionText);
@@ -9010,7 +9012,7 @@ var CreatePlaylistDialog_default = CreatePlaylistDialog;
 // dist/src/parser/classes/NavigationEndpoint.js
 var NavigationEndpoint = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h;
     super();
     if (Reflect.has(data || {}, "innertubeCommand"))
       data = data.innertubeCommand;
@@ -9023,7 +9025,7 @@ var NavigationEndpoint = class extends YTNode {
       data = data.serviceEndpoint;
     }
     this.metadata = {};
-    if ((_b2 = (_a7 = data === null || data === void 0 ? void 0 : data.commandMetadata) === null || _a7 === void 0 ? void 0 : _a7.webCommandMetadata) === null || _b2 === void 0 ? void 0 : _b2.url) {
+    if ((_b2 = (_a8 = data === null || data === void 0 ? void 0 : data.commandMetadata) === null || _a8 === void 0 ? void 0 : _a8.webCommandMetadata) === null || _b2 === void 0 ? void 0 : _b2.url) {
       this.metadata.url = data.commandMetadata.webCommandMetadata.url;
     }
     if ((_d = (_c = data === null || data === void 0 ? void 0 : data.commandMetadata) === null || _c === void 0 ? void 0 : _c.webCommandMetadata) === null || _d === void 0 ? void 0 : _d.webPageType) {
@@ -9094,8 +9096,8 @@ __name(Thumbnail, "Thumbnail");
 // dist/src/parser/classes/misc/EmojiRun.js
 var EmojiRun = class {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f;
-    this.text = ((_a7 = data.emoji) === null || _a7 === void 0 ? void 0 : _a7.emojiId) || ((_c = (_b2 = data.emoji) === null || _b2 === void 0 ? void 0 : _b2.shortcuts) === null || _c === void 0 ? void 0 : _c[0]) || "";
+    var _a8, _b2, _c, _d, _e, _f;
+    this.text = ((_a8 = data.emoji) === null || _a8 === void 0 ? void 0 : _a8.emojiId) || ((_c = (_b2 = data.emoji) === null || _b2 === void 0 ? void 0 : _b2.shortcuts) === null || _c === void 0 ? void 0 : _c[0]) || "";
     this.emoji = {
       emoji_id: data.emoji.emojiId,
       shortcuts: ((_d = data.emoji) === null || _d === void 0 ? void 0 : _d.shortcuts) || [],
@@ -9167,7 +9169,7 @@ function escape(text) {
 __name(escape, "escape");
 var Text = class {
   constructor(data) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     if (typeof data === "object" && data !== null && Reflect.has(data, "runs") && Array.isArray(data.runs)) {
       this.runs = data.runs.map((run) => run.emoji ? new EmojiRun(run) : new TextRun(run));
       this.text = this.runs.map((run) => run.text).join("");
@@ -9181,7 +9183,7 @@ var Text = class {
       this.endpoint = new NavigationEndpoint_default(data.titleNavigationEndpoint);
     }
     if (!this.endpoint) {
-      if ((_b2 = (_a7 = this.runs) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.endpoint) {
+      if ((_b2 = (_a8 = this.runs) === null || _a8 === void 0 ? void 0 : _a8[0]) === null || _b2 === void 0 ? void 0 : _b2.endpoint) {
         this.endpoint = (_d = (_c = this.runs) === null || _c === void 0 ? void 0 : _c[0]) === null || _d === void 0 ? void 0 : _d.endpoint;
       }
     }
@@ -9375,11 +9377,11 @@ var SortFilterSubMenu = class extends YTNode {
     }
     if (Reflect.has(data, "subMenuItems")) {
       this.sub_menu_items = data.subMenuItems.map((item) => {
-        var _a7, _b2;
+        var _a8, _b2;
         return {
           title: item.title,
           selected: item.selected,
-          continuation: (_b2 = (_a7 = item.continuation) === null || _a7 === void 0 ? void 0 : _a7.reloadContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation,
+          continuation: (_b2 = (_a8 = item.continuation) === null || _a8 === void 0 ? void 0 : _a8.reloadContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation,
           endpoint: new NavigationEndpoint_default(item.serviceEndpoint || item.navigationEndpoint),
           subtitle: item.subtitle || null
         };
@@ -9468,7 +9470,7 @@ var MusicMultiSelectMenuItem_default = MusicMultiSelectMenuItem;
 // dist/src/parser/classes/misc/Format.js
 var Format = class {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h;
     this.itag = data.itag;
     this.mime_type = data.mimeType;
     this.is_type_otf = data.type === "FORMAT_STREAM_TYPE_OTF";
@@ -9502,7 +9504,7 @@ var Format = class {
     if (this.has_audio) {
       const args = new URLSearchParams(this.cipher || this.signature_cipher);
       const url_components = new URLSearchParams(args.get("url") || this.url);
-      this.language = ((_b2 = (_a7 = url_components.get("xtags")) === null || _a7 === void 0 ? void 0 : _a7.split(":").find((x) => x.startsWith("lang="))) === null || _b2 === void 0 ? void 0 : _b2.split("=")[1]) || null;
+      this.language = ((_b2 = (_a8 = url_components.get("xtags")) === null || _a8 === void 0 ? void 0 : _a8.split(":").find((x) => x.startsWith("lang="))) === null || _b2 === void 0 ? void 0 : _b2.split("=")[1]) || null;
       this.is_dubbed = ((_d = (_c = url_components.get("xtags")) === null || _c === void 0 ? void 0 : _c.split(":").find((x) => x.startsWith("acont="))) === null || _d === void 0 ? void 0 : _d.split("=")[1]) === "dubbed";
       this.is_descriptive = ((_f = (_e = url_components.get("xtags")) === null || _e === void 0 ? void 0 : _e.split(":").find((x) => x.startsWith("acont="))) === null || _f === void 0 ? void 0 : _f.split("=")[1]) === "descriptive";
       this.is_original = ((_h = (_g = url_components.get("xtags")) === null || _g === void 0 ? void 0 : _g.split(":").find((x) => x.startsWith("acont="))) === null || _h === void 0 ? void 0 : _h.split("=")[1]) === "original" || !this.is_dubbed;
@@ -10138,9 +10140,9 @@ var StatRow_default = StatRow;
 // dist/src/parser/classes/AutomixPreviewVideo.js
 var AutomixPreviewVideo = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
-    if ((_b2 = (_a7 = data === null || data === void 0 ? void 0 : data.content) === null || _a7 === void 0 ? void 0 : _a7.automixPlaylistVideoRenderer) === null || _b2 === void 0 ? void 0 : _b2.navigationEndpoint) {
+    if ((_b2 = (_a8 = data === null || data === void 0 ? void 0 : data.content) === null || _a8 === void 0 ? void 0 : _a8.automixPlaylistVideoRenderer) === null || _b2 === void 0 ? void 0 : _b2.navigationEndpoint) {
       this.playlist_video = {
         endpoint: new NavigationEndpoint_default(data.content.automixPlaylistVideoRenderer.navigationEndpoint)
       };
@@ -10166,7 +10168,7 @@ var BackstageImage_default = BackstageImage;
 // dist/src/parser/classes/ToggleButton.js
 var ToggleButton = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h;
     super();
     this.text = new Text(data.defaultText);
     this.toggled_text = new Text(data.toggledText);
@@ -10175,7 +10177,7 @@ var ToggleButton = class extends YTNode {
     this.is_toggled = data.isToggled;
     this.is_disabled = data.isDisabled;
     this.icon_type = data.defaultIcon.iconType;
-    const acc_label = ((_c = (_b2 = (_a7 = data === null || data === void 0 ? void 0 : data.defaultText) === null || _a7 === void 0 ? void 0 : _a7.accessibility) === null || _b2 === void 0 ? void 0 : _b2.accessibilityData) === null || _c === void 0 ? void 0 : _c.label) || ((_e = (_d = data === null || data === void 0 ? void 0 : data.accessibilityData) === null || _d === void 0 ? void 0 : _d.accessibilityData) === null || _e === void 0 ? void 0 : _e.label) || ((_f = data === null || data === void 0 ? void 0 : data.accessibility) === null || _f === void 0 ? void 0 : _f.label);
+    const acc_label = ((_c = (_b2 = (_a8 = data === null || data === void 0 ? void 0 : data.defaultText) === null || _a8 === void 0 ? void 0 : _a8.accessibility) === null || _b2 === void 0 ? void 0 : _b2.accessibilityData) === null || _c === void 0 ? void 0 : _c.label) || ((_e = (_d = data === null || data === void 0 ? void 0 : data.accessibilityData) === null || _d === void 0 ? void 0 : _d.accessibilityData) === null || _e === void 0 ? void 0 : _e.label) || ((_f = data === null || data === void 0 ? void 0 : data.accessibility) === null || _f === void 0 ? void 0 : _f.label);
     if (this.icon_type == "LIKE") {
       this.like_count = parseInt(acc_label.replace(/\D/g, ""));
       this.short_like_count = new Text(data.defaultText).toString();
@@ -10197,7 +10199,7 @@ var ToggleButton_default = ToggleButton;
 // dist/src/parser/classes/comments/CreatorHeart.js
 var CreatorHeart = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.creator_thumbnail = Thumbnail.fromResponse(data.creatorThumbnail);
     if (Reflect.has(data, "heartIcon") && Reflect.has(data.heartIcon, "iconType")) {
@@ -10205,7 +10207,7 @@ var CreatorHeart = class extends YTNode {
     }
     this.heart_color = {
       basic_color_palette_data: {
-        foreground_title_color: (_b2 = (_a7 = data.heartColor) === null || _a7 === void 0 ? void 0 : _a7.basicColorPaletteData) === null || _b2 === void 0 ? void 0 : _b2.foregroundTitleColor
+        foreground_title_color: (_b2 = (_a8 = data.heartColor) === null || _a8 === void 0 ? void 0 : _a8.basicColorPaletteData) === null || _b2 === void 0 ? void 0 : _b2.foregroundTitleColor
       }
     };
     this.hearted_tooltip = data.heartedTooltip;
@@ -10318,9 +10320,9 @@ __name(HeaderLink, "HeaderLink");
 HeaderLink.type = "HeaderLink";
 var ChannelHeaderLinks = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
-    this.primary = observe(((_a7 = data.primaryLinks) === null || _a7 === void 0 ? void 0 : _a7.map((link) => new HeaderLink(link))) || []);
+    this.primary = observe(((_a8 = data.primaryLinks) === null || _a8 === void 0 ? void 0 : _a8.map((link) => new HeaderLink(link))) || []);
     this.secondary = observe(((_b2 = data.secondaryLinks) === null || _b2 === void 0 ? void 0 : _b2.map((link) => new HeaderLink(link))) || []);
   }
 };
@@ -10348,7 +10350,7 @@ var SubscriptionNotificationToggleButton_default = SubscriptionNotificationToggl
 // dist/src/parser/classes/SubscribeButton.js
 var SubscribeButton = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.title = new Text(data.buttonText);
     this.subscribed = data.subscribed;
@@ -10359,7 +10361,7 @@ var SubscribeButton = class extends YTNode {
     this.subscribed_text = new Text(data.subscribedButtonText);
     this.unsubscribed_text = new Text(data.unsubscribedButtonText);
     this.notification_preference_button = parser_default.parseItem(data.notificationPreferenceButton, SubscriptionNotificationToggleButton_default);
-    this.endpoint = new NavigationEndpoint_default(((_a7 = data.serviceEndpoints) === null || _a7 === void 0 ? void 0 : _a7[0]) || ((_b2 = data.onSubscribeEndpoints) === null || _b2 === void 0 ? void 0 : _b2[0]));
+    this.endpoint = new NavigationEndpoint_default(((_a8 = data.serviceEndpoints) === null || _a8 === void 0 ? void 0 : _a8[0]) || ((_b2 = data.onSubscribeEndpoints) === null || _b2 === void 0 ? void 0 : _b2[0]));
   }
 };
 __name(SubscribeButton, "SubscribeButton");
@@ -10504,13 +10506,13 @@ var Channel_default = Channel;
 // dist/src/parser/classes/ChannelAboutFullMetadata.js
 var ChannelAboutFullMetadata = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.id = data.channelId;
     this.name = new Text(data.title);
     this.avatar = Thumbnail.fromResponse(data.avatar);
     this.canonical_channel_url = data.canonicalChannelUrl;
-    this.primary_links = (_b2 = (_a7 = data.primaryLinks) === null || _a7 === void 0 ? void 0 : _a7.map((link) => ({
+    this.primary_links = (_b2 = (_a8 = data.primaryLinks) === null || _a8 === void 0 ? void 0 : _a8.map((link) => ({
       endpoint: new NavigationEndpoint_default(link.navigationEndpoint),
       icon: Thumbnail.fromResponse(link.icon),
       title: new Text(link.title)
@@ -10629,11 +10631,11 @@ var ChannelSubMenu_default = ChannelSubMenu;
 // dist/src/parser/classes/ChannelThumbnailWithLink.js
 var ChannelThumbnailWithLink = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.label = (_b2 = (_a7 = data.accessibility) === null || _a7 === void 0 ? void 0 : _a7.accessibilityData) === null || _b2 === void 0 ? void 0 : _b2.label;
+    this.label = (_b2 = (_a8 = data.accessibility) === null || _a8 === void 0 ? void 0 : _a8.accessibilityData) === null || _b2 === void 0 ? void 0 : _b2.label;
   }
 };
 __name(ChannelThumbnailWithLink, "ChannelThumbnailWithLink");
@@ -10792,11 +10794,11 @@ var CommentReplyDialog_default = CommentReplyDialog;
 // dist/src/parser/classes/comments/PdgCommentChip.js
 var PdgCommentChip = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.text = new Text(data.chipText);
     this.color_pallette = {
-      background_color: (_a7 = data.chipColorPalette) === null || _a7 === void 0 ? void 0 : _a7.backgroundColor,
+      background_color: (_a8 = data.chipColorPalette) === null || _a8 === void 0 ? void 0 : _a8.backgroundColor,
       foreground_title_color: (_b2 = data.chipColorPalette) === null || _b2 === void 0 ? void 0 : _b2.foregroundTitleColor
     };
     if (Reflect.has(data, "chipIcon") && Reflect.has(data.chipIcon, "iconType")) {
@@ -12204,13 +12206,13 @@ var Proto = class {
     return encodeURIComponent(u8ToBase64(buf));
   }
   static encodeMusicSearchFilters(filters) {
-    var _a7;
+    var _a8;
     const data = {
       filters: {
         type: {}
       }
     };
-    if (filters.type && filters.type !== "all" && ((_a7 = data.filters) === null || _a7 === void 0 ? void 0 : _a7.type))
+    if (filters.type && filters.type !== "all" && ((_a8 = data.filters) === null || _a8 === void 0 ? void 0 : _a8.type))
       data.filters.type[filters.type] = 1;
     const buf = encodeBinary8(data);
     return encodeURIComponent(u8ToBase64(buf));
@@ -12383,7 +12385,7 @@ var proto_default = Proto;
 var _Comment_actions;
 var Comment = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f, _g;
+    var _a8, _b2, _c, _d, _e, _f, _g;
     super();
     _Comment_actions.set(this, void 0);
     this.content = new Text(data.contentText);
@@ -12394,7 +12396,7 @@ var Comment = class extends YTNode {
     this.paid_comment_chip = parser_default.parseItem(data.paidCommentChipRenderer, PdgCommentChip_default);
     this.author_badge = parser_default.parseItem(data.authorCommentBadge, AuthorCommentBadge_default);
     this.author = new Author_default(Object.assign(Object.assign({}, data.authorText), { navigationEndpoint: data.authorEndpoint }), this.author_badge ? [{
-      metadataBadgeRenderer: (_a7 = this.author_badge) === null || _a7 === void 0 ? void 0 : _a7.orig_badge
+      metadataBadgeRenderer: (_a8 = this.author_badge) === null || _a8 === void 0 ? void 0 : _a8.orig_badge
     }] : null, data.authorThumbnail);
     this.action_menu = parser_default.parseItem(data.actionMenu, Menu_default);
     this.action_buttons = parser_default.parseItem(data.actionButtons, CommentActionButtons_default);
@@ -12409,11 +12411,11 @@ var Comment = class extends YTNode {
     this.is_member = !!data.sponsorCommentBadge;
   }
   like() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       if (!__classPrivateFieldGet(this, _Comment_actions, "f"))
         throw new InnertubeError("An active caller must be provide to perform this operation.");
-      const button = (_a7 = this.action_buttons) === null || _a7 === void 0 ? void 0 : _a7.like_button;
+      const button = (_a8 = this.action_buttons) === null || _a8 === void 0 ? void 0 : _a8.like_button;
       if (!button)
         throw new InnertubeError("Like button was not found.", { comment_id: this.comment_id });
       if (button.is_toggled)
@@ -12423,11 +12425,11 @@ var Comment = class extends YTNode {
     });
   }
   dislike() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       if (!__classPrivateFieldGet(this, _Comment_actions, "f"))
         throw new InnertubeError("An active caller must be provide to perform this operation.");
-      const button = (_a7 = this.action_buttons) === null || _a7 === void 0 ? void 0 : _a7.dislike_button;
+      const button = (_a8 = this.action_buttons) === null || _a8 === void 0 ? void 0 : _a8.dislike_button;
       if (!button)
         throw new InnertubeError("Dislike button was not found.", { comment_id: this.comment_id });
       if (button.is_toggled)
@@ -12437,11 +12439,11 @@ var Comment = class extends YTNode {
     });
   }
   reply(text) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     return __awaiter(this, void 0, void 0, function* () {
       if (!__classPrivateFieldGet(this, _Comment_actions, "f"))
         throw new InnertubeError("An active caller must be provide to perform this operation.");
-      if (!((_a7 = this.action_buttons) === null || _a7 === void 0 ? void 0 : _a7.reply_button))
+      if (!((_a8 = this.action_buttons) === null || _a8 === void 0 ? void 0 : _a8.reply_button))
         throw new InnertubeError("Cannot reply to another reply. Try mentioning the user instead.", { comment_id: this.comment_id });
       const button = (_b2 = this.action_buttons) === null || _b2 === void 0 ? void 0 : _b2.reply_button;
       if (!((_c = button.endpoint) === null || _c === void 0 ? void 0 : _c.dialog))
@@ -12457,7 +12459,7 @@ var Comment = class extends YTNode {
     });
   }
   translate(target_language) {
-    var _a7, _b2, _c, _d, _e, _f;
+    var _a8, _b2, _c, _d, _e, _f;
     return __awaiter(this, void 0, void 0, function* () {
       if (!__classPrivateFieldGet(this, _Comment_actions, "f"))
         throw new InnertubeError("An active caller must be provide to perform this operation.");
@@ -12469,7 +12471,7 @@ var Comment = class extends YTNode {
       };
       const action = proto_default.encodeCommentActionParams(22, payload);
       const response = yield __classPrivateFieldGet(this, _Comment_actions, "f").execute("comment/perform_comment_action", { action, client: "ANDROID" });
-      const mutations = (_b2 = (_a7 = response.data.frameworkUpdates) === null || _a7 === void 0 ? void 0 : _a7.entityBatchUpdate) === null || _b2 === void 0 ? void 0 : _b2.mutations;
+      const mutations = (_b2 = (_a8 = response.data.frameworkUpdates) === null || _a8 === void 0 ? void 0 : _a8.entityBatchUpdate) === null || _b2 === void 0 ? void 0 : _b2.mutations;
       const content = (_f = (_e = (_d = (_c = mutations === null || mutations === void 0 ? void 0 : mutations[0]) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.commentEntityPayload) === null || _e === void 0 ? void 0 : _e.translatedContent) === null || _f === void 0 ? void 0 : _f.content;
       return Object.assign(Object.assign({}, response), { content });
     });
@@ -12652,13 +12654,13 @@ var CommentThread = class extends YTNode {
     this.has_replies = !!this.comment_replies_data;
   }
   getReplies() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       if (!__classPrivateFieldGet(this, _CommentThread_actions, "f"))
         throw new InnertubeError("Actions instance not set for this thread.");
       if (!this.comment_replies_data)
         throw new InnertubeError("This comment has no replies.", this);
-      const continuation = (_a7 = this.comment_replies_data.contents) === null || _a7 === void 0 ? void 0 : _a7.firstOfType(ContinuationItem_default);
+      const continuation = (_a8 = this.comment_replies_data.contents) === null || _a8 === void 0 ? void 0 : _a8.firstOfType(ContinuationItem_default);
       if (!continuation)
         throw new InnertubeError("Replies continuation not found.");
       const response = yield continuation.endpoint.call(__classPrivateFieldGet(this, _CommentThread_actions, "f"), { parse: true });
@@ -12673,7 +12675,7 @@ var CommentThread = class extends YTNode {
     });
   }
   getContinuation() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       if (!this.replies)
         throw new InnertubeError("Cannot retrieve continuation because this thread's replies have not been loaded.");
@@ -12681,7 +12683,7 @@ var CommentThread = class extends YTNode {
         throw new InnertubeError("Continuation not found.");
       if (!__classPrivateFieldGet(this, _CommentThread_actions, "f"))
         throw new InnertubeError("Actions instance not set for this thread.");
-      const load_more_button = (_a7 = __classPrivateFieldGet(this, _CommentThread_continuation, "f").button) === null || _a7 === void 0 ? void 0 : _a7.as(Button_default);
+      const load_more_button = (_a8 = __classPrivateFieldGet(this, _CommentThread_continuation, "f").button) === null || _a8 === void 0 ? void 0 : _a8.as(Button_default);
       if (!load_more_button)
         throw new InnertubeError('"Load more" button not found.');
       const response = yield load_more_button.endpoint.call(__classPrivateFieldGet(this, _CommentThread_actions, "f"), { parse: true });
@@ -12744,11 +12746,11 @@ var CompactLink_default = CompactLink;
 // dist/src/parser/classes/Playlist.js
 var Playlist = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     this.id = data.playlistId;
     this.title = new Text(data.title);
-    this.author = ((_a7 = data.shortBylineText) === null || _a7 === void 0 ? void 0 : _a7.simpleText) ? new Text(data.shortBylineText) : new Author_default(data.longBylineText, data.ownerBadges, null);
+    this.author = ((_a8 = data.shortBylineText) === null || _a8 === void 0 ? void 0 : _a8.simpleText) ? new Text(data.shortBylineText) : new Author_default(data.longBylineText, data.ownerBadges, null);
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail || { thumbnails: data.thumbnails.map((th) => th.thumbnails).flat(1) });
     this.video_count = new Text(data.thumbnailText);
     this.video_count_short = new Text(data.videoCountShortText);
@@ -12956,9 +12958,9 @@ __name(Marker, "Marker");
 Marker.type = "Marker";
 var MultiMarkersPlayerBar = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
-    this.markers_map = observe(((_a7 = data.markersMap) === null || _a7 === void 0 ? void 0 : _a7.map((marker) => new Marker(marker))) || []);
+    this.markers_map = observe(((_a8 = data.markersMap) === null || _a8 === void 0 ? void 0 : _a8.map((marker) => new Marker(marker))) || []);
   }
 };
 __name(MultiMarkersPlayerBar, "MultiMarkersPlayerBar");
@@ -13028,10 +13030,10 @@ var DownloadButton_default = DownloadButton;
 // dist/src/parser/classes/misc/ChildElement.js
 var ChildElement = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     if (Reflect.has(data, "type") && Reflect.has(data.type, "textType")) {
-      this.text = (_a7 = data.type.textType.text) === null || _a7 === void 0 ? void 0 : _a7.content;
+      this.text = (_a8 = data.type.textType.text) === null || _a8 === void 0 ? void 0 : _a8.content;
     }
     this.properties = data.properties;
     if (Reflect.has(data, "childElements")) {
@@ -13046,7 +13048,7 @@ var ChildElement_default = ChildElement;
 // dist/src/parser/classes/Element.js
 var Element = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     if (Reflect.has(data, "elementRenderer")) {
       return parser_default.parseItem(data, Element);
@@ -13054,7 +13056,7 @@ var Element = class extends YTNode {
     const type = data.newElement.type.componentType;
     this.model = parser_default.parseItem(type === null || type === void 0 ? void 0 : type.model);
     if (Reflect.has(data, "newElement") && Reflect.has(data.newElement, "childElements")) {
-      this.child_elements = observe(((_a7 = data.newElement.childElements) === null || _a7 === void 0 ? void 0 : _a7.map((el) => new ChildElement_default(el))) || []);
+      this.child_elements = observe(((_a8 = data.newElement.childElements) === null || _a8 === void 0 ? void 0 : _a8.map((el) => new ChildElement_default(el))) || []);
     }
   }
 };
@@ -13093,11 +13095,11 @@ var EmojiPickerCategory_default = EmojiPickerCategory;
 // dist/src/parser/classes/EmojiPickerCategoryButton.js
 var EmojiPickerCategoryButton = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     this.category_id = data.categoryId;
     if (Reflect.has(data, "icon")) {
-      this.icon_type = (_a7 = data.icon) === null || _a7 === void 0 ? void 0 : _a7.iconType;
+      this.icon_type = (_a8 = data.icon) === null || _a8 === void 0 ? void 0 : _a8.iconType;
     }
     this.tooltip = data.tooltip;
   }
@@ -13259,9 +13261,9 @@ var ThumbnailOverlayTimeStatus_default = ThumbnailOverlayTimeStatus;
 // dist/src/parser/classes/Video.js
 var Video = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     super();
-    const overlay_time_status = ((_a7 = data.thumbnailOverlays.find((overlay) => overlay.thumbnailOverlayTimeStatusRenderer)) === null || _a7 === void 0 ? void 0 : _a7.thumbnailOverlayTimeStatusRenderer.text) || "N/A";
+    const overlay_time_status = ((_a8 = data.thumbnailOverlays.find((overlay) => overlay.thumbnailOverlayTimeStatusRenderer)) === null || _a8 === void 0 ? void 0 : _a8.thumbnailOverlayTimeStatusRenderer.text) || "N/A";
     this.id = data.videoId;
     this.title = new Text(data.title);
     if (Reflect.has(data, "descriptionSnippet")) {
@@ -13300,18 +13302,18 @@ var Video = class extends YTNode {
     }
   }
   get description() {
-    var _a7;
+    var _a8;
     if (this.snippets) {
       return this.snippets.map((snip) => snip.text.toString()).join("");
     }
-    return ((_a7 = this.description_snippet) === null || _a7 === void 0 ? void 0 : _a7.toString()) || "";
+    return ((_a8 = this.description_snippet) === null || _a8 === void 0 ? void 0 : _a8.toString()) || "";
   }
   get is_live() {
-    var _a7;
+    var _a8;
     return this.badges.some((badge) => {
       if (badge.style === "BADGE_STYLE_TYPE_LIVE_NOW" || badge.label === "LIVE")
         return true;
-    }) || ((_a7 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a7 === void 0 ? void 0 : _a7.style) === "LIVE";
+    }) || ((_a8 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a8 === void 0 ? void 0 : _a8.style) === "LIVE";
   }
   get is_upcoming() {
     return this.upcoming && this.upcoming > new Date();
@@ -13446,7 +13448,7 @@ var GameDetails_default = GameDetails;
 // dist/src/parser/classes/Grid.js
 var Grid = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     super();
     this.items = parser_default.parseArray(data.items);
     if (Reflect.has(data, "header")) {
@@ -13461,7 +13463,7 @@ var Grid = class extends YTNode {
     if (Reflect.has(data, "targetId")) {
       this.target_id = data.targetId;
     }
-    this.continuation = ((_c = (_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || null;
+    this.continuation = ((_c = (_b2 = (_a8 = data.continuations) === null || _a8 === void 0 ? void 0 : _a8[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || null;
   }
   get contents() {
     return this.items;
@@ -13501,11 +13503,11 @@ var GridHeader_default = GridHeader;
 // dist/src/parser/classes/GridMix.js
 var GridMix = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.id = data.playlistId;
     this.title = new Text(data.title);
-    this.author = ((_a7 = data.shortBylineText) === null || _a7 === void 0 ? void 0 : _a7.simpleText) ? new Text(data.shortBylineText) : ((_b2 = data.longBylineText) === null || _b2 === void 0 ? void 0 : _b2.simpleText) ? new Text(data.longBylineText) : null;
+    this.author = ((_a8 = data.shortBylineText) === null || _a8 === void 0 ? void 0 : _a8.simpleText) ? new Text(data.shortBylineText) : ((_b2 = data.longBylineText) === null || _b2 === void 0 ? void 0 : _b2.simpleText) ? new Text(data.longBylineText) : null;
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.video_count = new Text(data.videoCountText);
     this.video_count_short = new Text(data.videoCountShortText);
@@ -13521,9 +13523,9 @@ var GridMix_default = GridMix;
 // dist/src/parser/classes/GridMovie.js
 var GridMovie = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
-    const length_alt = (_a7 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a7 === void 0 ? void 0 : _a7.thumbnailOverlayTimeStatusRenderer;
+    const length_alt = (_a8 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a8 === void 0 ? void 0 : _a8.thumbnailOverlayTimeStatusRenderer;
     this.id = data.videoId;
     this.title = new Text(data.title);
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
@@ -13541,7 +13543,7 @@ var GridMovie_default = GridMovie;
 // dist/src/parser/classes/GridPlaylist.js
 var GridPlaylist = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     this.id = data.playlistId;
     this.title = new Text(data.title);
@@ -13553,7 +13555,7 @@ var GridPlaylist = class extends YTNode {
     this.view_playlist = new Text(data.viewPlaylistText);
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
     this.thumbnail_renderer = parser_default.parseItem(data.thumbnailRenderer);
-    this.sidebar_thumbnails = [].concat(...((_a7 = data.sidebarThumbnails) === null || _a7 === void 0 ? void 0 : _a7.map((thumbnail) => Thumbnail.fromResponse(thumbnail))) || []) || null;
+    this.sidebar_thumbnails = [].concat(...((_a8 = data.sidebarThumbnails) === null || _a8 === void 0 ? void 0 : _a8.map((thumbnail) => Thumbnail.fromResponse(thumbnail))) || []) || null;
     this.video_count = new Text(data.thumbnailText);
     this.video_count_short = new Text(data.videoCountShortText);
   }
@@ -13608,9 +13610,9 @@ var GridShow_default = GridShow;
 // dist/src/parser/classes/GridVideo.js
 var GridVideo = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
-    const length_alt = (_a7 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a7 === void 0 ? void 0 : _a7.thumbnailOverlayTimeStatusRenderer;
+    const length_alt = (_a8 = data.thumbnailOverlays.find((overlay) => overlay.hasOwnProperty("thumbnailOverlayTimeStatusRenderer"))) === null || _a8 === void 0 ? void 0 : _a8.thumbnailOverlayTimeStatusRenderer;
     this.id = data.videoId;
     this.title = new Text(data.title);
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail);
@@ -13849,9 +13851,9 @@ var HorizontalMovieList_default = HorizontalMovieList;
 // dist/src/parser/classes/IconLink.js
 var IconLink = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
-    this.icon_type = (_a7 = data.icon) === null || _a7 === void 0 ? void 0 : _a7.iconType;
+    this.icon_type = (_a8 = data.icon) === null || _a8 === void 0 ? void 0 : _a8.iconType;
     if (Reflect.has(data, "tooltip")) {
       this.tooltip = new Text(data.tooltip).toString();
     }
@@ -13885,14 +13887,14 @@ var InfoPanelContent_default = InfoPanelContent;
 // dist/src/parser/classes/InfoPanelContainer.js
 var InfoPanelContainer = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     this.title = new Text(data.title);
     this.menu = parser_default.parseItem(data.menu, Menu_default);
     this.content = parser_default.parseItem(data.content, InfoPanelContent_default);
     this.background = data.background;
     if (Reflect.has(data, "icon")) {
-      this.icon_type = (_a7 = data.icon) === null || _a7 === void 0 ? void 0 : _a7.iconType;
+      this.icon_type = (_a8 = data.icon) === null || _a8 === void 0 ? void 0 : _a8.iconType;
     }
   }
 };
@@ -13961,7 +13963,7 @@ var ItemSectionTabbedHeader_default = ItemSectionTabbedHeader;
 // dist/src/parser/classes/ItemSection.js
 var ItemSection = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     super();
     this.header = parser_default.parseItem(data.header, [CommentsHeader_default, ItemSectionHeader_default, ItemSectionTabbedHeader_default]);
     this.contents = parser_default.parseArray(data.contents);
@@ -13969,7 +13971,7 @@ var ItemSection = class extends YTNode {
       this.target_id = data.target_id || data.sectionIdentifier;
     }
     if (data.continuations) {
-      this.continuation = (_c = (_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
+      this.continuation = (_c = (_b2 = (_a8 = data.continuations) === null || _a8 === void 0 ? void 0 : _a8[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation;
     }
   }
 };
@@ -13998,11 +14000,11 @@ var LikeButton_default = LikeButton;
 // dist/src/parser/classes/LiveChat.js
 var LiveChat = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.header = parser_default.parseItem(data.header);
     this.initial_display_state = data.initialDisplayState;
-    this.continuation = (_b2 = (_a7 = data.continuations[0]) === null || _a7 === void 0 ? void 0 : _a7.reloadContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation;
+    this.continuation = (_b2 = (_a8 = data.continuations[0]) === null || _a8 === void 0 ? void 0 : _a8.reloadContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation;
     this.client_messages = {
       reconnect_message: new Text(data.clientMessages.reconnectMessage),
       unable_to_reconnect_message: new Text(data.clientMessages.unableToReconnectMessage),
@@ -14265,13 +14267,13 @@ var LiveChatTextMessage_default = LiveChatTextMessage;
 // dist/src/parser/classes/livechat/items/LiveChatTickerPaidMessageItem.js
 var LiveChatTickerPaidMessageItem = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.author = new Author_default(data.authorName, data.authorBadges, data.authorPhoto, data.authorExternalChannelId);
     this.amount = new Text(data.amount);
     this.duration_sec = data.durationSec;
     this.full_duration_sec = data.fullDurationSec;
-    this.show_item = parser_default.parseItem((_b2 = (_a7 = data.showItemEndpoint) === null || _a7 === void 0 ? void 0 : _a7.showLiveChatItemEndpoint) === null || _b2 === void 0 ? void 0 : _b2.renderer);
+    this.show_item = parser_default.parseItem((_b2 = (_a8 = data.showItemEndpoint) === null || _a8 === void 0 ? void 0 : _a8.showLiveChatItemEndpoint) === null || _b2 === void 0 ? void 0 : _b2.renderer);
     this.show_item_endpoint = new NavigationEndpoint_default(data.showItemEndpoint);
     this.id = data.id;
   }
@@ -14415,9 +14417,9 @@ var ReplaceChatItemAction_default = ReplaceChatItemAction;
 // dist/src/parser/classes/livechat/ReplayChatItemAction.js
 var ReplayChatItemAction = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
-    this.actions = parser_default.parseArray((_a7 = data.actions) === null || _a7 === void 0 ? void 0 : _a7.map((action) => {
+    this.actions = parser_default.parseArray((_a8 = data.actions) === null || _a8 === void 0 ? void 0 : _a8.map((action) => {
       delete action.clickTrackingParams;
       return action;
     }));
@@ -14641,10 +14643,10 @@ var MusicMenuItemDivider_default = MusicMenuItemDivider;
 // dist/src/parser/classes/menus/MusicMultiSelectMenu.js
 var MusicMultiSelectMenu = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     if (Reflect.has(data, "title") && Reflect.has(data.title, "musicMenuTitleRenderer")) {
-      this.title = new Text((_a7 = data.title.musicMenuTitleRenderer) === null || _a7 === void 0 ? void 0 : _a7.primaryText);
+      this.title = new Text((_a8 = data.title.musicMenuTitleRenderer) === null || _a8 === void 0 ? void 0 : _a8.primaryText);
     }
     this.options = parser_default.parseArray(data.options, [MusicMultiSelectMenuItem_default, MusicMenuItemDivider_default]);
   }
@@ -14795,9 +14797,9 @@ var Mix_default = Mix;
 // dist/src/parser/classes/Movie.js
 var Movie = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     super();
-    const overlay_time_status = ((_a7 = data.thumbnailOverlays.find((overlay) => overlay.thumbnailOverlayTimeStatusRenderer)) === null || _a7 === void 0 ? void 0 : _a7.thumbnailOverlayTimeStatusRenderer.text) || "N/A";
+    const overlay_time_status = ((_a8 = data.thumbnailOverlays.find((overlay) => overlay.thumbnailOverlayTimeStatusRenderer)) === null || _a8 === void 0 ? void 0 : _a8.thumbnailOverlayTimeStatusRenderer.text) || "N/A";
     this.id = data.videoId;
     this.title = new Text(data.title);
     if (Reflect.has(data, "descriptionSnippet")) {
@@ -14825,9 +14827,9 @@ var Movie_default = Movie;
 // dist/src/parser/classes/MovingThumbnail.js
 var MovingThumbnail = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
-    return (_a7 = data.movingThumbnailDetails) === null || _a7 === void 0 ? void 0 : _a7.thumbnails.map((thumbnail) => new Thumbnail(thumbnail)).sort((a, b) => b.width - a.width);
+    return (_a8 = data.movingThumbnailDetails) === null || _a8 === void 0 ? void 0 : _a8.thumbnails.map((thumbnail) => new Thumbnail(thumbnail)).sort((a, b) => b.width - a.width);
   }
 };
 __name(MovingThumbnail, "MovingThumbnail");
@@ -14860,13 +14862,13 @@ var MusicInlineBadge_default = MusicInlineBadge;
 // dist/src/parser/classes/MusicPlayButton.js
 var MusicPlayButton = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.endpoint = new NavigationEndpoint_default(data.playNavigationEndpoint);
     this.play_icon_type = data.playIcon.iconType;
     this.pause_icon_type = data.pauseIcon.iconType;
     if (Reflect.has(data, "accessibilityPlayData")) {
-      this.play_label = (_a7 = data.accessibilityPlayData.accessibilityData) === null || _a7 === void 0 ? void 0 : _a7.label;
+      this.play_label = (_a8 = data.accessibilityPlayData.accessibilityData) === null || _a8 === void 0 ? void 0 : _a8.label;
     }
     if (Reflect.has(data, "accessibilityPauseData")) {
       this.pause_label = (_b2 = data.accessibilityPauseData.accessibilityData) === null || _b2 === void 0 ? void 0 : _b2.label;
@@ -15002,14 +15004,14 @@ var _MusicResponsiveListItem_parseAlbum;
 var _MusicResponsiveListItem_parsePlaylist;
 var MusicResponsiveListItem = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f;
+    var _a8, _b2, _c, _d, _e, _f;
     super();
     _MusicResponsiveListItem_instances.add(this);
     _MusicResponsiveListItem_playlist_item_data.set(this, void 0);
     this.flex_columns = parser_default.parseArray(data.flexColumns, MusicResponsiveListItemFlexColumn_default);
     this.fixed_columns = parser_default.parseArray(data.fixedColumns, MusicResponsiveListItemFixedColumn_default);
     __classPrivateFieldSet(this, _MusicResponsiveListItem_playlist_item_data, {
-      video_id: ((_a7 = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _a7 === void 0 ? void 0 : _a7.videoId) || null,
+      video_id: ((_a8 = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _a8 === void 0 ? void 0 : _a8.videoId) || null,
       playlist_set_video_id: ((_b2 = data === null || data === void 0 ? void 0 : data.playlistItemData) === null || _b2 === void 0 ? void 0 : _b2.playlistSetVideoId) || null
     }, "f");
     this.endpoint = data.navigationEndpoint ? new NavigationEndpoint_default(data.navigationEndpoint) : null;
@@ -15049,8 +15051,8 @@ var MusicResponsiveListItem = class extends YTNode {
     this.overlay = parser_default.parseItem(data.overlay, MusicItemThumbnailOverlay_default);
   }
   get thumbnails() {
-    var _a7;
-    return ((_a7 = this.thumbnail) === null || _a7 === void 0 ? void 0 : _a7.contents) || [];
+    var _a8;
+    return ((_a8 = this.thumbnail) === null || _a8 === void 0 ? void 0 : _a8.contents) || [];
   }
 };
 __name(MusicResponsiveListItem, "MusicResponsiveListItem");
@@ -15062,8 +15064,8 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
     this.item_type = "unknown";
   }
 }, "_MusicResponsiveListItem_parseOther"), _MusicResponsiveListItem_parseVideoOrSong = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseVideoOrSong2() {
-  var _a7, _b2;
-  const is_video = (_b2 = (_a7 = this.flex_columns[1]) === null || _a7 === void 0 ? void 0 : _a7.key("title").instanceof(Text).runs) === null || _b2 === void 0 ? void 0 : _b2.some((run) => run.text.match(/(.*?) views/));
+  var _a8, _b2;
+  const is_video = (_b2 = (_a8 = this.flex_columns[1]) === null || _a8 === void 0 ? void 0 : _a8.key("title").instanceof(Text).runs) === null || _b2 === void 0 ? void 0 : _b2.some((run) => run.text.match(/(.*?) views/));
   if (is_video) {
     this.item_type = "video";
     __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseVideo).call(this);
@@ -15072,8 +15074,8 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
     __classPrivateFieldGet(this, _MusicResponsiveListItem_instances, "m", _MusicResponsiveListItem_parseSong).call(this);
   }
 }, "_MusicResponsiveListItem_parseVideoOrSong"), _MusicResponsiveListItem_parseSong = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseSong2() {
-  var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
-  this.id = __classPrivateFieldGet(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id || ((_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.videoId);
+  var _a8, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+  this.id = __classPrivateFieldGet(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id || ((_b2 = (_a8 = this.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b2 === void 0 ? void 0 : _b2.videoId);
   this.title = this.flex_columns.first().key("title").instanceof(Text).toString();
   this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
   const duration_text = ((_e = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find(
@@ -15102,29 +15104,29 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
   );
   if (artist_runs) {
     this.artists = artist_runs.map((run) => {
-      var _a8, _b3;
+      var _a9, _b3;
       return {
         name: run.text,
-        channel_id: isTextRun(run) ? (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId : void 0,
+        channel_id: isTextRun(run) ? (_b3 = (_a9 = run.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId : void 0,
         endpoint: isTextRun(run) ? run.endpoint : void 0
       };
     });
   }
 }, "_MusicResponsiveListItem_parseSong"), _MusicResponsiveListItem_parseVideo = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseVideo2() {
-  var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k;
+  var _a8, _b2, _c, _d, _e, _f, _g, _h, _j, _k;
   this.id = __classPrivateFieldGet(this, _MusicResponsiveListItem_playlist_item_data, "f").video_id;
   this.title = this.flex_columns.first().key("title").instanceof(Text).toString();
   this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
-  this.views = (_c = (_b2 = (_a7 = this.flex_columns[1]) === null || _a7 === void 0 ? void 0 : _a7.key("title").instanceof(Text).runs) === null || _b2 === void 0 ? void 0 : _b2.find((run) => run.text.match(/(.*?) views/))) === null || _c === void 0 ? void 0 : _c.toString();
+  this.views = (_c = (_b2 = (_a8 = this.flex_columns[1]) === null || _a8 === void 0 ? void 0 : _a8.key("title").instanceof(Text).runs) === null || _b2 === void 0 ? void 0 : _b2.find((run) => run.text.match(/(.*?) views/))) === null || _c === void 0 ? void 0 : _c.toString();
   const author_runs = (_e = (_d = this.flex_columns[1]) === null || _d === void 0 ? void 0 : _d.key("title").instanceof(Text).runs) === null || _e === void 0 ? void 0 : _e.filter(
     (run) => isTextRun(run) && run.endpoint && (run.endpoint.payload.browseId.startsWith("UC") || run.endpoint.payload.browseId.startsWith("FEmusic_library_privately_owned_artist"))
   );
   if (author_runs) {
     this.authors = author_runs.map((run) => {
-      var _a8, _b3;
+      var _a9, _b3;
       return {
         name: run.text,
-        channel_id: isTextRun(run) ? (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId : void 0,
+        channel_id: isTextRun(run) ? (_b3 = (_a9 = run.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId : void 0,
         endpoint: isTextRun(run) ? run.endpoint : void 0
       };
     });
@@ -15137,19 +15139,19 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
     };
   }
 }, "_MusicResponsiveListItem_parseVideo"), _MusicResponsiveListItem_parseArtist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseArtist2() {
-  var _a7, _b2, _c, _d, _e, _f;
-  this.id = (_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
+  var _a8, _b2, _c, _d, _e, _f;
+  this.id = (_b2 = (_a8 = this.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
   this.name = this.flex_columns.first().key("title").instanceof(Text).toString();
   this.subtitle = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text);
   this.subscribers = ((_f = (_e = (_d = this.subtitle) === null || _d === void 0 ? void 0 : _d.runs) === null || _e === void 0 ? void 0 : _e.find((run) => /^(\d*\.)?\d+[M|K]? subscribers?$/i.test(run.text))) === null || _f === void 0 ? void 0 : _f.text) || "";
 }, "_MusicResponsiveListItem_parseArtist"), _MusicResponsiveListItem_parseLibraryArtist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseLibraryArtist2() {
-  var _a7, _b2, _c, _d;
+  var _a8, _b2, _c, _d;
   this.name = this.flex_columns.first().key("title").instanceof(Text).toString();
-  this.subtitle = (_a7 = this.flex_columns[1]) === null || _a7 === void 0 ? void 0 : _a7.key("title").instanceof(Text);
+  this.subtitle = (_a8 = this.flex_columns[1]) === null || _a8 === void 0 ? void 0 : _a8.key("title").instanceof(Text);
   this.song_count = ((_d = (_c = (_b2 = this.subtitle) === null || _b2 === void 0 ? void 0 : _b2.runs) === null || _c === void 0 ? void 0 : _c.find((run) => /^\d+(,\d+)? songs?$/i.test(run.text))) === null || _d === void 0 ? void 0 : _d.text) || "";
 }, "_MusicResponsiveListItem_parseLibraryArtist"), _MusicResponsiveListItem_parseAlbum = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parseAlbum2() {
-  var _a7, _b2, _c, _d, _e, _f, _g, _h, _j;
-  this.id = (_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
+  var _a8, _b2, _c, _d, _e, _f, _g, _h, _j;
+  this.id = (_b2 = (_a8 = this.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
   this.title = this.flex_columns.first().title.toString();
   this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
   const author_run = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find(
@@ -15166,8 +15168,8 @@ _MusicResponsiveListItem_playlist_item_data = /* @__PURE__ */ new WeakMap(), _Mu
     (run) => /^[12][0-9]{3}$/.test(run.text)
   )) === null || _j === void 0 ? void 0 : _j.text;
 }, "_MusicResponsiveListItem_parseAlbum"), _MusicResponsiveListItem_parsePlaylist = /* @__PURE__ */ __name(function _MusicResponsiveListItem_parsePlaylist2() {
-  var _a7, _b2, _c, _d, _e, _f, _g, _h;
-  this.id = (_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
+  var _a8, _b2, _c, _d, _e, _f, _g, _h;
+  this.id = (_b2 = (_a8 = this.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId;
   this.title = this.flex_columns.first().title.toString();
   this.subtitle = this.flex_columns[1].key("title").instanceof(Text);
   const item_count_run = (_d = (_c = this.flex_columns[1]) === null || _c === void 0 ? void 0 : _c.key("title").instanceof(Text).runs) === null || _d === void 0 ? void 0 : _d.find((run) => run.text.match(/\d+ (song|songs)/));
@@ -15189,11 +15191,11 @@ var MusicResponsiveListItem_default = MusicResponsiveListItem;
 // dist/src/parser/classes/MusicTwoRowItem.js
 var MusicTwoRowItem = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x;
     super();
     this.title = new Text(data.title);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
-    this.id = ((_b2 = (_a7 = this.endpoint) === null || _a7 === void 0 ? void 0 : _a7.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) || ((_d = (_c = this.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.videoId);
+    this.id = ((_b2 = (_a8 = this.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b2 === void 0 ? void 0 : _b2.browseId) || ((_d = (_c = this.endpoint) === null || _c === void 0 ? void 0 : _c.payload) === null || _d === void 0 ? void 0 : _d.videoId);
     this.subtitle = new Text(data.subtitle);
     this.badges = parser_default.parse(data.subtitleBadges);
     const page_type = (_h = (_g = (_f = (_e = this.endpoint) === null || _e === void 0 ? void 0 : _e.payload) === null || _f === void 0 ? void 0 : _f.browseEndpointContextSupportedConfigs) === null || _g === void 0 ? void 0 : _g.browseEndpointContextMusicConfig) === null || _h === void 0 ? void 0 : _h.pageType;
@@ -15230,15 +15232,15 @@ var MusicTwoRowItem = class extends YTNode {
       this.item_count = item_count_run ? item_count_run.text : null;
     } else if (this.item_type == "album") {
       const artists = (_q = this.subtitle.runs) === null || _q === void 0 ? void 0 : _q.filter((run) => {
-        var _a8, _b3;
-        return (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC");
+        var _a9, _b3;
+        return (_b3 = (_a9 = run.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC");
       });
       if (artists) {
         this.artists = artists.map((artist) => {
-          var _a8, _b3;
+          var _a9, _b3;
           return {
             name: artist.text,
-            channel_id: (_b3 = (_a8 = artist.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
+            channel_id: (_b3 = (_a9 = artist.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
             endpoint: artist.endpoint
           };
         });
@@ -15249,8 +15251,8 @@ var MusicTwoRowItem = class extends YTNode {
     } else if (this.item_type == "video") {
       this.views = ((_t = (_s = this === null || this === void 0 ? void 0 : this.subtitle.runs) === null || _s === void 0 ? void 0 : _s.find((run) => run === null || run === void 0 ? void 0 : run.text.match(/(.*?) views/))) === null || _t === void 0 ? void 0 : _t.text) || "N/A";
       const author = (_u = this.subtitle.runs) === null || _u === void 0 ? void 0 : _u.find((run) => {
-        var _a8, _b3, _c2;
-        return (_c2 = (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC");
+        var _a9, _b3, _c2;
+        return (_c2 = (_b3 = (_a9 = run.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC");
       });
       if (author) {
         this.author = {
@@ -15261,15 +15263,15 @@ var MusicTwoRowItem = class extends YTNode {
       }
     } else if (this.item_type == "song") {
       const artists = (_x = this.subtitle.runs) === null || _x === void 0 ? void 0 : _x.filter((run) => {
-        var _a8, _b3;
-        return (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC");
+        var _a9, _b3;
+        return (_b3 = (_a9 = run.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC");
       });
       if (artists) {
         this.artists = artists.map((artist) => {
-          var _a8, _b3;
+          var _a9, _b3;
           return {
             name: artist === null || artist === void 0 ? void 0 : artist.text,
-            channel_id: (_b3 = (_a8 = artist === null || artist === void 0 ? void 0 : artist.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
+            channel_id: (_b3 = (_a9 = artist === null || artist === void 0 ? void 0 : artist.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
             endpoint: artist === null || artist === void 0 ? void 0 : artist.endpoint
           };
         });
@@ -15320,20 +15322,20 @@ var MusicDescriptionShelf_default = MusicDescriptionShelf;
 // dist/src/parser/classes/MusicDetailHeader.js
 var MusicDetailHeader = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h, _j;
     super();
     this.title = new Text(data.title);
     this.description = new Text(data.description);
     this.subtitle = new Text(data.subtitle);
     this.second_subtitle = new Text(data.secondSubtitle);
-    this.year = ((_b2 = (_a7 = this.subtitle.runs) === null || _a7 === void 0 ? void 0 : _a7.find((run) => /^[12][0-9]{3}$/.test(run.text))) === null || _b2 === void 0 ? void 0 : _b2.text) || "";
+    this.year = ((_b2 = (_a8 = this.subtitle.runs) === null || _a8 === void 0 ? void 0 : _a8.find((run) => /^[12][0-9]{3}$/.test(run.text))) === null || _b2 === void 0 ? void 0 : _b2.text) || "";
     this.song_count = ((_d = (_c = this.second_subtitle.runs) === null || _c === void 0 ? void 0 : _c[0]) === null || _d === void 0 ? void 0 : _d.text) || "";
     this.total_duration = ((_f = (_e = this.second_subtitle.runs) === null || _e === void 0 ? void 0 : _e[2]) === null || _f === void 0 ? void 0 : _f.text) || "";
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail.croppedSquareThumbnailRenderer.thumbnail);
     this.badges = parser_default.parseArray(data.subtitleBadges);
     const author = (_g = this.subtitle.runs) === null || _g === void 0 ? void 0 : _g.find((run) => {
-      var _a8, _b3, _c2, _d2;
-      return ((_b3 = (_a8 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC")) || ((_d2 = (_c2 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _c2 === void 0 ? void 0 : _c2.payload) === null || _d2 === void 0 ? void 0 : _d2.browseId.startsWith("FEmusic_library_privately_owned_artist"));
+      var _a9, _b3, _c2, _d2;
+      return ((_b3 = (_a9 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId.startsWith("UC")) || ((_d2 = (_c2 = run === null || run === void 0 ? void 0 : run.endpoint) === null || _c2 === void 0 ? void 0 : _c2.payload) === null || _d2 === void 0 ? void 0 : _d2.browseId.startsWith("FEmusic_library_privately_owned_artist"));
     });
     if (author) {
       this.author = {
@@ -15451,12 +15453,12 @@ var MusicLargeCardItemCarousel_default = MusicLargeCardItemCarousel;
 // dist/src/parser/classes/MusicPlaylistShelf.js
 var MusicPlaylistShelf = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     super();
     this.playlist_id = data.playlistId;
     this.contents = parser_default.parseArray(data.contents, MusicResponsiveListItem_default);
     this.collapsed_item_count = data.collapsedItemCount;
-    this.continuation = ((_c = (_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || null;
+    this.continuation = ((_c = (_b2 = (_a8 = data.continuations) === null || _a8 === void 0 ? void 0 : _a8[0]) === null || _b2 === void 0 ? void 0 : _b2.nextContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || null;
   }
 };
 __name(MusicPlaylistShelf, "MusicPlaylistShelf");
@@ -15466,7 +15468,7 @@ var MusicPlaylistShelf_default = MusicPlaylistShelf;
 // dist/src/parser/classes/PlaylistPanelVideo.js
 var PlaylistPanelVideo = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e;
+    var _a8, _b2, _c, _d, _e;
     super();
     this.title = new Text(data.title);
     this.thumbnail = Thumbnail.fromResponse(data.thumbnail);
@@ -15477,13 +15479,13 @@ var PlaylistPanelVideo = class extends YTNode {
       text: new Text(data.lengthText).toString(),
       seconds: timeToSeconds(new Text(data.lengthText).toString())
     };
-    const album = (_a7 = new Text(data.longBylineText).runs) === null || _a7 === void 0 ? void 0 : _a7.find((run) => {
-      var _a8, _b3, _c2, _d2, _e2, _f;
-      return ((_c2 = (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("MPR")) || ((_f = (_e2 = (_d2 = run.endpoint) === null || _d2 === void 0 ? void 0 : _d2.payload) === null || _e2 === void 0 ? void 0 : _e2.browseId) === null || _f === void 0 ? void 0 : _f.startsWith("FEmusic_library_privately_owned_release"));
+    const album = (_a8 = new Text(data.longBylineText).runs) === null || _a8 === void 0 ? void 0 : _a8.find((run) => {
+      var _a9, _b3, _c2, _d2, _e2, _f;
+      return ((_c2 = (_b3 = (_a9 = run.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("MPR")) || ((_f = (_e2 = (_d2 = run.endpoint) === null || _d2 === void 0 ? void 0 : _d2.payload) === null || _e2 === void 0 ? void 0 : _e2.browseId) === null || _f === void 0 ? void 0 : _f.startsWith("FEmusic_library_privately_owned_release"));
     });
     const artists = (_b2 = new Text(data.longBylineText).runs) === null || _b2 === void 0 ? void 0 : _b2.filter((run) => {
-      var _a8, _b3, _c2, _d2, _e2, _f;
-      return ((_c2 = (_b3 = (_a8 = run.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC")) || ((_f = (_e2 = (_d2 = run.endpoint) === null || _d2 === void 0 ? void 0 : _d2.payload) === null || _e2 === void 0 ? void 0 : _e2.browseId) === null || _f === void 0 ? void 0 : _f.startsWith("FEmusic_library_privately_owned_artist"));
+      var _a9, _b3, _c2, _d2, _e2, _f;
+      return ((_c2 = (_b3 = (_a9 = run.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId) === null || _c2 === void 0 ? void 0 : _c2.startsWith("UC")) || ((_f = (_e2 = (_d2 = run.endpoint) === null || _d2 === void 0 ? void 0 : _d2.payload) === null || _e2 === void 0 ? void 0 : _e2.browseId) === null || _f === void 0 ? void 0 : _f.startsWith("FEmusic_library_privately_owned_artist"));
     });
     this.author = new Text(data.shortBylineText).toString();
     if (album) {
@@ -15496,10 +15498,10 @@ var PlaylistPanelVideo = class extends YTNode {
     }
     if (artists) {
       this.artists = artists.map((artist) => {
-        var _a8, _b3;
+        var _a9, _b3;
         return {
           name: artist.text,
-          channel_id: (_b3 = (_a8 = artist.endpoint) === null || _a8 === void 0 ? void 0 : _a8.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
+          channel_id: (_b3 = (_a9 = artist.endpoint) === null || _a9 === void 0 ? void 0 : _a9.payload) === null || _b3 === void 0 ? void 0 : _b3.browseId,
           endpoint: artist.endpoint
         };
       });
@@ -15531,14 +15533,14 @@ var PlaylistPanelVideoWrapper_default = PlaylistPanelVideoWrapper;
 // dist/src/parser/classes/PlaylistPanel.js
 var PlaylistPanel = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e, _f;
+    var _a8, _b2, _c, _d, _e, _f;
     super();
     this.title = data.title;
     this.title_text = new Text(data.titleText);
     this.contents = parser_default.parseArray(data.contents, [PlaylistPanelVideoWrapper_default, PlaylistPanelVideo_default, AutomixPreviewVideo_default]);
     this.playlist_id = data.playlistId;
     this.is_infinite = data.isInfinite;
-    this.continuation = ((_c = (_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.nextRadioContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || ((_f = (_e = (_d = data.continuations) === null || _d === void 0 ? void 0 : _d[0]) === null || _e === void 0 ? void 0 : _e.nextContinuationData) === null || _f === void 0 ? void 0 : _f.continuation);
+    this.continuation = ((_c = (_b2 = (_a8 = data.continuations) === null || _a8 === void 0 ? void 0 : _a8[0]) === null || _b2 === void 0 ? void 0 : _b2.nextRadioContinuationData) === null || _c === void 0 ? void 0 : _c.continuation) || ((_f = (_e = (_d = data.continuations) === null || _d === void 0 ? void 0 : _d[0]) === null || _e === void 0 ? void 0 : _e.nextContinuationData) === null || _f === void 0 ? void 0 : _f.continuation);
     this.is_editable = data.isEditable;
     this.preview_description = data.previewDescription;
     this.num_items_to_show = data.numItemsToShow;
@@ -15585,7 +15587,7 @@ var MusicResponsiveHeader_default = MusicResponsiveHeader;
 // dist/src/parser/classes/MusicShelf.js
 var MusicShelf = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     super();
     this.title = new Text(data.title);
     this.contents = parser_default.parseArray(data.contents, MusicResponsiveListItem_default);
@@ -15593,7 +15595,7 @@ var MusicShelf = class extends YTNode {
       this.endpoint = new NavigationEndpoint_default(data.bottomEndpoint);
     }
     if (Reflect.has(data, "continuations")) {
-      this.continuation = ((_b2 = (_a7 = data.continuations) === null || _a7 === void 0 ? void 0 : _a7[0].nextContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation) || ((_d = (_c = data.continuations) === null || _c === void 0 ? void 0 : _c[0].reloadContinuationData) === null || _d === void 0 ? void 0 : _d.continuation);
+      this.continuation = ((_b2 = (_a8 = data.continuations) === null || _a8 === void 0 ? void 0 : _a8[0].nextContinuationData) === null || _b2 === void 0 ? void 0 : _b2.continuation) || ((_d = (_c = data.continuations) === null || _c === void 0 ? void 0 : _c[0].reloadContinuationData) === null || _d === void 0 ? void 0 : _d.continuation);
     }
     if (Reflect.has(data, "bottomText")) {
       this.bottom_text = new Text(data.bottomText);
@@ -15670,10 +15672,10 @@ var MusicTastebuilderShelf_default = MusicTasteBuilderShelf;
 // dist/src/parser/classes/MusicVisualHeader.js
 var MusicVisualHeader = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.title = new Text(data.title);
-    this.thumbnail = data.thumbnail ? Thumbnail.fromResponse((_a7 = data.thumbnail.musicThumbnailRenderer) === null || _a7 === void 0 ? void 0 : _a7.thumbnail) : [];
+    this.thumbnail = data.thumbnail ? Thumbnail.fromResponse((_a8 = data.thumbnail.musicThumbnailRenderer) === null || _a8 === void 0 ? void 0 : _a8.thumbnail) : [];
     this.menu = parser_default.parseItem(data.menu, Menu_default);
     this.foreground_thumbnail = data.foregroundThumbnail ? Thumbnail.fromResponse((_b2 = data.foregroundThumbnail.musicThumbnailRenderer) === null || _b2 === void 0 ? void 0 : _b2.thumbnail) : [];
   }
@@ -15780,7 +15782,7 @@ var PlayerLegacyDesktopYpcTrailer_default = PlayerLegacyDesktopYpcTrailer;
 // dist/src/parser/classes/PlayerMicroformat.js
 var PlayerMicroformat = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     this.title = new Text(data.title);
     this.description = new Text(data.description);
@@ -15808,7 +15810,7 @@ var PlayerMicroformat = class extends YTNode {
     this.publish_date = data.publishDate;
     this.upload_date = data.uploadDate;
     this.available_countries = data.availableCountries;
-    this.start_timestamp = ((_a7 = data.liveBroadcastDetails) === null || _a7 === void 0 ? void 0 : _a7.startTimestamp) ? new Date(data.liveBroadcastDetails.startTimestamp) : null;
+    this.start_timestamp = ((_a8 = data.liveBroadcastDetails) === null || _a8 === void 0 ? void 0 : _a8.startTimestamp) ? new Date(data.liveBroadcastDetails.startTimestamp) : null;
   }
 };
 __name(PlayerMicroformat, "PlayerMicroformat");
@@ -16000,12 +16002,12 @@ var PlaylistVideo = class extends YTNode {
     };
   }
   get is_live() {
-    var _a7;
-    return ((_a7 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a7 === void 0 ? void 0 : _a7.style) === "LIVE";
+    var _a8;
+    return ((_a8 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a8 === void 0 ? void 0 : _a8.style) === "LIVE";
   }
   get is_upcoming() {
-    var _a7;
-    return ((_a7 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a7 === void 0 ? void 0 : _a7.style) === "UPCOMING";
+    var _a8;
+    return ((_a8 = this.thumbnail_overlays.firstOfType(ThumbnailOverlayTimeStatus_default)) === null || _a8 === void 0 ? void 0 : _a8.style) === "UPCOMING";
   }
 };
 __name(PlaylistVideo, "PlaylistVideo");
@@ -16962,10 +16964,10 @@ var Tooltip_default = Tooltip;
 // dist/src/parser/classes/TopicChannelDetails.js
 var TopicChannelDetails = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     this.title = new Text(data.title);
-    this.avatar = Thumbnail.fromResponse((_a7 = data.thumbnail) !== null && _a7 !== void 0 ? _a7 : data.avatar);
+    this.avatar = Thumbnail.fromResponse((_a8 = data.thumbnail) !== null && _a8 !== void 0 ? _a8 : data.avatar);
     this.subtitle = new Text(data.subtitle);
     this.subscribe_button = parser_default.parseItem(data.subscribeButton, SubscribeButton_default);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
@@ -17004,10 +17006,10 @@ var _TwoColumnWatchNextResults_instances;
 var _TwoColumnWatchNextResults_parseAutoplaySet;
 var TwoColumnWatchNextResults = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d, _e;
+    var _a8, _b2, _c, _d, _e;
     super();
     _TwoColumnWatchNextResults_instances.add(this);
-    this.results = parser_default.parseArray((_a7 = data.results) === null || _a7 === void 0 ? void 0 : _a7.results.contents);
+    this.results = parser_default.parseArray((_a8 = data.results) === null || _a8 === void 0 ? void 0 : _a8.results.contents);
     this.secondary_results = parser_default.parseArray((_b2 = data.secondaryResults) === null || _b2 === void 0 ? void 0 : _b2.secondaryResults.results);
     this.conversation_bar = parser_default.parseItem(data === null || data === void 0 ? void 0 : data.conversationBar);
     const playlistData = (_c = data.playlist) === null || _c === void 0 ? void 0 : _c.playlist;
@@ -17144,13 +17146,13 @@ var VideoOwner_default = VideoOwner;
 // dist/src/parser/classes/VideoPrimaryInfo.js
 var VideoPrimaryInfo = class extends YTNode {
   constructor(data) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     super();
     this.title = new Text(data.title);
     if (Reflect.has(data, "superTitleLink")) {
       this.super_title_link = new Text(data.superTitleLink);
     }
-    this.view_count = new Text((_b2 = (_a7 = data.viewCount) === null || _a7 === void 0 ? void 0 : _a7.videoViewCountRenderer) === null || _b2 === void 0 ? void 0 : _b2.viewCount);
+    this.view_count = new Text((_b2 = (_a8 = data.viewCount) === null || _a8 === void 0 ? void 0 : _a8.videoViewCountRenderer) === null || _b2 === void 0 ? void 0 : _b2.viewCount);
     this.short_view_count = new Text((_d = (_c = data.viewCount) === null || _c === void 0 ? void 0 : _c.videoViewCountRenderer) === null || _d === void 0 ? void 0 : _d.shortViewCount);
     this.badges = parser_default.parseArray(data.badges, MetadataBadge_default);
     this.published = new Text(data.dateText);
@@ -17258,12 +17260,12 @@ var WatchCardCompactVideo_default = WatchCardCompactVideo;
 // dist/src/parser/classes/WatchCardHeroVideo.js
 var WatchCardHeroVideo = class extends YTNode {
   constructor(data) {
-    var _a7;
+    var _a8;
     super();
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.call_to_action_button = parser_default.parseItem(data.callToActionButton);
     this.hero_image = parser_default.parseItem(data.heroImage);
-    this.label = ((_a7 = data.lengthText) === null || _a7 === void 0 ? void 0 : _a7.accessibility.accessibilityData.label) || "";
+    this.label = ((_a8 = data.lengthText) === null || _a8 === void 0 ? void 0 : _a8.accessibility.accessibilityData.label) || "";
   }
 };
 __name(WatchCardHeroVideo, "WatchCardHeroVideo");
@@ -17310,13 +17312,13 @@ var WatchNextTabbedResults_default = WatchNextTabbedResults;
 // dist/src/parser/classes/ytkids/AnchoredSection.js
 var AnchoredSection = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.title = data.title;
     this.content = parser_default.parseItem(data.content, SectionList_default);
     this.endpoint = new NavigationEndpoint_default(data.navigationEndpoint);
     this.category_assets = {
-      asset_key: (_a7 = data.categoryAssets) === null || _a7 === void 0 ? void 0 : _a7.assetKey,
+      asset_key: (_a8 = data.categoryAssets) === null || _a8 === void 0 ? void 0 : _a8.assetKey,
       background_color: (_b2 = data.categoryAssets) === null || _b2 === void 0 ? void 0 : _b2.backgroundColor
     };
     this.category_type = data.categoryType;
@@ -17329,11 +17331,11 @@ var AnchoredSection_default = AnchoredSection;
 // dist/src/parser/classes/ytkids/KidsCategoryTab.js
 var KidsCategoryTab = class extends YTNode {
   constructor(data) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     this.title = new Text(data.title);
     this.category_assets = {
-      asset_key: (_a7 = data.categoryAssets) === null || _a7 === void 0 ? void 0 : _a7.assetKey,
+      asset_key: (_a8 = data.categoryAssets) === null || _a8 === void 0 ? void 0 : _a8.assetKey,
       background_color: (_b2 = data.categoryAssets) === null || _b2 === void 0 ? void 0 : _b2.backgroundColor
     };
     this.category_type = data.categoryType;
@@ -18480,10 +18482,10 @@ var AccountInfo_default = AccountInfo;
 var _Analytics_page;
 var Analytics = class {
   constructor(response) {
-    var _a7;
+    var _a8;
     _Analytics_page.set(this, void 0);
     __classPrivateFieldSet(this, _Analytics_page, parser_default.parseResponse(response.data), "f");
-    this.sections = (_a7 = __classPrivateFieldGet(this, _Analytics_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Element_default).map((el) => el.model).flatMap((el) => !el ? [] : el);
+    this.sections = (_a8 = __classPrivateFieldGet(this, _Analytics_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(Element_default).map((el) => el.model).flatMap((el) => !el ? [] : el);
   }
   get page() {
     return __classPrivateFieldGet(this, _Analytics_page, "f");
@@ -18548,8 +18550,8 @@ var Feed = class {
     return __classPrivateFieldGet(this, _Feed_memo, "f");
   }
   get page_contents() {
-    var _a7;
-    const tab_content = (_a7 = __classPrivateFieldGet(this, _Feed_memo, "f").getType(Tab_default)) === null || _a7 === void 0 ? void 0 : _a7.first().content;
+    var _a8;
+    const tab_content = (_a8 = __classPrivateFieldGet(this, _Feed_memo, "f").getType(Tab_default)) === null || _a8 === void 0 ? void 0 : _a8.first().content;
     const reload_continuation_items = __classPrivateFieldGet(this, _Feed_memo, "f").getType(ReloadContinuationItemsCommand).first();
     const append_continuation_items = __classPrivateFieldGet(this, _Feed_memo, "f").getType(AppendContinuationItemsAction_default).first();
     return tab_content || reload_continuation_items || append_continuation_items;
@@ -18561,8 +18563,8 @@ var Feed = class {
     return this.shelves.get({ title });
   }
   get secondary_contents() {
-    var _a7, _b2;
-    if (!((_a7 = __classPrivateFieldGet(this, _Feed_page, "f").contents) === null || _a7 === void 0 ? void 0 : _a7.is_node))
+    var _a8, _b2;
+    if (!((_a8 = __classPrivateFieldGet(this, _Feed_page, "f").contents) === null || _a8 === void 0 ? void 0 : _a8.is_node))
       return void 0;
     const node = (_b2 = __classPrivateFieldGet(this, _Feed_page, "f").contents) === null || _b2 === void 0 ? void 0 : _b2.item();
     if (!node.is(TwoColumnBrowseResults_default, TwoColumnSearchResults_default))
@@ -18613,21 +18615,21 @@ var _TabbedFeed_tabs;
 var _TabbedFeed_actions;
 var TabbedFeed = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a7;
+    var _a8;
     super(actions, data, already_parsed);
     _TabbedFeed_tabs.set(this, void 0);
     _TabbedFeed_actions.set(this, void 0);
     __classPrivateFieldSet(this, _TabbedFeed_actions, actions, "f");
-    __classPrivateFieldSet(this, _TabbedFeed_tabs, (_a7 = this.page.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default), "f");
+    __classPrivateFieldSet(this, _TabbedFeed_tabs, (_a8 = this.page.contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(Tab_default), "f");
   }
   get tabs() {
-    var _a7, _b2;
-    return (_b2 = (_a7 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a7 === void 0 ? void 0 : _a7.map((tab) => tab.title.toString())) !== null && _b2 !== void 0 ? _b2 : [];
+    var _a8, _b2;
+    return (_b2 = (_a8 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a8 === void 0 ? void 0 : _a8.map((tab) => tab.title.toString())) !== null && _b2 !== void 0 ? _b2 : [];
   }
   getTabByName(title) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
-      const tab = (_a7 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a7 === void 0 ? void 0 : _a7.find((tab2) => tab2.title.toLowerCase() === title.toLowerCase());
+      const tab = (_a8 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a8 === void 0 ? void 0 : _a8.find((tab2) => tab2.title.toLowerCase() === title.toLowerCase());
       if (!tab)
         throw new InnertubeError(`Tab "${title}" not found`);
       if (tab.selected)
@@ -18637,11 +18639,11 @@ var TabbedFeed = class extends Feed_default {
     });
   }
   getTabByURL(url) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
-      const tab = (_a7 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a7 === void 0 ? void 0 : _a7.find((tab2) => {
-        var _a8;
-        return ((_a8 = tab2.endpoint.metadata.url) === null || _a8 === void 0 ? void 0 : _a8.split("/").pop()) === url;
+      const tab = (_a8 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a8 === void 0 ? void 0 : _a8.find((tab2) => {
+        var _a9;
+        return ((_a9 = tab2.endpoint.metadata.url) === null || _a9 === void 0 ? void 0 : _a9.split("/").pop()) === url;
       });
       if (!tab)
         throw new InnertubeError(`Tab "${url}" not found`);
@@ -18652,15 +18654,15 @@ var TabbedFeed = class extends Feed_default {
     });
   }
   hasTabWithURL(url) {
-    var _a7, _b2;
-    return (_b2 = (_a7 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a7 === void 0 ? void 0 : _a7.some((tab) => {
-      var _a8;
-      return ((_a8 = tab.endpoint.metadata.url) === null || _a8 === void 0 ? void 0 : _a8.split("/").pop()) === url;
+    var _a8, _b2;
+    return (_b2 = (_a8 = __classPrivateFieldGet(this, _TabbedFeed_tabs, "f")) === null || _a8 === void 0 ? void 0 : _a8.some((tab) => {
+      var _a9;
+      return ((_a9 = tab.endpoint.metadata.url) === null || _a9 === void 0 ? void 0 : _a9.split("/").pop()) === url;
     })) !== null && _b2 !== void 0 ? _b2 : false;
   }
   get title() {
-    var _a7, _b2, _c;
-    return (_c = (_b2 = (_a7 = this.page.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default)) === null || _b2 === void 0 ? void 0 : _b2.find((tab) => tab.selected)) === null || _c === void 0 ? void 0 : _c.title.toString();
+    var _a8, _b2, _c;
+    return (_c = (_b2 = (_a8 = this.page.contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(Tab_default)) === null || _b2 === void 0 ? void 0 : _b2.find((tab) => tab.selected)) === null || _c === void 0 ? void 0 : _c.title.toString();
   }
 };
 __name(TabbedFeed, "TabbedFeed");
@@ -18675,10 +18677,10 @@ var FilterableFeed = class extends Feed_default {
     _FilterableFeed_chips.set(this, void 0);
   }
   get filter_chips() {
-    var _a7, _b2;
+    var _a8, _b2;
     if (__classPrivateFieldGet(this, _FilterableFeed_chips, "f"))
       return __classPrivateFieldGet(this, _FilterableFeed_chips, "f") || [];
-    if (((_a7 = this.memo.getType(FeedFilterChipBar_default)) === null || _a7 === void 0 ? void 0 : _a7.length) > 1)
+    if (((_a8 = this.memo.getType(FeedFilterChipBar_default)) === null || _a8 === void 0 ? void 0 : _a8.length) > 1)
       throw new InnertubeError("There are too many feed filter chipbars, you'll need to find the correct one yourself in this.page");
     if (((_b2 = this.memo.getType(FeedFilterChipBar_default)) === null || _b2 === void 0 ? void 0 : _b2.length) === 0)
       throw new InnertubeError("There are no feed filter chipbars");
@@ -18689,7 +18691,7 @@ var FilterableFeed = class extends Feed_default {
     return this.filter_chips.map((chip) => chip.text.toString()) || [];
   }
   getFilteredFeed(filter) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       let target_filter;
       if (typeof filter === "string") {
@@ -18705,7 +18707,7 @@ var FilterableFeed = class extends Feed_default {
         throw new InnertubeError("Filter not found");
       if (target_filter.is_selected)
         return this;
-      const response = yield (_a7 = target_filter.endpoint) === null || _a7 === void 0 ? void 0 : _a7.call(this.actions, { parse: true });
+      const response = yield (_a8 = target_filter.endpoint) === null || _a8 === void 0 ? void 0 : _a8.call(this.actions, { parse: true });
       if (!response)
         throw new InnertubeError("Failed to get filtered feed");
       return new Feed_default(this.actions, response, true);
@@ -18719,9 +18721,9 @@ var FilterableFeed_default = FilterableFeed;
 // dist/src/parser/youtube/Channel.js
 var Channel2 = class extends TabbedFeed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a7, _b2, _c, _d, _e, _f;
+    var _a8, _b2, _c, _d, _e, _f;
     super(actions, data, already_parsed);
-    this.header = (_b2 = (_a7 = this.page.header) === null || _a7 === void 0 ? void 0 : _a7.item()) === null || _b2 === void 0 ? void 0 : _b2.as(C4TabbedHeader_default, CarouselHeader_default, InteractiveTabbedHeader_default);
+    this.header = (_b2 = (_a8 = this.page.header) === null || _a8 === void 0 ? void 0 : _a8.item()) === null || _b2 === void 0 ? void 0 : _b2.as(C4TabbedHeader_default, CarouselHeader_default, InteractiveTabbedHeader_default);
     const metadata = (_c = this.page.metadata) === null || _c === void 0 ? void 0 : _c.item().as(ChannelMetadata_default);
     const microformat = (_d = this.page.microformat) === null || _d === void 0 ? void 0 : _d.as(MicroformatData_default);
     if (this.page.alerts) {
@@ -18737,7 +18739,7 @@ var Channel2 = class extends TabbedFeed_default {
     this.current_tab = (_f = this.page.contents) === null || _f === void 0 ? void 0 : _f.item().key("tabs").parsed().array().filterType(Tab_default, ExpandableTab_default).get({ selected: true });
   }
   applyFilter(filter) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       let target_filter;
       const filter_chipbar = this.memo.getType(FeedFilterChipBar_default).first();
@@ -18750,19 +18752,19 @@ var Channel2 = class extends TabbedFeed_default {
       }
       if (!target_filter)
         throw new InnertubeError("Invalid filter", filter);
-      const page = yield (_a7 = target_filter.endpoint) === null || _a7 === void 0 ? void 0 : _a7.call(this.actions, { parse: true });
+      const page = yield (_a8 = target_filter.endpoint) === null || _a8 === void 0 ? void 0 : _a8.call(this.actions, { parse: true });
       if (!page)
         throw new InnertubeError("No page returned", { filter: target_filter });
       return new FilteredChannelList(this.actions, page, true);
     });
   }
   applySort(sort) {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       const sort_filter_sub_menu = this.memo.getType(SortFilterSubMenu_default).first();
       if (!sort_filter_sub_menu)
         throw new InnertubeError("No sort filter sub menu found");
-      const target_sort = (_a7 = sort_filter_sub_menu === null || sort_filter_sub_menu === void 0 ? void 0 : sort_filter_sub_menu.sub_menu_items) === null || _a7 === void 0 ? void 0 : _a7.find((item) => item.title === sort);
+      const target_sort = (_a8 = sort_filter_sub_menu === null || sort_filter_sub_menu === void 0 ? void 0 : sort_filter_sub_menu.sub_menu_items) === null || _a8 === void 0 ? void 0 : _a8.find((item) => item.title === sort);
       if (!target_sort)
         throw new InnertubeError(`Sort filter ${sort} not found`, { available_sort_filters: this.sort_filters });
       if (target_sort.selected)
@@ -18772,9 +18774,9 @@ var Channel2 = class extends TabbedFeed_default {
     });
   }
   applyContentTypeFilter(content_type_filter) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
-      const sub_menu = (_c = (_b2 = (_a7 = this.current_tab) === null || _a7 === void 0 ? void 0 : _a7.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default).sub_menu) === null || _c === void 0 ? void 0 : _c.as(ChannelSubMenu_default);
+      const sub_menu = (_c = (_b2 = (_a8 = this.current_tab) === null || _a8 === void 0 ? void 0 : _a8.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default).sub_menu) === null || _c === void 0 ? void 0 : _c.as(ChannelSubMenu_default);
       if (!sub_menu)
         throw new InnertubeError("Sub menu not found");
       const item = sub_menu.content_type_sub_menu_items.find((item2) => item2.title === content_type_filter);
@@ -18787,17 +18789,17 @@ var Channel2 = class extends TabbedFeed_default {
     });
   }
   get filters() {
-    var _a7, _b2;
-    return ((_b2 = (_a7 = this.memo.getType(FeedFilterChipBar_default)) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.contents.filterType(ChipCloudChip_default).map((chip) => chip.text)) || [];
+    var _a8, _b2;
+    return ((_b2 = (_a8 = this.memo.getType(FeedFilterChipBar_default)) === null || _a8 === void 0 ? void 0 : _a8[0]) === null || _b2 === void 0 ? void 0 : _b2.contents.filterType(ChipCloudChip_default).map((chip) => chip.text)) || [];
   }
   get sort_filters() {
-    var _a7;
+    var _a8;
     const sort_filter_sub_menu = this.memo.getType(SortFilterSubMenu_default).first();
-    return ((_a7 = sort_filter_sub_menu === null || sort_filter_sub_menu === void 0 ? void 0 : sort_filter_sub_menu.sub_menu_items) === null || _a7 === void 0 ? void 0 : _a7.map((item) => item.title)) || [];
+    return ((_a8 = sort_filter_sub_menu === null || sort_filter_sub_menu === void 0 ? void 0 : sort_filter_sub_menu.sub_menu_items) === null || _a8 === void 0 ? void 0 : _a8.map((item) => item.title)) || [];
   }
   get content_type_filters() {
-    var _a7, _b2, _c;
-    const sub_menu = (_c = (_b2 = (_a7 = this.current_tab) === null || _a7 === void 0 ? void 0 : _a7.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default).sub_menu) === null || _c === void 0 ? void 0 : _c.as(ChannelSubMenu_default);
+    var _a8, _b2, _c;
+    const sub_menu = (_c = (_b2 = (_a8 = this.current_tab) === null || _a8 === void 0 ? void 0 : _a8.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default).sub_menu) === null || _c === void 0 ? void 0 : _c.as(ChannelSubMenu_default);
     return (sub_menu === null || sub_menu === void 0 ? void 0 : sub_menu.content_type_sub_menu_items.map((item) => item.title)) || [];
   }
   getHome() {
@@ -18843,16 +18845,16 @@ var Channel2 = class extends TabbedFeed_default {
     });
   }
   getAbout() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       const tab = yield this.getTabByURL("about");
-      return (_a7 = tab.memo.getType(ChannelAboutFullMetadata_default)) === null || _a7 === void 0 ? void 0 : _a7[0];
+      return (_a8 = tab.memo.getType(ChannelAboutFullMetadata_default)) === null || _a8 === void 0 ? void 0 : _a8[0];
     });
   }
   search(query) {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
-      const tab = (_a7 = this.memo.getType(ExpandableTab_default)) === null || _a7 === void 0 ? void 0 : _a7[0];
+      const tab = (_a8 = this.memo.getType(ExpandableTab_default)) === null || _a8 === void 0 ? void 0 : _a8[0];
       if (!tab)
         throw new InnertubeError("Search tab not found", this);
       const page = yield (_b2 = tab.endpoint) === null || _b2 === void 0 ? void 0 : _b2.call(this.actions, { query, parse: true });
@@ -18884,8 +18886,8 @@ var Channel2 = class extends TabbedFeed_default {
     return this.hasTabWithURL("about");
   }
   get has_search() {
-    var _a7;
-    return ((_a7 = this.memo.getType(ExpandableTab_default)) === null || _a7 === void 0 ? void 0 : _a7.length) > 0;
+    var _a8;
+    return ((_a8 = this.memo.getType(ExpandableTab_default)) === null || _a8 === void 0 ? void 0 : _a8.length) > 0;
   }
   getContinuation() {
     const _super = Object.create(null, {
@@ -18902,9 +18904,9 @@ var Channel2 = class extends TabbedFeed_default {
 __name(Channel2, "Channel");
 var ChannelListContinuation = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a7, _b2;
+    var _a8, _b2;
     super(actions, data, already_parsed);
-    this.contents = ((_a7 = this.page.on_response_received_actions) === null || _a7 === void 0 ? void 0 : _a7.first()) || ((_b2 = this.page.on_response_received_endpoints) === null || _b2 === void 0 ? void 0 : _b2.first());
+    this.contents = ((_a8 = this.page.on_response_received_actions) === null || _a8 === void 0 ? void 0 : _a8.first()) || ((_b2 = this.page.on_response_received_endpoints) === null || _b2 === void 0 ? void 0 : _b2.first());
   }
   getContinuation() {
     const _super = Object.create(null, {
@@ -18959,7 +18961,7 @@ var _Comments_actions;
 var _Comments_continuation;
 var Comments = class {
   constructor(actions, data, already_parsed = false) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     _Comments_page.set(this, void 0);
     _Comments_actions.set(this, void 0);
     _Comments_continuation.set(this, void 0);
@@ -18970,24 +18972,24 @@ var Comments = class {
       throw new InnertubeError("Comments page did not have any content.");
     const header_node = contents.at(0);
     const body_node = contents.at(1);
-    this.header = (_a7 = header_node === null || header_node === void 0 ? void 0 : header_node.contents) === null || _a7 === void 0 ? void 0 : _a7.firstOfType(CommentsHeader_default);
+    this.header = (_a8 = header_node === null || header_node === void 0 ? void 0 : header_node.contents) === null || _a8 === void 0 ? void 0 : _a8.firstOfType(CommentsHeader_default);
     const threads = ((_b2 = body_node === null || body_node === void 0 ? void 0 : body_node.contents) === null || _b2 === void 0 ? void 0 : _b2.filterType(CommentThread_default)) || [];
     this.contents = observe(threads.map((thread) => {
-      var _a8;
-      (_a8 = thread.comment) === null || _a8 === void 0 ? void 0 : _a8.setActions(__classPrivateFieldGet(this, _Comments_actions, "f"));
+      var _a9;
+      (_a9 = thread.comment) === null || _a9 === void 0 ? void 0 : _a9.setActions(__classPrivateFieldGet(this, _Comments_actions, "f"));
       thread.setActions(__classPrivateFieldGet(this, _Comments_actions, "f"));
       return thread;
     }));
     __classPrivateFieldSet(this, _Comments_continuation, (_c = body_node === null || body_node === void 0 ? void 0 : body_node.contents) === null || _c === void 0 ? void 0 : _c.firstOfType(ContinuationItem_default), "f");
   }
   applySort(sort) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
       if (!this.header)
         throw new InnertubeError("Page header is missing. Cannot apply sort option.");
       let button;
       if (sort === "TOP_COMMENTS") {
-        button = (_b2 = (_a7 = this.header.sort_menu) === null || _a7 === void 0 ? void 0 : _a7.sub_menu_items) === null || _b2 === void 0 ? void 0 : _b2.at(0);
+        button = (_b2 = (_a8 = this.header.sort_menu) === null || _a8 === void 0 ? void 0 : _a8.sub_menu_items) === null || _b2 === void 0 ? void 0 : _b2.at(0);
       } else if (sort === "NEWEST_FIRST") {
         button = (_d = (_c = this.header.sort_menu) === null || _c === void 0 ? void 0 : _c.sub_menu_items) === null || _d === void 0 ? void 0 : _d.at(1);
       }
@@ -19000,11 +19002,11 @@ var Comments = class {
     });
   }
   createComment(text) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       if (!this.header)
         throw new InnertubeError("Page header is missing. Cannot create comment.");
-      const button = (_a7 = this.header.create_renderer) === null || _a7 === void 0 ? void 0 : _a7.as(CommentSimplebox_default).submit_button;
+      const button = (_a8 = this.header.create_renderer) === null || _a8 === void 0 ? void 0 : _a8.as(CommentSimplebox_default).submit_button;
       if (!button)
         throw new InnertubeError("Could not find target button. You are probably not logged in.");
       if (!button.endpoint)
@@ -19092,11 +19094,11 @@ var HomeFeed = class extends FilterableFeed_default {
     const _super = Object.create(null, {
       getContinuation: { get: () => super.getContinuation }
     });
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       const feed = yield _super.getContinuation.call(this);
       feed.page.header = this.page.header;
-      (_a7 = feed.page.header_memo) === null || _a7 === void 0 ? void 0 : _a7.set(this.header.type, [this.header]);
+      (_a8 = feed.page.header_memo) === null || _a8 === void 0 ? void 0 : _a8.set(this.header.type, [this.header]);
       return new HomeFeed(this.actions, feed.page, true);
     });
   }
@@ -19186,7 +19188,7 @@ var _Playlist_instances;
 var _Playlist_getStat;
 var Playlist2 = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     super(actions, data, already_parsed);
     _Playlist_instances.add(this);
     const header = this.memo.getType(PlaylistHeader_default).first();
@@ -19194,7 +19196,7 @@ var Playlist2 = class extends Feed_default {
     const secondary_info = this.memo.getType(PlaylistSidebarSecondaryInfo_default).first();
     if (!primary_info && !secondary_info)
       throw new InnertubeError("This playlist does not exist");
-    this.info = Object.assign(Object.assign({}, (_a7 = this.page.metadata) === null || _a7 === void 0 ? void 0 : _a7.item().as(PlaylistMetadata_default)), {
+    this.info = Object.assign(Object.assign({}, (_a8 = this.page.metadata) === null || _a8 === void 0 ? void 0 : _a8.item().as(PlaylistMetadata_default)), {
       author: (_c = (_b2 = secondary_info === null || secondary_info === void 0 ? void 0 : secondary_info.owner) === null || _b2 === void 0 ? void 0 : _b2.as(VideoOwner_default).author) !== null && _c !== void 0 ? _c : header === null || header === void 0 ? void 0 : header.author,
       thumbnails: (_d = primary_info === null || primary_info === void 0 ? void 0 : primary_info.thumbnail_renderer) === null || _d === void 0 ? void 0 : _d.as(PlaylistVideoThumbnail_default, PlaylistCustomThumbnail_default).thumbnail,
       total_items: __classPrivateFieldGet(this, _Playlist_instances, "m", _Playlist_getStat).call(this, 0, primary_info),
@@ -19223,10 +19225,10 @@ var Playlist2 = class extends Feed_default {
 };
 __name(Playlist2, "Playlist");
 _Playlist_instances = /* @__PURE__ */ new WeakSet(), _Playlist_getStat = /* @__PURE__ */ __name(function _Playlist_getStat2(index, primary_info) {
-  var _a7;
+  var _a8;
   if (!primary_info || !primary_info.stats)
     return "N/A";
-  return ((_a7 = primary_info.stats[index]) === null || _a7 === void 0 ? void 0 : _a7.toString()) || "N/A";
+  return ((_a8 = primary_info.stats[index]) === null || _a8 === void 0 ? void 0 : _a8.toString()) || "N/A";
 }, "_Playlist_getStat");
 var Playlist_default2 = Playlist2;
 
@@ -19244,11 +19246,11 @@ var Library = class extends Feed_default {
     this.profile = { stats, user_info };
     const shelves = this.page.contents_memo.getType(Shelf_default);
     this.sections = shelves.map((shelf) => {
-      var _a7;
+      var _a8;
       return {
         type: shelf.icon_type,
         title: shelf.title,
-        contents: ((_a7 = shelf.content) === null || _a7 === void 0 ? void 0 : _a7.key("items").array()) || [],
+        contents: ((_a8 = shelf.content) === null || _a8 === void 0 ? void 0 : _a8.key("items").array()) || [],
         getAll: () => __classPrivateFieldGet(this, _Library_instances, "m", _Library_getAll).call(this, shelf)
       };
     });
@@ -19271,9 +19273,9 @@ var Library = class extends Feed_default {
 };
 __name(Library, "Library");
 _Library_instances = /* @__PURE__ */ new WeakSet(), _Library_getAll = /* @__PURE__ */ __name(function _Library_getAll2(shelf) {
-  var _a7;
+  var _a8;
   return __awaiter(this, void 0, void 0, function* () {
-    if (!((_a7 = shelf.menu) === null || _a7 === void 0 ? void 0 : _a7.as(Menu_default).hasKey("top_level_buttons")))
+    if (!((_a8 = shelf.menu) === null || _a8 === void 0 ? void 0 : _a8.as(Menu_default).hasKey("top_level_buttons")))
       throw new InnertubeError(`The ${shelf.title.text} shelf doesn't have more items`);
     const button = shelf.menu.as(Menu_default).top_level_buttons.firstOfType(Button_default);
     if (!button)
@@ -19479,7 +19481,7 @@ var _LiveChat_pollMetadata;
 var _LiveChat_wait;
 var LiveChat2 = class extends EventEmitterLike_default {
   constructor(video_info) {
-    var _a7, _b2;
+    var _a8, _b2;
     super();
     _LiveChat_instances.add(this);
     _LiveChat_actions.set(this, void 0);
@@ -19493,7 +19495,7 @@ var LiveChat2 = class extends EventEmitterLike_default {
     __classPrivateFieldSet(this, _LiveChat_video_id, video_info.basic_info.id, "f");
     __classPrivateFieldSet(this, _LiveChat_channel_id, video_info.basic_info.channel_id, "f");
     __classPrivateFieldSet(this, _LiveChat_actions, video_info.actions, "f");
-    __classPrivateFieldSet(this, _LiveChat_continuation, (_a7 = video_info.livechat) === null || _a7 === void 0 ? void 0 : _a7.continuation, "f");
+    __classPrivateFieldSet(this, _LiveChat_continuation, (_a8 = video_info.livechat) === null || _a8 === void 0 ? void 0 : _a8.continuation, "f");
     this.is_replay = ((_b2 = video_info.livechat) === null || _b2 === void 0 ? void 0 : _b2.is_replay) || false;
     this.smoothed_queue = new SmoothedQueue_default();
     this.smoothed_queue.callback = (actions) => __awaiter(this, void 0, void 0, function* () {
@@ -19544,10 +19546,10 @@ var LiveChat2 = class extends EventEmitterLike_default {
     });
   }
   applyFilter(filter) {
-    var _a7, _b2, _c, _d, _e, _f, _g;
+    var _a8, _b2, _c, _d, _e, _f, _g;
     if (!this.initial_info)
       throw new InnertubeError("Cannot apply filter before initial info is retrieved.");
-    const menu_items = (_c = (_b2 = (_a7 = this.initial_info) === null || _a7 === void 0 ? void 0 : _a7.header) === null || _b2 === void 0 ? void 0 : _b2.view_selector) === null || _c === void 0 ? void 0 : _c.sub_menu_items;
+    const menu_items = (_c = (_b2 = (_a8 = this.initial_info) === null || _a8 === void 0 ? void 0 : _a8.header) === null || _b2 === void 0 ? void 0 : _b2.view_selector) === null || _c === void 0 ? void 0 : _c.sub_menu_items;
     if (filter === "TOP_CHAT") {
       if ((_d = menu_items === null || menu_items === void 0 ? void 0 : menu_items.at(0)) === null || _d === void 0 ? void 0 : _d.selected)
         return;
@@ -19578,7 +19580,7 @@ var LiveChat2 = class extends EventEmitterLike_default {
 __name(LiveChat2, "LiveChat");
 _LiveChat_actions = /* @__PURE__ */ new WeakMap(), _LiveChat_video_id = /* @__PURE__ */ new WeakMap(), _LiveChat_channel_id = /* @__PURE__ */ new WeakMap(), _LiveChat_continuation = /* @__PURE__ */ new WeakMap(), _LiveChat_mcontinuation = /* @__PURE__ */ new WeakMap(), _LiveChat_retry_count = /* @__PURE__ */ new WeakMap(), _LiveChat_instances = /* @__PURE__ */ new WeakSet(), _LiveChat_pollLivechat = /* @__PURE__ */ __name(function _LiveChat_pollLivechat2() {
   (() => __awaiter(this, void 0, void 0, function* () {
-    var _a7, _b2;
+    var _a8, _b2;
     try {
       const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").execute(this.is_replay ? "live_chat/get_live_chat_replay" : "live_chat/get_live_chat", { continuation: __classPrivateFieldGet(this, _LiveChat_continuation, "f"), parse: true });
       const contents = response.continuation_contents;
@@ -19604,7 +19606,7 @@ _LiveChat_actions = /* @__PURE__ */ new WeakMap(), _LiveChat_video_id = /* @__PU
       __classPrivateFieldSet(this, _LiveChat_retry_count, 0, "f");
     } catch (err) {
       this.emit("error", err);
-      if ((__classPrivateFieldSet(this, _LiveChat_retry_count, (_b2 = __classPrivateFieldGet(this, _LiveChat_retry_count, "f"), _a7 = _b2++, _b2), "f"), _a7) < 10) {
+      if ((__classPrivateFieldSet(this, _LiveChat_retry_count, (_b2 = __classPrivateFieldGet(this, _LiveChat_retry_count, "f"), _a8 = _b2++, _b2), "f"), _a8) < 10) {
         yield __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_wait).call(this, 2e3);
         __classPrivateFieldGet(this, _LiveChat_instances, "m", _LiveChat_pollLivechat2).call(this);
       } else {
@@ -19626,7 +19628,7 @@ _LiveChat_actions = /* @__PURE__ */ new WeakMap(), _LiveChat_video_id = /* @__PU
   });
 }, "_LiveChat_emitSmoothedActions"), _LiveChat_pollMetadata = /* @__PURE__ */ __name(function _LiveChat_pollMetadata2() {
   (() => __awaiter(this, void 0, void 0, function* () {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l;
     try {
       const payload = { videoId: __classPrivateFieldGet(this, _LiveChat_video_id, "f") };
       if (__classPrivateFieldGet(this, _LiveChat_mcontinuation, "f")) {
@@ -19634,7 +19636,7 @@ _LiveChat_actions = /* @__PURE__ */ new WeakMap(), _LiveChat_video_id = /* @__PU
       }
       const response = yield __classPrivateFieldGet(this, _LiveChat_actions, "f").execute("/updated_metadata", payload);
       const data = parser_default.parseResponse(response.data);
-      __classPrivateFieldSet(this, _LiveChat_mcontinuation, (_a7 = data.continuation) === null || _a7 === void 0 ? void 0 : _a7.token, "f");
+      __classPrivateFieldSet(this, _LiveChat_mcontinuation, (_a8 = data.continuation) === null || _a8 === void 0 ? void 0 : _a8.token, "f");
       this.metadata = {
         title: ((_b2 = data.actions) === null || _b2 === void 0 ? void 0 : _b2.array().firstOfType(UpdateTitleAction_default)) || ((_c = this.metadata) === null || _c === void 0 ? void 0 : _c.title),
         description: ((_d = data.actions) === null || _d === void 0 ? void 0 : _d.array().firstOfType(UpdateDescriptionAction_default)) || ((_e = this.metadata) === null || _e === void 0 ? void 0 : _e.description),
@@ -19691,9 +19693,9 @@ var NotificationsMenu_default = NotificationsMenu;
 // dist/src/parser/youtube/Search.js
 var Search = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a7, _b2, _c, _d, _e, _f;
+    var _a8, _b2, _c, _d, _e, _f;
     super(actions, data, already_parsed);
-    const contents = ((_a7 = this.page.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(SectionList_default).first().contents) || ((_b2 = this.page.on_response_received_commands) === null || _b2 === void 0 ? void 0 : _b2.first().contents);
+    const contents = ((_a8 = this.page.contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(SectionList_default).first().contents) || ((_b2 = this.page.on_response_received_commands) === null || _b2 === void 0 ? void 0 : _b2.first().contents);
     if (!contents)
       throw new InnertubeError("No contents found in search response");
     this.results = (_c = contents.find((content) => content.is(ItemSection_default) && content.contents && content.contents.length > 0)) === null || _c === void 0 ? void 0 : _c.as(ItemSection_default).contents;
@@ -19704,13 +19706,13 @@ var Search = class extends Feed_default {
     this.refinement_cards = (_f = this.results) === null || _f === void 0 ? void 0 : _f.firstOfType(HorizontalCardList_default);
   }
   selectRefinementCard(card) {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       let target_card;
       if (typeof card === "string") {
         if (!this.refinement_cards)
           throw new InnertubeError("No refinement cards found.");
-        target_card = (_b2 = (_a7 = this.refinement_cards) === null || _a7 === void 0 ? void 0 : _a7.cards.get({ query: card })) === null || _b2 === void 0 ? void 0 : _b2.as(SearchRefinementCard_default);
+        target_card = (_b2 = (_a8 = this.refinement_cards) === null || _a8 === void 0 ? void 0 : _a8.cards.get({ query: card })) === null || _b2 === void 0 ? void 0 : _b2.as(SearchRefinementCard_default);
         if (!target_card)
           throw new InnertubeError(`Refinement card "${card}" not found`, { available_cards: this.refinement_card_queries });
       } else if (card.type === "SearchRefinementCard") {
@@ -19723,8 +19725,8 @@ var Search = class extends Feed_default {
     });
   }
   get refinement_card_queries() {
-    var _a7;
-    return ((_a7 = this.refinement_cards) === null || _a7 === void 0 ? void 0 : _a7.cards.as(SearchRefinementCard_default).map((card) => card.query)) || [];
+    var _a8;
+    return ((_a8 = this.refinement_cards) === null || _a8 === void 0 ? void 0 : _a8.cards.as(SearchRefinementCard_default).map((card) => card.query)) || [];
   }
   getContinuation() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -19743,12 +19745,12 @@ var _Settings_page;
 var _Settings_actions;
 var Settings = class {
   constructor(actions, response) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     _Settings_page.set(this, void 0);
     _Settings_actions.set(this, void 0);
     __classPrivateFieldSet(this, _Settings_actions, actions, "f");
     __classPrivateFieldSet(this, _Settings_page, parser_default.parseResponse(response.data), "f");
-    this.sidebar = (_a7 = __classPrivateFieldGet(this, _Settings_page, "f").sidebar) === null || _a7 === void 0 ? void 0 : _a7.as(SettingsSidebar_default);
+    this.sidebar = (_a8 = __classPrivateFieldGet(this, _Settings_page, "f").sidebar) === null || _a8 === void 0 ? void 0 : _a8.as(SettingsSidebar_default);
     if (!__classPrivateFieldGet(this, _Settings_page, "f").contents)
       throw new InnertubeError("Page contents not found");
     const tab = __classPrivateFieldGet(this, _Settings_page, "f").contents.item().as(TwoColumnBrowseResults_default).tabs.array().as(Tab_default).get({ selected: true });
@@ -19757,9 +19759,9 @@ var Settings = class {
     const contents = (_b2 = tab.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default).contents.as(ItemSection_default);
     this.introduction = (_d = (_c = contents === null || contents === void 0 ? void 0 : contents.shift()) === null || _c === void 0 ? void 0 : _c.contents) === null || _d === void 0 ? void 0 : _d.firstOfType(PageIntroduction_default);
     this.sections = contents === null || contents === void 0 ? void 0 : contents.map((el) => {
-      var _a8;
+      var _a9;
       return {
-        title: ((_a8 = el.header) === null || _a8 === void 0 ? void 0 : _a8.title.toString()) || null,
+        title: ((_a9 = el.header) === null || _a9 === void 0 ? void 0 : _a9.title.toString()) || null,
         contents: el.contents
       };
     });
@@ -19783,7 +19785,7 @@ var Settings = class {
     });
   }
   getSettingOption(name) {
-    var _a7;
+    var _a8;
     if (!this.sections)
       throw new InnertubeError("Sections not available");
     for (const section of this.sections) {
@@ -19793,7 +19795,7 @@ var Settings = class {
         const options = el.as(SettingsOptions_default).options;
         if (options) {
           for (const option of options) {
-            if (option.is(SettingsSwitch_default) && ((_a7 = option.title) === null || _a7 === void 0 ? void 0 : _a7.toString()) === name)
+            if (option.is(SettingsSwitch_default) && ((_a8 = option.title) === null || _a8 === void 0 ? void 0 : _a8.toString()) === name)
               return option;
           }
         }
@@ -19814,8 +19816,8 @@ var Settings = class {
       }
     }
     return options.map((opt) => {
-      var _a7;
-      return (_a7 = opt.title) === null || _a7 === void 0 ? void 0 : _a7.toString();
+      var _a8;
+      return (_a8 = opt.title) === null || _a8 === void 0 ? void 0 : _a8.toString();
     }).filter((el) => el);
   }
   get sidebar_items() {
@@ -19835,7 +19837,7 @@ var Settings_default = Settings;
 var _TimeWatched_page;
 var TimeWatched = class {
   constructor(response) {
-    var _a7;
+    var _a8;
     _TimeWatched_page.set(this, void 0);
     __classPrivateFieldSet(this, _TimeWatched_page, parser_default.parseResponse(response.data), "f");
     if (!__classPrivateFieldGet(this, _TimeWatched_page, "f").contents)
@@ -19843,7 +19845,7 @@ var TimeWatched = class {
     const tab = __classPrivateFieldGet(this, _TimeWatched_page, "f").contents.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
     if (!tab)
       throw new InnertubeError("Could not find target tab.");
-    this.contents = (_a7 = tab.content) === null || _a7 === void 0 ? void 0 : _a7.as(SectionList_default).contents.as(ItemSection_default);
+    this.contents = (_a8 = tab.content) === null || _a8 === void 0 ? void 0 : _a8.as(SectionList_default).contents.as(ItemSection_default);
   }
   get page() {
     return __classPrivateFieldGet(this, _TimeWatched_page, "f");
@@ -20281,14 +20283,14 @@ var _MediaInfo_cpn;
 var _MediaInfo_playback_tracking;
 var MediaInfo = class {
   constructor(data, actions, cpn) {
-    var _a7, _b2;
+    var _a8, _b2;
     _MediaInfo_page.set(this, void 0);
     _MediaInfo_actions.set(this, void 0);
     _MediaInfo_cpn.set(this, void 0);
     _MediaInfo_playback_tracking.set(this, void 0);
     __classPrivateFieldSet(this, _MediaInfo_actions, actions, "f");
     const info = parser_default.parseResponse(data[0].data);
-    const next = ((_a7 = data === null || data === void 0 ? void 0 : data[1]) === null || _a7 === void 0 ? void 0 : _a7.data) ? parser_default.parseResponse(data[1].data) : void 0;
+    const next = ((_a8 = data === null || data === void 0 ? void 0 : data[1]) === null || _a8 === void 0 ? void 0 : _a8.data) ? parser_default.parseResponse(data[1].data) : void 0;
     __classPrivateFieldSet(this, _MediaInfo_page, [info, next], "f");
     __classPrivateFieldSet(this, _MediaInfo_cpn, cpn, "f");
     if (((_b2 = info.playability_status) === null || _b2 === void 0 ? void 0 : _b2.status) === "ERROR")
@@ -20346,11 +20348,11 @@ var MediaInfo_default = MediaInfo;
 var _VideoInfo_watch_next_continuation;
 var VideoInfo = class extends MediaInfo_default {
   constructor(data, actions, cpn) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12, _13, _14, _15;
     super(data, actions, cpn);
     _VideoInfo_watch_next_continuation.set(this, void 0);
     const [info, next] = this.page;
-    if (info.microformat && !((_a7 = info.microformat) === null || _a7 === void 0 ? void 0 : _a7.is(PlayerMicroformat_default, MicroformatData_default)))
+    if (info.microformat && !((_a8 = info.microformat) === null || _a8 === void 0 ? void 0 : _a8.is(PlayerMicroformat_default, MicroformatData_default)))
       throw new InnertubeError("Invalid microformat", info.microformat);
     this.basic_info = Object.assign(Object.assign(Object.assign({}, info.video_details), {
       embed: ((_b2 = info.microformat) === null || _b2 === void 0 ? void 0 : _b2.is(PlayerMicroformat_default)) ? (_c = info.microformat) === null || _c === void 0 ? void 0 : _c.embed : null,
@@ -20406,13 +20408,13 @@ var VideoInfo = class extends MediaInfo_default {
     }
   }
   selectFilter(target_filter) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
       if (!this.related_chip_cloud)
         throw new InnertubeError("Chip cloud not found, cannot apply filter");
       let cloud_chip;
       if (typeof target_filter === "string") {
-        const filter = (_b2 = (_a7 = this.related_chip_cloud) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.get({ text: target_filter });
+        const filter = (_b2 = (_a8 = this.related_chip_cloud) === null || _a8 === void 0 ? void 0 : _a8.chips) === null || _b2 === void 0 ? void 0 : _b2.get({ text: target_filter });
         if (!filter)
           throw new InnertubeError("Invalid filter", { available_filters: this.filters });
         cloud_chip = filter;
@@ -20438,11 +20440,11 @@ var VideoInfo = class extends MediaInfo_default {
     });
   }
   getWatchNextContinuation() {
-    var _a7, _b2, _c, _d, _e;
+    var _a8, _b2, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
       if (!__classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f"))
         throw new InnertubeError("Watch next feed continuation not found");
-      const response = yield (_a7 = __classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f")) === null || _a7 === void 0 ? void 0 : _a7.endpoint.call(this.actions, { parse: true });
+      const response = yield (_a8 = __classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f")) === null || _a8 === void 0 ? void 0 : _a8.endpoint.call(this.actions, { parse: true });
       const data = (_b2 = response === null || response === void 0 ? void 0 : response.on_response_received_endpoints) === null || _b2 === void 0 ? void 0 : _b2.get({ type: "appendContinuationItemsAction" });
       if (!data)
         throw new InnertubeError("AppendContinuationItemsAction not found");
@@ -20456,9 +20458,9 @@ var VideoInfo = class extends MediaInfo_default {
     });
   }
   like() {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
-      const segmented_like_dislike_button = (_b2 = (_a7 = this.primary_info) === null || _a7 === void 0 ? void 0 : _a7.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
+      const segmented_like_dislike_button = (_b2 = (_a8 = this.primary_info) === null || _a8 === void 0 ? void 0 : _a8.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
       const button = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button;
       if (!button)
         throw new InnertubeError("Like button not found", { video_id: this.basic_info.id });
@@ -20471,9 +20473,9 @@ var VideoInfo = class extends MediaInfo_default {
     });
   }
   dislike() {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
-      const segmented_like_dislike_button = (_b2 = (_a7 = this.primary_info) === null || _a7 === void 0 ? void 0 : _a7.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
+      const segmented_like_dislike_button = (_b2 = (_a8 = this.primary_info) === null || _a8 === void 0 ? void 0 : _a8.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
       const button = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button;
       if (!button)
         throw new InnertubeError("Dislike button not found", { video_id: this.basic_info.id });
@@ -20486,10 +20488,10 @@ var VideoInfo = class extends MediaInfo_default {
     });
   }
   removeRating() {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       let button;
-      const segmented_like_dislike_button = (_b2 = (_a7 = this.primary_info) === null || _a7 === void 0 ? void 0 : _a7.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
+      const segmented_like_dislike_button = (_b2 = (_a8 = this.primary_info) === null || _a8 === void 0 ? void 0 : _a8.menu) === null || _b2 === void 0 ? void 0 : _b2.top_level_buttons.firstOfType(SegmentedLikeDislikeButton_default);
       const like_button = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.like_button;
       const dislike_button = segmented_like_dislike_button === null || segmented_like_dislike_button === void 0 ? void 0 : segmented_like_dislike_button.dislike_button;
       if (!(like_button === null || like_button === void 0 ? void 0 : like_button.is(ToggleButton_default)) || !(dislike_button === null || dislike_button === void 0 ? void 0 : dislike_button.is(ToggleButton_default)))
@@ -20511,9 +20513,9 @@ var VideoInfo = class extends MediaInfo_default {
     return new LiveChat_default2(this);
   }
   getTrailerInfo() {
-    var _a7, _b2;
+    var _a8, _b2;
     if (this.has_trailer) {
-      const player_response = (_b2 = (_a7 = this.playability_status.error_screen) === null || _a7 === void 0 ? void 0 : _a7.as(PlayerLegacyDesktopYpcTrailer_default).trailer) === null || _b2 === void 0 ? void 0 : _b2.player_response;
+      const player_response = (_b2 = (_a8 = this.playability_status.error_screen) === null || _a8 === void 0 ? void 0 : _a8.as(PlayerLegacyDesktopYpcTrailer_default).trailer) === null || _b2 === void 0 ? void 0 : _b2.player_response;
       if (player_response) {
         return new VideoInfo([{ data: player_response }], this.actions, this.cpn);
       }
@@ -20521,22 +20523,22 @@ var VideoInfo = class extends MediaInfo_default {
     return null;
   }
   get filters() {
-    var _a7, _b2;
-    return ((_b2 = (_a7 = this.related_chip_cloud) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.map((chip) => {
-      var _a8;
-      return (_a8 = chip.text) === null || _a8 === void 0 ? void 0 : _a8.toString();
+    var _a8, _b2;
+    return ((_b2 = (_a8 = this.related_chip_cloud) === null || _a8 === void 0 ? void 0 : _a8.chips) === null || _b2 === void 0 ? void 0 : _b2.map((chip) => {
+      var _a9;
+      return (_a9 = chip.text) === null || _a9 === void 0 ? void 0 : _a9.toString();
     })) || [];
   }
   get wn_has_continuation() {
     return !!__classPrivateFieldGet(this, _VideoInfo_watch_next_continuation, "f");
   }
   get autoplay_video_endpoint() {
-    var _a7, _b2, _c;
-    return ((_c = (_b2 = (_a7 = this.autoplay) === null || _a7 === void 0 ? void 0 : _a7.sets) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.autoplay_video) || null;
+    var _a8, _b2, _c;
+    return ((_c = (_b2 = (_a8 = this.autoplay) === null || _a8 === void 0 ? void 0 : _a8.sets) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.autoplay_video) || null;
   }
   get has_trailer() {
-    var _a7;
-    return !!((_a7 = this.playability_status.error_screen) === null || _a7 === void 0 ? void 0 : _a7.is(PlayerLegacyDesktopYpcTrailer_default));
+    var _a8;
+    return !!((_a8 = this.playability_status.error_screen) === null || _a8 === void 0 ? void 0 : _a8.is(PlayerLegacyDesktopYpcTrailer_default));
   }
   get music_tracks() {
     return [];
@@ -20565,10 +20567,10 @@ __export(ytmusic_exports, {
 var _Album_page;
 var Album = class {
   constructor(response) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     _Album_page.set(this, void 0);
     __classPrivateFieldSet(this, _Album_page, parser_default.parseResponse(response.data), "f");
-    this.header = (_a7 = __classPrivateFieldGet(this, _Album_page, "f").header) === null || _a7 === void 0 ? void 0 : _a7.item().as(MusicDetailHeader_default);
+    this.header = (_a8 = __classPrivateFieldGet(this, _Album_page, "f").header) === null || _a8 === void 0 ? void 0 : _a8.item().as(MusicDetailHeader_default);
     this.url = ((_b2 = __classPrivateFieldGet(this, _Album_page, "f").microformat) === null || _b2 === void 0 ? void 0 : _b2.as(MicroformatData_default).url_canonical) || null;
     if (!__classPrivateFieldGet(this, _Album_page, "f").contents_memo)
       throw new Error("No contents found in the response");
@@ -20588,18 +20590,18 @@ var _Artist_page;
 var _Artist_actions;
 var Artist = class {
   constructor(response, actions) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     _Artist_page.set(this, void 0);
     _Artist_actions.set(this, void 0);
     __classPrivateFieldSet(this, _Artist_page, parser_default.parseResponse(response.data), "f");
     __classPrivateFieldSet(this, _Artist_actions, actions, "f");
-    this.header = (_a7 = this.page.header) === null || _a7 === void 0 ? void 0 : _a7.item().as(MusicImmersiveHeader_default, MusicVisualHeader_default, MusicHeader_default);
+    this.header = (_a8 = this.page.header) === null || _a8 === void 0 ? void 0 : _a8.item().as(MusicImmersiveHeader_default, MusicVisualHeader_default, MusicHeader_default);
     const music_shelf = ((_b2 = __classPrivateFieldGet(this, _Artist_page, "f").contents_memo) === null || _b2 === void 0 ? void 0 : _b2.getType(MusicShelf_default)) || [];
     const music_carousel_shelf = ((_c = __classPrivateFieldGet(this, _Artist_page, "f").contents_memo) === null || _c === void 0 ? void 0 : _c.getType(MusicCarouselShelf_default)) || [];
     this.sections = [...music_shelf, ...music_carousel_shelf];
   }
   getAllSongs() {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       const music_shelves = this.sections.filter((section) => section.type === "MusicShelf");
       if (!music_shelves.length)
@@ -20610,7 +20612,7 @@ var Artist = class {
       if (!shelf.endpoint)
         throw new InnertubeError("Target shelf (Songs) did not have an endpoint.");
       const page = yield shelf.endpoint.call(__classPrivateFieldGet(this, _Artist_actions, "f"), { client: "YTMUSIC", parse: true });
-      const contents = (_b2 = (_a7 = page.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(MusicPlaylistShelf_default)) === null || _b2 === void 0 ? void 0 : _b2.first();
+      const contents = (_b2 = (_a8 = page.contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(MusicPlaylistShelf_default)) === null || _b2 === void 0 ? void 0 : _b2.first();
       return contents;
     });
   }
@@ -20626,10 +20628,10 @@ var Artist_default = Artist;
 var _Explore_page;
 var Explore = class {
   constructor(response) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     _Explore_page.set(this, void 0);
     __classPrivateFieldSet(this, _Explore_page, parser_default.parseResponse(response.data), "f");
-    const tab = (_a7 = __classPrivateFieldGet(this, _Explore_page, "f").contents) === null || _a7 === void 0 ? void 0 : _a7.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
+    const tab = (_a8 = __classPrivateFieldGet(this, _Explore_page, "f").contents) === null || _a8 === void 0 ? void 0 : _a8.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
     if (!tab)
       throw new InnertubeError("Could not find target tab.");
     const section_list = (_b2 = tab.content) === null || _b2 === void 0 ? void 0 : _b2.as(SectionList_default);
@@ -20652,13 +20654,13 @@ var _HomeFeed_actions;
 var _HomeFeed_continuation;
 var HomeFeed2 = class {
   constructor(response, actions) {
-    var _a7, _b2, _c, _d, _e, _f;
+    var _a8, _b2, _c, _d, _e, _f;
     _HomeFeed_page.set(this, void 0);
     _HomeFeed_actions.set(this, void 0);
     _HomeFeed_continuation.set(this, void 0);
     __classPrivateFieldSet(this, _HomeFeed_actions, actions, "f");
     __classPrivateFieldSet(this, _HomeFeed_page, parser_default.parseResponse(response.data), "f");
-    const tab = (_a7 = __classPrivateFieldGet(this, _HomeFeed_page, "f").contents) === null || _a7 === void 0 ? void 0 : _a7.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
+    const tab = (_a8 = __classPrivateFieldGet(this, _HomeFeed_page, "f").contents) === null || _a8 === void 0 ? void 0 : _a8.item().as(SingleColumnBrowseResults_default).tabs.get({ selected: true });
     if (!tab)
       throw new InnertubeError("Could not find Home tab.");
     if (tab.key("content").isNull()) {
@@ -20684,11 +20686,11 @@ var HomeFeed2 = class {
     });
   }
   applyFilter(target_filter) {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       let cloud_chip;
       if (typeof target_filter === "string") {
-        cloud_chip = (_b2 = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).get({ text: target_filter });
+        cloud_chip = (_b2 = (_a8 = this.header) === null || _a8 === void 0 ? void 0 : _a8.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).get({ text: target_filter });
         if (!cloud_chip)
           throw new InnertubeError("Could not find filter with given name.", { available_filters: this.filters });
       } else if (target_filter === null || target_filter === void 0 ? void 0 : target_filter.is(ChipCloudChip_default)) {
@@ -20705,8 +20707,8 @@ var HomeFeed2 = class {
     });
   }
   get filters() {
-    var _a7, _b2;
-    return ((_b2 = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).map((chip) => chip.text)) || [];
+    var _a8, _b2;
+    return ((_b2 = (_a8 = this.header) === null || _a8 === void 0 ? void 0 : _a8.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).map((chip) => chip.text)) || [];
   }
   get has_continuation() {
     return !!__classPrivateFieldGet(this, _HomeFeed_continuation, "f");
@@ -20728,23 +20730,23 @@ var _LibraryContinuation_actions;
 var _LibraryContinuation_continuation;
 var Library2 = class {
   constructor(response, actions) {
-    var _a7, _b2, _c, _d, _e;
+    var _a8, _b2, _c, _d, _e;
     _Library_page.set(this, void 0);
     _Library_actions.set(this, void 0);
     _Library_continuation.set(this, void 0);
     __classPrivateFieldSet(this, _Library_page, parser_default.parseResponse(response.data), "f");
     __classPrivateFieldSet(this, _Library_actions, actions, "f");
-    const section_list = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(SectionList_default).first();
+    const section_list = (_a8 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(SectionList_default).first();
     this.header = (_b2 = section_list === null || section_list === void 0 ? void 0 : section_list.header) === null || _b2 === void 0 ? void 0 : _b2.as(MusicSideAlignedItem_default);
     this.contents = (_c = section_list === null || section_list === void 0 ? void 0 : section_list.contents) === null || _c === void 0 ? void 0 : _c.as(Grid_default, MusicShelf_default);
     __classPrivateFieldSet(this, _Library_continuation, (_e = (_d = this.contents) === null || _d === void 0 ? void 0 : _d.find((list) => list.continuation)) === null || _e === void 0 ? void 0 : _e.continuation, "f");
   }
   applySort(sort_by) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h, _j, _k;
     return __awaiter(this, void 0, void 0, function* () {
       let target_item;
       if (typeof sort_by === "string") {
-        const button = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(MusicSortFilterButton_default).first();
+        const button = (_a8 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(MusicSortFilterButton_default).first();
         const options = (_b2 = button === null || button === void 0 ? void 0 : button.menu) === null || _b2 === void 0 ? void 0 : _b2.options.filter((item) => item instanceof MusicMultiSelectMenuItem_default);
         target_item = options === null || options === void 0 ? void 0 : options.find((item) => item.title === sort_by);
         if (!target_item)
@@ -20773,10 +20775,10 @@ var Library2 = class {
     });
   }
   applyFilter(filter) {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
       let target_chip;
-      const chip_cloud = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(ChipCloud_default).first();
+      const chip_cloud = (_a8 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(ChipCloud_default).first();
       if (typeof filter === "string") {
         target_chip = chip_cloud === null || chip_cloud === void 0 ? void 0 : chip_cloud.chips.get({ text: filter });
         if (!target_chip)
@@ -20806,14 +20808,14 @@ var Library2 = class {
     return !!__classPrivateFieldGet(this, _Library_continuation, "f");
   }
   get sort_options() {
-    var _a7, _b2;
-    const button = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(MusicSortFilterButton_default).first();
+    var _a8, _b2;
+    const button = (_a8 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(MusicSortFilterButton_default).first();
     const options = (_b2 = button === null || button === void 0 ? void 0 : button.menu) === null || _b2 === void 0 ? void 0 : _b2.options.filter((item) => item instanceof MusicMultiSelectMenuItem_default);
     return options.map((item) => item.title);
   }
   get filters() {
-    var _a7, _b2;
-    return ((_b2 = (_a7 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(ChipCloud_default)) === null || _b2 === void 0 ? void 0 : _b2.first().chips.map((chip) => chip.text)) || [];
+    var _a8, _b2;
+    return ((_b2 = (_a8 = __classPrivateFieldGet(this, _Library_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(ChipCloud_default)) === null || _b2 === void 0 ? void 0 : _b2.first().chips.map((chip) => chip.text)) || [];
   }
   get page() {
     return __classPrivateFieldGet(this, _Library_page, "f");
@@ -20823,7 +20825,7 @@ __name(Library2, "Library");
 _Library_page = /* @__PURE__ */ new WeakMap(), _Library_actions = /* @__PURE__ */ new WeakMap(), _Library_continuation = /* @__PURE__ */ new WeakMap();
 var LibraryContinuation = class {
   constructor(response, actions) {
-    var _a7, _b2;
+    var _a8, _b2;
     _LibraryContinuation_page.set(this, void 0);
     _LibraryContinuation_actions.set(this, void 0);
     _LibraryContinuation_continuation.set(this, void 0);
@@ -20832,7 +20834,7 @@ var LibraryContinuation = class {
     if (!__classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents)
       throw new InnertubeError("No continuation contents found");
     this.contents = __classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents.as(MusicShelfContinuation, GridContinuation);
-    __classPrivateFieldSet(this, _LibraryContinuation_continuation, ((_a7 = __classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents) === null || _a7 === void 0 ? void 0 : _a7.key("continuation").isNull()) ? null : (_b2 = __classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents) === null || _b2 === void 0 ? void 0 : _b2.key("continuation").string(), "f");
+    __classPrivateFieldSet(this, _LibraryContinuation_continuation, ((_a8 = __classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents) === null || _a8 === void 0 ? void 0 : _a8.key("continuation").isNull()) ? null : (_b2 = __classPrivateFieldGet(this, _LibraryContinuation_page, "f").continuation_contents) === null || _b2 === void 0 ? void 0 : _b2.key("continuation").string(), "f");
   }
   getContinuation() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -20866,7 +20868,7 @@ var _Playlist_suggestions_continuation;
 var _Playlist_fetchSuggestions;
 var Playlist3 = class {
   constructor(response, actions) {
-    var _a7, _b2, _c, _d, _e, _f, _g;
+    var _a8, _b2, _c, _d, _e, _f, _g;
     _Playlist_instances2.add(this);
     _Playlist_page.set(this, void 0);
     _Playlist_actions.set(this, void 0);
@@ -20878,7 +20880,7 @@ var Playlist3 = class {
     __classPrivateFieldSet(this, _Playlist_last_fetched_suggestions, null, "f");
     __classPrivateFieldSet(this, _Playlist_suggestions_continuation, null, "f");
     if (__classPrivateFieldGet(this, _Playlist_page, "f").continuation_contents) {
-      const data = (_a7 = __classPrivateFieldGet(this, _Playlist_page, "f").continuation_contents) === null || _a7 === void 0 ? void 0 : _a7.as(MusicPlaylistShelfContinuation);
+      const data = (_a8 = __classPrivateFieldGet(this, _Playlist_page, "f").continuation_contents) === null || _a8 === void 0 ? void 0 : _a8.as(MusicPlaylistShelfContinuation);
       this.items = data.contents;
       __classPrivateFieldSet(this, _Playlist_continuation, data.continuation, "f");
     } else {
@@ -20903,9 +20905,9 @@ var Playlist3 = class {
     });
   }
   getRelated() {
-    var _a7, _b2, _c, _d, _e;
+    var _a8, _b2, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
-      let section_continuation = (_b2 = (_a7 = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(SectionList_default)) === null || _b2 === void 0 ? void 0 : _b2[0].continuation;
+      let section_continuation = (_b2 = (_a8 = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(SectionList_default)) === null || _b2 === void 0 ? void 0 : _b2[0].continuation;
       while (section_continuation) {
         const data = yield __classPrivateFieldGet(this, _Playlist_actions, "f").execute("/browse", {
           client: "YTMUSIC",
@@ -20943,9 +20945,9 @@ var Playlist3 = class {
 };
 __name(Playlist3, "Playlist");
 _Playlist_page = /* @__PURE__ */ new WeakMap(), _Playlist_actions = /* @__PURE__ */ new WeakMap(), _Playlist_continuation = /* @__PURE__ */ new WeakMap(), _Playlist_last_fetched_suggestions = /* @__PURE__ */ new WeakMap(), _Playlist_suggestions_continuation = /* @__PURE__ */ new WeakMap(), _Playlist_instances2 = /* @__PURE__ */ new WeakSet(), _Playlist_fetchSuggestions = /* @__PURE__ */ __name(function _Playlist_fetchSuggestions2() {
-  var _a7, _b2, _c, _d, _e;
+  var _a8, _b2, _c, _d, _e;
   return __awaiter(this, void 0, void 0, function* () {
-    const continuation = __classPrivateFieldGet(this, _Playlist_suggestions_continuation, "f") || ((_b2 = (_a7 = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.get("SectionList")) === null || _b2 === void 0 ? void 0 : _b2[0].as(SectionList_default).continuation);
+    const continuation = __classPrivateFieldGet(this, _Playlist_suggestions_continuation, "f") || ((_b2 = (_a8 = __classPrivateFieldGet(this, _Playlist_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.get("SectionList")) === null || _b2 === void 0 ? void 0 : _b2[0].as(SectionList_default).continuation);
     if (continuation) {
       const page = yield __classPrivateFieldGet(this, _Playlist_actions, "f").execute("/browse", {
         client: "YTMUSIC",
@@ -20973,12 +20975,12 @@ var _Recap_page;
 var _Recap_actions;
 var Recap = class {
   constructor(response, actions) {
-    var _a7, _b2, _c, _d, _e, _f, _g;
+    var _a8, _b2, _c, _d, _e, _f, _g;
     _Recap_page.set(this, void 0);
     _Recap_actions.set(this, void 0);
     __classPrivateFieldSet(this, _Recap_page, parser_default.parseResponse(response.data), "f");
     __classPrivateFieldSet(this, _Recap_actions, actions, "f");
-    const header = (_a7 = __classPrivateFieldGet(this, _Recap_page, "f").header) === null || _a7 === void 0 ? void 0 : _a7.item();
+    const header = (_a8 = __classPrivateFieldGet(this, _Recap_page, "f").header) === null || _a8 === void 0 ? void 0 : _a8.item();
     this.header = (header === null || header === void 0 ? void 0 : header.is(MusicElementHeader_default)) ? (_d = (_c = (_b2 = __classPrivateFieldGet(this, _Recap_page, "f").header) === null || _b2 === void 0 ? void 0 : _b2.item().as(MusicElementHeader_default).element) === null || _c === void 0 ? void 0 : _c.model) === null || _d === void 0 ? void 0 : _d.as(HighlightsCarousel_default) : (_e = __classPrivateFieldGet(this, _Recap_page, "f").header) === null || _e === void 0 ? void 0 : _e.item().as(MusicHeader_default);
     const tab = (_f = __classPrivateFieldGet(this, _Recap_page, "f").contents) === null || _f === void 0 ? void 0 : _f.item().as(SingleColumnBrowseResults_default).tabs.firstOfType(Tab_default);
     if (!tab)
@@ -21012,7 +21014,7 @@ var _SearchContinuation_actions;
 var _SearchContinuation_page;
 var Search2 = class {
   constructor(response, actions, is_filtered) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     _Search_page.set(this, void 0);
     _Search_actions.set(this, void 0);
     _Search_continuation.set(this, void 0);
@@ -21023,7 +21025,7 @@ var Search2 = class {
     const tab = __classPrivateFieldGet(this, _Search_page, "f").contents.item().as(TabbedSearchResults_default).tabs.get({ selected: true });
     if (!tab)
       throw new InnertubeError("Could not find target tab.");
-    const tab_content = (_a7 = tab.content) === null || _a7 === void 0 ? void 0 : _a7.as(SectionList_default);
+    const tab_content = (_a8 = tab.content) === null || _a8 === void 0 ? void 0 : _a8.as(SectionList_default);
     if (!tab_content)
       throw new InnertubeError("Target tab did not have any content.");
     this.header = (_b2 = tab_content.header) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloud_default);
@@ -21054,11 +21056,11 @@ var Search2 = class {
     });
   }
   applyFilter(target_filter) {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       let cloud_chip;
       if (typeof target_filter === "string") {
-        cloud_chip = (_b2 = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).get({ text: target_filter });
+        cloud_chip = (_b2 = (_a8 = this.header) === null || _a8 === void 0 ? void 0 : _a8.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).get({ text: target_filter });
         if (!cloud_chip)
           throw new InnertubeError("Could not find filter with given name.", { available_filters: this.filters });
       } else if (target_filter === null || target_filter === void 0 ? void 0 : target_filter.is(ChipCloudChip_default)) {
@@ -21075,51 +21077,51 @@ var Search2 = class {
     });
   }
   get filters() {
-    var _a7, _b2;
-    return ((_b2 = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).map((chip) => chip.text)) || [];
+    var _a8, _b2;
+    return ((_b2 = (_a8 = this.header) === null || _a8 === void 0 ? void 0 : _a8.chips) === null || _b2 === void 0 ? void 0 : _b2.as(ChipCloudChip_default).map((chip) => chip.text)) || [];
   }
   get has_continuation() {
     return !!__classPrivateFieldGet(this, _Search_continuation, "f");
   }
   get did_you_mean() {
-    var _a7;
-    return (_a7 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(DidYouMean_default).first();
+    var _a8;
+    return (_a8 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(DidYouMean_default).first();
   }
   get showing_results_for() {
-    var _a7;
-    return (_a7 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(ShowingResultsFor_default).first();
+    var _a8;
+    return (_a8 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(ShowingResultsFor_default).first();
   }
   get message() {
-    var _a7;
-    return (_a7 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Message_default).first();
+    var _a8;
+    return (_a8 = __classPrivateFieldGet(this, _Search_page, "f").contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(Message_default).first();
   }
   get songs() {
-    var _a7;
-    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Songs");
+    var _a8;
+    return (_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.filterType(MusicShelf_default).find((section) => section.title.toString() === "Songs");
   }
   get videos() {
-    var _a7;
-    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Videos");
+    var _a8;
+    return (_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.filterType(MusicShelf_default).find((section) => section.title.toString() === "Videos");
   }
   get albums() {
-    var _a7;
-    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Albums");
+    var _a8;
+    return (_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.filterType(MusicShelf_default).find((section) => section.title.toString() === "Albums");
   }
   get artists() {
-    var _a7;
-    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Artists");
+    var _a8;
+    return (_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.filterType(MusicShelf_default).find((section) => section.title.toString() === "Artists");
   }
   get playlists() {
-    var _a7;
-    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default).find((section) => section.title.toString() === "Community playlists");
+    var _a8;
+    return (_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.filterType(MusicShelf_default).find((section) => section.title.toString() === "Community playlists");
   }
   get results() {
-    var _a7, _b2;
-    return (_b2 = (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.firstOfType(MusicShelf_default)) === null || _b2 === void 0 ? void 0 : _b2.contents;
+    var _a8, _b2;
+    return (_b2 = (_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.firstOfType(MusicShelf_default)) === null || _b2 === void 0 ? void 0 : _b2.contents;
   }
   get sections() {
-    var _a7;
-    return (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.filterType(MusicShelf_default);
+    var _a8;
+    return (_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.filterType(MusicShelf_default);
   }
   get page() {
     return __classPrivateFieldGet(this, _Search_page, "f");
@@ -21130,18 +21132,18 @@ _Search_page = /* @__PURE__ */ new WeakMap(), _Search_actions = /* @__PURE__ */ 
 var Search_default2 = Search2;
 var SearchContinuation = class {
   constructor(actions, response) {
-    var _a7, _b2;
+    var _a8, _b2;
     _SearchContinuation_actions.set(this, void 0);
     _SearchContinuation_page.set(this, void 0);
     __classPrivateFieldSet(this, _SearchContinuation_actions, actions, "f");
     __classPrivateFieldSet(this, _SearchContinuation_page, parser_default.parseResponse(response.data), "f");
-    this.header = (_a7 = __classPrivateFieldGet(this, _SearchContinuation_page, "f").header) === null || _a7 === void 0 ? void 0 : _a7.item().as(MusicHeader_default);
+    this.header = (_a8 = __classPrivateFieldGet(this, _SearchContinuation_page, "f").header) === null || _a8 === void 0 ? void 0 : _a8.item().as(MusicHeader_default);
     this.contents = (_b2 = __classPrivateFieldGet(this, _SearchContinuation_page, "f").continuation_contents) === null || _b2 === void 0 ? void 0 : _b2.as(MusicShelfContinuation);
   }
   getContinuation() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
-      if (!((_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.continuation))
+      if (!((_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.continuation))
         throw new InnertubeError("Continuation not found.");
       const response = yield __classPrivateFieldGet(this, _SearchContinuation_actions, "f").execute("/search", {
         continuation: this.contents.continuation,
@@ -21151,8 +21153,8 @@ var SearchContinuation = class {
     });
   }
   get has_continuation() {
-    var _a7;
-    return !!((_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.continuation);
+    var _a8;
+    return !!((_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.continuation);
   }
   get page() {
     return __classPrivateFieldGet(this, _SearchContinuation_page, "f");
@@ -21164,10 +21166,10 @@ _SearchContinuation_actions = /* @__PURE__ */ new WeakMap(), _SearchContinuation
 // dist/src/parser/ytmusic/TrackInfo.js
 var TrackInfo = class extends MediaInfo_default {
   constructor(data, actions, cpn) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h, _j;
     super(data, actions, cpn);
     const [info, next] = this.page;
-    if (!((_a7 = info.microformat) === null || _a7 === void 0 ? void 0 : _a7.is(MicroformatData_default)))
+    if (!((_a8 = info.microformat) === null || _a8 === void 0 ? void 0 : _a8.is(MicroformatData_default)))
       throw new InnertubeError("Invalid microformat", info.microformat);
     this.basic_info = Object.assign(Object.assign({}, info.video_details), {
       description: (_b2 = info.microformat) === null || _b2 === void 0 ? void 0 : _b2.description,
@@ -21186,14 +21188,14 @@ var TrackInfo = class extends MediaInfo_default {
     }
   }
   getTab(title_or_page_type) {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       if (!this.tabs)
         throw new InnertubeError("Could not find any tab");
       const target_tab = this.tabs.get({ title: title_or_page_type }) || this.tabs.matchCondition((tab) => {
-        var _a8, _b3;
-        return ((_b3 = (_a8 = tab.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a8 === void 0 ? void 0 : _a8.browseEndpointContextMusicConfig) === null || _b3 === void 0 ? void 0 : _b3.pageType) === title_or_page_type;
-      }) || ((_a7 = this.tabs) === null || _a7 === void 0 ? void 0 : _a7[0]);
+        var _a9, _b3;
+        return ((_b3 = (_a9 = tab.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a9 === void 0 ? void 0 : _a9.browseEndpointContextMusicConfig) === null || _b3 === void 0 ? void 0 : _b3.pageType) === title_or_page_type;
+      }) || ((_a8 = this.tabs) === null || _a8 === void 0 ? void 0 : _a8[0]);
       if (!target_tab)
         throw new InnertubeError(`Tab "${title_or_page_type}" not found`, { available_tabs: this.available_tabs });
       if (target_tab.content)
@@ -21207,7 +21209,7 @@ var TrackInfo = class extends MediaInfo_default {
     });
   }
   getUpNext(automix = true) {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       const music_queue = yield this.getTab("Up next");
       if (!music_queue || !music_queue.content)
@@ -21217,7 +21219,7 @@ var TrackInfo = class extends MediaInfo_default {
         const automix_preview_video = playlist_panel.contents.firstOfType(AutomixPreviewVideo_default);
         if (!automix_preview_video)
           throw new InnertubeError("Automix item not found");
-        const page = yield (_a7 = automix_preview_video.playlist_video) === null || _a7 === void 0 ? void 0 : _a7.endpoint.call(this.actions, {
+        const page = yield (_a8 = automix_preview_video.playlist_video) === null || _a8 === void 0 ? void 0 : _a8.endpoint.call(this.actions, {
           videoId: this.basic_info.id,
           client: "YTMUSIC",
           parse: true
@@ -21268,24 +21270,24 @@ __export(ytkids_exports, {
 // dist/src/parser/ytkids/Channel.js
 var Channel3 = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a7, _b2;
+    var _a8, _b2;
     super(actions, data, already_parsed);
-    this.header = (_a7 = this.page.header) === null || _a7 === void 0 ? void 0 : _a7.item().as(C4TabbedHeader_default);
+    this.header = (_a8 = this.page.header) === null || _a8 === void 0 ? void 0 : _a8.item().as(C4TabbedHeader_default);
     this.contents = this.memo.getType(ItemSection_default).first() || ((_b2 = this.page.continuation_contents) === null || _b2 === void 0 ? void 0 : _b2.as(ItemSectionContinuation));
   }
   getContinuation() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       const response = yield this.actions.execute("/browse", {
-        continuation: (_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.continuation,
+        continuation: (_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.continuation,
         client: "YTKIDS"
       });
       return new Channel3(this.actions, response);
     });
   }
   get has_continuation() {
-    var _a7;
-    return !!((_a7 = this.contents) === null || _a7 === void 0 ? void 0 : _a7.continuation);
+    var _a8;
+    return !!((_a8 = this.contents) === null || _a8 === void 0 ? void 0 : _a8.continuation);
   }
 };
 __name(Channel3, "Channel");
@@ -21294,17 +21296,17 @@ var Channel_default2 = Channel3;
 // dist/src/parser/ytkids/HomeFeed.js
 var HomeFeed3 = class extends Feed_default {
   constructor(actions, data, already_parsed = false) {
-    var _a7, _b2;
+    var _a8, _b2;
     super(actions, data, already_parsed);
-    this.header = (_a7 = this.page.header) === null || _a7 === void 0 ? void 0 : _a7.item().as(KidsCategoriesHeader_default);
+    this.header = (_a8 = this.page.header) === null || _a8 === void 0 ? void 0 : _a8.item().as(KidsCategoriesHeader_default);
     this.contents = (_b2 = this.page.contents) === null || _b2 === void 0 ? void 0 : _b2.item().as(KidsHomeScreen_default);
   }
   selectCategoryTab(tab) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       let target_tab;
       if (typeof tab === "string") {
-        target_tab = (_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.category_tabs.find((t) => t.title.toString() === tab);
+        target_tab = (_a8 = this.header) === null || _a8 === void 0 ? void 0 : _a8.category_tabs.find((t) => t.title.toString() === tab);
       } else if (tab === null || tab === void 0 ? void 0 : tab.is(KidsCategoryTab_default)) {
         target_tab = tab;
       }
@@ -21317,8 +21319,8 @@ var HomeFeed3 = class extends Feed_default {
     });
   }
   get categories() {
-    var _a7;
-    return ((_a7 = this.header) === null || _a7 === void 0 ? void 0 : _a7.category_tabs.map((tab) => tab.title.toString())) || [];
+    var _a8;
+    return ((_a8 = this.header) === null || _a8 === void 0 ? void 0 : _a8.category_tabs.map((tab) => tab.title.toString())) || [];
   }
 };
 __name(HomeFeed3, "HomeFeed");
@@ -21341,12 +21343,12 @@ var Search_default3 = Search3;
 // dist/src/parser/ytkids/VideoInfo.js
 var VideoInfo2 = class extends MediaInfo_default {
   constructor(data, actions, cpn) {
-    var _a7, _b2, _c, _d, _e;
+    var _a8, _b2, _c, _d, _e;
     super(data, actions, cpn);
     const [info, next] = this.page;
     this.basic_info = info.video_details;
     this.captions = info.captions;
-    const two_col = (_a7 = next === null || next === void 0 ? void 0 : next.contents) === null || _a7 === void 0 ? void 0 : _a7.item().as(TwoColumnWatchNextResults_default);
+    const two_col = (_a8 = next === null || next === void 0 ? void 0 : next.contents) === null || _a8 === void 0 ? void 0 : _a8.item().as(TwoColumnWatchNextResults_default);
     const results = two_col === null || two_col === void 0 ? void 0 : two_col.results;
     const secondary_results = two_col === null || two_col === void 0 ? void 0 : two_col.secondary_results;
     if (results && secondary_results) {
@@ -21375,10 +21377,10 @@ var parser_default = parser_default2;
 var _Author_nav_text;
 var Author = class {
   constructor(item, badges, thumbs, id) {
-    var _a7, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12;
+    var _a8, _b2, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6, _7, _8, _9, _10, _11, _12;
     _Author_nav_text.set(this, void 0);
     __classPrivateFieldSet(this, _Author_nav_text, new Text(item), "f");
-    this.id = id || ((_e = (_d = (_c = (_b2 = (_a7 = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _a7 === void 0 ? void 0 : _a7.runs) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.endpoint) === null || _d === void 0 ? void 0 : _d.payload) === null || _e === void 0 ? void 0 : _e.browseId) || ((_h = (_g = (_f = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _f === void 0 ? void 0 : _f.endpoint) === null || _g === void 0 ? void 0 : _g.payload) === null || _h === void 0 ? void 0 : _h.browseId) || "N/A";
+    this.id = id || ((_e = (_d = (_c = (_b2 = (_a8 = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _a8 === void 0 ? void 0 : _a8.runs) === null || _b2 === void 0 ? void 0 : _b2[0]) === null || _c === void 0 ? void 0 : _c.endpoint) === null || _d === void 0 ? void 0 : _d.payload) === null || _e === void 0 ? void 0 : _e.browseId) || ((_h = (_g = (_f = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _f === void 0 ? void 0 : _f.endpoint) === null || _g === void 0 ? void 0 : _g.payload) === null || _h === void 0 ? void 0 : _h.browseId) || "N/A";
     this.name = ((_j = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _j === void 0 ? void 0 : _j.text) || "N/A";
     this.thumbnails = thumbs ? Thumbnail.fromResponse(thumbs) : [];
     this.endpoint = ((_m = (_l = (_k = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _k === void 0 ? void 0 : _k.runs) === null || _l === void 0 ? void 0 : _l[0]) === null || _m === void 0 ? void 0 : _m.endpoint) || ((_o = __classPrivateFieldGet(this, _Author_nav_text, "f")) === null || _o === void 0 ? void 0 : _o.endpoint);
@@ -21650,10 +21652,10 @@ var server_dom_default = import_linkedom.DOMParser;
 var _CustomEvent_detail;
 var CustomEvent = class extends Event {
   constructor(type, options) {
-    var _a7;
+    var _a8;
     super(type, options);
     _CustomEvent_detail.set(this, void 0);
-    __classPrivateFieldSet(this, _CustomEvent_detail, (_a7 = options === null || options === void 0 ? void 0 : options.detail) !== null && _a7 !== void 0 ? _a7 : null, "f");
+    __classPrivateFieldSet(this, _CustomEvent_detail, (_a8 = options === null || options === void 0 ? void 0 : options.detail) !== null && _a8 !== void 0 ? _a8 : null, "f");
   }
   get detail() {
     return __classPrivateFieldGet(this, _CustomEvent_detail, "f");
@@ -21668,14 +21670,6 @@ var import_url = require("url");
 
 // dist/src/platform/jsruntime/jinter.js
 var import_jintr = require("jintr");
-function evaluate(code, env) {
-  const runtime = new import_jintr.Jinter(code);
-  for (const [key, value] of Object.entries(env)) {
-    runtime.scope.set(key, value);
-  }
-  return runtime.interpret();
-}
-__name(evaluate, "evaluate");
 
 // dist/src/core/Actions.js
 var _Actions_instances;
@@ -21707,7 +21701,7 @@ var Actions = class {
     });
   }
   execute(endpoint, args) {
-    var _a7, _b2;
+    var _a8, _b2;
     return __awaiter(this, void 0, void 0, function* () {
       let data;
       if (args && !args.protobuf) {
@@ -21754,7 +21748,7 @@ var Actions = class {
       });
       if (args === null || args === void 0 ? void 0 : args.parse) {
         let parsed_response = parser_default.parseResponse(yield response.json());
-        if (__classPrivateFieldGet(this, _Actions_instances, "m", _Actions_isBrowse).call(this, parsed_response) && ((_b2 = (_a7 = parsed_response.on_response_received_actions) === null || _a7 === void 0 ? void 0 : _a7.first()) === null || _b2 === void 0 ? void 0 : _b2.type) === "navigateAction") {
+        if (__classPrivateFieldGet(this, _Actions_instances, "m", _Actions_isBrowse).call(this, parsed_response) && ((_b2 = (_a8 = parsed_response.on_response_received_actions) === null || _a8 === void 0 ? void 0 : _a8.first()) === null || _b2 === void 0 ? void 0 : _b2.type) === "navigateAction") {
           const navigate_action = parsed_response.on_response_received_actions.firstOfType(NavigateAction);
           if (navigate_action) {
             parsed_response = yield navigate_action.endpoint.call(this, { parse: true });
@@ -21792,183 +21786,29 @@ _Actions_session = /* @__PURE__ */ new WeakMap(), _Actions_instances = /* @__PUR
 }, "_Actions_needsLogin");
 var Actions_default = Actions;
 
-// dist/src/core/Player.js
-var _Player_nsig_sc;
-var _Player_sig_sc;
-var _Player_sig_sc_timestamp;
-var _Player_player_id;
-var Player = class {
-  constructor(signature_timestamp, sig_sc, nsig_sc, player_id) {
-    _Player_nsig_sc.set(this, void 0);
-    _Player_sig_sc.set(this, void 0);
-    _Player_sig_sc_timestamp.set(this, void 0);
-    _Player_player_id.set(this, void 0);
-    __classPrivateFieldSet(this, _Player_nsig_sc, nsig_sc, "f");
-    __classPrivateFieldSet(this, _Player_sig_sc, sig_sc, "f");
-    __classPrivateFieldSet(this, _Player_sig_sc_timestamp, signature_timestamp, "f");
-    __classPrivateFieldSet(this, _Player_player_id, player_id, "f");
+// dist/src/utils/Cache.js
+var _UniversalCache_cache;
+var UniversalCache = class {
+  constructor(persistent, persistent_directory) {
+    _UniversalCache_cache.set(this, void 0);
+    __classPrivateFieldSet(this, _UniversalCache_cache, new Platform.shim.Cache(persistent, persistent_directory), "f");
   }
-  static create(cache, fetch = Platform.shim.fetch) {
-    return __awaiter(this, void 0, void 0, function* () {
-      const url = new URL("/iframe_api", URLS.YT_BASE);
-      const res = yield fetch(url);
-      if (res.status !== 200)
-        throw new PlayerError("Failed to request player id");
-      const js = yield res.text();
-      const player_id = getStringBetweenStrings(js, "player\\/", "\\/");
-      if (!player_id)
-        throw new PlayerError("Failed to get player id");
-      if (cache) {
-        const cached_player = yield Player.fromCache(cache, player_id);
-        if (cached_player)
-          return cached_player;
-      }
-      const player_url = new URL(`/s/player/${player_id}/player_ias.vflset/en_US/base.js`, URLS.YT_BASE);
-      const player_res = yield fetch(player_url, {
-        headers: {
-          "user-agent": getRandomUserAgent("desktop")
-        }
-      });
-      if (!player_res.ok) {
-        throw new PlayerError(`Failed to get player data: ${player_res.status}`);
-      }
-      const player_js = yield player_res.text();
-      const sig_timestamp = this.extractSigTimestamp(player_js);
-      const sig_sc = this.extractSigSourceCode(player_js);
-      const nsig_sc = this.extractNSigSourceCode(player_js);
-      return yield Player.fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id);
-    });
+  get cache_dir() {
+    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").cache_dir;
   }
-  decipher(url, signature_cipher, cipher) {
-    url = url || signature_cipher || cipher;
-    if (!url)
-      throw new PlayerError("No valid URL to decipher");
-    const args = new URLSearchParams(url);
-    const url_components = new URL(args.get("url") || url);
-    if (signature_cipher || cipher) {
-      const signature = Platform.shim.eval(__classPrivateFieldGet(this, _Player_sig_sc, "f"), {
-        sig: args.get("s")
-      });
-      if (typeof signature !== "string")
-        throw new PlayerError("Failed to decipher signature");
-      const sp = args.get("sp");
-      sp ? url_components.searchParams.set(sp, signature) : url_components.searchParams.set("signature", signature);
-    }
-    const n = url_components.searchParams.get("n");
-    if (n) {
-      const nsig = Platform.shim.eval(__classPrivateFieldGet(this, _Player_nsig_sc, "f"), {
-        nsig: n
-      });
-      if (typeof nsig !== "string")
-        throw new PlayerError("Failed to decipher nsig");
-      if (nsig.startsWith("enhanced_except_")) {
-        console.warn('Warning:\nCould not transform nsig, download may be throttled.\nChanging the InnerTube client to "ANDROID" might help!');
-      }
-      url_components.searchParams.set("n", nsig);
-    }
-    const client = url_components.searchParams.get("c");
-    switch (client) {
-      case "WEB":
-        url_components.searchParams.set("cver", CLIENTS.WEB.VERSION);
-        break;
-      case "WEB_REMIX":
-        url_components.searchParams.set("cver", CLIENTS.YTMUSIC.VERSION);
-        break;
-      case "WEB_KIDS":
-        url_components.searchParams.set("cver", CLIENTS.WEB_KIDS.VERSION);
-        break;
-      case "ANDROID":
-        url_components.searchParams.set("cver", CLIENTS.ANDROID.VERSION);
-        break;
-      case "ANDROID_MUSIC":
-        url_components.searchParams.set("cver", CLIENTS.YTMUSIC_ANDROID.VERSION);
-        break;
-      case "TVHTML5_SIMPLY_EMBEDDED_PLAYER":
-        url_components.searchParams.set("cver", CLIENTS.TV_EMBEDDED.VERSION);
-        break;
-    }
-    return url_components.toString();
+  get(key) {
+    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").get(key);
   }
-  static fromCache(cache, player_id) {
-    return __awaiter(this, void 0, void 0, function* () {
-      const buffer = yield cache.get(player_id);
-      if (!buffer)
-        return null;
-      const view = new DataView(buffer);
-      const version2 = view.getUint32(0, true);
-      if (version2 !== Player.LIBRARY_VERSION)
-        return null;
-      const sig_timestamp = view.getUint32(4, true);
-      const sig_len = view.getUint32(8, true);
-      const sig_buf = buffer.slice(12, 12 + sig_len);
-      const nsig_buf = buffer.slice(12 + sig_len);
-      const decoder = new TextDecoder();
-      const sig_sc = decoder.decode(sig_buf);
-      const nsig_sc = decoder.decode(nsig_buf);
-      return new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
-    });
+  set(key, value) {
+    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").set(key, value);
   }
-  static fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id) {
-    return __awaiter(this, void 0, void 0, function* () {
-      const player = new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
-      yield player.cache(cache);
-      return player;
-    });
-  }
-  cache(cache) {
-    return __awaiter(this, void 0, void 0, function* () {
-      if (!cache)
-        return;
-      const encoder = new TextEncoder();
-      const sig_buf = encoder.encode(__classPrivateFieldGet(this, _Player_sig_sc, "f"));
-      const nsig_buf = encoder.encode(__classPrivateFieldGet(this, _Player_nsig_sc, "f"));
-      const buffer = new ArrayBuffer(12 + sig_buf.byteLength + nsig_buf.byteLength);
-      const view = new DataView(buffer);
-      view.setUint32(0, Player.LIBRARY_VERSION, true);
-      view.setUint32(4, __classPrivateFieldGet(this, _Player_sig_sc_timestamp, "f"), true);
-      view.setUint32(8, sig_buf.byteLength, true);
-      new Uint8Array(buffer).set(sig_buf, 12);
-      new Uint8Array(buffer).set(nsig_buf, 12 + sig_buf.byteLength);
-      yield cache.set(__classPrivateFieldGet(this, _Player_player_id, "f"), new Uint8Array(buffer));
-    });
-  }
-  static extractSigTimestamp(data) {
-    return parseInt(getStringBetweenStrings(data, "signatureTimestamp:", ",") || "0");
-  }
-  static extractSigSourceCode(data) {
-    var _a7, _b2, _c;
-    const calls = getStringBetweenStrings(data, 'function(a){a=a.split("")', 'return a.join("")}');
-    const obj_name = (_c = (_b2 = (_a7 = calls === null || calls === void 0 ? void 0 : calls.split(/\.|\[/)) === null || _a7 === void 0 ? void 0 : _a7[0]) === null || _b2 === void 0 ? void 0 : _b2.replace(";", "")) === null || _c === void 0 ? void 0 : _c.trim();
-    const functions = getStringBetweenStrings(data, `var ${obj_name}={`, "};");
-    if (!functions || !calls)
-      console.warn(new PlayerError("Failed to extract signature decipher algorithm"));
-    return `function descramble_sig(a) { a = a.split(""); let ${obj_name}={${functions}}${calls} return a.join("") } descramble_sig(sig);`;
-  }
-  static extractNSigSourceCode(data) {
-    const sc = `function descramble_nsig(a) { let b=a.split("")${getStringBetweenStrings(data, 'b=a.split("")', '}return b.join("")}')}} return b.join(""); } descramble_nsig(nsig)`;
-    if (!sc)
-      console.warn(new PlayerError("Failed to extract n-token decipher algorithm"));
-    return sc;
-  }
-  get url() {
-    return new URL(`/s/player/${__classPrivateFieldGet(this, _Player_player_id, "f")}/player_ias.vflset/en_US/base.js`, URLS.YT_BASE).toString();
-  }
-  get sts() {
-    return __classPrivateFieldGet(this, _Player_sig_sc_timestamp, "f");
-  }
-  get nsig_sc() {
-    return __classPrivateFieldGet(this, _Player_nsig_sc, "f");
-  }
-  get sig_sc() {
-    return __classPrivateFieldGet(this, _Player_sig_sc, "f");
-  }
-  static get LIBRARY_VERSION() {
-    return 2;
+  remove(key) {
+    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").remove(key);
   }
 };
-__name(Player, "Player");
-_Player_nsig_sc = /* @__PURE__ */ new WeakMap(), _Player_sig_sc = /* @__PURE__ */ new WeakMap(), _Player_sig_sc_timestamp = /* @__PURE__ */ new WeakMap(), _Player_player_id = /* @__PURE__ */ new WeakMap();
-var Player_default = Player;
+__name(UniversalCache, "UniversalCache");
+_UniversalCache_cache = /* @__PURE__ */ new WeakMap();
+var Cache_default = UniversalCache;
 
 // dist/src/utils/HTTPClient.js
 var _HTTPClient_instances;
@@ -22134,6 +21974,281 @@ _HTTPClient_session = /* @__PURE__ */ new WeakMap(), _HTTPClient_cookie = /* @__
 }, "_HTTPClient_adjustContext");
 var HTTPClient_default = HTTPClient;
 
+// dist/src/utils/Log.js
+var _a5;
+var Log = class {
+  static doLog(level, tag, args) {
+    if (!this.log_map_[level] || !this.log_level_.includes(level))
+      return;
+    const tags = [`[${this.YTJS_TAG}]`];
+    if (tag)
+      tags.push(`[${tag}]`);
+    this.log_map_[level](`${tags.join("")}:`, ...args || []);
+  }
+  static setLevel(...args) {
+    this.log_level_ = args;
+  }
+};
+__name(Log, "Log");
+_a5 = Log;
+Log.YTJS_TAG = "YOUTUBEJS";
+Log.Level = {
+  NONE: 0,
+  ERROR: 1,
+  WARNING: 2,
+  INFO: 3,
+  DEBUG: 4
+};
+Log.log_map_ = {
+  [Log.Level.ERROR]: (...args) => console.error(...args),
+  [Log.Level.WARNING]: (...args) => console.warn(...args),
+  [Log.Level.INFO]: (...args) => console.info(...args),
+  [Log.Level.DEBUG]: (...args) => console.debug(...args)
+};
+Log.log_level_ = [Log.Level.WARNING];
+Log.one_time_warnings_issued_ = /* @__PURE__ */ new Set();
+Log.warnOnce = (id, ...args) => {
+  if (_a5.one_time_warnings_issued_.has(id))
+    return;
+  _a5.doLog(Log.Level.WARNING, id, args);
+  _a5.one_time_warnings_issued_.add(id);
+};
+Log.warn = (tag, ...args) => _a5.doLog(Log.Level.WARNING, tag, args);
+Log.error = (tag, ...args) => _a5.doLog(Log.Level.ERROR, tag, args);
+Log.info = (tag, ...args) => _a5.doLog(Log.Level.INFO, tag, args);
+Log.debug = (tag, ...args) => _a5.doLog(Log.Level.DEBUG, tag, args);
+var Log_default = Log;
+
+// dist/src/utils/LZW.js
+var LZW_exports = {};
+__export(LZW_exports, {
+  compress: () => compress,
+  decompress: () => decompress
+});
+function compress(input) {
+  const output = [];
+  const dictionary = {};
+  for (let i = 0; i < 256; i++) {
+    dictionary[String.fromCharCode(i)] = i;
+  }
+  let current_string = "";
+  let dictionary_size = 256;
+  for (let i = 0; i < input.length; i++) {
+    const current_char = input[i];
+    const combined_string = current_string + current_char;
+    if (dictionary.hasOwnProperty(combined_string)) {
+      current_string = combined_string;
+    } else {
+      output.push(dictionary[current_string]);
+      dictionary[combined_string] = dictionary_size++;
+      current_string = current_char;
+    }
+  }
+  if (current_string !== "") {
+    output.push(dictionary[current_string]);
+  }
+  return output.map((code) => String.fromCharCode(code)).join("");
+}
+__name(compress, "compress");
+function decompress(input) {
+  const dictionary = {};
+  const input_data = input.split("");
+  const output = [input_data.shift()];
+  const input_length = input_data.length >>> 0;
+  let dictionary_code = 256;
+  let current_char = output[0];
+  let current_string = current_char;
+  for (let i = 0; i < input_length; ++i) {
+    const current_code = input_data[i].charCodeAt(0);
+    const entry = current_code < 256 ? input_data[i] : dictionary[current_code] ? dictionary[current_code] : current_string + current_char;
+    output.push(entry);
+    current_char = entry.charAt(0);
+    dictionary[dictionary_code++] = current_string + current_char;
+    current_string = entry;
+  }
+  return output.join("");
+}
+__name(decompress, "decompress");
+
+// dist/src/core/Player.js
+var TAG = "Player";
+var Player = class {
+  constructor(signature_timestamp, sig_sc, nsig_sc, player_id) {
+    this.nsig_sc = nsig_sc;
+    this.sig_sc = sig_sc;
+    this.sts = signature_timestamp;
+    this.player_id = player_id;
+  }
+  static create(cache, fetch = Platform.shim.fetch) {
+    return __awaiter(this, void 0, void 0, function* () {
+      const url = new URL("/iframe_api", Constants_exports.URLS.YT_BASE);
+      const res = yield fetch(url);
+      if (res.status !== 200)
+        throw new PlayerError("Failed to request player id");
+      const js = yield res.text();
+      const player_id = getStringBetweenStrings(js, "player\\/", "\\/");
+      Log_default.info(TAG, `Got player id (${player_id}). Checking for cached players..`);
+      if (!player_id)
+        throw new PlayerError("Failed to get player id");
+      if (cache) {
+        const cached_player = yield Player.fromCache(cache, player_id);
+        if (cached_player) {
+          Log_default.info(TAG, "Found up-to-date player data in cache.");
+          return cached_player;
+        }
+      }
+      const player_url = new URL(`/s/player/${player_id}/player_ias.vflset/en_US/base.js`, Constants_exports.URLS.YT_BASE);
+      Log_default.info(TAG, `Could not find any cached player. Will download a new player from ${player_url}.`);
+      const player_res = yield fetch(player_url, {
+        headers: {
+          "user-agent": getRandomUserAgent("desktop")
+        }
+      });
+      if (!player_res.ok) {
+        throw new PlayerError(`Failed to get player data: ${player_res.status}`);
+      }
+      const player_js = yield player_res.text();
+      const sig_timestamp = this.extractSigTimestamp(player_js);
+      const sig_sc = this.extractSigSourceCode(player_js);
+      const nsig_sc = this.extractNSigSourceCode(player_js);
+      Log_default.info(TAG, `Got signature timestamp (${sig_timestamp}) and algorithms needed to decipher signatures.`);
+      return yield Player.fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id);
+    });
+  }
+  decipher(url, signature_cipher, cipher, this_response_nsig_cache) {
+    url = url || signature_cipher || cipher;
+    if (!url)
+      throw new PlayerError("No valid URL to decipher");
+    const args = new URLSearchParams(url);
+    const url_components = new URL(args.get("url") || url);
+    if (signature_cipher || cipher) {
+      const signature = Platform.shim.eval(this.sig_sc, {
+        sig: args.get("s")
+      });
+      Log_default.info(TAG, `Transformed signature from ${args.get("s")} to ${signature}.`);
+      if (typeof signature !== "string")
+        throw new PlayerError("Failed to decipher signature");
+      const sp = args.get("sp");
+      sp ? url_components.searchParams.set(sp, signature) : url_components.searchParams.set("signature", signature);
+    }
+    const n = url_components.searchParams.get("n");
+    if (n) {
+      let nsig;
+      if (this_response_nsig_cache && this_response_nsig_cache.has(n)) {
+        nsig = this_response_nsig_cache.get(n);
+      } else {
+        nsig = Platform.shim.eval(this.nsig_sc, {
+          nsig: n
+        });
+        Log_default.info(TAG, `Transformed n signature from ${n} to ${nsig}.`);
+        if (typeof nsig !== "string")
+          throw new PlayerError("Failed to decipher nsig");
+        if (nsig.startsWith("enhanced_except_")) {
+          Log_default.warn(TAG, "Could not transform nsig, download may be throttled.");
+        } else if (this_response_nsig_cache) {
+          this_response_nsig_cache.set(n, nsig);
+        }
+      }
+      url_components.searchParams.set("n", nsig);
+    }
+    const client = url_components.searchParams.get("c");
+    switch (client) {
+      case "WEB":
+        url_components.searchParams.set("cver", Constants_exports.CLIENTS.WEB.VERSION);
+        break;
+      case "WEB_REMIX":
+        url_components.searchParams.set("cver", Constants_exports.CLIENTS.YTMUSIC.VERSION);
+        break;
+      case "WEB_KIDS":
+        url_components.searchParams.set("cver", Constants_exports.CLIENTS.WEB_KIDS.VERSION);
+        break;
+      case "ANDROID":
+        url_components.searchParams.set("cver", Constants_exports.CLIENTS.ANDROID.VERSION);
+        break;
+      case "ANDROID_MUSIC":
+        url_components.searchParams.set("cver", Constants_exports.CLIENTS.YTMUSIC_ANDROID.VERSION);
+        break;
+      case "TVHTML5_SIMPLY_EMBEDDED_PLAYER":
+        url_components.searchParams.set("cver", Constants_exports.CLIENTS.TV_EMBEDDED.VERSION);
+        break;
+    }
+    const result = url_components.toString();
+    Log_default.info(TAG, `Deciphered URL: ${result}`);
+    return url_components.toString();
+  }
+  static fromCache(cache, player_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      const buffer = yield cache.get(player_id);
+      if (!buffer)
+        return null;
+      const view = new DataView(buffer);
+      const version2 = view.getUint32(0, true);
+      if (version2 !== Player.LIBRARY_VERSION)
+        return null;
+      const sig_timestamp = view.getUint32(4, true);
+      const sig_len = view.getUint32(8, true);
+      const sig_buf = buffer.slice(12, 12 + sig_len);
+      const nsig_buf = buffer.slice(12 + sig_len);
+      const sig_sc = LZW_exports.decompress(new TextDecoder().decode(sig_buf));
+      const nsig_sc = LZW_exports.decompress(new TextDecoder().decode(nsig_buf));
+      return new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
+    });
+  }
+  static fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id) {
+    return __awaiter(this, void 0, void 0, function* () {
+      const player = new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
+      yield player.cache(cache);
+      return player;
+    });
+  }
+  cache(cache) {
+    return __awaiter(this, void 0, void 0, function* () {
+      if (!cache)
+        return;
+      const encoder = new TextEncoder();
+      const sig_buf = encoder.encode(LZW_exports.compress(this.sig_sc));
+      const nsig_buf = encoder.encode(LZW_exports.compress(this.nsig_sc));
+      const buffer = new ArrayBuffer(12 + sig_buf.byteLength + nsig_buf.byteLength);
+      const view = new DataView(buffer);
+      view.setUint32(0, Player.LIBRARY_VERSION, true);
+      view.setUint32(4, this.sts, true);
+      view.setUint32(8, sig_buf.byteLength, true);
+      new Uint8Array(buffer).set(sig_buf, 12);
+      new Uint8Array(buffer).set(nsig_buf, 12 + sig_buf.byteLength);
+      yield cache.set(this.player_id, new Uint8Array(buffer));
+    });
+  }
+  static extractSigTimestamp(data) {
+    return parseInt(getStringBetweenStrings(data, "signatureTimestamp:", ",") || "0");
+  }
+  static extractSigSourceCode(data) {
+    var _a8, _b2, _c;
+    const calls = getStringBetweenStrings(data, 'function(a){a=a.split("")', 'return a.join("")}');
+    const obj_name = (_c = (_b2 = (_a8 = calls === null || calls === void 0 ? void 0 : calls.split(/\.|\[/)) === null || _a8 === void 0 ? void 0 : _a8[0]) === null || _b2 === void 0 ? void 0 : _b2.replace(";", "")) === null || _c === void 0 ? void 0 : _c.trim();
+    const functions = getStringBetweenStrings(data, `var ${obj_name}={`, "};");
+    if (!functions || !calls)
+      Log_default.warn(TAG, "Failed to extract signature decipher algorithm.");
+    return `function descramble_sig(a) { a = a.split(""); let ${obj_name}={${functions}}${calls} return a.join("") } descramble_sig(sig);`;
+  }
+  static extractNSigSourceCode(data) {
+    let sc = getStringBetweenStrings(data, 'b=a.split("")', '}return b.join("")}');
+    if (sc)
+      return `function descramble_nsig(a) { let b=a.split("")${sc}} return b.join(""); } descramble_nsig(nsig)`;
+    sc = getStringBetweenStrings(data, 'b=String.prototype.split.call(a,"")', '}return Array.prototype.join.call(b,"")}');
+    if (sc)
+      return `function descramble_nsig(a) { let b=String.prototype.split.call(a, "")${sc}} return Array.prototype.join.call(b, ""); } descramble_nsig(nsig)`;
+    Log_default.warn(TAG, "Failed to extract n-token decipher algorithm");
+    return "function descramble_nsig(a) { return a; } descramble_nsig(nsig)";
+  }
+  get url() {
+    return new URL(`/s/player/${this.player_id}/player_ias.vflset/en_US/base.js`, Constants_exports.URLS.YT_BASE).toString();
+  }
+  static get LIBRARY_VERSION() {
+    return 10;
+  }
+};
+__name(Player, "Player");
+
 // dist/src/core/OAuth.js
 var _OAuth_instances;
 var _OAuth_identity;
@@ -22169,17 +22284,17 @@ var OAuth = class {
     });
   }
   cacheCredentials() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       const encoder = new TextEncoder();
       const data = encoder.encode(JSON.stringify(__classPrivateFieldGet(this, _OAuth_credentials, "f")));
-      yield (_a7 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a7 === void 0 ? void 0 : _a7.set("youtubei_oauth_credentials", data.buffer);
+      yield (_a8 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a8 === void 0 ? void 0 : _a8.set("youtubei_oauth_credentials", data.buffer);
     });
   }
   removeCache() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
-      yield (_a7 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a7 === void 0 ? void 0 : _a7.remove("youtubei_oauth_credentials");
+      yield (_a8 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a8 === void 0 ? void 0 : _a8.remove("youtubei_oauth_credentials");
     });
   }
   refreshIfRequired() {
@@ -22212,9 +22327,9 @@ var OAuth = class {
 };
 __name(OAuth, "OAuth");
 _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ */ new WeakMap(), _OAuth_credentials = /* @__PURE__ */ new WeakMap(), _OAuth_polling_interval = /* @__PURE__ */ new WeakMap(), _OAuth_instances = /* @__PURE__ */ new WeakSet(), _OAuth_loadCachedCredentials = /* @__PURE__ */ __name(function _OAuth_loadCachedCredentials2() {
-  var _a7;
+  var _a8;
   return __awaiter(this, void 0, void 0, function* () {
-    const data = yield (_a7 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a7 === void 0 ? void 0 : _a7.get("youtubei_oauth_credentials");
+    const data = yield (_a8 = __classPrivateFieldGet(this, _OAuth_session, "f").cache) === null || _a8 === void 0 ? void 0 : _a8.get("youtubei_oauth_credentials");
     if (!data)
       return false;
     const decoder = new TextDecoder();
@@ -22320,11 +22435,11 @@ _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ *
     });
   });
 }, "_OAuth_refreshAccessToken"), _OAuth_getClientIdentity = /* @__PURE__ */ __name(function _OAuth_getClientIdentity2() {
-  var _a7;
+  var _a8;
   return __awaiter(this, void 0, void 0, function* () {
     const response = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch_function(new URL("/tv", URLS.YT_BASE), { headers: OAUTH.HEADERS });
     const response_data = yield response.text();
-    const url_body = (_a7 = OAUTH.REGEX.AUTH_SCRIPT.exec(response_data)) === null || _a7 === void 0 ? void 0 : _a7[1];
+    const url_body = (_a8 = OAUTH.REGEX.AUTH_SCRIPT.exec(response_data)) === null || _a8 === void 0 ? void 0 : _a8[1];
     if (!url_body)
       throw new OAuthError("Could not obtain script url.", { status: "FAILED" });
     const script = yield __classPrivateFieldGet(this, _OAuth_session, "f").http.fetch(url_body, { baseURL: URLS.YT_BASE });
@@ -22338,7 +22453,7 @@ _OAuth_identity = /* @__PURE__ */ new WeakMap(), _OAuth_session = /* @__PURE__ *
 var OAuth_default = OAuth;
 
 // dist/src/core/Session.js
-var _a5;
+var _a6;
 var _Session_api_version;
 var _Session_key;
 var _Session_context;
@@ -22384,16 +22499,16 @@ var Session = class extends EventEmitterLike_default {
   static create(options = {}) {
     return __awaiter(this, void 0, void 0, function* () {
       const { context, api_key, api_version, account_index } = yield Session.getSessionData(options.lang, options.location, options.account_index, options.visitor_data, options.enable_safety_mode, options.generate_session_locally, options.device_category, options.client_type, options.timezone, options.fetch);
-      return new Session(context, api_key, api_version, account_index, options.retrieve_player === false ? void 0 : yield Player_default.create(options.cache, options.fetch), options.cookie, options.fetch, options.cache);
+      return new Session(context, api_key, api_version, account_index, options.retrieve_player === false ? void 0 : yield Player.create(options.cache, options.fetch), options.cookie, options.fetch, options.cache);
     });
   }
   static getSessionData(lang = "", location = "", account_index = 0, visitor_data = "", enable_safety_mode = false, generate_session_locally = false, device_category = "desktop", client_name = ClientType.WEB, tz = Intl.DateTimeFormat().resolvedOptions().timeZone, fetch = Platform.shim.fetch) {
     return __awaiter(this, void 0, void 0, function* () {
       let session_data;
       if (generate_session_locally) {
-        session_data = __classPrivateFieldGet(this, _a5, "m", _Session_generateSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data });
+        session_data = __classPrivateFieldGet(this, _a6, "m", _Session_generateSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data });
       } else {
-        session_data = yield __classPrivateFieldGet(this, _a5, "m", _Session_retrieveSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data }, fetch);
+        session_data = yield __classPrivateFieldGet(this, _a6, "m", _Session_retrieveSessionData).call(this, { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data }, fetch);
       }
       return Object.assign(Object.assign({}, session_data), { account_index });
     });
@@ -22459,7 +22574,7 @@ var Session = class extends EventEmitterLike_default {
   }
 };
 __name(Session, "Session");
-_a5 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_key = /* @__PURE__ */ new WeakMap(), _Session_context = /* @__PURE__ */ new WeakMap(), _Session_account_index = /* @__PURE__ */ new WeakMap(), _Session_player = /* @__PURE__ */ new WeakMap(), _Session_retrieveSessionData = /* @__PURE__ */ __name(function _Session_retrieveSessionData2(options, fetch = Platform.shim.fetch) {
+_a6 = Session, _Session_api_version = /* @__PURE__ */ new WeakMap(), _Session_key = /* @__PURE__ */ new WeakMap(), _Session_context = /* @__PURE__ */ new WeakMap(), _Session_account_index = /* @__PURE__ */ new WeakMap(), _Session_player = /* @__PURE__ */ new WeakMap(), _Session_retrieveSessionData = /* @__PURE__ */ __name(function _Session_retrieveSessionData2(options, fetch = Platform.shim.fetch) {
   return __awaiter(this, void 0, void 0, function* () {
     const url = new URL("/sw.js_data", URLS.YT_BASE);
     let visitor_id = generateRandomString(11);
@@ -23039,10 +23154,10 @@ var Kids = class {
     });
   }
   getInfo(video_id) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       const player_payload = PlayerEndpoint_exports.build({
-        sts: (_a7 = __classPrivateFieldGet(this, _Kids_session, "f").player) === null || _a7 === void 0 ? void 0 : _a7.sts,
+        sts: (_a8 = __classPrivateFieldGet(this, _Kids_session, "f").player) === null || _a8 === void 0 ? void 0 : _a8.sts,
         client: "YTKIDS",
         video_id
       });
@@ -23178,11 +23293,11 @@ var Music = class {
     });
   }
   getUpNext(video_id, automix = true) {
-    var _a7, _b2, _c;
+    var _a8, _b2, _c;
     return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
       const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(NextEndpoint_exports.PATH, Object.assign(Object.assign({}, NextEndpoint_exports.build({ video_id, client: "YTMUSIC" })), { parse: true }));
-      const tabs = (_a7 = response.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default);
+      const tabs = (_a8 = response.contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(Tab_default);
       const tab = tabs === null || tabs === void 0 ? void 0 : tabs.first();
       if (!tab)
         throw new InnertubeError("Could not find target tab.");
@@ -23207,14 +23322,14 @@ var Music = class {
     });
   }
   getRelated(video_id) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
       const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(NextEndpoint_exports.PATH, Object.assign(Object.assign({}, NextEndpoint_exports.build({ video_id, client: "YTMUSIC" })), { parse: true }));
-      const tabs = (_a7 = response.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default);
+      const tabs = (_a8 = response.contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(Tab_default);
       const tab = tabs === null || tabs === void 0 ? void 0 : tabs.matchCondition((tab2) => {
-        var _a8, _b2;
-        return ((_b2 = (_a8 = tab2.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a8 === void 0 ? void 0 : _a8.browseEndpointContextMusicConfig) === null || _b2 === void 0 ? void 0 : _b2.pageType) === "MUSIC_PAGE_TYPE_TRACK_RELATED";
+        var _a9, _b2;
+        return ((_b2 = (_a9 = tab2.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a9 === void 0 ? void 0 : _a9.browseEndpointContextMusicConfig) === null || _b2 === void 0 ? void 0 : _b2.pageType) === "MUSIC_PAGE_TYPE_TRACK_RELATED";
       });
       if (!tab)
         throw new InnertubeError("Could not find target tab.");
@@ -23226,14 +23341,14 @@ var Music = class {
     });
   }
   getLyrics(video_id) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
       const response = yield __classPrivateFieldGet(this, _Music_actions, "f").execute(NextEndpoint_exports.PATH, Object.assign(Object.assign({}, NextEndpoint_exports.build({ video_id, client: "YTMUSIC" })), { parse: true }));
-      const tabs = (_a7 = response.contents_memo) === null || _a7 === void 0 ? void 0 : _a7.getType(Tab_default);
+      const tabs = (_a8 = response.contents_memo) === null || _a8 === void 0 ? void 0 : _a8.getType(Tab_default);
       const tab = tabs === null || tabs === void 0 ? void 0 : tabs.matchCondition((tab2) => {
-        var _a8, _b2;
-        return ((_b2 = (_a8 = tab2.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a8 === void 0 ? void 0 : _a8.browseEndpointContextMusicConfig) === null || _b2 === void 0 ? void 0 : _b2.pageType) === "MUSIC_PAGE_TYPE_TRACK_LYRICS";
+        var _a9, _b2;
+        return ((_b2 = (_a9 = tab2.endpoint.payload.browseEndpointContextSupportedConfigs) === null || _a9 === void 0 ? void 0 : _a9.browseEndpointContextMusicConfig) === null || _b2 === void 0 ? void 0 : _b2.pageType) === "MUSIC_PAGE_TYPE_TRACK_LYRICS";
       });
       if (!tab)
         throw new InnertubeError("Could not find target tab.");
@@ -23267,11 +23382,11 @@ var Music = class {
 };
 __name(Music, "Music");
 _Music_session = /* @__PURE__ */ new WeakMap(), _Music_actions = /* @__PURE__ */ new WeakMap(), _Music_instances = /* @__PURE__ */ new WeakSet(), _Music_fetchInfoFromVideoId = /* @__PURE__ */ __name(function _Music_fetchInfoFromVideoId2(video_id) {
-  var _a7;
+  var _a8;
   return __awaiter(this, void 0, void 0, function* () {
     const player_payload = PlayerEndpoint_exports.build({
       video_id,
-      sts: (_a7 = __classPrivateFieldGet(this, _Music_session, "f").player) === null || _a7 === void 0 ? void 0 : _a7.sts,
+      sts: (_a8 = __classPrivateFieldGet(this, _Music_session, "f").player) === null || _a8 === void 0 ? void 0 : _a8.sts,
       client: "YTMUSIC"
     });
     const next_payload = NextEndpoint_exports.build({
@@ -23285,7 +23400,7 @@ _Music_session = /* @__PURE__ */ new WeakMap(), _Music_actions = /* @__PURE__ */
     return new TrackInfo_default(response, __classPrivateFieldGet(this, _Music_actions, "f"), cpn);
   });
 }, "_Music_fetchInfoFromVideoId"), _Music_fetchInfoFromListItem = /* @__PURE__ */ __name(function _Music_fetchInfoFromListItem2(list_item) {
-  var _a7;
+  var _a8;
   return __awaiter(this, void 0, void 0, function* () {
     if (!list_item)
       throw new InnertubeError("List item cannot be undefined");
@@ -23295,7 +23410,7 @@ _Music_session = /* @__PURE__ */ new WeakMap(), _Music_actions = /* @__PURE__ */
       client: "YTMUSIC",
       playbackContext: {
         contentPlaybackContext: Object.assign({
-          signatureTimestamp: (_a7 = __classPrivateFieldGet(this, _Music_session, "f").player) === null || _a7 === void 0 ? void 0 : _a7.sts
+          signatureTimestamp: (_a8 = __classPrivateFieldGet(this, _Music_session, "f").player) === null || _a8 === void 0 ? void 0 : _a8.sts
         })
       }
     });
@@ -23500,12 +23615,12 @@ var AccountManager = class {
     });
   }
   getAnalytics() {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       const info = yield this.getInfo();
       const response = yield __classPrivateFieldGet(this, _AccountManager_actions, "f").execute(BrowseEndpoint_exports.PATH, BrowseEndpoint_exports.build({
         browse_id: "FEanalytics_screen",
-        params: proto_default.encodeChannelAnalyticsParams((_a7 = info.footers) === null || _a7 === void 0 ? void 0 : _a7.endpoint.payload.browseId),
+        params: proto_default.encodeChannelAnalyticsParams((_a8 = info.footers) === null || _a8 === void 0 ? void 0 : _a8.endpoint.payload.browseId),
         client: "ANDROID"
       }));
       return new Analytics_default(response);
@@ -23780,13 +23895,13 @@ var Innertube = class {
     });
   }
   getInfo(target, client) {
-    var _a7, _b2, _c, _d, _e;
+    var _a8, _b2, _c, _d, _e;
     return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ target });
       let next_payload;
       if (target instanceof NavigationEndpoint_default) {
         next_payload = NextEndpoint_exports.build({
-          video_id: (_a7 = target.payload) === null || _a7 === void 0 ? void 0 : _a7.videoId,
+          video_id: (_a8 = target.payload) === null || _a8 === void 0 ? void 0 : _a8.videoId,
           playlist_id: (_b2 = target.payload) === null || _b2 === void 0 ? void 0 : _b2.playlistId,
           params: (_c = target.payload) === null || _c === void 0 ? void 0 : _c.params,
           playlist_index: (_d = target.payload) === null || _d === void 0 ? void 0 : _d.index
@@ -23814,13 +23929,13 @@ var Innertube = class {
     });
   }
   getBasicInfo(video_id, client) {
-    var _a7;
+    var _a8;
     return __awaiter(this, void 0, void 0, function* () {
       throwIfMissing({ video_id });
       const response = yield this.actions.execute(PlayerEndpoint_exports.PATH, PlayerEndpoint_exports.build({
         video_id,
         client,
-        sts: (_a7 = __classPrivateFieldGet(this, _Innertube_session, "f").player) === null || _a7 === void 0 ? void 0 : _a7.sts
+        sts: (_a8 = __classPrivateFieldGet(this, _Innertube_session, "f").player) === null || _a8 === void 0 ? void 0 : _a8.sts
       }));
       const cpn = generateRandomString(16);
       return new VideoInfo_default([response], this.actions, cpn);
@@ -23917,10 +24032,10 @@ var Innertube = class {
     });
   }
   getUnseenNotificationsCount() {
-    var _a7, _b2, _c, _d;
+    var _a8, _b2, _c, _d;
     return __awaiter(this, void 0, void 0, function* () {
       const response = yield this.actions.execute(GetUnseenCountEndpoint_exports.PATH);
-      return ((_a7 = response.data) === null || _a7 === void 0 ? void 0 : _a7.unseenCount) || ((_d = (_c = (_b2 = response.data) === null || _b2 === void 0 ? void 0 : _b2.actions) === null || _c === void 0 ? void 0 : _c[0].updateNotificationsUnseenCountAction) === null || _d === void 0 ? void 0 : _d.unseenCount) || 0;
+      return ((_a8 = response.data) === null || _a8 === void 0 ? void 0 : _a8.unseenCount) || ((_d = (_c = (_b2 = response.data) === null || _b2 === void 0 ? void 0 : _b2.actions) === null || _c === void 0 ? void 0 : _c[0].updateNotificationsUnseenCountAction) === null || _d === void 0 ? void 0 : _d.unseenCount) || 0;
     });
   }
   getPlaylist(id) {
@@ -23996,36 +24111,26 @@ var Innertube_default = Innertube;
 // dist/src/types/index.js
 var types_exports = {};
 
-// dist/src/utils/Cache.js
-var _UniversalCache_cache;
-var UniversalCache = class {
-  constructor(persistent, persistent_directory) {
-    _UniversalCache_cache.set(this, void 0);
-    __classPrivateFieldSet(this, _UniversalCache_cache, new Platform.shim.Cache(persistent, persistent_directory), "f");
-  }
-  get cache_dir() {
-    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").cache_dir;
-  }
-  get(key) {
-    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").get(key);
-  }
-  set(key, value) {
-    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").set(key, value);
-  }
-  remove(key) {
-    return __classPrivateFieldGet(this, _UniversalCache_cache, "f").remove(key);
-  }
-};
-__name(UniversalCache, "UniversalCache");
-_UniversalCache_cache = /* @__PURE__ */ new WeakMap();
-var Cache_default = UniversalCache;
-
 // dist/src/platform/lib.js
 var lib_default = Innertube_default;
 
+// dist/src/platform/jsruntime/jinter.js
+var TAG2 = "JsRuntime";
+function evaluate(code, env) {
+  Log_default.debug(TAG2, "Evaluating JavaScript:\n", code);
+  const runtime = new import_jintr.Jinter();
+  for (const [key, value] of Object.entries(env)) {
+    runtime.scope.set(key, value);
+  }
+  const result = runtime.evaluate(code);
+  Log_default.debug(TAG2, "Done. Result:", result);
+  return result;
+}
+__name(evaluate, "evaluate");
+
 // dist/src/platform/node.js
 var import_meta = {};
-var _a6;
+var _a7;
 var _b;
 var _Cache_instances;
 var _Cache_persistent_directory;
@@ -24041,7 +24146,7 @@ var meta_url = import_meta.url;
 var is_cjs = !meta_url;
 var __dirname__ = is_cjs ? __dirname : import_path.default.dirname((0, import_url.fileURLToPath)(meta_url));
 var package_json = JSON.parse((0, import_fs.readFileSync)(import_path.default.resolve(__dirname__, is_cjs ? "../package.json" : "../../package.json"), "utf-8"));
-var repo_url = (_a6 = package_json.homepage) === null || _a6 === void 0 ? void 0 : _a6.split("#")[0];
+var repo_url = (_a7 = package_json.homepage) === null || _a7 === void 0 ? void 0 : _a7.split("#")[0];
 var Cache = class {
   constructor(persistent = false, persistent_directory) {
     _Cache_instances.add(this);
@@ -24161,7 +24266,9 @@ var node_default = lib_default;
   Helpers,
   Innertube,
   ItemSectionContinuation,
+  LZW,
   LiveChatContinuation,
+  Log,
   Managers,
   Misc,
   Mixins,

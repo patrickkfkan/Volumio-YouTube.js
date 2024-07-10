@@ -84,7 +84,7 @@
   "license": "MIT",
   "dependencies": {
     "event-target-polyfill": "0.0.3",
-    "jintr": "^1.0.0",
+    "jintr": "^2.0.0",
     "linkedom": "^0.14.12",
     "node-fetch": "^2.6.7",
     "tslib": "^2.5.0",
