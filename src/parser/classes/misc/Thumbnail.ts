@@ -15,7 +15,10 @@ export default class Thumbnail {
    * Get thumbnails from response object.
    */
   static fromResponse(data: any): Thumbnail[] {
-    if (!data || !data.thumbnails) return [];
-    return data.thumbnails.map((x: any) => new Thumbnail(x)).sort((a: Thumbnail, b: Thumbnail) => b.width - a.width);
+    /*** Volumio-YouTube.js ***/
+    if (!data || (!data.thumbnails && !data.sources)) return [];
+    //if (!data || !data.thumbnails) return [];
+    return (data.thumbnails || data.sources).map((x: any) => new Thumbnail(x)).sort((a: Thumbnail, b: Thumbnail) => b.width - a.width);
+    //return data.thumbnails.map((x: any) => new Thumbnail(x)).sort((a: Thumbnail, b: Thumbnail) => b.width - a.width);
   }
 }

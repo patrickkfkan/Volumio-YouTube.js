@@ -8,9 +8,12 @@ export default class Thumbnail {
      * Get thumbnails from response object.
      */
     static fromResponse(data) {
-        if (!data || !data.thumbnails)
+        /*** Volumio-YouTube.js ***/
+        if (!data || (!data.thumbnails && !data.sources))
             return [];
-        return data.thumbnails.map((x) => new Thumbnail(x)).sort((a, b) => b.width - a.width);
+        //if (!data || !data.thumbnails) return [];
+        return (data.thumbnails || data.sources).map((x) => new Thumbnail(x)).sort((a, b) => b.width - a.width);
+        //return data.thumbnails.map((x: any) => new Thumbnail(x)).sort((a: Thumbnail, b: Thumbnail) => b.width - a.width);
     }
 }
 //# sourceMappingURL=Thumbnail.js.map

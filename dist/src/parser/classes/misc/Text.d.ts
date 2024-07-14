@@ -13,6 +13,7 @@ export default class Text {
     runs?: (EmojiRun | TextRun)[];
     endpoint?: NavigationEndpoint;
     constructor(data: RawNode);
+    static fromAttributed(data: AttributedText): Text;
     /**
      * Converts the text to HTML.
      * @returns The HTML.
@@ -29,3 +30,44 @@ export default class Text {
      */
     toString(): string;
 }
+export interface AttributedText {
+    content: string;
+    styleRuns?: StyleRun[];
+    commandRuns?: CommandRun[];
+    attachmentRuns?: AttachmentRun[];
+    decorationRuns?: ResponseRun[];
+}
+interface ResponseRun {
+    startIndex: number;
+    length: number;
+}
+interface StyleRun extends ResponseRun {
+    italic?: boolean;
+    weightLabel?: string;
+    strikethrough?: string;
+    fontFamilyName?: string;
+    styleRunExtensions?: {
+        styleRunColorMapExtension?: {
+            colorMap?: {
+                key: string;
+                value: number;
+            }[];
+        };
+    };
+}
+interface CommandRun extends ResponseRun {
+    onTap?: RawNode;
+}
+interface AttachmentRun extends ResponseRun {
+    alignment?: string;
+    element?: {
+        type?: {
+            imageType?: {
+                image: RawNode;
+                playbackState?: string;
+            };
+        };
+        properties?: RawNode;
+    };
+}
+export {};

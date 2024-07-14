@@ -18,7 +18,7 @@ export default class NavigationEndpoint extends YTNode {
     /**
      * Sometimes InnerTube does not return an API url, in that case the library should set it based on the name of the payload object.
      */
-    getEndpoint(name: string): "/player" | "/search" | "/browse" | "/next" | "live_chat/get_item_context_menu" | undefined;
+    getEndpoint(name: string): "/browse" | "/player" | "/search" | "/next" | "live_chat/get_item_context_menu" | undefined;
     call<T extends IParsedResponse>(actions: Actions, args: {
         [key: string]: any;
         parse: true;
