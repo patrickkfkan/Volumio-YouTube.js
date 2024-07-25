@@ -1,6 +1,6 @@
 {
   "name": "volumio-youtubei.js",
-  "version": "0.3.7",
+  "version": "0.3.8",
   "description": "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   "type": "module",
   "types": "./dist/src/platform/lib.d.ts",

@@ -17,6 +17,9 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 ## Changelog:
 
+0.3.8
+- Backport from [fix(Player): Fix extracting the n-token decipher algorithm](https://github.com/LuanRT/YouTube.js/pull/698)
+
 0.3.7
 - Backport `PageHeader` and related parser classes
 
