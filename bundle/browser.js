@@ -14741,7 +14741,7 @@ __name(sha1Hash, "sha1Hash");
 // dist/package.json
 var package_default = {
   name: "volumio-youtubei.js",
-  version: "0.3.7",
+  version: "0.3.8",
   description: "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   type: "module",
   types: "./dist/src/platform/lib.d.ts",
@@ -21020,9 +21020,9 @@ var Player = class {
     return `function descramble_sig(a) { a = a.split(""); let ${obj_name}={${functions}}${calls} return a.join("") } descramble_sig(sig);`;
   }
   static extractNSigSourceCode(data2) {
-    let sc = getStringBetweenStrings(data2, 'b=a.split("")', '}return b.join("")}');
+    let sc = getStringBetweenStrings(data2, 'b=String.prototype.split.call(a,"")', '}return b.join("")}');
     if (sc)
-      return `function descramble_nsig(a) { let b=a.split("")${sc}} return b.join(""); } descramble_nsig(nsig)`;
+      return `function descramble_nsig(a) { let b=String.prototype.split.call(a,"")${sc}} return b.join(""); } descramble_nsig(nsig)`;
     sc = getStringBetweenStrings(data2, 'b=String.prototype.split.call(a,"")', '}return Array.prototype.join.call(b,"")}');
     if (sc)
       return `function descramble_nsig(a) { let b=String.prototype.split.call(a, "")${sc}} return Array.prototype.join.call(b, ""); } descramble_nsig(nsig)`;
