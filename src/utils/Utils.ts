@@ -4,6 +4,7 @@ import { Text } from '../parser/misc.js';
 import type { FetchFunction } from '../types/PlatformShim.js';
 import type PlatformShim from '../types/PlatformShim.js';
 import userAgents from './user-agents.js';
+import { Jinter } from 'jintr';
 
 export class Platform {
   static #shim: PlatformShim | undefined;
@@ -228,4 +229,85 @@ export function base64ToU8(base64: string): Uint8Array {
 
 export function isTextRun(run: TextRun | EmojiRun): run is TextRun {
   return !('emoji' in run);
+}
+
+
+export type FindFunctionArgs = {
+  /**
+   * The name of the function.
+   */
+  name?: string;
+
+  /**
+   * A string that must be included in the function's code for it to be considered.
+   */
+  includes?: string;
+
+  /**
+   * A regular expression that the function's code must match.
+   */
+  regexp?: RegExp;
+};
+
+export type FindFunctionResult = {
+  start: number;
+  end: number;
+  name: string;
+  node: Record<string, any>;
+  result: string;
+};
+
+/**
+ * Finds a function in a source string based on the provided search criteria.
+ *
+ * @example
+ * ```ts
+ * const source = '(function() {var foo, bar; foo = function() { console.log("foo"); }; bar = function() { console.log("bar"); }; })();';
+ * const result = findFunction(source, { name: 'bar' });
+ * console.log(result);
+ * // Output: { start: 69, end: 110, name: 'bar', node: { ... }, result: 'bar = function() { console.log("bar"); };' }
+ * ```
+ */
+export function findFunction(source: string, args: FindFunctionArgs): FindFunctionResult | undefined {
+  const { name, includes, regexp } = args;
+
+  const node = Jinter.parseScript(source);
+  const stack = [ node ];
+
+  for (let i = 0; i < stack.length; i++) {
+    const current = stack[i];
+
+    if (
+      current.type === 'ExpressionStatement' && (
+        current.expression.type === 'AssignmentExpression' &&
+        current.expression.left.type === 'Identifier' &&
+        current.expression.right.type === 'FunctionExpression'
+      )
+    ) {
+      const code = source.substring(current.start, current.end);
+
+      if (
+        (name && current.expression.left.name === name) ||
+        (includes && code.indexOf(includes) > -1) ||
+        (regexp && regexp.test(code))
+      ) {
+        return {
+          start: current.start,
+          end: current.end,
+          name: current.expression.left.name,
+          node: current,
+          result: code
+        };
+      }
+    }
+
+    for (const key in current) {
+      const child = current[key];
+      if (Array.isArray(child)) {
+        stack.push(...child);
+      } else if (typeof child === 'object' && child !== null) {
+        stack.push(child);
+      }
+    }
+  }
 }

@@ -267,6 +267,7 @@ __export(Utils_exports, {
   debugFetch: () => debugFetch,
   deepCompare: () => deepCompare,
   escapeStringRegexp: () => escapeStringRegexp,
+  findFunction: () => findFunction,
   generateRandomString: () => generateRandomString,
   generateSidAuth: () => generateSidAuth,
   getRandomUserAgent: () => getRandomUserAgent,
@@ -14285,598 +14286,6 @@ var user_agents_default = {
   ]
 };
 
-// dist/src/utils/Utils.js
-var _a5;
-var _Platform_shim;
-var Platform = class {
-  static load(platform) {
-    __classPrivateFieldSet(Platform, _a5, platform, "f", _Platform_shim);
-  }
-  static get shim() {
-    if (!__classPrivateFieldGet(Platform, _a5, "f", _Platform_shim)) {
-      throw new Error("Platform is not loaded");
-    }
-    return __classPrivateFieldGet(Platform, _a5, "f", _Platform_shim);
-  }
-};
-__name(Platform, "Platform");
-_a5 = Platform;
-_Platform_shim = { value: void 0 };
-var InnertubeError = class extends Error {
-  constructor(message, info) {
-    super(message);
-    if (info) {
-      this.info = info;
-    }
-    this.date = new Date();
-    this.version = Platform.shim.info.version;
-  }
-};
-__name(InnertubeError, "InnertubeError");
-var ParsingError = class extends InnertubeError {
-};
-__name(ParsingError, "ParsingError");
-var MissingParamError = class extends InnertubeError {
-};
-__name(MissingParamError, "MissingParamError");
-var OAuthError = class extends InnertubeError {
-};
-__name(OAuthError, "OAuthError");
-var PlayerError = class extends Error {
-};
-__name(PlayerError, "PlayerError");
-var SessionError = class extends Error {
-};
-__name(SessionError, "SessionError");
-var ChannelError = class extends Error {
-};
-__name(ChannelError, "ChannelError");
-function deepCompare(obj1, obj2) {
-  const keys = Reflect.ownKeys(obj1);
-  return keys.some((key) => {
-    const is_text = obj2[key] instanceof Text;
-    if (!is_text && typeof obj2[key] === "object") {
-      return JSON.stringify(obj1[key]) === JSON.stringify(obj2[key]);
-    }
-    return obj1[key] === (is_text ? obj2[key].toString() : obj2[key]);
-  });
-}
-__name(deepCompare, "deepCompare");
-function getStringBetweenStrings(data2, start_string, end_string) {
-  const regex = new RegExp(`${escapeStringRegexp(start_string)}(.*?)${escapeStringRegexp(end_string)}`, "s");
-  const match = data2.match(regex);
-  return match ? match[1] : void 0;
-}
-__name(getStringBetweenStrings, "getStringBetweenStrings");
-function escapeStringRegexp(input) {
-  return input.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
-}
-__name(escapeStringRegexp, "escapeStringRegexp");
-function getRandomUserAgent(type) {
-  const available_agents = user_agents_default[type];
-  const random_index = Math.floor(Math.random() * available_agents.length);
-  return available_agents[random_index];
-}
-__name(getRandomUserAgent, "getRandomUserAgent");
-function generateSidAuth(sid) {
-  return __awaiter(this, void 0, void 0, function* () {
-    const youtube = "https://www.youtube.com";
-    const timestamp = Math.floor(new Date().getTime() / 1e3);
-    const input = [timestamp, sid, youtube].join(" ");
-    const gen_hash = yield Platform.shim.sha1Hash(input);
-    return ["SAPISIDHASH", [timestamp, gen_hash].join("_")].join(" ");
-  });
-}
-__name(generateSidAuth, "generateSidAuth");
-function generateRandomString(length) {
-  const result = [];
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-  for (let i = 0; i < length; i++) {
-    result.push(alphabet.charAt(Math.floor(Math.random() * alphabet.length)));
-  }
-  return result.join("");
-}
-__name(generateRandomString, "generateRandomString");
-function timeToSeconds(time) {
-  const params = time.split(":").map((param) => parseInt(param.replace(/\D/g, "")));
-  switch (params.length) {
-    case 1:
-      return params[0];
-    case 2:
-      return params[0] * 60 + params[1];
-    case 3:
-      return params[0] * 3600 + params[1] * 60 + params[2];
-    default:
-      throw new Error("Invalid time string");
-  }
-}
-__name(timeToSeconds, "timeToSeconds");
-function concatMemos(...iterables) {
-  const memo = new Memo();
-  for (const iterable of iterables) {
-    if (!iterable)
-      continue;
-    for (const item of iterable) {
-      memo.set(...item);
-    }
-  }
-  return memo;
-}
-__name(concatMemos, "concatMemos");
-function throwIfMissing(params) {
-  for (const [key, value] of Object.entries(params)) {
-    if (!value)
-      throw new MissingParamError(`${key} is missing`);
-  }
-}
-__name(throwIfMissing, "throwIfMissing");
-function hasKeys(params, ...keys) {
-  for (const key of keys) {
-    if (!Reflect.has(params, key) || params[key] === void 0)
-      return false;
-  }
-  return true;
-}
-__name(hasKeys, "hasKeys");
-function streamToIterable(stream) {
-  return __asyncGenerator(this, arguments, /* @__PURE__ */ __name(function* streamToIterable_1() {
-    const reader = stream.getReader();
-    try {
-      while (true) {
-        const { done, value } = yield __await(reader.read());
-        if (done) {
-          return yield __await(void 0);
-        }
-        yield yield __await(value);
-      }
-    } finally {
-      reader.releaseLock();
-    }
-  }, "streamToIterable_1"));
-}
-__name(streamToIterable, "streamToIterable");
-var debugFetch = /* @__PURE__ */ __name((input, init) => {
-  const url = typeof input === "string" ? new URL(input) : input instanceof URL ? input : new URL(input.url);
-  const headers = (init === null || init === void 0 ? void 0 : init.headers) ? new Headers(init.headers) : input instanceof Request ? input.headers : new Headers();
-  const arr_headers = [...headers];
-  const body_contents = (init === null || init === void 0 ? void 0 : init.body) ? typeof init.body === "string" ? headers.get("content-type") === "application/json" ? JSON.stringify(JSON.parse(init.body), null, 2) : init.body : "    <binary>" : "    (none)";
-  const headers_serialized = arr_headers.length > 0 ? `${arr_headers.map(([key, value]) => `    ${key}: ${value}`).join("\n")}` : "    (none)";
-  console.log(`YouTube.js Fetch:
-  url: ${url.toString()}
-  method: ${(init === null || init === void 0 ? void 0 : init.method) || "GET"}
-  headers:
-${headers_serialized}
-' + 
-    '  body:
-${body_contents}`);
-  return Platform.shim.fetch(input, init);
-}, "debugFetch");
-function u8ToBase64(u8) {
-  return btoa(String.fromCharCode.apply(null, Array.from(u8)));
-}
-__name(u8ToBase64, "u8ToBase64");
-function base64ToU8(base64) {
-  return new Uint8Array(atob(base64).split("").map((char) => char.charCodeAt(0)));
-}
-__name(base64ToU8, "base64ToU8");
-function isTextRun(run) {
-  return !("emoji" in run);
-}
-__name(isTextRun, "isTextRun");
-
-// dist/src/platform/polyfills/web-crypto.js
-function sha1Hash(str) {
-  return __awaiter(this, void 0, void 0, function* () {
-    const byteToHex = [
-      "00",
-      "01",
-      "02",
-      "03",
-      "04",
-      "05",
-      "06",
-      "07",
-      "08",
-      "09",
-      "0a",
-      "0b",
-      "0c",
-      "0d",
-      "0e",
-      "0f",
-      "10",
-      "11",
-      "12",
-      "13",
-      "14",
-      "15",
-      "16",
-      "17",
-      "18",
-      "19",
-      "1a",
-      "1b",
-      "1c",
-      "1d",
-      "1e",
-      "1f",
-      "20",
-      "21",
-      "22",
-      "23",
-      "24",
-      "25",
-      "26",
-      "27",
-      "28",
-      "29",
-      "2a",
-      "2b",
-      "2c",
-      "2d",
-      "2e",
-      "2f",
-      "30",
-      "31",
-      "32",
-      "33",
-      "34",
-      "35",
-      "36",
-      "37",
-      "38",
-      "39",
-      "3a",
-      "3b",
-      "3c",
-      "3d",
-      "3e",
-      "3f",
-      "40",
-      "41",
-      "42",
-      "43",
-      "44",
-      "45",
-      "46",
-      "47",
-      "48",
-      "49",
-      "4a",
-      "4b",
-      "4c",
-      "4d",
-      "4e",
-      "4f",
-      "50",
-      "51",
-      "52",
-      "53",
-      "54",
-      "55",
-      "56",
-      "57",
-      "58",
-      "59",
-      "5a",
-      "5b",
-      "5c",
-      "5d",
-      "5e",
-      "5f",
-      "60",
-      "61",
-      "62",
-      "63",
-      "64",
-      "65",
-      "66",
-      "67",
-      "68",
-      "69",
-      "6a",
-      "6b",
-      "6c",
-      "6d",
-      "6e",
-      "6f",
-      "70",
-      "71",
-      "72",
-      "73",
-      "74",
-      "75",
-      "76",
-      "77",
-      "78",
-      "79",
-      "7a",
-      "7b",
-      "7c",
-      "7d",
-      "7e",
-      "7f",
-      "80",
-      "81",
-      "82",
-      "83",
-      "84",
-      "85",
-      "86",
-      "87",
-      "88",
-      "89",
-      "8a",
-      "8b",
-      "8c",
-      "8d",
-      "8e",
-      "8f",
-      "90",
-      "91",
-      "92",
-      "93",
-      "94",
-      "95",
-      "96",
-      "97",
-      "98",
-      "99",
-      "9a",
-      "9b",
-      "9c",
-      "9d",
-      "9e",
-      "9f",
-      "a0",
-      "a1",
-      "a2",
-      "a3",
-      "a4",
-      "a5",
-      "a6",
-      "a7",
-      "a8",
-      "a9",
-      "aa",
-      "ab",
-      "ac",
-      "ad",
-      "ae",
-      "af",
-      "b0",
-      "b1",
-      "b2",
-      "b3",
-      "b4",
-      "b5",
-      "b6",
-      "b7",
-      "b8",
-      "b9",
-      "ba",
-      "bb",
-      "bc",
-      "bd",
-      "be",
-      "bf",
-      "c0",
-      "c1",
-      "c2",
-      "c3",
-      "c4",
-      "c5",
-      "c6",
-      "c7",
-      "c8",
-      "c9",
-      "ca",
-      "cb",
-      "cc",
-      "cd",
-      "ce",
-      "cf",
-      "d0",
-      "d1",
-      "d2",
-      "d3",
-      "d4",
-      "d5",
-      "d6",
-      "d7",
-      "d8",
-      "d9",
-      "da",
-      "db",
-      "dc",
-      "dd",
-      "de",
-      "df",
-      "e0",
-      "e1",
-      "e2",
-      "e3",
-      "e4",
-      "e5",
-      "e6",
-      "e7",
-      "e8",
-      "e9",
-      "ea",
-      "eb",
-      "ec",
-      "ed",
-      "ee",
-      "ef",
-      "f0",
-      "f1",
-      "f2",
-      "f3",
-      "f4",
-      "f5",
-      "f6",
-      "f7",
-      "f8",
-      "f9",
-      "fa",
-      "fb",
-      "fc",
-      "fd",
-      "fe",
-      "ff"
-    ];
-    function hex(arrayBuffer) {
-      const buff = new Uint8Array(arrayBuffer);
-      const hexOctets = [];
-      for (let i = 0; i < buff.length; ++i)
-        hexOctets.push(byteToHex[buff[i]]);
-      return hexOctets.join("");
-    }
-    __name(hex, "hex");
-    return hex(yield crypto.subtle.digest("SHA-1", new TextEncoder().encode(str)));
-  });
-}
-__name(sha1Hash, "sha1Hash");
-
-// dist/package.json
-var package_default = {
-  name: "volumio-youtubei.js",
-  version: "0.3.8",
-  description: "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
-  type: "module",
-  types: "./dist/src/platform/lib.d.ts",
-  typesVersions: {
-    "*": {
-      agnostic: [
-        "./dist/src/platform/lib.d.ts"
-      ],
-      web: [
-        "./dist/src/platform/lib.d.ts"
-      ],
-      "web.bundle": [
-        "./dist/src/platform/lib.d.ts"
-      ],
-      "web.bundle.min": [
-        "./dist/src/platform/lib.d.ts"
-      ]
-    }
-  },
-  exports: {
-    ".": {
-      node: {
-        import: "./dist/src/platform/node.js",
-        require: "./bundle/node.cjs"
-      },
-      deno: "./dist/src/platform/deno.js",
-      types: "./dist/src/platform/lib.d.ts",
-      browser: "./dist/src/platform/web.js",
-      default: "./dist/src/platform/web.js"
-    },
-    "./agnostic": {
-      types: "./dist/src/platform/lib.d.ts",
-      default: "./dist/src/platform/lib.js"
-    },
-    "./web": {
-      types: "./dist/src/platform/lib.d.ts",
-      default: "./dist/src/platform/web.js"
-    },
-    "./web.bundle": {
-      types: "./dist/src/platform/lib.d.ts",
-      default: "./bundle/browser.js"
-    },
-    "./web.bundle.min": {
-      types: "./dist/src/platform/lib.d.ts",
-      default: "./bundle/browser.min.js"
-    }
-  },
-  author: "Original author: LuanRT <luan.lrt4@gmail.com> (https://github.com/LuanRT). Modified by Patrick Kan (https://github.com/patrickkfkan).",
-  funding: [
-    "https://github.com/sponsors/LuanRT"
-  ],
-  contributors: [
-    "Wykerd (https://github.com/wykerd/)",
-    "MasterOfBob777 (https://github.com/MasterOfBob777)",
-    "patrickkfkan (https://github.com/patrickkfkan)",
-    "akkadaska (https://github.com/akkadaska)"
-  ],
-  directories: {
-    test: "./test",
-    examples: "./examples",
-    dist: "./dist"
-  },
-  scripts: {
-    test: "npx jest --verbose",
-    lint: "npx eslint ./src",
-    "lint:fix": "npx eslint --fix ./src",
-    build: "npm run build:parser-map && npm run build:proto && npm run build:esm && npm run bundle:node && npm run bundle:browser && npm run bundle:browser:prod",
-    "build:parser-map": "node ./scripts/build-parser-map.cjs",
-    "build:proto": 'npx pb-gen-ts --entry-path="src/proto" --out-dir="src/proto/generated" --ext-in-import=".js"',
-    "build:esm": "npx tsc",
-    "build:deno": `npx cpy ./src ./deno && npx cpy ./package.json ./deno && npx replace ".js';" ".ts';" ./deno -r && npx replace '.js";' '.ts";' ./deno -r && npx replace "'linkedom';" "'https://esm.sh/linkedom';" ./deno -r && npx replace "'jintr';" "'https://esm.sh/jintr';" ./deno -r && npx replace "new Jinter.default" "new Jinter" ./deno -r`,
-    "bundle:node": 'npx esbuild ./dist/src/platform/node.js --bundle --target=node10 --keep-names --format=cjs --platform=node --outfile=./bundle/node.cjs --external:jintr --external:undici --external:linkedom --sourcemap --banner:js="/* eslint-disable */"',
-    "bundle:browser": 'npx esbuild ./dist/src/platform/web.js --banner:js="/* eslint-disable */" --bundle --target=chrome58 --keep-names --format=esm --sourcemap --define:global=globalThis --conditions=module --outfile=./bundle/browser.js --platform=browser',
-    "bundle:browser:prod": "npm run bundle:browser -- --outfile=./bundle/browser.min.js --minify",
-    watch: "npx tsc --watch"
-  },
-  repository: {
-    type: "git",
-    url: "git+https://github.com/patrickkfkan/Volumio-YouTube.js.git"
-  },
-  license: "MIT",
-  dependencies: {
-    "event-target-polyfill": "0.0.3",
-    jintr: "^2.0.0",
-    linkedom: "^0.14.12",
-    "node-fetch": "^2.6.7",
-    tslib: "^2.5.0",
-    uuid: "^9.0.0",
-    "web-streams-polyfill": "^3.2.1"
-  },
-  devDependencies: {
-    "@types/jest": "^28.1.7",
-    "@types/node": "^17.0.45",
-    "@types/node-fetch": "^2.6.11",
-    "@types/uuid": "^10.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.30.6",
-    "@typescript-eslint/parser": "^5.30.6",
-    "cpy-cli": "^4.2.0",
-    esbuild: "^0.14.49",
-    eslint: "^8.19.0",
-    "eslint-plugin-tsdoc": "^0.2.16",
-    glob: "^8.0.3",
-    jest: "^28.1.3",
-    pbkit: "^0.0.59",
-    replace: "^1.2.2",
-    "ts-jest": "^28.0.8",
-    typescript: "^5.0.0"
-  },
-  bugs: {
-    url: "https://github.com/patrickkfkan/Volumio-YouTube.js/issues"
-  },
-  homepage: "https://github.com/patrickkfkan/Volumio-YouTube.js#readme",
-  keywords: [
-    "yt",
-    "dl",
-    "ytdl",
-    "youtube",
-    "youtubedl",
-    "youtube-dl",
-    "youtube-downloader",
-    "youtube-music",
-    "youtube-studio",
-    "innertube",
-    "unofficial",
-    "downloader",
-    "livechat",
-    "studio",
-    "upload",
-    "ytmusic",
-    "search",
-    "music",
-    "api"
-  ]
-};
-
 // node_modules/jintr/dist/nodes/index.js
 var nodes_exports2 = {};
 __export(nodes_exports2, {
@@ -14906,6 +14315,7 @@ __export(nodes_exports2, {
   SequenceExpression: () => SequenceExpression,
   SwitchCase: () => SwitchCase,
   SwitchStatement: () => SwitchStatement,
+  TemplateLiteral: () => TemplateLiteral,
   ThisExpression: () => ThisExpression,
   ThrowStatement: () => ThrowStatement,
   TryStatement: () => TryStatement,
@@ -15694,6 +15104,36 @@ var SwitchStatement = class extends BaseJSNode {
   }
 };
 __name(SwitchStatement, "SwitchStatement");
+
+// node_modules/jintr/dist/nodes/TemplateLiteral.js
+var TemplateLiteral = class extends BaseJSNode {
+  run() {
+    let result = "";
+    for (let i = 0; i < this.node.quasis.length; ++i) {
+      const quasi = this.node.quasis[i];
+      if (quasi.type === "TemplateElement") {
+        if (quasi.value.cooked === null) {
+          throw new Error(`Invalid template literal: ${quasi.value.raw}`);
+        }
+        if (quasi.value.cooked !== void 0) {
+          result += quasi.value.cooked;
+        }
+        if (!quasi.tail) {
+          const expr = this.node.expressions[i];
+          if (expr !== void 0) {
+            result += this.visitor.visitNode(expr);
+          } else {
+            throw new Error(`Expected expression after: ${quasi.value}`);
+          }
+        }
+      } else {
+        throw new Error(`Unhandled quasi type: ${quasi.type}`);
+      }
+    }
+    return result;
+  }
+};
+__name(TemplateLiteral, "TemplateLiteral");
 
 // node_modules/jintr/dist/nodes/ThisExpression.js
 var ThisExpression = class extends BaseJSNode {
@@ -20740,9 +20180,637 @@ var Jinter = class {
     this.visitor.setAST(__classPrivateFieldGet5(this, _Jinter_ast, "f"));
     return this.visitor.run();
   }
+  static parseScript(input) {
+    try {
+      return parse3(input, { ecmaVersion: 2020 });
+    } catch (e) {
+      throw new JinterError(e.message);
+    }
+  }
 };
 __name(Jinter, "Jinter");
 _Jinter_ast = /* @__PURE__ */ new WeakMap();
+
+// dist/src/utils/Utils.js
+var _a5;
+var _Platform_shim;
+var Platform = class {
+  static load(platform) {
+    __classPrivateFieldSet(Platform, _a5, platform, "f", _Platform_shim);
+  }
+  static get shim() {
+    if (!__classPrivateFieldGet(Platform, _a5, "f", _Platform_shim)) {
+      throw new Error("Platform is not loaded");
+    }
+    return __classPrivateFieldGet(Platform, _a5, "f", _Platform_shim);
+  }
+};
+__name(Platform, "Platform");
+_a5 = Platform;
+_Platform_shim = { value: void 0 };
+var InnertubeError = class extends Error {
+  constructor(message, info) {
+    super(message);
+    if (info) {
+      this.info = info;
+    }
+    this.date = new Date();
+    this.version = Platform.shim.info.version;
+  }
+};
+__name(InnertubeError, "InnertubeError");
+var ParsingError = class extends InnertubeError {
+};
+__name(ParsingError, "ParsingError");
+var MissingParamError = class extends InnertubeError {
+};
+__name(MissingParamError, "MissingParamError");
+var OAuthError = class extends InnertubeError {
+};
+__name(OAuthError, "OAuthError");
+var PlayerError = class extends Error {
+};
+__name(PlayerError, "PlayerError");
+var SessionError = class extends Error {
+};
+__name(SessionError, "SessionError");
+var ChannelError = class extends Error {
+};
+__name(ChannelError, "ChannelError");
+function deepCompare(obj1, obj2) {
+  const keys = Reflect.ownKeys(obj1);
+  return keys.some((key) => {
+    const is_text = obj2[key] instanceof Text;
+    if (!is_text && typeof obj2[key] === "object") {
+      return JSON.stringify(obj1[key]) === JSON.stringify(obj2[key]);
+    }
+    return obj1[key] === (is_text ? obj2[key].toString() : obj2[key]);
+  });
+}
+__name(deepCompare, "deepCompare");
+function getStringBetweenStrings(data2, start_string, end_string) {
+  const regex = new RegExp(`${escapeStringRegexp(start_string)}(.*?)${escapeStringRegexp(end_string)}`, "s");
+  const match = data2.match(regex);
+  return match ? match[1] : void 0;
+}
+__name(getStringBetweenStrings, "getStringBetweenStrings");
+function escapeStringRegexp(input) {
+  return input.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+}
+__name(escapeStringRegexp, "escapeStringRegexp");
+function getRandomUserAgent(type) {
+  const available_agents = user_agents_default[type];
+  const random_index = Math.floor(Math.random() * available_agents.length);
+  return available_agents[random_index];
+}
+__name(getRandomUserAgent, "getRandomUserAgent");
+function generateSidAuth(sid) {
+  return __awaiter(this, void 0, void 0, function* () {
+    const youtube = "https://www.youtube.com";
+    const timestamp = Math.floor(new Date().getTime() / 1e3);
+    const input = [timestamp, sid, youtube].join(" ");
+    const gen_hash = yield Platform.shim.sha1Hash(input);
+    return ["SAPISIDHASH", [timestamp, gen_hash].join("_")].join(" ");
+  });
+}
+__name(generateSidAuth, "generateSidAuth");
+function generateRandomString(length) {
+  const result = [];
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+  for (let i = 0; i < length; i++) {
+    result.push(alphabet.charAt(Math.floor(Math.random() * alphabet.length)));
+  }
+  return result.join("");
+}
+__name(generateRandomString, "generateRandomString");
+function timeToSeconds(time) {
+  const params = time.split(":").map((param) => parseInt(param.replace(/\D/g, "")));
+  switch (params.length) {
+    case 1:
+      return params[0];
+    case 2:
+      return params[0] * 60 + params[1];
+    case 3:
+      return params[0] * 3600 + params[1] * 60 + params[2];
+    default:
+      throw new Error("Invalid time string");
+  }
+}
+__name(timeToSeconds, "timeToSeconds");
+function concatMemos(...iterables) {
+  const memo = new Memo();
+  for (const iterable of iterables) {
+    if (!iterable)
+      continue;
+    for (const item of iterable) {
+      memo.set(...item);
+    }
+  }
+  return memo;
+}
+__name(concatMemos, "concatMemos");
+function throwIfMissing(params) {
+  for (const [key, value] of Object.entries(params)) {
+    if (!value)
+      throw new MissingParamError(`${key} is missing`);
+  }
+}
+__name(throwIfMissing, "throwIfMissing");
+function hasKeys(params, ...keys) {
+  for (const key of keys) {
+    if (!Reflect.has(params, key) || params[key] === void 0)
+      return false;
+  }
+  return true;
+}
+__name(hasKeys, "hasKeys");
+function streamToIterable(stream) {
+  return __asyncGenerator(this, arguments, /* @__PURE__ */ __name(function* streamToIterable_1() {
+    const reader = stream.getReader();
+    try {
+      while (true) {
+        const { done, value } = yield __await(reader.read());
+        if (done) {
+          return yield __await(void 0);
+        }
+        yield yield __await(value);
+      }
+    } finally {
+      reader.releaseLock();
+    }
+  }, "streamToIterable_1"));
+}
+__name(streamToIterable, "streamToIterable");
+var debugFetch = /* @__PURE__ */ __name((input, init) => {
+  const url = typeof input === "string" ? new URL(input) : input instanceof URL ? input : new URL(input.url);
+  const headers = (init === null || init === void 0 ? void 0 : init.headers) ? new Headers(init.headers) : input instanceof Request ? input.headers : new Headers();
+  const arr_headers = [...headers];
+  const body_contents = (init === null || init === void 0 ? void 0 : init.body) ? typeof init.body === "string" ? headers.get("content-type") === "application/json" ? JSON.stringify(JSON.parse(init.body), null, 2) : init.body : "    <binary>" : "    (none)";
+  const headers_serialized = arr_headers.length > 0 ? `${arr_headers.map(([key, value]) => `    ${key}: ${value}`).join("\n")}` : "    (none)";
+  console.log(`YouTube.js Fetch:
+  url: ${url.toString()}
+  method: ${(init === null || init === void 0 ? void 0 : init.method) || "GET"}
+  headers:
+${headers_serialized}
+' + 
+    '  body:
+${body_contents}`);
+  return Platform.shim.fetch(input, init);
+}, "debugFetch");
+function u8ToBase64(u8) {
+  return btoa(String.fromCharCode.apply(null, Array.from(u8)));
+}
+__name(u8ToBase64, "u8ToBase64");
+function base64ToU8(base64) {
+  return new Uint8Array(atob(base64).split("").map((char) => char.charCodeAt(0)));
+}
+__name(base64ToU8, "base64ToU8");
+function isTextRun(run) {
+  return !("emoji" in run);
+}
+__name(isTextRun, "isTextRun");
+function findFunction(source, args) {
+  const { name, includes, regexp } = args;
+  const node = Jinter.parseScript(source);
+  const stack = [node];
+  for (let i = 0; i < stack.length; i++) {
+    const current2 = stack[i];
+    if (current2.type === "ExpressionStatement" && (current2.expression.type === "AssignmentExpression" && current2.expression.left.type === "Identifier" && current2.expression.right.type === "FunctionExpression")) {
+      const code = source.substring(current2.start, current2.end);
+      if (name && current2.expression.left.name === name || includes && code.indexOf(includes) > -1 || regexp && regexp.test(code)) {
+        return {
+          start: current2.start,
+          end: current2.end,
+          name: current2.expression.left.name,
+          node: current2,
+          result: code
+        };
+      }
+    }
+    for (const key in current2) {
+      const child = current2[key];
+      if (Array.isArray(child)) {
+        stack.push(...child);
+      } else if (typeof child === "object" && child !== null) {
+        stack.push(child);
+      }
+    }
+  }
+}
+__name(findFunction, "findFunction");
+
+// dist/src/platform/polyfills/web-crypto.js
+function sha1Hash(str) {
+  return __awaiter(this, void 0, void 0, function* () {
+    const byteToHex = [
+      "00",
+      "01",
+      "02",
+      "03",
+      "04",
+      "05",
+      "06",
+      "07",
+      "08",
+      "09",
+      "0a",
+      "0b",
+      "0c",
+      "0d",
+      "0e",
+      "0f",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "1a",
+      "1b",
+      "1c",
+      "1d",
+      "1e",
+      "1f",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "2a",
+      "2b",
+      "2c",
+      "2d",
+      "2e",
+      "2f",
+      "30",
+      "31",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "3a",
+      "3b",
+      "3c",
+      "3d",
+      "3e",
+      "3f",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "4a",
+      "4b",
+      "4c",
+      "4d",
+      "4e",
+      "4f",
+      "50",
+      "51",
+      "52",
+      "53",
+      "54",
+      "55",
+      "56",
+      "57",
+      "58",
+      "59",
+      "5a",
+      "5b",
+      "5c",
+      "5d",
+      "5e",
+      "5f",
+      "60",
+      "61",
+      "62",
+      "63",
+      "64",
+      "65",
+      "66",
+      "67",
+      "68",
+      "69",
+      "6a",
+      "6b",
+      "6c",
+      "6d",
+      "6e",
+      "6f",
+      "70",
+      "71",
+      "72",
+      "73",
+      "74",
+      "75",
+      "76",
+      "77",
+      "78",
+      "79",
+      "7a",
+      "7b",
+      "7c",
+      "7d",
+      "7e",
+      "7f",
+      "80",
+      "81",
+      "82",
+      "83",
+      "84",
+      "85",
+      "86",
+      "87",
+      "88",
+      "89",
+      "8a",
+      "8b",
+      "8c",
+      "8d",
+      "8e",
+      "8f",
+      "90",
+      "91",
+      "92",
+      "93",
+      "94",
+      "95",
+      "96",
+      "97",
+      "98",
+      "99",
+      "9a",
+      "9b",
+      "9c",
+      "9d",
+      "9e",
+      "9f",
+      "a0",
+      "a1",
+      "a2",
+      "a3",
+      "a4",
+      "a5",
+      "a6",
+      "a7",
+      "a8",
+      "a9",
+      "aa",
+      "ab",
+      "ac",
+      "ad",
+      "ae",
+      "af",
+      "b0",
+      "b1",
+      "b2",
+      "b3",
+      "b4",
+      "b5",
+      "b6",
+      "b7",
+      "b8",
+      "b9",
+      "ba",
+      "bb",
+      "bc",
+      "bd",
+      "be",
+      "bf",
+      "c0",
+      "c1",
+      "c2",
+      "c3",
+      "c4",
+      "c5",
+      "c6",
+      "c7",
+      "c8",
+      "c9",
+      "ca",
+      "cb",
+      "cc",
+      "cd",
+      "ce",
+      "cf",
+      "d0",
+      "d1",
+      "d2",
+      "d3",
+      "d4",
+      "d5",
+      "d6",
+      "d7",
+      "d8",
+      "d9",
+      "da",
+      "db",
+      "dc",
+      "dd",
+      "de",
+      "df",
+      "e0",
+      "e1",
+      "e2",
+      "e3",
+      "e4",
+      "e5",
+      "e6",
+      "e7",
+      "e8",
+      "e9",
+      "ea",
+      "eb",
+      "ec",
+      "ed",
+      "ee",
+      "ef",
+      "f0",
+      "f1",
+      "f2",
+      "f3",
+      "f4",
+      "f5",
+      "f6",
+      "f7",
+      "f8",
+      "f9",
+      "fa",
+      "fb",
+      "fc",
+      "fd",
+      "fe",
+      "ff"
+    ];
+    function hex(arrayBuffer) {
+      const buff = new Uint8Array(arrayBuffer);
+      const hexOctets = [];
+      for (let i = 0; i < buff.length; ++i)
+        hexOctets.push(byteToHex[buff[i]]);
+      return hexOctets.join("");
+    }
+    __name(hex, "hex");
+    return hex(yield crypto.subtle.digest("SHA-1", new TextEncoder().encode(str)));
+  });
+}
+__name(sha1Hash, "sha1Hash");
+
+// dist/package.json
+var package_default = {
+  name: "volumio-youtubei.js",
+  version: "0.3.8",
+  description: "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
+  type: "module",
+  types: "./dist/src/platform/lib.d.ts",
+  typesVersions: {
+    "*": {
+      agnostic: [
+        "./dist/src/platform/lib.d.ts"
+      ],
+      web: [
+        "./dist/src/platform/lib.d.ts"
+      ],
+      "web.bundle": [
+        "./dist/src/platform/lib.d.ts"
+      ],
+      "web.bundle.min": [
+        "./dist/src/platform/lib.d.ts"
+      ]
+    }
+  },
+  exports: {
+    ".": {
+      node: {
+        import: "./dist/src/platform/node.js",
+        require: "./bundle/node.cjs"
+      },
+      deno: "./dist/src/platform/deno.js",
+      types: "./dist/src/platform/lib.d.ts",
+      browser: "./dist/src/platform/web.js",
+      default: "./dist/src/platform/web.js"
+    },
+    "./agnostic": {
+      types: "./dist/src/platform/lib.d.ts",
+      default: "./dist/src/platform/lib.js"
+    },
+    "./web": {
+      types: "./dist/src/platform/lib.d.ts",
+      default: "./dist/src/platform/web.js"
+    },
+    "./web.bundle": {
+      types: "./dist/src/platform/lib.d.ts",
+      default: "./bundle/browser.js"
+    },
+    "./web.bundle.min": {
+      types: "./dist/src/platform/lib.d.ts",
+      default: "./bundle/browser.min.js"
+    }
+  },
+  author: "Original author: LuanRT <luan.lrt4@gmail.com> (https://github.com/LuanRT). Modified by Patrick Kan (https://github.com/patrickkfkan).",
+  funding: [
+    "https://github.com/sponsors/LuanRT"
+  ],
+  contributors: [
+    "Wykerd (https://github.com/wykerd/)",
+    "MasterOfBob777 (https://github.com/MasterOfBob777)",
+    "patrickkfkan (https://github.com/patrickkfkan)",
+    "akkadaska (https://github.com/akkadaska)"
+  ],
+  directories: {
+    test: "./test",
+    examples: "./examples",
+    dist: "./dist"
+  },
+  scripts: {
+    test: "npx jest --verbose",
+    lint: "npx eslint ./src",
+    "lint:fix": "npx eslint --fix ./src",
+    build: "npm run build:parser-map && npm run build:proto && npm run build:esm && npm run bundle:node && npm run bundle:browser && npm run bundle:browser:prod",
+    "build:parser-map": "node ./scripts/build-parser-map.cjs",
+    "build:proto": 'npx pb-gen-ts --entry-path="src/proto" --out-dir="src/proto/generated" --ext-in-import=".js"',
+    "build:esm": "npx tsc",
+    "build:deno": `npx cpy ./src ./deno && npx cpy ./package.json ./deno && npx replace ".js';" ".ts';" ./deno -r && npx replace '.js";' '.ts";' ./deno -r && npx replace "'linkedom';" "'https://esm.sh/linkedom';" ./deno -r && npx replace "'jintr';" "'https://esm.sh/jintr';" ./deno -r && npx replace "new Jinter.default" "new Jinter" ./deno -r`,
+    "bundle:node": 'npx esbuild ./dist/src/platform/node.js --bundle --target=node10 --keep-names --format=cjs --platform=node --outfile=./bundle/node.cjs --external:jintr --external:undici --external:linkedom --sourcemap --banner:js="/* eslint-disable */"',
+    "bundle:browser": 'npx esbuild ./dist/src/platform/web.js --banner:js="/* eslint-disable */" --bundle --target=chrome58 --keep-names --format=esm --sourcemap --define:global=globalThis --conditions=module --outfile=./bundle/browser.js --platform=browser',
+    "bundle:browser:prod": "npm run bundle:browser -- --outfile=./bundle/browser.min.js --minify",
+    watch: "npx tsc --watch"
+  },
+  repository: {
+    type: "git",
+    url: "git+https://github.com/patrickkfkan/Volumio-YouTube.js.git"
+  },
+  license: "MIT",
+  dependencies: {
+    "event-target-polyfill": "0.0.3",
+    jintr: "^2.1.1",
+    linkedom: "^0.14.12",
+    "node-fetch": "^2.6.7",
+    tslib: "^2.5.0",
+    uuid: "^9.0.0",
+    "web-streams-polyfill": "^3.2.1"
+  },
+  devDependencies: {
+    "@types/jest": "^28.1.7",
+    "@types/node": "^17.0.45",
+    "@types/node-fetch": "^2.6.11",
+    "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.6",
+    "@typescript-eslint/parser": "^5.30.6",
+    "cpy-cli": "^4.2.0",
+    esbuild: "^0.14.49",
+    eslint: "^8.19.0",
+    "eslint-plugin-tsdoc": "^0.2.16",
+    glob: "^8.0.3",
+    jest: "^28.1.3",
+    pbkit: "^0.0.59",
+    replace: "^1.2.2",
+    "ts-jest": "^28.0.8",
+    typescript: "^5.0.0"
+  },
+  bugs: {
+    url: "https://github.com/patrickkfkan/Volumio-YouTube.js/issues"
+  },
+  homepage: "https://github.com/patrickkfkan/Volumio-YouTube.js#readme",
+  keywords: [
+    "yt",
+    "dl",
+    "ytdl",
+    "youtube",
+    "youtubedl",
+    "youtube-dl",
+    "youtube-downloader",
+    "youtube-music",
+    "youtube-studio",
+    "innertube",
+    "unofficial",
+    "downloader",
+    "livechat",
+    "studio",
+    "upload",
+    "ytmusic",
+    "search",
+    "music",
+    "api"
+  ]
+};
 
 // dist/src/core/Actions.js
 var _Actions_instances;
@@ -20862,11 +20930,11 @@ var Actions_default = Actions;
 // dist/src/core/Player.js
 var TAG2 = "Player";
 var Player = class {
-  constructor(signature_timestamp, sig_sc, nsig_sc, player_id) {
+  constructor(player_id, signature_timestamp, sig_sc, nsig_sc) {
+    this.player_id = player_id;
+    this.sts = signature_timestamp;
     this.nsig_sc = nsig_sc;
     this.sig_sc = sig_sc;
-    this.sts = signature_timestamp;
-    this.player_id = player_id;
   }
   static create(cache, fetch = Platform.shim.fetch) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -20901,7 +20969,7 @@ var Player = class {
       const sig_sc = this.extractSigSourceCode(player_js);
       const nsig_sc = this.extractNSigSourceCode(player_js);
       Log_default.info(TAG2, `Got signature timestamp (${sig_timestamp}) and algorithms needed to decipher signatures.`);
-      return yield Player.fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id);
+      return yield Player.fromSource(player_id, sig_timestamp, cache, sig_sc, nsig_sc);
     });
   }
   decipher(url, signature_cipher, cipher, this_response_nsig_cache) {
@@ -20910,7 +20978,7 @@ var Player = class {
       throw new PlayerError("No valid URL to decipher");
     const args = new URLSearchParams(url);
     const url_components = new URL(args.get("url") || url);
-    if (signature_cipher || cipher) {
+    if (this.sig_sc && (signature_cipher || cipher)) {
       const signature = Platform.shim.eval(this.sig_sc, {
         sig: args.get("s")
       });
@@ -20921,7 +20989,7 @@ var Player = class {
       sp ? url_components.searchParams.set(sp, signature) : url_components.searchParams.set("signature", signature);
     }
     const n = url_components.searchParams.get("n");
-    if (n) {
+    if (this.nsig_sc && n) {
       let nsig;
       if (this_response_nsig_cache && this_response_nsig_cache.has(n)) {
         nsig = this_response_nsig_cache.get(n);
@@ -20980,19 +21048,19 @@ var Player = class {
       const nsig_buf = buffer.slice(12 + sig_len);
       const sig_sc = LZW_exports.decompress(new TextDecoder().decode(sig_buf));
       const nsig_sc = LZW_exports.decompress(new TextDecoder().decode(nsig_buf));
-      return new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
+      return new Player(player_id, sig_timestamp, sig_sc, nsig_sc);
     });
   }
-  static fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id) {
+  static fromSource(player_id, sig_timestamp, cache, sig_sc, nsig_sc) {
     return __awaiter(this, void 0, void 0, function* () {
-      const player = new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
+      const player = new Player(player_id, sig_timestamp, sig_sc, nsig_sc);
       yield player.cache(cache);
       return player;
     });
   }
   cache(cache) {
     return __awaiter(this, void 0, void 0, function* () {
-      if (!cache)
+      if (!cache || !this.sig_sc || !this.nsig_sc)
         return;
       const encoder = new TextEncoder();
       const sig_buf = encoder.encode(LZW_exports.compress(this.sig_sc));
@@ -21020,20 +21088,16 @@ var Player = class {
     return `function descramble_sig(a) { a = a.split(""); let ${obj_name}={${functions}}${calls} return a.join("") } descramble_sig(sig);`;
   }
   static extractNSigSourceCode(data2) {
-    let sc = getStringBetweenStrings(data2, 'b=String.prototype.split.call(a,"")', '}return b.join("")}');
-    if (sc)
-      return `function descramble_nsig(a) { let b=String.prototype.split.call(a,"")${sc}} return b.join(""); } descramble_nsig(nsig)`;
-    sc = getStringBetweenStrings(data2, 'b=String.prototype.split.call(a,"")', '}return Array.prototype.join.call(b,"")}');
-    if (sc)
-      return `function descramble_nsig(a) { let b=String.prototype.split.call(a, "")${sc}} return Array.prototype.join.call(b, ""); } descramble_nsig(nsig)`;
-    Log_default.warn(TAG2, "Failed to extract n-token decipher algorithm");
-    return "function descramble_nsig(a) { return a; } descramble_nsig(nsig)";
+    const nsig_function = findFunction(data2, { includes: "enhanced_except" });
+    if (nsig_function) {
+      return `${nsig_function.result} ${nsig_function.name}(nsig);`;
+    }
   }
   get url() {
     return new URL(`/s/player/${this.player_id}/player_ias.vflset/en_US/base.js`, Constants_exports.URLS.YT_BASE).toString();
   }
   static get LIBRARY_VERSION() {
-    return 10;
+    return 11;
   }
 };
 __name(Player, "Player");

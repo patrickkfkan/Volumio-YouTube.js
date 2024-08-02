@@ -67,3 +67,36 @@ export declare const debugFetch: FetchFunction;
 export declare function u8ToBase64(u8: Uint8Array): string;
 export declare function base64ToU8(base64: string): Uint8Array;
 export declare function isTextRun(run: TextRun | EmojiRun): run is TextRun;
+export type FindFunctionArgs = {
+    /**
+     * The name of the function.
+     */
+    name?: string;
+    /**
+     * A string that must be included in the function's code for it to be considered.
+     */
+    includes?: string;
+    /**
+     * A regular expression that the function's code must match.
+     */
+    regexp?: RegExp;
+};
+export type FindFunctionResult = {
+    start: number;
+    end: number;
+    name: string;
+    node: Record<string, any>;
+    result: string;
+};
+/**
+ * Finds a function in a source string based on the provided search criteria.
+ *
+ * @example
+ * ```ts
+ * const source = '(function() {var foo, bar; foo = function() { console.log("foo"); }; bar = function() { console.log("bar"); }; })();';
+ * const result = findFunction(source, { name: 'bar' });
+ * console.log(result);
+ * // Output: { start: 69, end: 110, name: 'bar', node: { ... }, result: 'bar = function() { console.log("bar"); };' }
+ * ```
+ */
+export declare function findFunction(source: string, args: FindFunctionArgs): FindFunctionResult | undefined;

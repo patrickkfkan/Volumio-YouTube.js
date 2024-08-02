@@ -1,16 +1,16 @@
 import { __awaiter } from "tslib";
 import { Log, LZW, Constants } from '../utils/index.js';
-import { Platform, getRandomUserAgent, getStringBetweenStrings, PlayerError } from '../utils/Utils.js';
+import { Platform, getRandomUserAgent, getStringBetweenStrings, findFunction, PlayerError } from '../utils/Utils.js';
 const TAG = 'Player';
 /**
  * Represents YouTube's player script. This is required to decipher signatures.
  */
 export default class Player {
-    constructor(signature_timestamp, sig_sc, nsig_sc, player_id) {
+    constructor(player_id, signature_timestamp, sig_sc, nsig_sc) {
+        this.player_id = player_id;
+        this.sts = signature_timestamp;
         this.nsig_sc = nsig_sc;
         this.sig_sc = sig_sc;
-        this.sts = signature_timestamp;
-        this.player_id = player_id;
     }
     static create(cache, fetch = Platform.shim.fetch) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -46,7 +46,7 @@ export default class Player {
             const sig_sc = this.extractSigSourceCode(player_js);
             const nsig_sc = this.extractNSigSourceCode(player_js);
             Log.info(TAG, `Got signature timestamp (${sig_timestamp}) and algorithms needed to decipher signatures.`);
-            return yield Player.fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id);
+            return yield Player.fromSource(player_id, sig_timestamp, cache, sig_sc, nsig_sc);
         });
     }
     decipher(url, signature_cipher, cipher, this_response_nsig_cache) {
@@ -55,7 +55,7 @@ export default class Player {
             throw new PlayerError('No valid URL to decipher');
         const args = new URLSearchParams(url);
         const url_components = new URL(args.get('url') || url);
-        if (signature_cipher || cipher) {
+        if (this.sig_sc && (signature_cipher || cipher)) {
             const signature = Platform.shim.eval(this.sig_sc, {
                 sig: args.get('s')
             });
@@ -68,7 +68,7 @@ export default class Player {
                 url_components.searchParams.set('signature', signature);
         }
         const n = url_components.searchParams.get('n');
-        if (n) {
+        if (this.nsig_sc && n) {
             let nsig;
             if (this_response_nsig_cache && this_response_nsig_cache.has(n)) {
                 nsig = this_response_nsig_cache.get(n);
@@ -129,19 +129,19 @@ export default class Player {
             const nsig_buf = buffer.slice(12 + sig_len);
             const sig_sc = LZW.decompress(new TextDecoder().decode(sig_buf));
             const nsig_sc = LZW.decompress(new TextDecoder().decode(nsig_buf));
-            return new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
+            return new Player(player_id, sig_timestamp, sig_sc, nsig_sc);
         });
     }
-    static fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id) {
+    static fromSource(player_id, sig_timestamp, cache, sig_sc, nsig_sc) {
         return __awaiter(this, void 0, void 0, function* () {
-            const player = new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
+            const player = new Player(player_id, sig_timestamp, sig_sc, nsig_sc);
             yield player.cache(cache);
             return player;
         });
     }
     cache(cache) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!cache)
+            if (!cache || !this.sig_sc || !this.nsig_sc)
                 return;
             const encoder = new TextEncoder();
             const sig_buf = encoder.encode(LZW.compress(this.sig_sc));
@@ -169,21 +169,16 @@ export default class Player {
         return `function descramble_sig(a) { a = a.split(""); let ${obj_name}={${functions}}${calls} return a.join("") } descramble_sig(sig);`;
     }
     static extractNSigSourceCode(data) {
-        let sc = getStringBetweenStrings(data, 'b=String.prototype.split.call(a,"")', '}return b.join("")}');
-        if (sc)
-            return `function descramble_nsig(a) { let b=String.prototype.split.call(a,"")${sc}} return b.join(""); } descramble_nsig(nsig)`;
-        sc = getStringBetweenStrings(data, 'b=String.prototype.split.call(a,"")', '}return Array.prototype.join.call(b,"")}');
-        if (sc)
-            return `function descramble_nsig(a) { let b=String.prototype.split.call(a, "")${sc}} return Array.prototype.join.call(b, ""); } descramble_nsig(nsig)`;
-        // We really should throw an error here to avoid errors later, returning a pass-through function for backwards-compatibility
-        Log.warn(TAG, 'Failed to extract n-token decipher algorithm');
-        return 'function descramble_nsig(a) { return a; } descramble_nsig(nsig)';
+        const nsig_function = findFunction(data, { includes: 'enhanced_except' });
+        if (nsig_function) {
+            return `${nsig_function.result} ${nsig_function.name}(nsig);`;
+        }
     }
     get url() {
         return new URL(`/s/player/${this.player_id}/player_ias.vflset/en_US/base.js`, Constants.URLS.YT_BASE).toString();
     }
     static get LIBRARY_VERSION() {
-        return 10;
+        return 11;
     }
 }
 //# sourceMappingURL=Player.js.map

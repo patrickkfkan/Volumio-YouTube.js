@@ -8509,6 +8509,7 @@ __export(Utils_exports, {
   debugFetch: () => debugFetch,
   deepCompare: () => deepCompare,
   escapeStringRegexp: () => escapeStringRegexp,
+  findFunction: () => findFunction,
   generateRandomString: () => generateRandomString,
   generateSidAuth: () => generateSidAuth,
   getRandomUserAgent: () => getRandomUserAgent,
@@ -22528,6 +22529,7 @@ var user_agents_default = {
 };
 
 // dist/src/utils/Utils.js
+var import_jintr = require("jintr");
 var _a5;
 var _Platform_shim;
 var Platform = class {
@@ -22705,6 +22707,35 @@ function isTextRun(run) {
   return !("emoji" in run);
 }
 __name(isTextRun, "isTextRun");
+function findFunction(source, args) {
+  const { name, includes, regexp } = args;
+  const node = import_jintr.Jinter.parseScript(source);
+  const stack = [node];
+  for (let i = 0; i < stack.length; i++) {
+    const current = stack[i];
+    if (current.type === "ExpressionStatement" && (current.expression.type === "AssignmentExpression" && current.expression.left.type === "Identifier" && current.expression.right.type === "FunctionExpression")) {
+      const code = source.substring(current.start, current.end);
+      if (name && current.expression.left.name === name || includes && code.indexOf(includes) > -1 || regexp && regexp.test(code)) {
+        return {
+          start: current.start,
+          end: current.end,
+          name: current.expression.left.name,
+          node: current,
+          result: code
+        };
+      }
+    }
+    for (const key in current) {
+      const child = current[key];
+      if (Array.isArray(child)) {
+        stack.push(...child);
+      } else if (typeof child === "object" && child !== null) {
+        stack.push(child);
+      }
+    }
+  }
+}
+__name(findFunction, "findFunction");
 
 // dist/src/platform/node.js
 var import_crypto = __toESM(require("crypto"), 1);
@@ -22738,7 +22769,7 @@ var node_custom_event_default = CustomEvent;
 var import_url = require("url");
 
 // dist/src/platform/jsruntime/jinter.js
-var import_jintr = require("jintr");
+var import_jintr2 = require("jintr");
 
 // dist/src/core/Actions.js
 var _Actions_instances;
@@ -22858,11 +22889,11 @@ var Actions_default = Actions;
 // dist/src/core/Player.js
 var TAG2 = "Player";
 var Player = class {
-  constructor(signature_timestamp, sig_sc, nsig_sc, player_id) {
+  constructor(player_id, signature_timestamp, sig_sc, nsig_sc) {
+    this.player_id = player_id;
+    this.sts = signature_timestamp;
     this.nsig_sc = nsig_sc;
     this.sig_sc = sig_sc;
-    this.sts = signature_timestamp;
-    this.player_id = player_id;
   }
   static create(cache, fetch = Platform.shim.fetch) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -22897,7 +22928,7 @@ var Player = class {
       const sig_sc = this.extractSigSourceCode(player_js);
       const nsig_sc = this.extractNSigSourceCode(player_js);
       Log_default.info(TAG2, `Got signature timestamp (${sig_timestamp}) and algorithms needed to decipher signatures.`);
-      return yield Player.fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id);
+      return yield Player.fromSource(player_id, sig_timestamp, cache, sig_sc, nsig_sc);
     });
   }
   decipher(url, signature_cipher, cipher, this_response_nsig_cache) {
@@ -22906,7 +22937,7 @@ var Player = class {
       throw new PlayerError("No valid URL to decipher");
     const args = new URLSearchParams(url);
     const url_components = new URL(args.get("url") || url);
-    if (signature_cipher || cipher) {
+    if (this.sig_sc && (signature_cipher || cipher)) {
       const signature = Platform.shim.eval(this.sig_sc, {
         sig: args.get("s")
       });
@@ -22917,7 +22948,7 @@ var Player = class {
       sp ? url_components.searchParams.set(sp, signature) : url_components.searchParams.set("signature", signature);
     }
     const n = url_components.searchParams.get("n");
-    if (n) {
+    if (this.nsig_sc && n) {
       let nsig;
       if (this_response_nsig_cache && this_response_nsig_cache.has(n)) {
         nsig = this_response_nsig_cache.get(n);
@@ -22976,19 +23007,19 @@ var Player = class {
       const nsig_buf = buffer.slice(12 + sig_len);
       const sig_sc = LZW_exports.decompress(new TextDecoder().decode(sig_buf));
       const nsig_sc = LZW_exports.decompress(new TextDecoder().decode(nsig_buf));
-      return new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
+      return new Player(player_id, sig_timestamp, sig_sc, nsig_sc);
     });
   }
-  static fromSource(cache, sig_timestamp, sig_sc, nsig_sc, player_id) {
+  static fromSource(player_id, sig_timestamp, cache, sig_sc, nsig_sc) {
     return __awaiter(this, void 0, void 0, function* () {
-      const player = new Player(sig_timestamp, sig_sc, nsig_sc, player_id);
+      const player = new Player(player_id, sig_timestamp, sig_sc, nsig_sc);
       yield player.cache(cache);
       return player;
     });
   }
   cache(cache) {
     return __awaiter(this, void 0, void 0, function* () {
-      if (!cache)
+      if (!cache || !this.sig_sc || !this.nsig_sc)
         return;
       const encoder = new TextEncoder();
       const sig_buf = encoder.encode(LZW_exports.compress(this.sig_sc));
@@ -23016,20 +23047,16 @@ var Player = class {
     return `function descramble_sig(a) { a = a.split(""); let ${obj_name}={${functions}}${calls} return a.join("") } descramble_sig(sig);`;
   }
   static extractNSigSourceCode(data) {
-    let sc = getStringBetweenStrings(data, 'b=String.prototype.split.call(a,"")', '}return b.join("")}');
-    if (sc)
-      return `function descramble_nsig(a) { let b=String.prototype.split.call(a,"")${sc}} return b.join(""); } descramble_nsig(nsig)`;
-    sc = getStringBetweenStrings(data, 'b=String.prototype.split.call(a,"")', '}return Array.prototype.join.call(b,"")}');
-    if (sc)
-      return `function descramble_nsig(a) { let b=String.prototype.split.call(a, "")${sc}} return Array.prototype.join.call(b, ""); } descramble_nsig(nsig)`;
-    Log_default.warn(TAG2, "Failed to extract n-token decipher algorithm");
-    return "function descramble_nsig(a) { return a; } descramble_nsig(nsig)";
+    const nsig_function = findFunction(data, { includes: "enhanced_except" });
+    if (nsig_function) {
+      return `${nsig_function.result} ${nsig_function.name}(nsig);`;
+    }
   }
   get url() {
     return new URL(`/s/player/${this.player_id}/player_ias.vflset/en_US/base.js`, Constants_exports.URLS.YT_BASE).toString();
   }
   static get LIBRARY_VERSION() {
-    return 10;
+    return 11;
   }
 };
 __name(Player, "Player");
@@ -24903,7 +24930,7 @@ var lib_default = Innertube_default;
 var TAG3 = "JsRuntime";
 function evaluate(code, env) {
   Log_default.debug(TAG3, "Evaluating JavaScript:\n", code);
-  const runtime = new import_jintr.Jinter();
+  const runtime = new import_jintr2.Jinter();
   for (const [key, value] of Object.entries(env)) {
     runtime.scope.set(key, value);
   }
