@@ -20676,7 +20676,7 @@ __name(sha1Hash, "sha1Hash");
 // dist/package.json
 var package_default = {
   name: "volumio-youtubei.js",
-  version: "0.3.8",
+  version: "0.3.9",
   description: "Modified version of YouTube.js library for use with Volumio's YouTube Music plugin.",
   type: "module",
   types: "./dist/src/platform/lib.d.ts",
