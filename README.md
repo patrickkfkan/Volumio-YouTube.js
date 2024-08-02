@@ -17,6 +17,9 @@ Note that there is no `setLanguage()` function, because multilanguage support is
 
 ## Changelog:
 
+0.3.9
+- Backport `Player.ts` changes up to [refactor(Player): Generate and parse player script's AST](https://github.com/LuanRT/YouTube.js/pull/713)
+
 0.3.8
 - Backport from [fix(Player): Fix extracting the n-token decipher algorithm](https://github.com/LuanRT/YouTube.js/pull/698)
 
