@@ -1,12 +1,12 @@
-import Playlist from '../../parser/youtube/Playlist.js';
-import type Actions from '../Actions.js';
-import type Feed from '../mixins/Feed.js';
-
-import type { EditPlaylistEndpointOptions } from '../../types/index.js';
 import { InnertubeError, throwIfMissing } from '../../utils/Utils.js';
 import { EditPlaylistEndpoint } from '../endpoints/browse/index.js';
 import { BrowseEndpoint } from '../endpoints/index.js';
 import { CreateEndpoint, DeleteEndpoint } from '../endpoints/playlist/index.js';
+import Playlist from '../../parser/youtube/Playlist.js';
+
+import type { Actions } from '../index.js';
+import type { Feed } from '../mixins/index.js';
+import type { EditPlaylistEndpointOptions } from '../../types/index.js';
 
 export default class PlaylistManager {
   #actions: Actions;
@@ -96,8 +96,9 @@ export default class PlaylistManager {
    * Removes videos from a given playlist.
    * @param playlist_id - The playlist ID.
    * @param video_ids - An array of video IDs to remove from the playlist.
+   * @param use_set_video_ids - Option to remove videos using set video IDs.
    */
-  async removeVideos(playlist_id: string, video_ids: string[]): Promise<{ playlist_id: string; action_result: any }> {
+  async removeVideos(playlist_id: string, video_ids: string[], use_set_video_ids = false): Promise<{ playlist_id: string; action_result: any }> {
     throwIfMissing({ playlist_id, video_ids });
 
     if (!this.#actions.session.logged_in)
@@ -115,7 +116,8 @@ export default class PlaylistManager {
     const payload: EditPlaylistEndpointOptions = { playlist_id, actions: [] };
 
     const getSetVideoIds = async (pl: Feed): Promise<void> => {
-      const videos = pl.videos.filter((video) => video_ids.includes(video.key('id').string()));
+      const key_id = use_set_video_ids ? 'set_video_id' : 'id';
+      const videos = pl.videos.filter((video) => video_ids.includes(video.key(key_id).string()));
 
       videos.forEach((video) =>
         payload.actions.push({
@@ -198,6 +200,62 @@ export default class PlaylistManager {
     return {
       playlist_id,
       action_result: response.data.actions // TODO: implement actions in the parser
+    };
+  }
+
+  /**
+   * Sets the name (title) for the given playlist.
+   * @param playlist_id - The playlist ID.
+   * @param name - The name / title to use for the playlist.
+   */
+  async setName(playlist_id: string, name: string): Promise<{ playlist_id: string; action_result: any; }> {
+    throwIfMissing({ playlist_id, name });
+
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
+
+    const payload: EditPlaylistEndpointOptions = { playlist_id, actions: [] };
+
+    payload.actions.push({
+      action: 'ACTION_SET_PLAYLIST_NAME',
+      playlist_name: name
+    });
+
+    const response = await this.#actions.execute(
+      EditPlaylistEndpoint.PATH, EditPlaylistEndpoint.build(payload)
+    );
+
+    return {
+      playlist_id,
+      action_result: response.data.actions
+    };
+  }
+
+  /**
+   * Sets the description for the given playlist.
+   * @param playlist_id - The playlist ID.
+   * @param description - The description to use for the playlist.
+   */
+  async setDescription(playlist_id: string, description: string): Promise<{ playlist_id: string; action_result: any; }> {
+    throwIfMissing({ playlist_id, description });
+
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
+
+    const payload: EditPlaylistEndpointOptions = { playlist_id, actions: [] };
+
+    payload.actions.push({
+      action: 'ACTION_SET_PLAYLIST_DESCRIPTION',
+      playlist_description: description
+    });
+
+    const response = await this.#actions.execute(
+      EditPlaylistEndpoint.PATH, EditPlaylistEndpoint.build(payload)
+    );
+
+    return {
+      playlist_id,
+      action_result: response.data.actions
     };
   }
 }

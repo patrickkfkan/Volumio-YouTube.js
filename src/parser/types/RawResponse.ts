@@ -1,7 +1,45 @@
 export type RawNode = Record<string, any>;
 export type RawData = RawNode | RawNode[];
 
+export type CpnSource = 'CPN_SOURCE_TYPE_CLIENT' | 'CPN_SOURCE_TYPE_WATCH_SERVER';
+
+export interface IServiceTrackingParams {
+  service: string;
+  params?: {
+    key: string;
+    value: string;
+  }[];
+}
+
+export interface IResponseContext {
+  serviceTrackingParams: IServiceTrackingParams[];
+  maxAgeSeconds: number;
+}
+
+export interface IRawPlayerConfig {
+  audioConfig: {
+    loudnessDb?: number;
+    perceptualLoudnessDb?: number;
+    enablePerFormatLoudness: boolean;
+  };
+  streamSelectionConfig: {
+    maxBitrate: string;
+  };
+  mediaCommonConfig: {
+    dynamicReadaheadConfig?: {
+      maxReadAheadMediaTimeMs: number;
+      minReadAheadMediaTimeMs: number;
+      readAheadGrowthRateMs: number;
+    };
+    mediaUstreamerRequestConfig?: {
+      videoPlaybackUstreamerConfig: string;
+    }
+  };
+}
+
 export interface IRawResponse {
+  responseContext?: IResponseContext;
+  background?: RawNode;
   contents?: RawData;
   onResponseReceivedActions?: RawNode[];
   onResponseReceivedEndpoints?: RawNode[];
@@ -40,7 +78,11 @@ export interface IRawResponse {
     adaptiveFormats: RawNode[];
     dashManifestUrl?: string;
     hlsManifestUrl?: string;
+    serverAbrStreamingUrl?: string;
   };
+  playerConfig?: IRawPlayerConfig;
+  playerResponse?: IRawResponse;
+  watchNextResponse?: IRawResponse;
   currentVideoEndpoint?: RawNode;
   unseenCount?: number;
   playlistId?: string;
@@ -51,6 +93,13 @@ export interface IRawResponse {
   storyboards?: RawNode;
   endscreen?: RawNode;
   cards?: RawNode;
+  cpnInfo?: {
+    cpn: string;
+    cpnSource: CpnSource;
+  },
   items?: RawNode[];
   frameworkUpdates?: any;
+  engagementPanels?: RawNode[];
+  entries?: RawNode[];
+  [key: string]: any;
 }

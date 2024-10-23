@@ -1,19 +1,22 @@
 import { YTNode } from '../helpers.js';
 import type { RawNode } from '../index.js';
 
+export interface StoryboardData {
+  type: 'vod'
+  template_url: string;
+  thumbnail_width: number;
+  thumbnail_height: number;
+  thumbnail_count: number;
+  interval: number;
+  columns: number;
+  rows: number;
+  storyboard_count: number;
+}
+
 export default class PlayerStoryboardSpec extends YTNode {
   static type = 'PlayerStoryboardSpec';
 
-  boards: {
-    template_url: string;
-    thumbnail_width: number;
-    thumbnail_height: number;
-    thumbnail_count: number;
-    interval: number;
-    columns: number;
-    rows: number;
-    storyboard_count: number;
-  };
+  boards: StoryboardData[];
 
   constructor(data: RawNode) {
     super();
@@ -29,6 +32,7 @@ export default class PlayerStoryboardSpec extends YTNode {
       const storyboard_count = Math.ceil(parseInt(thumbnail_count, 10) / (parseInt(columns, 10) * parseInt(rows, 10)));
 
       return {
+        type: 'vod',
         template_url: url.toString().replace('$L', i).replace('$N', name),
         thumbnail_width: parseInt(thumbnail_width, 10),
         thumbnail_height: parseInt(thumbnail_height, 10),

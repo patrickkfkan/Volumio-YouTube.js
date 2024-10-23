@@ -2,11 +2,11 @@ import Feed from '../../core/mixins/Feed.js';
 import C4TabbedHeader from '../classes/C4TabbedHeader.js';
 import ItemSection from '../classes/ItemSection.js';
 import { ItemSectionContinuation } from '../index.js';
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
 
-class Channel extends Feed<IBrowseResponse> {
+import type { IBrowseResponse } from '../types/index.js';
+import type { ApiResponse, Actions } from '../../core/index.js';
+
+export default class Channel extends Feed<IBrowseResponse> {
   header?: C4TabbedHeader;
   contents?: ItemSection | ItemSectionContinuation;
 
@@ -32,5 +32,3 @@ class Channel extends Feed<IBrowseResponse> {
     return !!this.contents?.continuation;
   }
 }
-
-export default Channel;

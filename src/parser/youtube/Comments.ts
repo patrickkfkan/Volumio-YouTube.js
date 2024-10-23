@@ -1,17 +1,17 @@
-import Parser from '../index.js';
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
+import { Parser } from '../index.js';
 import { InnertubeError } from '../../utils/Utils.js';
-import type { ObservedArray } from '../helpers.js';
 import { observe } from '../helpers.js';
-import type { INextResponse } from '../types/ParsedResponse.js';
 
 import CommentsHeader from '../classes/comments/CommentsHeader.js';
 import CommentSimplebox from '../classes/comments/CommentSimplebox.js';
 import CommentThread from '../classes/comments/CommentThread.js';
 import ContinuationItem from '../classes/ContinuationItem.js';
 
-class Comments {
+import type { Actions, ApiResponse } from '../../core/index.js';
+import type { ObservedArray } from '../helpers.js';
+import type { INextResponse } from '../types/index.js';
+
+export default class Comments {
   #page: INextResponse;
   #actions: Actions;
   #continuation?: ContinuationItem;
@@ -122,5 +122,3 @@ class Comments {
     return this.#page;
   }
 }
-
-export default Comments;

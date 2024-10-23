@@ -1,12 +1,12 @@
-import type Actions from '../../core/Actions.js';
 import Feed from '../../core/mixins/Feed.js';
 import ItemSection from '../classes/ItemSection.js';
 import BrowseFeedActions from '../classes/BrowseFeedActions.js';
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
-import type { ApiResponse } from '../../core/Actions.js';
+
+import type { Actions, ApiResponse } from '../../core/index.js';
+import type { IBrowseResponse } from '../types/index.js';
 
 // TODO: make feed actions usable
-class History extends Feed<IBrowseResponse> {
+export default class History extends Feed<IBrowseResponse> {
   sections: ItemSection[];
   feed_actions: BrowseFeedActions;
 
@@ -26,5 +26,3 @@ class History extends Feed<IBrowseResponse> {
     return new History(this.actions, response, true);
   }
 }
-
-export default History;

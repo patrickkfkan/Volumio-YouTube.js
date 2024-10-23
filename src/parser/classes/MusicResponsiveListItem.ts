@@ -1,6 +1,12 @@
 // TODO: Clean up and refactor this.
 
-import Parser from '../index.js';
+import { YTNode } from '../helpers.js';
+import { isTextRun, timeToSeconds } from '../../utils/Utils.js';
+import type { ObservedArray } from '../helpers.js';
+import type { RawNode } from '../index.js';
+import type TextRun from './misc/TextRun.js';
+
+import { Parser } from '../index.js';
 import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
 import MusicResponsiveListItemFixedColumn from './MusicResponsiveListItemFixedColumn.js';
 import MusicResponsiveListItemFlexColumn from './MusicResponsiveListItemFlexColumn.js';
@@ -8,11 +14,6 @@ import MusicThumbnail from './MusicThumbnail.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Menu from './menus/Menu.js';
 import Text from './misc/Text.js';
-
-import { isTextRun, timeToSeconds } from '../../utils/Utils.js';
-import type { ObservedArray } from '../helpers.js';
-import { YTNode } from '../helpers.js';
-import type { RawNode } from '../index.js';
 
 export default class MusicResponsiveListItem extends YTNode {
   static type = 'MusicResponsiveListItem';
@@ -24,8 +25,8 @@ export default class MusicResponsiveListItem extends YTNode {
     playlist_set_video_id: string;
   };
 
-  endpoint: NavigationEndpoint | null;
-  item_type: 'album' | 'playlist' | 'artist' | 'library_artist' | 'video' | 'song' | 'endpoint' | 'unknown' | undefined;
+  endpoint?: NavigationEndpoint;
+  item_type: 'album' | 'playlist' | 'artist' | 'library_artist' | 'non_music_track' | 'video' | 'song' | 'endpoint' | 'unknown' | 'podcast_show' | undefined;
   index?: Text;
   thumbnail?: MusicThumbnail | null;
   badges;
@@ -82,9 +83,21 @@ export default class MusicResponsiveListItem extends YTNode {
       playlist_set_video_id: data?.playlistItemData?.playlistSetVideoId || null
     };
 
-    this.endpoint = data.navigationEndpoint ? new NavigationEndpoint(data.navigationEndpoint) : null;
+    if (Reflect.has(data, 'navigationEndpoint')) {
+      this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
+    }
 
-    const page_type = this.endpoint?.payload?.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType;
+    let page_type = this.endpoint?.payload?.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType;
+
+    if (!page_type) {
+      const is_non_music_track = this.flex_columns.find(
+        (col) => col.title.endpoint?.payload?.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType === 'MUSIC_PAGE_TYPE_NON_MUSIC_AUDIO_TRACK_PAGE'
+      );
+
+      if (is_non_music_track) {
+        page_type = 'MUSIC_PAGE_TYPE_NON_MUSIC_AUDIO_TRACK_PAGE';
+      }
+    }
 
     switch (page_type) {
       case 'MUSIC_PAGE_TYPE_ALBUM':
@@ -104,27 +117,45 @@ export default class MusicResponsiveListItem extends YTNode {
         this.item_type = 'library_artist';
         this.#parseLibraryArtist();
         break;
+      case 'MUSIC_PAGE_TYPE_NON_MUSIC_AUDIO_TRACK_PAGE':
+        this.item_type = 'non_music_track';
+        this.#parseNonMusicTrack();
+        break;
+      case 'MUSIC_PAGE_TYPE_PODCAST_SHOW_DETAIL_PAGE':
+        this.item_type = 'podcast_show';
+        this.#parsePodcastShow();
+        break;
       default:
         if (this.flex_columns[1]) {
           this.#parseVideoOrSong();
         } else {
           this.#parseOther();
         }
-        break;
     }
 
-    if (data.index) {
+    if (Reflect.has(data, 'index')) {
       this.index = new Text(data.index);
     }
 
-    this.thumbnail = Parser.parseItem(data.thumbnail, MusicThumbnail);
-    this.badges = Parser.parseArray(data.badges);
-    this.menu = Parser.parseItem(data.menu, Menu);
-    this.overlay = Parser.parseItem(data.overlay, MusicItemThumbnailOverlay);
+    if (Reflect.has(data, 'thumbnail')) {
+      this.thumbnail = Parser.parseItem(data.thumbnail, MusicThumbnail);
+    }
+
+    if (Reflect.has(data, 'badges')) {
+      this.badges = Parser.parseArray(data.badges);
+    }
+
+    if (Reflect.has(data, 'menu')) {
+      this.menu = Parser.parseItem(data.menu, Menu);
+    }
+
+    if (Reflect.has(data, 'overlay')) {
+      this.overlay = Parser.parseItem(data.overlay, MusicItemThumbnailOverlay);
+    }
   }
 
   #parseOther() {
-    this.title = this.flex_columns.first().key('title').instanceof(Text).toString();
+    this.title = this.flex_columns.first().title.toString();
 
     if (this.endpoint) {
       this.item_type = 'endpoint';
@@ -134,29 +165,28 @@ export default class MusicResponsiveListItem extends YTNode {
   }
 
   #parseVideoOrSong() {
-    /*** Volumio-YouTube.js ***/
-    const is_video = this.flex_columns[1]?.key('title').instanceof(Text).runs?.some((run) => run.text.match(/(.*?) views/));
-    //const is_video = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.some((run) => run.text.match(/(.*?) views/));
-    if (is_video) {
-      this.item_type = 'video';
-      this.#parseVideo();
-    } else {
-      this.item_type = 'song';
-      this.#parseSong();
+    const music_video_type = (this.flex_columns.at(0)?.title.runs?.at(0) as TextRun)?.endpoint?.payload?.watchEndpointMusicSupportedConfigs?.watchEndpointMusicConfig?.musicVideoType;
+    switch (music_video_type) {
+      case 'MUSIC_VIDEO_TYPE_UGC':
+      case 'MUSIC_VIDEO_TYPE_OMV':
+        this.item_type = 'video';
+        this.#parseVideo();
+        break;
+      case 'MUSIC_VIDEO_TYPE_ATV':
+        this.item_type = 'song';
+        this.#parseSong();
+        break;
+      default:
+        this.#parseOther();
     }
   }
 
   #parseSong() {
     this.id = this.#playlist_item_data.video_id || this.endpoint?.payload?.videoId;
-    this.title = this.flex_columns.first().key('title').instanceof(Text).toString();
+    this.title = this.flex_columns.first().title.toString();
 
-    /*** Volumio-YouTube.js ***/
-    this.subtitle = this.flex_columns[1].key('title').instanceof(Text);
-
-    /*** Volumio-YouTube.js ***/
-    const duration_text = this.flex_columns[1]?.key('title').instanceof(Text).runs?.find(
-    //const duration_text = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
-      (run) => (/^\d+$/).test(run.text.replace(/:/g, '')))?.text || this.fixed_columns.first()?.key('title').instanceof(Text)?.toString();
+    const duration_text = this.flex_columns.at(1)?.title.runs?.find(
+      (run) => (/^\d+$/).test(run.text.replace(/:/g, '')))?.text || this.fixed_columns.first()?.title?.toString();
 
     if (duration_text) {
       this.duration = {
@@ -166,22 +196,15 @@ export default class MusicResponsiveListItem extends YTNode {
     }
 
     const album_run =
-      /*** Volumio-YouTube.js ***/
-      // TODO: Push to YouTube.js repo ('private' matching part')
-      this.flex_columns[1]?.key('title').instanceof(Text).runs?.find(
-      //this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
+      this.flex_columns.at(1)?.title.runs?.find(
         (run) =>
-          (isTextRun(run) && run.endpoint) && (
-          run.endpoint.payload.browseId.startsWith('MPR') ||
-          run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_release'))
+          (isTextRun(run) && run.endpoint) &&
+          run.endpoint.payload.browseId.startsWith('MPR')
       ) ||
-      /*** Volumio-YouTube.js ***/
-      this.flex_columns[2]?.key('title').instanceof(Text).runs?.find(
-      //this.flex_columns.at(2)?.key('title').instanceof(Text).runs?.find(
+      this.flex_columns.at(2)?.title.runs?.find(
         (run) =>
-          (isTextRun(run) && run.endpoint) && (
-          run.endpoint.payload.browseId.startsWith('MPR') ||
-          run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_release'))
+          (isTextRun(run) && run.endpoint) &&
+          run.endpoint.payload.browseId.startsWith('MPR')
       );
 
     if (album_run && isTextRun(album_run)) {
@@ -192,13 +215,8 @@ export default class MusicResponsiveListItem extends YTNode {
       };
     }
 
-    /*** Volumio-YouTube.js ***/
-    // TODO: Push to YouTube.js repo ('private' matching part')
-    const artist_runs = this.flex_columns[1]?.key('title').instanceof(Text).runs?.filter(
-    //const artist_runs = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.filter(
-      (run) => (isTextRun(run) && run.endpoint) && (
-        run.endpoint.payload.browseId.startsWith('UC') ||
-        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
+    const artist_runs = this.flex_columns.at(1)?.title.runs?.filter(
+      (run) => (isTextRun(run) && run.endpoint) && run.endpoint.payload.browseId.startsWith('UC')
     );
 
     if (artist_runs) {
@@ -212,23 +230,13 @@ export default class MusicResponsiveListItem extends YTNode {
 
   #parseVideo() {
     this.id = this.#playlist_item_data.video_id;
-    this.title = this.flex_columns.first().key('title').instanceof(Text).toString();
+    this.title = this.flex_columns.first().title.toString();
+    this.views = this.flex_columns.at(1)?.title.runs?.find((run) => run.text.match(/(.*?) views/))?.toString();
 
-    /*** Volumio-YouTube.js ***/
-    this.subtitle = this.flex_columns[1].key('title').instanceof(Text);
-
-    /*** Volumio-YouTube.js ***/
-    this.views = this.flex_columns[1]?.key('title').instanceof(Text).runs?.find((run) => run.text.match(/(.*?) views/))?.toString();
-    //this.views = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find((run) => run.text.match(/(.*?) views/))?.toString();
-
-    /*** Volumio-YouTube.js ***/
-    // TODO: Push to YouTube.js repo ('private' matching part)
-    const author_runs = this.flex_columns[1]?.key('title').instanceof(Text).runs?.filter(
-    //const author_runs = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.filter(
+    const author_runs = this.flex_columns.at(1)?.title.runs?.filter(
       (run) =>
-        (isTextRun(run) && run.endpoint) && (
-        run.endpoint.payload.browseId.startsWith('UC') ||
-        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
+        (isTextRun(run) && run.endpoint) &&
+        run.endpoint.payload.browseId.startsWith('UC')
     );
 
     if (author_runs) {
@@ -241,8 +249,8 @@ export default class MusicResponsiveListItem extends YTNode {
       });
     }
 
-    const duration_text = this.flex_columns[1].key('title').instanceof(Text).runs?.find(
-      (run) => (/^\d+$/).test(run.text.replace(/:/g, '')))?.text || this.fixed_columns.first()?.key('title').instanceof(Text).runs?.find((run) => (/^\d+$/).test(run.text.replace(/:/g, '')))?.text;
+    const duration_text = this.flex_columns[1].title.runs?.find(
+      (run) => (/^\d+$/).test(run.text.replace(/:/g, '')))?.text || this.fixed_columns.first()?.title.runs?.find((run) => (/^\d+$/).test(run.text.replace(/:/g, '')))?.text;
 
     if (duration_text) {
       this.duration = {
@@ -254,36 +262,35 @@ export default class MusicResponsiveListItem extends YTNode {
 
   #parseArtist() {
     this.id = this.endpoint?.payload?.browseId;
-    this.name = this.flex_columns.first().key('title').instanceof(Text).toString();
-    /*** Volumio-YouTube.js ***/
-    this.subtitle = this.flex_columns[1]?.key('title').instanceof(Text);
-    //this.subtitle = this.flex_columns.at(1)?.key('title').instanceof(Text);
+    this.name = this.flex_columns.first().title.toString();
+    this.subtitle = this.flex_columns.at(1)?.title;
     this.subscribers = this.subtitle?.runs?.find((run) => (/^(\d*\.)?\d+[M|K]? subscribers?$/i).test(run.text))?.text || '';
   }
 
   #parseLibraryArtist() {
-    this.name = this.flex_columns.first().key('title').instanceof(Text).toString();
-    /*** Volumio-YouTube.js ***/
-    this.subtitle = this.flex_columns[1]?.key('title').instanceof(Text);
-    //this.subtitle = this.flex_columns.at(1)?.key('title').instanceof(Text);
+    this.name = this.flex_columns.first().title.toString();
+    this.subtitle = this.flex_columns.at(1)?.title;
     this.song_count = this.subtitle?.runs?.find((run) => (/^\d+(,\d+)? songs?$/i).test(run.text))?.text || '';
+  }
+
+  #parseNonMusicTrack() {
+    this.id = this.#playlist_item_data.video_id || this.endpoint?.payload?.videoId;
+    this.title = this.flex_columns.first().title.toString();
+  }
+
+  #parsePodcastShow() {
+    this.id = this.endpoint?.payload?.browseId;
+    this.title = this.flex_columns.first().title.toString();
   }
 
   #parseAlbum() {
     this.id = this.endpoint?.payload?.browseId;
     this.title = this.flex_columns.first().title.toString();
 
-    /*** Volumio-YouTube.js ***/
-    this.subtitle = this.flex_columns[1].key('title').instanceof(Text);
-
-    /*** Volumio-YouTube.js ***/
-    // TODO: Push to YouTube.js repo ('private' matching part')
-    const author_run = this.flex_columns[1]?.key('title').instanceof(Text).runs?.find(
-    //const author_run = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
+    const author_run = this.flex_columns.at(1)?.title.runs?.find(
       (run) =>
-        (isTextRun(run) && run.endpoint) && (
-        run.endpoint.payload.browseId.startsWith('UC') ||
-        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
+        (isTextRun(run) && run.endpoint) &&
+        run.endpoint.payload.browseId.startsWith('UC')
     );
 
     if (author_run && isTextRun(author_run)) {
@@ -294,9 +301,7 @@ export default class MusicResponsiveListItem extends YTNode {
       };
     }
 
-    /*** Volumio-YouTube.js ***/
-    this.year = this.flex_columns[1]?.key('title').instanceof(Text).runs?.find(
-    //this.year = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
+    this.year = this.flex_columns.at(1)?.title.runs?.find(
       (run) => (/^[12][0-9]{3}$/).test(run.text)
     )?.text;
   }
@@ -305,25 +310,15 @@ export default class MusicResponsiveListItem extends YTNode {
     this.id = this.endpoint?.payload?.browseId;
     this.title = this.flex_columns.first().title.toString();
 
-    /*** Volumio-YouTube.js ***/
-    this.subtitle = this.flex_columns[1].key('title').instanceof(Text);
-
-    /*** Volumio-YouTube.js ***/
-    const item_count_run = this.flex_columns[1]?.key('title')
-      .instanceof(Text).runs?.find((run) => run.text.match(/\d+ (song|songs)/));
-    /*const item_count_run = this.flex_columns.at(1)?.key('title')
-      .instanceof(Text).runs?.find((run) => run.text.match(/\d+ (song|songs)/));*/
+    const item_count_run = this.flex_columns.at(1)?.title
+      .runs?.find((run) => run.text.match(/\d+ (song|songs)/));
 
     this.item_count = item_count_run ? item_count_run.text : undefined;
 
-    /*** Volumio-YouTube.js ***/
-    // TODO: Push to YouTube.js repo ('private' matching part')
-    const author_run = this.flex_columns[1]?.key('title').instanceof(Text).runs?.find(
-    //const author_run = this.flex_columns.at(1)?.key('title').instanceof(Text).runs?.find(
+    const author_run = this.flex_columns.at(1)?.title.runs?.find(
       (run) =>
-        (isTextRun(run) && run.endpoint) && (
-        run.endpoint.payload.browseId.startsWith('UC') ||
-        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
+        (isTextRun(run) && run.endpoint) &&
+        run.endpoint.payload.browseId.startsWith('UC')
     );
 
     if (author_run && isTextRun(author_run)) {

@@ -9,6 +9,7 @@ We provide shims for the following platforms:
 - Modern Browsers
 - Node.js
 - Deno
+- [React-Native](./react-native.md)
 
 ## Contributing Support for a New Platform
 
@@ -24,7 +25,6 @@ If you wish to bring YouTube.js to another platform, you will need to provide th
 - `sha1hash(data: string)`: Function that takes a string and returns a SHA-1 hash of it.
 - `uuidv4()`: Function that returns a UUIDv4 string.
 - `eval(code: string, env: Record<string, VMPrimative>)`: Function to evaluate untrusted javascript script and return the result.
-- `DOMParser`: DOMParser implementation. Used for generating DASH manifests.
 - `fetch`: WHATWG Fetch API implementation.
 - `Headers`: Headers implementation.
 - `Request`: Request implementation.

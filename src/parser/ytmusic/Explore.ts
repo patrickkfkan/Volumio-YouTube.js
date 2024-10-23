@@ -1,4 +1,5 @@
-import Parser from '../index.js';
+import { Parser } from '../index.js';
+import { InnertubeError } from '../../utils/Utils.js';
 
 import Grid from '../classes/Grid.js';
 import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
@@ -6,12 +7,11 @@ import MusicNavigationButton from '../classes/MusicNavigationButton.js';
 import SectionList from '../classes/SectionList.js';
 import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults.js';
 
-import type { ApiResponse } from '../../core/Actions.js';
-import { InnertubeError } from '../../utils/Utils.js';
+import type { ApiResponse } from '../../core/index.js';
 import type { ObservedArray } from '../helpers.js';
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
+import type { IBrowseResponse } from '../types/index.js';
 
-class Explore {
+export default class Explore {
   #page: IBrowseResponse;
 
   top_buttons: MusicNavigationButton[];
@@ -38,5 +38,3 @@ class Explore {
     return this.#page;
   }
 }
-
-export default Explore;

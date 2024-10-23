@@ -1,42 +1,41 @@
-import EventEmitter from '../../utils/EventEmitterLike.js';
-import Parser, { LiveChatContinuation } from '../index.js';
-import type VideoInfo from './VideoInfo.js';
+import { EventEmitter } from '../../utils/index.js';
+import { InnertubeError, Platform, u8ToBase64 } from '../../utils/Utils.js';
+import { Parser, LiveChatContinuation } from '../index.js';
 import SmoothedQueue from './SmoothedQueue.js';
 
 import AddChatItemAction from '../classes/livechat/AddChatItemAction.js';
-import type AddLiveChatTickerItemAction from '../classes/livechat/AddLiveChatTickerItemAction.js';
-import type MarkChatItemAsDeletedAction from '../classes/livechat/MarkChatItemAsDeletedAction.js';
-import type MarkChatItemsByAuthorAsDeletedAction from '../classes/livechat/MarkChatItemsByAuthorAsDeletedAction.js';
-import type ReplaceChatItemAction from '../classes/livechat/ReplaceChatItemAction.js';
-import type ReplayChatItemAction from '../classes/livechat/ReplayChatItemAction.js';
-import type ShowLiveChatActionPanelAction from '../classes/livechat/ShowLiveChatActionPanelAction.js';
-
 import UpdateDateTextAction from '../classes/livechat/UpdateDateTextAction.js';
 import UpdateDescriptionAction from '../classes/livechat/UpdateDescriptionAction.js';
 import UpdateTitleAction from '../classes/livechat/UpdateTitleAction.js';
 import UpdateToggleButtonTextAction from '../classes/livechat/UpdateToggleButtonTextAction.js';
 import UpdateViewershipAction from '../classes/livechat/UpdateViewershipAction.js';
+import NavigationEndpoint from '../classes/NavigationEndpoint.js';
+import ItemMenu from './ItemMenu.js';
 
+import { LiveMessageParams } from '../../../protos/generated/misc/params.js';
+
+import type { ObservedArray, YTNode } from '../helpers.js';
+
+import type VideoInfo from './VideoInfo.js';
 import type AddBannerToLiveChatCommand from '../classes/livechat/AddBannerToLiveChatCommand.js';
 import type RemoveBannerForLiveChatCommand from '../classes/livechat/RemoveBannerForLiveChatCommand.js';
 import type ShowLiveChatTooltipCommand from '../classes/livechat/ShowLiveChatTooltipCommand.js';
-
-import Proto from '../../proto/index.js';
-import { InnertubeError, Platform } from '../../utils/Utils.js';
-import type { ObservedArray, YTNode } from '../helpers.js';
-
-import type Button from '../classes/Button.js';
 import type LiveChatAutoModMessage from '../classes/livechat/items/LiveChatAutoModMessage.js';
 import type LiveChatMembershipItem from '../classes/livechat/items/LiveChatMembershipItem.js';
 import type LiveChatPaidMessage from '../classes/livechat/items/LiveChatPaidMessage.js';
 import type LiveChatPaidSticker from '../classes/livechat/items/LiveChatPaidSticker.js';
 import type LiveChatTextMessage from '../classes/livechat/items/LiveChatTextMessage.js';
 import type LiveChatViewerEngagementMessage from '../classes/livechat/items/LiveChatViewerEngagementMessage.js';
-import ItemMenu from './ItemMenu.js';
+import type AddLiveChatTickerItemAction from '../classes/livechat/AddLiveChatTickerItemAction.js';
+import type MarkChatItemAsDeletedAction from '../classes/livechat/MarkChatItemAsDeletedAction.js';
+import type MarkChatItemsByAuthorAsDeletedAction from '../classes/livechat/MarkChatItemsByAuthorAsDeletedAction.js';
+import type ReplaceChatItemAction from '../classes/livechat/ReplaceChatItemAction.js';
+import type ReplayChatItemAction from '../classes/livechat/ReplayChatItemAction.js';
+import type ShowLiveChatActionPanelAction from '../classes/livechat/ShowLiveChatActionPanelAction.js';
+import type Button from '../classes/Button.js';
 
-import type Actions from '../../core/Actions.js';
-import type { IParsedResponse, IUpdatedMetadataResponse } from '../types/ParsedResponse.js';
-import { NavigationEndpoint } from '../nodes.js';
+import type { Actions } from '../../core/index.js';
+import type { IParsedResponse, IUpdatedMetadataResponse } from '../types/index.js';
 
 export type ChatAction =
   AddChatItemAction | AddBannerToLiveChatCommand | AddLiveChatTickerItemAction |
@@ -53,7 +52,7 @@ export interface LiveMetadata {
   date?: UpdateDateTextAction;
 }
 
-class LiveChat extends EventEmitter {
+export default class LiveChat extends EventEmitter {
   smoothed_queue: SmoothedQueue;
 
   #actions: Actions;
@@ -239,7 +238,7 @@ class LiveChat extends EventEmitter {
 
         if (this.running)
           this.#pollMetadata();
-      } catch (err) {
+      } catch {
         await this.#wait(2000);
         if (this.running)
           this.#pollMetadata();
@@ -252,12 +251,25 @@ class LiveChat extends EventEmitter {
    * @param text - Text to send.
    */
   async sendMessage(text: string): Promise<ObservedArray<AddChatItemAction>> {
+    const writer = LiveMessageParams.encode({
+      params: {
+        ids: {
+          videoId: this.#video_id,
+          channelId: this.#channel_id
+        }
+      },
+      number0: 1, 
+      number1: 4
+    });
+
+    const params = btoa(encodeURIComponent(u8ToBase64(writer.finish())));
+
     const response = await this.#actions.execute('/live_chat/send_message', {
-      params: Proto.encodeMessageParams(this.#channel_id, this.#video_id),
       richMessage: { textSegments: [ { text } ] },
       clientMessageId: Platform.shim.uuidv4(),
       client: 'ANDROID',
-      parse: true
+      parse: true,
+      params
     });
 
     if (!response.actions)
@@ -312,5 +324,3 @@ class LiveChat extends EventEmitter {
     return new Promise<void>((resolve) => setTimeout(() => resolve(), ms));
   }
 }
-
-export default LiveChat;

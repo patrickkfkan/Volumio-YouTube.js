@@ -1,6 +1,6 @@
 import type { ICacheConstructor } from './Cache.js';
 
-export type Runtime = 'deno' | 'node' | 'browser' | 'unknown';
+export type Runtime = 'deno' | 'node' | 'browser' | 'cf-worker' | 'unknown' | 'react-native';
 
 export type FetchFunction = typeof fetch;
 
@@ -18,8 +18,6 @@ interface PlatformShim {
     sha1Hash(data: string): Promise<string>;
     uuidv4(): string;
     eval(code: string, env: Record<string, VMPrimative>): unknown;
-    DOMParser: typeof globalThis.DOMParser;
-    serializeDOM: (document: Document) => string;
     fetch: FetchFunction;
     Request: typeof Request;
     Response: typeof Response;

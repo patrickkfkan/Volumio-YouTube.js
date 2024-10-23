@@ -1,7 +1,5 @@
-import type { Memo, ObservedArray, SuperParsedResult, YTNode } from '../../parser/helpers.js';
-import Parser, { ReloadContinuationItemsCommand } from '../../parser/index.js';
+import { Parser, ReloadContinuationItemsCommand } from '../../parser/index.js';
 import { concatMemos, InnertubeError } from '../../utils/Utils.js';
-import type Actions from '../Actions.js';
 
 import BackstagePost from '../../parser/classes/BackstagePost.js';
 import SharedPost from '../../parser/classes/SharedPost.js';
@@ -10,11 +8,13 @@ import CompactVideo from '../../parser/classes/CompactVideo.js';
 import GridChannel from '../../parser/classes/GridChannel.js';
 import GridPlaylist from '../../parser/classes/GridPlaylist.js';
 import GridVideo from '../../parser/classes/GridVideo.js';
+import LockupView from '../../parser/classes/LockupView.js';
 import Playlist from '../../parser/classes/Playlist.js';
 import PlaylistPanelVideo from '../../parser/classes/PlaylistPanelVideo.js';
 import PlaylistVideo from '../../parser/classes/PlaylistVideo.js';
 import Post from '../../parser/classes/Post.js';
 import ReelItem from '../../parser/classes/ReelItem.js';
+import ShortsLockupView from '../../parser/classes/ShortsLockupView.js';
 import ReelShelf from '../../parser/classes/ReelShelf.js';
 import RichShelf from '../../parser/classes/RichShelf.js';
 import Shelf from '../../parser/classes/Shelf.js';
@@ -27,12 +27,15 @@ import TwoColumnBrowseResults from '../../parser/classes/TwoColumnBrowseResults.
 import TwoColumnSearchResults from '../../parser/classes/TwoColumnSearchResults.js';
 import WatchCardCompactVideo from '../../parser/classes/WatchCardCompactVideo.js';
 
+import type { ApiResponse, Actions } from '../index.js';
+import type {
+  Memo, ObservedArray,
+  SuperParsedResult, YTNode
+} from '../../parser/helpers.js';
 import type MusicQueue from '../../parser/classes/MusicQueue.js';
 import type RichGrid from '../../parser/classes/RichGrid.js';
 import type SectionList from '../../parser/classes/SectionList.js';
-
 import type { IParsedResponse } from '../../parser/types/index.js';
-import type { ApiResponse } from '../Actions.js';
 
 export default class Feed<T extends IParsedResponse = IParsedResponse> {
   #page: T;
@@ -76,6 +79,7 @@ export default class Feed<T extends IParsedResponse = IParsedResponse> {
       Video,
       GridVideo,
       ReelItem,
+      ShortsLockupView,
       CompactVideo,
       PlaylistVideo,
       PlaylistPanelVideo,
@@ -87,7 +91,18 @@ export default class Feed<T extends IParsedResponse = IParsedResponse> {
    * Get all playlists on a given page via memo
    */
   static getPlaylistsFromMemo(memo: Memo) {
-    return memo.getType(Playlist, GridPlaylist);
+    const playlists: ObservedArray<Playlist | GridPlaylist | LockupView> = memo.getType(Playlist, GridPlaylist);
+
+    const lockup_views = memo.getType(LockupView)
+      .filter((lockup) => {
+        return [ 'PLAYLIST', 'ALBUM', 'PODCAST' ].includes(lockup.content_type);
+      });
+
+    if (lockup_views.length > 0) {
+      playlists.push(...lockup_views);
+    }
+
+    return playlists;
   }
 
   /**
@@ -177,7 +192,7 @@ export default class Feed<T extends IParsedResponse = IParsedResponse> {
    * Checks if the feed has continuation.
    */
   get has_continuation(): boolean {
-    return (this.#memo.get('ContinuationItem') || []).length > 0;
+    return this.#getBodyContinuations().length > 0;
   }
 
   /**
@@ -185,17 +200,15 @@ export default class Feed<T extends IParsedResponse = IParsedResponse> {
    */
   async getContinuationData(): Promise<T | undefined> {
     if (this.#continuation) {
-      if (this.#continuation.length > 1)
-        throw new InnertubeError('There are too many continuations, you\'ll need to find the correct one yourself in this.page');
       if (this.#continuation.length === 0)
-        throw new InnertubeError('There are no continuations');
+        throw new InnertubeError('There are no continuations.');
 
       const response = await this.#continuation[0].endpoint.call<T>(this.#actions, { parse: true });
 
       return response;
     }
 
-    this.#continuation = this.#memo.getType(ContinuationItem);
+    this.#continuation = this.#getBodyContinuations();
 
     if (this.#continuation)
       return this.getContinuationData();
@@ -209,5 +222,15 @@ export default class Feed<T extends IParsedResponse = IParsedResponse> {
     if (!continuation_data)
       throw new InnertubeError('Could not get continuation data');
     return new Feed<T>(this.actions, continuation_data, true);
+  }
+
+  #getBodyContinuations(): ObservedArray<ContinuationItem> {
+    if (this.#page.header_memo) {
+      const header_continuations = this.#page.header_memo.getType(ContinuationItem);
+      return this.#memo.getType(ContinuationItem).filter(
+        (continuation) => !header_continuations.includes(continuation)
+      ) as ObservedArray<ContinuationItem>;
+    }
+    return this.#memo.getType(ContinuationItem);
   }
 }

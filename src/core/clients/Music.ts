@@ -1,30 +1,22 @@
-import Album from '../../parser/ytmusic/Album.js';
-import Artist from '../../parser/ytmusic/Artist.js';
-import Explore from '../../parser/ytmusic/Explore.js';
-import HomeFeed from '../../parser/ytmusic/HomeFeed.js';
-import Library from '../../parser/ytmusic/Library.js';
-import Playlist from '../../parser/ytmusic/Playlist.js';
-import Recap from '../../parser/ytmusic/Recap.js';
-import Search from '../../parser/ytmusic/Search.js';
-import TrackInfo from '../../parser/ytmusic/TrackInfo.js';
+import { InnertubeError, generateRandomString, throwIfMissing, u8ToBase64 } from '../../utils/Utils.js';
+
+import {
+  Album, Artist, Explore,
+  HomeFeed, Library, Playlist,
+  Recap, Search, TrackInfo
+} from '../../parser/ytmusic/index.js';
 
 import AutomixPreviewVideo from '../../parser/classes/AutomixPreviewVideo.js';
 import Message from '../../parser/classes/Message.js';
-import MusicCarouselShelf from '../../parser/classes/MusicCarouselShelf.js';
 import MusicDescriptionShelf from '../../parser/classes/MusicDescriptionShelf.js';
 import MusicQueue from '../../parser/classes/MusicQueue.js';
 import MusicTwoRowItem from '../../parser/classes/MusicTwoRowItem.js';
+import MusicResponsiveListItem from '../../parser/classes/MusicResponsiveListItem.js';
+import NavigationEndpoint from '../../parser/classes/NavigationEndpoint.js';
 import PlaylistPanel from '../../parser/classes/PlaylistPanel.js';
 import SearchSuggestionsSection from '../../parser/classes/SearchSuggestionsSection.js';
 import SectionList from '../../parser/classes/SectionList.js';
 import Tab from '../../parser/classes/Tab.js';
-import Proto from '../../proto/index.js';
-
-import type { ObservedArray, YTNode } from '../../parser/helpers.js';
-import type { MusicSearchFilters } from '../../types/index.js';
-import { InnertubeError, generateRandomString, throwIfMissing } from '../../utils/Utils.js';
-import type Actions from '../Actions.js';
-import type Session from '../Session.js';
 
 import {
   BrowseEndpoint,
@@ -34,6 +26,12 @@ import {
 } from '../endpoints/index.js';
 
 import { GetSearchSuggestionsEndpoint } from '../endpoints/music/index.js';
+
+import { SearchFilter } from '../../../protos/generated/misc/params.js';
+
+import type { ObservedArray } from '../../parser/helpers.js';
+import type { MusicSearchFilters } from '../../types/index.js';
+import type { Actions, Session } from '../index.js';
 
 export default class Music {
   #session: Session;
@@ -48,9 +46,13 @@ export default class Music {
    * Retrieves track info. Passing a list item of type MusicTwoRowItem automatically starts a radio.
    * @param target - Video id or a list item.
    */
-  getInfo(target: string | MusicTwoRowItem): Promise<TrackInfo> {
+  getInfo(target: string | MusicTwoRowItem | MusicResponsiveListItem | NavigationEndpoint): Promise<TrackInfo> {
     if (target instanceof MusicTwoRowItem) {
-      return this.#fetchInfoFromListItem(target);
+      return this.#fetchInfoFromEndpoint(target.endpoint);
+    } else if (target instanceof MusicResponsiveListItem) {
+      return this.#fetchInfoFromEndpoint(target.overlay?.content?.endpoint ?? target.endpoint);
+    } else if (target instanceof NavigationEndpoint) {
+      return this.#fetchInfoFromEndpoint(target);
     } else if (typeof target === 'string') {
       return this.#fetchInfoFromVideoId(target);
     }
@@ -79,14 +81,11 @@ export default class Music {
     return new TrackInfo(response, this.#actions, cpn);
   }
 
-  async #fetchInfoFromListItem(list_item: MusicTwoRowItem | undefined): Promise<TrackInfo> {
-    if (!list_item)
-      throw new InnertubeError('List item cannot be undefined');
-
-    if (!list_item.endpoint)
+  async #fetchInfoFromEndpoint(endpoint?: NavigationEndpoint): Promise<TrackInfo> {
+    if (!endpoint)
       throw new Error('This item does not have an endpoint.');
 
-    const player_response = list_item.endpoint.call(this.#actions, {
+    const player_response = endpoint.call(this.#actions, {
       client: 'YTMUSIC',
       playbackContext: {
         contentPlaybackContext: {
@@ -97,7 +96,7 @@ export default class Music {
       }
     });
 
-    const next_response = list_item.endpoint.call(this.#actions, {
+    const next_response = endpoint.call(this.#actions, {
       client: 'YTMUSIC',
       enablePersistentPlaylistPanel: true,
       override_endpoint: '/next'
@@ -117,10 +116,23 @@ export default class Music {
   async search(query: string, filters: MusicSearchFilters = {}): Promise<Search> {
     throwIfMissing({ query });
 
+    let params: string | undefined;
+
+    if (filters.type && filters.type !== 'all') {
+      const writer = SearchFilter.encode({
+        filters: {
+          musicSearchType: {
+            [filters.type]: true
+          }
+        }
+      });
+      params = encodeURIComponent(u8ToBase64(writer.finish()));
+    }
+
     const response = await this.#actions.execute(
       SearchEndpoint.PATH, SearchEndpoint.build({
         query, client: 'YTMUSIC',
-        params: filters.type && filters.type !== 'all' ? Proto.encodeMusicSearchFilters(filters) : undefined
+        params
       })
     );
 
@@ -282,7 +294,7 @@ export default class Music {
    * Retrieves related content.
    * @param video_id - The video id.
    */
-  async getRelated(video_id: string): Promise<ObservedArray<MusicCarouselShelf | MusicDescriptionShelf>> {
+  async getRelated(video_id: string): Promise<SectionList | Message> {
     throwIfMissing({ video_id });
 
     const response = await this.#actions.execute(
@@ -301,9 +313,9 @@ export default class Music {
     if (!page.contents)
       throw new InnertubeError('Unexpected response', page);
 
-    const shelves = page.contents.item().as(SectionList).contents.as(MusicCarouselShelf, MusicDescriptionShelf);
+    const contents = page.contents.item().as(SectionList, Message);
 
-    return shelves;
+    return contents;
   }
 
   /**
@@ -329,7 +341,7 @@ export default class Music {
     if (!page.contents)
       throw new InnertubeError('Unexpected response', page);
 
-    if (page.contents.item().key('type').string() === 'Message')
+    if (page.contents.item().type === 'Message')
       throw new InnertubeError(page.contents.item().as(Message).text.toString(), video_id);
 
     const section_list = page.contents.item().as(SectionList).contents;
@@ -355,17 +367,17 @@ export default class Music {
    * Retrieves search suggestions for the given query.
    * @param query - The query.
    */
-  async getSearchSuggestions(query: string): Promise<ObservedArray<YTNode>> {
+  async getSearchSuggestions(query: string): Promise<ObservedArray<SearchSuggestionsSection>> {
     const response = await this.#actions.execute(
       GetSearchSuggestionsEndpoint.PATH,
       { ...GetSearchSuggestionsEndpoint.build({ input: query }), parse: true }
     );
 
     if (!response.contents_memo)
-      throw new InnertubeError('Unexpected response', response);
+      return [] as unknown as ObservedArray<SearchSuggestionsSection>;
 
-    const search_suggestions_section = response.contents_memo.getType(SearchSuggestionsSection).first();
+    const search_suggestions_sections = response.contents_memo.getType(SearchSuggestionsSection);
 
-    return search_suggestions_section.contents;
+    return search_suggestions_sections;
   }
 }

@@ -1,4 +1,4 @@
-import type { InnerTubeClient } from '../Innertube.js';
+import type { InnerTubeClient } from '../types/index.js';
 
 export type SnakeToCamel<S extends string> = S extends `${infer T}_${infer U}` ? `${Lowercase<T>}${Capitalize<SnakeToCamel<U>>}` : S;
 
@@ -29,6 +29,9 @@ export interface IPlayerRequest {
   playlistId?: string;
   params?: string;
   client?: InnerTubeClient;
+  serviceIntegrityDimensions?: {
+    poToken: string
+  }
 }
 
 export type PlayerEndpointOptions = {
@@ -52,6 +55,10 @@ export type PlayerEndpointOptions = {
    * Additional protobuf parameters.
    */
   params?: string;
+  /**
+   * Token for serviceIntegrityDimensions
+   */
+  po_token?: string;
 }
 
 export type NextEndpointOptions = {
@@ -301,7 +308,7 @@ export type CreateVideoEndpointOptions = {
   client?: InnerTubeClient;
 }
 
-export type ICreateVideoRequest = ObjectSnakeToCamel<CreateVideoEndpointOptions>;
+export type ICreateVideoRequest = Omit<ObjectSnakeToCamel<CreateVideoEndpointOptions>, 'client'>;
 
 export type CreatePlaylistEndpointOptions = {
   /**
@@ -334,18 +341,63 @@ export type EditPlaylistEndpointOptions = {
    * The changes to make to the playlist.
    */
   actions: {
-    action: 'ACTION_ADD_VIDEO' | 'ACTION_REMOVE_VIDEO' | 'ACTION_MOVE_VIDEO_AFTER';
+    action: 'ACTION_ADD_VIDEO' | 'ACTION_REMOVE_VIDEO' | 'ACTION_MOVE_VIDEO_AFTER' | 'ACTION_SET_PLAYLIST_DESCRIPTION' | 'ACTION_SET_PLAYLIST_NAME';
     added_video_id?: string;
     set_video_id?: string;
     moved_set_video_id_predecessor?: string;
+    playlist_description?: string;
+    playlist_name?: string;
   }[];
 }
 
-export interface IEditPlaylistRequest extends ObjectSnakeToCamel<EditPlaylistEndpointOptions> {
-  actions: {
-    action: 'ACTION_ADD_VIDEO' | 'ACTION_REMOVE_VIDEO' | 'ACTION_MOVE_VIDEO_AFTER';
-    addedVideoId?: string;
-    setVideoId?: string;
-    movedSetVideoIdPredecessor?: string;
-  }[];
+export type IEditPlaylistRequest = ObjectSnakeToCamel<EditPlaylistEndpointOptions>;
+
+export type BlocklistPickerRequestEndpointOptions = {
+  channel_id: string;
+}
+
+export type IBlocklistPickerRequest = {
+  blockedForKidsContent: {
+      external_channel_id: string;
+  }
+}
+
+export interface IReelItemWatchRequest {
+  disablePlayerResponse: boolean;
+  playerRequest: {
+    videoId: string,
+    params: string,
+  },
+  params?: string;
+  client?: InnerTubeClient;
+}
+
+export type ReelItemWatchEndpointOptions = {
+  /**
+   * The shorts ID.
+   */
+  video_id: string;
+  /**
+   * The client to use.
+   */
+  client?: InnerTubeClient;
+  /**
+   * Additional protobuf parameters.
+   */
+  params?: string;
+}
+
+export interface IReelWatchSequenceRequest {
+  sequenceParams: string;
+}
+
+export type ReelWatchSequenceEndpointOptions = {
+  /**
+   * The protobuf parameters.
+   */
+  sequence_params: string;
+  /**
+   * The client to use.
+   */
+  client?: InnerTubeClient;
 }

@@ -1,15 +1,21 @@
 import type Actions from '../../core/Actions.js';
 import type { ApiResponse } from '../../core/Actions.js';
 import { YTNode } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import type { IParsedResponse } from '../types/ParsedResponse.js';
 import CreatePlaylistDialog from './CreatePlaylistDialog.js';
+import type ModalWithTitleAndButton from './ModalWithTitleAndButton.js';
+import OpenPopupAction from './actions/OpenPopupAction.js';
 
 export default class NavigationEndpoint extends YTNode {
   static type = 'NavigationEndpoint';
 
   payload;
   dialog?: CreatePlaylistDialog | YTNode | null;
+  modal?: ModalWithTitleAndButton | YTNode | null;
+  open_popup?: OpenPopupAction | null;
+
+  next_endpoint?: NavigationEndpoint;
 
   metadata: {
     url?: string;
@@ -21,8 +27,11 @@ export default class NavigationEndpoint extends YTNode {
   constructor(data: RawNode) {
     super();
 
-    if (Reflect.has(data || {}, 'innertubeCommand'))
-      data = data.innertubeCommand;
+    if (data && (data.innertubeCommand || data.command))
+      data = data.innertubeCommand || data.command;
+
+    if (Reflect.has(data || {}, 'openPopupAction'))
+      this.open_popup = new OpenPopupAction(data.openPopupAction);
 
     const name = Object.keys(data || {})
       .find((item) =>
@@ -34,6 +43,14 @@ export default class NavigationEndpoint extends YTNode {
 
     if (Reflect.has(this.payload, 'dialog') || Reflect.has(this.payload, 'content')) {
       this.dialog = Parser.parseItem(this.payload.dialog || this.payload.content);
+    }
+
+    if (Reflect.has(this.payload, 'modal')) {
+      this.modal = Parser.parseItem(this.payload.modal);
+    }
+
+    if (Reflect.has(this.payload, 'nextEndpoint')) {
+      this.next_endpoint = new NavigationEndpoint(this.payload.nextEndpoint);
     }
 
     if (data?.serviceEndpoint) {
@@ -75,19 +92,20 @@ export default class NavigationEndpoint extends YTNode {
       case 'browseEndpoint':
         return '/browse';
       case 'watchEndpoint':
+      case 'reelWatchEndpoint':
         return '/player';
       case 'searchEndpoint':
         return '/search';
       case 'watchPlaylistEndpoint':
         return '/next';
       case 'liveChatItemContextMenuEndpoint':
-        return 'live_chat/get_item_context_menu';
+        return '/live_chat/get_item_context_menu';
     }
   }
 
-  call<T extends IParsedResponse>(actions: Actions, args: { [ key: string ]: any; parse: true }): Promise<T>;
-  call(actions: Actions, args?: { [ key: string ]: any; parse?: false }): Promise<ApiResponse>;
-  call(actions: Actions, args?: { [ key: string ]: any; parse?: boolean }): Promise<IParsedResponse | ApiResponse> {
+  call<T extends IParsedResponse>(actions: Actions, args: { [key: string]: any; parse: true }): Promise<T>;
+  call(actions: Actions, args?: { [key: string]: any; parse?: false }): Promise<ApiResponse>;
+  call(actions: Actions, args?: { [key: string]: any; parse?: boolean }): Promise<IParsedResponse | ApiResponse> {
     if (!actions)
       throw new Error('An active caller must be provided');
     if (!this.metadata.api_url)

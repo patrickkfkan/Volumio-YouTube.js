@@ -1,3 +1,4 @@
+import Log from '../utils/Log.js';
 import { deepCompare, ParsingError } from '../utils/Utils.js';
 
 const isObserved = Symbol('ObservedArray.isObserved');
@@ -62,6 +63,7 @@ export class YTNode {
 }
 
 export class Maybe {
+  #TAG = 'Maybe';
   #value;
 
   constructor (value: any) {
@@ -152,7 +154,7 @@ export class Maybe {
     return this.#checkPrimative('object');
   }
 
-  /* eslint-ignore */
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   function(): Function {
     return this.#assertPrimative('function');
   }
@@ -163,8 +165,8 @@ export class Maybe {
 
   /**
    * Get the value as an array.
-   * @returns the value as any[]
-   * @throws If the value is not an array
+   * @returns the value as any[].
+   * @throws If the value is not an array.
    */
   array(): any[] {
     if (!Array.isArray(this.#value)) {
@@ -175,7 +177,7 @@ export class Maybe {
 
   /**
    * More typesafe variant of {@link Maybe#array}.
-   * @returns a proxied array which returns all the values as {@link Maybe}
+   * @returns a proxied array which returns all the values as {@link Maybe}.
    * @throws If the value is not an array
    */
   arrayOfMaybe(): Maybe[] {
@@ -192,16 +194,16 @@ export class Maybe {
 
   /**
    * Check whether the value is an array.
-   * @returns whether the value is an array
+   * @returns whether the value is an array.
    */
   isArray() {
     return Array.isArray(this.#value);
   }
 
   /**
-   * Get the value as a YTNode
-   * @returns the value as a YTNode
-   * @throws If the value is not a YTNode
+   * Get the value as a YTNode.
+   * @returns the value as a YTNode.
+   * @throws If the value is not a YTNode.
    */
   node() {
     if (!(this.#value instanceof YTNode)) {
@@ -211,8 +213,8 @@ export class Maybe {
   }
 
   /**
-   * Check if the value is a YTNode
-   * @returns Whether the value is a YTNode
+   * Check if the value is a YTNode.
+   * @returns Whether the value is a YTNode.
    */
   isNode() {
     return this.#value instanceof YTNode;
@@ -220,9 +222,9 @@ export class Maybe {
 
   /**
    * Get the value as a YTNode of the given type.
-   * @param type - The type to cast to
-   * @returns The node casted to the given type
-   * @throws If the node is not of the given type
+   * @param types - The type(s) to cast to.
+   * @returns The node casted to the given type.
+   * @throws If the node is not of the given type.
    */
   nodeOfType<T extends YTNode, K extends YTNodeConstructor<T>[]>(...types: K) {
     return this.node().as(...types);
@@ -230,8 +232,8 @@ export class Maybe {
 
   /**
    * Check if the value is a YTNode of the given type.
-   * @param type - the type to check
-   * @returns Whether the value is a YTNode of the given type
+   * @param types - the type(s) to check.
+   * @returns Whether the value is a YTNode of the given type.
    */
   isNodeOfType<T extends YTNode, K extends YTNodeConstructor<T>[]>(...types: K) {
     return this.isNode() && this.node().is(...types);
@@ -239,7 +241,7 @@ export class Maybe {
 
   /**
    * Get the value as an ObservedArray.
-   * @returns the value of the Maybe as a ObservedArray
+   * @returns the value of the Maybe as a ObservedArray.
    */
   observed(): ObservedArray<YTNode> {
     if (!this.isObserved()) {
@@ -257,8 +259,8 @@ export class Maybe {
 
   /**
    * Get the value of the Maybe as a SuperParsedResult.
-   * @returns the value as a SuperParsedResult
-   * @throws If the value is not a SuperParsedResult
+   * @returns the value as a SuperParsedResult.
+   * @throws If the value is not a SuperParsedResult.
    */
   parsed(): SuperParsedResult {
     if (!(this.#value instanceof SuperParsedResult)) {
@@ -275,18 +277,19 @@ export class Maybe {
   }
 
   /**
-   * @deprecated This call is not meant to be used outside of debugging. Please use the specific type getter instead.
+   * @deprecated
+   * This call is not meant to be used outside of debugging. Please use the specific type getter instead.
    */
   any(): any {
-    console.warn('This call is not meant to be used outside of debugging. Please use the specific type getter instead.');
+    Log.warn(this.#TAG, 'This call is not meant to be used outside of debugging. Please use the specific type getter instead.');
     return this.#value;
   }
 
   /**
    * Get the node as an instance of the given class.
-   * @param type - The type to check
-   * @returns the value as the given type
-   * @throws If the node is not of the given type
+   * @param type - The type to check.
+   * @returns the value as the given type.
+   * @throws If the node is not of the given type.
    */
   instanceof<T extends object>(type: Constructor<T>): T {
     if (!this.isInstanceof(type)) {
@@ -297,8 +300,8 @@ export class Maybe {
 
   /**
    * Check if the node is an instance of the given class.
-   * @param type - The type to check
-   * @returns Whether the node is an instance of the given type
+   * @param type - The type to check.
+   * @returns Whether the node is an instance of the given type.
    */
   isInstanceof<T extends object>(type: Constructor<T>): this is this & T {
     return this.#value instanceof type;
@@ -349,7 +352,6 @@ export class SuperParsedResult<T extends YTNode = YTNode> {
   }
 }
 
-
 export type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
     /**
      * Returns the first object to match the rule.
@@ -368,15 +370,15 @@ export type ObservedArray<T extends YTNode = YTNode> = Array<T> & {
      */
     remove: (index: number) => T[];
     /**
-     * Get all items of a specific type
+     * Get all items of a specific type.
      */
     filterType<R extends YTNode, K extends YTNodeConstructor<R>[]>(...types: K): ObservedArray<InstanceType<K[number]>>;
     /**
-     * Get the first of a specific type
+     * Get the first of a specific type.
      */
     firstOfType<R extends YTNode, K extends YTNodeConstructor<R>[]>(...types: K): InstanceType<K[number]> | undefined;
     /**
-     * Get the first item
+     * Get the first item.
      */
     first: () => T;
     /**
@@ -438,7 +440,6 @@ export function observe<T extends YTNode>(obj: Array<T>): ObservedArray<T> {
           }));
         };
       }
-
 
       if (prop == 'firstOfType') {
         return (...types: YTNodeConstructor<YTNode>[]) => {

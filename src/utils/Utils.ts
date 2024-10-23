@@ -1,10 +1,14 @@
 import { Memo } from '../parser/helpers.js';
-import type { EmojiRun, TextRun } from '../parser/misc.js';
 import { Text } from '../parser/misc.js';
-import type { FetchFunction } from '../types/PlatformShim.js';
-import type PlatformShim from '../types/PlatformShim.js';
+import Log from './Log.js';
 import userAgents from './user-agents.js';
 import { Jinter } from 'jintr';
+
+import type { EmojiRun, TextRun } from '../parser/misc.js';
+import type { FetchFunction } from '../types/PlatformShim.js';
+import type PlatformShim from '../types/PlatformShim.js';
+
+const TAG_ = 'Utils';
 
 export class Platform {
   static #shim: PlatformShim | undefined;
@@ -37,7 +41,7 @@ export class InnertubeError extends Error {
 
 export class ParsingError extends InnertubeError { }
 export class MissingParamError extends InnertubeError { }
-export class OAuthError extends InnertubeError { }
+export class OAuth2Error extends InnertubeError { }
 export class PlayerError extends Error { }
 export class SessionError extends Error { }
 export class ChannelError extends Error { }
@@ -139,6 +143,13 @@ export function concatMemos(...iterables: Array<Memo | undefined>): Memo {
   for (const iterable of iterables) {
     if (!iterable) continue;
     for (const item of iterable) {
+      // Update existing items.
+      const memo_item = memo.get(item[0]);
+      if (memo_item) {
+        memo.set(item[0], [ ...memo_item, ...item[1] ]);
+        continue;
+      }
+
       memo.set(...item);
     }
   }
@@ -184,7 +195,6 @@ export const debugFetch: FetchFunction = (input, init) => {
       input instanceof URL ?
         input : new URL(input.url);
 
-
   const headers =
     init?.headers ?
       new Headers(init.headers) :
@@ -208,8 +218,8 @@ export const debugFetch: FetchFunction = (input, init) => {
       `${arr_headers.map(([ key, value ]) => `    ${key}: ${value}`).join('\n')}` :
       '    (none)';
 
-  console.log(
-    'YouTube.js Fetch:\n' +
+  Log.warn(TAG_,
+    'Fetch:\n' +
     `  url: ${url.toString()}\n` +
     `  method: ${init?.method || 'GET'}\n` +
     `  headers:\n${headers_serialized}\n' + 
@@ -224,13 +234,20 @@ export function u8ToBase64(u8: Uint8Array): string {
 }
 
 export function base64ToU8(base64: string): Uint8Array {
-  return new Uint8Array(atob(base64).split('').map((char) => char.charCodeAt(0)));
+  const standard_base64 = base64.replace(/-/g, '+').replace(/_/g, '/');
+  const padded_base64 = standard_base64.padEnd(standard_base64.length + (4 - standard_base64.length % 4) % 4, '=');
+  return new Uint8Array(atob(padded_base64).split('').map((char) => char.charCodeAt(0)));
 }
 
 export function isTextRun(run: TextRun | EmojiRun): run is TextRun {
   return !('emoji' in run);
 }
 
+export function getCookie(cookies: string, name: string, matchWholeName = false): string | undefined {
+  const regex = matchWholeName ? `(^|\\s?)\\b${name}\\b=([^;]+)` : `(^|s?)${name}=([^;]+)`;
+  const match = cookies.match(new RegExp(regex));
+  return match ? match[2] : undefined;
+}
 
 export type FindFunctionArgs = {
   /**

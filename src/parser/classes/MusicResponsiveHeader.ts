@@ -1,6 +1,3 @@
-// Backported from:
-// https://github.com/LuanRT/YouTube.js/blob/14c3a06d402989e98a9d32c79b2dc26f74fb0219/src/parser/classes/MusicResponsiveHeader.ts
-
 import { Parser, type RawNode } from '../index.js';
 import { YTNode } from '../helpers.js';
 import MusicThumbnail from './MusicThumbnail.js';

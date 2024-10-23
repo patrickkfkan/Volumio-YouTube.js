@@ -1,5 +1,6 @@
+import { Log } from '../../utils/index.js';
 import { YTNode, type ObservedArray } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import Button from './Button.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
@@ -52,18 +53,20 @@ export default class ChannelAboutFullMetadata extends YTNode {
   /**
    * @deprecated
    * This will be removed in a future release.
-   * Please use {@link Channel.view_count} instead.
+   * Please use {@link ChannelAboutFullMetadata.view_count} instead.
    */
   get views() {
+    Log.warnOnce(ChannelAboutFullMetadata.type, 'ChannelAboutFullMetadata#views is deprecated. Please use ChannelAboutFullMetadata#view_count instead.');
     return this.view_count;
   }
 
   /**
    * @deprecated
    * This will be removed in a future release.
-   * Please use {@link Channel.joined_date} instead.
+   * Please use {@link ChannelAboutFullMetadata.joined_date} instead.
    */
   get joined(): Text {
+    Log.warnOnce(ChannelAboutFullMetadata.type, 'ChannelAboutFullMetadata#joined is deprecated. Please use ChannelAboutFullMetadata#joined_date instead.');
     return this.joined_date;
   }
 }

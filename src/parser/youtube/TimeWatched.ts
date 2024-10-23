@@ -1,14 +1,14 @@
-import Parser from '../index.js';
+import { Parser } from '../index.js';
 import ItemSection from '../classes/ItemSection.js';
 import SectionList from '../classes/SectionList.js';
 import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults.js';
 
 import { InnertubeError } from '../../utils/Utils.js';
-import type { ApiResponse } from '../../core/Actions.js';
+import type { ApiResponse } from '../../core/index.js';
 import type { ObservedArray } from '../helpers.js';
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
+import type { IBrowseResponse } from '../types/index.js';
 
-class TimeWatched {
+export default class TimeWatched {
   #page: IBrowseResponse;
   contents?: ObservedArray<ItemSection>;
 
@@ -30,5 +30,3 @@ class TimeWatched {
     return this.#page;
   }
 }
-
-export default TimeWatched;

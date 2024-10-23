@@ -1,3 +1,6 @@
+import { InnertubeError } from '../../utils/Utils.js';
+import { MediaInfo } from '../../core/mixins/index.js';
+
 import ChipCloud from '../classes/ChipCloud.js';
 import ChipCloudChip from '../classes/ChipCloudChip.js';
 import CommentsEntryPointHeader from '../classes/comments/CommentsEntryPointHeader.js';
@@ -5,45 +8,29 @@ import ContinuationItem from '../classes/ContinuationItem.js';
 import ItemSection from '../classes/ItemSection.js';
 import LiveChat from '../classes/LiveChat.js';
 import MerchandiseShelf from '../classes/MerchandiseShelf.js';
-import MicroformatData from '../classes/MicroformatData.js';
 import PlayerMicroformat from '../classes/PlayerMicroformat.js';
 import PlayerOverlay from '../classes/PlayerOverlay.js';
 import RelatedChipCloud from '../classes/RelatedChipCloud.js';
 import RichMetadata from '../classes/RichMetadata.js';
 import RichMetadataRow from '../classes/RichMetadataRow.js';
 import SegmentedLikeDislikeButton from '../classes/SegmentedLikeDislikeButton.js';
+import SegmentedLikeDislikeButtonView from '../classes/SegmentedLikeDislikeButtonView.js';
 import ToggleButton from '../classes/ToggleButton.js';
 import TwoColumnWatchNextResults from '../classes/TwoColumnWatchNextResults.js';
 import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
 import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
-import LiveChatWrap from './LiveChat.js';
-import type NavigationEndpoint from '../classes/NavigationEndpoint.js';
+import NavigationEndpoint from '../classes/NavigationEndpoint.js';
 import PlayerLegacyDesktopYpcTrailer from '../classes/PlayerLegacyDesktopYpcTrailer.js';
+import StructuredDescriptionContent from '../classes/StructuredDescriptionContent.js';
+import VideoDescriptionMusicSection from '../classes/VideoDescriptionMusicSection.js';
+import LiveChatWrap from './LiveChat.js';
 
-import type CardCollection from '../classes/CardCollection.js';
-import type Endscreen from '../classes/Endscreen.js';
-import type PlayerAnnotationsExpanded from '../classes/PlayerAnnotationsExpanded.js';
-import type PlayerCaptionsTracklist from '../classes/PlayerCaptionsTracklist.js';
-import type PlayerLiveStoryboardSpec from '../classes/PlayerLiveStoryboardSpec.js';
-import type PlayerStoryboardSpec from '../classes/PlayerStoryboardSpec.js';
-
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
+import type { RawNode } from '../index.js';
+import type { ApiResponse, Actions } from '../../core/index.js';
 import type { ObservedArray, YTNode } from '../helpers.js';
 
-import { InnertubeError } from '../../utils/Utils.js';
-import { MediaInfo } from '../../core/mixins/index.js';
-
-class VideoInfo extends MediaInfo {
+export default class VideoInfo extends MediaInfo {
   #watch_next_continuation?: ContinuationItem;
-
-  basic_info;
-  annotations?: ObservedArray<PlayerAnnotationsExpanded>;
-  storyboards?: PlayerStoryboardSpec | PlayerLiveStoryboardSpec;
-  endscreen?: Endscreen;
-  captions?: PlayerCaptionsTracklist;
-  cards?: CardCollection;
-
   primary_info?: VideoPrimaryInfo | null;
   secondary_info?: VideoSecondaryInfo | null;
   playlist?;
@@ -59,7 +46,6 @@ class VideoInfo extends MediaInfo {
   /**
    * @param data - API response.
    * @param actions - Actions instance.
-   * @param player - Player instance.
    * @param cpn - Client Playback Nonce.
    */
   constructor(data: [ApiResponse, ApiResponse?], actions: Actions, cpn: string) {
@@ -67,35 +53,25 @@ class VideoInfo extends MediaInfo {
 
     const [ info, next ] = this.page;
 
-    if (info.microformat && !info.microformat?.is(PlayerMicroformat, MicroformatData))
-      throw new InnertubeError('Invalid microformat', info.microformat);
+    if (this.streaming_data) {
+      const default_audio_track = this.streaming_data.adaptive_formats.find((format) => format.audio_track?.audio_is_default);
+      if (default_audio_track) {
+        // The combined formats only exist for the default language, even for videos with multiple audio tracks
+        // So we can copy the language from the default audio track to the combined formats
+        this.streaming_data.formats.forEach((format) => format.language = default_audio_track.language);
+      } else if (this.captions?.caption_tracks && this.captions?.caption_tracks.length > 0) {
+        // For videos with a single audio track and captions, we can use the captions to figure out the language of the audio and combined formats
+        const auto_generated_caption_track = this.captions.caption_tracks.find((caption) => caption.kind === 'asr');
+        const language_code = auto_generated_caption_track?.language_code;
 
-    this.basic_info = { // This type is inferred so no need for an explicit type
-      ...info.video_details,
-      /**
-       * Microformat is a bit redundant, so only
-       * a few things there are interesting to us.
-       */
-      ...{
-        embed: info.microformat?.is(PlayerMicroformat) ? info.microformat?.embed : null,
-        channel: info.microformat?.is(PlayerMicroformat) ? info.microformat?.channel : null,
-        is_unlisted: info.microformat?.is_unlisted,
-        is_family_safe: info.microformat?.is_family_safe,
-        category: info.microformat?.is(PlayerMicroformat) ? info.microformat?.category : null,
-        has_ypc_metadata: info.microformat?.is(PlayerMicroformat) ? info.microformat?.has_ypc_metadata : null,
-        start_timestamp: info.microformat?.is(PlayerMicroformat) ? info.microformat.start_timestamp : null,
-        view_count: info.microformat?.is(PlayerMicroformat) && isNaN(info.video_details?.view_count as number) ? info.microformat.view_count : info.video_details?.view_count
-      },
-      like_count: undefined as number | undefined,
-      is_liked: undefined as boolean | undefined,
-      is_disliked: undefined as boolean | undefined
-    };
-
-    this.annotations = info.annotations;
-    this.storyboards = info.storyboards;
-    this.endscreen = info.endscreen;
-    this.captions = info.captions;
-    this.cards = info.cards;
+        this.streaming_data.adaptive_formats.forEach((format) => {
+          if (format.has_audio) {
+            format.language = language_code;
+          }
+        });
+        this.streaming_data.formats.forEach((format) => format.language = language_code);
+      }
+    }
 
     const two_col = next?.contents?.item().as(TwoColumnWatchNextResults);
 
@@ -124,9 +100,7 @@ class VideoInfo extends MediaInfo {
 
       this.watch_next_feed = secondary_results.firstOfType(ItemSection)?.contents || secondary_results;
 
-      /*** Volumio-YouTube.js ***/
-      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && this.watch_next_feed[this.watch_next_feed.length - 1]?.is(ContinuationItem))
-      //if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && this.watch_next_feed.at(-1)?.is(ContinuationItem))
+      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && this.watch_next_feed.at(-1)?.is(ContinuationItem))
         this.#watch_next_continuation = this.watch_next_feed.pop()?.as(ContinuationItem);
 
       this.player_overlays = next?.player_overlays?.item().as(PlayerOverlay);
@@ -141,6 +115,17 @@ class VideoInfo extends MediaInfo {
         this.basic_info.like_count = segmented_like_dislike_button?.like_button?.like_count;
         this.basic_info.is_liked = segmented_like_dislike_button?.like_button?.is_toggled;
         this.basic_info.is_disliked = segmented_like_dislike_button?.dislike_button?.is_toggled;
+      }
+
+      const segmented_like_dislike_button_view = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButtonView);
+      if (segmented_like_dislike_button_view) {
+        this.basic_info.like_count = segmented_like_dislike_button_view.like_count;
+
+        if (segmented_like_dislike_button_view.like_button) {
+          const like_status = segmented_like_dislike_button_view.like_button.like_status_entity.like_status;
+          this.basic_info.is_liked = like_status === 'LIKE';
+          this.basic_info.is_disliked = like_status === 'DISLIKE';
+        }
       }
 
       const comments_entry_point = results.get({ target_id: 'comments-entry-point' })?.as(ItemSection);
@@ -190,7 +175,6 @@ class VideoInfo extends MediaInfo {
     return super.addToWatchHistory();
   }
 
-
   /**
    * Retrieves watch next feed continuation.
    */
@@ -199,15 +183,13 @@ class VideoInfo extends MediaInfo {
       throw new InnertubeError('Watch next feed continuation not found');
 
     const response = await this.#watch_next_continuation?.endpoint.call(this.actions, { parse: true });
-    const data = response?.on_response_received_endpoints?.get({ type: 'appendContinuationItemsAction' });
+    const data = response?.on_response_received_endpoints?.get({ type: 'AppendContinuationItemsAction' });
 
     if (!data)
       throw new InnertubeError('AppendContinuationItemsAction not found');
 
     this.watch_next_feed = data?.contents;
-    /*** Volumio-YouTube.js ***/
-    if (this.watch_next_feed?.[this.watch_next_feed.length - 1]?.is(ContinuationItem)) {
-    //if (this.watch_next_feed?.at(-1)?.is(ContinuationItem)) {
+    if (this.watch_next_feed?.at(-1)?.is(ContinuationItem)) {
       this.#watch_next_continuation = this.watch_next_feed.pop()?.as(ContinuationItem);
     } else {
       this.#watch_next_continuation = undefined;
@@ -220,6 +202,26 @@ class VideoInfo extends MediaInfo {
    * Likes the video.
    */
   async like(): Promise<ApiResponse> {
+    const segmented_like_dislike_button_view = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButtonView);
+
+    if (segmented_like_dislike_button_view) {
+      const button = segmented_like_dislike_button_view?.like_button?.toggle_button;
+
+      if (!button || !button.default_button || !segmented_like_dislike_button_view.like_button)
+        throw new InnertubeError('Like button not found', { video_id: this.basic_info.id });
+
+      const like_status = segmented_like_dislike_button_view.like_button.like_status_entity.like_status;
+
+      if (like_status === 'LIKE')
+        throw new InnertubeError('This video is already liked', { video_id: this.basic_info.id });
+
+      const endpoint = new NavigationEndpoint(button.default_button.on_tap.payload.commands.find((cmd: RawNode) => cmd.innertubeCommand));
+
+      const response = await endpoint.call(this.actions);
+
+      return response;
+    }
+
     const segmented_like_dislike_button = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
     const button = segmented_like_dislike_button?.like_button;
 
@@ -241,6 +243,26 @@ class VideoInfo extends MediaInfo {
    * Dislikes the video.
    */
   async dislike(): Promise<ApiResponse> {
+    const segmented_like_dislike_button_view = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButtonView);
+
+    if (segmented_like_dislike_button_view) {
+      const button = segmented_like_dislike_button_view?.dislike_button?.toggle_button;
+
+      if (!button || !button.default_button || !segmented_like_dislike_button_view.dislike_button || !segmented_like_dislike_button_view.like_button)
+        throw new InnertubeError('Dislike button not found', { video_id: this.basic_info.id });
+
+      const like_status = segmented_like_dislike_button_view.like_button.like_status_entity.like_status;
+
+      if (like_status === 'DISLIKE')
+        throw new InnertubeError('This video is already disliked', { video_id: this.basic_info.id });
+
+      const endpoint = new NavigationEndpoint(button.default_button.on_tap.payload.commands.find((cmd: RawNode) => cmd.innertubeCommand));
+
+      const response = await endpoint.call(this.actions);
+
+      return response;
+    }
+
     const segmented_like_dislike_button = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
     const button = segmented_like_dislike_button?.dislike_button;
 
@@ -263,6 +285,34 @@ class VideoInfo extends MediaInfo {
    */
   async removeRating(): Promise<ApiResponse> {
     let button;
+
+    const segmented_like_dislike_button_view = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButtonView);
+
+    if (segmented_like_dislike_button_view) {
+      const toggle_button = segmented_like_dislike_button_view?.like_button?.toggle_button;
+
+      if (!toggle_button || !toggle_button.default_button || !segmented_like_dislike_button_view.like_button)
+        throw new InnertubeError('Like button not found', { video_id: this.basic_info.id });
+
+      const like_status = segmented_like_dislike_button_view.like_button.like_status_entity.like_status;
+
+      if (like_status === 'LIKE') {
+        button = segmented_like_dislike_button_view?.like_button?.toggle_button;
+      } else if (like_status === 'DISLIKE') {
+        button = segmented_like_dislike_button_view?.dislike_button?.toggle_button;
+      } else {
+        throw new InnertubeError('This video is not liked/disliked', { video_id: this.basic_info.id });
+      }
+
+      if (!button || !button.toggled_button)
+        throw new InnertubeError('Like/Dislike button not found', { video_id: this.basic_info.id });
+
+      const endpoint = new NavigationEndpoint(button.toggled_button.on_tap.payload.commands.find((cmd: RawNode) => cmd.innertubeCommand));
+
+      const response = await endpoint.call(this.actions);
+
+      return response;
+    }
 
     const segmented_like_dislike_button = this.primary_info?.menu?.top_level_buttons.firstOfType(SegmentedLikeDislikeButton);
 
@@ -300,7 +350,7 @@ class VideoInfo extends MediaInfo {
    * @returns `VideoInfo` for the trailer, or `null` if none.
    */
   getTrailerInfo(): VideoInfo | null {
-    if (this.has_trailer) {
+    if (this.has_trailer && this.playability_status) {
       const player_response = this.playability_status.error_screen?.as(PlayerLegacyDesktopYpcTrailer).trailer?.player_response;
       if (player_response) {
         return new VideoInfo([ { data: player_response } as ApiResponse ], this.actions, this.cpn);
@@ -334,47 +384,59 @@ class VideoInfo extends MediaInfo {
    * Checks if trailer is available.
    */
   get has_trailer(): boolean {
-    return !!this.playability_status.error_screen?.is(PlayerLegacyDesktopYpcTrailer);
+    return !!this.playability_status?.error_screen?.is(PlayerLegacyDesktopYpcTrailer);
   }
 
   /**
    * Get songs used in the video.
    */
-  // TODO: this seems to be broken with the new UI, further investigation needed
   get music_tracks() {
-    /*
-        Const metadata = this.secondary_info?.metadata;
-        if (!metadata)
-            return [];
-        const songs = [];
-        let current_song: Record<string, Text[]> = {};
-        let is_music_section = false;
-        for (let i = 0; i < metadata.rows.length; i++) {
-            const row = metadata.rows[i];
-            if (row.is(MetadataRowHeader)) {
-                if (row.content?.toString().toLowerCase().startsWith('music')) {
-                    is_music_section = true;
-                    i++; // Skip the learn more link
-                }
-                continue;
-            }
-            if (!is_music_section)
-                continue;
-            if (row.is(MetadataRow))
-                current_song[row.title?.toString().toLowerCase().replace(/ /g, '_')] = row.contents;
-            // TODO: this makes no sense, we continue above when
-            if (row.has_divider_line) {
-                songs.push(current_song);
-                current_song = {};
-            }
+    // @TODO: Refactor this.
+    const description_content = this.page[1]?.engagement_panels?.filter((panel) => panel.content?.is(StructuredDescriptionContent));
+    if (description_content !== undefined && description_content.length > 0) {
+      const music_section = description_content[0].content?.as(StructuredDescriptionContent)?.items?.filterType(VideoDescriptionMusicSection);
+      if (music_section !== undefined && music_section.length > 0) {
+        return music_section[0].carousel_lockups?.map((lookup) => {
+          let song: string | undefined;
+          let artist: string | undefined;
+          let album: string | undefined;
+          let license: string | undefined;
+          let videoId: string | undefined;
+          let channelId: string | undefined;
 
-        }
-        if (is_music_section)
-            songs.push(current_song);
-        return songs;
-        */
+          // If the song isn't in the video_lockup, it should be in the info_rows
+          song = lookup.video_lockup?.title?.toString();
+          // If the video id isn't in the video_lockup, it should be in the info_rows
+          videoId = lookup.video_lockup?.endpoint.payload.videoId;
+          for (let i = 0; i < lookup.info_rows.length; i++) {
+            const info_row = lookup.info_rows[i];
+            if (info_row.info_row_expand_status_key === undefined) {
+              if (song === undefined) {
+                song = info_row.default_metadata?.toString() || info_row.expanded_metadata?.toString();
+                if (videoId === undefined) {
+                  const endpoint = info_row.default_metadata?.endpoint || info_row.expanded_metadata?.endpoint;
+                  videoId = endpoint?.payload?.videoId;
+                }
+              } else {
+                album = info_row.default_metadata?.toString() || info_row.expanded_metadata?.toString();
+              }
+            } else {
+              if (info_row.info_row_expand_status_key?.indexOf('structured-description-music-section-artists-row-state-id') !== -1) {
+                artist = info_row.default_metadata?.toString() || info_row.expanded_metadata?.toString();
+                if (channelId === undefined) {
+                  const endpoint = info_row.default_metadata?.endpoint || info_row.expanded_metadata?.endpoint;
+                  channelId = endpoint?.payload?.browseId;
+                }
+              }
+              if (info_row.info_row_expand_status_key?.indexOf('structured-description-music-section-licenses-row-state-id') !== -1) {
+                license = info_row.default_metadata?.toString() || info_row.expanded_metadata?.toString();
+              }
+            }
+          }
+          return { song, artist, album, license, videoId, channelId };
+        });
+      }
+    }
     return [];
   }
 }
-
-export default VideoInfo;

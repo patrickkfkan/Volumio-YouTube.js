@@ -1,16 +1,16 @@
-import FilterableFeed from '../../core/mixins/FilterableFeed.js';
 import { InnertubeError } from '../../utils/Utils.js';
+import FilterableFeed from '../../core/mixins/FilterableFeed.js';
 import HashtagHeader from '../classes/HashtagHeader.js';
 import RichGrid from '../classes/RichGrid.js';
+import PageHeader from '../classes/PageHeader.js';
 import Tab from '../classes/Tab.js';
 
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
-import type ChipCloudChip from '../classes/ChipCloudChip.js';
+import type { Actions, ApiResponse } from '../../core/index.js';
 import type { IBrowseResponse } from '../index.js';
+import type ChipCloudChip from '../classes/ChipCloudChip.js';
 
 export default class HashtagFeed extends FilterableFeed<IBrowseResponse> {
-  header?: HashtagHeader;
+  header?: HashtagHeader | PageHeader;
   contents: RichGrid;
 
   constructor(actions: Actions, response: IBrowseResponse | ApiResponse) {
@@ -25,7 +25,7 @@ export default class HashtagFeed extends FilterableFeed<IBrowseResponse> {
       throw new InnertubeError('Content tab has no content', tab);
 
     if (this.page.header) {
-      this.header = this.page.header.item().as(HashtagHeader);
+      this.header = this.page.header.item().as(HashtagHeader, PageHeader);
     }
 
     this.contents = tab.content.as(RichGrid);
