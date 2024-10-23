@@ -1,21 +1,10 @@
-Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music](https://github.com/patrickkfkan/volumio-ytmusic) and [YouTube2](https://github.com/patrickkfkan/volumio-youtube2)* plugins.
-
-<i>*Starting from v0.2.1-b.1.</i>
-
-## Objectives
-
-### Compatibility with Node v14
-
-Achieved through polyfills and using [node-fetch](https://github.com/node-fetch/node-fetch) instead of [undici](https://undici.nodejs.org) for HTTP requests.
-
-### Multilanguage support
-
-The YouTube Music and YouTube2 plugins support languages other than English. This is done by directly setting the `session.context.client.hl` property of the `InnerTube` instance created by the library.
-
-Note that there is no `setLanguage()` function, because multilanguage support is not actually achievable in YouTube.js. The library extracts certain pieces of information by string-matching. An example would be getting an artist's subscriber count by matching the corresponding item's subtitle against the pattern '[decimal digit] subscribers'. If the subtitle is not in English, then the subscriber count could not be obtained. Fortunately, this is fine for the most part as the plugins do not utilize language-dependent data.
-
+Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music](https://github.com/patrickkfkan/volumio-ytmusic) and [YouTube2](https://github.com/patrickkfkan/volumio-youtube2) plugins.
 
 ## Changelog:
+
+1.0.0
+- Release for Bookworm-based Volumio
+- Migrate to YouTube.js v10.5.0 (commit [91d3081](https://github.com/LuanRT/YouTube.js/commit/91d308149691cf8037e54c294e173a91864c48fa))
 
 0.3.9
 - Backport `Player.ts` changes up to [refactor(Player): Generate and parse player script's AST](https://github.com/LuanRT/YouTube.js/pull/713)
