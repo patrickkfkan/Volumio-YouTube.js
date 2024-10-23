@@ -38,6 +38,7 @@ export default class PlaylistPanelVideo extends YTNode {
   badges: ObservedArray<YTNode>;
   menu: YTNode;
   set_video_id?: string;
+  long_by_line_text: Text;
 
   constructor(data: RawNode) {
     super();
@@ -53,8 +54,12 @@ export default class PlaylistPanelVideo extends YTNode {
       seconds: timeToSeconds(new Text(data.lengthText).toString())
     };
 
-    const album = new Text(data.longBylineText).runs?.find((run: any) => run.endpoint?.payload?.browseId?.startsWith('MPR'));
-    const artists = new Text(data.longBylineText).runs?.filter((run: any) => run.endpoint?.payload?.browseId?.startsWith('UC'));
+    const album = new Text(data.longBylineText).runs?.find(
+      (run: any) => run.endpoint?.payload?.browseId?.startsWith('MPR') ||
+      run.endpoint?.payload?.browseId?.startsWith('FEmusic_library_privately_owned_release'));
+    const artists = new Text(data.longBylineText).runs?.filter(
+      (run: any) => run.endpoint?.payload?.browseId?.startsWith('UC') ||
+      run.endpoint?.payload?.browseId?.startsWith('FEmusic_library_privately_owned_artist'));
 
     this.author = new Text(data.shortBylineText).toString();
 
@@ -78,5 +83,6 @@ export default class PlaylistPanelVideo extends YTNode {
     this.badges = Parser.parseArray(data.badges);
     this.menu = Parser.parseItem(data.menu);
     this.set_video_id = data.playlistSetVideoId;
+    this.long_by_line_text = new Text(data.longBylineText);
   }
 }

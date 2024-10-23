@@ -9,6 +9,7 @@ export default class SectionList extends YTNode {
   continuation?: string;
   header?: YTNode;
   sub_menu?: YTNode;
+  continuation_type?: 'next' | 'reload';
 
   constructor(data: RawNode) {
     super();
@@ -21,8 +22,10 @@ export default class SectionList extends YTNode {
     if (Reflect.has(data, 'continuations')) {
       if (Reflect.has(data.continuations[0], 'nextContinuationData')) {
         this.continuation = data.continuations[0].nextContinuationData.continuation;
+        this.continuation_type = 'next'
       } else if (Reflect.has(data.continuations[0], 'reloadContinuationData')) {
         this.continuation = data.continuations[0].reloadContinuationData.continuation;
+        this.continuation_type = 'reload';
       }
     }
 

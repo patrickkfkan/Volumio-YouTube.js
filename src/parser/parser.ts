@@ -312,6 +312,7 @@ export function parseResponse<T extends IParsedResponse = IParsedResponse>(data:
   _clearMemo();
 
   applyMutations(contents_memo, data.frameworkUpdates?.entityBatchUpdate?.mutations);
+  applyMutations(continuation_contents_memo, data.frameworkUpdates?.entityBatchUpdate?.mutations);
 
   if (on_response_received_endpoints_memo) {
     applyCommentsMutations(on_response_received_endpoints_memo, data.frameworkUpdates?.entityBatchUpdate?.mutations);
@@ -699,10 +700,20 @@ export function applyMutations(memo: Memo, mutations: RawNode[]) {
 
       const choice = mutation?.payload.musicFormBooleanChoice;
 
-      if (choice?.selected !== undefined && choice?.opaqueToken) {
+      if (choice?.selected !== undefined) {
         menu_item.selected = choice.selected;
       } else {
         missing_or_invalid_mutations.push(`'${menu_item.title}'`);
+      }
+
+      // Include `opaqueToken` in endpoint of menu items that invoke `musicBrowseFormBinderCommand` when clicked (e.g. Explore -> Charts).
+      if (choice?.opaqueToken) {
+        const command = menu_item.endpoint?.payload.commands?.find((c:any) => c.musicBrowseFormBinderCommand?.browseEndpoint);
+        if (command) {
+          command.musicBrowseFormBinderCommand.browseEndpoint.formData = { // `formData` must be included in the payload of resulting requests
+            selectedValues: [ choice.opaqueToken ]
+          };
+        }
       }
     }
     if (missing_or_invalid_mutations.length > 0) {

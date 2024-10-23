@@ -36,7 +36,9 @@ export default class MusicDetailHeader extends YTNode {
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail.croppedSquareThumbnailRenderer.thumbnail);
     this.badges = Parser.parseArray(data.subtitleBadges);
 
-    const author = this.subtitle.runs?.find((run) => (run as TextRun)?.endpoint?.payload?.browseId.startsWith('UC'));
+    const author = this.subtitle.runs?.find((run) =>
+      (run as TextRun)?.endpoint?.payload?.browseId.startsWith('UC') ||
+      (run as TextRun)?.endpoint?.payload?.browseId.startsWith('FEmusic_library_privately_owned_artist'));
 
     if (author) {
       this.author = {

@@ -184,6 +184,7 @@ export default class MusicResponsiveListItem extends YTNode {
   #parseSong() {
     this.id = this.#playlist_item_data.video_id || this.endpoint?.payload?.videoId;
     this.title = this.flex_columns.first().title.toString();
+    this.subtitle = this.flex_columns.at(1)?.title;
 
     const duration_text = this.flex_columns.at(1)?.title.runs?.find(
       (run) => (/^\d+$/).test(run.text.replace(/:/g, '')))?.text || this.fixed_columns.first()?.title?.toString();
@@ -198,13 +199,15 @@ export default class MusicResponsiveListItem extends YTNode {
     const album_run =
       this.flex_columns.at(1)?.title.runs?.find(
         (run) =>
-          (isTextRun(run) && run.endpoint) &&
-          run.endpoint.payload.browseId.startsWith('MPR')
+          (isTextRun(run) && run.endpoint) && (
+            run.endpoint.payload.browseId.startsWith('MPR') ||
+            run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_release'))
       ) ||
       this.flex_columns.at(2)?.title.runs?.find(
         (run) =>
-          (isTextRun(run) && run.endpoint) &&
-          run.endpoint.payload.browseId.startsWith('MPR')
+          (isTextRun(run) && run.endpoint) && (
+            run.endpoint.payload.browseId.startsWith('MPR') ||
+            run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_release'))
       );
 
     if (album_run && isTextRun(album_run)) {
@@ -216,7 +219,9 @@ export default class MusicResponsiveListItem extends YTNode {
     }
 
     const artist_runs = this.flex_columns.at(1)?.title.runs?.filter(
-      (run) => (isTextRun(run) && run.endpoint) && run.endpoint.payload.browseId.startsWith('UC')
+      (run) => (isTextRun(run) && run.endpoint) && (
+        run.endpoint.payload.browseId.startsWith('UC') ||
+        run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
     );
 
     if (artist_runs) {
@@ -231,12 +236,14 @@ export default class MusicResponsiveListItem extends YTNode {
   #parseVideo() {
     this.id = this.#playlist_item_data.video_id;
     this.title = this.flex_columns.first().title.toString();
+    this.subtitle = this.flex_columns.at(1)?.title;
     this.views = this.flex_columns.at(1)?.title.runs?.find((run) => run.text.match(/(.*?) views/))?.toString();
 
     const author_runs = this.flex_columns.at(1)?.title.runs?.filter(
       (run) =>
-        (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC')
+        (isTextRun(run) && run.endpoint) && (
+          run.endpoint.payload.browseId.startsWith('UC') ||
+          run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
     );
 
     if (author_runs) {
@@ -289,8 +296,9 @@ export default class MusicResponsiveListItem extends YTNode {
 
     const author_run = this.flex_columns.at(1)?.title.runs?.find(
       (run) =>
-        (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC')
+        (isTextRun(run) && run.endpoint) && (
+          run.endpoint.payload.browseId.startsWith('UC') ||
+          run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
     );
 
     if (author_run && isTextRun(author_run)) {
@@ -309,6 +317,7 @@ export default class MusicResponsiveListItem extends YTNode {
   #parsePlaylist() {
     this.id = this.endpoint?.payload?.browseId;
     this.title = this.flex_columns.first().title.toString();
+    this.subtitle = this.flex_columns.at(1)?.title;
 
     const item_count_run = this.flex_columns.at(1)?.title
       .runs?.find((run) => run.text.match(/\d+ (song|songs)/));
@@ -317,8 +326,9 @@ export default class MusicResponsiveListItem extends YTNode {
 
     const author_run = this.flex_columns.at(1)?.title.runs?.find(
       (run) =>
-        (isTextRun(run) && run.endpoint) &&
-        run.endpoint.payload.browseId.startsWith('UC')
+        (isTextRun(run) && run.endpoint) && (
+          run.endpoint.payload.browseId.startsWith('UC') ||
+          run.endpoint.payload.browseId.startsWith('FEmusic_library_privately_owned_artist'))
     );
 
     if (author_run && isTextRun(author_run)) {
