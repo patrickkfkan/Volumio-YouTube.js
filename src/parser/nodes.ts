@@ -9,6 +9,7 @@ export { default as AccountItemSection } from './classes/AccountItemSection.js';
 export { default as AccountItemSectionHeader } from './classes/AccountItemSectionHeader.js';
 export { default as AccountSectionList } from './classes/AccountSectionList.js';
 export { default as AppendContinuationItemsAction } from './classes/actions/AppendContinuationItemsAction.js';
+export { default as GetMultiPageMenuAction } from './classes/actions/GetMultiPageMenuAction.js';
 export { default as OpenPopupAction } from './classes/actions/OpenPopupAction.js';
 export { default as UpdateEngagementPanelAction } from './classes/actions/UpdateEngagementPanelAction.js';
 export { default as Alert } from './classes/Alert.js';
@@ -186,6 +187,8 @@ export { default as LiveChatPaidSticker } from './classes/livechat/items/LiveCha
 export { default as LiveChatPlaceholderItem } from './classes/livechat/items/LiveChatPlaceholderItem.js';
 export { default as LiveChatProductItem } from './classes/livechat/items/LiveChatProductItem.js';
 export { default as LiveChatRestrictedParticipation } from './classes/livechat/items/LiveChatRestrictedParticipation.js';
+export { default as LiveChatSponsorshipsGiftPurchaseAnnouncement } from './classes/livechat/items/LiveChatSponsorshipsGiftPurchaseAnnouncement.js';
+export { default as LiveChatSponsorshipsHeader } from './classes/livechat/items/LiveChatSponsorshipsHeader.js';
 export { default as LiveChatTextMessage } from './classes/livechat/items/LiveChatTextMessage.js';
 export { default as LiveChatTickerPaidMessageItem } from './classes/livechat/items/LiveChatTickerPaidMessageItem.js';
 export { default as LiveChatTickerPaidStickerItem } from './classes/livechat/items/LiveChatTickerPaidStickerItem.js';
