@@ -2,6 +2,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.1.0
+- Migrate to YouTube.js v11.0.1 (commit [4e9c2a5](https://github.com/LuanRT/YouTube.js/commit/4e9c2a585bf84751dd4e3964f70fba284c8b8e38))
+
 1.0.0
 - Release for Bookworm-based Volumio
 - Migrate to YouTube.js v10.5.0 (commit [91d3081](https://github.com/LuanRT/YouTube.js/commit/91d308149691cf8037e54c294e173a91864c48fa))
