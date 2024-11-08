@@ -173,6 +173,7 @@ export default class MusicResponsiveListItem extends YTNode {
         this.#parseVideo();
         break;
       case 'MUSIC_VIDEO_TYPE_ATV':
+      case 'MUSIC_VIDEO_TYPE_PRIVATELY_OWNED_TRACK':
         this.item_type = 'song';
         this.#parseSong();
         break;
@@ -293,6 +294,7 @@ export default class MusicResponsiveListItem extends YTNode {
   #parseAlbum() {
     this.id = this.endpoint?.payload?.browseId;
     this.title = this.flex_columns.first().title.toString();
+    this.subtitle = this.flex_columns.at(1)?.title;
 
     const author_run = this.flex_columns.at(1)?.title.runs?.find(
       (run) =>
