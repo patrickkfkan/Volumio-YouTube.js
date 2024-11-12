@@ -63,6 +63,9 @@ export default class MusicTwoRowItem extends YTNode {
       case 'MUSIC_PAGE_TYPE_ALBUM':
         this.item_type = 'album';
         break;
+      case 'MUSIC_PAGE_TYPE_PODCAST_SHOW_DETAIL_PAGE':
+        this.item_type = 'podcast_show';
+        break;
       default:
         if (this.endpoint?.metadata?.api_url === '/next') {
           this.item_type = 'endpoint';
