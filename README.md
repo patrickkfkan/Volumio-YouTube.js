@@ -2,6 +2,12 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.2.0
+- Parser changes (for ytmusic plugin podcast support):
+  - Expand `MusicShelf` content type to include `MusicMultiRowListItem`
+  - Add `podcast_show` item type to `MusicTwoRowItem`
+  - Change `continuation_contents` to array. So, for instance, it can now have both `SectionListContinuation` and `MusicShelfContinuation` instances.
+
 1.1.1
 - ytmusic: restore private song parsing
 
