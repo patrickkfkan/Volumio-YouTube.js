@@ -1,6 +1,7 @@
 import { YTNode, type ObservedArray } from '../helpers.js';
 import { Parser, type RawNode } from '../index.js';
 import Button from './Button.js';
+import MusicMultiRowListItem from './MusicMultiRowListItem.js';
 import MusicResponsiveListItem from './MusicResponsiveListItem.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
@@ -9,7 +10,7 @@ export default class MusicShelf extends YTNode {
   static type = 'MusicShelf';
 
   title: Text;
-  contents: ObservedArray<MusicResponsiveListItem>;
+  contents: ObservedArray<MusicResponsiveListItem | MusicMultiRowListItem>;
   endpoint?: NavigationEndpoint;
   continuation?: string;
   bottom_text?: Text;
@@ -19,7 +20,7 @@ export default class MusicShelf extends YTNode {
   constructor(data: RawNode) {
     super();
     this.title = new Text(data.title);
-    this.contents = Parser.parseArray(data.contents, MusicResponsiveListItem);
+    this.contents = Parser.parseArray(data.contents, [MusicResponsiveListItem, MusicMultiRowListItem]);
 
     if (Reflect.has(data, 'bottomEndpoint')) {
       this.endpoint = new NavigationEndpoint(data.bottomEndpoint);

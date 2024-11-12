@@ -10,7 +10,7 @@ import type MusicThumbnail from '../classes/MusicThumbnail.js';
 import type { ApiResponse } from '../../core/index.js';
 import { observe, type ObservedArray } from '../helpers.js';
 import type { IBrowseResponse } from '../types/index.js';
-import type MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
+import MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
 
 export default class Album {
   #page: IBrowseResponse;
@@ -28,7 +28,7 @@ export default class Album {
       throw new Error('No contents found in the response');
 
     this.header = this.#page.contents_memo.getType(MusicDetailHeader, MusicResponsiveHeader)?.first();
-    this.contents = this.#page.contents_memo.getType(MusicShelf)?.first().contents || observe([]);
+    this.contents = this.#page.contents_memo.getType(MusicShelf)?.first().contents.as(MusicResponsiveListItem) || observe([]);
     this.sections = this.#page.contents_memo.getType(MusicCarouselShelf) || observe([]);
     this.background = this.#page.background;
     this.url = this.#page.microformat?.as(MicroformatData).url_canonical;

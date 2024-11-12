@@ -126,7 +126,7 @@ export default class Playlist {
       const suggestions = sections?.find((section) => section.is(MusicShelf))?.as(MusicShelf);
 
       return {
-        items: suggestions?.contents || observe([]),
+        items: suggestions?.contents.as(MusicResponsiveListItem) || observe([]),
         continuation: suggestions?.continuation || null
       };
     }
