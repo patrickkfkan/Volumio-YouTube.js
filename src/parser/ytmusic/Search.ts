@@ -176,7 +176,7 @@ export class SearchContinuation {
     this.#actions = actions;
     this.#page = Parser.parseResponse<ISearchResponse>(response.data);
     this.header = this.#page.header?.item().as(MusicHeader);
-    this.contents = this.#page.continuation_contents?.as(MusicShelfContinuation);
+    this.contents = this.#page.continuation_contents?.firstOfType(MusicShelfContinuation);
   }
 
   async getContinuation(): Promise<SearchContinuation> {

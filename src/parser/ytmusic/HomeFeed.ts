@@ -32,8 +32,8 @@ export default class HomeFeed {
       if (!this.#page.continuation_contents)
         throw new InnertubeError('Continuation did not have any content.');
 
-      this.#continuation = this.#page.continuation_contents.as(SectionListContinuation).continuation;
-      this.sections = this.#page.continuation_contents.as(SectionListContinuation).contents?.as(MusicCarouselShelf);
+      this.#continuation = this.#page.continuation_contents.firstOfType(SectionListContinuation)?.continuation;
+      this.sections = this.#page.continuation_contents.firstOfType(SectionListContinuation)?.contents?.as(MusicCarouselShelf);
 
       return;
     }

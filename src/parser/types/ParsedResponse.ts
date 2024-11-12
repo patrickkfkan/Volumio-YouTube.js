@@ -41,8 +41,8 @@ export interface IParsedResponse {
   on_response_received_commands?: ObservedArray<ReloadContinuationItemsCommand | AppendContinuationItemsAction>;
   on_response_received_commands_memo?: Memo;
   continuation?: Continuation;
-  continuation_contents?: ItemSectionContinuation | SectionListContinuation | LiveChatContinuation | MusicPlaylistShelfContinuation |
-  MusicShelfContinuation | GridContinuation | PlaylistPanelContinuation | ContinuationCommand;
+  continuation_contents?: ObservedArray<ItemSectionContinuation | SectionListContinuation | LiveChatContinuation | MusicPlaylistShelfContinuation |
+  MusicShelfContinuation | GridContinuation | PlaylistPanelContinuation | ContinuationCommand>;
   continuation_contents_memo?: Memo;
   metadata?: SuperParsedResult<YTNode>;
   microformat?: YTNode;

@@ -82,7 +82,7 @@ export default class Library {
 
     target_item.selected = true;
 
-    this.contents = response.continuation_contents?.as(SectionListContinuation).contents?.as(Grid, MusicShelf);
+    this.contents = response.continuation_contents?.firstOfType(SectionListContinuation)?.contents?.as(Grid, MusicShelf);
 
     return this;
   }
@@ -161,7 +161,7 @@ export class LibraryContinuation {
     if (!this.#page.continuation_contents)
       throw new InnertubeError('No continuation contents found');
 
-    this.contents = this.#page.continuation_contents.as(MusicShelfContinuation, GridContinuation);
+    this.contents = this.#page.continuation_contents.as(MusicShelfContinuation, GridContinuation).first();
 
     this.#continuation = this.contents.continuation || null;
   }

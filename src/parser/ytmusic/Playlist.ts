@@ -34,8 +34,8 @@ export default class Playlist {
     this.#suggestions_continuation = null;
 
     if (this.#page.continuation_contents) {
-      const data = this.#page.continuation_contents?.as(MusicPlaylistShelfContinuation);
-      if (!data.contents)
+      const data = this.#page.continuation_contents?.firstOfType(MusicPlaylistShelfContinuation);
+      if (!data?.contents)
         throw new InnertubeError('No contents found in the response');
       this.contents = data.contents.as(MusicResponsiveListItem);
       this.#continuation = data.continuation;
@@ -82,7 +82,7 @@ export default class Playlist {
         parse: true
       });
 
-      const section_list = data.continuation_contents?.as(SectionListContinuation);
+      const section_list = data.continuation_contents?.firstOfType(SectionListContinuation);
       const sections = section_list?.contents?.as(MusicCarouselShelf, MusicShelf);
 
       const related = sections?.find((section) => section.is(MusicCarouselShelf))?.as(MusicCarouselShelf);
@@ -120,7 +120,7 @@ export default class Playlist {
         parse: true
       });
 
-      const section_list = page.continuation_contents?.as(SectionListContinuation);
+      const section_list = page.continuation_contents?.firstOfType(SectionListContinuation);
       const sections = section_list?.contents?.as(MusicCarouselShelf, MusicShelf);
 
       const suggestions = sections?.find((section) => section.is(MusicShelf))?.as(MusicShelf);

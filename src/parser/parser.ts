@@ -325,7 +325,7 @@ export function parseResponse<T extends IParsedResponse = IParsedResponse>(data:
 
   const continuation_endpoint = data.continuationEndpoint ? parseLC(data.continuationEndpoint) : null;
   if (continuation_endpoint) {
-    parsed_data.continuation_endpoint = continuation_endpoint;
+    parsed_data.continuation_endpoint = continuation_endpoint.firstOfType(ContinuationCommand);
   }
 
   const metadata = parse(data.metadata);
@@ -635,24 +635,26 @@ export function parseC(data: RawNode) {
 }
 
 export function parseLC(data: RawNode) {
+  const continuation_contents = observe<ItemSectionContinuation | SectionListContinuation | LiveChatContinuation | MusicPlaylistShelfContinuation |
+    MusicShelfContinuation | GridContinuation | PlaylistPanelContinuation | ContinuationCommand>([]);
   if (data.itemSectionContinuation)
-    return new ItemSectionContinuation(data.itemSectionContinuation);
+    continuation_contents.push(new ItemSectionContinuation(data.itemSectionContinuation));
   if (data.sectionListContinuation)
-    return new SectionListContinuation(data.sectionListContinuation);
+    continuation_contents.push(new SectionListContinuation(data.sectionListContinuation));
   if (data.liveChatContinuation)
-    return new LiveChatContinuation(data.liveChatContinuation);
+    continuation_contents.push(new LiveChatContinuation(data.liveChatContinuation));
   if (data.musicPlaylistShelfContinuation)
-    return new MusicPlaylistShelfContinuation(data.musicPlaylistShelfContinuation);
+    continuation_contents.push(new MusicPlaylistShelfContinuation(data.musicPlaylistShelfContinuation));
   if (data.musicShelfContinuation)
-    return new MusicShelfContinuation(data.musicShelfContinuation);
+    continuation_contents.push(new MusicShelfContinuation(data.musicShelfContinuation));
   if (data.gridContinuation)
-    return new GridContinuation(data.gridContinuation);
+    continuation_contents.push(new GridContinuation(data.gridContinuation));
   if (data.playlistPanelContinuation)
-    return new PlaylistPanelContinuation(data.playlistPanelContinuation);
+    continuation_contents.push(new PlaylistPanelContinuation(data.playlistPanelContinuation));
   if (data.continuationCommand)
-    return new ContinuationCommand(data.continuationCommand);
+    continuation_contents.push(new ContinuationCommand(data.continuationCommand));
 
-  return null;
+  return continuation_contents;
 }
 
 export function parseRR(actions: RawNode[]) {
