@@ -2,6 +2,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.2.1
+- Merge from YouTube.js v11.0.1 (commit [126a66f](https://github.com/LuanRT/YouTube.js/commit/126a66f317da0c6b486202ad04483b9799bfaf4c))
+
 1.2.0
 - Parser changes (for ytmusic plugin podcast support):
   - Expand `MusicShelf` content type to include `MusicMultiRowListItem`
