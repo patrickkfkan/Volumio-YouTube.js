@@ -20,4 +20,4 @@
 
 #### Defined in
 
-[src/types/Cache.ts:9](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/types/Cache.ts#L9)
+[src/types/Cache.ts:9](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/types/Cache.ts#L9)

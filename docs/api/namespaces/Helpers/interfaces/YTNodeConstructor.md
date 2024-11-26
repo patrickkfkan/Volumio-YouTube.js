@@ -22,7 +22,7 @@
 
 #### Defined in
 
-[src/parser/helpers.ts:316](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/parser/helpers.ts#L316)
+[src/parser/helpers.ts:320](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/parser/helpers.ts#L320)
 
 ## Properties
 
@@ -32,4 +32,4 @@
 
 #### Defined in
 
-[src/parser/helpers.ts:317](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/parser/helpers.ts#L317)
+[src/parser/helpers.ts:321](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/parser/helpers.ts#L321)

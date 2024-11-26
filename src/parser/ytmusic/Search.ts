@@ -14,17 +14,16 @@ import ShowingResultsFor from '../classes/ShowingResultsFor.js';
 import TabbedSearchResults from '../classes/TabbedSearchResults.js';
 
 import type { ObservedArray } from '../helpers.js';
-import type { ISearchResponse } from '../types/ParsedResponse.js';
+import type { ISearchResponse } from '../types/index.js';
 import type { ApiResponse, Actions } from '../../core/index.js';
-import MusicResponsiveListItem from '../classes/MusicResponsiveListItem.js';
 
 export default class Search {
-  #page: ISearchResponse;
-  #actions: Actions;
-  #continuation?: string;
+  readonly #page: ISearchResponse;
+  readonly #actions: Actions;
+  readonly #continuation?: string;
 
-  header?: ChipCloud;
-  contents?: ObservedArray<MusicShelf | MusicCardShelf | ItemSection>;
+  public header?: ChipCloud;
+  public contents?: ObservedArray<MusicShelf | MusicCardShelf | ItemSection>;
 
   constructor(response: ApiResponse, actions: Actions, is_filtered?: boolean) {
     this.#actions = actions;
@@ -147,30 +146,16 @@ export default class Search {
     return this.contents?.filterType(MusicShelf).find((section) => section.title.toString() === 'Community playlists');
   }
 
-  /**
-   * @deprecated Use {@link Search.contents} instead.
-   */
-  get results(): ObservedArray<MusicResponsiveListItem> | undefined {
-    return this.contents?.firstOfType(MusicShelf)?.contents.as(MusicResponsiveListItem);
-  }
-
-  /**
-   * @deprecated Use {@link Search.contents} instead.
-   */
-  get sections(): ObservedArray<MusicShelf> | undefined {
-    return this.contents?.filterType(MusicShelf);
-  }
-
   get page(): ISearchResponse {
     return this.#page;
   }
 }
 
 export class SearchContinuation {
-  #actions: Actions;
-  #page: ISearchResponse;
-  header?: MusicHeader;
-  contents?: MusicShelfContinuation;
+  readonly #actions: Actions;
+  readonly #page: ISearchResponse;
+  public header?: MusicHeader;
+  public contents?: MusicShelfContinuation;
 
   constructor(actions: Actions, response: ApiResponse) {
     this.#actions = actions;

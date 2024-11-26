@@ -24,4 +24,4 @@ Typescript class file
 
 ## Defined in
 
-[src/parser/generator.ts:491](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/parser/generator.ts#L491)
+[src/parser/generator.ts:495](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/parser/generator.ts#L495)

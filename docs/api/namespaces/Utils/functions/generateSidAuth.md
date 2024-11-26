@@ -18,4 +18,4 @@ Sid extracted from cookies
 
 ## Defined in
 
-[src/utils/Utils.ts:97](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/utils/Utils.ts#L97)
+[src/utils/Utils.ts:97](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/utils/Utils.ts#L97)

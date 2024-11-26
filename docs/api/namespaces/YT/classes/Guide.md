@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/parser/youtube/Guide.ts:13](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/parser/youtube/Guide.ts#L13)
+[src/parser/youtube/Guide.ts:13](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/parser/youtube/Guide.ts#L13)
 
 ## Properties
 
@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[src/parser/youtube/Guide.ts:11](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/parser/youtube/Guide.ts#L11)
+[src/parser/youtube/Guide.ts:11](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/parser/youtube/Guide.ts#L11)
 
 ## Accessors
 
@@ -42,4 +42,4 @@
 
 #### Defined in
 
-[src/parser/youtube/Guide.ts:19](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/parser/youtube/Guide.ts#L19)
+[src/parser/youtube/Guide.ts:19](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/parser/youtube/Guide.ts#L19)

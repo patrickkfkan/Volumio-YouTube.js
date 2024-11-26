@@ -14,4 +14,4 @@
 
 ## Defined in
 
-[src/utils/ProtoUtils.ts:9](https://github.com/LuanRT/YouTube.js/blob/305a398158a6cac82e6ef288fed4bf1661c89d52/src/utils/ProtoUtils.ts#L9)
+[src/utils/ProtoUtils.ts:16](https://github.com/LuanRT/YouTube.js/blob/4729016fb98e7045ee4043857be7eef780c01e35/src/utils/ProtoUtils.ts#L16)
