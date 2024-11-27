@@ -2,6 +2,12 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.3.0
+- Merge from YouTube.js v11.0.1 (commit [bbaefb1](https://github.com/LuanRT/YouTube.js/commit/bbaefb12b3a5b6302794cd7c0d1b24ae3861b827))
+- Cookie-based session fixes and additions ([PR](https://github.com/LuanRT/YouTube.js/pull/821) submitted to YouTube.js repo):
+  - Fix `on_behalf_of_user` arg not applied
+  - `AccountManager#getInfo()`: add option to fetch full accounts list
+
 1.2.1
 - Merge from YouTube.js v11.0.1 (commit [126a66f](https://github.com/LuanRT/YouTube.js/commit/126a66f317da0c6b486202ad04483b9799bfaf4c))
 
