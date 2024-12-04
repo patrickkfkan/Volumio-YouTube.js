@@ -1,18 +1,15 @@
-import Parser from '../index.js';
-import type { ApiResponse } from '../../core/Actions.js';
-import type { IParsedResponse } from '../types/ParsedResponse.js';
-
-import AccountSectionList from '../classes/AccountSectionList.js';
-import type AccountItemSection from '../classes/AccountItemSection.js';
-import type AccountChannel from '../classes/AccountChannel.js';
-
+import { Parser } from '../index.js';
 import { InnertubeError } from '../../utils/Utils.js';
+import AccountSectionList from '../classes/AccountSectionList.js';
 
-class AccountInfo {
-  #page: IParsedResponse;
+import type { ApiResponse } from '../../core/index.js';
+import type { IParsedResponse } from '../types/index.js';
+import type AccountItemSection from '../classes/AccountItemSection.js';
+
+export default class AccountInfo {
+  readonly #page: IParsedResponse;
 
   contents: AccountItemSection | null;
-  footers: AccountChannel | null;
 
   constructor(response: ApiResponse) {
     this.#page = Parser.parseResponse(response.data);
@@ -25,13 +22,10 @@ class AccountInfo {
     if (!account_section_list)
       throw new InnertubeError('Account section list not found');
 
-    this.contents = account_section_list.contents;
-    this.footers = account_section_list.footers;
+    this.contents = account_section_list.contents.first();
   }
 
   get page(): IParsedResponse {
     return this.#page;
   }
 }
-
-export default AccountInfo;

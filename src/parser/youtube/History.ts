@@ -1,14 +1,16 @@
-import type Actions from '../../core/Actions.js';
 import Feed from '../../core/mixins/Feed.js';
 import ItemSection from '../classes/ItemSection.js';
 import BrowseFeedActions from '../classes/BrowseFeedActions.js';
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
-import type { ApiResponse } from '../../core/Actions.js';
+import Button from '../classes/Button.js';
+
+import type { Actions, ApiResponse } from '../../core/index.js';
+import type { IBrowseResponse } from '../types/index.js';
+import type Video from '../classes/Video.js';
 
 // TODO: make feed actions usable
-class History extends Feed<IBrowseResponse> {
-  sections: ItemSection[];
-  feed_actions: BrowseFeedActions;
+export default class History extends Feed<IBrowseResponse> {
+  public sections: ItemSection[];
+  public feed_actions: BrowseFeedActions;
 
   constructor(actions: Actions, data: ApiResponse | IBrowseResponse, already_parsed = false) {
     super(actions, data, already_parsed);
@@ -25,6 +27,35 @@ class History extends Feed<IBrowseResponse> {
       throw new Error('No continuation data found');
     return new History(this.actions, response, true);
   }
-}
 
-export default History;
+  /**
+   * Removes a video from watch history.
+   */
+  async removeVideo(video_id: string): Promise<boolean> {
+    let feedbackToken;
+
+    for (const section of this.sections) {
+      for (const content of section.contents) {
+        const video = content as Video;
+        if (video.id === video_id && video.menu) {
+          feedbackToken = video.menu.top_level_buttons[0].as(Button).endpoint.payload.feedbackToken;
+          break;
+        }
+      }
+    }
+
+    if (!feedbackToken) {
+      throw new Error('Failed to get feedback token');
+    }
+
+    const body = { feedbackTokens: [ feedbackToken ] };
+    const response = await this.actions.execute('/feedback', body);
+    const data = response.data;
+
+    if (!data.feedbackResponses[0].isProcessed) {
+      throw new Error('Failed to remove video from watch history');
+    }
+
+    return true;
+  }
+}

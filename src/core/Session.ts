@@ -1,54 +1,69 @@
+import OAuth2 from './OAuth2.js';
+import { Log, EventEmitter, HTTPClient, LZW, ProtoUtils } from '../utils/index.js';
 import * as Constants from '../utils/Constants.js';
-import EventEmitterLike from '../utils/EventEmitterLike.js';
 import Actions from './Actions.js';
 import Player from './Player.js';
 
-import Proto from '../proto/index.js';
-import type { ICache } from '../types/Cache.js';
-import type { FetchFunction } from '../types/PlatformShim.js';
-import HTTPClient from '../utils/HTTPClient.js';
+import {
+  generateRandomString, getRandomUserAgent,
+  InnertubeError, Platform, SessionError
+} from '../utils/Utils.js';
+
 import type { DeviceCategory } from '../utils/Utils.js';
-import { generateRandomString, getRandomUserAgent, InnertubeError, Platform, SessionError } from '../utils/Utils.js';
-import type { Credentials, OAuthAuthErrorEventHandler, OAuthAuthEventHandler, OAuthAuthPendingEventHandler } from './OAuth.js';
-import OAuth from './OAuth.js';
+import type { FetchFunction, ICache } from '../types/index.js';
+import type { OAuth2Tokens, OAuth2AuthErrorEventHandler, OAuth2AuthPendingEventHandler, OAuth2AuthEventHandler } from './OAuth2.js';
 
 export enum ClientType {
   WEB = 'WEB',
   KIDS = 'WEB_KIDS',
   MUSIC = 'WEB_REMIX',
+  IOS = 'iOS',
   ANDROID = 'ANDROID',
   ANDROID_MUSIC = 'ANDROID_MUSIC',
   ANDROID_CREATOR = 'ANDROID_CREATOR',
-  TV_EMBEDDED = 'TVHTML5_SIMPLY_EMBEDDED_PLAYER'
+  TV = 'TVHTML5',
+  TV_EMBEDDED = 'TVHTML5_SIMPLY_EMBEDDED_PLAYER',
+  WEB_EMBEDDED = 'WEB_EMBEDDED_PLAYER',
+  WEB_CREATOR = 'WEB_CREATOR'
 }
 
-export interface Context {
+export type Context = {
   client: {
     hl: string;
     gl: string;
     remoteHost?: string;
-    screenDensityFloat: number;
-    screenHeightPoints: number;
-    screenPixelDensity: number;
-    screenWidthPoints: number;
-    visitorData: string;
+    screenDensityFloat?: number;
+    screenHeightPoints?: number;
+    screenPixelDensity?: number;
+    screenWidthPoints?: number;
+    visitorData?: string;
     clientName: string;
     clientVersion: string;
     clientScreen?: string,
-    androidSdkVersion?: string;
+    androidSdkVersion?: number;
     osName: string;
     osVersion: string;
     platform: string;
     clientFormFactor: string;
-    userInterfaceTheme: string;
+    userInterfaceTheme?: string;
     timeZone: string;
     userAgent?: string;
     browserName?: string;
     browserVersion?: string;
-    originalUrl: string;
+    originalUrl?: string;
     deviceMake: string;
     deviceModel: string;
     utcOffsetMinutes: number;
+    mainAppWebInfo?: {
+      graftUrl: string;
+      pwaInstallabilityStatus: string;
+      webDisplayMode: string;
+      isWebNativeShareAvailable: boolean;
+    };
+    memoryTotalKbytes?: string;
+    configInfo?: {
+      appInstallData: string;
+    },
     kidsAppInfo?: {
       categorySettings: {
         enabledCategories: string[];
@@ -62,13 +77,38 @@ export interface Context {
   user: {
     enableSafetyMode: boolean;
     lockedSafetyMode: boolean;
+    onBehalfOfUser?: string;
   };
   thirdParty?: {
     embedUrl: string;
   };
+  request?: {
+    useSsl: boolean;
+    internalExperimentFlags: any[];
+  };
 }
 
-export interface SessionOptions {
+type ContextData = {
+  hl: string;
+  gl: string;
+  remote_host?: string;
+  visitor_data: string;
+  client_name: string;
+  client_version: string;
+  os_name: string;
+  os_version: string;
+  device_category: string;
+  time_zone: string;
+  enable_safety_mode: boolean;
+  browser_name?: string;
+  browser_version?: string;
+  app_install_data?: string;
+  device_make: string;
+  device_model: string;
+  on_behalf_of_user?: string;
+}
+
+export type SessionOptions = {
   /**
    * Language.
    */
@@ -79,12 +119,17 @@ export interface SessionOptions {
   location?: string;
   /**
    * The account index to use. This is useful if you have multiple accounts logged in.
-   * **NOTE:**
-   * Only works if you are signed in with cookies.
+   *
+   * **NOTE:** Only works if you are signed in with cookies.
    */
   account_index?: number;
   /**
+   * Specify the Page ID of the YouTube profile/channel to use, if the logged-in account has multiple profiles.
+   */
+  on_behalf_of_user?: string;
+  /**
    * Specifies whether to retrieve the JS player. Disabling this will make session creation faster.
+   *
    * **NOTE:** Deciphering formats is not possible without the JS player.
    */
   retrieve_player?: boolean;
@@ -95,8 +140,15 @@ export interface SessionOptions {
   /**
    * Specifies whether to generate the session data locally or retrieve it from YouTube.
    * This can be useful if you need more performance.
+   *
+   * **NOTE:** If you are using the cache option and a session has already been generated, this will be ignored.
+   * If you want to force a new session to be generated, you must clear the cache or disable session caching.
    */
   generate_session_locally?: boolean;
+  /**
+   * Specifies whether the session data should be cached.
+   */
+  enable_session_cache?: boolean;
   /**
    * Platform to use for the session.
    */
@@ -110,7 +162,7 @@ export interface SessionOptions {
    */
   timezone?: string;
   /**
-   * Used to cache the deciphering functions from the JS player.
+   * Used to cache algorithms, session data, and OAuth2 tokens.
    */
   cache?: ICache;
   /**
@@ -126,56 +178,80 @@ export interface SessionOptions {
    * Fetch function to use.
    */
   fetch?: FetchFunction;
+  /**
+   * Proof of Origin Token. This is an attestation token generated by BotGuard/DroidGuard. It is used to confirm that the request is coming from a genuine client.
+   */
+  po_token?: string;
 }
 
-export interface SessionData {
+export type SessionData = {
   context: Context;
   api_key: string;
   api_version: string;
 }
 
+export type SWSessionData = {
+  context_data: ContextData;
+  api_key: string;
+  api_version: string;
+}
+
+export type SessionArgs = {
+  lang: string;
+  location: string;
+  time_zone: string;
+  device_category: DeviceCategory;
+  client_name: ClientType;
+  enable_safety_mode: boolean;
+  visitor_data: string;
+  on_behalf_of_user: string | undefined;
+}
+
+const TAG = 'Session';
+
 /**
  * Represents an InnerTube session. This holds all the data needed to make requests to YouTube.
  */
-export default class Session extends EventEmitterLike {
-  #api_version: string;
-  #key: string;
-  #context: Context;
-  #account_index: number;
-  #player?: Player;
+export default class Session extends EventEmitter {
+  public context: Context;
+  public player?: Player;
+  public oauth: OAuth2;
+  public http: HTTPClient;
+  public logged_in: boolean;
+  public actions: Actions;
+  public cache?: ICache;
+  public key: string;
+  public api_version: string;
+  public account_index: number;
+  public po_token?: string;
 
-  oauth: OAuth;
-  http: HTTPClient;
-  logged_in: boolean;
-  actions: Actions;
-  cache?: ICache;
-
-  constructor(context: Context, api_key: string, api_version: string, account_index: number, player?: Player, cookie?: string, fetch?: FetchFunction, cache?: ICache) {
+  constructor(context: Context, api_key: string, api_version: string, account_index: number, player?: Player, cookie?: string, fetch?: FetchFunction, cache?: ICache, po_token?: string) {
     super();
-    this.#context = context;
-    this.#account_index = account_index;
-    this.#key = api_key;
-    this.#api_version = api_version;
-    this.#player = player;
     this.http = new HTTPClient(this, cookie, fetch);
     this.actions = new Actions(this);
-    this.oauth = new OAuth(this);
+    this.oauth = new OAuth2(this);
     this.logged_in = !!cookie;
     this.cache = cache;
+    this.account_index = account_index;
+    this.key = api_key;
+    this.api_version = api_version;
+    this.context = context;
+    this.player = player;
+    this.po_token = po_token;
   }
 
-  on(type: 'auth', listener: OAuthAuthEventHandler): void;
-  on(type: 'auth-pending', listener: OAuthAuthPendingEventHandler): void;
-  on(type: 'auth-error', listener: OAuthAuthErrorEventHandler): void;
-  on(type: 'update-credentials', listener: OAuthAuthEventHandler): void;
+  on(type: 'auth', listener: OAuth2AuthEventHandler): void;
+  on(type: 'auth-pending', listener: OAuth2AuthPendingEventHandler): void;
+  on(type: 'auth-error', listener: OAuth2AuthErrorEventHandler): void;
+  on(type: 'update-credentials', listener: OAuth2AuthEventHandler): void;
 
   on(type: string, listener: (...args: any[]) => void): void {
     super.on(type, listener);
   }
 
-  once(type: 'auth', listener: OAuthAuthEventHandler): void;
-  once(type: 'auth-pending', listener: OAuthAuthPendingEventHandler): void;
-  once(type: 'auth-error', listener: OAuthAuthErrorEventHandler): void;
+  once(type: 'auth', listener: OAuth2AuthEventHandler): void;
+  once(type: 'auth-pending', listener: OAuth2AuthPendingEventHandler): void;
+  once(type: 'auth-error', listener: OAuth2AuthErrorEventHandler): void;
 
   once(type: string, listener: (...args: any[]) => void): void {
     super.once(type, listener);
@@ -192,14 +268,59 @@ export default class Session extends EventEmitterLike {
       options.device_category,
       options.client_type,
       options.timezone,
-      options.fetch
+      options.fetch,
+      options.on_behalf_of_user,
+      options.cache,
+      options.enable_session_cache,
+      options.po_token
     );
 
     return new Session(
       context, api_key, api_version, account_index,
-      options.retrieve_player === false ? undefined : await Player.create(options.cache, options.fetch),
-      options.cookie, options.fetch, options.cache
+      options.retrieve_player === false ? undefined : await Player.create(options.cache, options.fetch, options.po_token),
+      options.cookie, options.fetch, options.cache, options.po_token
     );
+  }
+
+  /**
+   * Retrieves session data from cache.
+   * @param cache - A valid cache implementation.
+   * @param session_args - User provided session arguments.
+   */
+  static async fromCache(cache: ICache, session_args: SessionArgs): Promise<SessionData | null> {
+    const buffer = await cache.get('innertube_session_data');
+
+    if (!buffer)
+      return null;
+
+    const data = new TextDecoder().decode(buffer.slice(4));
+
+    try {
+      const result = JSON.parse(LZW.decompress(data)) as SessionData;
+
+      if (session_args.visitor_data) {
+        result.context.client.visitorData = session_args.visitor_data;
+      }
+
+      if (session_args.lang)
+        result.context.client.hl = session_args.lang;
+
+      if (session_args.location)
+        result.context.client.gl = session_args.location;
+
+      if (session_args.on_behalf_of_user)
+        result.context.user.onBehalfOfUser = session_args.on_behalf_of_user;
+
+      result.context.client.timeZone = session_args.time_zone;
+      result.context.client.platform = session_args.device_category.toUpperCase();
+      result.context.client.clientName = session_args.client_name;
+      result.context.user.enableSafetyMode = session_args.enable_safety_mode;
+
+      return result;
+    } catch (error) {
+      Log.error(TAG, 'Failed to parse session data from cache.', error);
+      return null;
+    }
   }
 
   static async getSessionData(
@@ -212,44 +333,107 @@ export default class Session extends EventEmitterLike {
     device_category: DeviceCategory = 'desktop',
     client_name: ClientType = ClientType.WEB,
     tz: string = Intl.DateTimeFormat().resolvedOptions().timeZone,
-    fetch: FetchFunction = Platform.shim.fetch
+    fetch: FetchFunction = Platform.shim.fetch,
+    on_behalf_of_user?: string,
+    cache?: ICache,
+    enable_session_cache = true,
+    po_token?: string
   ) {
-    let session_data: SessionData;
+    const session_args = { lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data, on_behalf_of_user, po_token };
 
-    if (generate_session_locally) {
-      session_data = this.#generateSessionData({ lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data });
-    } else {
-      session_data = await this.#retrieveSessionData({ lang, location, time_zone: tz, device_category, client_name, enable_safety_mode, visitor_data }, fetch);
+    let session_data: SessionData | undefined;
+
+    if (cache && enable_session_cache) {
+      const cached_session_data = await this.fromCache(cache, session_args);
+      if (cached_session_data) {
+        Log.info(TAG, 'Found session data in cache.');
+        session_data = cached_session_data;
+      }
     }
+
+    if (!session_data) {
+      Log.info(TAG, 'Generating session data.');
+
+      let api_key = Constants.CLIENTS.WEB.API_KEY;
+      let api_version = Constants.CLIENTS.WEB.API_VERSION;
+
+      let context_data: ContextData = {
+        hl: lang || 'en',
+        gl: location || 'US',
+        remote_host: '',
+        visitor_data: visitor_data || ProtoUtils.encodeVisitorData(generateRandomString(11), Math.floor(Date.now() / 1000)),
+        client_name: client_name,
+        client_version: Constants.CLIENTS.WEB.VERSION,
+        device_category: device_category.toUpperCase(),
+        os_name: 'Windows',
+        os_version: '10.0',
+        time_zone: tz,
+        browser_name: 'Chrome',
+        browser_version: '125.0.0.0',
+        device_make: '',
+        device_model: '',
+        enable_safety_mode: enable_safety_mode
+      };
+
+      if (!generate_session_locally) {
+        try {
+          const sw_session_data = await this.#getSessionData(session_args, fetch);
+          api_key = sw_session_data.api_key;
+          api_version = sw_session_data.api_version;
+          context_data = sw_session_data.context_data;
+        } catch (error) {
+          Log.error(TAG, 'Failed to retrieve session data from server. Session data generated locally will be used instead.', error);
+        }
+      }
+
+      if (on_behalf_of_user) {
+        context_data.on_behalf_of_user = on_behalf_of_user;
+      }
+
+      session_data = {
+        api_key,
+        api_version,
+        context: this.#buildContext(context_data)
+      };
+
+      if (enable_session_cache)
+        await this.#storeSession(session_data, cache);
+    }
+
+    Log.debug(TAG, 'Session data:', session_data);
 
     return { ...session_data, account_index };
   }
 
-  static async #retrieveSessionData(options: {
-    lang: string;
-    location: string;
-    time_zone: string;
-    device_category: string;
-    client_name: string;
-    enable_safety_mode: boolean;
-    visitor_data: string;
-  }, fetch: FetchFunction = Platform.shim.fetch): Promise<SessionData> {
-    const url = new URL('/sw.js_data', Constants.URLS.YT_BASE);
+  static async #storeSession(session_data: SessionData, cache?: ICache) {
+    if (!cache) return;
 
+    Log.info(TAG, 'Compressing and caching session data.');
+
+    const compressed_session_data = new TextEncoder().encode(LZW.compress(JSON.stringify(session_data)));
+
+    const buffer = new ArrayBuffer(4 + compressed_session_data.byteLength);
+    new DataView(buffer).setUint32(0, compressed_session_data.byteLength, true); // (Luan) XX: Leave this here for debugging purposes
+    new Uint8Array(buffer).set(compressed_session_data, 4);
+
+    await cache.set('innertube_session_data', new Uint8Array(buffer));
+  }
+
+  static async #getSessionData(options: SessionArgs, fetch: FetchFunction = Platform.shim.fetch): Promise<SWSessionData> {
     let visitor_id = generateRandomString(11);
 
-    if (options.visitor_data) {
-      const decoded_visitor_data = Proto.decodeVisitorData(options.visitor_data);
-      visitor_id = decoded_visitor_data.id;
-    }
+    if (options.visitor_data)
+      visitor_id = this.#getVisitorID(options.visitor_data);
+
+    const url = new URL('/sw.js_data', Constants.URLS.YT_BASE);
 
     const res = await fetch(url, {
       headers: {
-        'accept-language': options.lang || 'en-US',
-        'user-agent': getRandomUserAgent('desktop'),
-        'accept': '*/*',
-        'referer': 'https://www.youtube.com/sw.js',
-        'cookie': `PREF=tz=${options.time_zone.replace('/', '.')};VISITOR_INFO1_LIVE=${visitor_id};`
+        'Accept-Language': options.lang || 'en-US',
+        'User-Agent': getRandomUserAgent('desktop'),
+        'Accept': '*/*',
+        'Referer': `${Constants.URLS.YT_BASE}/sw.js`,
+        'Cookie': `PREF=tz=${options.time_zone.replace('/', '.')};VISITOR_INFO1_LIVE=${visitor_id};`
       }
     });
 
@@ -257,120 +441,114 @@ export default class Session extends EventEmitterLike {
       throw new SessionError(`Failed to retrieve session data: ${res.status}`);
 
     const text = await res.text();
+
+    if (!text.startsWith(')]}\''))
+      throw new SessionError('Invalid JSPB response');
+
     const data = JSON.parse(text.replace(/^\)\]\}'/, ''));
 
     const ytcfg = data[0][2];
 
-    const api_version = `v1`;
+    const api_version = Constants.CLIENTS.WEB.API_VERSION;
 
     const [ [ device_info ], api_key ] = ytcfg;
 
-    const context: Context = {
-      client: {
-        hl: device_info[0],
-        gl: options.location || device_info[2],
-        remoteHost: device_info[3],
-        screenDensityFloat: 1,
-        screenHeightPoints: 1080,
-        screenPixelDensity: 1,
-        screenWidthPoints: 1920,
-        visitorData: device_info[13],
-        clientName: options.client_name,
-        clientVersion: device_info[16],
-        osName: device_info[17],
-        osVersion: device_info[18],
-        platform: options.device_category.toUpperCase(),
-        clientFormFactor: 'UNKNOWN_FORM_FACTOR',
-        userInterfaceTheme: 'USER_INTERFACE_THEME_LIGHT',
-        timeZone: device_info[79] || options.time_zone,
-        browserName: device_info[86],
-        browserVersion: device_info[87],
-        originalUrl: Constants.URLS.YT_BASE,
-        deviceMake: device_info[11],
-        deviceModel: device_info[12],
-        utcOffsetMinutes: -new Date().getTimezoneOffset()
-      },
-      user: {
-        enableSafetyMode: options.enable_safety_mode,
-        lockedSafetyMode: false
-      }
+    const config_info = device_info[61];
+    const app_install_data = config_info[config_info.length - 1];
+
+    const context_info = {
+      hl: options.lang || device_info[0],
+      gl: options.location || device_info[2],
+      remote_host: device_info[3],
+      visitor_data: options.visitor_data || device_info[13],
+      client_name: options.client_name,
+      client_version: device_info[16],
+      os_name: device_info[17],
+      os_version: device_info[18],
+      time_zone: device_info[79] || options.time_zone,
+      device_category: options.device_category,
+      browser_name: device_info[86],
+      browser_version: device_info[87],
+      device_make: device_info[11],
+      device_model: device_info[12],
+      app_install_data: app_install_data,
+      enable_safety_mode: options.enable_safety_mode
     };
 
-    return { context, api_key, api_version };
+    return { context_data: context_info, api_key, api_version };
   }
 
-  static #generateSessionData(options: {
-    lang: string;
-    location: string;
-    time_zone: string;
-    device_category: DeviceCategory;
-    client_name: string;
-    enable_safety_mode: boolean;
-    visitor_data: string;
-  }): SessionData {
-    let visitor_id = generateRandomString(11);
-
-    if (options.visitor_data) {
-      const decoded_visitor_data = Proto.decodeVisitorData(options.visitor_data);
-      visitor_id = decoded_visitor_data.id;
-    }
-
+  static #buildContext(args: ContextData) {
     const context: Context = {
       client: {
-        hl: options.lang || 'en',
-        gl: options.location || 'US',
+        hl: args.hl || 'en',
+        gl: args.gl || 'US',
+        remoteHost: args.remote_host,
         screenDensityFloat: 1,
-        screenHeightPoints: 1080,
+        screenHeightPoints: 1440,
         screenPixelDensity: 1,
-        screenWidthPoints: 1920,
-        visitorData: Proto.encodeVisitorData(visitor_id, Math.floor(Date.now() / 1000)),
-        clientName: options.client_name,
-        clientVersion: Constants.CLIENTS.WEB.VERSION,
-        osName: 'Windows',
-        osVersion: '10.0',
-        platform: options.device_category.toUpperCase(),
+        screenWidthPoints: 2560,
+        visitorData: args.visitor_data,
+        clientName: args.client_name,
+        clientVersion: args.client_version,
+        osName: args.os_name,
+        osVersion: args.os_version,
+        platform: args.device_category.toUpperCase(),
         clientFormFactor: 'UNKNOWN_FORM_FACTOR',
         userInterfaceTheme: 'USER_INTERFACE_THEME_LIGHT',
-        timeZone: options.time_zone,
+        timeZone: args.time_zone,
         originalUrl: Constants.URLS.YT_BASE,
-        deviceMake: '',
-        deviceModel: '',
-        utcOffsetMinutes: -new Date().getTimezoneOffset()
-      },
-      user: {
-        enableSafetyMode: options.enable_safety_mode,
-        lockedSafetyMode: false
-      }
-    };
-
-    return { context, api_key: Constants.CLIENTS.WEB.API_KEY, api_version: Constants.CLIENTS.WEB.API_VERSION };
-  }
-
-  async signIn(credentials?: Credentials): Promise<void> {
-    return new Promise(async (resolve, reject) => {
-      const error_handler: OAuthAuthErrorEventHandler = (err) => reject(err);
-
-      this.once('auth', (data) => {
-        this.off('auth-error', error_handler);
-
-        if (data.status === 'SUCCESS') {
-          this.logged_in = true;
-          resolve();
+        deviceMake: args.device_make,
+        deviceModel: args.device_model,
+        browserName: args.browser_name,
+        browserVersion: args.browser_version,
+        utcOffsetMinutes: -Math.floor((new Date()).getTimezoneOffset()),
+        memoryTotalKbytes: '8000000',
+        mainAppWebInfo: {
+          graftUrl: Constants.URLS.YT_BASE,
+          pwaInstallabilityStatus: 'PWA_INSTALLABILITY_STATUS_UNKNOWN',
+          webDisplayMode: 'WEB_DISPLAY_MODE_BROWSER',
+          isWebNativeShareAvailable: true
         }
+      },
+      user: {
+        enableSafetyMode: args.enable_safety_mode,
+        lockedSafetyMode: false
+      },
+      request: {
+        useSsl: true,
+        internalExperimentFlags: []
+      }
+    };
 
-        reject(data);
-      });
+    if (args.app_install_data)
+      context.client.configInfo = { appInstallData: args.app_install_data };
+
+    if (args.on_behalf_of_user)
+      context.user.onBehalfOfUser = args.on_behalf_of_user;
+
+    return context;
+  }
+
+  static #getVisitorID(visitor_data: string) {
+    const decoded_visitor_data = ProtoUtils.decodeVisitorData(visitor_data);
+    return decoded_visitor_data.id;
+  }
+
+  async signIn(credentials?: OAuth2Tokens): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      const error_handler: OAuth2AuthErrorEventHandler = (err) => reject(err);
 
       this.once('auth-error', error_handler);
 
+      this.once('auth', () => {
+        this.off('auth-error', error_handler);
+        this.logged_in = true;
+        resolve();
+      });
+
       try {
         await this.oauth.init(credentials);
-
-        if (this.oauth.validateCredentials()) {
-          await this.oauth.refreshIfRequired();
-          this.logged_in = true;
-          resolve();
-        }
       } catch (err) {
         reject(err);
       }
@@ -390,41 +568,15 @@ export default class Session extends EventEmitterLike {
     return response;
   }
 
-  /**
-   * InnerTube API key.
-   */
-  get key(): string {
-    return this.#key;
-  }
-
-  /**
-   * InnerTube API version.
-   */
-  get api_version(): string {
-    return this.#api_version;
-  }
-
   get client_version(): string {
-    return this.#context.client.clientVersion;
+    return this.context.client.clientVersion;
   }
 
   get client_name(): string {
-    return this.#context.client.clientName;
-  }
-
-  get account_index(): number {
-    return this.#account_index;
-  }
-
-  get context(): Context {
-    return this.#context;
-  }
-
-  get player(): Player | undefined {
-    return this.#player;
+    return this.context.client.clientName;
   }
 
   get lang(): string {
-    return this.#context.client.hl;
+    return this.context.client.hl;
   }
 }

@@ -1,21 +1,31 @@
-Modified version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music](https://github.com/patrickkfkan/volumio-ytmusic) and [YouTube2](https://github.com/patrickkfkan/volumio-youtube2)* plugins.
-
-<i>*Starting from v0.2.1-b.1.</i>
-
-## Objectives
-
-### Compatibility with Node v14
-
-Achieved through polyfills and using [node-fetch](https://github.com/node-fetch/node-fetch) instead of [undici](https://undici.nodejs.org) for HTTP requests.
-
-### Multilanguage support
-
-The YouTube Music and YouTube2 plugins support languages other than English. This is done by directly setting the `session.context.client.hl` property of the `InnerTube` instance created by the library.
-
-Note that there is no `setLanguage()` function, because multilanguage support is not actually achievable in YouTube.js. The library extracts certain pieces of information by string-matching. An example would be getting an artist's subscriber count by matching the corresponding item's subtitle against the pattern '[decimal digit] subscribers'. If the subtitle is not in English, then the subscriber count could not be obtained. Fortunately, this is fine for the most part as the plugins do not utilize language-dependent data.
-
+Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library for use with Volumio's [YouTube Music](https://github.com/patrickkfkan/volumio-ytmusic) and [YouTube2](https://github.com/patrickkfkan/volumio-youtube2) plugins.
 
 ## Changelog:
+
+1.3.0
+- Merge from YouTube.js v11.0.1 (commit [bbaefb1](https://github.com/LuanRT/YouTube.js/commit/bbaefb12b3a5b6302794cd7c0d1b24ae3861b827))
+- Cookie-based session fixes and additions ([PR](https://github.com/LuanRT/YouTube.js/pull/821) submitted to YouTube.js repo):
+  - Fix `on_behalf_of_user` arg not applied
+  - `AccountManager#getInfo()`: add option to fetch full accounts list
+
+1.2.1
+- Merge from YouTube.js v11.0.1 (commit [126a66f](https://github.com/LuanRT/YouTube.js/commit/126a66f317da0c6b486202ad04483b9799bfaf4c))
+
+1.2.0
+- Parser changes (for ytmusic plugin podcast support):
+  - Expand `MusicShelf` content type to include `MusicMultiRowListItem`
+  - Add `podcast_show` item type to `MusicTwoRowItem`
+  - Change `continuation_contents` to array. So, for instance, it can now have both `SectionListContinuation` and `MusicShelfContinuation` instances.
+
+1.1.1
+- ytmusic: restore private song parsing
+
+1.1.0
+- Migrate to YouTube.js v11.0.1 (commit [4e9c2a5](https://github.com/LuanRT/YouTube.js/commit/4e9c2a585bf84751dd4e3964f70fba284c8b8e38))
+
+1.0.0
+- Release for Bookworm-based Volumio
+- Migrate to YouTube.js v10.5.0 (commit [91d3081](https://github.com/LuanRT/YouTube.js/commit/91d308149691cf8037e54c294e173a91864c48fa))
 
 0.3.9
 - Backport `Player.ts` changes up to [refactor(Player): Generate and parse player script's AST](https://github.com/LuanRT/YouTube.js/pull/713)

@@ -1,5 +1,5 @@
 import { YTNode, type ObservedArray } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 
@@ -9,6 +9,7 @@ export default class RichShelf extends YTNode {
   title: Text;
   contents: ObservedArray<YTNode>;
   endpoint?: NavigationEndpoint;
+  subtitle?: Text;
 
   constructor(data: RawNode) {
     super();
@@ -17,6 +18,10 @@ export default class RichShelf extends YTNode {
 
     if (Reflect.has(data, 'endpoint')) {
       this.endpoint = new NavigationEndpoint(data.endpoint);
+    }
+
+    if (Reflect.has(data, 'subtitle')) {
+      this.subtitle = new Text(data.subtitle);
     }
   }
 }

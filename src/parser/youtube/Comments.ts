@@ -1,23 +1,23 @@
-import Parser from '../index.js';
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
+import { Parser } from '../index.js';
 import { InnertubeError } from '../../utils/Utils.js';
 import type { ObservedArray } from '../helpers.js';
 import { observe } from '../helpers.js';
-import type { INextResponse } from '../types/ParsedResponse.js';
 
 import CommentsHeader from '../classes/comments/CommentsHeader.js';
 import CommentSimplebox from '../classes/comments/CommentSimplebox.js';
 import CommentThread from '../classes/comments/CommentThread.js';
 import ContinuationItem from '../classes/ContinuationItem.js';
 
-class Comments {
-  #page: INextResponse;
-  #actions: Actions;
-  #continuation?: ContinuationItem;
+import type { Actions, ApiResponse } from '../../core/index.js';
+import type { INextResponse } from '../types/index.js';
 
-  header?: CommentsHeader;
-  contents: ObservedArray<CommentThread>;
+export default class Comments {
+  readonly #page: INextResponse;
+  readonly #actions: Actions;
+  readonly #continuation?: ContinuationItem;
+
+  public header?: CommentsHeader;
+  public contents: ObservedArray<CommentThread>;
 
   constructor(actions: Actions, data: any, already_parsed = false) {
     this.#page = already_parsed ? data : Parser.parseResponse<INextResponse>(data);
@@ -36,7 +36,8 @@ class Comments {
     const threads = body_node?.contents?.filterType(CommentThread) || [];
 
     this.contents = observe(threads.map((thread) => {
-      thread.comment?.setActions(this.#actions);
+      if (thread.comment)
+        thread.comment.setActions(this.#actions);
       thread.setActions(this.#actions);
       return thread;
     }));
@@ -87,9 +88,7 @@ class Comments {
     if (!button.endpoint)
       throw new InnertubeError('Button does not have an endpoint.');
 
-    const response = await button.endpoint.call(this.#actions, { commentText: text });
-
-    return response;
+    return await button.endpoint.call(this.#actions, { commentText: text });
   }
 
   /**
@@ -122,5 +121,3 @@ class Comments {
     return this.#page;
   }
 }
-
-export default Comments;

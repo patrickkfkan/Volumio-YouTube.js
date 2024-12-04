@@ -1,12 +1,10 @@
-import Proto from '../../proto/index.js';
-import * as Constants from '../../utils/Constants.js';
-import { InnertubeError, MissingParamError, Platform } from '../../utils/Utils.js';
+import { Constants } from '../../utils/index.js';
+import { InnertubeError, Platform } from '../../utils/Utils.js';
 
-import type { UpdateVideoMetadataOptions, UploadedVideoMetadataOptions } from '../../types/Clients.js';
-import type { ApiResponse } from '../Actions.js';
-import type Session from '../Session.js';
+import type { UpdateVideoMetadataOptions, UploadedVideoMetadataOptions } from '../../types/Misc.js';
+import type { ApiResponse, Session } from '../index.js';
 
-import { CreateVideoEndpoint } from '../endpoints/upload/index.js';
+import { MetadataUpdateRequest } from '../../../protos/generated/youtube/api/pfiinnertube/metadata_update_request.js';
 
 interface UploadResult {
   status: string;
@@ -29,40 +27,19 @@ export default class Studio {
   }
 
   /**
-   * Uploads a custom thumbnail and sets it for a video.
+   * Updates the metadata of a video.
    * @example
    * ```ts
-   * const buffer = fs.readFileSync('./my_awesome_thumbnail.jpg');
-   * const response = await yt.studio.setThumbnail(video_id, buffer);
-   * ```
-   */
-  async setThumbnail(video_id: string, buffer: Uint8Array): Promise<ApiResponse> {
-    if (!this.#session.logged_in)
-      throw new InnertubeError('You must be signed in to perform this operation.');
-
-    if (!video_id || !buffer)
-      throw new MissingParamError('One or more parameters are missing.');
-
-    const payload = Proto.encodeCustomThumbnailPayload(video_id, buffer);
-
-    const response = await this.#session.actions.execute('/video_manager/metadata_update', {
-      protobuf: true,
-      serialized_data: payload
-    });
-
-    return response;
-  }
-
-  /**
-   * Updates a given video's metadata.
-   * @example
-   * ```ts
-   * const response = await yt.studio.updateVideoMetadata('videoid', {
+   * const videoId = 'abcdefg';
+   * const thumbnail = fs.readFileSync('./my_awesome_thumbnail.jpg');
+   * 
+   * const response = await yt.studio.updateVideoMetadata(videoId, {
    *   tags: [ 'astronomy', 'NASA', 'APOD' ],
    *   title: 'Artemis Mission',
    *   description: 'A nicely written description...',
    *   category: 27,
-   *   license: 'creative_commons'
+   *   license: 'creative_commons',
+   *   thumbnail,
    *   // ...
    * });
    * ```
@@ -71,14 +48,93 @@ export default class Studio {
     if (!this.#session.logged_in)
       throw new InnertubeError('You must be signed in to perform this operation.');
 
-    const payload = Proto.encodeVideoMetadataPayload(video_id, metadata);
+    const payload: MetadataUpdateRequest = {
+      context: {
+        client: {
+          osName: 'Android',
+          clientName: parseInt(Constants.CLIENTS.ANDROID.NAME_ID),
+          clientVersion: Constants.CLIENTS.ANDROID.VERSION,
+          androidSdkVersion: Constants.CLIENTS.ANDROID.SDK_VERSION,
+          visitorData: this.#session.context.client.visitorData,
+          osVersion: '13',
+          acceptLanguage: this.#session.context.client.hl,
+          acceptRegion: this.#session.context.client.gl,
+          deviceMake: 'Google',
+          deviceModel: 'sdk_gphone64_x86_64',
+          screenHeightPoints: 840,
+          screenWidthPoints: 432,
+          configInfo: {
+            appInstallData: this.#session.context.client.configInfo?.appInstallData
+          },
+          timeZone: this.#session.context.client.timeZone,
+          chipset: 'qcom;taro'
+        },
+        activePlayers: []
+      },
+      encryptedVideoId: video_id
+    };
 
-    const response = await this.#session.actions.execute('/video_manager/metadata_update', {
+    if (metadata.title)
+      payload.title = { newTitle: metadata.title };
+
+    if (metadata.description)
+      payload.description = { newDescription: metadata.description };
+
+    if (metadata.license)
+      payload.license = { newLicenseId: metadata.license };
+
+    if (metadata.tags)
+      payload.tags = { newTags: metadata.tags };
+
+    if (metadata.thumbnail) {
+      payload.videoStill = {
+        operation: 3,
+        image: {
+          rawBytes: metadata.thumbnail
+        },
+        experimentImage: []
+      };
+    }
+
+    if (Reflect.has(metadata, 'category'))
+      payload.category = { newCategoryId: metadata.category };
+
+    if (Reflect.has(metadata, 'privacy')) {
+      switch (metadata.privacy) {
+        case 'PUBLIC':
+          payload.privacy = { newPrivacy: 1 };
+          break;
+        case 'UNLISTED':
+          payload.privacy = { newPrivacy: 2 };
+          break;
+        case 'PRIVATE':
+          payload.privacy = { newPrivacy: 3 };
+          break;
+        default:
+          throw new Error('Invalid privacy setting');
+      }
+    }
+
+    if (Reflect.has(metadata, 'made_for_kids')) {
+      payload.madeForKids = {
+        operation: 1,
+        newMfk: metadata.made_for_kids ? 1 : 2
+      };
+    }
+
+    if (Reflect.has(metadata, 'age_restricted')) {
+      payload.racy = {
+        operation: 1,
+        newRacy: metadata.age_restricted ? 1 : 2
+      };
+    }
+
+    const writer = MetadataUpdateRequest.encode(payload);
+
+    return await this.#session.actions.execute('/video_manager/metadata_update', {
       protobuf: true,
-      serialized_data: payload
+      serialized_data: writer.finish()
     });
-
-    return response;
   }
 
   /**
@@ -99,9 +155,7 @@ export default class Studio {
     if (upload_result.status !== 'STATUS_SUCCESS')
       throw new InnertubeError('Could not process video.');
 
-    const response = await this.#setVideoMetadata(initial_data, upload_result, metadata);
-
-    return response;
+    return await this.#setVideoMetadata(initial_data, upload_result, metadata);
   }
 
   async #getInitialUploadData(): Promise<InitialUploadData> {
@@ -154,39 +208,32 @@ export default class Studio {
     if (!response.ok)
       throw new InnertubeError('Could not upload video');
 
-    const data = await response.json();
-
-    return data;
+    return await response.json();
   }
 
   async #setVideoMetadata(initial_data: InitialUploadData, upload_result: UploadResult, metadata: UploadedVideoMetadataOptions) {
-    const response = await this.#session.actions.execute(
-      CreateVideoEndpoint.PATH, CreateVideoEndpoint.build({
-        resource_id: {
-          scotty_resource_id: {
-            id: upload_result.scottyResourceId
-          }
+    return await this.#session.actions.execute('/upload/createvideo', {
+      resourceId: {
+        scottyResourceId: {
+          id: upload_result.scottyResourceId
+        }
+      },
+      frontendUploadId: initial_data.frontend_upload_id,
+      initialMetadata: {
+        title: {
+          newTitle: metadata.title
         },
-        frontend_upload_id: initial_data.frontend_upload_id,
-        initial_metadata: {
-          title: {
-            new_title: metadata.title || new Date().toDateString()
-          },
-          description: {
-            new_description: metadata.description || '',
-            should_segment: true
-          },
-          privacy: {
-            new_privacy: metadata.privacy || 'PRIVATE'
-          },
-          draft_state: {
-            is_draft: metadata.is_draft
-          }
+        description: {
+          newDescription: metadata.description,
+          shouldSegment: true
         },
-        client: 'ANDROID'
-      })
-    );
-
-    return response;
+        privacy: {
+          newPrivacy: metadata.privacy || 'PRIVATE'
+        },
+        draftState: {
+          isDraft: !!metadata.is_draft
+        }
+      }
+    });
   }
 }

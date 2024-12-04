@@ -1,16 +1,16 @@
+import { InnertubeError } from '../../utils/Utils.js';
+
 import Feed from '../../core/mixins/Feed.js';
 import KidsCategoriesHeader from '../classes/ytkids/KidsCategoriesHeader.js';
 import KidsCategoryTab from '../classes/ytkids/KidsCategoryTab.js';
 import KidsHomeScreen from '../classes/ytkids/KidsHomeScreen.js';
-import { InnertubeError } from '../../utils/Utils.js';
 
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
+import type { ApiResponse, Actions } from '../../core/index.js';
+import type { IBrowseResponse } from '../types/index.js';
 
-class HomeFeed extends Feed<IBrowseResponse> {
-  header?: KidsCategoriesHeader;
-  contents?: KidsHomeScreen;
+export default class HomeFeed extends Feed<IBrowseResponse> {
+  public header?: KidsCategoriesHeader;
+  public contents?: KidsHomeScreen;
 
   constructor(actions: Actions, data: ApiResponse | IBrowseResponse, already_parsed = false) {
     super(actions, data, already_parsed);
@@ -47,5 +47,3 @@ class HomeFeed extends Feed<IBrowseResponse> {
     return this.header?.category_tabs.map((tab) => tab.title.toString()) || [];
   }
 }
-
-export default HomeFeed;

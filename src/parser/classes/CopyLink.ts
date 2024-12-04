@@ -1,13 +1,13 @@
 import { YTNode } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import Button from './Button.js';
 
 export default class CopyLink extends YTNode {
   static type = 'CopyLink';
 
-  copy_button: Button | null;
-  short_url: string;
-  style: string;
+  public copy_button: Button | null;
+  public short_url: string;
+  public style: string;
 
   constructor(data: RawNode) {
     super();

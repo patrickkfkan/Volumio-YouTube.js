@@ -1,6 +1,6 @@
 import { timeToSeconds } from '../../utils/Utils.js';
 import { YTNode, type ObservedArray } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import type TextRun from './misc/TextRun.js';
@@ -38,8 +38,6 @@ export default class PlaylistPanelVideo extends YTNode {
   badges: ObservedArray<YTNode>;
   menu: YTNode;
   set_video_id?: string;
-
-  /*** Volumio-YouTube.js ***/
   long_by_line_text: Text;
 
   constructor(data: RawNode) {
@@ -56,16 +54,12 @@ export default class PlaylistPanelVideo extends YTNode {
       seconds: timeToSeconds(new Text(data.lengthText).toString())
     };
 
-    /*** Volumio-YouTube.js ***/
-    // TODO: Push to YouTube.js repo
     const album = new Text(data.longBylineText).runs?.find(
       (run: any) => run.endpoint?.payload?.browseId?.startsWith('MPR') ||
       run.endpoint?.payload?.browseId?.startsWith('FEmusic_library_privately_owned_release'));
     const artists = new Text(data.longBylineText).runs?.filter(
       (run: any) => run.endpoint?.payload?.browseId?.startsWith('UC') ||
       run.endpoint?.payload?.browseId?.startsWith('FEmusic_library_privately_owned_artist'));
-    //const album = new Text(data.longBylineText).runs?.find((run: any) => run.endpoint?.payload?.browseId?.startsWith('MPR'));
-    //const artists = new Text(data.longBylineText).runs?.filter((run: any) => run.endpoint?.payload?.browseId?.startsWith('UC'));
 
     this.author = new Text(data.shortBylineText).toString();
 
@@ -89,8 +83,6 @@ export default class PlaylistPanelVideo extends YTNode {
     this.badges = Parser.parseArray(data.badges);
     this.menu = Parser.parseItem(data.menu);
     this.set_video_id = data.playlistSetVideoId;
-
-    /*** Volumio-YouTube.js ***/
     this.long_by_line_text = new Text(data.longBylineText);
   }
 }

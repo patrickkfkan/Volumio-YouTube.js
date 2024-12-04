@@ -1,17 +1,17 @@
-import Button from '../classes/Button.js';
 import Menu from '../classes/menus/Menu.js';
+import Button from '../classes/Button.js';
 import MenuServiceItem from '../classes/menus/MenuServiceItem.js';
-import type NavigationEndpoint from '../classes/NavigationEndpoint.js';
 
-import type Actions from '../../core/Actions.js';
+import type { Actions } from '../../core/index.js';
 import { InnertubeError } from '../../utils/Utils.js';
 import type { ObservedArray, YTNode } from '../helpers.js';
-import type { IParsedResponse } from '../types/ParsedResponse.js';
+import type { IParsedResponse } from '../types/index.js';
+import type NavigationEndpoint from '../classes/NavigationEndpoint.js';
 
-class ItemMenu {
-  #page: IParsedResponse;
-  #actions: Actions;
-  #items: ObservedArray<YTNode>;
+export default class ItemMenu {
+  readonly #page: IParsedResponse;
+  readonly #actions: Actions;
+  readonly #items: ObservedArray<YTNode>;
 
   constructor(data: IParsedResponse, actions: Actions) {
     this.#page = data;
@@ -53,9 +53,7 @@ class ItemMenu {
     if (!endpoint)
       throw new InnertubeError('Target button does not have an endpoint.');
 
-    const response = await endpoint.call(this.#actions, { parse: true });
-
-    return response;
+    return await endpoint.call(this.#actions, { parse: true });
   }
 
   items(): ObservedArray<YTNode> {
@@ -66,5 +64,3 @@ class ItemMenu {
     return this.#page;
   }
 }
-
-export default ItemMenu;

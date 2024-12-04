@@ -1,120 +1,55 @@
+import type { Actions } from '../index.js';
+
 import AccountInfo from '../../parser/youtube/AccountInfo.js';
-import Analytics from '../../parser/youtube/Analytics.js';
 import Settings from '../../parser/youtube/Settings.js';
-import TimeWatched from '../../parser/youtube/TimeWatched.js';
+import NavigationEndpoint from '../../parser/classes/NavigationEndpoint.js';
 
-import Proto from '../../proto/index.js';
 import { InnertubeError } from '../../utils/Utils.js';
-import { Account, BrowseEndpoint, Channel } from '../endpoints/index.js';
-
-import type Actions from '../Actions.js';
-import type { ApiResponse } from '../Actions.js';
+import { AccountItem } from '../../parser/nodes.js';
 
 export default class AccountManager {
-  #actions: Actions;
-
-  channel: {
-    editName: (new_name: string) => Promise<ApiResponse>;
-    editDescription: (new_description: string) => Promise<ApiResponse>;
-    getBasicAnalytics: () => Promise<Analytics>;
-  };
+  readonly #actions: Actions;
 
   constructor(actions: Actions) {
     this.#actions = actions;
-
-    this.channel = {
-      /**
-       * Edits channel name.
-       * @param new_name - The new channel name.
-       */
-      editName: (new_name: string) => {
-        if (!this.#actions.session.logged_in)
-          throw new InnertubeError('You must be signed in to perform this operation.');
-
-        return this.#actions.execute(
-          Channel.EditNameEndpoint.PATH,
-          Channel.EditNameEndpoint.build({
-            given_name: new_name
-          })
-        );
-      },
-      /**
-       * Edits channel description.
-       * @param new_description - The new description.
-       */
-      editDescription: (new_description: string) => {
-        if (!this.#actions.session.logged_in)
-          throw new InnertubeError('You must be signed in to perform this operation.');
-
-        return this.#actions.execute(
-          Channel.EditDescriptionEndpoint.PATH,
-          Channel.EditDescriptionEndpoint.build({
-            given_description: new_description
-          })
-        );
-      },
-      /**
-       * Retrieves basic channel analytics.
-       */
-      getBasicAnalytics: () => this.getAnalytics()
-    };
   }
 
   /**
-   * Retrieves channel info.
+   * Retrieves the list of channels belonging to the signed-in account. Only useful when signed in through cookie. If signed in through OAuth, you will get the active channel only.
    */
-  async getInfo(): Promise<AccountInfo> {
+  async getInfo(all: true): Promise<AccountItem[]>;
+  /**
+   * Retrieves the active channel info for the signed-in account. Throws error if `on_behalf_of_user` was used to create the Innertube instance; use `getInfo(true)` instead.
+   */
+  async getInfo(all?: false): Promise<AccountInfo>;
+  async getInfo(all = false): Promise<AccountInfo | AccountItem[]> {
     if (!this.#actions.session.logged_in)
       throw new InnertubeError('You must be signed in to perform this operation.');
 
-    const response = await this.#actions.execute(
-      Account.AccountListEndpoint.PATH,
-      Account.AccountListEndpoint.build()
-    );
+    if (!all && !!this.#actions.session.context.user.onBehalfOfUser) {
+      throw new InnertubeError('Boolean argument must be true when "on_behalf_of_user" is specified.');
+    }
 
+    if (all) {
+      const get_accounts_list_endpoint = new NavigationEndpoint({ getAccountsListInnertubeEndpoint: {
+        requestType: 'ACCOUNTS_LIST_REQUEST_TYPE_CHANNEL_SWITCHER',
+        callCircumstance: 'SWITCHING_USERS_FULL'
+      } });
+      const response = await get_accounts_list_endpoint.call(this.#actions, { client: 'WEB', parse: true });
+      return response.actions_memo?.getType(AccountItem) || [];
+    }
+
+    const get_accounts_list_endpoint = new NavigationEndpoint({ getAccountsListInnertubeEndpoint: {} });
+    const response = await get_accounts_list_endpoint.call(this.#actions, { client: 'TV' });
     return new AccountInfo(response);
   }
 
   /**
-   * Retrieves time watched statistics.
-   */
-  async getTimeWatched(): Promise<TimeWatched> {
-    const response = await this.#actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({
-        browse_id: 'SPtime_watched',
-        client: 'ANDROID'
-      })
-    );
-
-    return new TimeWatched(response);
-  }
-
-  /**
-   * Opens YouTube settings.
+   * Gets YouTube settings.
    */
   async getSettings(): Promise<Settings> {
-    const response = await this.#actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({
-        browse_id: 'SPaccount_overview'
-      })
-    );
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'SPaccount_overview' } });
+    const response = await browse_endpoint.call(this.#actions);
     return new Settings(this.#actions, response);
-  }
-
-  /**
-   * Retrieves basic channel analytics.
-   */
-  async getAnalytics(): Promise<Analytics> {
-    const info = await this.getInfo();
-
-    const response = await this.#actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({
-        browse_id: 'FEanalytics_screen',
-        params: Proto.encodeChannelAnalyticsParams(info.footers?.endpoint.payload.browseId),
-        client: 'ANDROID'
-      })
-    );
-
-    return new Analytics(response);
   }
 }

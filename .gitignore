@@ -56,6 +56,7 @@ pnpm-lock.yaml
 
 # Downloaded assets
 *.mp4
+*.m4a
 *.webm
 *.mkv
 
@@ -63,12 +64,12 @@ pnpm-lock.yaml
 tmp/
 
 # Build output
-#dist/
-#bundle/*.js.*
-#bundle/*.js
-#bundle/*.cjs
-#bundle/*.cjs.*
-#deno/
+dist/
+bundle/*.js.*
+bundle/*.js
+bundle/*.cjs
+bundle/*.cjs.*
+deno/
 
 # VSCode files
 .vscode/
@@ -76,4 +77,4 @@ tmp/
 # MacOS
 .DS_Store
 
-_tests
+*.bin

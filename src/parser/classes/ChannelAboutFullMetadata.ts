@@ -1,5 +1,5 @@
 import { YTNode, type ObservedArray } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import Button from './Button.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
@@ -47,23 +47,5 @@ export default class ChannelAboutFullMetadata extends YTNode {
     this.can_reveal_email = !data.signInForBusinessEmail;
     this.country = new Text(data.country);
     this.buttons = Parser.parseArray(data.actionButtons, Button);
-  }
-
-  /**
-   * @deprecated
-   * This will be removed in a future release.
-   * Please use {@link Channel.view_count} instead.
-   */
-  get views() {
-    return this.view_count;
-  }
-
-  /**
-   * @deprecated
-   * This will be removed in a future release.
-   * Please use {@link Channel.joined_date} instead.
-   */
-  get joined(): Text {
-    return this.joined_date;
   }
 }

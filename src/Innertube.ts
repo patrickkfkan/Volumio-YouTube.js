@@ -1,157 +1,233 @@
-import type { SessionOptions } from './core/Session.js';
 import Session from './core/Session.js';
-
-import NavigationEndpoint from './parser/classes/NavigationEndpoint.js';
-import type Format from './parser/classes/misc/Format.js';
-import Channel from './parser/youtube/Channel.js';
-import Comments from './parser/youtube/Comments.js';
-import Guide from './parser/youtube/Guide.js';
-import HashtagFeed from './parser/youtube/HashtagFeed.js';
-import History from './parser/youtube/History.js';
-import HomeFeed from './parser/youtube/HomeFeed.js';
-import Library from './parser/youtube/Library.js';
-import NotificationsMenu from './parser/youtube/NotificationsMenu.js';
-import Playlist from './parser/youtube/Playlist.js';
-import Search from './parser/youtube/Search.js';
-import VideoInfo from './parser/youtube/VideoInfo.js';
-
 import { Kids, Music, Studio } from './core/clients/index.js';
 import { AccountManager, InteractionManager, PlaylistManager } from './core/managers/index.js';
 import { Feed, TabbedFeed } from './core/mixins/index.js';
 
-import Proto from './proto/index.js';
-import * as Constants from './utils/Constants.js';
-import { InnertubeError, generateRandomString, throwIfMissing } from './utils/Utils.js';
-
 import {
-  BrowseEndpoint,
-  GetNotificationMenuEndpoint,
-  GuideEndpoint,
-  NextEndpoint,
-  PlayerEndpoint,
-  ResolveURLEndpoint,
-  SearchEndpoint
-} from './core/endpoints/index.js';
+  Channel,
+  Comments,
+  Guide,
+  HashtagFeed,
+  History,
+  HomeFeed,
+  Library,
+  NotificationsMenu,
+  Playlist,
+  Search,
+  VideoInfo
+} from './parser/youtube/index.js';
 
-import { GetUnseenCountEndpoint } from './core/endpoints/notification/index.js';
+import { ShortFormVideoInfo } from './parser/ytshorts/index.js';
+
+import NavigationEndpoint from './parser/classes/NavigationEndpoint.js';
+
+import * as Constants from './utils/Constants.js';
+import { generateRandomString, InnertubeError, throwIfMissing, u8ToBase64 } from './utils/Utils.js';
 
 import type { ApiResponse } from './core/Actions.js';
-import type { IBrowseResponse, IParsedResponse } from './parser/types/index.js';
-import type { INextRequest } from './types/index.js';
-import type { DownloadOptions, FormatOptions } from './utils/FormatUtils.js';
+import type { DownloadOptions, FormatOptions, InnerTubeClient, InnerTubeConfig, SearchFilters } from './types/index.js';
+import type { IBrowseResponse, IParsedResponse } from './parser/index.js';
+import type Format from './parser/classes/misc/Format.js';
 
-export type InnertubeConfig = SessionOptions;
-
-export type InnerTubeClient = 'WEB' | 'ANDROID' | 'YTMUSIC_ANDROID' | 'YTMUSIC' | 'YTSTUDIO_ANDROID' | 'TV_EMBEDDED' | 'YTKIDS'
-
-export type SearchFilters = Partial<{
-  upload_date: 'all' | 'hour' | 'today' | 'week' | 'month' | 'year';
-  type: 'all' | 'video' | 'channel' | 'playlist' | 'movie';
-  duration: 'all' | 'short' | 'medium' | 'long';
-  sort_by: 'relevance' | 'rating' | 'upload_date' | 'view_count';
-  features: ('hd' | 'subtitles' | 'creative_commons' | '3d' | 'live' | 'purchased' | '4k' | '360' | 'location' | 'hdr' | 'vr180')[];
-}>;
+import {
+  GetCommentsSectionParams,
+  Hashtag,
+  ReelSequence,
+  SearchFilter,
+  SearchFilter_Filters_Duration,
+  SearchFilter_Filters_SearchType,
+  SearchFilter_Filters_UploadDate,
+  SearchFilter_SortBy
+} from '../protos/generated/misc/params.js';
 
 /**
  * Provides access to various services and modules in the YouTube API.
+ * 
+ * @example
+ * ```ts
+ * import { Innertube, UniversalCache } from 'youtubei.js';
+ * const innertube = await Innertube.create({ cache: new UniversalCache(true)});
+ * ```
  */
 export default class Innertube {
-  #session: Session;
+  readonly #session: Session;
 
   constructor(session: Session) {
     this.#session = session;
   }
 
-  static async create(config: InnertubeConfig = {}): Promise<Innertube> {
+  static async create(config: InnerTubeConfig = {}): Promise<Innertube> {
     return new Innertube(await Session.create(config));
   }
 
-  /**
-   * Retrieves video info.
-   * @param target - The video id or `NavigationEndpoint`.
-   * @param client - The client to use.
-   */
   async getInfo(target: string | NavigationEndpoint, client?: InnerTubeClient): Promise<VideoInfo> {
     throwIfMissing({ target });
 
-    let next_payload: INextRequest;
+    const payload = {
+      videoId: target instanceof NavigationEndpoint ? target.payload?.videoId : target,
+      playlistId: target instanceof NavigationEndpoint ? target.payload?.playlistId : undefined,
+      playlistIndex: target instanceof NavigationEndpoint ? target.payload?.playlistIndex : undefined,
+      params: target instanceof NavigationEndpoint ? target.payload?.params : undefined,
+      racyCheckOk: true,
+      contentCheckOk: true
+    };
 
-    if (target instanceof NavigationEndpoint) {
-      next_payload = NextEndpoint.build({
-        video_id: target.payload?.videoId,
-        playlist_id: target.payload?.playlistId,
-        params: target.payload?.params,
-        playlist_index: target.payload?.index
-      });
-    } else if (typeof target === 'string') {
-      next_payload = NextEndpoint.build({
-        video_id: target
-      });
-    } else {
-      throw new InnertubeError('Invalid target, expected either a video id or a valid NavigationEndpoint', target);
-    }
+    const watch_endpoint = new NavigationEndpoint({ watchEndpoint: payload });
+    const watch_next_endpoint = new NavigationEndpoint({ watchNextEndpoint: payload });
 
-    if (!next_payload.videoId)
-      throw new InnertubeError('Video id cannot be empty', next_payload);
-
-    const player_payload = PlayerEndpoint.build({
-      video_id: next_payload.videoId,
-      playlist_id: next_payload?.playlistId,
-      client: client,
-      sts: this.#session.player?.sts
+    const watch_response = watch_endpoint.call(this.#session.actions, {
+      playbackContext: {
+        contentPlaybackContext: {
+          vis: 0,
+          splay: false,
+          lactMilliseconds: '-1',
+          signatureTimestamp: this.#session.player?.sts
+        }
+      },
+      serviceIntegrityDimensions: {
+        poToken: this.#session.po_token
+      },
+      client
     });
 
-    const player_response = this.actions.execute(PlayerEndpoint.PATH, player_payload);
-    const next_response = this.actions.execute(NextEndpoint.PATH, next_payload);
-    const response = await Promise.all([ player_response, next_response ]);
+    const watch_next_response = watch_next_endpoint.call(this.#session.actions);
+
+    const response = await Promise.all([ watch_response, watch_next_response ]);
 
     const cpn = generateRandomString(16);
 
     return new VideoInfo(response, this.actions, cpn);
   }
 
-  /**
-   * Retrieves basic video info.
-   * @param video_id - The video id.
-   * @param client - The client to use.
-   */
   async getBasicInfo(video_id: string, client?: InnerTubeClient): Promise<VideoInfo> {
     throwIfMissing({ video_id });
 
-    const response = await this.actions.execute(
-      PlayerEndpoint.PATH, PlayerEndpoint.build({
-        video_id: video_id,
-        client: client,
-        sts: this.#session.player?.sts
-      })
-    );
+    const watch_endpoint = new NavigationEndpoint({ watchEndpoint: { videoId: video_id } });
+
+    const watch_response = await watch_endpoint.call(this.#session.actions, {
+      playbackContext: {
+        contentPlaybackContext: {
+          vis: 0,
+          splay: false,
+          lactMilliseconds: '-1',
+          signatureTimestamp: this.#session.player?.sts
+        }
+      },
+      serviceIntegrityDimensions: {
+        poToken: this.#session.po_token
+      },
+      client
+    });
 
     const cpn = generateRandomString(16);
 
-    return new VideoInfo([ response ], this.actions, cpn);
+    return new VideoInfo([ watch_response ], this.actions, cpn);
   }
 
-  /**
-   * Searches a given query.
-   * @param query - The search query.
-   * @param filters - Search filters.
-   */
+  async getShortsVideoInfo(video_id: string, client?: InnerTubeClient): Promise<ShortFormVideoInfo> {
+    throwIfMissing({ video_id });
+
+    const reel_watch_endpoint = new NavigationEndpoint({
+      reelWatchEndpoint: {
+        disablePlayerResponse: false,
+        params: 'CAUwAg%3D%3D',
+        videoId: video_id
+      }
+    });
+
+    const reel_watch_response = reel_watch_endpoint.call(this.#session.actions, { client });
+    
+    const writer = ReelSequence.encode({
+      shortId: video_id,
+      params: {
+        number: 5
+      },
+      feature2: 25,
+      feature3: 0
+    });
+
+    const params = encodeURIComponent(u8ToBase64(writer.finish()));
+
+    const sequence_response = this.actions.execute('/reel/reel_watch_sequence', { sequenceParams: params });
+
+    const response = await Promise.all([ reel_watch_response, sequence_response ]);
+
+    const cpn = generateRandomString(16);
+
+    return new ShortFormVideoInfo([ response[0] ], this.actions, cpn, response[1]);
+  }
+
   async search(query: string, filters: SearchFilters = {}): Promise<Search> {
     throwIfMissing({ query });
 
-    const response = await this.actions.execute(
-      SearchEndpoint.PATH, SearchEndpoint.build({
-        query, params: filters ? Proto.encodeSearchFilters(filters) : undefined
-      })
-    );
+    const search_filter: SearchFilter = {};
+
+    search_filter.filters = {};
+
+    if (filters.sort_by) {
+      search_filter.sortBy = SearchFilter_SortBy[filters.sort_by.toUpperCase() as keyof typeof SearchFilter_SortBy];
+    }
+
+    if (filters.upload_date) {
+      search_filter.filters.uploadDate = SearchFilter_Filters_UploadDate[filters.upload_date.toUpperCase() as keyof typeof SearchFilter_Filters_UploadDate];
+    }
+
+    if (filters.type) {
+      search_filter.filters.type = SearchFilter_Filters_SearchType[filters.type.toUpperCase() as keyof typeof SearchFilter_Filters_SearchType];
+    }
+
+    if (filters.duration) {
+      search_filter.filters.duration = SearchFilter_Filters_Duration[filters.duration.toUpperCase() as keyof typeof SearchFilter_Filters_Duration];
+    }
+
+    if (filters.features) {
+      for (const feature of filters.features) {
+        switch (feature) {
+          case '360':
+            search_filter.filters.features360 = true;
+            break;
+          case '3d':
+            search_filter.filters.features3d = true;
+            break;
+          case '4k':
+            search_filter.filters.features4k = true;
+            break;
+          case 'creative_commons':
+            search_filter.filters.featuresCreativeCommons = true;
+            break;
+          case 'hd':
+            search_filter.filters.featuresHd = true;
+            break;
+          case 'hdr':
+            search_filter.filters.featuresHdr = true;
+            break;
+          case 'live':
+            search_filter.filters.featuresLive = true;
+            break;
+          case 'location':
+            search_filter.filters.featuresLocation = true;
+            break;
+          case 'purchased':
+            search_filter.filters.featuresPurchased = true;
+            break;
+          case 'subtitles':
+            search_filter.filters.featuresSubtitles = true;
+            break;
+          case 'vr180':
+            search_filter.filters.featuresVr180 = true;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+
+    const search_endpoint = new NavigationEndpoint({ searchEndpoint: { query, params: filters ? encodeURIComponent(u8ToBase64(SearchFilter.encode(search_filter).finish())) : undefined } });
+    const response = await search_endpoint.call(this.#session.actions);
 
     return new Search(this.actions, response);
   }
 
-  /**
-   * Retrieves search suggestions for a given query.
-   * @param query - The search query.
-   */
   async getSearchSuggestions(query: string): Promise<string[]> {
     throwIfMissing({ query });
 
@@ -168,126 +244,121 @@ export default class Innertube {
     const response_data = await response.text();
 
     const data = JSON.parse(response_data.replace(')]}\'', ''));
-    const suggestions = data[1].map((suggestion: any) => suggestion[0]);
-
-    return suggestions;
+    return data[1].map((suggestion: any) => suggestion[0]);
   }
 
-  /**
-   * Retrieves comments for a video.
-   * @param video_id - The video id.
-   * @param sort_by - Sorting options.
-   */
-  async getComments(video_id: string, sort_by?: 'TOP_COMMENTS' | 'NEWEST_FIRST'): Promise<Comments> {
+  async getComments(video_id: string, sort_by?: 'TOP_COMMENTS' | 'NEWEST_FIRST', comment_id?: string): Promise<Comments> {
     throwIfMissing({ video_id });
 
-    const response = await this.actions.execute(
-      NextEndpoint.PATH, NextEndpoint.build({
-        continuation: Proto.encodeCommentsSectionParams(video_id, {
-          sort_by: sort_by || 'TOP_COMMENTS'
-        })
-      })
-    );
+    const SORT_OPTIONS = {
+      TOP_COMMENTS: 0,
+      NEWEST_FIRST: 1
+    };
+
+    const token = GetCommentsSectionParams.encode({
+      ctx: {
+        videoId: video_id
+      },
+      unkParam: 6,
+      params: {
+        opts: {
+          videoId: video_id,
+          sortBy: SORT_OPTIONS[sort_by || 'TOP_COMMENTS'],
+          type: 2,
+          commentId: comment_id || ''
+        },
+        target: 'comments-section'
+      }
+    });
+
+    const continuation = encodeURIComponent(u8ToBase64(token.finish()));
+
+    const continuation_command = new NavigationEndpoint({
+      continuationCommand: {
+        request: 'CONTINUATION_REQUEST_TYPE_WATCH_NEXT',
+        token: continuation
+      }
+    });
+
+    const response = await continuation_command.call(this.#session.actions);
 
     return new Comments(this.actions, response.data);
   }
-
-  /**
-   * Retrieves YouTube's home feed (aka recommendations).
-   */
+  
   async getHomeFeed(): Promise<HomeFeed> {
-    const response = await this.actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: 'FEwhat_to_watch' })
-    );
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEwhat_to_watch' } });
+    const response = await browse_endpoint.call(this.#session.actions);
     return new HomeFeed(this.actions, response);
   }
-
-  /**
-   * Retrieves YouTube's content guide.
-   */
+  
   async getGuide(): Promise<Guide> {
-    const response = await this.actions.execute(GuideEndpoint.PATH);
+    const response = await this.actions.execute('/guide');
     return new Guide(response.data);
   }
 
-  /**
-   * Returns the account's library.
-   */
   async getLibrary(): Promise<Library> {
-    const response = await this.actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: 'FElibrary' })
-    );
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FElibrary' } });
+    const response = await browse_endpoint.call(this.#session.actions);
     return new Library(this.actions, response);
   }
 
-  /**
-   * Retrieves watch history.
-   * Which can also be achieved with {@link getLibrary}.
-   */
   async getHistory(): Promise<History> {
-    const response = await this.actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: 'FEhistory' })
-    );
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEhistory' } });
+    const response = await browse_endpoint.call(this.#session.actions);
     return new History(this.actions, response);
   }
 
-  /**
-   * Retrieves trending content.
-   */
   async getTrending(): Promise<TabbedFeed<IBrowseResponse>> {
-    const response = await this.actions.execute(
-      BrowseEndpoint.PATH, { ...BrowseEndpoint.build({ browse_id: 'FEtrending' }), parse: true }
-    );
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEtrending' } });
+    const response = await browse_endpoint.call(this.#session.actions);
     return new TabbedFeed(this.actions, response);
   }
 
-  /**
-   * Retrieves subscriptions feed.
-   */
-  async getSubscriptionsFeed(): Promise<Feed<IBrowseResponse>> {
-    const response = await this.actions.execute(
-      BrowseEndpoint.PATH, { ...BrowseEndpoint.build({ browse_id: 'FEsubscriptions' }), parse: true }
-    );
+  async getCourses(): Promise<Feed<IBrowseResponse>> {
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEcourses_destination' } });
+    const response = await browse_endpoint.call(this.#session.actions, { parse: true });
     return new Feed(this.actions, response);
   }
 
-  /**
-   * Retrieves contents for a given channel.
-   * @param id - Channel id
-   */
+  async getSubscriptionsFeed(): Promise<Feed<IBrowseResponse>> {
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEsubscriptions' } });
+    const response = await browse_endpoint.call(this.#session.actions, { parse: true });
+    return new Feed(this.actions, response);
+  }
+
+  async getChannelsFeed(): Promise<Feed<IBrowseResponse>> {
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEchannels' } });
+    const response = await browse_endpoint.call(this.#session.actions, { parse: true });
+    return new Feed(this.actions, response);
+  }
+
   async getChannel(id: string): Promise<Channel> {
     throwIfMissing({ id });
-    const response = await this.actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: id })
-    );
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: id } });
+    const response = await browse_endpoint.call(this.#session.actions);
     return new Channel(this.actions, response);
   }
 
-  /**
-   * Retrieves notifications.
-   */
   async getNotifications(): Promise<NotificationsMenu> {
-    const response = await this.actions.execute(
-      GetNotificationMenuEndpoint.PATH, GetNotificationMenuEndpoint.build({
-        notifications_menu_request_type: 'NOTIFICATIONS_MENU_REQUEST_TYPE_INBOX'
-      })
-    );
+    const response = await this.actions.execute('/notification/get_notification_menu', { notificationsMenuRequestType: 'NOTIFICATIONS_MENU_REQUEST_TYPE_INBOX' });
     return new NotificationsMenu(this.actions, response);
   }
 
-  /**
-   * Retrieves unseen notifications count.
-   */
   async getUnseenNotificationsCount(): Promise<number> {
-    const response = await this.actions.execute(GetUnseenCountEndpoint.PATH);
-    // TODO: properly parse this
+    const response = await this.actions.execute('/notification/get_unseen_count');
+    // FIXME: properly parse this.
     return response.data?.unseenCount || response.data?.actions?.[0].updateNotificationsUnseenCountAction?.unseenCount || 0;
   }
 
   /**
-   * Retrieves playlist contents.
-   * @param id - Playlist id
+   * Retrieves the user's playlists.
    */
+  async getPlaylists(): Promise<Feed<IBrowseResponse>> {
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEplaylist_aggregation' } });
+    const response = await browse_endpoint.call(this.#session.actions, { parse: true });
+    return new Feed(this.actions, response);
+  }
+
   async getPlaylist(id: string): Promise<Playlist> {
     throwIfMissing({ id });
 
@@ -295,26 +366,26 @@ export default class Innertube {
       id = `VL${id}`;
     }
 
-    const response = await this.actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({ browse_id: id })
-    );
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: id } });
+    const response = await browse_endpoint.call(this.#session.actions);
 
     return new Playlist(this.actions, response);
   }
 
-  /**
-   * Retrieves a given hashtag's page.
-   * @param hashtag - The hashtag to fetch.
-   */
   async getHashtag(hashtag: string): Promise<HashtagFeed> {
     throwIfMissing({ hashtag });
 
-    const response = await this.actions.execute(
-      BrowseEndpoint.PATH, BrowseEndpoint.build({
-        browse_id: 'FEhashtag',
-        params: Proto.encodeHashtag(hashtag)
-      })
-    );
+    const writer = Hashtag.encode({
+      params: {
+        hashtag,
+        type: 1
+      }
+    });
+
+    const params = encodeURIComponent(u8ToBase64(writer.finish()));
+
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEhashtag', params } });
+    const response = await browse_endpoint.call(this.#session.actions);
 
     return new HashtagFeed(this.actions, response);
   }
@@ -329,11 +400,15 @@ export default class Innertube {
    */
   async getStreamingData(video_id: string, options: FormatOptions = {}): Promise<Format> {
     const info = await this.getBasicInfo(video_id);
-    return info.chooseFormat(options);
+
+    const format = info.chooseFormat(options);
+    format.url = format.decipher(this.#session.player);
+
+    return format;
   }
 
   /**
-   * Downloads a given video. If you only need the direct download link see {@link getStreamingData}.
+   * Downloads a given video. If all you need the direct download link, see {@link getStreamingData}.
    * If you wish to retrieve the video info too, have a look at {@link getBasicInfo} or {@link getInfo}.
    * @param video_id - The video id.
    * @param options - Download options.
@@ -345,19 +420,18 @@ export default class Innertube {
 
   /**
    * Resolves the given URL.
-   * @param url - The URL.
    */
   async resolveURL(url: string): Promise<NavigationEndpoint> {
-    const response = await this.actions.execute(
-      ResolveURLEndpoint.PATH, { ...ResolveURLEndpoint.build({ url }), parse: true }
-    );
+    const response = await this.actions.execute('/navigation/resolve_url', { url, parse: true });
+
+    if (!response.endpoint)
+      throw new InnertubeError('Failed to resolve URL. Expected a NavigationEndpoint but got undefined', response);
+
     return response.endpoint;
   }
 
   /**
    * Utility method to call an endpoint without having to use {@link Actions}.
-   * @param endpoint -The endpoint to call.
-   * @param args - Call arguments.
    */
   call<T extends IParsedResponse>(endpoint: NavigationEndpoint, args: { [key: string]: any; parse: true }): Promise<T>;
   call(endpoint: NavigationEndpoint, args?: { [key: string]: any; parse?: false }): Promise<ApiResponse>;

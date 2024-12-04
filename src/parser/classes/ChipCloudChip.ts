@@ -8,11 +8,8 @@ export default class ChipCloudChip extends YTNode {
 
   is_selected: boolean;
   endpoint?: NavigationEndpoint;
-  text: string;
-
-  /*** Volumio-YouTube.js ***/
-  // TODO: Push to YouTube.js repo
   deselect_endpoint?: NavigationEndpoint;
+  text: string;
 
   constructor(data: RawNode) {
     super();
@@ -20,13 +17,9 @@ export default class ChipCloudChip extends YTNode {
     if (Reflect.has(data, 'navigationEndpoint')) {
       this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
     }
-
-    /*** Volumio-YouTube.js ***/
-    // TODO: Push to YouTube.js repo
     if (Reflect.has(data, 'onDeselectedCommand')) {
       this.deselect_endpoint = new NavigationEndpoint(data.onDeselectedCommand);
     }
-
     this.text = new Text(data.text).toString();
   }
 }

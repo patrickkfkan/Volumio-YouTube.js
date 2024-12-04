@@ -1,9 +1,5 @@
 import { Platform } from './Utils.js';
 
-/*** Volumio-YouTube.js ***/
-// eslint-disable-next-line
-require('event-target-polyfill');
-
 export default class EventEmitterLike extends EventTarget {
   #legacy_listeners = new Map<(...args: any[]) => void, EventListener>();
 

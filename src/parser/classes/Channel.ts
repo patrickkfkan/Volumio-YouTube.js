@@ -1,5 +1,5 @@
 import { YTNode } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import Button from './Button.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import SubscribeButton from './SubscribeButton.js';
@@ -36,23 +36,5 @@ export default class Channel extends YTNode {
     this.endpoint = new NavigationEndpoint(data.navigationEndpoint);
     this.subscribe_button = Parser.parseItem(data.subscribeButton, [ SubscribeButton, Button ]);
     this.description_snippet = new Text(data.descriptionSnippet);
-  }
-
-  /**
-   * @deprecated
-   * This will be removed in a future release.
-   * Please use {@link Channel.subscriber_count} instead.
-   */
-  get subscribers(): Text {
-    return this.subscriber_count;
-  }
-
-  /**
-   * @deprecated
-   * This will be removed in a future release.
-   * Please use {@link Channel.video_count} instead.
-   */
-  get videos(): Text {
-    return this.video_count;
   }
 }

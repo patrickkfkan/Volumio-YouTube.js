@@ -1,14 +1,14 @@
 import Feed from '../../core/mixins/Feed.js';
 import ItemSection from '../classes/ItemSection.js';
 import { InnertubeError } from '../../utils/Utils.js';
-import type Actions from '../../core/Actions.js';
-import type { ObservedArray, YTNode } from '../helpers.js';
-import type { ISearchResponse } from '../types/ParsedResponse.js';
-import type { ApiResponse } from '../../core/Actions.js';
 
-class Search extends Feed<ISearchResponse> {
-  estimated_results: number;
-  contents: ObservedArray<YTNode> | null;
+import type { ApiResponse, Actions } from '../../core/index.js';
+import type { ObservedArray, YTNode } from '../helpers.js';
+import type { ISearchResponse } from '../types/index.js';
+
+export default class Search extends Feed<ISearchResponse> {
+  public estimated_results?: number;
+  public contents: ObservedArray<YTNode> | null;
 
   constructor(actions: Actions, data: ApiResponse | ISearchResponse) {
     super(actions, data);
@@ -22,5 +22,3 @@ class Search extends Feed<ISearchResponse> {
     this.contents = item_section.contents;
   }
 }
-
-export default Search;

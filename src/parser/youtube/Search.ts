@@ -2,23 +2,26 @@ import Feed from '../../core/mixins/Feed.js';
 import { InnertubeError } from '../../utils/Utils.js';
 import HorizontalCardList from '../classes/HorizontalCardList.js';
 import ItemSection from '../classes/ItemSection.js';
+import SearchHeader from '../classes/SearchHeader.js';
 import SearchRefinementCard from '../classes/SearchRefinementCard.js';
 import SearchSubMenu from '../classes/SearchSubMenu.js';
 import SectionList from '../classes/SectionList.js';
 import UniversalWatchCard from '../classes/UniversalWatchCard.js';
 
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
-import type { ObservedArray, YTNode } from '../helpers.js';
-import type { ISearchResponse } from '../types/ParsedResponse.js';
+import { observe } from '../helpers.js';
 
-class Search extends Feed<ISearchResponse> {
-  results?: ObservedArray<YTNode> | null;
-  refinements: string[];
-  estimated_results: number;
-  sub_menu?: SearchSubMenu;
-  watch_card?: UniversalWatchCard;
-  refinement_cards?: HorizontalCardList | null;
+import type { ApiResponse, Actions } from '../../core/index.js';
+import type { ObservedArray, YTNode } from '../helpers.js';
+import type { ISearchResponse } from '../types/index.js';
+
+export default class Search extends Feed<ISearchResponse> {
+  public header?: SearchHeader;
+  public results: ObservedArray<YTNode>;
+  public refinements: string[];
+  public estimated_results: number;
+  public sub_menu?: SearchSubMenu;
+  public watch_card?: UniversalWatchCard;
+  public refinement_cards?: HorizontalCardList | null;
 
   constructor(actions: Actions, data: ApiResponse | ISearchResponse, already_parsed = false) {
     super(actions, data, already_parsed);
@@ -30,13 +33,19 @@ class Search extends Feed<ISearchResponse> {
     if (!contents)
       throw new InnertubeError('No contents found in search response');
 
-    this.results = contents.find((content) => content.is(ItemSection) && content.contents && content.contents.length > 0)?.as(ItemSection).contents;
+    if (this.page.header)
+      this.header = this.page.header.item().as(SearchHeader);
+
+    this.results = observe(contents.filterType(ItemSection).flatMap((section) => section.contents));
 
     this.refinements = this.page.refinements || [];
-    this.estimated_results = this.page.estimated_results;
+    this.estimated_results = this.page.estimated_results || 0;
 
-    this.sub_menu = this.page.contents_memo?.getType(SearchSubMenu).first();
-    this.watch_card = this.page.contents_memo?.getType(UniversalWatchCard).first();
+    if (this.page.contents_memo) {
+      this.sub_menu = this.page.contents_memo.getType(SearchSubMenu).first();
+      this.watch_card = this.page.contents_memo.getType(UniversalWatchCard).first();
+    }
+
     this.refinement_cards = this.results?.firstOfType(HorizontalCardList);
   }
 
@@ -70,7 +79,7 @@ class Search extends Feed<ISearchResponse> {
   }
 
   /**
-   * Retrieves next batch of results.
+   * Retrieves next batch of search results.
    */
   async getContinuation(): Promise<Search> {
     const response = await this.getContinuationData();
@@ -79,5 +88,3 @@ class Search extends Feed<ISearchResponse> {
     return new Search(this.actions, response, true);
   }
 }
-
-export default Search;

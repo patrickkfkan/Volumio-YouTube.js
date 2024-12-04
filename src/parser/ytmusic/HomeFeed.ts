@@ -1,21 +1,20 @@
-import Parser, { SectionListContinuation } from '../index.js';
+import { InnertubeError } from '../../utils/Utils.js';
+import { Parser, SectionListContinuation } from '../index.js';
 import MusicCarouselShelf from '../classes/MusicCarouselShelf.js';
 import SectionList from '../classes/SectionList.js';
 import SingleColumnBrowseResults from '../classes/SingleColumnBrowseResults.js';
 import MusicTastebuilderShelf from '../classes/MusicTastebuilderShelf.js';
-
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
-import type { ObservedArray } from '../helpers.js';
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
-import { InnertubeError } from '../../utils/Utils.js';
 import ChipCloud from '../classes/ChipCloud.js';
 import ChipCloudChip from '../classes/ChipCloudChip.js';
 
-class HomeFeed {
-  #page: IBrowseResponse;
-  #actions: Actions;
-  #continuation?: string;
+import type { ApiResponse, Actions } from '../../core/index.js';
+import type { ObservedArray } from '../helpers.js';
+import type { IBrowseResponse } from '../types/index.js';
+
+export default class HomeFeed {
+  readonly #page: IBrowseResponse;
+  readonly #actions: Actions;
+  readonly #continuation?: string;
 
   sections?: ObservedArray<MusicCarouselShelf | MusicTastebuilderShelf>;
   header?: ChipCloud;
@@ -29,12 +28,12 @@ class HomeFeed {
     if (!tab)
       throw new InnertubeError('Could not find Home tab.');
 
-    if (tab.key('content').isNull()) {
+    if (tab.content === null) {
       if (!this.#page.continuation_contents)
         throw new InnertubeError('Continuation did not have any content.');
 
-      this.#continuation = this.#page.continuation_contents.as(SectionListContinuation).continuation;
-      this.sections = this.#page.continuation_contents.as(SectionListContinuation).contents?.as(MusicCarouselShelf);
+      this.#continuation = this.#page.continuation_contents.firstOfType(SectionListContinuation)?.continuation;
+      this.sections = this.#page.continuation_contents.firstOfType(SectionListContinuation)?.contents?.as(MusicCarouselShelf);
 
       return;
     }
@@ -94,5 +93,3 @@ class HomeFeed {
     return this.#page;
   }
 }
-
-export default HomeFeed;

@@ -1,7 +1,7 @@
 // TODO: Refactor this.
 
 import { YTNode, type SuperParsedResult } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import MusicItemThumbnailOverlay from './MusicItemThumbnailOverlay.js';
 import NavigationEndpoint from './NavigationEndpoint.js';
 import Menu from './menus/Menu.js';
@@ -62,6 +62,9 @@ export default class MusicTwoRowItem extends YTNode {
         break;
       case 'MUSIC_PAGE_TYPE_ALBUM':
         this.item_type = 'album';
+        break;
+      case 'MUSIC_PAGE_TYPE_PODCAST_SHOW_DETAIL_PAGE':
+        this.item_type = 'podcast_show';
         break;
       default:
         if (this.endpoint?.metadata?.api_url === '/next') {

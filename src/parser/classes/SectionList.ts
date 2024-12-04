@@ -1,5 +1,5 @@
 import { type ObservedArray, YTNode } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 
 export default class SectionList extends YTNode {
   static type = 'SectionList';
@@ -9,8 +9,6 @@ export default class SectionList extends YTNode {
   continuation?: string;
   header?: YTNode;
   sub_menu?: YTNode;
-
-  /*** Volumio-YouTube.js ***/
   continuation_type?: 'next' | 'reload';
 
   constructor(data: RawNode) {

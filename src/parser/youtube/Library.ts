@@ -1,26 +1,18 @@
-import type Actions from '../../core/Actions.js';
 import { InnertubeError } from '../../utils/Utils.js';
-
 import Feed from '../../core/mixins/Feed.js';
 import History from './History.js';
 import Playlist from './Playlist.js';
 import Menu from '../classes/menus/Menu.js';
 import Shelf from '../classes/Shelf.js';
 import Button from '../classes/Button.js';
+import PageHeader from '../classes/PageHeader.js';
 
-import ProfileColumnStats from '../classes/ProfileColumnStats.js';
-import ProfileColumnUserInfo from '../classes/ProfileColumnUserInfo.js';
+import type { Actions, ApiResponse } from '../../core/index.js';
+import type { IBrowseResponse } from '../types/index.js';
 
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
-import type { ApiResponse } from '../../core/Actions.js';
-
-class Library extends Feed<IBrowseResponse> {
-  profile: {
-    stats?: ProfileColumnStats;
-    user_info?: ProfileColumnUserInfo;
-  };
-
-  sections;
+export default class Library extends Feed<IBrowseResponse> {
+  public header: PageHeader | null;
+  public sections;
 
   constructor(actions: Actions, data: ApiResponse | IBrowseResponse) {
     super(actions, data);
@@ -28,10 +20,7 @@ class Library extends Feed<IBrowseResponse> {
     if (!this.page.contents_memo)
       throw new InnertubeError('Page contents not found');
 
-    const stats = this.page.contents_memo.getType(ProfileColumnStats).first();
-    const user_info = this.page.contents_memo.getType(ProfileColumnUserInfo).first();
-
-    this.profile = { stats, user_info };
+    this.header = this.memo.getType(PageHeader).first();
 
     const shelves = this.page.contents_memo.getType(Shelf);
 
@@ -43,8 +32,9 @@ class Library extends Feed<IBrowseResponse> {
     }));
   }
 
-  async #getAll(shelf: Shelf): Promise<Playlist | History | Feed> {
-    if (!shelf.menu?.as(Menu).hasKey('top_level_buttons'))
+  async #getAll(shelf: Shelf): Promise<Playlist | History | Feed<IBrowseResponse>> {
+    if (!shelf.menu?.as(Menu).top_level_buttons)
+
       throw new InnertubeError(`The ${shelf.title.text} shelf doesn't have more items`);
 
     const button = shelf.menu.as(Menu).top_level_buttons.firstOfType(Button);
@@ -87,5 +77,3 @@ class Library extends Feed<IBrowseResponse> {
     return this.sections.find((section) => section.type === 'CONTENT_CUT');
   }
 }
-
-export default Library;

@@ -1,4 +1,4 @@
-import Parser from '../index.js';
+import { Parser } from '../index.js';
 import { InnertubeError } from '../../utils/Utils.js';
 
 import CompactLink from '../classes/CompactLink.js';
@@ -8,20 +8,22 @@ import SectionList from '../classes/SectionList.js';
 import SettingsOptions from '../classes/SettingsOptions.js';
 import SettingsSidebar from '../classes/SettingsSidebar.js';
 import SettingsSwitch from '../classes/SettingsSwitch.js';
+import CommentsHeader from '../classes/comments/CommentsHeader.js';
+import ItemSectionHeader from '../classes/ItemSectionHeader.js';
+import ItemSectionTabbedHeader from '../classes/ItemSectionTabbedHeader.js';
 import Tab from '../classes/Tab.js';
 import TwoColumnBrowseResults from '../classes/TwoColumnBrowseResults.js';
 
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
-import type { IBrowseResponse } from '../types/ParsedResponse.js';
+import type { ApiResponse, Actions } from '../../core/index.js';
+import type { IBrowseResponse } from '../types/index.js';
 
-class Settings {
-  #page: IBrowseResponse;
-  #actions: Actions;
+export default class Settings {
+  readonly #page: IBrowseResponse;
+  readonly #actions: Actions;
 
-  sidebar?: SettingsSidebar;
-  introduction?: PageIntroduction;
-  sections;
+  public sidebar?: SettingsSidebar;
+  public introduction?: PageIntroduction;
+  public sections;
 
   constructor(actions: Actions, response: ApiResponse) {
     this.#actions = actions;
@@ -42,7 +44,7 @@ class Settings {
     this.introduction = contents?.shift()?.contents?.firstOfType(PageIntroduction);
 
     this.sections = contents?.map((el: ItemSection) => ({
-      title: el.header?.title.toString() || null,
+      title: el.header?.is(CommentsHeader, ItemSectionHeader, ItemSectionTabbedHeader) ? el.header.title.toString() : null,
       contents: el.contents
     }));
   }
@@ -131,5 +133,3 @@ class Settings {
     return this.#page;
   }
 }
-
-export default Settings;

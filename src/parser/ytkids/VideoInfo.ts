@@ -1,31 +1,23 @@
+import { MediaInfo } from '../../core/mixins/index.js';
 import ItemSection from '../classes/ItemSection.js';
-import type NavigationEndpoint from '../classes/NavigationEndpoint.js';
 import PlayerOverlay from '../classes/PlayerOverlay.js';
 import SlimVideoMetadata from '../classes/SlimVideoMetadata.js';
 import TwoColumnWatchNextResults from '../classes/TwoColumnWatchNextResults.js';
 
-import type Actions from '../../core/Actions.js';
-import type { ApiResponse } from '../../core/Actions.js';
+import type { ApiResponse, Actions } from '../../core/index.js';
 import type { ObservedArray, YTNode } from '../helpers.js';
-import { MediaInfo } from '../../core/mixins/index.js';
+import type NavigationEndpoint from '../classes/NavigationEndpoint.js';
 
-class VideoInfo extends MediaInfo {
-  basic_info;
-  captions;
-
-  slim_video_metadata?: SlimVideoMetadata;
-  watch_next_feed?: ObservedArray<YTNode>;
-  current_video_endpoint?: NavigationEndpoint;
-  player_overlays?: PlayerOverlay;
+export default class VideoInfo extends MediaInfo {
+  public slim_video_metadata?: SlimVideoMetadata;
+  public watch_next_feed?: ObservedArray<YTNode>;
+  public current_video_endpoint?: NavigationEndpoint;
+  public player_overlays?: PlayerOverlay;
 
   constructor(data: [ApiResponse, ApiResponse?], actions: Actions, cpn: string) {
     super(data, actions, cpn);
 
-    const [ info, next ] = this.page;
-
-    this.basic_info = info.video_details;
-
-    this.captions = info.captions;
+    const next = this.page[1];
 
     const two_col = next?.contents?.item().as(TwoColumnWatchNextResults);
 
@@ -39,13 +31,4 @@ class VideoInfo extends MediaInfo {
       this.player_overlays = next?.player_overlays?.item().as(PlayerOverlay);
     }
   }
-
-  /**
- * Adds video to the watch history.
- */
-  async addToWatchHistory(): Promise<Response> {
-    return super.addToWatchHistory();
-  }
 }
-
-export default VideoInfo;

@@ -1,7 +1,9 @@
 import { YTNode } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import Button from './Button.js';
 import ChannelHeaderLinks from './ChannelHeaderLinks.js';
+import ChannelHeaderLinksView from './ChannelHeaderLinksView.js';
+import ChannelTagline from './ChannelTagline.js';
 import SubscribeButton from './SubscribeButton.js';
 import Author from './misc/Author.js';
 import Text from './misc/Text.js';
@@ -18,9 +20,10 @@ export default class C4TabbedHeader extends YTNode {
   videos_count?: Text;
   sponsor_button?: Button | null;
   subscribe_button?: SubscribeButton | Button | null;
-  header_links?: ChannelHeaderLinks | null;
+  header_links?: ChannelHeaderLinks | ChannelHeaderLinksView | null;
   channel_handle?: Text;
   channel_id?: string;
+  tagline?: ChannelTagline | null;
 
   constructor(data: RawNode) {
     super();
@@ -58,7 +61,7 @@ export default class C4TabbedHeader extends YTNode {
     }
 
     if (Reflect.has(data, 'headerLinks')) {
-      this.header_links = Parser.parseItem(data.headerLinks, ChannelHeaderLinks);
+      this.header_links = Parser.parseItem(data.headerLinks, [ ChannelHeaderLinks, ChannelHeaderLinksView ]);
     }
 
     if (Reflect.has(data, 'channelHandleText')) {
@@ -67,6 +70,10 @@ export default class C4TabbedHeader extends YTNode {
 
     if (Reflect.has(data, 'channelId')) {
       this.channel_id = data.channelId;
+    }
+
+    if (Reflect.has(data, 'tagline')) {
+      this.tagline = Parser.parseItem(data.tagline, ChannelTagline);
     }
   }
 }

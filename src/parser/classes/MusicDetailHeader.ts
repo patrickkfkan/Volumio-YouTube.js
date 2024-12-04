@@ -1,5 +1,5 @@
 import { YTNode, type ObservedArray } from '../helpers.js';
-import Parser, { type RawNode } from '../index.js';
+import { Parser, type RawNode } from '../index.js';
 import type NavigationEndpoint from './NavigationEndpoint.js';
 import Text from './misc/Text.js';
 import type TextRun from './misc/TextRun.js';
@@ -36,8 +36,6 @@ export default class MusicDetailHeader extends YTNode {
     this.thumbnails = Thumbnail.fromResponse(data.thumbnail.croppedSquareThumbnailRenderer.thumbnail);
     this.badges = Parser.parseArray(data.subtitleBadges);
 
-    /*** Volumio-YouTube.js ***/
-    // TODO: Push to YouTube.js repo
     const author = this.subtitle.runs?.find((run) =>
       (run as TextRun)?.endpoint?.payload?.browseId.startsWith('UC') ||
       (run as TextRun)?.endpoint?.payload?.browseId.startsWith('FEmusic_library_privately_owned_artist'));
