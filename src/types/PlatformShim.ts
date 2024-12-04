@@ -1,6 +1,10 @@
+import { ReadableStream } from 'web-streams-polyfill';
+import fetch, { Request, Response, Headers } from 'node-fetch';
+import CustomEvent from '../platform/polyfills/node-custom-event.js';
+
 import type { ICacheConstructor } from './Cache.js';
 
-export type Runtime = 'deno' | 'node' | 'browser' | 'cf-worker' | 'unknown' | 'react-native';
+export type Runtime = 'node' | 'unknown';
 
 export type FetchFunction = typeof fetch;
 
@@ -22,8 +26,8 @@ interface PlatformShim {
     Request: typeof Request;
     Response: typeof Response;
     Headers: typeof Headers;
-    FormData: typeof FormData;
-    File: typeof File;
+    FormData: null;
+    File: null;
     ReadableStream: typeof ReadableStream;
     CustomEvent: typeof CustomEvent;
 }

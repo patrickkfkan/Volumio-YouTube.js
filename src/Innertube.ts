@@ -1,3 +1,6 @@
+import { ReadableStream } from 'web-streams-polyfill';
+import { URL } from 'url';
+
 import Session from './core/Session.js';
 import { Kids, Music, Studio } from './core/clients/index.js';
 import { AccountManager, InteractionManager, PlaylistManager } from './core/managers/index.js';

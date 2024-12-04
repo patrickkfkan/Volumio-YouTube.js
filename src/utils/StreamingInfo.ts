@@ -1,3 +1,5 @@
+import { Response } from 'node-fetch';
+
 import type { StoryboardData } from '../parser/classes/PlayerStoryboardSpec.js';
 import PlayerStoryboardSpec from '../parser/classes/PlayerStoryboardSpec.js';
 import { getStringBetweenStrings, InnertubeError, Platform } from './Utils.js';

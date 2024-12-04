@@ -1,3 +1,5 @@
+import { Request, RequestInit, Response } from 'node-fetch';
+
 import * as Constants from './Constants.js';
 
 import {
@@ -151,13 +153,12 @@ export default class HTTPClient {
       }
     }
 
-    const request = new Platform.shim.Request(request_url, input instanceof Platform.shim.Request ? input : init);
+    const request = new Platform.shim.Request(request_url, input instanceof Platform.shim.Request ? input as RequestInit: init);
 
     const response = await this.#fetch(request, {
       body: request_body,
       headers: request_headers,
-      redirect: input instanceof Platform.shim.Request ? input.redirect : init?.redirect || 'follow',
-      ...(Platform.shim.runtime !== 'cf-worker' ? { credentials: 'include' } : {})
+      redirect: input instanceof Platform.shim.Request ? input.redirect : init?.redirect || 'follow'
     });
 
     // Check if 2xx

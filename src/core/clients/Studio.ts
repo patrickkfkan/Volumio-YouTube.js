@@ -1,3 +1,5 @@
+import { BodyInit } from 'node-fetch';
+
 import { Constants } from '../../utils/index.js';
 import { InnertubeError, Platform } from '../../utils/Utils.js';
 
@@ -208,7 +210,7 @@ export default class Studio {
     if (!response.ok)
       throw new InnertubeError('Could not upload video');
 
-    return await response.json();
+    return await response.json() as UploadResult;
   }
 
   async #setVideoMetadata(initial_data: InitialUploadData, upload_result: UploadResult, metadata: UploadedVideoMetadataOptions) {

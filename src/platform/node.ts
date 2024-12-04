@@ -1,21 +1,19 @@
 // Node.js Platform Support
-import { ReadableStream } from 'stream/web';
-import {
-  fetch as defaultFetch,
+import { ReadableStream } from 'web-streams-polyfill';
+import CustomEvent from './polyfills/node-custom-event.js';
+
+import defaultFetch, {
   Request,
   Response,
-  Headers,
-  FormData,
-  File
-} from 'undici';
+  Headers
+} from 'node-fetch';
 import type { ICache } from '../types/Cache.js';
 import { Platform } from '../utils/Utils.js';
 import crypto from 'crypto';
-import type { FetchFunction } from '../types/PlatformShim.js';
 import path from 'path';
 import os from 'os';
 import fs from 'fs/promises';
-import CustomEvent from './polyfills/node-custom-event.js';
+import { randomUUID } from 'uncrypto';
 import { fileURLToPath } from 'url';
 import evaluate from './jsruntime/jinter.js';
 import { $INLINE_JSON } from 'ts-transformer-inline-file';
@@ -111,17 +109,17 @@ Platform.load({
     return crypto.createHash('sha1').update(data).digest('hex');
   },
   uuidv4() {
-    return crypto.randomUUID();
+    return randomUUID();
   },
   eval: evaluate,
-  fetch: defaultFetch as unknown as FetchFunction,
-  Request: Request as unknown as typeof globalThis.Request,
-  Response: Response as unknown as typeof globalThis.Response,
-  Headers: Headers as unknown as typeof globalThis.Headers,
-  FormData: FormData as unknown as typeof globalThis.FormData,
-  File: File as unknown as typeof globalThis.File,
-  ReadableStream: ReadableStream as unknown as typeof globalThis.ReadableStream,
-  CustomEvent: CustomEvent as unknown as typeof globalThis.CustomEvent
+  fetch: defaultFetch,
+  Request: Request,
+  Response: Response,
+  Headers: Headers,
+  FormData: null,
+  File: null,
+  ReadableStream: ReadableStream,
+  CustomEvent: CustomEvent
 });
 
 export * from './lib.js';

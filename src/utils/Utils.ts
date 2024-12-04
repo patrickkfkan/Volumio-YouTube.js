@@ -1,3 +1,8 @@
+import { ReadableStream } from 'web-streams-polyfill';
+import { Headers, Request, RequestInfo, RequestInit } from 'node-fetch';
+import btoa from 'btoa';
+import atob from 'atob';
+
 import { Memo } from '../parser/helpers.js';
 import { Text } from '../parser/misc.js';
 import * as Log from './Log.js';
@@ -189,12 +194,12 @@ export async function* streamToIterable(stream: ReadableStream<Uint8Array>) {
   }
 }
 
-export const debugFetch: FetchFunction = (input, init) => {
+export const debugFetch = (input: RequestInfo, init?: RequestInit) => {
   const url =
     typeof input === 'string' ?
       new URL(input) :
       input instanceof URL ?
-        input : new URL(input.url);
+        input : new URL(input instanceof Request ? input.url : input.href);
 
   const headers =
     init?.headers ?

@@ -1,3 +1,5 @@
+import { TextDecoder, TextEncoder } from 'util';
+
 import { Log, LZW, Constants } from '../utils/index.js';
 import { Platform, getRandomUserAgent, getStringBetweenStrings, findFunction, PlayerError } from '../utils/Utils.js';
 import type { ICache, FetchFunction } from '../types/index.js';

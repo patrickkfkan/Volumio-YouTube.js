@@ -1,3 +1,6 @@
+import { TextEncoder } from "util";
+import { subtle } from 'uncrypto';
+
 export default async function sha1Hash(str: string) {
   const byteToHex = [
     '00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '0a', '0b', '0c', '0d', '0e', '0f',
@@ -26,5 +29,5 @@ export default async function sha1Hash(str: string) {
     return hexOctets.join('');
   }
 
-  return hex(await crypto.subtle.digest('SHA-1', new TextEncoder().encode(str)));
+  return hex(await subtle.digest('SHA-1', new TextEncoder().encode(str)));
 }

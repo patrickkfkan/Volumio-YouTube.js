@@ -1,7 +1,9 @@
+import { EventTarget } from 'event-target-shim';
+
 import { Platform } from './Utils.js';
 
 export default class EventEmitterLike extends EventTarget {
-  #legacy_listeners = new Map<(...args: any[]) => void, EventListener>();
+  #legacy_listeners = new Map<(...args: any[]) => void, EventTarget.EventListener<any, any>>();
 
   constructor() {
     super();
@@ -13,9 +15,9 @@ export default class EventEmitterLike extends EventTarget {
   }
 
   on(type: string, listener: (...args: any[]) => void) {
-    const wrapper: EventListener = (ev) => {
+    const wrapper: EventTarget.EventListener<any, any> = (ev) => {
       if (ev instanceof Platform.shim.CustomEvent) {
-        listener(...ev.detail);
+        listener(...(ev.detail || []));
       } else {
         listener(ev);
       }
@@ -25,9 +27,9 @@ export default class EventEmitterLike extends EventTarget {
   }
 
   once(type: string, listener: (...args: any[]) => void) {
-    const wrapper: EventListener = (ev) => {
+    const wrapper: EventTarget.EventListener<any, any> = (ev) => {
       if (ev instanceof Platform.shim.CustomEvent) {
-        listener(...ev.detail);
+        listener(...(ev.detail || []));
       } else {
         listener(ev);
       }

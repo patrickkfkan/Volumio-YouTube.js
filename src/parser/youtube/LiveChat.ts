@@ -1,5 +1,7 @@
 // noinspection ES6MissingAwait
 
+import btoa from 'btoa';
+
 import { EventEmitter } from '../../utils/index.js';
 import { InnertubeError, Platform, u8ToBase64 } from '../../utils/Utils.js';
 import { LiveChatContinuation, Parser } from '../index.js';
@@ -290,11 +292,11 @@ export default class LiveChat extends EventEmitter {
     const menu_items = this.initial_info?.header?.view_selector?.sub_menu_items;
 
     if (filter === 'TOP_CHAT') {
-      if (menu_items?.at(0)?.selected) return;
-      this.#continuation = menu_items?.at(0)?.continuation;
+      if (menu_items?.[0]?.selected) return;
+      this.#continuation = menu_items?.[0]?.continuation;
     } else {
-      if (menu_items?.at(1)?.selected) return;
-      this.#continuation = menu_items?.at(1)?.continuation;
+      if (menu_items?.[1]?.selected) return;
+      this.#continuation = menu_items?.[1]?.continuation;
     }
   }
 

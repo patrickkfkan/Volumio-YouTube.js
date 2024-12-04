@@ -1,3 +1,5 @@
+import { Response } from 'node-fetch';
+
 import { Constants } from '../../utils/index.js';
 import { InnertubeError } from '../../utils/Utils.js';
 import { MediaInfo } from '../../core/mixins/index.js';

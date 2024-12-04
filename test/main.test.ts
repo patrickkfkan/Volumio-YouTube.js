@@ -1,5 +1,4 @@
-import { createWriteStream, existsSync } from 'node:fs';
-import { Innertube, Utils, YT, YTMusic, YTNodes } from '../bundle/node.cjs';
+import { Innertube, YT, YTMusic, YTNodes } from '../bundle/node.cjs';
 
 jest.useRealTimers();
 

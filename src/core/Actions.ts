@@ -1,3 +1,5 @@
+import { Response } from 'node-fetch';
+
 import type {
   IBrowseResponse, IGetNotificationsMenuResponse, INextResponse,
   IParsedResponse, IPlayerResponse, IRawResponse,
@@ -135,7 +137,7 @@ export default class Actions {
     });
 
     if (args?.parse) {
-      let parsed_response = Parser.parseResponse<ParsedResponse<T>>(await response.json());
+      let parsed_response = Parser.parseResponse<ParsedResponse<T>>(await response.json() as any);
 
       // Handle redirects
       if (this.#isBrowse(parsed_response) && parsed_response.on_response_received_actions?.first()?.type === 'navigateAction') {

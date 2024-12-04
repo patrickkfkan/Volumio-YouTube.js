@@ -1,3 +1,5 @@
+import { Response } from 'node-fetch';
+
 import { InnertubeError } from '../../utils/Utils.js';
 import { MediaInfo } from '../../core/mixins/index.js';
 
@@ -96,7 +98,7 @@ export default class VideoInfo extends MediaInfo {
 
       this.watch_next_feed = secondary_results.firstOfType(ItemSection)?.contents || secondary_results;
 
-      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && this.watch_next_feed.at(-1)?.is(ContinuationItem))
+      if (this.watch_next_feed && Array.isArray(this.watch_next_feed) && this.watch_next_feed[this.watch_next_feed.length - 1]?.is(ContinuationItem))
         this.#watch_next_continuation = this.watch_next_feed.pop()?.as(ContinuationItem);
 
       this.player_overlays = next?.player_overlays?.item().as(PlayerOverlay);
@@ -185,7 +187,7 @@ export default class VideoInfo extends MediaInfo {
       throw new InnertubeError('AppendContinuationItemsAction not found');
 
     this.watch_next_feed = data?.contents;
-    if (this.watch_next_feed?.at(-1)?.is(ContinuationItem)) {
+    if (this.watch_next_feed?.[this.watch_next_feed.length -1]?.is(ContinuationItem)) {
       this.#watch_next_continuation = this.watch_next_feed.pop()?.as(ContinuationItem);
     } else {
       this.#watch_next_continuation = undefined;

@@ -1,3 +1,6 @@
+import { ReadableStream } from 'web-streams-polyfill';
+import { AbortController } from 'node-abort-controller';
+
 import * as Constants from './Constants.js';
 import { InnertubeError, Platform, streamToIterable } from './Utils.js';
 
@@ -50,7 +53,7 @@ export async function download(
     if (!body)
       throw new InnertubeError('Could not get ReadableStream from fetch Response.', { error_type: 'FETCH_FAILED', response });
 
-    return body;
+    return ReadableStream.from<Uint8Array>(body as any);
   }
 
   // We need to download in chunks.
@@ -87,7 +90,7 @@ export async function download(
               // XXX: use YouTube's range parameter instead of a Range header.
               // Range: `bytes=${chunk_start}-${chunk_end}`
             },
-            signal: cancel.signal
+            signal: cancel.signal as any
           });
 
           // Throw if the response is not 2xx
@@ -105,7 +108,7 @@ export async function download(
               response
             });
 
-          for await (const chunk of streamToIterable(body)) {
+          for await (const chunk of streamToIterable(ReadableStream.from(body as any))) {
             controller.enqueue(chunk);
           }
 

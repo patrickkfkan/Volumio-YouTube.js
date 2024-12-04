@@ -1,3 +1,6 @@
+import { TextDecoder, TextEncoder } from 'util';
+import { Response } from 'node-fetch';
+
 import OAuth2 from './OAuth2.js';
 import { Log, EventEmitter, HTTPClient, LZW, ProtoUtils } from '../utils/index.js';
 import * as Constants from '../utils/Constants.js';

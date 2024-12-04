@@ -1,3 +1,6 @@
+import { ReadableStream } from 'web-streams-polyfill';
+import { Response } from 'node-fetch';
+
 import { Constants, FormatUtils } from '../../utils/index.js';
 import { InnertubeError } from '../../utils/Utils.js';
 import { getStreamingInfo } from '../../utils/StreamingInfo.js';

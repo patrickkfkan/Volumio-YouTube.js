@@ -28,8 +28,8 @@ export default class Comments {
     if (!contents)
       throw new InnertubeError('Comments page did not have any content.');
 
-    const header_node = contents.at(0);
-    const body_node = contents.at(1);
+    const header_node = contents[0];
+    const body_node = contents[1];
 
     this.header = header_node?.contents?.firstOfType(CommentsHeader);
 
@@ -56,9 +56,9 @@ export default class Comments {
     let button;
 
     if (sort === 'TOP_COMMENTS') {
-      button = this.header.sort_menu?.sub_menu_items?.at(0);
+      button = this.header.sort_menu?.sub_menu_items?.[0];
     } else if (sort === 'NEWEST_FIRST') {
-      button = this.header.sort_menu?.sub_menu_items?.at(1);
+      button = this.header.sort_menu?.sub_menu_items?.[1];
     }
 
     if (!button)

@@ -1,3 +1,6 @@
+import { TextDecoder,  TextEncoder } from 'util';
+import { Response } from 'node-fetch';
+
 import { OAuth2Error, Platform } from '../utils/Utils.js';
 import { Log, Constants } from '../utils/index.js';
 import type Session from './Session.js';
@@ -150,7 +153,7 @@ export default class OAuth2 {
         }
       });
 
-      const response_data = await response.json();
+      const response_data = await response.json() as any;
 
       if (response_data.error) {
         switch (response_data.error) {
@@ -222,7 +225,7 @@ export default class OAuth2 {
     if (!response.ok)
       throw new OAuth2Error(`Failed to refresh access token: ${response.status}`);
 
-    const response_data = await response.json();
+    const response_data = await response.json() as any;
 
     if (response_data.error_code)
       throw new OAuth2Error('Authorization server returned an error', response_data);
@@ -257,7 +260,7 @@ export default class OAuth2 {
     if (!response.ok)
       throw new OAuth2Error(`Failed to get device/user code: ${response.status}`);
 
-    const response_data = await response.json();
+    const response_data = await response.json() as any;
 
     if (response_data.error_code)
       throw new OAuth2Error('Authorization server returned an error', response_data);
