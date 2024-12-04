@@ -2,6 +2,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.3.0-buster.2
+- Replace `uncrypto` with `uuid` (fix `uncrypto` trying to import `node:crypto` which fails with "module not found" on rPi)
+
 1.3.0-buster
 - Backport for Buster-based Volumio
 
