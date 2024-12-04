@@ -13,7 +13,7 @@ import crypto from 'crypto';
 import path from 'path';
 import os from 'os';
 import fs from 'fs/promises';
-import { randomUUID } from 'uncrypto';
+import { v4 as uuidv4 } from 'uuid';
 import { fileURLToPath } from 'url';
 import evaluate from './jsruntime/jinter.js';
 import { $INLINE_JSON } from 'ts-transformer-inline-file';
@@ -109,7 +109,7 @@ Platform.load({
     return crypto.createHash('sha1').update(data).digest('hex');
   },
   uuidv4() {
-    return randomUUID();
+    return uuidv4();
   },
   eval: evaluate,
   fetch: defaultFetch,
