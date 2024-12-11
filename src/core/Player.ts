@@ -140,6 +140,9 @@ export default class Player {
       case 'WEB':
         url_components.searchParams.set('cver', Constants.CLIENTS.WEB.VERSION);
         break;
+      case 'MWEB':
+        url_components.searchParams.set('cver', Constants.CLIENTS.MWEB.VERSION);
+        break;
       case 'WEB_REMIX':
         url_components.searchParams.set('cver', Constants.CLIENTS.YTMUSIC.VERSION);
         break;
@@ -221,21 +224,37 @@ export default class Player {
   }
 
   static extractSigSourceCode(data: string): string {
-    const calls = getStringBetweenStrings(data, 'function(a){a=a.split("")', 'return a.join("")}');
+    let calls = getStringBetweenStrings(data, 'function(a){a=a.split("")', 'return a.join("")}');
+    let var_name = 'a';
+
+    if (!calls) {
+      calls = getStringBetweenStrings(data, 'function(J){J=J.split("")', 'return J.join("")}');
+      var_name = 'J';
+    }
+
     const obj_name = calls?.split(/\.|\[/)?.[0]?.replace(';', '')?.trim();
     const functions = getStringBetweenStrings(data, `var ${obj_name}={`, '};');
 
     if (!functions || !calls)
       Log.warn(TAG, 'Failed to extract signature decipher algorithm.');
 
-    return `function descramble_sig(a) { a = a.split(""); let ${obj_name}={${functions}}${calls} return a.join("") } descramble_sig(sig);`;
+    return `function descramble_sig(${var_name}) { ${var_name} = ${var_name}.split(""); let ${obj_name}={${functions}}${calls} return ${var_name}.join("") } descramble_sig(sig);`;
   }
 
   static extractNSigSourceCode(data: string): string | undefined {
-    const nsig_function = findFunction(data, { includes: 'enhanced_except' });
-    if (nsig_function) {
+    // This used to be the prefix of the error tag (leaving it here for reference).
+    let nsig_function = findFunction(data, { includes: 'enhanced_except' });
+   
+    // This is the suffix of the error tag.
+    if (!nsig_function)
+      nsig_function = findFunction(data, { includes: '-_w8_' });
+    
+    // Usually, only this function uses these dates in the entire script.
+    if (!nsig_function)
+      nsig_function = findFunction(data, { includes: '1969' });
+    
+    if (nsig_function)
       return `${nsig_function.result} ${nsig_function.name}(nsig);`;
-    }
   }
 
   get url(): string {
@@ -243,6 +262,6 @@ export default class Player {
   }
 
   static get LIBRARY_VERSION(): number {
-    return 11;
+    return 12;
   }
 }
