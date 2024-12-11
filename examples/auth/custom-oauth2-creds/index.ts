@@ -1,5 +1,5 @@
 import express from 'express';
-import { Innertube, UniversalCache, YTNodes } from 'youtubei.js';
+import { Innertube, UniversalCache } from 'youtubei.js';
 import { OAuth2Client } from 'google-auth-library';
 
 const app = express();
@@ -46,8 +46,10 @@ app.get('/', async (_req, res) => {
     console.info('Innertube instance is logged in.');
 
     const userInfo = await innertube.account.getInfo();
+    
+    console.log(await innertube.getBasicInfo('R8vgwMYSQi8', 'ANDROID'));
 
-    return res.send({ userInfo  });
+    return res.send({ userInfo });
   }
 
   if (!oAuth2Client) {
@@ -65,8 +67,7 @@ app.get('/', async (_req, res) => {
         "http://gdata.youtube.com",
         "https://www.googleapis.com/auth/youtube",
         "https://www.googleapis.com/auth/youtube.force-ssl",
-        "https://www.googleapis.com/auth/youtube-paid-content",
-        "https://www.googleapis.com/auth/accounts.reauth",
+        "https://www.googleapis.com/auth/youtube-paid-content"
       ],
       include_granted_scopes: true,
       prompt: 'consent',

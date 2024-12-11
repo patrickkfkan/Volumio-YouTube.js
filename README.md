@@ -8,6 +8,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 1.3.0-buster
 - Backport for Buster-based Volumio
 
+1.3.1
+- Merge from YouTube.js v12.1.0 (commit [5f233ae](https://github.com/LuanRT/YouTube.js/commit/5f233ae34e278e7f7a0c48e4ba762d9bac9e312f))
+
 1.3.0
 - Merge from YouTube.js v11.0.1 (commit [bbaefb1](https://github.com/LuanRT/YouTube.js/commit/bbaefb12b3a5b6302794cd7c0d1b24ae3861b827))
 - Cookie-based session fixes and additions ([PR](https://github.com/LuanRT/YouTube.js/pull/821) submitted to YouTube.js repo):
