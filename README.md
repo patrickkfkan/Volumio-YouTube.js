@@ -2,6 +2,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.3.2
+- Apply LuanRT/YouTube.js PR: [fix(Player): Fix signature algorithm extraction again #837](https://github.com/LuanRT/YouTube.js/pull/837)
+
 1.3.1
 - Merge from YouTube.js v12.1.0 (commit [5f233ae](https://github.com/LuanRT/YouTube.js/commit/5f233ae34e278e7f7a0c48e4ba762d9bac9e312f))
 
