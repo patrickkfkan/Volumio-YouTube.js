@@ -2,6 +2,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.3.3
+- Restore higher `YTMUSIC_ANDROID` version for synced lyrics support (commit [5d4b0c0](https://github.com/patrickkfkan/Volumio-YouTube.js/commit/5d4b0c0e7b27ab149ab5dd2a0ad2b76de991b839#diff-19073863917d57af5542268daeb0540f1191a22bbf83ebcfdcdaf26ea2eb5578R63))
+
 1.3.2
 - Apply LuanRT/YouTube.js PR: [fix(Player): Fix signature algorithm extraction again #837](https://github.com/LuanRT/YouTube.js/pull/837)
 
