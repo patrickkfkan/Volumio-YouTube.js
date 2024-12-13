@@ -69,7 +69,7 @@ export const CLIENTS = Object.freeze({
   YTMUSIC_ANDROID: {
     NAME_ID: '21',
     NAME: 'ANDROID_MUSIC',
-    VERSION: '5.34.51'
+    VERSION: '7.07.51'
   },
   TV: {
     NAME_ID: '7',
