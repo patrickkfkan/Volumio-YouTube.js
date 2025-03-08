@@ -65,6 +65,46 @@ export default class PlaylistManager {
       data: response.data
     };
   }
+  
+  /**
+   * Adds a given playlist to the library of a user.
+   * @param playlist_id - The playlist ID.
+   */
+  async addToLibrary(playlist_id: string){
+    throwIfMissing({ playlist_id });
+
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
+    
+    const like_playlist_endpoint = new NavigationEndpoint({
+      likeEndpoint: {
+        status: 'LIKE',
+        target: playlist_id
+      }
+    });
+
+    return await like_playlist_endpoint.call(this.#actions);
+  }
+
+  /**
+   * Remove a given playlist to the library of a user.
+   * @param playlist_id - The playlist ID.
+   */
+  async removeFromLibrary(playlist_id: string){
+    throwIfMissing({ playlist_id });
+
+    if (!this.#actions.session.logged_in)
+      throw new InnertubeError('You must be signed in to perform this operation.');
+
+    const remove_like_playlist_endpoint = new NavigationEndpoint({
+      likeEndpoint: {
+        status: 'INDIFFERENT',
+        target: playlist_id
+      }
+    });
+
+    return await remove_like_playlist_endpoint.call(this.#actions);
+  }
 
   /**
    * Adds videos to a given playlist.
@@ -197,12 +237,11 @@ export default class PlaylistManager {
   }
   
   async #getPlaylist(playlist_id: string): Promise<Playlist> {
-    let id = playlist_id;
+    if (!playlist_id.startsWith('VL')) {
+      playlist_id = `VL${playlist_id}`;
+    }
     
-    if (!id.startsWith('VL'))
-      id = `VL${id}`;
-    
-    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: `VL${id}` } });
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: playlist_id } });
     const browse_response = await browse_endpoint.call(this.#actions, { parse: true });
     
     return new Playlist(this.#actions, browse_response, true);

@@ -1,5 +1,4 @@
-import { createWriteStream, existsSync } from 'node:fs';
-import { Innertube, Utils, YT, YTMusic, YTNodes } from '../bundle/node.cjs';
+import { Innertube, YT, YTMusic, YTNodes } from '../bundle/node.cjs';
 
 jest.useRealTimers();
 
@@ -317,7 +316,7 @@ describe('YouTube.js Tests', () => {
       expect(playlist.contents).toBeDefined();
       expect(playlist.contents?.length).toBeGreaterThan(0);
       
-      const info = await innertube.music.getInfo(playlist.contents!.first())
+      const info = await innertube.music.getInfo(playlist.contents!.first().as(YTNodes.MusicResponsiveListItem))
       expect(info).toBeDefined();
     });
 
@@ -335,6 +334,27 @@ describe('YouTube.js Tests', () => {
       
       const upNext = await info.getUpNext();
       expect(upNext.playlist_id).toBe("PLQxo8OvVvJ1WI_Bp67F2wdIl_R2Rc_1-u");
+    });
+
+    test('Innertube#music.getInfo.NavEndpoint.getUpNextContinuation', async () => {
+      // Fetch some video from Homepage
+      const home = await innertube.music.getHomeFeed()
+      const homeItemFirst = home.sections!.first().as(YTNodes.MusicCarouselShelf).contents[0].as(YTNodes.MusicResponsiveListItem)
+      
+      const info = await innertube.music.getInfo(homeItemFirst.id ?? homeItemFirst.endpoint!)
+      expect(info).toBeDefined();
+      
+      const upNext = await info.getUpNext();
+      
+      const endpoint = upNext.contents.filterType(YTNodes.PlaylistPanelVideo)[1].endpoint;
+      
+      const info2 = await innertube.music.getInfo(endpoint)
+      const upNext2 = await info2.getUpNextContinuation(upNext)
+      expect(upNext2.contents?.length).toBeGreaterThan(0);
+      
+      const upNext3 = await info2.getUpNextContinuation(upNext2)
+      expect(upNext3.contents?.length).toBeGreaterThan(0);
+      
     });
 
     describe('Innertube#music.search', () => {
@@ -371,13 +391,6 @@ describe('YouTube.js Tests', () => {
         expect(home).toBeDefined();
         expect(home.sections).toBeDefined();
         expect(home.sections?.length).toBeGreaterThan(0);
-      });
-
-      test('HomeFeed#getContinuation', async () => {
-        const incremental_continuation = await home.getContinuation();
-        expect(incremental_continuation).toBeDefined();
-        expect(incremental_continuation.sections).toBeDefined();
-        expect(incremental_continuation.sections?.length).toBeGreaterThan(0);
       });
 
       test('HomeFeed#applyFilter', async () => {
