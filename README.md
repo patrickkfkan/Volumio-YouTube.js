@@ -17,6 +17,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 1.3.0-buster
 - Backport for Buster-based Volumio
 
+1.4.0
+- Merge from YouTube.js v13.1.0 (commit [923e9c2](https://github.com/LuanRT/YouTube.js/commit/923e9c28e34b00841413824d82d10bf644186edc))
+
 1.3.3
 - Restore higher `YTMUSIC_ANDROID` version for synced lyrics support (commit [5d4b0c0](https://github.com/patrickkfkan/Volumio-YouTube.js/commit/5d4b0c0e7b27ab149ab5dd2a0ad2b76de991b839#diff-19073863917d57af5542268daeb0540f1191a22bbf83ebcfdcdaf26ea2eb5578R63))
 

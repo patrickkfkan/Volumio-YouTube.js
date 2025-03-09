@@ -2,6 +2,7 @@ import { Response } from 'node-fetch';
 
 import type {
   IBrowseResponse,
+  IGetChallengeResponse,
   IGetNotificationsMenuResponse,
   INextResponse,
   IParsedResponse,
@@ -30,6 +31,7 @@ export type InnertubeEndpoint =
   | '/reel'
   | '/updated_metadata'
   | '/notification/get_notification_menu'
+  | '/att/get'
   | string;
 
 export type ParsedResponse<T> =
@@ -40,7 +42,8 @@ export type ParsedResponse<T> =
           T extends '/updated_metadata' ? IUpdatedMetadataResponse :
             T extends '/navigation/resolve_url' ? IResolveURLResponse :
               T extends '/notification/get_notification_menu' ? IGetNotificationsMenuResponse :
-                IParsedResponse;
+                T extends '/att/get' ? IGetChallengeResponse :
+                  IParsedResponse;
 
 export default class Actions {
   public session: Session;
@@ -119,7 +122,7 @@ export default class Actions {
         if (this.#needsLogin(data.browseId) && !this.session.logged_in)
           throw new InnertubeError('You must be signed in to perform this operation.');
       }
-      
+
       if (Reflect.has(data, 'skip_auth_check'))
         delete data.skip_auth_check;
 
@@ -176,7 +179,7 @@ export default class Actions {
       let parsed_response = Parser.parseResponse<ParsedResponse<T>>(await response.json() as any);
 
       // Handle redirects
-      if (this.#isBrowse(parsed_response) && parsed_response.on_response_received_actions?.first()?.type === 'navigateAction') {
+      if (this.#isBrowse(parsed_response) && parsed_response.on_response_received_actions?.[0]?.type === 'navigateAction') {
         const navigate_action = parsed_response.on_response_received_actions.firstOfType(NavigateAction);
         if (navigate_action) {
           parsed_response = await navigate_action.endpoint.call(this, { parse: true });

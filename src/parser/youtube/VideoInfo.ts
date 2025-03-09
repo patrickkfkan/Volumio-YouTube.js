@@ -23,11 +23,15 @@ import VideoPrimaryInfo from '../classes/VideoPrimaryInfo.js';
 import VideoSecondaryInfo from '../classes/VideoSecondaryInfo.js';
 import NavigationEndpoint from '../classes/NavigationEndpoint.js';
 import PlayerLegacyDesktopYpcTrailer from '../classes/PlayerLegacyDesktopYpcTrailer.js';
+import YpcTrailer from '../classes/YpcTrailer.js';
 import StructuredDescriptionContent from '../classes/StructuredDescriptionContent.js';
 import VideoDescriptionMusicSection from '../classes/VideoDescriptionMusicSection.js';
 import LiveChatWrap from './LiveChat.js';
 
 import type { RawNode } from '../index.js';
+import { ReloadContinuationItemsCommand } from '../index.js';
+import AppendContinuationItemsAction from '../classes/actions/AppendContinuationItemsAction.js';
+
 import type { Actions, ApiResponse } from '../../core/index.js';
 import type { ObservedArray, YTNode } from '../helpers.js';
 
@@ -129,7 +133,7 @@ export default class VideoInfo extends MediaInfo {
       const comments_entry_point = results.get({ target_id: 'comments-entry-point' })?.as(ItemSection);
 
       this.comments_entry_point_header = comments_entry_point?.contents?.firstOfType(CommentsEntryPointHeader);
-      this.livechat = next?.contents_memo?.getType(LiveChat).first();
+      this.livechat = next?.contents_memo?.getType(LiveChat)[0];
     }
   }
 
@@ -161,7 +165,7 @@ export default class VideoInfo extends MediaInfo {
     const response = await cloud_chip.endpoint?.call(this.actions, { parse: true });
     const data = response?.on_response_received_endpoints?.get({ target_id: 'watch-next-feed' });
 
-    this.watch_next_feed = data?.contents;
+    this.watch_next_feed = data?.as(AppendContinuationItemsAction, ReloadContinuationItemsCommand).contents;
 
     return this;
   }
@@ -186,7 +190,7 @@ export default class VideoInfo extends MediaInfo {
     if (!data)
       throw new InnertubeError('AppendContinuationItemsAction not found');
 
-    this.watch_next_feed = data?.contents;
+    this.watch_next_feed = data?.as(AppendContinuationItemsAction, ReloadContinuationItemsCommand).contents;
     if (this.watch_next_feed?.[this.watch_next_feed.length -1]?.is(ContinuationItem)) {
       this.#watch_next_continuation = this.watch_next_feed.pop()?.as(ContinuationItem);
     } else {
@@ -213,6 +217,9 @@ export default class VideoInfo extends MediaInfo {
       if (like_status === 'LIKE')
         throw new InnertubeError('This video is already liked', { video_id: this.basic_info.id });
 
+      if (!button.default_button.on_tap)
+        throw new InnertubeError('onTap command not found', { video_id: this.basic_info.id });
+      
       const endpoint = new NavigationEndpoint(button.default_button.on_tap.payload.commands.find((cmd: RawNode) => cmd.innertubeCommand));
 
       return await endpoint.call(this.actions);
@@ -250,6 +257,9 @@ export default class VideoInfo extends MediaInfo {
       if (like_status === 'DISLIKE')
         throw new InnertubeError('This video is already disliked', { video_id: this.basic_info.id });
 
+      if (!button.default_button.on_tap)
+        throw new InnertubeError('onTap command not found', { video_id: this.basic_info.id });
+      
       const endpoint = new NavigationEndpoint(button.default_button.on_tap.payload.commands.find((cmd: RawNode) => cmd.innertubeCommand));
 
       return await endpoint.call(this.actions);
@@ -296,7 +306,10 @@ export default class VideoInfo extends MediaInfo {
 
       if (!button || !button.toggled_button)
         throw new InnertubeError('Like/Dislike button not found', { video_id: this.basic_info.id });
-
+      
+      if (!button.toggled_button.on_tap)
+        throw new InnertubeError('onTap command not found', { video_id: this.basic_info.id });
+      
       const endpoint = new NavigationEndpoint(button.toggled_button.on_tap.payload.commands.find((cmd: RawNode) => cmd.innertubeCommand));
 
       return await endpoint.call(this.actions);
@@ -336,8 +349,14 @@ export default class VideoInfo extends MediaInfo {
    * @returns `VideoInfo` for the trailer, or `null` if none.
    */
   getTrailerInfo(): VideoInfo | null {
-    if (this.has_trailer && this.playability_status) {
-      const player_response = this.playability_status.error_screen?.as(PlayerLegacyDesktopYpcTrailer).trailer?.player_response;
+    if (this.has_trailer && this.playability_status?.error_screen) {
+      let player_response;
+      if (this.playability_status.error_screen.is(PlayerLegacyDesktopYpcTrailer)) {
+        player_response = this.playability_status.error_screen.trailer?.player_response;
+      } else if (this.playability_status.error_screen.is(YpcTrailer)) {
+        player_response = this.playability_status.error_screen.player_response;
+      }
+
       if (player_response) {
         return new VideoInfo([ { data: player_response } as ApiResponse ], this.actions, this.cpn);
       }
@@ -370,7 +389,7 @@ export default class VideoInfo extends MediaInfo {
    * Checks if trailer is available.
    */
   get has_trailer(): boolean {
-    return !!this.playability_status?.error_screen?.is(PlayerLegacyDesktopYpcTrailer);
+    return !!this.playability_status?.error_screen?.is(PlayerLegacyDesktopYpcTrailer, YpcTrailer);
   }
 
   /**
@@ -393,7 +412,7 @@ export default class VideoInfo extends MediaInfo {
           // If the song isn't in the video_lockup, it should be in the info_rows
           song = lookup.video_lockup?.title?.toString();
           // If the video id isn't in the video_lockup, it should be in the info_rows
-          videoId = lookup.video_lockup?.endpoint.payload.videoId;
+          videoId = lookup.video_lockup?.endpoint?.payload.videoId;
           for (let i = 0; i < lookup.info_rows.length; i++) {
             const info_row = lookup.info_rows[i];
             if (info_row.info_row_expand_status_key === undefined) {
