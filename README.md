@@ -2,6 +2,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.4.0-buster
+- Backport from main v1.4.0
+
 1.3.3-buster
 - Backport from main v1.3.3
 
