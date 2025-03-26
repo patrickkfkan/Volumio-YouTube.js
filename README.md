@@ -2,6 +2,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.4.2
+- Merge from YouTube.js v13.3.0 (commiet [9694a48](https://github.com/LuanRT/YouTube.js/commit/9694a48270e75cd83bce03cab26f8ad0451168c2))
+
 1.4.1
 - Check Tab content exists for each possible type
 
