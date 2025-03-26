@@ -1,5 +1,30 @@
 # Changelog
 
+## [13.3.0](https://github.com/LuanRT/YouTube.js/compare/v13.2.0...v13.3.0) (2025-03-25)
+
+
+### Features
+
+* **MusicImmersiveHeader:** Parse buttons and menu ([cbb2535](https://github.com/LuanRT/YouTube.js/commit/cbb2535b2492777b0045be5fcf9bece03fe4f84e))
+
+
+### Bug Fixes
+
+* **Player:** Parse global variable used by nsig/sig ([#935](https://github.com/LuanRT/YouTube.js/issues/935)) ([edfd65f](https://github.com/LuanRT/YouTube.js/commit/edfd65f5e08a9155b8c31d8127a4e309313b39de))
+
+## [13.2.0](https://github.com/LuanRT/YouTube.js/compare/v13.1.0...v13.2.0) (2025-03-20)
+
+
+### Features
+
+* Add AccessibilityContext and CommandContext classes + improve type definitions and parsing logic across multiple nodes ([923e9c2](https://github.com/LuanRT/YouTube.js/commit/923e9c28e34b00841413824d82d10bf644186edc))
+
+
+### Bug Fixes
+
+* **Constants:** Update the iOS client version ([#924](https://github.com/LuanRT/YouTube.js/issues/924)) ([219d88b](https://github.com/LuanRT/YouTube.js/commit/219d88b2005431c6697f04e1fa2c5e8528a9ce57))
+* **Format:** Parse xtags from protobuf to support SABR-only responses ([#909](https://github.com/LuanRT/YouTube.js/issues/909)) ([00c199a](https://github.com/LuanRT/YouTube.js/commit/00c199ac69bc6d7be19aeae04a245f30b64272c2))
+
 ## [13.1.0](https://github.com/LuanRT/YouTube.js/compare/v13.0.0...v13.1.0) (2025-02-21)
 
 
