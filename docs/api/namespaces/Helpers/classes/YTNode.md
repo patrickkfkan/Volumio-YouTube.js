@@ -25,6 +25,7 @@
 - [`AddToPlaylist`](../../YTNodes/classes/AddToPlaylist.md)
 - [`Alert`](../../YTNodes/classes/Alert.md)
 - [`AlertWithButton`](../../YTNodes/classes/AlertWithButton.md)
+- [`AnimatedThumbnailOverlayView`](../../YTNodes/classes/AnimatedThumbnailOverlayView.md)
 - [`AttributionView`](../../YTNodes/classes/AttributionView.md)
 - [`AudioOnlyPlayability`](../../YTNodes/classes/AudioOnlyPlayability.md)
 - [`AutomixPreviewVideo`](../../YTNodes/classes/AutomixPreviewVideo.md)
@@ -87,6 +88,7 @@
 - [`GetKidsBlocklistPickerCommand`](../../YTNodes/classes/GetKidsBlocklistPickerCommand.md)
 - [`RunAttestationCommand`](../../YTNodes/classes/RunAttestationCommand.md)
 - [`ShowDialogCommand`](../../YTNodes/classes/ShowDialogCommand.md)
+- [`UpdateEngagementPanelContentCommand`](../../YTNodes/classes/UpdateEngagementPanelContentCommand.md)
 - [`AuthorCommentBadge`](../../YTNodes/classes/AuthorCommentBadge.md)
 - [`CommentActionButtons`](../../YTNodes/classes/CommentActionButtons.md)
 - [`CommentDialog`](../../YTNodes/classes/CommentDialog.md)
@@ -103,11 +105,13 @@
 - [`EmojiPicker`](../../YTNodes/classes/EmojiPicker.md)
 - [`PdgCommentChip`](../../YTNodes/classes/PdgCommentChip.md)
 - [`SponsorCommentBadge`](../../YTNodes/classes/SponsorCommentBadge.md)
+- [`VoiceReplyContainerView`](../../YTNodes/classes/VoiceReplyContainerView.md)
 - [`CompactChannel`](../../YTNodes/classes/CompactChannel.md)
 - [`CompactLink`](../../YTNodes/classes/CompactLink.md)
 - [`CompactMovie`](../../YTNodes/classes/CompactMovie.md)
 - [`CompactStation`](../../YTNodes/classes/CompactStation.md)
 - [`CompactVideo`](../../YTNodes/classes/CompactVideo.md)
+- [`CompositeVideoPrimaryInfo`](../../YTNodes/classes/CompositeVideoPrimaryInfo.md)
 - [`ConfirmDialog`](../../YTNodes/classes/ConfirmDialog.md)
 - [`ContentMetadataView`](../../YTNodes/classes/ContentMetadataView.md)
 - [`ContentPreviewImageView`](../../YTNodes/classes/ContentPreviewImageView.md)
@@ -124,6 +128,8 @@
 - [`DialogView`](../../YTNodes/classes/DialogView.md)
 - [`DidYouMean`](../../YTNodes/classes/DidYouMean.md)
 - [`DislikeButtonView`](../../YTNodes/classes/DislikeButtonView.md)
+- [`DismissableDialog`](../../YTNodes/classes/DismissableDialog.md)
+- [`DismissableDialogContentSection`](../../YTNodes/classes/DismissableDialogContentSection.md)
 - [`DownloadButton`](../../YTNodes/classes/DownloadButton.md)
 - [`Dropdown`](../../YTNodes/classes/Dropdown.md)
 - [`DropdownItem`](../../YTNodes/classes/DropdownItem.md)
@@ -182,6 +188,7 @@
 - [`GridMix`](../../YTNodes/classes/GridMix.md)
 - [`GridMovie`](../../YTNodes/classes/GridMovie.md)
 - [`GridPlaylist`](../../YTNodes/classes/GridPlaylist.md)
+- [`GridShelfView`](../../YTNodes/classes/GridShelfView.md)
 - [`GridShow`](../../YTNodes/classes/GridShow.md)
 - [`GridVideo`](../../YTNodes/classes/GridVideo.md)
 - [`GuideCollapsibleEntry`](../../YTNodes/classes/GuideCollapsibleEntry.md)
@@ -198,6 +205,7 @@
 - [`HorizontalList`](../../YTNodes/classes/HorizontalList.md)
 - [`HorizontalMovieList`](../../YTNodes/classes/HorizontalMovieList.md)
 - [`HowThisWasMadeSectionView`](../../YTNodes/classes/HowThisWasMadeSectionView.md)
+- [`HypePointsFactoid`](../../YTNodes/classes/HypePointsFactoid.md)
 - [`IconLink`](../../YTNodes/classes/IconLink.md)
 - [`ImageBannerView`](../../YTNodes/classes/ImageBannerView.md)
 - [`IncludingResultsFor`](../../YTNodes/classes/IncludingResultsFor.md)
@@ -270,6 +278,7 @@
 - [`LockupView`](../../YTNodes/classes/LockupView.md)
 - [`MacroMarkersInfoItem`](../../YTNodes/classes/MacroMarkersInfoItem.md)
 - [`MacroMarkersList`](../../YTNodes/classes/MacroMarkersList.md)
+- [`MacroMarkersListEntity`](../../YTNodes/classes/MacroMarkersListEntity.md)
 - [`MacroMarkersListItem`](../../YTNodes/classes/MacroMarkersListItem.md)
 - [`Menu`](../../YTNodes/classes/Menu.md)
 - [`MenuFlexibleItem`](../../YTNodes/classes/MenuFlexibleItem.md)
@@ -335,6 +344,7 @@
 - [`NavigationEndpoint`](../../YTNodes/classes/NavigationEndpoint.md)
 - [`Notification`](../../YTNodes/classes/Notification.md)
 - [`NotificationAction`](../../YTNodes/classes/NotificationAction.md)
+- [`OpenOnePickAddVideoModalCommand`](../../YTNodes/classes/OpenOnePickAddVideoModalCommand.md)
 - [`PageHeader`](../../YTNodes/classes/PageHeader.md)
 - [`PageHeaderView`](../../YTNodes/classes/PageHeaderView.md)
 - [`PageIntroduction`](../../YTNodes/classes/PageIntroduction.md)
@@ -403,6 +413,7 @@
 - [`SearchSuggestion`](../../YTNodes/classes/SearchSuggestion.md)
 - [`SearchSuggestionsSection`](../../YTNodes/classes/SearchSuggestionsSection.md)
 - [`SecondarySearchContainer`](../../YTNodes/classes/SecondarySearchContainer.md)
+- [`SectionHeaderView`](../../YTNodes/classes/SectionHeaderView.md)
 - [`SectionList`](../../YTNodes/classes/SectionList.md)
 - [`SegmentedLikeDislikeButton`](../../YTNodes/classes/SegmentedLikeDislikeButton.md)
 - [`SegmentedLikeDislikeButtonView`](../../YTNodes/classes/SegmentedLikeDislikeButtonView.md)
@@ -445,6 +456,8 @@
 - [`TextHeader`](../../YTNodes/classes/TextHeader.md)
 - [`ThirdPartyShareTargetSection`](../../YTNodes/classes/ThirdPartyShareTargetSection.md)
 - [`ThumbnailBadgeView`](../../YTNodes/classes/ThumbnailBadgeView.md)
+- [`ThumbnailBottomOverlayView`](../../YTNodes/classes/ThumbnailBottomOverlayView.md)
+- [`ThumbnailHoverOverlayToggleActionsView`](../../YTNodes/classes/ThumbnailHoverOverlayToggleActionsView.md)
 - [`ThumbnailHoverOverlayView`](../../YTNodes/classes/ThumbnailHoverOverlayView.md)
 - [`ThumbnailLandscapePortrait`](../../YTNodes/classes/ThumbnailLandscapePortrait.md)
 - [`ThumbnailOverlayBadgeView`](../../YTNodes/classes/ThumbnailOverlayBadgeView.md)
@@ -456,6 +469,7 @@
 - [`ThumbnailOverlayNowPlaying`](../../YTNodes/classes/ThumbnailOverlayNowPlaying.md)
 - [`ThumbnailOverlayPinking`](../../YTNodes/classes/ThumbnailOverlayPinking.md)
 - [`ThumbnailOverlayPlaybackStatus`](../../YTNodes/classes/ThumbnailOverlayPlaybackStatus.md)
+- [`ThumbnailOverlayProgressBarView`](../../YTNodes/classes/ThumbnailOverlayProgressBarView.md)
 - [`ThumbnailOverlayResumePlayback`](../../YTNodes/classes/ThumbnailOverlayResumePlayback.md)
 - [`ThumbnailOverlaySidePanel`](../../YTNodes/classes/ThumbnailOverlaySidePanel.md)
 - [`ThumbnailOverlayTimeStatus`](../../YTNodes/classes/ThumbnailOverlayTimeStatus.md)
@@ -465,6 +479,7 @@
 - [`TitleAndButtonListHeader`](../../YTNodes/classes/TitleAndButtonListHeader.md)
 - [`ToggleButton`](../../YTNodes/classes/ToggleButton.md)
 - [`ToggleButtonView`](../../YTNodes/classes/ToggleButtonView.md)
+- [`ToggleFormField`](../../YTNodes/classes/ToggleFormField.md)
 - [`ToggleMenuServiceItem`](../../YTNodes/classes/ToggleMenuServiceItem.md)
 - [`Tooltip`](../../YTNodes/classes/Tooltip.md)
 - [`TopicChannelDetails`](../../YTNodes/classes/TopicChannelDetails.md)
@@ -536,7 +551,7 @@
 
 #### Defined in
 
-[src/parser/helpers.ts:10](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/helpers.ts#L10)
+[src/parser/helpers.ts:10](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/helpers.ts#L10)
 
 ## Properties
 
@@ -546,7 +561,7 @@
 
 #### Defined in
 
-[src/parser/helpers.ts:8](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/helpers.ts#L8)
+[src/parser/helpers.ts:8](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/helpers.ts#L8)
 
 ***
 
@@ -556,7 +571,7 @@
 
 #### Defined in
 
-[src/parser/helpers.ts:7](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/helpers.ts#L7)
+[src/parser/helpers.ts:7](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/helpers.ts#L7)
 
 ## Methods
 
@@ -590,7 +605,7 @@ If the node is not of the given type
 
 #### Defined in
 
-[src/parser/helpers.ts:38](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/helpers.ts#L38)
+[src/parser/helpers.ts:29](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/helpers.ts#L29)
 
 ***
 
@@ -620,7 +635,7 @@ Whether the node has the key
 
 #### Defined in
 
-[src/parser/helpers.ts:50](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/helpers.ts#L50)
+[src/parser/helpers.ts:41](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/helpers.ts#L41)
 
 ***
 
@@ -650,7 +665,7 @@ whether the node is of the given type
 
 #### Defined in
 
-[src/parser/helpers.ts:28](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/helpers.ts#L28)
+[src/parser/helpers.ts:19](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/helpers.ts#L19)
 
 ***
 
@@ -684,4 +699,4 @@ If the node does not have the key
 
 #### Defined in
 
-[src/parser/helpers.ts:60](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/helpers.ts#L60)
+[src/parser/helpers.ts:51](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/helpers.ts#L51)

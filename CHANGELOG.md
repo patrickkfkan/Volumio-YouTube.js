@@ -1,5 +1,90 @@
 # Changelog
 
+## [15.1.0](https://github.com/LuanRT/YouTube.js/compare/v15.0.1...v15.1.0) (2025-09-11)
+
+
+### Features
+
+* **parser:** Add ListView, ListItemView and SubscribeButtonView ([#1025](https://github.com/LuanRT/YouTube.js/issues/1025)) ([68a6af9](https://github.com/LuanRT/YouTube.js/commit/68a6af9b2c2e4e5a31b2d6f5c5add6c238e5113e))
+* **parser:** Parse badges in ContentMetadataView ([#1017](https://github.com/LuanRT/YouTube.js/issues/1017)) ([aa7cf56](https://github.com/LuanRT/YouTube.js/commit/aa7cf561a7cdec017383b9daa6c9401f08995d4c))
+
+
+### Bug Fixes
+
+* **parser:** LockupMetadataView.image can also be an AvatarStackView ([#1026](https://github.com/LuanRT/YouTube.js/issues/1026)) ([bac8965](https://github.com/LuanRT/YouTube.js/commit/bac896501b9525c28b319301151a0dde93d08ec0))
+* **Player:** Fix global variable extraction in the deciphering code ([#1029](https://github.com/LuanRT/YouTube.js/issues/1029)) ([3ea2815](https://github.com/LuanRT/YouTube.js/commit/3ea2815abac03ae7371e45ae2f2758caf9db2266))
+* **types:** Parser.parseArray always returns an ObservedArray ([#1014](https://github.com/LuanRT/YouTube.js/issues/1014)) ([8be677a](https://github.com/LuanRT/YouTube.js/commit/8be677adec6631be557c95adc8f687e5d01b4fdf))
+
+
+### Performance Improvements
+
+* Replace uses of ObservableArray#get with Array#find ([#1013](https://github.com/LuanRT/YouTube.js/issues/1013)) ([95976de](https://github.com/LuanRT/YouTube.js/commit/95976de115587d8f266bc44355440835f3b2b02f))
+
+## [15.0.1](https://github.com/LuanRT/YouTube.js/compare/v15.0.0...v15.0.1) (2025-07-22)
+
+
+### Bug Fixes
+
+* **Innertube:** Handle redirects in getChannel() ([#1002](https://github.com/LuanRT/YouTube.js/issues/1002)) ([cb87cc1](https://github.com/LuanRT/YouTube.js/commit/cb87cc1cae43b75ea31f984a9c6939097d58dd6f))
+
+## [15.0.0](https://github.com/LuanRT/YouTube.js/compare/v14.0.0...v15.0.0) (2025-07-18)
+
+
+### ⚠ BREAKING CHANGES
+
+* Drop support for CommonJS
+* **Innertube:** The second parameters of `Innertube.getInfo()` and `Innertube.getBasicInfo()` have changed to an object, that means that `Innertube.getInfo('jNQXAC9IVRw', 'MWEB')` becomes `Innertube.getInfo('jNQXAC9IVRw', { client: 'MWEB' })` and `Innertube.getBasicInfo('jNQXAC9IVRw', 'MWEB')` becomes `Innertube.getBasicInfo('jNQXAC9IVRw', { client: 'MWEB' })`. The same applies to the `getInfo` method in the `Music` and `Kids` client classes.
+
+### Features
+
+* **CommentsView:** parse `voice_reply_transcript` ([#981](https://github.com/LuanRT/YouTube.js/issues/981)) ([d6f13e2](https://github.com/LuanRT/YouTube.js/commit/d6f13e20ac6806e7a97dc8c3bd6bb947be6fd76c))
+* **DashManifest:** Add DRM infos to MPD ([7ae4ccf](https://github.com/LuanRT/YouTube.js/commit/7ae4ccf70ad78bac7d6421d94df529f8f79a13f3))
+* **Innertube:** Add `GetVideoInfoOptions` to support content bound PoTokens ([#994](https://github.com/LuanRT/YouTube.js/issues/994)) ([b6386e4](https://github.com/LuanRT/YouTube.js/commit/b6386e40274432591a9063059e8b688da0d26c38))
+* **parser-classes:** Add `CompositeVideoPrimaryInfo` parser class ([#984](https://github.com/LuanRT/YouTube.js/issues/984)) ([6386976](https://github.com/LuanRT/YouTube.js/commit/638697696f54482c5270b0d11d1a7a33b5cd902a))
+* **Parser:** Add `DismissableDialog` and `DismissableDialogContentSection` nodes ([#997](https://github.com/LuanRT/YouTube.js/issues/997)) ([e94ef37](https://github.com/LuanRT/YouTube.js/commit/e94ef3748e6a38f192d79e5f12165933c6e6dc94))
+* **Parser:** Add `HypePointsFactoid` node ([0091f51](https://github.com/LuanRT/YouTube.js/commit/0091f51dd2691dd1031896dd52c989426534dae8))
+* **Parser:** Add `SectionHeaderView` and `GridShelfView` ([#988](https://github.com/LuanRT/YouTube.js/issues/988)) ([bc386db](https://github.com/LuanRT/YouTube.js/commit/bc386db6bad4040580b85ce64a39a30d9a04cb38))
+* **Parser:** Add `ToggleFormField` node ([#902](https://github.com/LuanRT/YouTube.js/issues/902)) ([42bcf19](https://github.com/LuanRT/YouTube.js/commit/42bcf197bc8b3117e40d8f61300a97332e4963ba))
+
+
+### Bug Fixes
+
+* **Artist:** `getAllSongs` not finding target shelf ([#999](https://github.com/LuanRT/YouTube.js/issues/999)) ([64f9955](https://github.com/LuanRT/YouTube.js/commit/64f995585fd0ee908bdc5404929996e9a5e5c3c9))
+* **Channel:** Use new URL for community tab ([#986](https://github.com/LuanRT/YouTube.js/issues/986)) ([dfaf150](https://github.com/LuanRT/YouTube.js/commit/dfaf1501c93e29bd27a5553df0ee5b46d490ac12))
+* **Innertube#getPost:** Update protobuf schema ([#987](https://github.com/LuanRT/YouTube.js/issues/987)) ([e9d6483](https://github.com/LuanRT/YouTube.js/commit/e9d6483e5a3c53efab6e29083e32f9a2e238bedc))
+* Make "deno" conditional export have higher precedence than "node" ([#983](https://github.com/LuanRT/YouTube.js/issues/983)) ([2996ebb](https://github.com/LuanRT/YouTube.js/commit/2996ebb334d98cfde72243c233366285db945d02))
+* **MediaInfo:** Remove unused parameters from `toDash` method ([3fcf987](https://github.com/LuanRT/YouTube.js/commit/3fcf987aecbb43ed16aa4d29a2d66c3c4ef15175))
+* **Session:** Incorrect session client logic ([76504c0](https://github.com/LuanRT/YouTube.js/commit/76504c0d0875228299dddf24bd550ed2a5e4244f))
+
+
+### Code Refactoring
+
+* Drop support for CommonJS ([d134fd2](https://github.com/LuanRT/YouTube.js/commit/d134fd2e9e1b27aebd1095562cd5c5da32cbf6d8))
+
+## [14.0.0](https://github.com/LuanRT/YouTube.js/compare/v13.4.0...v14.0.0) (2025-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* **StreamingInfoOptions:** Add `is_sabr` option ([#974](https://github.com/LuanRT/YouTube.js/issues/974))
+
+### Features
+
+* Add `TV_SIMPLY` client ([8cf6581](https://github.com/LuanRT/YouTube.js/commit/8cf658151fc4e4266fadfb7e53dd5db3db693355))
+* **MediaInfo:** Add `updateWatchTime` ([#874](https://github.com/LuanRT/YouTube.js/issues/874)) ([065e9a4](https://github.com/LuanRT/YouTube.js/commit/065e9a4e7c3fee90f68d06992cf979338f8e3aba))
+* **StreamingInfoOptions:** Add `is_sabr` option ([#974](https://github.com/LuanRT/YouTube.js/issues/974)) ([561e60b](https://github.com/LuanRT/YouTube.js/commit/561e60b934df29520eb0bd83a98e42fa4d7d35bb))
+* **VideoInfo:** implement `MacroMarkersListEntity` parser for heatmap ([#973](https://github.com/LuanRT/YouTube.js/issues/973)) ([876e94a](https://github.com/LuanRT/YouTube.js/commit/876e94ad03398f546ef7942deb9ba5eb8baa6c6d))
+
+
+### Bug Fixes
+
+* add missing `TV_SIMPLY` parts on some files ([#975](https://github.com/LuanRT/YouTube.js/issues/975)) ([689fb0b](https://github.com/LuanRT/YouTube.js/commit/689fb0b90edab6f0e4326a35144541d68f72fe01))
+* **Constants:** Add `TVHTML5_SIMPLY` to `CLIENT_NAME_IDS` ([b15f623](https://github.com/LuanRT/YouTube.js/commit/b15f623dab3acb44eaef33175df2d22d35be2979))
+* **getBasicInfo:** Add racyCheckOk and contentCheckOk to payload ([#961](https://github.com/LuanRT/YouTube.js/issues/961)) ([0f1fd72](https://github.com/LuanRT/YouTube.js/commit/0f1fd7223c2e5c8e28637e84a1c00c6d88fad50f))
+* Handle CommandExecutorCommand in NavigationEndpoint.call ([#968](https://github.com/LuanRT/YouTube.js/issues/968)) ([698121a](https://github.com/LuanRT/YouTube.js/commit/698121ab8f62fbed6e78892277caf93a9890b930))
+* **Innertube:** Properly encoded params in getPostComments() ([#955](https://github.com/LuanRT/YouTube.js/issues/955)) ([92b8623](https://github.com/LuanRT/YouTube.js/commit/92b8623374a126d60604a54fa4be67b460ddc5e3))
+* **Session:** Initialize client version based on provided client name ([#971](https://github.com/LuanRT/YouTube.js/issues/971)) ([bb022e8](https://github.com/LuanRT/YouTube.js/commit/bb022e8285e0bf2dfa709e7401b80f9de18833e1))
+
 ## [13.4.0](https://github.com/LuanRT/YouTube.js/compare/v13.3.0...v13.4.0) (2025-04-23)
 
 

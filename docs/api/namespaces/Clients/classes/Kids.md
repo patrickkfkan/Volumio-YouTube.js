@@ -18,7 +18,7 @@
 
 #### Defined in
 
-[src/core/clients/Kids.ts:12](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/clients/Kids.ts#L12)
+[src/core/clients/Kids.ts:12](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/clients/Kids.ts#L12)
 
 ## Methods
 
@@ -43,7 +43,7 @@ A list of API responses.
 
 #### Defined in
 
-[src/core/clients/Kids.ts:73](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/clients/Kids.ts#L73)
+[src/core/clients/Kids.ts:79](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/clients/Kids.ts#L79)
 
 ***
 
@@ -61,7 +61,7 @@ A list of API responses.
 
 #### Defined in
 
-[src/core/clients/Kids.ts:55](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/clients/Kids.ts#L55)
+[src/core/clients/Kids.ts:61](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/clients/Kids.ts#L61)
 
 ***
 
@@ -75,17 +75,19 @@ A list of API responses.
 
 #### Defined in
 
-[src/core/clients/Kids.ts:61](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/clients/Kids.ts#L61)
+[src/core/clients/Kids.ts:67](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/clients/Kids.ts#L67)
 
 ***
 
 ### getInfo()
 
-> **getInfo**(`video_id`): `Promise`\<[`VideoInfo`](../../YTKids/classes/VideoInfo.md)\>
+> **getInfo**(`video_id`, `options`?): `Promise`\<[`VideoInfo`](../../YTKids/classes/VideoInfo.md)\>
 
 #### Parameters
 
 • **video\_id**: `string`
+
+• **options?**: `Omit`\<[`GetVideoInfoOptions`](../../Types/interfaces/GetVideoInfoOptions.md), `"client"`\>
 
 #### Returns
 
@@ -93,7 +95,7 @@ A list of API responses.
 
 #### Defined in
 
-[src/core/clients/Kids.ts:22](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/clients/Kids.ts#L22)
+[src/core/clients/Kids.ts:22](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/clients/Kids.ts#L22)
 
 ***
 
@@ -111,4 +113,4 @@ A list of API responses.
 
 #### Defined in
 
-[src/core/clients/Kids.ts:16](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/clients/Kids.ts#L16)
+[src/core/clients/Kids.ts:16](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/clients/Kids.ts#L16)

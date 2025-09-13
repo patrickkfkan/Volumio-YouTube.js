@@ -32,12 +32,6 @@ Re-exports [ContinuationRequest](namespaces/APIResponseTypes/type-aliases/Contin
 
 ***
 
-### CpnSource
-
-Re-exports [CpnSource](namespaces/APIResponseTypes/type-aliases/CpnSource.md)
-
-***
-
 ### CreateCommentRequest
 
 Re-exports [CreateCommentRequest](namespaces/APIResponseTypes/type-aliases/CreateCommentRequest.md)
@@ -206,21 +200,9 @@ Re-exports [IResolveURLResponse](namespaces/APIResponseTypes/type-aliases/IResol
 
 ***
 
-### IResponseContext
-
-Re-exports [IResponseContext](namespaces/APIResponseTypes/interfaces/IResponseContext.md)
-
-***
-
 ### ISearchResponse
 
 Re-exports [ISearchResponse](namespaces/APIResponseTypes/type-aliases/ISearchResponse.md)
-
-***
-
-### IServiceTrackingParams
-
-Re-exports [IServiceTrackingParams](namespaces/APIResponseTypes/interfaces/IServiceTrackingParams.md)
 
 ***
 
@@ -345,6 +327,7 @@ Re-exports [WatchRequest](namespaces/APIResponseTypes/type-aliases/WatchRequest.
 ## Namespaces
 
 - [APIResponseTypes](namespaces/APIResponseTypes/README.md)
+- [BinarySerializer](namespaces/BinarySerializer/README.md)
 - [Clients](namespaces/Clients/README.md)
 - [Constants](namespaces/Constants/README.md)
 - [FormatUtils](namespaces/FormatUtils/README.md)

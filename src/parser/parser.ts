@@ -1,10 +1,11 @@
 import * as YTNodes from './nodes.js';
-import { InnertubeError, ParsingError, Platform } from '../utils/Utils.js';
+import { InnertubeError, ParsingError } from '../utils/Utils.js';
 import type { ObservedArray, YTNode, YTNodeConstructor } from './helpers.js';
 import { Memo, observe, SuperParsedResult } from './helpers.js';
 import type { KeyInfo } from './generator.js';
 import { camelToSnake, generateRuntimeClass, generateTypescriptClass } from './generator.js';
 import { Log } from '../utils/index.js';
+import packageInfo from '../../package.json' with { type: 'json' };
 
 import {
   Continuation,
@@ -32,6 +33,7 @@ import Alert from './classes/Alert.js';
 import AlertWithButton from './classes/AlertWithButton.js';
 import EngagementPanelSectionList from './classes/EngagementPanelSectionList.js';
 import MusicMultiSelectMenuItem from './classes/menus/MusicMultiSelectMenuItem.js';
+import MacroMarkersListEntity from './classes/MacroMarkersListEntity.js';
 import Format from './classes/misc/Format.js';
 import VideoDetails from './classes/misc/VideoDetails.js';
 import NavigationEndpoint from './classes/NavigationEndpoint.js';
@@ -101,7 +103,7 @@ let ERROR_HANDLER: ParserErrorHandler = ({ classname, ...context }: ParserError)
         Log.warn(TAG,
           new InnertubeError(
             `Something went wrong at ${classname}!\n` +
-            `This is a bug, please report it at ${Platform.shim.info.bugs_url}`, {
+            `This is a bug, please report it at ${packageInfo.bugs.url}`, {
               stack: context.error.stack,
               classdata: JSON.stringify(context.classdata, null, 2)
             }
@@ -121,7 +123,7 @@ let ERROR_HANDLER: ParserErrorHandler = ({ classname, ...context }: ParserError)
       Log.warn(TAG,
         new InnertubeError(
           `Mutation data required for processing ${classname}, but none found.\n` +
-          `This is a bug, please report it at ${Platform.shim.info.bugs_url}`
+          `This is a bug, please report it at ${packageInfo.bugs.url}`
         )
       );
       break;
@@ -130,7 +132,7 @@ let ERROR_HANDLER: ParserErrorHandler = ({ classname, ...context }: ParserError)
         new InnertubeError(
           `Mutation data missing or invalid for ${context.failed} out of ${context.total} MusicMultiSelectMenuItems. ` +
           `The titles of the failed items are: ${context.titles.join(', ')}.\n` +
-          `This is a bug, please report it at ${Platform.shim.info.bugs_url}`
+          `This is a bug, please report it at ${packageInfo.bugs.url}`
         )
       );
       break;
@@ -138,7 +140,7 @@ let ERROR_HANDLER: ParserErrorHandler = ({ classname, ...context }: ParserError)
       Log.warn(TAG,
         new InnertubeError(
           `${classname} not found!\n` +
-          `This is a bug, want to help us fix it? Follow the instructions at ${Platform.shim.info.repo_url}/blob/main/docs/updating-the-parser.md or report it at ${Platform.shim.info.bugs_url}!\n` +
+          `This is a bug, want to help us fix it? Follow the instructions at ${packageInfo.homepage.split('#', 1)[0]}/blob/main/docs/updating-the-parser.md or report it at ${packageInfo.bugs.url}!\n` +
           `Introspected and JIT generated this class in the meantime:\n${generateTypescriptClass(classname, context.key_info)}`
         )
       );
@@ -813,6 +815,24 @@ export function applyMutations(memo: Memo, mutations: RawNode[]) {
       });
     }
   }
+
+  // Apply mutations to MacroMarkersListEntity
+  if (mutations) {
+    const heat_map_mutations = mutations.filter((mutation) =>
+      mutation.payload?.macroMarkersListEntity &&
+      mutation.payload.macroMarkersListEntity.markersList?.markerType === 'MARKER_TYPE_HEATMAP'
+    );
+
+    for (const mutation of heat_map_mutations) {
+      const macro_markers_entity = new MacroMarkersListEntity(mutation.payload.macroMarkersListEntity);
+      const list = memo.get('MacroMarkersListEntity');
+      if (!list) {
+        memo.set('MacroMarkersListEntity', [ macro_markers_entity ]);
+      } else {
+        list.push(macro_markers_entity);
+      }
+    }
+  }
 }
 
 export function applyCommentsMutations(memo: Memo, mutations: RawNode[]) {
@@ -838,7 +858,11 @@ export function applyCommentsMutations(memo: Memo, mutations: RawNode[]) {
       const engagement_toolbar = mutations.find((mutation) => mutation.entityKey === comment_view.keys.toolbar_surface)
         ?.payload?.engagementToolbarSurfaceEntityPayload;
 
-      comment_view.applyMutations(comment_mutation, toolbar_state_mutation, engagement_toolbar);
+      const comment_surface_mutation = mutations
+        .find((mutation) => mutation.payload?.commentSurfaceEntityPayload?.key === comment_view.keys.comment_surface)
+        ?.payload?.commentSurfaceEntityPayload;
+
+      comment_view.applyMutations(comment_mutation, toolbar_state_mutation, engagement_toolbar, comment_surface_mutation);
     }
   }
 }

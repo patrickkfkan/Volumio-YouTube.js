@@ -1,4 +1,5 @@
 import Session from './core/Session.js';
+
 import { Kids, Music, Studio } from './core/clients/index.js';
 import { AccountManager, InteractionManager, PlaylistManager } from './core/managers/index.js';
 import { Feed, TabbedFeed } from './core/mixins/index.js';
@@ -16,10 +17,11 @@ import {
   Search,
   VideoInfo
 } from './parser/youtube/index.js';
-
 import { ShortFormVideoInfo } from './parser/ytshorts/index.js';
 
+import { NavigateAction } from './parser/continuations.js';
 import NavigationEndpoint from './parser/classes/NavigationEndpoint.js';
+import type Format from './parser/classes/misc/Format.js';
 
 import * as Constants from './utils/Constants.js';
 import { generateRandomString, InnertubeError, throwIfMissing, u8ToBase64 } from './utils/Utils.js';
@@ -29,12 +31,12 @@ import type {
   DownloadOptions,
   EngagementType,
   FormatOptions,
+  GetVideoInfoOptions,
   InnerTubeClient,
   InnerTubeConfig,
   SearchFilters
 } from './types/index.js';
 import type { IBrowseResponse, IParsedResponse } from './parser/index.js';
-import type Format from './parser/classes/misc/Format.js';
 
 import {
   CommunityPostCommentsParam,
@@ -70,7 +72,7 @@ export default class Innertube {
     return new Innertube(await Session.create(config));
   }
 
-  async getInfo(target: string | NavigationEndpoint, client?: InnerTubeClient): Promise<VideoInfo> {
+  async getInfo(target: string | NavigationEndpoint, options?: GetVideoInfoOptions): Promise<VideoInfo> {
     throwIfMissing({ target });
 
     const payload = {
@@ -96,10 +98,14 @@ export default class Innertube {
           signatureTimestamp: session.player?.sts
         }
       },
-      client
+      client: options?.client
     };
 
-    if (session.po_token) {
+    if (options?.po_token) {
+      extra_payload.serviceIntegrityDimensions = {
+        poToken: options.po_token
+      };
+    } else if (session.po_token) {
       extra_payload.serviceIntegrityDimensions = {
         poToken: session.po_token
       };
@@ -115,7 +121,7 @@ export default class Innertube {
     return new VideoInfo(response, session.actions, cpn);
   }
 
-  async getBasicInfo(video_id: string, client?: InnerTubeClient): Promise<VideoInfo> {
+  async getBasicInfo(video_id: string, options?: GetVideoInfoOptions): Promise<VideoInfo> {
     throwIfMissing({ video_id });
 
     const watch_endpoint = new NavigationEndpoint({
@@ -137,10 +143,14 @@ export default class Innertube {
           signatureTimestamp: session.player?.sts
         }
       },
-      client
+      client: options?.client  
     };
 
-    if (session.po_token) {
+    if (options?.po_token) {
+      extra_payload.serviceIntegrityDimensions = {
+        poToken: options.po_token
+      };
+    } else if (session.po_token) {
       extra_payload.serviceIntegrityDimensions = {
         poToken: session.po_token
       };
@@ -381,8 +391,13 @@ export default class Innertube {
   async getChannel(id: string): Promise<Channel> {
     throwIfMissing({ id });
     const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: id } });
-    const response = await browse_endpoint.call(this.#session.actions);
-    return new Channel(this.actions, response);
+    let response = await browse_endpoint.call<IBrowseResponse>(this.#session.actions, { parse: true });
+
+    if (response.on_response_received_actions?.[0].is(NavigateAction)) {
+      response = await response.on_response_received_actions[0].endpoint.call<IBrowseResponse>(this.#session.actions, { parse: true });
+    }
+
+    return new Channel(this.actions, response, true);
   }
 
   async getNotifications(): Promise<NotificationsMenu> {
@@ -445,7 +460,7 @@ export default class Innertube {
    * @param options - Format options.
    */
   async getStreamingData(video_id: string, options: FormatOptions = {}): Promise<Format> {
-    const info = await this.getBasicInfo(video_id, options?.client);
+    const info = await this.getBasicInfo(video_id, options);
 
     const format = info.chooseFormat(options);
     format.url = format.decipher(this.#session.player);
@@ -460,7 +475,7 @@ export default class Innertube {
    * @param options - Download options.
    */
   async download(video_id: string, options?: DownloadOptions): Promise<ReadableStream<Uint8Array>> {
-    const info = await this.getBasicInfo(video_id, options?.client);
+    const info = await this.getBasicInfo(video_id, options);
     return info.download(options);
   }
 
@@ -482,19 +497,16 @@ export default class Innertube {
   async getPost(post_id: string, channel_id: string) : Promise<Feed<IBrowseResponse>> {
     throwIfMissing({ post_id, channel_id });
     const writer = CommunityPostParams.encode({
-      f0: 'community',
       f1: {
-        postId: post_id
-      },
-      f2: {
-        p1: 1,
-        p2: 1 
+        ucid1: channel_id,
+        postId: post_id,
+        ucid2: channel_id
       }
     });
 
     const params = encodeURIComponent(u8ToBase64(writer.finish()).replace(/\+/g, '-').replace(/\//g, '_'));
 
-    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: channel_id, params: params } });
+    const browse_endpoint = new NavigationEndpoint({ browseEndpoint: { browseId: 'FEpost_detail', params: params } });
 
     const response = await browse_endpoint.call(this.#session.actions, { parse: true });
     return new Feed(this.actions, response);
@@ -512,22 +524,17 @@ export default class Innertube {
     };
 
     const writer1 = CommunityPostCommentsParam.encode({
-      title: 'community',
-      postContainer: {
-        postId: post_id
-      },
-      f0: {
-        f0: 1,
-        f1: 1
-      },
+      title: 'posts',
       commentDataContainer: {
         title: 'comments-section',
         commentData: {
           sortBy: SORT_OPTIONS[sort_by || 'TOP_COMMENTS'],
-          f0: 1,
+          f0: 2,
+          f1: 0,
           channelId: channel_id,
           postId: post_id
-        }
+        },
+        f0: 0
       }
     });
 

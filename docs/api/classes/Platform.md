@@ -24,7 +24,7 @@
 
 #### Defined in
 
-[src/utils/Utils.ts:19](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/utils/Utils.ts#L19)
+[src/utils/Utils.ts:22](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/utils/Utils.ts#L22)
 
 ## Methods
 
@@ -42,4 +42,4 @@
 
 #### Defined in
 
-[src/utils/Utils.ts:16](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/utils/Utils.ts#L16)
+[src/utils/Utils.ts:18](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/utils/Utils.ts#L18)

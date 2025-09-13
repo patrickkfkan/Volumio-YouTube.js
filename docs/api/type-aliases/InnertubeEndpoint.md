@@ -6,4 +6,4 @@
 
 ## Defined in
 
-[src/core/Actions.ts:24](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/Actions.ts#L24)
+[src/core/Actions.ts:24](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/Actions.ts#L24)

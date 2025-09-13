@@ -20,7 +20,23 @@ InnerTube client.
 
 #### Defined in
 
-[src/types/FormatUtils.ts:27](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/types/FormatUtils.ts#L27)
+[src/types/GetVideoInfoOptions.ts:7](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/GetVideoInfoOptions.ts#L7)
+
+***
+
+### codec?
+
+> `optional` **codec**: `string`
+
+Video or audio codec, e.g. 'avc', 'vp9', 'av01' for video, 'opus', 'mp4a' for audio
+
+#### Inherited from
+
+[`FormatOptions`](FormatOptions.md).[`codec`](FormatOptions.md#codec)
+
+#### Defined in
+
+[src/types/FormatUtils.ts:31](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/FormatUtils.ts#L31)
 
 ***
 
@@ -36,7 +52,23 @@ File format, use 'any' to download any format
 
 #### Defined in
 
-[src/types/FormatUtils.ts:23](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/types/FormatUtils.ts#L23)
+[src/types/FormatUtils.ts:27](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/FormatUtils.ts#L27)
+
+***
+
+### itag?
+
+> `optional` **itag**: `number`
+
+Video or audio itag
+
+#### Inherited from
+
+[`FormatOptions`](FormatOptions.md).[`itag`](FormatOptions.md#itag)
+
+#### Defined in
+
+[src/types/FormatUtils.ts:11](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/FormatUtils.ts#L11)
 
 ***
 
@@ -52,7 +84,24 @@ Language code, defaults to 'original'.
 
 #### Defined in
 
-[src/types/FormatUtils.ts:19](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/types/FormatUtils.ts#L19)
+[src/types/FormatUtils.ts:23](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/FormatUtils.ts#L23)
+
+***
+
+### po\_token?
+
+> `optional` **po\_token**: `string`
+
+Proof of Origin token, bound to the video ID being requested.
+If not provided, session bound token will be used.
+
+#### Inherited from
+
+[`FormatOptions`](FormatOptions.md).[`po_token`](FormatOptions.md#po_token)
+
+#### Defined in
+
+[src/types/GetVideoInfoOptions.ts:12](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/GetVideoInfoOptions.ts#L12)
 
 ***
 
@@ -68,7 +117,7 @@ Video quality; 360p, 720p, 1080p, etc... also accepts 'best' and 'bestefficiency
 
 #### Defined in
 
-[src/types/FormatUtils.ts:11](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/types/FormatUtils.ts#L11)
+[src/types/FormatUtils.ts:15](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/FormatUtils.ts#L15)
 
 ***
 
@@ -88,7 +137,7 @@ Download range, indicates which bytes should be downloaded.
 
 #### Defined in
 
-[src/types/FormatUtils.ts:34](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/types/FormatUtils.ts#L34)
+[src/types/FormatUtils.ts:38](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/FormatUtils.ts#L38)
 
 ***
 
@@ -104,4 +153,4 @@ Download type, can be: video, audio or video+audio
 
 #### Defined in
 
-[src/types/FormatUtils.ts:15](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/types/FormatUtils.ts#L15)
+[src/types/FormatUtils.ts:19](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/types/FormatUtils.ts#L19)

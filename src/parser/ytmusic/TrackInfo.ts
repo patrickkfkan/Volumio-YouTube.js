@@ -48,7 +48,7 @@ class TrackInfo extends MediaInfo {
       throw new InnertubeError('Could not find any tab');
 
     const target_tab =
-      this.tabs.get({ title: title_or_page_type }) ||
+      this.tabs.find((tab) => tab.title === title_or_page_type) ||
       this.tabs.find((tab) => tab.endpoint.payload.browseEndpointContextSupportedConfigs?.browseEndpointContextMusicConfig?.pageType === title_or_page_type) ||
       this.tabs?.[0];
 
@@ -143,6 +143,13 @@ class TrackInfo extends MediaInfo {
    */
   async addToWatchHistory(): Promise<Response> {
     return super.addToWatchHistory(Constants.CLIENTS.YTMUSIC.NAME, Constants.CLIENTS.YTMUSIC.VERSION, 'https://music.');
+  }
+  
+  /**
+   * Updates the watch time of the song.
+   */
+  async updateWatchTime(startTime: number): Promise<Response> {
+    return super.updateWatchTime(startTime, Constants.CLIENTS.YTMUSIC.NAME, Constants.CLIENTS.YTMUSIC.VERSION, 'https://music.');
   }
 
   get available_tabs(): string[] {

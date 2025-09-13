@@ -1,6 +1,6 @@
-import { Innertube, YT, YTMusic, YTNodes } from '../bundle/node.cjs';
+import { describe, expect, beforeAll, test } from 'vitest';
 
-jest.useRealTimers();
+import { Innertube, YT, YTMusic, YTNodes } from '../dist/src/platform/node.js';
 
 describe('YouTube.js Tests', () => {
   let innertube: Innertube;
@@ -98,7 +98,7 @@ describe('YouTube.js Tests', () => {
       let comments: YT.Comments;
 
       beforeAll(async () => {
-        comments = await innertube.getComments('bUHZ2k9DYHY');
+        comments = await innertube.getComments('OGbhJjXl9Rk');
         expect(comments).toBeDefined();
         expect(comments.header).toBeDefined();
         expect(comments.contents).toBeDefined();
@@ -336,12 +336,8 @@ describe('YouTube.js Tests', () => {
       expect(upNext.playlist_id).toBe("PLQxo8OvVvJ1WI_Bp67F2wdIl_R2Rc_1-u");
     });
 
-    test('Innertube#music.getInfo.NavEndpoint.getUpNextContinuation', async () => {
-      // Fetch some video from Homepage
-      const home = await innertube.music.getHomeFeed()
-      const homeItemFirst = home.sections!.first().as(YTNodes.MusicCarouselShelf).contents[0].as(YTNodes.MusicResponsiveListItem)
-      
-      const info = await innertube.music.getInfo(homeItemFirst.id ?? homeItemFirst.endpoint!)
+    test('Innertube#music.getInfo.getUpNextContinuation', async () => {
+      const info = await innertube.music.getInfo('sOa4VVlI9tE');
       expect(info).toBeDefined();
       
       const upNext = await info.getUpNext();

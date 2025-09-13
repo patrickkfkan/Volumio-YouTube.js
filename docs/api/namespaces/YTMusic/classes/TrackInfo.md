@@ -30,7 +30,7 @@
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:27](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L27)
+[src/parser/ytmusic/TrackInfo.ts:27](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L27)
 
 ## Properties
 
@@ -44,7 +44,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:40](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L40)
+[src/core/mixins/MediaInfo.ts:40](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L40)
 
 ***
 
@@ -190,7 +190,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:39](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L39)
+[src/core/mixins/MediaInfo.ts:39](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L39)
 
 ***
 
@@ -204,7 +204,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:43](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L43)
+[src/core/mixins/MediaInfo.ts:43](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L43)
 
 ***
 
@@ -218,7 +218,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:44](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L44)
+[src/core/mixins/MediaInfo.ts:44](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L44)
 
 ***
 
@@ -228,7 +228,7 @@
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:24](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L24)
+[src/parser/ytmusic/TrackInfo.ts:24](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L24)
 
 ***
 
@@ -242,7 +242,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:42](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L42)
+[src/core/mixins/MediaInfo.ts:42](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L42)
 
 ***
 
@@ -256,7 +256,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:46](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L46)
+[src/core/mixins/MediaInfo.ts:46](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L46)
 
 ***
 
@@ -270,7 +270,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:47](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L47)
+[src/core/mixins/MediaInfo.ts:47](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L47)
 
 ***
 
@@ -280,7 +280,7 @@
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:25](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L25)
+[src/parser/ytmusic/TrackInfo.ts:25](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L25)
 
 ***
 
@@ -294,7 +294,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:41](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L41)
+[src/core/mixins/MediaInfo.ts:41](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L41)
 
 ***
 
@@ -308,7 +308,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:45](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L45)
+[src/core/mixins/MediaInfo.ts:45](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L45)
 
 ***
 
@@ -318,7 +318,7 @@
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:23](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L23)
+[src/parser/ytmusic/TrackInfo.ts:23](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L23)
 
 ## Accessors
 
@@ -336,7 +336,7 @@
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:227](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L227)
+[src/core/mixins/MediaInfo.ts:247](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L247)
 
 ***
 
@@ -350,7 +350,7 @@
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:148](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L148)
+[src/parser/ytmusic/TrackInfo.ts:155](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L155)
 
 ***
 
@@ -370,7 +370,7 @@ Content Playback Nonce.
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:234](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L234)
+[src/core/mixins/MediaInfo.ts:254](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L254)
 
 ***
 
@@ -390,7 +390,7 @@ Parsed InnerTube response.
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:241](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L241)
+[src/core/mixins/MediaInfo.ts:261](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L261)
 
 ## Methods
 
@@ -410,7 +410,7 @@ Adds the song to the watch history.
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:144](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L144)
+[src/parser/ytmusic/TrackInfo.ts:144](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L144)
 
 ***
 
@@ -436,7 +436,7 @@ Options
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:158](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L158)
+[src/core/mixins/MediaInfo.ts:161](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L161)
 
 ***
 
@@ -462,7 +462,7 @@ Download options.
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:166](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L166)
+[src/core/mixins/MediaInfo.ts:169](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L169)
 
 ***
 
@@ -478,7 +478,7 @@ Retrieves lyrics.
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:136](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L136)
+[src/parser/ytmusic/TrackInfo.ts:136](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L136)
 
 ***
 
@@ -494,7 +494,7 @@ Retrieves related content.
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:129](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L129)
+[src/parser/ytmusic/TrackInfo.ts:129](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L129)
 
 ***
 
@@ -520,7 +520,7 @@ Get a cleaned up representation of the adaptive_formats
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:141](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L141)
+[src/core/mixins/MediaInfo.ts:144](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L144)
 
 ***
 
@@ -540,7 +540,7 @@ Retrieves contents of the given tab.
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:46](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L46)
+[src/parser/ytmusic/TrackInfo.ts:46](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L46)
 
 ***
 
@@ -560,7 +560,7 @@ Retrieves the video's transcript.
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:179](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L179)
+[src/core/mixins/MediaInfo.ts:182](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L182)
 
 ***
 
@@ -580,7 +580,7 @@ Retrieves up next.
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:75](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L75)
+[src/parser/ytmusic/TrackInfo.ts:75](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L75)
 
 ***
 
@@ -592,7 +592,7 @@ Retrieves up next continuation relative to current TrackInfo.
 
 #### Parameters
 
-• **playlistPanel**: [`PlaylistPanelContinuation`](../../../classes/PlaylistPanelContinuation.md) \| [`PlaylistPanel`](../../YTNodes/classes/PlaylistPanel.md)
+• **playlistPanel**: [`PlaylistPanel`](../../YTNodes/classes/PlaylistPanel.md) \| [`PlaylistPanelContinuation`](../../../classes/PlaylistPanelContinuation.md)
 
 #### Returns
 
@@ -600,29 +600,25 @@ Retrieves up next continuation relative to current TrackInfo.
 
 #### Defined in
 
-[src/parser/ytmusic/TrackInfo.ts:107](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/parser/ytmusic/TrackInfo.ts#L107)
+[src/parser/ytmusic/TrackInfo.ts:107](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L107)
 
 ***
 
 ### toDash()
 
-> **toDash**(`url_transformer`?, `format_filter`?, `options`?): `Promise`\<`string`\>
+> **toDash**(`options`): `Promise`\<`string`\>
 
 Generates a DASH manifest from the streaming data.
 
 #### Parameters
 
-• **url\_transformer?**: [`URLTransformer`](../../Types/type-aliases/URLTransformer.md)
+• **options** = `{}`
 
-Function to transform the URLs.
+• **options.format\_filter?**: [`FormatFilter`](../../Types/type-aliases/FormatFilter.md)
 
-• **format\_filter?**: [`FormatFilter`](../../Types/type-aliases/FormatFilter.md)
+• **options.manifest\_options?**: `DashOptions`
 
-Function to filter the formats.
-
-• **options?**: `DashOptions` = `...`
-
-Additional options to customise the manifest generation
+• **options.url\_transformer?**: [`URLTransformer`](../../Types/type-aliases/URLTransformer.md)
 
 #### Returns
 
@@ -636,4 +632,28 @@ DASH manifest
 
 #### Defined in
 
-[src/core/mixins/MediaInfo.ts:106](https://github.com/LuanRT/YouTube.js/blob/e54e499ff553dab51e6d9d1aebc090b50fec29ba/src/core/mixins/MediaInfo.ts#L106)
+[src/core/mixins/MediaInfo.ts:104](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/core/mixins/MediaInfo.ts#L104)
+
+***
+
+### updateWatchTime()
+
+> **updateWatchTime**(`startTime`): `Promise`\<`Response`\>
+
+Updates the watch time of the song.
+
+#### Parameters
+
+• **startTime**: `number`
+
+#### Returns
+
+`Promise`\<`Response`\>
+
+#### Overrides
+
+[`MediaInfo`](../../Mixins/classes/MediaInfo.md).[`updateWatchTime`](../../Mixins/classes/MediaInfo.md#updatewatchtime)
+
+#### Defined in
+
+[src/parser/ytmusic/TrackInfo.ts:151](https://github.com/LuanRT/YouTube.js/blob/4ae0cc5c523a2080e68d6c0c1437c78fe318ea30/src/parser/ytmusic/TrackInfo.ts#L151)

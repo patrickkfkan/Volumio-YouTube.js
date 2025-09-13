@@ -1,8 +1,9 @@
 import type { StoryboardData } from '../parser/classes/PlayerStoryboardSpec.js';
 import PlayerStoryboardSpec from '../parser/classes/PlayerStoryboardSpec.js';
-import { getStringBetweenStrings, InnertubeError, Platform } from './Utils.js';
+import { getStringBetweenStrings, InnertubeError } from './Utils.js';
 import * as Constants from './Constants.js';
 import * as Log from './Log.js';
+import packageInfo from '../../package.json' with { type: 'json' };
 
 import type Actions from '../core/Actions.js';
 import type Player from '../core/Player.js';
@@ -32,6 +33,8 @@ export interface AudioSet {
   track_name?: string;
   track_roles?: ('main' | 'dub' | 'description' | 'enhanced-audio-intelligibility' | 'alternate')[];
   channels?: number;
+  drm_families?: string[];
+  drm_track_type?: string;
   representations: AudioRepresentation[];
 }
 
@@ -81,6 +84,8 @@ export interface VideoSet {
   color_info: ColorInfo;
   codecs?: string;
   fps?: number;
+  drm_families?: string[];
+  drm_track_type?: string;
   representations: VideoRepresentation[]
 }
 
@@ -315,13 +320,20 @@ function getSegmentInfo(
   actions?: Actions,
   player?: Player,
   cpn?: string,
-  shared_post_live_dvr_info?: SharedPostLiveDvrInfo
+  shared_post_live_dvr_info?: SharedPostLiveDvrInfo,
+  is_sabr?: boolean
 ) {
-  const url = new URL(format.decipher(player));
-  url.searchParams.set('cpn', cpn || '');
-
-  const transformed_url = url_transformer(url).toString();
-
+  let transformed_url = '';
+  
+  if (is_sabr) {
+    const formatKey = `${format.itag || ''}:${format.xtags || ''}`;
+    transformed_url = `sabr://${format.has_video ? 'video' : 'audio'}?key=${formatKey}`;
+  } else {
+    const url = new URL(format.decipher(player));
+    url.searchParams.set('cpn', cpn || '');
+    transformed_url = url_transformer(url).toString();
+  }
+  
   if (format.is_type_otf) {
     if (!actions)
       throw new InnertubeError('Unable to get segment durations for this OTF stream without an Actions instance', { format });
@@ -392,11 +404,9 @@ function getAudioRepresentation(
   actions?: Actions,
   player?: Player,
   cpn?: string,
-  shared_post_live_dvr_info?: SharedPostLiveDvrInfo
+  shared_post_live_dvr_info?: SharedPostLiveDvrInfo,
+  is_sabr?: boolean
 ) {
-  const url = new URL(format.decipher(player));
-  url.searchParams.set('cpn', cpn || '');
-
   const uid_parts = [ format.itag.toString() ];
 
   if (format.audio_track) {
@@ -413,7 +423,7 @@ function getAudioRepresentation(
     codecs: !hoisted.includes('codecs') ? getStringBetweenStrings(format.mime_type, 'codecs="', '"') : undefined,
     audio_sample_rate: !hoisted.includes('audio_sample_rate') ? format.audio_sample_rate : undefined,
     channels: !hoisted.includes('AudioChannelConfiguration') ? format.audio_channels || 2 : undefined,
-    segment_info: getSegmentInfo(format, url_transformer, actions, player, cpn, shared_post_live_dvr_info)
+    segment_info: getSegmentInfo(format, url_transformer, actions, player, cpn, shared_post_live_dvr_info, is_sabr)
   };
 
   return rep;
@@ -447,7 +457,8 @@ function getAudioSet(
   player?: Player,
   cpn?: string,
   shared_post_live_dvr_info?: SharedPostLiveDvrInfo,
-  drc_labels?: DrcLabels
+  drc_labels?: DrcLabels,
+  is_sabr?: boolean
 ) {
   const first_format = formats[0];
   const { audio_track } = first_format;
@@ -475,7 +486,9 @@ function getAudioSet(
     track_name,
     track_roles: getTrackRoles(first_format, has_drc_streams),
     channels: hoistAudioChannelsIfPossible(formats, hoisted),
-    representations: formats.map((format) => getAudioRepresentation(format, hoisted, url_transformer, actions, player, cpn, shared_post_live_dvr_info))
+    drm_families: first_format.drm_families,
+    drm_track_type: first_format.drm_track_type,
+    representations: formats.map((format) => getAudioRepresentation(format, hoisted, url_transformer, actions, player, cpn, shared_post_live_dvr_info, is_sabr))
   };
 
   return set;
@@ -531,7 +544,7 @@ function getColorInfo(format: Format) {
         anonymisedFormat.cipher = 'REDACTED';
 
         Log.warn(TAG_, `Unknown matrix coefficients "${color_info.matrix_coefficients}". The DASH manifest is still usable without this.\n`
-          + `Please report it at ${Platform.shim.info.bugs_url} so we can add support for it.\n`
+          + `Please report it at ${packageInfo.bugs.url} so we can add support for it.\n`
           + `InnerTube client: ${url.searchParams.get('c')}\nformat:`, anonymisedFormat);
       }
     }
@@ -556,7 +569,8 @@ function getVideoRepresentation(
   player?: Player,
   actions?: Actions,
   cpn?: string,
-  shared_post_live_dvr_info?: SharedPostLiveDvrInfo
+  shared_post_live_dvr_info?: SharedPostLiveDvrInfo,
+  is_sabr?: boolean
 ) {
   const rep: VideoRepresentation = {
     uid: format.itag.toString(),
@@ -565,7 +579,7 @@ function getVideoRepresentation(
     height: format.height,
     codecs: !hoisted.includes('codecs') ? getStringBetweenStrings(format.mime_type, 'codecs="', '"') : undefined,
     fps: !hoisted.includes('fps') ? format.fps : undefined,
-    segment_info: getSegmentInfo(format, url_transformer, actions, player, cpn, shared_post_live_dvr_info)
+    segment_info: getSegmentInfo(format, url_transformer, actions, player, cpn, shared_post_live_dvr_info, is_sabr)
   };
 
   return rep;
@@ -577,7 +591,8 @@ function getVideoSet(
   player?: Player,
   actions?: Actions,
   cpn?: string,
-  shared_post_live_dvr_info?: SharedPostLiveDvrInfo
+  shared_post_live_dvr_info?: SharedPostLiveDvrInfo,
+  is_sabr?: boolean
 ) {
   const first_format = formats[0];
   const color_info = getColorInfo(first_format);
@@ -588,7 +603,9 @@ function getVideoSet(
     color_info,
     codecs: hoistCodecsIfPossible(formats, hoisted),
     fps: hoistNumberAttributeIfPossible(formats, 'fps', hoisted),
-    representations: formats.map((format) => getVideoRepresentation(format, url_transformer, hoisted, player, actions, cpn, shared_post_live_dvr_info))
+    drm_families: first_format.drm_families,
+    drm_track_type: first_format.drm_track_type,
+    representations: formats.map((format) => getVideoRepresentation(format, url_transformer, hoisted, player, actions, cpn, shared_post_live_dvr_info, is_sabr))
   };
 
   return set;
@@ -860,9 +877,9 @@ export function getStreamingInfo(
     };
   }
 
-  const audio_sets = audio_groups.map((formats) => getAudioSet(formats, url_transformer, actions, player, cpn, shared_post_live_dvr_info, drc_labels));
+  const audio_sets = audio_groups.map((formats) => getAudioSet(formats, url_transformer, actions, player, cpn, shared_post_live_dvr_info, drc_labels, options?.is_sabr));
 
-  const video_sets = video_groups.map((formats) => getVideoSet(formats, url_transformer, player, actions, cpn, shared_post_live_dvr_info));
+  const video_sets = video_groups.map((formats) => getVideoSet(formats, url_transformer, player, actions, cpn, shared_post_live_dvr_info, options?.is_sabr));
 
   let image_sets: ImageSet[] = [];
 

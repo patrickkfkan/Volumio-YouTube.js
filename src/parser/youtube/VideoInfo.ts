@@ -25,6 +25,7 @@ import YpcTrailer from '../classes/YpcTrailer.js';
 import StructuredDescriptionContent from '../classes/StructuredDescriptionContent.js';
 import VideoDescriptionMusicSection from '../classes/VideoDescriptionMusicSection.js';
 import LiveChatWrap from './LiveChat.js';
+import MacroMarkersListEntity from '../classes/MacroMarkersListEntity.js';
 
 import type { RawNode } from '../index.js';
 import { ReloadContinuationItemsCommand } from '../index.js';
@@ -32,6 +33,7 @@ import AppendContinuationItemsAction from '../classes/actions/AppendContinuation
 
 import type { Actions, ApiResponse } from '../../core/index.js';
 import type { ObservedArray, YTNode } from '../helpers.js';
+import type Heatmap from '../classes/Heatmap.js';
 
 export default class VideoInfo extends MediaInfo {
   public primary_info?: VideoPrimaryInfo | null;
@@ -45,6 +47,7 @@ export default class VideoInfo extends MediaInfo {
   public comments_entry_point_header?: CommentsEntryPointHeader | null;
   public livechat?: LiveChat | null;
   public autoplay?: TwoColumnWatchNextResults['autoplay'];
+  public heat_map?: Heatmap | null;
 
   #watch_next_continuation?: ContinuationItem;
   
@@ -128,10 +131,26 @@ export default class VideoInfo extends MediaInfo {
         }
       }
 
-      const comments_entry_point = results.get({ target_id: 'comments-entry-point' })?.as(ItemSection);
+      const comments_entry_point = results.find((node): node is ItemSection => {
+        return node.is(ItemSection) && node.target_id === 'comments-entry-point';
+      });
 
       this.comments_entry_point_header = comments_entry_point?.contents?.firstOfType(CommentsEntryPointHeader);
       this.livechat = next?.contents_memo?.getType(LiveChat)[0];
+
+      const macro_markers_list_for_heatmap = this.page[1]?.contents_memo?.getType(MacroMarkersListEntity);
+      let calculated_heat_map: Heatmap | null = null;
+      if (macro_markers_list_for_heatmap) {
+        const heatmap_markers_entity = macro_markers_list_for_heatmap.find((markers) => 
+          markers.isHeatmap()
+        );
+        if (heatmap_markers_entity) {
+          try {
+            calculated_heat_map = heatmap_markers_entity.toHeatmap();
+          } catch { /** NO-OP */ }
+        }
+      }
+      this.heat_map = calculated_heat_map;
     }
   }
 
@@ -146,7 +165,7 @@ export default class VideoInfo extends MediaInfo {
     let cloud_chip: ChipCloudChip;
 
     if (typeof target_filter === 'string') {
-      const filter = this.related_chip_cloud?.chips?.get({ text: target_filter });
+      const filter = this.related_chip_cloud?.chips?.find((chip) => chip.text === target_filter);
 
       if (!filter)
         throw new InnertubeError('Invalid filter', { available_filters: this.filters });
@@ -161,9 +180,11 @@ export default class VideoInfo extends MediaInfo {
     if (cloud_chip.is_selected) return this;
 
     const response = await cloud_chip.endpoint?.call(this.actions, { parse: true });
-    const data = response?.on_response_received_endpoints?.get({ target_id: 'watch-next-feed' });
+    const data = response?.on_response_received_endpoints?.find((endpoint): endpoint is ReloadContinuationItemsCommand => {
+      return endpoint.is(ReloadContinuationItemsCommand) && endpoint.target_id === 'watch-next-feed';
+    });
 
-    this.watch_next_feed = data?.as(AppendContinuationItemsAction, ReloadContinuationItemsCommand).contents;
+    this.watch_next_feed = data?.contents;
 
     return this;
   }
@@ -176,6 +197,13 @@ export default class VideoInfo extends MediaInfo {
   }
 
   /**
+   * Updates watch time for the video.
+   */
+  async updateWatchTime(startTime: number): Promise<Response> {
+    return super.updateWatchTime(startTime);
+  }
+
+  /**
    * Retrieves watch next feed continuation.
    */
   async getWatchNextContinuation(): Promise<VideoInfo> {
@@ -183,12 +211,12 @@ export default class VideoInfo extends MediaInfo {
       throw new InnertubeError('Watch next feed continuation not found');
 
     const response = await this.#watch_next_continuation?.endpoint.call(this.actions, { parse: true });
-    const data = response?.on_response_received_endpoints?.get({ type: 'AppendContinuationItemsAction' });
+    const data = response?.on_response_received_endpoints?.firstOfType(AppendContinuationItemsAction);
 
     if (!data)
       throw new InnertubeError('AppendContinuationItemsAction not found');
 
-    this.watch_next_feed = data?.as(AppendContinuationItemsAction, ReloadContinuationItemsCommand).contents;
+    this.watch_next_feed = data?.contents;
     if (this.watch_next_feed?.at(-1)?.is(ContinuationItem)) {
       this.#watch_next_continuation = this.watch_next_feed.pop()?.as(ContinuationItem);
     } else {
