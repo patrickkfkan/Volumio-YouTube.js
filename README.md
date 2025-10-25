@@ -2,6 +2,9 @@ Customized version of [YouTube.js](https://github.com/LuanRT/YouTube.js) library
 
 ## Changelog:
 
+1.6.0:
+- Merge from YouTube.js v16.0.1 (commit [6ce981c](https://github.com/patrickkfkan/YouTube.js/commit/6ce981ced9ffbd9911899bc36a1561bd41677a78))
+
 1.5.0:
 - Merge from YouTube.js v15.1.0 (commit [a2c3774](https://github.com/LuanRT/YouTube.js/commit/a2c3774e9a0212d7aab7af2baee1f48ad3319a08))
 
