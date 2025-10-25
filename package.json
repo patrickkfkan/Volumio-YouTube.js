@@ -111,7 +111,7 @@
     "@types/estree": "^1.0.6",
     "@types/glob": "^8.1.0",
     "@types/node": "^24.0.14",
-    "@typescript-eslint/eslint-plugin": "^8.46.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
     "@typescript-eslint/parser": "^8.46.0",
     "cpy-cli": "^6.0.0",
     "esbuild": "^0.25.6",
