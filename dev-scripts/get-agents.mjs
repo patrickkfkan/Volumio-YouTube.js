@@ -1,4 +1,3 @@
-import { fetch } from 'undici';
 import { gunzip } from 'zlib';
 import { dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
@@ -6,7 +5,7 @@ import { writeFile } from 'fs/promises';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const buf = await (await fetch('https://github.com/intoli/user-agents/blob/master/src/user-agents.json.gz?raw=true')).arrayBuffer();
+const buf = await (await fetch('https://github.com/intoli/user-agents/raw/refs/heads/main/src/user-agents.json.gz?raw=true')).arrayBuffer();
 const bytes = new Uint8Array(buf);
 
 // Only get desktop and mobile agents
