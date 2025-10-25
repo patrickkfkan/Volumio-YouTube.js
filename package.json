@@ -103,7 +103,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@bufbuild/protobuf": "^2.0.0",
+    "@bufbuild/protobuf": "^2.10.0",
     "meriyah": "^6.1.4"
   },
   "devDependencies": {
